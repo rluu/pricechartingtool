@@ -43,11 +43,17 @@ import logging
 # Input filename for the CSV file created by
 # 'makeCycleOfRepetitionSpreadsheet.py'.
 #inputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/CountingWheelsFrom_19060609/H.Mars_180_deg_repeats.csv"
-inputFilename = "/home/rluu/programming/pricechartingtool/doc/research/stocks/TDW/H.Venus_H.Mars_360_deg_repeats.csv"
+#inputFilename = "/home/rluu/programming/pricechartingtool/doc/research/stocks/TDW/H.Venus_H.Mars_360_deg_repeats.csv"
+#inputFilename = "/home/rluu/programming/pricechartingtool/doc/G.Sun_49_degree_repeats_1906_to_1935.csv"
+#inputFilename = "/home/rluu/programming/pricechartingtool/doc/G.Sun_49_degree_repeats_1776_to_1935.csv"
+inputFilename = "/home/rluu/programming/pricechartingtool/doc/G.Sun_7_degree_repeats_1776_to_1935.csv"
 
 # Output filename for the output CSV file.
 #outputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/CountingWheelsFrom_19060609/H.Mars_180_deg_repeats_only.csv"
-outputFilename = "/home/rluu/programming/pricechartingtool/doc/research/stocks/TDW/H.Venus_H.Mars_360_deg_repeats_only.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/doc/research/stocks/TDW/H.Venus_H.Mars_360_deg_repeats_only.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/doc/G.Sun_49_degree_repeats_1906_to_1935_repeats_only.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/doc/G.Sun_49_degree_repeats_1776_to_1935_repeats_only.csv"
+outputFilename = "/home/rluu/programming/pricechartingtool/doc/G.Sun_7_degree_repeats_1776_to_1935_repeats_only.csv"
 
 # Lines to skip in the ephemeris input file.
 #

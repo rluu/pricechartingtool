@@ -36,8 +36,8 @@ python3 SqOf9_NumberToAngleConversion.py --number=190
 INFO: Number '190.0' in the spiral has angle: 2295.0 degrees
 INFO: Number '190.0' in the spiral has angle: 6 circle(s) plus 135.0 degrees
 INFO: Number '190.0' in the spiral has angle: 6.375 circle(s)
-python3 SqOf9_NumberToAngleConversion.py --base-number=44 --number=66
 
+python3 SqOf9_NumberToAngleConversion.py --base-number=44 --number=66
 INFO: Using customized base number: 44
 INFO: Number '66.0' in the spiral has angle: 675.0 degrees
 INFO: Number '66.0' in the spiral has angle: 1 circle(s) plus 315.0 degrees

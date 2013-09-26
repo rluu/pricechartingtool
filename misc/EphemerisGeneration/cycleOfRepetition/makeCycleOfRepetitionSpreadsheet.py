@@ -69,8 +69,9 @@ import logging
 # This should be a CSV file similar to something output by the script
 # 'makeFilledMasterEphemeris_3p.py'.
 #
-ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
+#ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
 #ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/master_3p_ephemeris_nyc_noon.csv"
+ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_2p_ephemeris_nyc_noon.csv"
 
 # Timezone used in input ephemeris CSV file.
 defaultInputFileTimezone = pytz.timezone("US/Eastern")
@@ -94,13 +95,14 @@ ephemerisInputFileTimestampColumn = 0
 #
 # Note: Helper script '/home/rluu/programming/pricechartingtool/misc/SpreadsheetColumnLetterNumberConversion/columnLettersToColumnIndex.py' can be used to convert between column letters and column index numbers, but note that this script returns values that are 1-based indexes, so you will need to subtract 1 to get the actual index that is 0-based used for the variable below.
 #
-ephemerisInputFileLongitudeColumn = 113 # 113 corresponds to column "DJ", G.Moon.
+#ephemerisInputFileLongitudeColumn = 113 # 113 corresponds to column "DJ", G.Moon.
+ephemerisInputFileLongitudeColumn = 116 # 116 corresponds to column "DM", G.Sun.
 
 # Filename location of the market data input CSV file.
 # This is optional.  If the below path is "", then this parameter is ignored.
-#marketDataInputFilename = ""
+marketDataInputFilename = ""
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/DJIA/DJIA.txt"
-marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/DJIA/DJIA_1980_to_Current.txt"
+#marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/DJIA/DJIA_1980_to_Current.txt"
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/TDW/TDW.txt"
 
 # Column number for the timestamp.  The timestamp in this column is
@@ -152,19 +154,23 @@ marketDataInputFileLowPriceColumn = 3
 #startingLongitude = 257.92  # H.Earth on 1906-06-09.
 #startingLongitude = 95.41  # H.Mars on 1906-06-09.
 
-startingLongitude = 720.0
 
-
+#startingLongitude = 567  # G.Sun on 1906-11-07.
+#startingLongitude = 54913   # G.Sun on 1906-11-07.
+startingLongitude = 375
+#startingLongitude = 373
 
 # Number of degrees elapsed for each repeat.  A new set of columns in the
 # output file will be created after this amount of degrees has been elapsed.
 #numDegreesElapsedForRepeat = 360
-numDegreesElapsedForRepeat = 360 * 44
+#numDegreesElapsedForRepeat = 360 * 44
+numDegreesElapsedForRepeat = 7
 
 # Ouptut CSV file.  
 #outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/G.Moon_360_deg_repeats.csv"
 #outputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/CountingWheelsFrom_19060609/H.Mars_180_deg_repeats.csv"
-outputFilename = "/home/rluu/programming/pricechartingtool/doc/research/stocks/DJIA/G.Moon_15840_deg_repeats_or_sheet_of_44.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/doc/research/stocks/DJIA/G.Moon_15840_deg_repeats_or_sheet_of_44.csv"
+outputFilename = "/home/rluu/programming/pricechartingtool/doc/G.Sun_7_degree_repeats_1776_to_1935.csv"
 
 # For logging.
 logging.basicConfig(format='%(levelname)s: %(message)s')

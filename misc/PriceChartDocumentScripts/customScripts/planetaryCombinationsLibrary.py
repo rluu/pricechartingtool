@@ -9781,8 +9781,6 @@ class PlanetaryCombinationsLibrary:
         is the moment where the aspect is active and satisfies the
         given parameters.  In the event of an error, the reference
         None is returned.
-
-        TODO:  test this function.
         """
 
         log.debug("Entered " + inspect.stack()[0][3] + "()")
@@ -10191,6 +10189,461 @@ class PlanetaryCombinationsLibrary:
             # Update prevDiff as the currDiff.
             prevDiff = Util.toNormalizedAngle(currDiff)
 
+        log.info("Number of timestamps obtained: {}".\
+                 format(len(aspectTimestamps)))
+        
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return aspectTimestamps
+
+        
+    @staticmethod
+    def getOnePlanetLongitudeAspectTimestamps(\
+        pcdd, startDt, endDt,
+        planet1Params,
+        fixedDegree,
+        degreeDifference,
+        uniDirectionalAspectsFlag=False,
+        maxErrorTd=datetime.timedelta(hours=1)):
+        """Obtains a list of datetime.datetime objects that contain
+        the moments when the aspect specified is active.
+        The aspect is measured by formula:
+           (planet longitude) - (fixed longitude degree)
+        
+        Arguments:
+        pcdd      - PriceChartDocumentData object that will be modified.
+        startDt   - datetime.datetime object for the starting timestamp
+                    to do the calculations for artifacts.
+        endDt     - datetime.datetime object for the ending timestamp
+                    to do the calculations for artifacts.
+        highPrice - float value for the high price to end the vertical line.
+        lowPrice  - float value for the low price to end the vertical line.
+        
+        planet1Params - Tuple containing:
+                      (planetName, centricityType, longitudeType)
+
+                      Where:
+                      planetName - str holding the name of the second
+                                   planet to do the calculations for.
+                      centricityType - str value holding either "geocentric",
+                                       "topocentric", or "heliocentric".
+                      longitudeType - str value holding either
+                                      "tropical" or "sidereal".
+                      
+        fixedDegree - float holding the fixed degree in the zodiac circle.
+                      
+        degreeDifference - float value for the number of degrees of
+                           separation for this aspect.
+                           
+        uniDirectionalAspectsFlag - bool value for whether or not
+                     uni-directional aspects are enabled or not.  By
+                     default, aspects are bi-directional, so Saturn
+                     square-aspect Jupiter would be the same as
+                     Jupiter square-aspect Saturn.  If this flag is
+                     set to True, then those two combinations would be
+                     considered unique.  In the case where the flag is
+                     set to True, for the aspect to be active,
+                     planet2 would need to be 'degreeDifference'
+                     degrees in front of planet1.
+        
+        maxErrorTd - datetime.timedelta object holding the maximum
+                     time difference between the exact planetary
+                     combination timestamp, and the one calculated.
+                     This would define the accuracy of the
+                     calculations.  
+        
+        Returns:
+        
+        List of datetime.datetime objects.  Each timestamp in the list
+        is the moment where the aspect is active and satisfies the
+        given parameters.  In the event of an error, the reference
+        None is returned.
+
+        rluu_20130926: This function needs to be tested.  It was copy-and-pasted from another script I wrote this function for, and that original script when I wrote it had some syntax errors, which I believe I applied the fixes to this code copied here.  So... this function 'should' work.  It shouldn't be hard to test and confirm, but I haven't done it.
+        """
+
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        # List of timestamps of the aspects found.
+        aspectTimestamps = []
+        
+        # Make sure the inputs are valid.
+        if endDt < startDt:
+            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            return None
+
+        # Check to make sure planet params were given.
+        if len(planet1Params) != 3:
+            log.error("planet1Params must be a tuple with 3 elements.")
+            return None
+        if not isinstance(fixedDegree, (int, float, complex)):
+            log.error("fixedDegree must be a number.")
+            return None
+
+        # Normalize the fixed degree.
+        fixedDegree = Util.toNormalizedAngle(fixedDegree)
+        
+        log.debug("planet1Params passed in is: {}".\
+                  format(planet1Params))
+        log.debug("fixedDegree passed in is: {}".\
+                  format(fixedDegree))
+
+        # Check inputs of planet parameters.
+        planetName = planet1Params[0]
+        centricityType = planet1Params[1]
+        longitudeType = planet1Params[2]
+
+        # Check inputs for centricity type.
+        loweredCentricityType = centricityType.lower()
+        if loweredCentricityType != "geocentric" and \
+            loweredCentricityType != "topocentric" and \
+            loweredCentricityType != "heliocentric":
+
+            log.error("Invalid input: Centricity type is invalid.  " + \
+                      "Value given was: {}".format(centricityType))
+            return None
+        
+        # Check inputs for longitude type.
+        loweredLongitudeType = longitudeType.lower()
+        if loweredLongitudeType != "tropical" and \
+            loweredLongitudeType != "sidereal":
+
+            log.error("Invalid input: Longitude type is invalid.  " + \
+                      "Value given was: {}".format(longitudeType))
+            return None
+
+        # Field name we are getting.
+        fieldName = "longitude"
+        
+        # Initialize the Ephemeris with the birth location.
+        log.debug("Setting ephemeris location ...")
+        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                        pcdd.birthInfo.latitudeDegrees,
+                                        pcdd.birthInfo.elevation)
+
+        # Set the step size.
+        stepSizeTd = datetime.timedelta(days=1)
+
+        planetName = planet1Params[0]
+        
+        if Ephemeris.isHouseCuspPlanetName(planetName) or \
+            Ephemeris.isAscmcPlanetName(planetName):
+                
+            # House cusps and ascmc planets need a smaller step size.
+            stepSizeTd = datetime.timedelta(hours=1)
+        elif planetName == "Moon":
+            # Use a smaller step size for the moon so we can catch
+            # smaller aspect sizes.
+            stepSizeTd = datetime.timedelta(hours=3)
+        
+        log.debug("Step size is: {}".format(stepSizeTd))
+        
+        # Desired angles.  We need to check for planets at these angles.
+        desiredAngleDegList = []
+        
+        desiredAngleDeg1 = Util.toNormalizedAngle(degreeDifference)
+        desiredAngleDegList.append(desiredAngleDeg1)
+        if Util.fuzzyIsEqual(desiredAngleDeg1, 0):
+            desiredAngleDegList.append(360)
+        
+        if uniDirectionalAspectsFlag == False:
+            desiredAngleDeg2 = \
+                360 - Util.toNormalizedAngle(degreeDifference)
+            if desiredAngleDeg2 not in desiredAngleDegList:
+                desiredAngleDegList.append(desiredAngleDeg2)
+        
+        # Debug output.
+        anglesStr = ""
+        for angle in desiredAngleDegList:
+            anglesStr += "{} ".format(angle)
+        log.debug("Angles in desiredAngleDegList: " + anglesStr)
+
+        # Iterate through, appending to aspectTimestamps list as we go.
+        steps = []
+        steps.append(copy.deepcopy(startDt))
+        steps.append(copy.deepcopy(startDt))
+
+        longitudesP1 = []
+        longitudesP1.append(None)
+        longitudesP1.append(None)
+        
+        longitudesP2 = []
+        longitudesP2.append(None)
+        longitudesP2.append(None)
+        
+        def getFieldValue(dt, planetParams, fieldName):
+            """Creates the PlanetaryInfo object for the given
+            planetParamsList and returns the value of the field
+            desired.
+            """
+        
+            log.debug("planetParams passed in is: {}".\
+                      format(planetParams))
+            t = planetParams
+        
+            planetName = t[0]
+            centricityType = t[1]
+            longitudeType = t[2]
+                
+            pi = Ephemeris.getPlanetaryInfo(planetName, dt)
+
+            log.debug("Planet {} has geo sid longitude: {}".\
+                      format(planetName,
+                             pi.geocentric["sidereal"]["longitude"]))
+            
+            fieldValue = None
+                
+            if centricityType.lower() == "geocentric":
+                fieldValue = pi.geocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "topocentric":
+                fieldValue = pi.topocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "heliocentric":
+                fieldValue = pi.heliocentric[longitudeType][fieldName]
+            else:
+                log.error("Unknown centricity type: {}".\
+                          format(centricityType))
+                fieldValue = None
+
+            return fieldValue
+            
+        log.debug("Stepping through timestamps from {} to {} ...".\
+                  format(Ephemeris.datetimeToStr(startDt),
+                         Ephemeris.datetimeToStr(endDt)))
+
+        currDiff = None
+        prevDiff = None
+        
+
+        while steps[-1] < endDt:
+            currDt = steps[-1]
+            prevDt = steps[-2]
+            
+            log.debug("Looking at currDt == {} ...".\
+                      format(Ephemeris.datetimeToStr(currDt)))
+            
+            longitudesP1[-1] = \
+                Util.toNormalizedAngle(\
+                getFieldValue(currDt, planet1Params, fieldName))
+            
+            longitudesP2[-1] = fixedDegree
+
+            log.debug("{} {} is: {}".\
+                      format(planet1Params, fieldName,
+                             longitudesP1[-1]))
+            log.debug("fixedDegree is: {}".format(longitudesP2[-1]))
+            
+            currDiff = Util.toNormalizedAngle(\
+                longitudesP1[-1] - longitudesP2[-1])
+            
+            log.debug("prevDiff == {}".format(prevDiff))
+            log.debug("currDiff == {}".format(currDiff))
+            
+            if prevDiff != None and \
+                   longitudesP1[-2] != None and \
+                   longitudesP2[-2] != None:
+                
+                if abs(prevDiff - currDiff) > 180:
+                    # Probably crossed over 0.  Adjust the prevDiff so
+                    # that the rest of the algorithm can continue to
+                    # work.
+                    if prevDiff > currDiff:
+                        prevDiff -= 360
+                    else:
+                        prevDiff += 360
+                        
+                    log.debug("After adjustment: prevDiff == {}".\
+                              format(prevDiff))
+                    log.debug("After adjustment: currDiff == {}".\
+                              format(currDiff))
+
+                for desiredAngleDeg in desiredAngleDegList:
+                    log.debug("Looking at desiredAngleDeg: {}".\
+                              format(desiredAngleDeg))
+                    
+                    desiredDegree = desiredAngleDeg
+                    
+                    if prevDiff < desiredDegree and currDiff >= desiredDegree:
+                        log.debug("Crossed over {} from below to above!".\
+                                  format(desiredDegree))
+    
+                        # This is the upper-bound of the error timedelta.
+                        t1 = prevDt
+                        t2 = currDt
+                        currErrorTd = t2 - t1
+    
+                        # Refine the timestamp until it is less than
+                        # the threshold.
+                        while currErrorTd > maxErrorTd:
+                            log.debug("Refining between {} and {}".\
+                                      format(Ephemeris.datetimeToStr(t1),
+                                             Ephemeris.datetimeToStr(t2)))
+    
+                            # Check the timestamp between.
+                            timeWindowTd = t2 - t1
+                            halfTimeWindowTd = \
+                                datetime.\
+                                timedelta(days=(timeWindowTd.days / 2.0),
+                                    seconds=(timeWindowTd.seconds / 2.0),
+                                    microseconds=\
+                                          (timeWindowTd.microseconds / 2.0))
+                            testDt = t1 + halfTimeWindowTd
+    
+                            testValueP1 = \
+                                Util.toNormalizedAngle(getFieldValue(\
+                                testDt, planet1Params, fieldName))
+                            testValueP2 = \
+                                Util.toNormalizedAngle(fixedDegree)
+    
+                            log.debug("testValueP1 == {}".format(testValueP1))
+                            log.debug("testValueP2 == {}".format(testValueP2))
+                            
+                            if longitudesP1[-2] > 240 and testValueP1 < 120:
+                                # Planet 1 hopped over 0 degrees.
+                                testValueP1 += 360
+                            elif longitudesP1[-2] < 120 and testValueP1 > 240:
+                                # Planet 1 hopped over 0 degrees.
+                                testValueP1 -= 360
+                                
+                            if longitudesP2[-2] > 240 and testValueP2 < 120:
+                                # Planet 2 hopped over 0 degrees.
+                                testValueP2 += 360
+                            elif longitudesP2[-2] < 120 and testValueP2 > 240:
+                                # Planet 2 hopped over 0 degrees.
+                                testValueP2 -= 360
+                            
+                            testDiff = Util.toNormalizedAngle(\
+                                testValueP1 - testValueP2)
+    
+                            # Handle special cases of degrees 0 and 360.
+                            # Here we adjust testDiff so that it is in the
+                            # expected ranges.
+                            if Util.fuzzyIsEqual(desiredDegree, 0):
+                                if testDiff > 240:
+                                    testDiff -= 360
+                            elif Util.fuzzyIsEqual(desiredDegree, 360):
+                                if testDiff < 120:
+                                    testDiff += 360
+                            
+                            log.debug("testDiff == {}".format(testDiff))
+                            
+                            if testDiff < desiredDegree:
+                                t1 = testDt
+                            else:
+                                t2 = testDt
+    
+                                # Update the curr values.
+                                currDt = t2
+                                currDiff = testDiff
+    
+                                longitudesP1[-1] = testValueP1
+                                longitudesP2[-1] = testValueP2
+                
+                            currErrorTd = t2 - t1
+                                
+                        # Update our lists.
+                        steps[-1] = currDt
+    
+                        # Store the aspect timestamp.
+                        aspectTimestamps.append(currDt)
+                     
+                    elif prevDiff > desiredDegree and currDiff <= desiredDegree:
+                        log.debug("Crossed over {} from above to below!".\
+                                  format(desiredDegree))
+    
+                        # This is the upper-bound of the error timedelta.
+                        t1 = prevDt
+                        t2 = currDt
+                        currErrorTd = t2 - t1
+    
+                        # Refine the timestamp until it is less than
+                        # the threshold.
+                        while currErrorTd > maxErrorTd:
+                            log.debug("Refining between {} and {}".\
+                                      format(Ephemeris.datetimeToStr(t1),
+                                             Ephemeris.datetimeToStr(t2)))
+    
+                            # Check the timestamp between.
+                            timeWindowTd = t2 - t1
+                            halfTimeWindowTd = \
+                                datetime.\
+                                timedelta(days=(timeWindowTd.days / 2.0),
+                                    seconds=(timeWindowTd.seconds / 2.0),
+                                    microseconds=\
+                                          (timeWindowTd.microseconds / 2.0))
+                            testDt = t1 + halfTimeWindowTd
+    
+                            testValueP1 = \
+                                Util.toNormalizedAngle(getFieldValue(\
+                                testDt, planet1ParamsList, fieldName))
+                            testValueP2 = \
+                                Util.toNormalizedAngle(fixedDegree)
+    
+                            log.debug("testValueP1 == {}".format(testValueP1))
+                            log.debug("testValueP2 == {}".format(testValueP2))
+                            
+                            if longitudesP1[-2] > 240 and testValueP1 < 120:
+                                # Planet 1 hopped over 0 degrees.
+                                testValueP1 += 360
+                            elif longitudesP1[-2] < 120 and testValueP1 > 240:
+                                # Planet 1 hopped over 0 degrees.
+                                testValueP1 -= 360
+                                
+                            if longitudesP2[-2] > 240 and testValueP2 < 120:
+                                # Planet 2 hopped over 0 degrees.
+                                testValueP2 += 360
+                            elif longitudesP2[-2] < 120 and testValueP2 > 240:
+                                # Planet 2 hopped over 0 degrees.
+                                testValueP2 -= 360
+    
+                            testDiff = Util.toNormalizedAngle(\
+                                testValueP1 - testValueP2)
+    
+                            # Handle special cases of degrees 0 and 360.
+                            # Here we adjust testDiff so that it is in the
+                            # expected ranges.
+                            if Util.fuzzyIsEqual(desiredDegree, 0):
+                                if testDiff > 240:
+                                    testDiff -= 360
+                            elif Util.fuzzyIsEqual(desiredDegree, 360):
+                                if testDiff < 120:
+                                    testDiff += 360
+                            
+                            log.debug("testDiff == {}".format(testDiff))
+                            
+                            if testDiff > desiredDegree:
+                                t1 = testDt
+                            else:
+                                t2 = testDt
+    
+                                # Update the curr values.
+                                currDt = t2
+                                currDiff = testDiff
+    
+                                longitudesP1[-1] = testValueP1
+                                longitudesP2[-1] = testValueP2
+                                
+                            currErrorTd = t2 - t1
+    
+                        # Update our lists.
+                        steps[-1] = currDt
+    
+                        # Store the aspect timestamp.
+                        aspectTimestamps.append(currDt)
+                     
+            # Prepare for the next iteration.
+            log.debug("steps[-1] is: {}".\
+                      format(Ephemeris.datetimeToStr(steps[-1])))
+            log.debug("stepSizeTd is: {}".format(stepSizeTd))
+            
+            steps.append(copy.deepcopy(steps[-1]) + stepSizeTd)
+            del steps[0]
+            longitudesP1.append(None)
+            del longitudesP1[0]
+            longitudesP2.append(None)
+            del longitudesP2[0]
+            
+            # Update prevDiff as the currDiff.
+            prevDiff = Util.toNormalizedAngle(currDiff)
+            
         log.info("Number of timestamps obtained: {}".\
                  format(len(aspectTimestamps)))
         
