@@ -4,7 +4,11 @@
 #
 # Script for creating a generic spreadsheet of the Sun, Moon, and TrueNorthNode.
 # The timestamp of each line entry is at the exact moment (within an error
-# threshold of 1 minute) of each of the 30 moon phases.
+# threshold of 1 minute) of each of the 22 moon synodic month phases.
+#
+# Note: Normally there are 30 moon phases, but this script is to get
+#       the timestamps as if there are 22 moon synodic phases.  So the
+#       lunation steps divided by 22.
 #
 # Data included is:
 #
@@ -90,7 +94,10 @@ startDt = datetime.datetime(year=1906, month=1, day=1,
 #                            tzinfo=timezone)
 
 
-endDt   = datetime.datetime(year=1936, month=12, day=31,
+#endDt   = datetime.datetime(year=1906, month=5, day=31,
+#                            hour=hourOfDay, minute=minuteOfHour,
+#                            tzinfo=timezone)
+endDt   = datetime.datetime(year=1935, month=12, day=31,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
 #endDt   = datetime.datetime(year=2015, month=12, day=31,
@@ -102,7 +109,7 @@ endDt   = datetime.datetime(year=1936, month=12, day=31,
 
 
 # Destination output CSV file.
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_30_phases/sun_moon_node_ephemeris_nyc.csv"
+outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_synodic_22_phases/sun_moon_node_ephemeris_nyc.csv"
 
 # Planet names to do calculations for.
 geocentricPlanetNames = [\
@@ -1061,9 +1068,10 @@ monthCount = 0
 
 log.info("Doing ephemeris calculations ...")
 
-# Moon has 30 phases.
+# Moon synodic month normally has 30 phases, BUT, here we are doing
+# calculations as if it has 22 phases.
 degreesInCircle = 360.0
-numMoonPhases = 30
+numMoonPhases = 22
 increment = degreesInCircle / numMoonPhases
 
 # Planet parameters.
@@ -1076,7 +1084,7 @@ aspectDegrees = []
 
 for i in range(0, numMoonPhases):
     aspectDegrees.append(i * (degreesInCircle / numMoonPhases))
-    
+
 for degreeDifference in aspectDegrees:
     timestamps.extend(\
         getLongitudeAspectTimestamps(\
