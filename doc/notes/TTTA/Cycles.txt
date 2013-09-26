@@ -3,7 +3,7 @@ Cycles found in TTTA.
 
 ##############################################################################
 
-pg. 1:  June 6, 1906     - 18th phase of moon.
+pg. 1:  June 9, 1906     - 18th phase of moon.
 pg. 40: October 23, 1926 - 18th phase of moon.
 
 Time period between dates is 252 lunations.
@@ -36,6 +36,8 @@ pg. 70: RG Understand.  First cotton purchase.  Started on road to fortune.  Mon
 
 Time period between the two dates is:
 H.Mars 50 degrees of movement.
+
+rluu_20130918: What I believed previously (above) is probably wrong.  There are 12 pages where 'day and night' are used.  Why would this date be correct?  More confirmation would be needed.  I am seeing 50 being used in other places, so that is what makes me think that the 50 is more generic than applying to this 'faith'.
 
 ##############################################################################
 
@@ -72,7 +74,7 @@ If Lunation:
 
 
 If Mercury:
-21 * 88 / 365.25 = 5.05954 Earth Years   <--- rluu_20130909: This is probably it because on pg. 160, a quote is igven with 88 letters.  
+21 * 88 / 365.25 = 5.05954 Earth Years   <--- rluu_20130909: This is probably it because on pg. 160, a quote is igven with 88 letters.  pg. 163 says: Last 5 days were 5 years, which matches up with this.
 If Venus:
 21 * 224.7 / 365.25 = 12.919 Earth Years
 If Mars:
@@ -109,12 +111,15 @@ pg. 113. Saturday, June 4, 1927.   [rluu_20130911: This date may not be relevant
 pg. 123. Nearly 12 o'clock noon [Sunday, June 5, 1927].  [Clock tower, hope begins waning, Each time the clock tolled, it seemed that the blood from his heart was slowly trickling away.  Hope giving way to despair.  Patience waning.  He must trust to the word of God.  As the last stroke of the clock DIED slowly away, RG started to think again. ]
 
 pg. 163. Thursday, June 9, 1927, 2:00 [pm].  [Clock tower, hopes begins waning, RG is heart-sick.]
-pg. 165.  "Last five days had been five years."  [rluu_20130911: Then the text talks about eyes closing for the night.]
+
+pg. 165.  "Last five days had been five years."  [rluu_20130911: Then the text talks about eyes closing for the night.] [rluu_20130918: This is probably connected to another cycle and not the 50 hours here.]
 
 
 
 pg. 123 repeats pg. 163.
 Difference: 50 hours has passed.
+
+rluu_20130926: On page 78, the cycle is 24 hours, the complete time required ofr the earth to make one revolutio upon its axis.  That is how man measured his cycle of a day.  Therefore, 50 hours is 720 + 30 degrees = 750 degrees.
 
 According to coding given on pg. 123, 50 hours would be 50 years, thus:
 50 revolutions of some planet.
@@ -122,22 +127,22 @@ According to coding given on pg. 123, 50 hours would be 50 years, thus:
 
 rluu_20130912: Note that pg. 108 has $18,000, so there may be a connection.  180 and 108 contain the same numbers and Ezekiel plane is mentioned on both pages.  
 
-If it's Mercury:
+If it's H.Mercury:
 50 * 88 / 365.25 = 12.0465 Earth years.
 
-If it's Venus:
+If it's H.Venus:
 50 * 224.7 / 365.25 = 30.76 Earth Years. <--- rluu_20130909: My guess is this is it.
 
-If it's Mars:
+If it's H.Mars:
 50 * 686.971 / 365.25 = 94.0412 Earth years.
 
-If it's Jupiter: 
+If it's H.Jupiter: 
 50 * 4331.572 / 365.25 = 592.96 Earth years.
 
-If it's Moon:
+If it's G.Moon:
 50 * 27.321 / 365.25 = 3.74 Earth years
 
-If it's Moon lunations:
+If it's G.Moon lunations:
 50 * 29.53 / 365.25 = 4.0424 Earth years
 
 

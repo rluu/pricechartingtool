@@ -10,6 +10,14 @@ The Foreword is written when H.Mercury is at 0 Aries.
 
 ##############################################################################
 
+360 degrees * (1/22) = 16.3636363636
+
+16.36363636 * 3 = 49.0909090909
+
+49.09 rounds to 49.1 which is 1940 backwards.
+
+##############################################################################
+
 pg. 47 is RG's standard for the Future.  
 "A Standard" - by Christian D. Larson.  C=3, D=4, L=3. --> 343.
 343 = 49 * 7

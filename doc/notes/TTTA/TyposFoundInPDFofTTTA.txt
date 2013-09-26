@@ -15,6 +15,10 @@ Page 271, line 11:
 Actual text has: "confidence"
 PDF version has: "confident"
 
+Page 288, line 28:
+Actual text has: "Japanes"
+PDF version has: "Japanese"
+
 Page 316, line 17: 
 Actual text has no comma after the word "losing".
 PDF version has a  comma after the word "losing".
