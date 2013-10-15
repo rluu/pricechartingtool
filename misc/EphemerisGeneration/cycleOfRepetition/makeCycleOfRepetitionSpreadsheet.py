@@ -69,9 +69,14 @@ import logging
 # This should be a CSV file similar to something output by the script
 # 'makeFilledMasterEphemeris_3p.py'.
 #
-#ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
+#
+# Directory: cycleHuntingGeneric:
+ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
+#ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_2p_ephemeris_nyc_noon.csv"
+#
+# Directory: TTTA/ephemeris_studies:
 #ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/master_3p_ephemeris_nyc_noon.csv"
-ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_2p_ephemeris_nyc_noon.csv"
+
 
 # Timezone used in input ephemeris CSV file.
 defaultInputFileTimezone = pytz.timezone("US/Eastern")
@@ -96,14 +101,31 @@ ephemerisInputFileTimestampColumn = 0
 # Note: Helper script '/home/rluu/programming/pricechartingtool/misc/SpreadsheetColumnLetterNumberConversion/columnLettersToColumnIndex.py' can be used to convert between column letters and column index numbers, but note that this script returns values that are 1-based indexes, so you will need to subtract 1 to get the actual index that is 0-based used for the variable below.
 #
 #ephemerisInputFileLongitudeColumn = 113 # 113 corresponds to column "DJ", G.Moon.
-ephemerisInputFileLongitudeColumn = 116 # 116 corresponds to column "DM", G.Sun.
+#ephemerisInputFileLongitudeColumn = 116 # 116 corresponds to column "DM", G.Sun.
+#ephemerisInputFileLongitudeColumn = 139 # 139 corresponds to column "EJ", G.Mood/G.Sun.
+#ephemerisInputFileLongitudeColumn = 126 # 126 corresponds to column "DW", H.Mercury.
+#ephemerisInputFileLongitudeColumn = 127 # 127 corresponds to column "DX", H.Venus.
+#ephemerisInputFileLongitudeColumn = 128 # 128 corresponds to column "DY", H.Earth.
+#ephemerisInputFileLongitudeColumn = 129 # 129 corresponds to column "DZ", H.Mars.
+ephemerisInputFileLongitudeColumn = 209 # 209 corresponds to column "HB", H.Venus/H.Earth.
+
 
 # Filename location of the market data input CSV file.
 # This is optional.  If the below path is "", then this parameter is ignored.
-marketDataInputFilename = ""
+#marketDataInputFilename = ""
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/DJIA/DJIA.txt"
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/DJIA/DJIA_1980_to_Current.txt"
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/TDW/TDW.txt"
+
+# March Wheat.
+#marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/futures/ZW/Wheat_Alblak_Forecasts_Study_Pricebar_Data/ZW_H_PriceData_and_TFC_Merged.txt"
+# May Wheat.
+#marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/futures/ZW/Wheat_Alblak_Forecasts_Study_Pricebar_Data/ZW_K_PriceData_and_TFC_Merged.txt"
+# July Wheat.
+marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/futures/ZW/Wheat_Alblak_Forecasts_Study_Pricebar_Data/ZW_N_PriceData_and_TFC_Merged.txt"
+# December Wheat.
+#marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/futures/ZW/Wheat_Alblak_Forecasts_Study_Pricebar_Data/ZW_Z_PriceData_and_TFC_Merged.txt"
+
 
 # Column number for the timestamp.  The timestamp in this column is
 # expected to be in the format "MM/DD/YYYY".
@@ -154,23 +176,43 @@ marketDataInputFileLowPriceColumn = 3
 #startingLongitude = 257.92  # H.Earth on 1906-06-09.
 #startingLongitude = 95.41  # H.Mars on 1906-06-09.
 
-
 #startingLongitude = 567  # G.Sun on 1906-11-07.
 #startingLongitude = 54913   # G.Sun on 1906-11-07.
-startingLongitude = 375
+#startingLongitude = 375
 #startingLongitude = 373
+#startingLongitude = 360  # G.Moon/G.Sun at 0 deg Aries on 1969-01-18.
+startingLongitude = 360  # Good starting longitude for all planets.
+
 
 # Number of degrees elapsed for each repeat.  A new set of columns in the
 # output file will be created after this amount of degrees has been elapsed.
 #numDegreesElapsedForRepeat = 360
 #numDegreesElapsedForRepeat = 360 * 44
-numDegreesElapsedForRepeat = 7
+#numDegreesElapsedForRepeat = 360 * 252 # For G.Moon/G.Sun.
+#numDegreesElapsedForRepeat = 360 * 21 # For G.Moon
+#numDegreesElapsedForRepeat = 360 * 44 # For G.Moon
+#numDegreesElapsedForRepeat = 360 * 22 # For G.Moon
+#numDegreesElapsedForRepeat = 360 * 21 # For H.Mercury
+#numDegreesElapsedForRepeat = 360 * 22 # For H.Mercury
+#numDegreesElapsedForRepeat = 360 * 3 # For H.Mars
+#numDegreesElapsedForRepeat = 360 * 8 # For H.Mars
+numDegreesElapsedForRepeat = 360 * 5 # For H.Venus
+
 
 # Ouptut CSV file.  
 #outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/G.Moon_360_deg_repeats.csv"
 #outputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/CountingWheelsFrom_19060609/H.Mars_180_deg_repeats.csv"
 #outputFilename = "/home/rluu/programming/pricechartingtool/doc/research/stocks/DJIA/G.Moon_15840_deg_repeats_or_sheet_of_44.csv"
-outputFilename = "/home/rluu/programming/pricechartingtool/doc/G.Sun_7_degree_repeats_1776_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/doc/G.Sun_7_degree_repeats_1776_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/G.Moon_7920_deg_or_22_circle_repeats_July_Wheat_1969_to_2016.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mercury_7560_deg_or_21_circle_repeats_July_Wheat_1969_to_2016.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mercury_7920_deg_or_22_circle_repeats_July_Wheat_1969_to_2016.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mars_1080_deg_or_3_circle_repeats_July_Wheat_1969_to_2016.csv"
+
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mercury_7920_deg_or_22_circle_repeats_March_Wheat_1969_to_2016.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mars_2880_deg_or_8_circle_repeats_March_Wheat_1969_to_2016.csv"
+
+outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Venus_H.Earth_1800_deg_or_5_circle_repeats_July_Wheat_1969_to_2016.csv"
 
 # For logging.
 logging.basicConfig(format='%(levelname)s: %(message)s')

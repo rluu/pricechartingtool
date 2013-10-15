@@ -6,6 +6,9 @@ I think some of these are purposeful, and are used for encoding information.
 This is just a place where I will document these misspellings.
 ##############################################################################
 
+pg. 237:
+"clew" instead of "clue".
+
 pg. 241:
 "sunhiny" instead of "sunshiny".
 "Feburary" instead of "February".
@@ -24,6 +27,9 @@ pg. 284 (bottom of page):
 
 pg. 288 (bottom of page):
 "Japanes" used instead of "Japanese".
+
+pg. 342, Line 12-13 (middle of page):
+"produe" used instead of "produce".
 
 pg. 384 (bottom of page):
 "approachingg" used instead of "approaching".

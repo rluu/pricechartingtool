@@ -112,38 +112,52 @@ pg. 123. Nearly 12 o'clock noon [Sunday, June 5, 1927].  [Clock tower, hope begi
 
 pg. 163. Thursday, June 9, 1927, 2:00 [pm].  [Clock tower, hopes begins waning, RG is heart-sick.]
 
-pg. 165.  "Last five days had been five years."  [rluu_20130911: Then the text talks about eyes closing for the night.] [rluu_20130918: This is probably connected to another cycle and not the 50 hours here.]
+pg. 165.  "Last five days had been five years."  [rluu_20130911: Then the text talks about eyes closing for the night.] [rluu_20130918: This is probably connected to another cycle and not the 98 hours here.]
 
 
 
 pg. 123 repeats pg. 163.
-Difference: 50 hours has passed.
+Difference: 98 hours has passed. (= 4 days + 2 hours).
 
-rluu_20130926: On page 78, the cycle is 24 hours, the complete time required ofr the earth to make one revolutio upon its axis.  That is how man measured his cycle of a day.  Therefore, 50 hours is 720 + 30 degrees = 750 degrees.
+rluu_20130926: On page 78, the cycle is 24 hours, the complete time required ofr the earth to make one revolutio upon its axis.  That is how man measured his cycle of a day.  Therefore:
 
-According to coding given on pg. 123, 50 hours would be 50 years, thus:
-50 revolutions of some planet.
-50 * 360 = 18000 degrees.
 
-rluu_20130912: Note that pg. 108 has $18,000, so there may be a connection.  180 and 108 contain the same numbers and Ezekiel plane is mentioned on both pages.  
+98 hours = (360 degrees * 4 days) + (2 hours * 15 degrees)
+         = 1440 degrees + 30 degrees.
+         = 1470 degrees
+
+98 hours = (4 + (1/12)) circles
+98 hours = 4.08333333 days. 
+
+Note:
+4.08333333 days = 49 days * (1/12)
+
+
+
+According to coding given on pg. 123:
+"seconds = weeks"
+"minutes = months"
+"hour = years"
+
+98 hours would be 98 years, thus:
+98 revolutions of some planet.
+98 * 360 = 35280 degrees.
+
 
 If it's H.Mercury:
-50 * 88 / 365.25 = 12.0465 Earth years.
+98 * 88 / 365.25 = 23.61122 Earth years.
 
 If it's H.Venus:
-50 * 224.7 / 365.25 = 30.76 Earth Years. <--- rluu_20130909: My guess is this is it.
+98 * 224.7 / 365.25 = 60.2891 Earth years.
 
 If it's H.Mars:
-50 * 686.971 / 365.25 = 94.0412 Earth years.
-
-If it's H.Jupiter: 
-50 * 4331.572 / 365.25 = 592.96 Earth years.
+98 * 686.971 / 365.25 = 184.32076 Earth years.
 
 If it's G.Moon:
-50 * 27.321 / 365.25 = 3.74 Earth years
+98 * 27.321 / 365.25 = 7.33048 Earth years.
 
 If it's G.Moon lunations:
-50 * 29.53 / 365.25 = 4.0424 Earth years
+98 * 29.53 / 365.25 = 7.923 Earth years.
 
 
 ##############################################################################

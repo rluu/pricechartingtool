@@ -3,6 +3,10 @@
 # that was obtained from the GannStudyGroup Yahoo group.
 ##############################################################################
 
+Page 165, line 9:
+Actual text has a closing double-quote after "a while,".
+PDF version has no closing double-quote after "a while,".
+
 Page 200, line 5:
 Actual text has: "money" italicized.
 PDF version has: "money" not italicized.
