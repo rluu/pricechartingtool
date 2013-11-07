@@ -45098,6 +45098,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    "accepted.")
                     self.textGraphicsItem.setArtifact(dialog.getArtifact())
                     self.scene().addItem(self.textGraphicsItem)
+
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartArtifactGraphicsItemAdded.\
+                        emit(self.textGraphicsItem)
                     
                     # Make sure the proper flags are set for the mode we're in.
                     self.setGraphicsItemFlagsPerCurrToolMode(\
@@ -45219,6 +45223,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.priceTimeInfoGraphicsItem.\
                         setTextLabelEdgeYLocation(posY)
 
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartArtifactGraphicsItemAdded.\
+                        emit(self.priceTimeInfoGraphicsItem)
+                    
                     # Done settings values, so clear out working variables.
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
