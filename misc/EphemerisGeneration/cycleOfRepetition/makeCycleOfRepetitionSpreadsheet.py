@@ -71,8 +71,8 @@ import logging
 #
 #
 # Directory: cycleHuntingGeneric:
-ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
-#ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_2p_ephemeris_nyc_noon.csv"
+#ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
+ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_2p_ephemeris_nyc_noon.csv"
 #
 # Directory: TTTA/ephemeris_studies:
 #ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/master_3p_ephemeris_nyc_noon.csv"
@@ -106,26 +106,46 @@ ephemerisInputFileTimestampColumn = 0
 #ephemerisInputFileLongitudeColumn = 126 # 126 corresponds to column "DW", H.Mercury.
 #ephemerisInputFileLongitudeColumn = 127 # 127 corresponds to column "DX", H.Venus.
 #ephemerisInputFileLongitudeColumn = 128 # 128 corresponds to column "DY", H.Earth.
-#ephemerisInputFileLongitudeColumn = 129 # 129 corresponds to column "DZ", H.Mars.
-ephemerisInputFileLongitudeColumn = 209 # 209 corresponds to column "HB", H.Venus/H.Earth.
+ephemerisInputFileLongitudeColumn = 129 # 129 corresponds to column "DZ", H.Mars.
+#ephemerisInputFileLongitudeColumn = 130 # 130 corresponds to column "EA", H.Jupiter.
+#ephemerisInputFileLongitudeColumn = 131 # 131 corresponds to column "EB", H.Saturn.
+#ephemerisInputFileLongitudeColumn = 200 # 200 corresponds to column "GS", H.Mercury/H.Venus.
+#ephemerisInputFileLongitudeColumn = 201 # 201 corresponds to column "GT", H.Mercury/H.Earth.
+#ephemerisInputFileLongitudeColumn = 209 # 209 corresponds to column "HB", H.Venus/H.Earth.
+#ephemerisInputFileLongitudeColumn = 210 # 210 corresponds to column "HC", H.Venus/H.Mars.
+#ephemerisInputFileLongitudeColumn = 211 # 211 corresponds to column "HD", H.Venus/H.Jupiter.
+#ephemerisInputFileLongitudeColumn = 213 # 213 corresponds to column "HF", H.Venus/H.Saturn.
+#ephemerisInputFileLongitudeColumn = 217 # 217 corresponds to column "HJ", H.Earth/H.Mars.
+#ephemerisInputFileLongitudeColumn = 218 # 218 corresponds to column "HK", H.Earth/H.Jupiter.
+#ephemerisInputFileLongitudeColumn = 224 # 224 corresponds to column "HQ", H.Mars/H.Jupiter.
+#ephemerisInputFileLongitudeColumn = 226 # 226 corresponds to column "HS", H.Mars/H.Saturn.
+#ephemerisInputFileLongitudeColumn = 231 # 231 corresponds to column "HX", H.Jupiter/H.Saturn.
+#ephemerisInputFileLongitudeColumn = 232 # 232 corresponds to column "HY", H.Jupiter/H.Uranus.
+
+
+
 
 
 # Filename location of the market data input CSV file.
 # This is optional.  If the below path is "", then this parameter is ignored.
 #marketDataInputFilename = ""
+#marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/DJIA/TDOW1895_1940_HLC_modifiedByRluu_addedOpenEqualsClose.txt"
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/DJIA/DJIA.txt"
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/DJIA/DJIA_1980_to_Current.txt"
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/TDW/TDW.txt"
+#marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/C/C.txt"
+#marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/X/X.txt"
 
 # March Wheat.
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/futures/ZW/Wheat_Alblak_Forecasts_Study_Pricebar_Data/ZW_H_PriceData_and_TFC_Merged.txt"
 # May Wheat.
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/futures/ZW/Wheat_Alblak_Forecasts_Study_Pricebar_Data/ZW_K_PriceData_and_TFC_Merged.txt"
 # July Wheat.
-marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/futures/ZW/Wheat_Alblak_Forecasts_Study_Pricebar_Data/ZW_N_PriceData_and_TFC_Merged.txt"
+#marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/futures/ZW/Wheat_Alblak_Forecasts_Study_Pricebar_Data/ZW_N_PriceData_and_TFC_Merged.txt"
 # December Wheat.
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/futures/ZW/Wheat_Alblak_Forecasts_Study_Pricebar_Data/ZW_Z_PriceData_and_TFC_Merged.txt"
-
+# July Wheat.
+marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/futures/W/W_N_GannStyle_TradingCharts.txt"
 
 # Column number for the timestamp.  The timestamp in this column is
 # expected to be in the format "MM/DD/YYYY".
@@ -181,7 +201,8 @@ marketDataInputFileLowPriceColumn = 3
 #startingLongitude = 375
 #startingLongitude = 373
 #startingLongitude = 360  # G.Moon/G.Sun at 0 deg Aries on 1969-01-18.
-startingLongitude = 360  # Good starting longitude for all planets.
+#startingLongitude = 360  # Good starting longitude for all planets.
+startingLongitude = 720  # Good starting longitude for all planets if 360 doesn't work.
 
 
 # Number of degrees elapsed for each repeat.  A new set of columns in the
@@ -195,24 +216,82 @@ startingLongitude = 360  # Good starting longitude for all planets.
 #numDegreesElapsedForRepeat = 360 * 21 # For H.Mercury
 #numDegreesElapsedForRepeat = 360 * 22 # For H.Mercury
 #numDegreesElapsedForRepeat = 360 * 3 # For H.Mars
-#numDegreesElapsedForRepeat = 360 * 8 # For H.Mars
-numDegreesElapsedForRepeat = 360 * 5 # For H.Venus
-
+#numDegreesElapsedForRepeat = 360 * 4 # For H.Mars
+#numDegreesElapsedForRepeat = 360 * 5 # For H.Mars
+numDegreesElapsedForRepeat = 360 * 6 # For H.Mars
+#numDegreesElapsedForRepeat = 360 * 5 # For H.Venus/H.Earth
+#numDegreesElapsedForRepeat = 360 # For H.Earth/H.Mars
+#numDegreesElapsedForRepeat = 360 * 3 # For H.Earth/H.Mars
+#numDegreesElapsedForRepeat = 288 # For H.Venus/H.Earth
+#numDegreesElapsedForRepeat = 420 # For H.Mercury
 
 # Ouptut CSV file.  
 #outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/G.Moon_360_deg_repeats.csv"
 #outputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/CountingWheelsFrom_19060609/H.Mars_180_deg_repeats.csv"
 #outputFilename = "/home/rluu/programming/pricechartingtool/doc/research/stocks/DJIA/G.Moon_15840_deg_repeats_or_sheet_of_44.csv"
 #outputFilename = "/home/rluu/programming/pricechartingtool/doc/G.Sun_7_degree_repeats_1776_to_1935.csv"
+
+
+# Wheat
+#
 #outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/G.Moon_7920_deg_or_22_circle_repeats_July_Wheat_1969_to_2016.csv"
 #outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mercury_7560_deg_or_21_circle_repeats_July_Wheat_1969_to_2016.csv"
 #outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mercury_7920_deg_or_22_circle_repeats_July_Wheat_1969_to_2016.csv"
 #outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mars_1080_deg_or_3_circle_repeats_July_Wheat_1969_to_2016.csv"
-
 #outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mercury_7920_deg_or_22_circle_repeats_March_Wheat_1969_to_2016.csv"
 #outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mars_2880_deg_or_8_circle_repeats_March_Wheat_1969_to_2016.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mars_1440_deg_or_4_circle_repeats_July_Wheat_1969_to_2016.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mars_1800_deg_or_5_circle_repeats_July_Wheat_1969_to_2016.csv"
+outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mars_2160_deg_or_6_circle_repeats_July_Wheat_1969_to_2016.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Venus_H.Earth_1800_deg_or_5_circle_repeats_July_Wheat_1969_to_2016.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mars_H.Jupiter_360_deg_or_1_circle_repeats_July_Wheat_1969_to_2016.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Earth_H.Mars_1080_deg_or_3_circle_repeats_July_Wheat_1969_to_2016.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/G.Moon_G.Sun_90720_deg_or_252_circle_repeats_July_Wheat_1969_to_2016.csv"
 
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Venus_H.Earth_1800_deg_or_5_circle_repeats_July_Wheat_1969_to_2016.csv"
+# TDW
+#
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Venus_H.Earth_1800_deg_or_5_circle_repeats_TDW_1969_to_2016.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Earth_H.Mars_1080_deg_or_3_circle_repeats_TDW_1969_to_2016.csv"
+
+# Citigroup (Symbol: C)
+#
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Earth_H.Mars_1080_deg_or_3_circle_repeats_C_1969_to_2016.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Earth_H.Jupiter_360_deg_or_1_circle_repeats_C_1969_to_2016.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mars_H.Jupiter_360_deg_or_1_circle_repeats_C_1969_to_2016.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Venus_H.Earth_1800_deg_or_5_circle_repeats_C_1969_to_2016.csv"
+
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mars_H.Saturn_360_deg_or_1_circle_repeats_X_1969_to_2016.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Venus_H.Saturn_360_deg_or_1_circle_repeats_X_1969_to_2016.csv"
+
+
+
+# TTTA dow.
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/G.Moon_7920_deg_or_22_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mercury_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mercury_420_deg_or_1.1666_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mercury_7920_deg_or_22_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Venus_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Earth_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mars_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Jupiter_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Saturn_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mercury_H.Venus_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mercury_H.Earth_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Venus_H.Earth_1800_deg_or_5_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Venus_H.Earth_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Venus_H.Earth_288_deg_or_0.8_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Venus_H.Mars_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Venus_H.Jupiter_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Venus_H.Saturn_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Earth_H.Mars_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Earth_H.Jupiter_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mars_H.Jupiter_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mars_H.Saturn_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Earth_H.Mars_1080_deg_or_3_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Mars_H.Jupiter_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Jupiter_H.Saturn_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Jupiter_H.Uranus_360_deg_or_1_circle_repeats_DJIA_1894_to_1935.csv"
+
 
 # For logging.
 logging.basicConfig(format='%(levelname)s: %(message)s')

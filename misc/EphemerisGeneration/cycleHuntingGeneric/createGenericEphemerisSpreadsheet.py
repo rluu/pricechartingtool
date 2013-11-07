@@ -78,10 +78,7 @@ minuteOfHour = 0
 startDt = datetime.datetime(year=1969, month=1, day=1,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
-#startDt = datetime.datetime(year=1906, month=1, day=1,
-#                            hour=hourOfDay, minute=minuteOfHour,
-#                            tzinfo=timezone)
-#startDt = datetime.datetime(year=1970, month=1, day=1,
+#startDt = datetime.datetime(year=1894, month=1, day=1,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
 
@@ -89,6 +86,9 @@ startDt = datetime.datetime(year=1969, month=1, day=1,
 endDt   = datetime.datetime(year=2016, month=12, day=31,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
+#endDt   = datetime.datetime(year=1935, month=12, day=31,
+#                            hour=hourOfDay, minute=minuteOfHour,
+#                            tzinfo=timezone)
 #endDt   = datetime.datetime(year=1979, month=12, day=31,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)

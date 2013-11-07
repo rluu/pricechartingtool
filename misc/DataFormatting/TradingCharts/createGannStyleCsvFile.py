@@ -10,9 +10,9 @@
 #   ./createGannStyleCsvFile.py --help
 #   ./createGannStyleCsvFile.py --version
 #
-#   ./createGannStyleCsvFile.py --input-dir="/home/rluu/programming/pricechartingtool/misc/DataFormatting/SB" --output-file="/tmp/SB_N.txt" --contract-month=N
+#   ./createGannStyleCsvFile.py --input-dir="/home/rluu/download/trading/data/futuresData_TradingCharts/EODFutures/Wheat_Pit_CBOT_reformatted" --output-file="/home/rluu/download/trading/data/futuresData_TradingCharts/EODFutures/Wheat_Pit_CBOT_reformatted/W_N_GannStyle.txt" --contract-month=N
 #
-#   ./createGannStyleCsvFile.py --input-dir="/home/rluu/programming/pricechartingtool/misc/DataFormatting/SB" --output-file="/tmp/SB_N.txt" --contract-month=N --wrap-at-prev-month
+#   ./createGannStyleCsvFile.py --input-dir="/home/rluu/download/trading/data/futuresData_TradingCharts/EODFutures/Wheat_Pit_CBOT_reformatted" --output-file="/home/rluu/download/trading/data/futuresData_TradingCharts/EODFutures/Wheat_Pit_CBOT_reformatted/W_N_GannStyle.txt" --contract-month=N --wrap-at-prev-month
 #
 #   
 ##############################################################################
@@ -20,6 +20,7 @@
 import sys
 import os
 import copy
+import datetime
 
 # For parsing command-line options
 from optparse import OptionParser  
@@ -295,29 +296,29 @@ else:
         
         # Set the contractMonthLetter.
         if contractMonthInt == 1:
-            contractMonthLetter = F
+            contractMonthLetter = "F"
         elif contractMonthInt == 2:
-            contractMonthLetter = G
+            contractMonthLetter = "G"
         elif contractMonthInt == 3:
-            contractMonthLetter = H
+            contractMonthLetter = "H"
         elif contractMonthInt == 4:
-            contractMonthLetter = J
+            contractMonthLetter = "J"
         elif contractMonthInt == 5:
-            contractMonthLetter = K
+            contractMonthLetter = "K"
         elif contractMonthInt == 6:
-            contractMonthLetter = M
+            contractMonthLetter = "M"
         elif contractMonthInt == 7:
-            contractMonthLetter = N
+            contractMonthLetter = "N"
         elif contractMonthInt == 8:
-            contractMonthLetter = Q
+            contractMonthLetter = "Q"
         elif contractMonthInt == 9:
-            contractMonthLetter = U
+            contractMonthLetter = "U"
         elif contractMonthInt == 10:
-            contractMonthLetter = V
+            contractMonthLetter = "V"
         elif contractMonthInt == 11:
-            contractMonthLetter = X
+            contractMonthLetter = "X"
         elif contractMonthInt == 12:
-            contractMonthLetter = Z
+            contractMonthLetter = "Z"
         else:
             log.error("Contract month number given must be in " + \
                       "range [1, 12].  " + \
@@ -338,29 +339,29 @@ else:
         contractMonthLetter = options.contractMonth.upper()
 
         # Set all the contractMonthInt.
-        if contractMonthLetter == F:
+        if contractMonthLetter == "F":
             contractMonthInt = 1
-        elif contractMonthLetter == G:
+        elif contractMonthLetter == "G":
             contractMonthInt = 2
-        elif contractMonthLetter == H:
+        elif contractMonthLetter == "H":
             contractMonthInt = 3
-        elif contractMonthLetter == J:
+        elif contractMonthLetter == "J":
             contractMonthInt = 4
-        elif contractMonthLetter == K:
+        elif contractMonthLetter == "K":
             contractMonthInt = 5
-        elif contractMonthLetter == M:
+        elif contractMonthLetter == "M":
             contractMonthInt = 6
-        elif contractMonthLetter == N:
+        elif contractMonthLetter == "N":
             contractMonthInt = 7
-        elif contractMonthLetter == Q:
+        elif contractMonthLetter == "Q":
             contractMonthInt = 8
-        elif contractMonthLetter == U:
+        elif contractMonthLetter == "U":
             contractMonthInt = 9
-        elif contractMonthLetter == V:
+        elif contractMonthLetter == "V":
             contractMonthInt = 10
-        elif contractMonthLetter == X:
+        elif contractMonthLetter == "X":
             contractMonthInt = 11
-        elif contractMonthLetter == Z:
+        elif contractMonthLetter == "Z":
             contractMonthInt = 12
         else:
             log.error("Contract month letter given does not map to a month." + \
@@ -392,8 +393,9 @@ for inputFile in os.listdir(inputDir):
     # Get the filename as an absolute path.
     inputFileAbsPath = os.path.join(inputDir, inputFile)
 
-    # Make sure the inputFile is a file and not a sub-directory.
-    if os.isdir(inputFile):
+    # If the file is a sub-directory, then skip over it.
+    # We want to only look at regular files.
+    if os.path.isdir(inputFile):
         continue
 
     log.debug("Looking at file: {}".format(inputFileAbsPath))
@@ -421,15 +423,21 @@ consolidatedDataLines = []
 
 for filename in sortedListOfFiles:
     log.info("Analyzing file '{}' ...".format(filename))
+
+    # Lines in the file total.  We need this as a hack to
+    # determine if there is another year of data in the file from
+    # where we currently are in the iteration of working through
+    # it's lines.
+    numLines = 0
+    with open(filename) as f:
+        for line in f:
+            numLines += 1
+    log.debug("Number of lines is: {}".format(numLines))
+
+    # Now actually go through and process the lines.
     with open(filename) as f:
         i = 0
 
-        # Lines in the file total.  We need this as a hack to
-        # determine if there is another year of data in the file from
-        # where we currently are in the iteration of working through
-        # it's lines.
-        numLines = len(f)
-        
         for line in f:
             if i < linesToSkip:
                 log.debug("Skipping this line (i={}) ...".format(i))
@@ -546,8 +554,8 @@ log.info("Sorting all lines by timestamp ...")
 consolidatedDataLines.sort(key=cmp_to_key(compLines))
 
 # Write to file, truncating if it already exists.
-log.info("Writing to destination file '{}' ...".format(outputFile))
-with open(destinationFilename, "w") as f:
+log.info("Writing to output file '{}' ...".format(outputFile))
+with open(outputFile, "w") as f:
     f.write(headerLine + newline)
 
     for line in consolidatedDataLines:

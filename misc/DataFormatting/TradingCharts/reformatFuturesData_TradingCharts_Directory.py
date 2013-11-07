@@ -4,12 +4,10 @@
 # provided by TradingCharts.com to a directory of CSV files in the
 # format that we use in PriceChartingTool.
 #
-#   ./reformatDirectoryOfCSV_FuturesData_TradingCharts.py --help
-#   ./reformatDirectoryOfCSV_FuturesData_TradingCharts.py --version
+#   ./reformatFuturesData_TradingCharts_Directory.py --help
+#   ./reformatFuturesData_TradingCharts_Directory.py --version
 #
-#   ./reformatDirectoryOfCSV_FuturesData_TradingCharts.py \
-#       --input-dir=/home/rluu/download/trading/data/futuresData_TradingCharts/EODFutures/Wheat_Pit_CBOT \
-#       --output-dir=/home/rluu/download/trading/data/futuresData_TradingCharts/EODFutures/Wheat_Pit_CBOT_reformatted
+#   ./reformatFuturesData_TradingCharts_Directory.py --input-dir="/home/rluu/download/trading/data/futuresData_TradingCharts/EODFutures/Wheat_Pit_CBOT" --output-dir="/home/rluu/download/trading/data/futuresData_TradingCharts/EODFutures/Wheat_Pit_CBOT_reformatted"
 #
 ##############################################################################
 
@@ -109,7 +107,7 @@ def reformatTradingChartsDataLine(line):
 
     TradingCharts.com gives us lines in the format:
         "Symbol","Date","Open","High","Low","Close","Vol","OI"
-        WN1970,7/23/1969,137,137,134.75,135,370,180    
+        WN1970,7/23/1969,137,137,134.75,135,370,180
 
     We want it in format:
         "Date","Open","High","Low","Close","Volume","OpenInt"
