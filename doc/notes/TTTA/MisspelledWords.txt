@@ -6,6 +6,10 @@ I think some of these are purposeful, and are used for encoding information.
 This is just a place where I will document these misspellings.
 ##############################################################################
 
+pg. 149, Line 26 (quoted poem title near bottom of page):
+"Perserverance" instead of "Perseverance".  
+[All-caps letters that follows almost immediately afterwards has it spelled correctly.]
+
 pg. 237:
 "clew" instead of "clue".
 
@@ -27,6 +31,12 @@ pg. 284 (bottom of page):
 
 pg. 288 (bottom of page):
 "Japanes" used instead of "Japanese".
+
+pg. 303, Line 24 (about 3/4ths way down the page):
+"Los Angelss" used instead of "Los Angeles".
+
+pg. 320, Line 29 (bottom of page):
+"greaty" used instead of "great".
 
 pg. 342, Line 12-13 (middle of page):
 "produe" used instead of "produce".

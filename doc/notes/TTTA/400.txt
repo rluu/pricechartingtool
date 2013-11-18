@@ -10,6 +10,9 @@ rluu_20130909:
 400 degrees = 30 lunar days + 3 lunar days
             = 33 lunar days.
 
+##############################################################################
+
+rluu_20131115: pg. 326, sign is written 7 times, and word 400 of the speech is the beginning fo the first quote.
 
 ##############################################################################
 

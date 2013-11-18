@@ -74,7 +74,9 @@ If Lunation:
 
 
 If Mercury:
-21 * 88 / 365.25 = 5.05954 Earth Years   <--- rluu_20130909: This is probably it because on pg. 160, a quote is igven with 88 letters.  pg. 163 says: Last 5 days were 5 years, which matches up with this.
+21 * 88 / 365.25 = 5.05954 Earth Years   <--- [rluu_20130909: This is probably it because on pg. 160, a quote is igven with 88 letters.  pg. 165 says: Last 5 days were 5 years, which matches up with this.]
+[rluu_20131114: Regarding pg. 165 "last 5 days were 5 years", this is not referring to actual days, but pages (1 day = 1 page).  So it refers to the pages between pg. 161, RG's 21st birthday, and pg. 165, where that statement is made.  The word "last" can also refer to the pages that span from 190 to 194, inclusive, which is where we should 'look back' from.  Note that 190 is related to women, which is the cause.  See my notes in 'notes.txt' for date 20131114 for more details about 5 days were 5 years.]
+
 If Venus:
 21 * 224.7 / 365.25 = 12.919 Earth Years
 If Mars:
