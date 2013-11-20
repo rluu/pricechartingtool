@@ -7,12 +7,49 @@ rluu_20130909:
 
 400 = 360 + 40
 
+
+These are the measurements for G.Moon/G.Sun phase days:
+
+400 degrees = 360 degrees   + 40 degrees
 400 degrees = 30 lunar days + 3 lunar days
-            = 33 lunar days.
+            = 33 lunar days.  (approximate)
+
+More exact calculations for G.Moon/G.Sun phase days:
+
+degreesPerLunarDay = 360 / 29.5306
+                   = 12.190744515858126
+
+32 * degreesPerLunarDay = 390.10382450746005
+33 * degreesPerLunarDay = 402.29456902331816    <---- Closest to 400.
+34 * degreesPerLunarDay = 414.4853135391763
+
 
 ##############################################################################
 
-rluu_20131115: pg. 326, sign is written 7 times, and word 400 of the speech is the beginning fo the first quote.
+rluu_20131115: 
+
+pg. 326.
+The word "sign" is written 7 times on this page, and word #400 of the speech is the beginning of the first quote.
 
 ##############################################################################
 
+rluu_20131118:
+
+pg. 95.  Marie gives Robert $400 as her FAITH in him.  
+
+There are several references to this $400 of faith, including how much Robert increases it, but the new number is always a multiple of that ($4,000, $40,000, etc.)
+
+##############################################################################
+
+rluu_20131118:
+
+George Bayer has a book called: "Turning 400 Years [...]".
+
+##############################################################################
+
+rluu_20131120:
+
+Synodic period of H.Earth/H.Jupiter is on average: 398.88 days.
+This rounds to 399, or approximately 400.
+
+##############################################################################
