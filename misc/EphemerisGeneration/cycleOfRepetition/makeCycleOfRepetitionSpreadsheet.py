@@ -13,7 +13,7 @@
 #
 #   The output CSV file thus will have format as follows:
 #
-#     <Timestamp>,<Longitude>,<HighPrice>,<LowPrice>,
+#     <Timestamp>,<Longitude>,<Longitude-(repeatCount * modOffsetPerColumnRepeat)>,<HighPrice>,<LowPrice>,
 #     [this set of column headers repeat again, once for each repetition or 'repeat'.]
 #
 # Background information:
@@ -216,8 +216,8 @@ startingLongitude = 360  # Good starting longitude for all planets.
 #numDegreesElapsedForRepeat = 360 * 44 # For G.Moon
 #numDegreesElapsedForRepeat = 360 * 22 # For G.Moon
 #numDegreesElapsedForRepeat = 360 * 69 # For G.Moon.
-#numDegreesElapsedForRepeat = 360 * 21 # For H.Mercury
-numDegreesElapsedForRepeat = (360 * 21) + 153 # For H.Mercury
+numDegreesElapsedForRepeat = 360 * 21 # For H.Mercury
+#numDegreesElapsedForRepeat = (360 * 21) + 153 # For H.Mercury
 #numDegreesElapsedForRepeat = 360 * 22 # For H.Mercury
 #numDegreesElapsedForRepeat = 360 * 3 # For H.Mars
 #numDegreesElapsedForRepeat = 360 * 4 # For H.Mars
@@ -333,6 +333,25 @@ def shutdown(rc):
     
     sys.exit(rc)
 
+def toNormalizedAngle(angleDeg):
+    """Normalizes the given angle to a value in the range [0, 360).
+
+    Arguments:
+    angleDeg - float value in degrees of an angle to normalize.
+
+    Returns:
+    float value holding the equivalent angle, but in the range [0, 360).
+    """
+
+    a = float(angleDeg)
+        
+    while a < 0.0:
+        a += 360.0
+    while a >= 360.0:
+        a -= 360.0
+
+    return a
+    
 def convertTimestampStrToDatetime(timestampStr):
     """Converts a timestamp str from the CSV file to a datetime, and
     returns that datetime object.  If an error occurs in the
@@ -528,6 +547,9 @@ def convertTimestampStrToDatetime2(timestampStr):
 # header line in the output file.
 headerLine = ""
 
+# Modulus offset of degrees per column of timestamp and planet and price.  
+modOffsetPerColumnRepeat = numDegreesElapsedForRepeat % 360
+
 # List of lists.  Each item in this list is a list containing the
 # fields of text of the input ephemeris CSV file.
 listOfEphemerisDataValues = []
@@ -717,10 +739,22 @@ for i in range(0, len(listOfEphemerisDataValues)):
 
         # Below uses the mod-360 longitude value.
         rowToAdd = timestampStr + "," + str(currValue % 360)
-        
+
         # Below uses the always-increasing longitude value.  (commented out).
         # rowToAdd = timestampStr + "," + currValueStr
 
+        # Below is the column of information for the offset
+        # normalization, so that we can compare similar numbers of
+        # degrees between previous repeats.
+        multipleOfOffsetToSubtract = len(listOfOutputEphemerisColumns) - 1
+        if multipleOfOffsetToSubtract <= 0:
+            # No multiple because
+            rowToAdd += "," + str(toNormalizedAngle((currValue % 360)))
+        else:
+            rowToAdd += "," + \
+                        str(toNormalizedAngle((currValue % 360) - \
+                                              (modOffsetPerColumnRepeat * \
+                                              multipleOfOffsetToSubtract)))
         
         currRepeatRowsList.append(rowToAdd)
 
@@ -863,17 +897,25 @@ for i in range(0, len(listOfOutputEphemerisColumns)):
         log.debug("row for [{}][{}] == {}".format(i, j, row))
 #shutdown(0)
 
-
 # Write to output file.
 log.info("Writing to output file: '{}' ...".format(outputFilename))
 
 # String used for when there is no more data for this 'repeat' row.
-emptyRepeatRowLine = ",,,"
+emptyRepeatRowLine = ",,,,"
 
 outputHeaderLine = ""
 for i in range(0, len(listOfOutputEphemerisColumns)):
-    outputHeaderLine += "Timestamp,{},HighPrice,LowPrice,".\
-                        format(headerStrForPlanetMeasurement)
+    multipleOfOffsetToSubtract = i - 1
+    if multipleOfOffsetToSubtract < 0:
+        outputHeaderLine += "Timestamp,{},{},HighPrice,LowPrice,".\
+                            format(headerStrForPlanetMeasurement,
+                                   headerStrForPlanetMeasurement)
+    else:
+        outputHeaderLine += "Timestamp,{},{}-({}*{}),HighPrice,LowPrice,".\
+                            format(headerStrForPlanetMeasurement,
+                                   headerStrForPlanetMeasurement,
+                                   multipleOfOffsetToSubtract,
+                                   modOffsetPerColumnRepeat)
     
 # Strip off the trailing comma.
 if len(outputHeaderLine) > 0:
