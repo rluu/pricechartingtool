@@ -1,5 +1,6 @@
 ##############################################################################
 Information and notes for my research on stock TDW.
+##############################################################################
 
 rluu_20130318: The file "H.Venus_H.Mars_1080_deg_repeats.ods" was originally created from the turns in "H.Venus_H.Mars_360_deg_repeats.ods".  Then I made some tweaks, and fixed/updated/added a decent number of turns to H.Venus_H.Mars_1080_deg_repeats.ods, so that H.Venus_H.Mars_360_deg_repeats.ods is kind of out of date.  
 
