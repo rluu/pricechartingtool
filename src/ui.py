@@ -837,9 +837,13 @@ class MainWindow(QMainWindow):
         self.fileToolBar.addAction(\
             self.checkSourceDataFileForPriceBarUpdatesAction)
         self.fileToolBar.addSeparator()
-        self.fileToolBar.addAction(self.printAction)
-        self.fileToolBar.addAction(self.printPreviewAction)
-
+        # This action is shown on the toolbar only for non-Mac
+        # platforms because it takes too much space on the toolbar on
+        # Macbook Pro laptop.  
+        if platform.system() != "Darwin":
+            self.fileToolBar.addAction(self.printAction)
+            self.fileToolBar.addAction(self.printPreviewAction)
+        
         # Create the Edit toolbar.
         self.editToolBar = self.addToolBar("Edit")
         self.editToolBar.setObjectName("editToolBar")
@@ -868,7 +872,11 @@ class MainWindow(QMainWindow):
             addAction(self.planetLongitudeMovementMeasurementToolAction)
         self.toolsToolBar.addAction(self.textToolAction)
         self.toolsToolBar.addAction(self.priceTimeInfoToolAction)
-        self.toolsToolBar.addAction(self.priceTimeVectorToolAction)
+        # This action is shown on the toolbar only for non-Mac
+        # platforms because it takes too much space on the toolbar on
+        # Macbook Pro laptop.  
+        if platform.system() != "Darwin":
+            self.toolsToolBar.addAction(self.priceTimeVectorToolAction)
         self.toolsToolBar.addAction(self.lineSegment1ToolAction)
         self.toolsToolBar.addAction(self.lineSegment2ToolAction)
         self.toolsToolBar.addAction(self.octaveFanToolAction)

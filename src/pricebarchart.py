@@ -2,6 +2,14 @@
 # For line separator.
 import os
 
+# For determining what system platform we are on.
+# Some possibilities are:
+#   Darwin
+#   Linux
+#   Windows
+#   Java
+import platform
+
 # For logging.
 import logging
 
@@ -38489,8 +38497,17 @@ class PriceBarChartWidget(QWidget):
 
         # Set the cursor timestamp labels as being in a monospaced font.
         smallMonospacedFont = QFont()
-        smallMonospacedFont.setFamily("DejaVu Sans Mono")
+
+        # Here we use the best-looking mono-spaced font for the platform.
+        if platform.system() == "Linux":
+            smallMonospacedFont.setFamily("DejaVu Sans Mono")
+        elif platform.system() == "Darwin":
+            smallMonospacedFont.setFamily("Monaco")
+        else:
+            smallMonospacedFont.setFamily("DejaVu Sans Mono")
+            
         smallMonospacedFont.setPointSize(8)
+        
         self.cursorLocalizedTimestampLabel.setFont(smallMonospacedFont)
         self.cursorUtcTimestampLabel.setFont(smallMonospacedFont)
         self.cursorJdTimestampLabel.setFont(smallMonospacedFont)
@@ -38502,29 +38519,38 @@ class PriceBarChartWidget(QWidget):
         self.graphicsView.setScene(self.graphicsScene)
 
         # Setup the layouts.
-        dataTimeRangeLayout = QVBoxLayout()
-        dataTimeRangeLayout.addWidget(self.descriptionLabel)
-        dataTimeRangeLayout.addWidget(self.firstPriceBarTimestampLabel)
-        dataTimeRangeLayout.addWidget(self.lastPriceBarTimestampLabel)
-        dataTimeRangeLayout.addWidget(self.numPriceBarsLabel)
+        col0 = QVBoxLayout()
+        col0.addWidget(self.descriptionLabel)
+        col0.addWidget(self.numPriceBarsLabel)
 
-        cursorInfoLayout = QVBoxLayout()
-        cursorInfoLayout.addWidget(self.cursorLocalizedTimestampLabel)
-        cursorInfoLayout.addWidget(self.cursorUtcTimestampLabel)
-        cursorInfoLayout.addWidget(self.cursorJdTimestampLabel)
-        cursorInfoLayout.addWidget(self.cursorPriceLabel)
-       
-        priceBarPricesLayout = QVBoxLayout()
-        priceBarPricesLayout.addWidget(self.selectedPriceBarTimestampLabel)
-        priceBarPricesLayout.addWidget(self.selectedPriceBarOpenPriceLabel)
-        priceBarPricesLayout.addWidget(self.selectedPriceBarHighPriceLabel)
-        priceBarPricesLayout.addWidget(self.selectedPriceBarLowPriceLabel)
-        priceBarPricesLayout.addWidget(self.selectedPriceBarClosePriceLabel)
+        col1 = QVBoxLayout()
+        col1.addWidget(self.firstPriceBarTimestampLabel)
+        col1.addWidget(self.lastPriceBarTimestampLabel)
+
+        col2 = QVBoxLayout()
+        col2.addWidget(self.selectedPriceBarTimestampLabel)
+        col2.addWidget(self.selectedPriceBarOpenPriceLabel)
+        col2.addWidget(self.selectedPriceBarClosePriceLabel)
+
+        col3 = QVBoxLayout()
+        col3.addWidget(self.selectedPriceBarHighPriceLabel)
+        col3.addWidget(self.selectedPriceBarLowPriceLabel)
         
-        topLabelsLayout = QHBoxLayout()
-        topLabelsLayout.addLayout(dataTimeRangeLayout)
-        topLabelsLayout.addLayout(cursorInfoLayout)
-        topLabelsLayout.addLayout(priceBarPricesLayout)
+        col4 = QVBoxLayout()
+        col4.addWidget(self.cursorJdTimestampLabel)
+        col4.addWidget(self.cursorPriceLabel)
+       
+        col5 = QVBoxLayout()
+        col5.addWidget(self.cursorLocalizedTimestampLabel)
+        col5.addWidget(self.cursorUtcTimestampLabel)
+        
+        topLabelsLayout = QGridLayout()
+        topLabelsLayout.addLayout(col0, 0, 0)
+        topLabelsLayout.addLayout(col1, 0, 1)
+        topLabelsLayout.addLayout(col2, 0, 2)
+        topLabelsLayout.addLayout(col3, 0, 3)
+        topLabelsLayout.addLayout(col4, 0, 4)
+        topLabelsLayout.addLayout(col5, 0, 5)
         
         layout = QVBoxLayout()
         layout.addLayout(topLabelsLayout)
@@ -38604,7 +38630,7 @@ class PriceBarChartWidget(QWidget):
         """
 
         # Datetime format to datetime.strftime().
-        timestampStr = "First PriceBar Timestamp: "
+        timestampStr = "First PriceBar: "
         
         if priceBar != None:
             timestampStr += Ephemeris.datetimeToDayStr(priceBar.timestamp)
@@ -38622,7 +38648,7 @@ class PriceBarChartWidget(QWidget):
                    blank.
         """
 
-        timestampStr = "Last PriceBar Timestamp: "
+        timestampStr = "Last PriceBar: "
         
         if priceBar != None:
             timestampStr += Ephemeris.datetimeToDayStr(priceBar.timestamp)
