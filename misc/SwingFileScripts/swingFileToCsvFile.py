@@ -148,7 +148,7 @@ def convertSwingFileDataToCsvStr(swingFileData):
     of the swing file data.
     """
 
-    endl = "\r\n"
+    endl = "\n"
     
     rv = ""
 
@@ -340,7 +340,7 @@ if __name__ == "__main__":
     # Write to file.
     if outputFile != "":
         log.info("Writing to output file '{}' ...".format(outputFile))
-        with open(outputFile, "w") as f:
+        with open(outputFile, "w", encoding="utf-8") as f:
             f.write(csvStr)
         log.info("File successfully written.")
     

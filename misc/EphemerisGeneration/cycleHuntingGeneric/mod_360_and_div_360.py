@@ -152,8 +152,8 @@ while i < len(headerRowDataValues):
 log.info("Writing to output file: '{}' ...".format(outputFilename))
 
 try:
-    with open(outputFilename, "w") as f:
-        endl = "\r\n"
+    with open(outputFilename, "w", encoding="utf-8") as f:
+        endl = "\n"
 
         # Line to write to file.
         line = ""

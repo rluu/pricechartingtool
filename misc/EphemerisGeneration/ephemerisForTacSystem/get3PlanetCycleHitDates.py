@@ -562,7 +562,7 @@ def main():
           format(columnName, modulusAmt, moddedHitValue)
 
     # Newline.
-    endl = "\r\n"
+    endl = "\n"
     
     # Write results to a CSV file.
     outputFileLines = []
@@ -575,7 +575,7 @@ def main():
         outputFileLines.append(dateStr + endl)
 
     # Write to file.
-    with open(outputCsvFilename, "w") as f:
+    with open(outputCsvFilename, "w", encoding="utf-8") as f:
         for line in outputFileLines:
             f.write(line)
     log.info("Finished writing the cycle hit dates to CSV file.")

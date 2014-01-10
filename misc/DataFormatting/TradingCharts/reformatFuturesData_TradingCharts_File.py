@@ -46,8 +46,8 @@ linesToSkip = 1
 # Header line to put as the first line of text in the destination file.
 headerLine = "\"Date\",\"Open\",\"High\",\"Low\",\"Close\",\"Volume\",\"OpenInt\""
 
-# Use Windows newlines.
-newline = "\r\n"
+# Use these types newlines in the output file.
+newline = "\n"
 
 # For logging.
 logging.basicConfig(level=logging.INFO,
@@ -272,7 +272,7 @@ with open(inputFile) as f:
 convertedLines.insert(0, headerLine)
 
 # Write to file, truncating if it already exists.
-with open(outputFile, "w") as f:
+with open(outputFile, "w", encoding="utf-8") as f:
     for line in convertedLines:
         f.write(line.rstrip() + newline)
         

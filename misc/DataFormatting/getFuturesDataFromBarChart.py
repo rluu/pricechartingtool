@@ -129,8 +129,8 @@ headerLine = "\"Date\",\"Open\",\"High\",\"Low\",\"Close\",\"Volume\",\"OpenInt\
 # Number of lines to skip in the file being read.
 numLinesToSkip = 1
 
-# Use Windows newlines in the output file.
-newline = "\r\n"
+# Use these types newlines in the output file.
+newline = "\n"
 
 # Cookie preferences are required for the pricebar data to be returned.
 defaultHttpHeaders = \
@@ -1210,7 +1210,7 @@ if updateFlag == True:
             # Write to file, truncating.
             log.info("Writing to output file '{}' ...".format(outputFile))
             
-            with open(outputFile, "w") as f:
+            with open(outputFile, "w", encoding="utf-8") as f:
                 f.write(headerLine + newline)
                 for line in mergedLines:
                     f.write(line + newline)
@@ -1226,7 +1226,7 @@ if updateFlag == True:
             # Write to file, truncating.
             log.info("Writing to output file '{}' ...".format(outputFile))
             
-            with open(outputFile, "w") as f:
+            with open(outputFile, "w", encoding="utf-8") as f:
                 f.write(headerLine + newline)
                 for line in reformattedLines:
                     f.write(line + newline)
@@ -1241,7 +1241,7 @@ if updateFlag == True:
         # Write to file, truncating.
         log.info("Writing to output file '{}' ...".format(outputFile))
 
-        with open(outputFile, "w") as f:
+        with open(outputFile, "w", encoding="utf-8") as f:
             f.write(headerLine + newline)
             for line in reformattedLines:
                 f.write(line + newline)
@@ -1257,7 +1257,7 @@ else:
     # Write to file, truncating if it already exists.
     log.info("Writing to output file '{}' ...".format(outputFile))
     
-    with open(outputFile, "w") as f:
+    with open(outputFile, "w", encoding="utf-8") as f:
         f.write(headerLine + newline)
         for line in reformattedLines:
             f.write(line + newline)

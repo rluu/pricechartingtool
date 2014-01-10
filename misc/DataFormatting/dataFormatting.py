@@ -59,8 +59,8 @@ linesToSkip = 1
 # Header line to put as the first line of text in the destination file.
 headerLine = "\"Date\",\"Open\",\"High\",\"Low\",\"Close\",\"Volume\",\"OpenInt\""
 
-# Use Windows newlines.
-newline = "\r\n"
+# Use these types newlines in the output file.
+newline = "\n"
 
 # For logging.
 logging.basicConfig(level=logging.INFO,
@@ -473,7 +473,7 @@ consolidatedDataLines.sort(key=cmp_to_key(compLines))
 
 # Write to file, truncating if it already exists.
 log.info("Writing to destination file '{}' ...".format(destinationFilename))
-with open(destinationFilename, "w") as f:
+with open(destinationFilename, "w", encoding="utf-8") as f:
     f.write(headerLine + newline)
 
     for line in consolidatedDataLines:

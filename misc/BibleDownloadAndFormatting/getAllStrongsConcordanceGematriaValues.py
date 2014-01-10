@@ -48,8 +48,8 @@ outputFilename = "/home/rluu/programming/pricechartingtool/misc/BibleDownloadAnd
 headerLine = "\"Strong's Concordance Number\",\"Gematria value\""
 
 
-# Use Windows newlines in the output file.
-newline = "\r\n"
+# Use these types of newlines in the output file.
+newline = "\n"
 
 # For logging.
 logging.basicConfig(level=logging.INFO,
@@ -256,7 +256,7 @@ if __name__ == "__main__":
     # Write to file, truncating if it already exists.
     log.info("Writing to output file '{}' ...".format(outputFilename))
 
-    with open(outputFilename, "w") as f:
+    with open(outputFilename, "w", encoding="utf-8") as f:
 
         # Write the header line.
         f.write(headerLine + newline)

@@ -535,7 +535,7 @@ def generateOutputFileCsvStr(priceBars, descriptionStr):
         #"Isis",
         ]
 
-    endl = "\r\n"
+    endl = "\n"
 
     # Return value.
     rv = ""
@@ -790,7 +790,7 @@ if __name__ == "__main__":
     # Write to file.
     if outputFilename != "":
         log.info("Writing to output file '{}' ...".format(outputFilename))
-        with open(outputFilename, "w") as f:
+        with open(outputFilename, "w", encoding="utf-8") as f:
             f.write(csvStr)
         log.info("File successfully written.")
     

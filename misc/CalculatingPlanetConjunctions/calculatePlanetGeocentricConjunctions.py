@@ -854,10 +854,10 @@ if __name__ == "__main__":
                     outputLines.append(line)
     
     # Write outputLines to output file.
-    with open(outputFilename, "w") as f:
+    with open(outputFilename, "w", encoding="utf-8") as f:
         log.info("Writing to output file '{}' ...".format(outputFilename))
     
-        endl = "\r\n"
+        endl = "\n"
     
         for line in outputLines:
             f.write(line + endl)

@@ -152,8 +152,8 @@ if len(outputHeaderLine) > 0:
     outputHeaderLine = outputHeaderLine[:-1]
     
 try:
-    with open(outputFilename, "w") as f:
-        endl = "\r\n"
+    with open(outputFilename, "w", encoding="utf-8") as f:
+        endl = "\n"
         f.write(outputHeaderLine + endl)
 
         for i in range(len(timestampValues)):

@@ -488,8 +488,8 @@ listOfDataValues = doMod360ForColumn(listOfDataValues,
 # Write to output file.
 log.info("Writing to output file: '{}' ...".format(outputFilename))
 try:
-    with open(outputFilename, "w") as f:
-        endl = "\r\n"
+    with open(outputFilename, "w", encoding="utf-8") as f:
+        endl = "\n"
         f.write(headerLine + endl)
         
         for rowData in listOfDataValues:

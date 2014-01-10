@@ -512,8 +512,8 @@ if outputFormat == 1:
     log.info("Writing to output file: '{}' ...".format(outputFilename))
         
     try:
-        with open(outputFilename, "w") as f:
-            endl = "\r\n"
+        with open(outputFilename, "w", encoding="utf-8") as f:
+            endl = "\n"
     
             done = False
             i = 0
@@ -599,8 +599,8 @@ elif outputFormat == 2:
     log.info("Writing to output file: '{}' ...".format(outputFilename))
         
     try:
-        with open(outputFilename, "w") as f:
-            endl = "\r\n"
+        with open(outputFilename, "w", encoding="utf-8") as f:
+            endl = "\n"
 
             headerLine = "<Timestamp>,<PlanetNameAndMeasurement>,<Latitude>,"
 

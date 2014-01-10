@@ -303,7 +303,7 @@ def modifyHtmlFile(htmlFilename, dictOfGematriaValues):
              format(htmlFilename))
     
     # Write outputText back to the file, overwriting what was there before.
-    with open(htmlFilename, "w") as f:
+    with open(htmlFilename, "w", encoding="utf-8") as f:
         f.write(outputText)
     
     return

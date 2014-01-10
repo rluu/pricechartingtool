@@ -533,7 +533,7 @@ while currDt < endDt:
 
 text += getFooterText()
     
-with open(outputFile, "w") as f:
+with open(outputFile, "w", encoding="utf-8") as f:
     log.info("Writing to output file '{}' ...".format(outputFile))
     f.write(text)
 

@@ -1118,10 +1118,10 @@ for i in range(len(timestamps)):
     
 # Write outputLines to output file.
 try:
-    with open(outputFilename, "w") as f:
+    with open(outputFilename, "w", encoding="utf-8") as f:
         log.info("Writing to output file '{}' ...".format(outputFilename))
         
-        endl = "\r\n"
+        endl = "\n"
         
         for line in outputLines:
             f.write(line + endl)

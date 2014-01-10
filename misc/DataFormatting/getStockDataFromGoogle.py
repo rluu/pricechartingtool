@@ -79,8 +79,8 @@ outputFile = ""
 # Header line to put as the first line of text in the destination file.
 headerLine = "\"Date\",\"Open\",\"High\",\"Low\",\"Close\",\"Volume\",\"OpenInt\""
 
-# Use Windows newlines in the output file.
-newline = "\r\n"
+# Use these types newlines in the output file.
+newline = "\n"
 
 # Cookie preferences are required for the pricebar data to be returned.
 defaultHttpHeaders = \
@@ -486,7 +486,7 @@ if len(reformattedLines) > 0:
 # Write to file, truncating if it already exists.
 log.info("Writing to output file '{}' ...".format(outputFile))
 
-with open(outputFile, "w") as f:
+with open(outputFile, "w", encoding="utf-8") as f:
     f.write(headerLine + newline)
     for line in reformattedLines:
         f.write(line + newline)

@@ -1046,7 +1046,7 @@ def createCsvFiles(swingFileData, outputDirectory):
     tableFieldInfos.append(HelioTropLatitudeSpeedField(isEnabled=True))
 
     
-    endl = "\r\n"
+    endl = "\n"
 
     log.info("Found {} PriceBars in this SwingFile.".\
              format(len(swingFileData.priceBars)))
@@ -1105,7 +1105,7 @@ def createCsvFiles(swingFileData, outputDirectory):
         
         # Write to file.
         log.info("Writing to file '{}' ...".format(filename))
-        with open(filename, "w") as f:
+        with open(filename, "w", encoding="utf-8") as f:
             f.write(text)
         
 ##############################################################################

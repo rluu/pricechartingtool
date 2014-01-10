@@ -81,12 +81,15 @@ startDt = datetime.datetime(year=1969, month=1, day=1,
 #startDt = datetime.datetime(year=1894, month=1, day=1,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
+#startDt = datetime.datetime(year=2016, month=12, day=1,
+#                            hour=hourOfDay, minute=minuteOfHour,
+#                            tzinfo=timezone)
 
 
 endDt   = datetime.datetime(year=2016, month=12, day=31,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
-#endDt   = datetime.datetime(year=1935, month=12, day=31,
+#endDt   = datetime.datetime(year=1940, month=12, day=31,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
 #endDt   = datetime.datetime(year=1979, month=12, day=31,
@@ -96,6 +99,7 @@ endDt   = datetime.datetime(year=2016, month=12, day=31,
 
 # Destination output CSV file.
 outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/generic_daily_ephemeris_nyc_noon.csv"
+
 
 # Planet names to do calculations for.
 geocentricPlanetNames = [\
@@ -589,10 +593,10 @@ while currDt.date() < endDt.date():
     
 # Write outputLines to output file.
 try:
-    with open(outputFilename, "w") as f:
+    with open(outputFilename, "w", encoding="utf-8") as f:
         log.info("Writing to output file '{}' ...".format(outputFilename))
         
-        endl = "\r\n"
+        endl = "\n"
         
         for line in outputLines:
             f.write(line + endl)
