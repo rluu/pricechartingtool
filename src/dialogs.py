@@ -44102,9 +44102,14 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self._buildPriceTimeVectorGraphicsItemGroupBox()
 
         # QGroupBox to hold the edit widgets and form for
-        # LineSegmentGraphicsItem.
-        self.lineSegmentGraphicsItemGroupBox = \
-            self._buildLineSegmentGraphicsItemGroupBox()
+        # LineSegment1GraphicsItem.
+        self.lineSegment1GraphicsItemGroupBox = \
+            self._buildLineSegment1GraphicsItemGroupBox()
+
+        # QGroupBox to hold the edit widgets and form for
+        # LineSegment2GraphicsItem.
+        self.lineSegment2GraphicsItemGroupBox = \
+            self._buildLineSegment2GraphicsItemGroupBox()
 
         # QGroupBox to hold the edit widgets and form for
         # OctaveFanGraphicsItem.
@@ -44251,7 +44256,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
             "")
 
         self.tabWidget.addTab(\
-            self.lineSegmentGraphicsItemGroupBox,
+            self.lineSegment1GraphicsItemGroupBox,
+            QIcon(":/images/rluu/lineSegment.png"),
+            "")
+
+        self.tabWidget.addTab(\
+            self.lineSegment2GraphicsItemGroupBox,
             QIcon(":/images/rluu/lineSegment.png"),
             "")
 
@@ -44378,10 +44388,14 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(\
             self.\
             _handlePriceTimeVectorGraphicsItemDefaultFontModifyButtonClicked)
-        self.lineSegmentGraphicsItemDefaultFontModifyButton.clicked.\
+        self.lineSegment1GraphicsItemDefaultFontModifyButton.clicked.\
             connect(\
             self.\
-            _handleLineSegmentGraphicsItemDefaultFontModifyButtonClicked)
+            _handleLineSegment1GraphicsItemDefaultFontModifyButtonClicked)
+        self.lineSegment2GraphicsItemDefaultFontModifyButton.clicked.\
+            connect(\
+            self.\
+            _handleLineSegment2GraphicsItemDefaultFontModifyButtonClicked)
         self.fibFanGraphicsItemDefaultFontModifyButton.clicked.\
             connect(\
             self.\
@@ -44702,35 +44716,65 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(\
             self._handlePriceTimeVectorGraphicsItemAngleTextFlagResetButton)
         
-        self.lineSegmentGraphicsItemBarWidthResetButton.clicked.\
+        self.lineSegment1GraphicsItemBarWidthResetButton.clicked.\
             connect(\
-            self._handleLineSegmentGraphicsItemBarWidthResetButtonClicked)
-        self.lineSegmentGraphicsItemTextXScalingResetButton.clicked.\
-            connect(\
-            self.\
-            _handleLineSegmentGraphicsItemTextXScalingResetButtonClicked)
-        self.lineSegmentGraphicsItemTextYScalingResetButton.clicked.\
+            self._handleLineSegment1GraphicsItemBarWidthResetButtonClicked)
+        self.lineSegment1GraphicsItemTextXScalingResetButton.clicked.\
             connect(\
             self.\
-            _handleLineSegmentGraphicsItemTextYScalingResetButtonClicked)
-        self.lineSegmentGraphicsItemDefaultFontResetButton.clicked.\
+            _handleLineSegment1GraphicsItemTextXScalingResetButtonClicked)
+        self.lineSegment1GraphicsItemTextYScalingResetButton.clicked.\
             connect(\
             self.\
-            _handleLineSegmentGraphicsItemDefaultFontResetButtonClicked)
-        self.lineSegmentGraphicsItemColorResetButton.clicked.\
+            _handleLineSegment1GraphicsItemTextYScalingResetButtonClicked)
+        self.lineSegment1GraphicsItemDefaultFontResetButton.clicked.\
             connect(\
-            self._handleLineSegmentGraphicsItemColorResetButtonClicked)
-        self.lineSegmentGraphicsItemTextColorResetButton.clicked.\
+            self.\
+            _handleLineSegment1GraphicsItemDefaultFontResetButtonClicked)
+        self.lineSegment1GraphicsItemColorResetButton.clicked.\
             connect(\
-            self._handleLineSegmentGraphicsItemTextColorResetButtonClicked)
-        self.lineSegmentGraphicsItemTiltedTextFlagResetButton.\
+            self._handleLineSegment1GraphicsItemColorResetButtonClicked)
+        self.lineSegment1GraphicsItemTextColorResetButton.clicked.\
+            connect(\
+            self._handleLineSegment1GraphicsItemTextColorResetButtonClicked)
+        self.lineSegment1GraphicsItemTiltedTextFlagResetButton.\
             clicked.\
             connect(\
-            self._handleLineSegmentGraphicsItemTiltedTextFlagResetButton)
-        self.lineSegmentGraphicsItemAngleTextFlagResetButton.\
+            self._handleLineSegment1GraphicsItemTiltedTextFlagResetButton)
+        self.lineSegment1GraphicsItemAngleTextFlagResetButton.\
             clicked.\
             connect(\
-            self._handleLineSegmentGraphicsItemAngleTextFlagResetButton)
+            self._handleLineSegment1GraphicsItemAngleTextFlagResetButton)
+        
+        self.lineSegment2GraphicsItemBarWidthResetButton.clicked.\
+            connect(\
+            self._handleLineSegment2GraphicsItemBarWidthResetButtonClicked)
+        self.lineSegment2GraphicsItemTextXScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handleLineSegment2GraphicsItemTextXScalingResetButtonClicked)
+        self.lineSegment2GraphicsItemTextYScalingResetButton.clicked.\
+            connect(\
+            self.\
+            _handleLineSegment2GraphicsItemTextYScalingResetButtonClicked)
+        self.lineSegment2GraphicsItemDefaultFontResetButton.clicked.\
+            connect(\
+            self.\
+            _handleLineSegment2GraphicsItemDefaultFontResetButtonClicked)
+        self.lineSegment2GraphicsItemColorResetButton.clicked.\
+            connect(\
+            self._handleLineSegment2GraphicsItemColorResetButtonClicked)
+        self.lineSegment2GraphicsItemTextColorResetButton.clicked.\
+            connect(\
+            self._handleLineSegment2GraphicsItemTextColorResetButtonClicked)
+        self.lineSegment2GraphicsItemTiltedTextFlagResetButton.\
+            clicked.\
+            connect(\
+            self._handleLineSegment2GraphicsItemTiltedTextFlagResetButton)
+        self.lineSegment2GraphicsItemAngleTextFlagResetButton.\
+            clicked.\
+            connect(\
+            self._handleLineSegment2GraphicsItemAngleTextFlagResetButton)
         
         self.octaveFanGraphicsItemBarHeightResetButton.clicked.\
             connect(\
@@ -49318,93 +49362,93 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         return self.priceTimeVectorGraphicsItemGroupBox
     
-    def _buildLineSegmentGraphicsItemGroupBox(self):
+    def _buildLineSegment1GraphicsItemGroupBox(self):
         """Builds the groupbox containing info to edit the
-        PriceBarChartSettings related to a LineSegmentGraphicsItem.
+        PriceBarChartSettings related to a LineSegment1GraphicsItem.
 
         Returns:
         QGroupBox obj containing all the created widgets.
         """
 
-        self.lineSegmentGraphicsItemGroupBox = \
-            QGroupBox("LineSegmentGraphicsItem settings:")
+        self.lineSegment1GraphicsItemGroupBox = \
+            QGroupBox("LineSegment1GraphicsItem settings:")
 
-        # lineSegmentGraphicsItemBarWidth (float).
-        self.lineSegmentGraphicsItemBarWidthLabel = \
-            QLabel("LineSegmentGraphicsItem bar width: ")
-        self.lineSegmentGraphicsItemBarWidthSpinBox = QDoubleSpinBox()
-        self.lineSegmentGraphicsItemBarWidthSpinBox.setDecimals(4)
-        self.lineSegmentGraphicsItemBarWidthSpinBox.setMinimum(0.0)
-        self.lineSegmentGraphicsItemBarWidthSpinBox.setMaximum(1000.0)
-        self.lineSegmentGraphicsItemBarWidthResetButton = \
+        # lineSegment1GraphicsItemBarWidth (float).
+        self.lineSegment1GraphicsItemBarWidthLabel = \
+            QLabel("LineSegment1GraphicsItem bar width: ")
+        self.lineSegment1GraphicsItemBarWidthSpinBox = QDoubleSpinBox()
+        self.lineSegment1GraphicsItemBarWidthSpinBox.setDecimals(4)
+        self.lineSegment1GraphicsItemBarWidthSpinBox.setMinimum(0.0)
+        self.lineSegment1GraphicsItemBarWidthSpinBox.setMaximum(1000.0)
+        self.lineSegment1GraphicsItemBarWidthResetButton = \
             QPushButton("Reset to default")
                                              
-        # lineSegmentGraphicsItemTextXScaling (float).
-        self.lineSegmentGraphicsItemTextXScalingLabel = \
-            QLabel("LineSegmentGraphicsItem text X scaling: ")
-        self.lineSegmentGraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
-        self.lineSegmentGraphicsItemTextXScalingSpinBox.setDecimals(4)
-        self.lineSegmentGraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
-        self.lineSegmentGraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
-        self.lineSegmentGraphicsItemTextXScalingResetButton = \
+        # lineSegment1GraphicsItemTextXScaling (float).
+        self.lineSegment1GraphicsItemTextXScalingLabel = \
+            QLabel("LineSegment1GraphicsItem text X scaling: ")
+        self.lineSegment1GraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.lineSegment1GraphicsItemTextXScalingSpinBox.setDecimals(4)
+        self.lineSegment1GraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.lineSegment1GraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.lineSegment1GraphicsItemTextXScalingResetButton = \
             QPushButton("Reset to default")
                                              
-        # lineSegmentGraphicsItemTextYScaling (float).
-        self.lineSegmentGraphicsItemTextYScalingLabel = \
-            QLabel("LineSegmentGraphicsItem text Y scaling: ")
-        self.lineSegmentGraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
-        self.lineSegmentGraphicsItemTextYScalingSpinBox.setDecimals(4)
-        self.lineSegmentGraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
-        self.lineSegmentGraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
-        self.lineSegmentGraphicsItemTextYScalingResetButton = \
+        # lineSegment1GraphicsItemTextYScaling (float).
+        self.lineSegment1GraphicsItemTextYScalingLabel = \
+            QLabel("LineSegment1GraphicsItem text Y scaling: ")
+        self.lineSegment1GraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.lineSegment1GraphicsItemTextYScalingSpinBox.setDecimals(4)
+        self.lineSegment1GraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.lineSegment1GraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.lineSegment1GraphicsItemTextYScalingResetButton = \
             QPushButton("Reset to default")
 
-        # lineSegmentGraphicsItemDefaultFont (QFont)
-        self.lineSegmentGraphicsItemDefaultFont = QFont()
-        self.lineSegmentGraphicsItemDefaultFont.\
+        # lineSegment1GraphicsItemDefaultFont (QFont)
+        self.lineSegment1GraphicsItemDefaultFont = QFont()
+        self.lineSegment1GraphicsItemDefaultFont.\
             fromString(PriceBarChartSettings.\
                        defaultLineSegmentGraphicsItemDefaultFontDescription)
-        self.lineSegmentGraphicsItemDefaultFontLabel = \
-            QLabel("LineSegmentGraphicsItem default font:")
-        self.lineSegmentGraphicsItemDefaultFontModifyButton = \
+        self.lineSegment1GraphicsItemDefaultFontLabel = \
+            QLabel("LineSegment1GraphicsItem default font:")
+        self.lineSegment1GraphicsItemDefaultFontModifyButton = \
             QPushButton("Modify")
-        self.lineSegmentGraphicsItemDefaultFontResetButton = \
+        self.lineSegment1GraphicsItemDefaultFontResetButton = \
             QPushButton("Reset to default")
         
-        # lineSegmentGraphicsItemTextColor (QColor)
-        self.lineSegmentGraphicsItemTextColorLabel = \
-            QLabel("LineSegmentGraphicsItem default text color:")
-        self.lineSegmentGraphicsItemTextColorEditButton = \
+        # lineSegment1GraphicsItemTextColor (QColor)
+        self.lineSegment1GraphicsItemTextColorLabel = \
+            QLabel("LineSegment1GraphicsItem default text color:")
+        self.lineSegment1GraphicsItemTextColorEditButton = \
             ColorEditPushButton()
-        self.lineSegmentGraphicsItemTextColorResetButton = \
+        self.lineSegment1GraphicsItemTextColorResetButton = \
             QPushButton("Reset to default")
         
-        # lineSegmentGraphicsItemColor (QColor)
-        self.lineSegmentGraphicsItemColorLabel = \
-            QLabel("LineSegmentGraphicsItem default color:")
-        self.lineSegmentGraphicsItemColorEditButton = \
+        # lineSegment1GraphicsItemColor (QColor)
+        self.lineSegment1GraphicsItemColorLabel = \
+            QLabel("LineSegment1GraphicsItem default color:")
+        self.lineSegment1GraphicsItemColorEditButton = \
             ColorEditPushButton()
-        self.lineSegmentGraphicsItemColorResetButton = \
+        self.lineSegment1GraphicsItemColorResetButton = \
             QPushButton("Reset to default")
         
-        # lineSegmentGraphicsItemTiltedTextFlag (bool).
-        self.lineSegmentGraphicsItemTiltedTextFlagLabel = \
-            QLabel("LineSegmentGraphicsItem tilted text:")
-        self.lineSegmentGraphicsItemTiltedTextFlagCheckBox = \
+        # lineSegment1GraphicsItemTiltedTextFlag (bool).
+        self.lineSegment1GraphicsItemTiltedTextFlagLabel = \
+            QLabel("LineSegment1GraphicsItem tilted text:")
+        self.lineSegment1GraphicsItemTiltedTextFlagCheckBox = \
             QCheckBox()
-        self.lineSegmentGraphicsItemTiltedTextFlagCheckBox.\
+        self.lineSegment1GraphicsItemTiltedTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
-        self.lineSegmentGraphicsItemTiltedTextFlagResetButton = \
+        self.lineSegment1GraphicsItemTiltedTextFlagResetButton = \
             QPushButton("Reset to default")
 
-        # lineSegmentGraphicsItemAngleTextFlag (bool).
-        self.lineSegmentGraphicsItemAngleTextFlagLabel = \
-            QLabel("LineSegmentGraphicsItem angle text:")
-        self.lineSegmentGraphicsItemAngleTextFlagCheckBox = \
+        # lineSegment1GraphicsItemAngleTextFlag (bool).
+        self.lineSegment1GraphicsItemAngleTextFlagLabel = \
+            QLabel("LineSegment1GraphicsItem angle text:")
+        self.lineSegment1GraphicsItemAngleTextFlagCheckBox = \
             QCheckBox()
-        self.lineSegmentGraphicsItemAngleTextFlagCheckBox.\
+        self.lineSegment1GraphicsItemAngleTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
-        self.lineSegmentGraphicsItemAngleTextFlagResetButton = \
+        self.lineSegment1GraphicsItemAngleTextFlagResetButton = \
             QPushButton("Reset to default")
 
         # Grid layout.
@@ -49415,109 +49459,109 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemBarWidthLabel, 
+            self.lineSegment1GraphicsItemBarWidthLabel, 
             r, 0, al)
         gridLayout.\
-            addWidget(self.lineSegmentGraphicsItemBarWidthSpinBox, 
+            addWidget(self.lineSegment1GraphicsItemBarWidthSpinBox, 
                       r, 1, ar)
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemBarWidthResetButton, 
+            self.lineSegment1GraphicsItemBarWidthResetButton, 
             r, 2, ar)
 
         r += 1
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemTextXScalingLabel, 
+            self.lineSegment1GraphicsItemTextXScalingLabel, 
             r, 0, al)
         gridLayout.\
-            addWidget(self.lineSegmentGraphicsItemTextXScalingSpinBox, 
+            addWidget(self.lineSegment1GraphicsItemTextXScalingSpinBox, 
                       r, 1, ar)
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemTextXScalingResetButton, 
+            self.lineSegment1GraphicsItemTextXScalingResetButton, 
             r, 2, ar)
 
         r += 1
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemTextYScalingLabel, 
+            self.lineSegment1GraphicsItemTextYScalingLabel, 
             r, 0, al)
         gridLayout.\
-            addWidget(self.lineSegmentGraphicsItemTextYScalingSpinBox, 
+            addWidget(self.lineSegment1GraphicsItemTextYScalingSpinBox, 
                       r, 1, ar)
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemTextYScalingResetButton, 
+            self.lineSegment1GraphicsItemTextYScalingResetButton, 
             r, 2, ar)
         
         r += 1
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemDefaultFontLabel, 
+            self.lineSegment1GraphicsItemDefaultFontLabel, 
             r, 0, al)
         gridLayout.\
-            addWidget(self.lineSegmentGraphicsItemDefaultFontModifyButton, 
+            addWidget(self.lineSegment1GraphicsItemDefaultFontModifyButton, 
                       r, 1, ar)
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemDefaultFontResetButton, 
+            self.lineSegment1GraphicsItemDefaultFontResetButton, 
             r, 2, ar)
         
         r += 1
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemTextColorLabel, 
+            self.lineSegment1GraphicsItemTextColorLabel, 
             r, 0, al)
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemTextColorEditButton, 
+            self.lineSegment1GraphicsItemTextColorEditButton, 
             r, 1, ar)
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemTextColorResetButton, 
+            self.lineSegment1GraphicsItemTextColorResetButton, 
             r, 2, ar)
 
         r += 1
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemColorLabel, 
+            self.lineSegment1GraphicsItemColorLabel, 
             r, 0, al)
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemColorEditButton, 
+            self.lineSegment1GraphicsItemColorEditButton, 
             r, 1, ar)
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemColorResetButton, 
+            self.lineSegment1GraphicsItemColorResetButton, 
             r, 2, ar)
 
         r += 1
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemTiltedTextFlagLabel, 
+            self.lineSegment1GraphicsItemTiltedTextFlagLabel, 
             r, 0, al)
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemTiltedTextFlagCheckBox, 
+            self.lineSegment1GraphicsItemTiltedTextFlagCheckBox, 
             r, 1, ar)
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemTiltedTextFlagResetButton, 
+            self.lineSegment1GraphicsItemTiltedTextFlagResetButton, 
             r, 2, ar)
 
         r += 1
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemAngleTextFlagLabel, 
+            self.lineSegment1GraphicsItemAngleTextFlagLabel, 
             r, 0, al)
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemAngleTextFlagCheckBox, 
+            self.lineSegment1GraphicsItemAngleTextFlagCheckBox, 
             r, 1, ar)
         gridLayout.\
             addWidget(\
-            self.lineSegmentGraphicsItemAngleTextFlagResetButton, 
+            self.lineSegment1GraphicsItemAngleTextFlagResetButton, 
             r, 2, ar)
 
         r += 1
@@ -49526,9 +49570,221 @@ class PriceBarChartSettingsEditWidget(QWidget):
         layout.addLayout(gridLayout)
         layout.addStretch()
         
-        self.lineSegmentGraphicsItemGroupBox.setLayout(layout)
+        self.lineSegment1GraphicsItemGroupBox.setLayout(layout)
         
-        return self.lineSegmentGraphicsItemGroupBox
+        return self.lineSegment1GraphicsItemGroupBox
+    
+    def _buildLineSegment2GraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a LineSegment2GraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.lineSegment2GraphicsItemGroupBox = \
+            QGroupBox("LineSegment2GraphicsItem settings:")
+
+        # lineSegment2GraphicsItemBarWidth (float).
+        self.lineSegment2GraphicsItemBarWidthLabel = \
+            QLabel("LineSegment2GraphicsItem bar width: ")
+        self.lineSegment2GraphicsItemBarWidthSpinBox = QDoubleSpinBox()
+        self.lineSegment2GraphicsItemBarWidthSpinBox.setDecimals(4)
+        self.lineSegment2GraphicsItemBarWidthSpinBox.setMinimum(0.0)
+        self.lineSegment2GraphicsItemBarWidthSpinBox.setMaximum(1000.0)
+        self.lineSegment2GraphicsItemBarWidthResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # lineSegment2GraphicsItemTextXScaling (float).
+        self.lineSegment2GraphicsItemTextXScalingLabel = \
+            QLabel("LineSegment2GraphicsItem text X scaling: ")
+        self.lineSegment2GraphicsItemTextXScalingSpinBox = QDoubleSpinBox()
+        self.lineSegment2GraphicsItemTextXScalingSpinBox.setDecimals(4)
+        self.lineSegment2GraphicsItemTextXScalingSpinBox.setMinimum(0.0001)
+        self.lineSegment2GraphicsItemTextXScalingSpinBox.setMaximum(1000.0)
+        self.lineSegment2GraphicsItemTextXScalingResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # lineSegment2GraphicsItemTextYScaling (float).
+        self.lineSegment2GraphicsItemTextYScalingLabel = \
+            QLabel("LineSegment2GraphicsItem text Y scaling: ")
+        self.lineSegment2GraphicsItemTextYScalingSpinBox = QDoubleSpinBox()
+        self.lineSegment2GraphicsItemTextYScalingSpinBox.setDecimals(4)
+        self.lineSegment2GraphicsItemTextYScalingSpinBox.setMinimum(0.0001)
+        self.lineSegment2GraphicsItemTextYScalingSpinBox.setMaximum(1000.0)
+        self.lineSegment2GraphicsItemTextYScalingResetButton = \
+            QPushButton("Reset to default")
+
+        # lineSegment2GraphicsItemDefaultFont (QFont)
+        self.lineSegment2GraphicsItemDefaultFont = QFont()
+        self.lineSegment2GraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultLineSegmentGraphicsItemDefaultFontDescription)
+        self.lineSegment2GraphicsItemDefaultFontLabel = \
+            QLabel("LineSegment2GraphicsItem default font:")
+        self.lineSegment2GraphicsItemDefaultFontModifyButton = \
+            QPushButton("Modify")
+        self.lineSegment2GraphicsItemDefaultFontResetButton = \
+            QPushButton("Reset to default")
+        
+        # lineSegment2GraphicsItemTextColor (QColor)
+        self.lineSegment2GraphicsItemTextColorLabel = \
+            QLabel("LineSegment2GraphicsItem default text color:")
+        self.lineSegment2GraphicsItemTextColorEditButton = \
+            ColorEditPushButton()
+        self.lineSegment2GraphicsItemTextColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # lineSegment2GraphicsItemColor (QColor)
+        self.lineSegment2GraphicsItemColorLabel = \
+            QLabel("LineSegment2GraphicsItem default color:")
+        self.lineSegment2GraphicsItemColorEditButton = \
+            ColorEditPushButton()
+        self.lineSegment2GraphicsItemColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # lineSegment2GraphicsItemTiltedTextFlag (bool).
+        self.lineSegment2GraphicsItemTiltedTextFlagLabel = \
+            QLabel("LineSegment2GraphicsItem tilted text:")
+        self.lineSegment2GraphicsItemTiltedTextFlagCheckBox = \
+            QCheckBox()
+        self.lineSegment2GraphicsItemTiltedTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.lineSegment2GraphicsItemTiltedTextFlagResetButton = \
+            QPushButton("Reset to default")
+
+        # lineSegment2GraphicsItemAngleTextFlag (bool).
+        self.lineSegment2GraphicsItemAngleTextFlagLabel = \
+            QLabel("LineSegment2GraphicsItem angle text:")
+        self.lineSegment2GraphicsItemAngleTextFlagCheckBox = \
+            QCheckBox()
+        self.lineSegment2GraphicsItemAngleTextFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+        self.lineSegment2GraphicsItemAngleTextFlagResetButton = \
+            QPushButton("Reset to default")
+
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemBarWidthLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.lineSegment2GraphicsItemBarWidthSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemBarWidthResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemTextXScalingLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.lineSegment2GraphicsItemTextXScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemTextXScalingResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemTextYScalingLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.lineSegment2GraphicsItemTextYScalingSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemTextYScalingResetButton, 
+            r, 2, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemDefaultFontLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.lineSegment2GraphicsItemDefaultFontModifyButton, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemDefaultFontResetButton, 
+            r, 2, ar)
+        
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemTextColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemTextColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemTextColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemTiltedTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemTiltedTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemTiltedTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemAngleTextFlagLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemAngleTextFlagCheckBox, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.lineSegment2GraphicsItemAngleTextFlagResetButton, 
+            r, 2, ar)
+
+        r += 1
+        
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.lineSegment2GraphicsItemGroupBox.setLayout(layout)
+        
+        return self.lineSegment2GraphicsItemGroupBox
     
     def _buildOctaveFanGraphicsItemGroupBox(self):
         """Builds the groupbox containing info to edit the
@@ -54266,55 +54522,106 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceTimeVectorGraphicsItemAngleTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
-        # lineSegmentGraphicsItemBarWidth (float).
-        self.lineSegmentGraphicsItemBarWidthSpinBox.\
+        # lineSegment1GraphicsItemBarWidth (float).
+        self.lineSegment1GraphicsItemBarWidthSpinBox.\
             setValue(self.priceBarChartSettings.\
-                        lineSegmentGraphicsItemBarWidth)
+                        lineSegment1GraphicsItemBarWidth)
 
-        # lineSegmentGraphicsItemTextXScaling (float).
-        self.lineSegmentGraphicsItemTextXScalingSpinBox.\
+        # lineSegment1GraphicsItemTextXScaling (float).
+        self.lineSegment1GraphicsItemTextXScalingSpinBox.\
             setValue(self.priceBarChartSettings.\
-                        lineSegmentGraphicsItemTextXScaling)
+                        lineSegment1GraphicsItemTextXScaling)
 
-        # lineSegmentGraphicsItemTextYScaling (float).
-        self.lineSegmentGraphicsItemTextYScalingSpinBox.\
+        # lineSegment1GraphicsItemTextYScaling (float).
+        self.lineSegment1GraphicsItemTextYScalingSpinBox.\
             setValue(self.priceBarChartSettings.\
-                        lineSegmentGraphicsItemTextYScaling)
+                        lineSegment1GraphicsItemTextYScaling)
 
-        # lineSegmentGraphicsItemDefaultFontDescription (str)
-        self.lineSegmentGraphicsItemDefaultFont = QFont()
-        self.lineSegmentGraphicsItemDefaultFont.\
+        # lineSegment1GraphicsItemDefaultFontDescription (str)
+        self.lineSegment1GraphicsItemDefaultFont = QFont()
+        self.lineSegment1GraphicsItemDefaultFont.\
             fromString(self.priceBarChartSettings.\
-                       lineSegmentGraphicsItemDefaultFontDescription)
+                       lineSegment1GraphicsItemDefaultFontDescription)
 
-        # lineSegmentGraphicsItemTextColor (QColor).
-        self.lineSegmentGraphicsItemTextColorEditButton.\
+        # lineSegment1GraphicsItemTextColor (QColor).
+        self.lineSegment1GraphicsItemTextColorEditButton.\
             setColor(self.priceBarChartSettings.\
-                     lineSegmentGraphicsItemTextColor)
+                     lineSegment1GraphicsItemTextColor)
 
-        # lineSegmentGraphicsItemColor (QColor).
-        self.lineSegmentGraphicsItemColorEditButton.\
+        # lineSegment1GraphicsItemColor (QColor).
+        self.lineSegment1GraphicsItemColorEditButton.\
             setColor(self.priceBarChartSettings.\
-                     lineSegmentGraphicsItemColor)
+                     lineSegment1GraphicsItemColor)
 
-        # lineSegmentGraphicsItemTiltedTextFlag (bool).
+        # lineSegment1GraphicsItemTiltedTextFlag (bool).
         if self.priceBarChartSettings.\
-           lineSegmentGraphicsItemTiltedTextFlag == True:
+           lineSegment1GraphicsItemTiltedTextFlag == True:
             
-            self.lineSegmentGraphicsItemTiltedTextFlagCheckBox.\
+            self.lineSegment1GraphicsItemTiltedTextFlagCheckBox.\
                 setCheckState(Qt.Checked)
         else:
-            self.lineSegmentGraphicsItemTiltedTextFlagCheckBox.\
+            self.lineSegment1GraphicsItemTiltedTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
-        # lineSegmentGraphicsItemAngleTextFlag (bool).
+        # lineSegment1GraphicsItemAngleTextFlag (bool).
         if self.priceBarChartSettings.\
-           lineSegmentGraphicsItemAngleTextFlag == True:
+           lineSegment1GraphicsItemAngleTextFlag == True:
             
-            self.lineSegmentGraphicsItemAngleTextFlagCheckBox.\
+            self.lineSegment1GraphicsItemAngleTextFlagCheckBox.\
                 setCheckState(Qt.Checked)
         else:
-            self.lineSegmentGraphicsItemAngleTextFlagCheckBox.\
+            self.lineSegment1GraphicsItemAngleTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # lineSegment2GraphicsItemBarWidth (float).
+        self.lineSegment2GraphicsItemBarWidthSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        lineSegment2GraphicsItemBarWidth)
+
+        # lineSegment2GraphicsItemTextXScaling (float).
+        self.lineSegment2GraphicsItemTextXScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        lineSegment2GraphicsItemTextXScaling)
+
+        # lineSegment2GraphicsItemTextYScaling (float).
+        self.lineSegment2GraphicsItemTextYScalingSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        lineSegment2GraphicsItemTextYScaling)
+
+        # lineSegment2GraphicsItemDefaultFontDescription (str)
+        self.lineSegment2GraphicsItemDefaultFont = QFont()
+        self.lineSegment2GraphicsItemDefaultFont.\
+            fromString(self.priceBarChartSettings.\
+                       lineSegment2GraphicsItemDefaultFontDescription)
+
+        # lineSegment2GraphicsItemTextColor (QColor).
+        self.lineSegment2GraphicsItemTextColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     lineSegment2GraphicsItemTextColor)
+
+        # lineSegment2GraphicsItemColor (QColor).
+        self.lineSegment2GraphicsItemColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     lineSegment2GraphicsItemColor)
+
+        # lineSegment2GraphicsItemTiltedTextFlag (bool).
+        if self.priceBarChartSettings.\
+           lineSegment2GraphicsItemTiltedTextFlag == True:
+            
+            self.lineSegment2GraphicsItemTiltedTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.lineSegment2GraphicsItemTiltedTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # lineSegment2GraphicsItemAngleTextFlag (bool).
+        if self.priceBarChartSettings.\
+           lineSegment2GraphicsItemAngleTextFlag == True:
+            
+            self.lineSegment2GraphicsItemAngleTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.lineSegment2GraphicsItemAngleTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
         # octaveFanGraphicsItemBarHeight (float).
@@ -56902,54 +57209,103 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 priceTimeVectorGraphicsItemAngleTextFlag = False
 
-        # lineSegmentGraphicsItemBarWidth (float).
-        self.priceBarChartSettings.lineSegmentGraphicsItemBarWidth = \
-            float(self.lineSegmentGraphicsItemBarWidthSpinBox.value())
+        # lineSegment1GraphicsItemBarWidth (float).
+        self.priceBarChartSettings.lineSegment1GraphicsItemBarWidth = \
+            float(self.lineSegment1GraphicsItemBarWidthSpinBox.value())
 
-        # lineSegmentGraphicsItemTextXScaling (float).
-        self.priceBarChartSettings.lineSegmentGraphicsItemTextXScaling = \
-            float(self.lineSegmentGraphicsItemTextXScalingSpinBox.value())
+        # lineSegment1GraphicsItemTextXScaling (float).
+        self.priceBarChartSettings.lineSegment1GraphicsItemTextXScaling = \
+            float(self.lineSegment1GraphicsItemTextXScalingSpinBox.value())
 
-        # lineSegmentGraphicsItemTextYScaling (float).
-        self.priceBarChartSettings.lineSegmentGraphicsItemTextYScaling = \
-            float(self.lineSegmentGraphicsItemTextYScalingSpinBox.value())
+        # lineSegment1GraphicsItemTextYScaling (float).
+        self.priceBarChartSettings.lineSegment1GraphicsItemTextYScaling = \
+            float(self.lineSegment1GraphicsItemTextYScalingSpinBox.value())
 
-        # lineSegmentGraphicsItemDefaultFontDescription (str)
+        # lineSegment1GraphicsItemDefaultFontDescription (str)
         self.priceBarChartSettings.\
-            lineSegmentGraphicsItemDefaultFontDescription = \
-            self.lineSegmentGraphicsItemDefaultFont.toString()
+            lineSegment1GraphicsItemDefaultFontDescription = \
+            self.lineSegment1GraphicsItemDefaultFont.toString()
 
-        # lineSegmentGraphicsItemTextColor (QColor).
+        # lineSegment1GraphicsItemTextColor (QColor).
         self.priceBarChartSettings.\
-            lineSegmentGraphicsItemTextColor = \
-            self.lineSegmentGraphicsItemTextColorEditButton.\
+            lineSegment1GraphicsItemTextColor = \
+            self.lineSegment1GraphicsItemTextColorEditButton.\
             getColor()
 
-        # lineSegmentGraphicsItemColor (QColor).
+        # lineSegment1GraphicsItemColor (QColor).
         self.priceBarChartSettings.\
-            lineSegmentGraphicsItemColor = \
-            self.lineSegmentGraphicsItemColorEditButton.\
+            lineSegment1GraphicsItemColor = \
+            self.lineSegment1GraphicsItemColorEditButton.\
             getColor()
 
-        # lineSegmentGraphicsItemTiltedTextFlag (bool).
-        if self.lineSegmentGraphicsItemTiltedTextFlagCheckBox.\
+        # lineSegment1GraphicsItemTiltedTextFlag (bool).
+        if self.lineSegment1GraphicsItemTiltedTextFlagCheckBox.\
            checkState() == Qt.Checked:
 
             self.priceBarChartSettings.\
-                lineSegmentGraphicsItemTiltedTextFlag = True
+                lineSegment1GraphicsItemTiltedTextFlag = True
         else:
             self.priceBarChartSettings.\
-                lineSegmentGraphicsItemTiltedTextFlag = False
+                lineSegment1GraphicsItemTiltedTextFlag = False
 
-        # lineSegmentGraphicsItemAngleTextFlag (bool).
-        if self.lineSegmentGraphicsItemAngleTextFlagCheckBox.\
+        # lineSegment1GraphicsItemAngleTextFlag (bool).
+        if self.lineSegment1GraphicsItemAngleTextFlagCheckBox.\
            checkState() == Qt.Checked:
 
             self.priceBarChartSettings.\
-                lineSegmentGraphicsItemAngleTextFlag = True
+                lineSegment1GraphicsItemAngleTextFlag = True
         else:
             self.priceBarChartSettings.\
-                lineSegmentGraphicsItemAngleTextFlag = False
+                lineSegment1GraphicsItemAngleTextFlag = False
+
+        # lineSegment2GraphicsItemBarWidth (float).
+        self.priceBarChartSettings.lineSegment2GraphicsItemBarWidth = \
+            float(self.lineSegment2GraphicsItemBarWidthSpinBox.value())
+
+        # lineSegment2GraphicsItemTextXScaling (float).
+        self.priceBarChartSettings.lineSegment2GraphicsItemTextXScaling = \
+            float(self.lineSegment2GraphicsItemTextXScalingSpinBox.value())
+
+        # lineSegment2GraphicsItemTextYScaling (float).
+        self.priceBarChartSettings.lineSegment2GraphicsItemTextYScaling = \
+            float(self.lineSegment2GraphicsItemTextYScalingSpinBox.value())
+
+        # lineSegment2GraphicsItemDefaultFontDescription (str)
+        self.priceBarChartSettings.\
+            lineSegment2GraphicsItemDefaultFontDescription = \
+            self.lineSegment2GraphicsItemDefaultFont.toString()
+
+        # lineSegment2GraphicsItemTextColor (QColor).
+        self.priceBarChartSettings.\
+            lineSegment2GraphicsItemTextColor = \
+            self.lineSegment2GraphicsItemTextColorEditButton.\
+            getColor()
+
+        # lineSegment2GraphicsItemColor (QColor).
+        self.priceBarChartSettings.\
+            lineSegment2GraphicsItemColor = \
+            self.lineSegment2GraphicsItemColorEditButton.\
+            getColor()
+
+        # lineSegment2GraphicsItemTiltedTextFlag (bool).
+        if self.lineSegment2GraphicsItemTiltedTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                lineSegment2GraphicsItemTiltedTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                lineSegment2GraphicsItemTiltedTextFlag = False
+
+        # lineSegment2GraphicsItemAngleTextFlag (bool).
+        if self.lineSegment2GraphicsItemAngleTextFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                lineSegment2GraphicsItemAngleTextFlag = True
+        else:
+            self.priceBarChartSettings.\
+                lineSegment2GraphicsItemAngleTextFlag = False
 
         # octaveFanGraphicsItemBarHeight (float).
         self.priceBarChartSettings.octaveFanGraphicsItemBarHeight = \
@@ -57543,20 +57899,35 @@ class PriceBarChartSettingsEditWidget(QWidget):
             # Store the font in the member variable (not in the artifact).
             self.priceTimeVectorGraphicsItemDefaultFont = dialog.selectedFont()
         
-    def _handleLineSegmentGraphicsItemDefaultFontModifyButtonClicked(self):
+    def _handleLineSegment1GraphicsItemDefaultFontModifyButtonClicked(self):
         """Called when the
-        self.lineSegmentGraphicsItemDefaultFontModifyButton button is
+        self.lineSegment1GraphicsItemDefaultFontModifyButton button is
         clicked.  Brings up a dialog for editing the font, and saves
         it if the dialog is accepted.
         """
 
-        dialog = QFontDialog(self.lineSegmentGraphicsItemDefaultFont)
+        dialog = QFontDialog(self.lineSegment1GraphicsItemDefaultFont)
 
         rv = dialog.exec_()
 
         if rv == QDialog.Accepted:
             # Store the font in the member variable (not in the artifact).
-            self.lineSegmentGraphicsItemDefaultFont = dialog.selectedFont()
+            self.lineSegment1GraphicsItemDefaultFont = dialog.selectedFont()
+        
+    def _handleLineSegment2GraphicsItemDefaultFontModifyButtonClicked(self):
+        """Called when the
+        self.lineSegment2GraphicsItemDefaultFontModifyButton button is
+        clicked.  Brings up a dialog for editing the font, and saves
+        it if the dialog is accepted.
+        """
+
+        dialog = QFontDialog(self.lineSegment2GraphicsItemDefaultFont)
+
+        rv = dialog.exec_()
+
+        if rv == QDialog.Accepted:
+            # Store the font in the member variable (not in the artifact).
+            self.lineSegment2GraphicsItemDefaultFont = dialog.selectedFont()
         
     def _handleFibFanGraphicsItemDefaultFontModifyButtonClicked(self):
         """Called when the
@@ -59280,8 +59651,8 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceTimeVectorGraphicsItemAngleTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
             
-    def _handleLineSegmentGraphicsItemBarWidthResetButtonClicked(self):
-        """Called when the lineSegmentGraphicsItemBarWidthResetButton
+    def _handleLineSegment1GraphicsItemBarWidthResetButtonClicked(self):
+        """Called when the lineSegment1GraphicsItemBarWidthResetButton
         is clicked.  Resets the widget value to the default value.
         """
 
@@ -59289,10 +59660,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
             PriceBarChartSettings.\
                 defaultLineSegmentGraphicsItemBarWidth
 
-        self.lineSegmentGraphicsItemBarWidthSpinBox.setValue(value)
+        self.lineSegment1GraphicsItemBarWidthSpinBox.setValue(value)
 
-    def _handleLineSegmentGraphicsItemTextXScalingResetButtonClicked(self):
-        """Called when the lineSegmentGraphicsItemTextXScalingResetButton
+    def _handleLineSegment1GraphicsItemTextXScalingResetButtonClicked(self):
+        """Called when the lineSegment1GraphicsItemTextXScalingResetButton
         is clicked.  Resets the widget value to the default value.
         """
 
@@ -59300,10 +59671,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
             PriceBarChartSettings.\
                 defaultLineSegmentGraphicsItemTextXScaling
 
-        self.lineSegmentGraphicsItemTextXScalingSpinBox.setValue(value)
+        self.lineSegment1GraphicsItemTextXScalingSpinBox.setValue(value)
 
-    def _handleLineSegmentGraphicsItemTextYScalingResetButtonClicked(self):
-        """Called when the lineSegmentGraphicsItemTextYScalingResetButton
+    def _handleLineSegment1GraphicsItemTextYScalingResetButtonClicked(self):
+        """Called when the lineSegment1GraphicsItemTextYScalingResetButton
         is clicked.  Resets the widget value to the default value.
         """
 
@@ -59311,22 +59682,22 @@ class PriceBarChartSettingsEditWidget(QWidget):
             PriceBarChartSettings.\
                 defaultLineSegmentGraphicsItemTextYScaling
 
-        self.lineSegmentGraphicsItemTextYScalingSpinBox.setValue(value)
+        self.lineSegment1GraphicsItemTextYScalingSpinBox.setValue(value)
 
-    def _handleLineSegmentGraphicsItemDefaultFontResetButtonClicked(self):
+    def _handleLineSegment1GraphicsItemDefaultFontResetButtonClicked(self):
         """Called when the
-        lineSegmentGraphicsItemDefaultFontResetButton is clicked.
+        lineSegment1GraphicsItemDefaultFontResetButton is clicked.
         Resets the internal value to the default value.
         """
 
-        self.lineSegmentGraphicsItemDefaultFont = QFont()
-        self.lineSegmentGraphicsItemDefaultFont.\
+        self.lineSegment1GraphicsItemDefaultFont = QFont()
+        self.lineSegment1GraphicsItemDefaultFont.\
             fromString(PriceBarChartSettings.\
                        defaultLineSegmentGraphicsItemDefaultFontDescription)
         
-    def _handleLineSegmentGraphicsItemTextColorResetButtonClicked(self):
+    def _handleLineSegment1GraphicsItemTextColorResetButtonClicked(self):
         """Called when the
-        lineSegmentGraphicsItemTextColorResetButton is clicked.
+        lineSegment1GraphicsItemTextColorResetButton is clicked.
         Resets the internal value to the default value.
         """
 
@@ -59334,12 +59705,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
               PriceBarChartSettings.\
               defaultLineSegmentGraphicsItemTextColor
 
-        self.lineSegmentGraphicsItemTextColorEditButton.\
+        self.lineSegment1GraphicsItemTextColorEditButton.\
             setColor(value)
 
-    def _handleLineSegmentGraphicsItemColorResetButtonClicked(self):
+    def _handleLineSegment1GraphicsItemColorResetButtonClicked(self):
         """Called when the
-        lineSegmentGraphicsItemColorResetButton is clicked.
+        lineSegment1GraphicsItemColorResetButton is clicked.
         Resets the internal value to the default value.
         """
 
@@ -59347,12 +59718,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
               PriceBarChartSettings.\
               defaultLineSegmentGraphicsItemColor
 
-        self.lineSegmentGraphicsItemColorEditButton.\
+        self.lineSegment1GraphicsItemColorEditButton.\
             setColor(value)
 
-    def _handleLineSegmentGraphicsItemTiltedTextFlagResetButton(self):
+    def _handleLineSegment1GraphicsItemTiltedTextFlagResetButton(self):
         """Called when the
-        lineSegmentGraphicsItemTiltedTextFlagResetButton
+        lineSegment1GraphicsItemTiltedTextFlagResetButton
         is clicked.  Resets the internal value to the default value.
         """
 
@@ -59361,15 +59732,15 @@ class PriceBarChartSettingsEditWidget(QWidget):
               defaultLineSegmentGraphicsItemTiltedTextFlag
 
         if value == True:
-            self.lineSegmentGraphicsItemTiltedTextFlagCheckBox.\
+            self.lineSegment1GraphicsItemTiltedTextFlagCheckBox.\
                 setCheckState(Qt.Checked)
         else:
-            self.lineSegmentGraphicsItemTiltedTextFlagCheckBox.\
+            self.lineSegment1GraphicsItemTiltedTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
             
-    def _handleLineSegmentGraphicsItemAngleTextFlagResetButton(self):
+    def _handleLineSegment1GraphicsItemAngleTextFlagResetButton(self):
         """Called when the
-        lineSegmentGraphicsItemAngleTextFlagResetButton
+        lineSegment1GraphicsItemAngleTextFlagResetButton
         is clicked.  Resets the internal value to the default value.
         """
 
@@ -59378,10 +59749,114 @@ class PriceBarChartSettingsEditWidget(QWidget):
               defaultLineSegmentGraphicsItemAngleTextFlag
 
         if value == True:
-            self.lineSegmentGraphicsItemAngleTextFlagCheckBox.\
+            self.lineSegment1GraphicsItemAngleTextFlagCheckBox.\
                 setCheckState(Qt.Checked)
         else:
-            self.lineSegmentGraphicsItemAngleTextFlagCheckBox.\
+            self.lineSegment1GraphicsItemAngleTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handleLineSegment2GraphicsItemBarWidthResetButtonClicked(self):
+        """Called when the lineSegment2GraphicsItemBarWidthResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultLineSegmentGraphicsItemBarWidth
+
+        self.lineSegment2GraphicsItemBarWidthSpinBox.setValue(value)
+
+    def _handleLineSegment2GraphicsItemTextXScalingResetButtonClicked(self):
+        """Called when the lineSegment2GraphicsItemTextXScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultLineSegmentGraphicsItemTextXScaling
+
+        self.lineSegment2GraphicsItemTextXScalingSpinBox.setValue(value)
+
+    def _handleLineSegment2GraphicsItemTextYScalingResetButtonClicked(self):
+        """Called when the lineSegment2GraphicsItemTextYScalingResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+                defaultLineSegmentGraphicsItemTextYScaling
+
+        self.lineSegment2GraphicsItemTextYScalingSpinBox.setValue(value)
+
+    def _handleLineSegment2GraphicsItemDefaultFontResetButtonClicked(self):
+        """Called when the
+        lineSegment2GraphicsItemDefaultFontResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        self.lineSegment2GraphicsItemDefaultFont = QFont()
+        self.lineSegment2GraphicsItemDefaultFont.\
+            fromString(PriceBarChartSettings.\
+                       defaultLineSegmentGraphicsItemDefaultFontDescription)
+        
+    def _handleLineSegment2GraphicsItemTextColorResetButtonClicked(self):
+        """Called when the
+        lineSegment2GraphicsItemTextColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultLineSegmentGraphicsItemTextColor
+
+        self.lineSegment2GraphicsItemTextColorEditButton.\
+            setColor(value)
+
+    def _handleLineSegment2GraphicsItemColorResetButtonClicked(self):
+        """Called when the
+        lineSegment2GraphicsItemColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultLineSegmentGraphicsItemColor
+
+        self.lineSegment2GraphicsItemColorEditButton.\
+            setColor(value)
+
+    def _handleLineSegment2GraphicsItemTiltedTextFlagResetButton(self):
+        """Called when the
+        lineSegment2GraphicsItemTiltedTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultLineSegmentGraphicsItemTiltedTextFlag
+
+        if value == True:
+            self.lineSegment2GraphicsItemTiltedTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.lineSegment2GraphicsItemTiltedTextFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+            
+    def _handleLineSegment2GraphicsItemAngleTextFlagResetButton(self):
+        """Called when the
+        lineSegment2GraphicsItemAngleTextFlagResetButton
+        is clicked.  Resets the internal value to the default value.
+        """
+
+        value = \
+              PriceBarChartSettings.\
+              defaultLineSegmentGraphicsItemAngleTextFlag
+
+        if value == True:
+            self.lineSegment2GraphicsItemAngleTextFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.lineSegment2GraphicsItemAngleTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
             
     def _octaveFanGraphicsItemReloadMusicalRatiosGrid(self,
@@ -62584,14 +63059,23 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handlePriceTimeVectorGraphicsItemTiltedTextFlagResetButton()
         self._handlePriceTimeVectorGraphicsItemAngleTextFlagResetButton()
 
-        self._handleLineSegmentGraphicsItemBarWidthResetButtonClicked()
-        self._handleLineSegmentGraphicsItemTextXScalingResetButtonClicked()
-        self._handleLineSegmentGraphicsItemTextYScalingResetButtonClicked()
-        self._handleLineSegmentGraphicsItemDefaultFontResetButtonClicked()
-        self._handleLineSegmentGraphicsItemTextColorResetButtonClicked()
-        self._handleLineSegmentGraphicsItemColorResetButtonClicked()
-        self._handleLineSegmentGraphicsItemTiltedTextFlagResetButton()
-        self._handleLineSegmentGraphicsItemAngleTextFlagResetButton()
+        self._handleLineSegment1GraphicsItemBarWidthResetButtonClicked()
+        self._handleLineSegment1GraphicsItemTextXScalingResetButtonClicked()
+        self._handleLineSegment1GraphicsItemTextYScalingResetButtonClicked()
+        self._handleLineSegment1GraphicsItemDefaultFontResetButtonClicked()
+        self._handleLineSegment1GraphicsItemTextColorResetButtonClicked()
+        self._handleLineSegment1GraphicsItemColorResetButtonClicked()
+        self._handleLineSegment1GraphicsItemTiltedTextFlagResetButton()
+        self._handleLineSegment1GraphicsItemAngleTextFlagResetButton()
+
+        self._handleLineSegment2GraphicsItemBarWidthResetButtonClicked()
+        self._handleLineSegment2GraphicsItemTextXScalingResetButtonClicked()
+        self._handleLineSegment2GraphicsItemTextYScalingResetButtonClicked()
+        self._handleLineSegment2GraphicsItemDefaultFontResetButtonClicked()
+        self._handleLineSegment2GraphicsItemTextColorResetButtonClicked()
+        self._handleLineSegment2GraphicsItemColorResetButtonClicked()
+        self._handleLineSegment2GraphicsItemTiltedTextFlagResetButton()
+        self._handleLineSegment2GraphicsItemAngleTextFlagResetButton()
 
         self._handleOctaveFanGraphicsItemBarHeightResetButtonClicked()
         self._handleOctaveFanGraphicsItemColorResetButtonClicked()

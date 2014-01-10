@@ -16169,55 +16169,114 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
                                  self.lineSegmentTextYScaling)
         textItem.setTransform(self.textTransform)
 
-        
-    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings,
+                                              lineSegmentNumberType=1):
         """Reads some of the parameters/settings of this
         PriceBarGraphicsItem from the given PriceBarChartSettings object.
+
+        Parameters:
+        
+        priceBarChartSettings - PriceBarChartSettings object from which
+                                to pull settings information from.
+        
+        lineSegmentNumberType - int value that is either 1 or 2,
+                                depending on the tool mode being used
+                                to create the LineSegmentGraphicsItem.
         """
 
         self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
         
-        # Width of the horizontal bar drawn.
-        self.lineSegmentGraphicsItemBarWidth = \
-            priceBarChartSettings.\
-                lineSegmentGraphicsItemBarWidth 
- 
-        # X scaling of the text.
-        self.lineSegmentTextXScaling = \
-            priceBarChartSettings.\
-                lineSegmentGraphicsItemTextXScaling 
-
-        # Y scaling of the text.
-        self.lineSegmentTextYScaling = \
-            priceBarChartSettings.\
-                lineSegmentGraphicsItemTextYScaling 
-
-        # Font.
-        self.lineSegmentTextFont = QFont()
-        self.lineSegmentTextFont.fromString(\
-            priceBarChartSettings.\
-            lineSegmentGraphicsItemDefaultFontDescription)
-        
-        # Color of the text that is associated with the graphicsitem.
-        self.lineSegmentGraphicsItemTextColor = \
-            priceBarChartSettings.\
-            lineSegmentGraphicsItemTextColor
-
-        # Color of the item.
-        self.lineSegmentGraphicsItemColor = \
-            priceBarChartSettings.\
-            lineSegmentGraphicsItemColor
-
-        # LineSegmentGraphicsItem tiltedTextFlag (bool).
-        self.tiltedTextFlag = \
-            priceBarChartSettings.\
-            lineSegmentGraphicsItemTiltedTextFlag
-
-        # LineSegmentGraphicsItem angleTextFlag (bool).
-        self.angleTextFlag = \
-            priceBarChartSettings.\
-            lineSegmentGraphicsItemAngleTextFlag
-
+        if lineSegmentNumberType == 1:
+            
+            # Width of the horizontal bar drawn.
+            self.lineSegmentGraphicsItemBarWidth = \
+                priceBarChartSettings.\
+                    lineSegment1GraphicsItemBarWidth 
+     
+            # X scaling of the text.
+            self.lineSegmentTextXScaling = \
+                priceBarChartSettings.\
+                    lineSegment1GraphicsItemTextXScaling 
+    
+            # Y scaling of the text.
+            self.lineSegmentTextYScaling = \
+                priceBarChartSettings.\
+                    lineSegment1GraphicsItemTextYScaling 
+    
+            # Font.
+            self.lineSegmentTextFont = QFont()
+            self.lineSegmentTextFont.fromString(\
+                priceBarChartSettings.\
+                lineSegment1GraphicsItemDefaultFontDescription)
+            
+            # Color of the text that is associated with the graphicsitem.
+            self.lineSegmentGraphicsItemTextColor = \
+                priceBarChartSettings.\
+                lineSegment1GraphicsItemTextColor
+    
+            # Color of the item.
+            self.lineSegmentGraphicsItemColor = \
+                priceBarChartSettings.\
+                lineSegment1GraphicsItemColor
+    
+            # LineSegmentGraphicsItem tiltedTextFlag (bool).
+            self.tiltedTextFlag = \
+                priceBarChartSettings.\
+                lineSegment1GraphicsItemTiltedTextFlag
+    
+            # LineSegmentGraphicsItem angleTextFlag (bool).
+            self.angleTextFlag = \
+                priceBarChartSettings.\
+                lineSegment1GraphicsItemAngleTextFlag
+    
+        elif lineSegmentNumberType == 2:
+            
+            # Width of the horizontal bar drawn.
+            self.lineSegmentGraphicsItemBarWidth = \
+                priceBarChartSettings.\
+                    lineSegment2GraphicsItemBarWidth 
+     
+            # X scaling of the text.
+            self.lineSegmentTextXScaling = \
+                priceBarChartSettings.\
+                    lineSegment2GraphicsItemTextXScaling 
+    
+            # Y scaling of the text.
+            self.lineSegmentTextYScaling = \
+                priceBarChartSettings.\
+                    lineSegment2GraphicsItemTextYScaling 
+    
+            # Font.
+            self.lineSegmentTextFont = QFont()
+            self.lineSegmentTextFont.fromString(\
+                priceBarChartSettings.\
+                lineSegment2GraphicsItemDefaultFontDescription)
+            
+            # Color of the text that is associated with the graphicsitem.
+            self.lineSegmentGraphicsItemTextColor = \
+                priceBarChartSettings.\
+                lineSegment2GraphicsItemTextColor
+    
+            # Color of the item.
+            self.lineSegmentGraphicsItemColor = \
+                priceBarChartSettings.\
+                lineSegment2GraphicsItemColor
+    
+            # LineSegmentGraphicsItem tiltedTextFlag (bool).
+            self.tiltedTextFlag = \
+                priceBarChartSettings.\
+                lineSegment2GraphicsItemTiltedTextFlag
+    
+            # LineSegmentGraphicsItem angleTextFlag (bool).
+            self.angleTextFlag = \
+                priceBarChartSettings.\
+                lineSegment2GraphicsItemAngleTextFlag
+    
+        else:
+            
+            self.log.error("Unknown or invalid lineSegmentNumberType.  " + \
+                           "No PriceBarChartSettings were loaded.")
+            
         ####################################################################
 
         # Set the new color of the pen for drawing the bar.
@@ -38350,7 +38409,7 @@ class PriceBarChartWidget(QWidget):
                 "TimeRetracementTool"      : 12,
                 "PriceRetracementTool"     : 13,
                 "PriceTimeVectorTool"      : 14,
-                "LineSegmentTool"          : 15,
+                "LineSegment1Tool"         : 15,
                 "OctaveFanTool"            : 16,
                 "FibFanTool"               : 17,
                 "GannFanTool"              : 18,
@@ -38365,7 +38424,9 @@ class PriceBarChartWidget(QWidget):
                 "ShodasottariDasaTool"     : 27,
                 "PanchottariDasaTool"      : 28,
                 "ShashtihayaniDasaTool"    : 29,
-                "PlanetLongitudeMovementMeasurementTool"    : 30 }
+                "PlanetLongitudeMovementMeasurementTool"    : 30,
+                "LineSegment2Tool"         : 31
+                }
 
 
     def __init__(self, parent=None):
@@ -39023,13 +39084,13 @@ class PriceBarChartWidget(QWidget):
                 newItem.loadSettingsFromPriceBarChartSettings(\
                     self.priceBarChartSettings)
                 newItem.setArtifact(artifact)
-
+                
                 # Add the item.
                 self.graphicsScene.addItem(newItem)
                 
                 # Make sure the proper flags are set for the mode we're in.
                 self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
-
+                
                 # Need to refresh the item (recalculate) since it
                 # wasn't in the QGraphicsScene until now.
                 newItem.refreshItem()
@@ -39797,19 +39858,33 @@ class PriceBarChartWidget(QWidget):
 
         self.log.debug("Exiting toPriceTimeVectorToolMode()")
 
-    def toLineSegmentToolMode(self):
-        """Changes the tool mode to be the LineSegmentTool."""
+    def toLineSegment1ToolMode(self):
+        """Changes the tool mode to be the LineSegment1Tool."""
 
-        self.log.debug("Entered toLineSegmentToolMode()")
+        self.log.debug("Entered toLineSegment1ToolMode()")
 
         # Only do something if it is not currently in this mode.
         if self.toolMode != \
-               PriceBarChartWidget.ToolMode['LineSegmentTool']:
+               PriceBarChartWidget.ToolMode['LineSegment1Tool']:
             
-            self.toolMode = PriceBarChartWidget.ToolMode['LineSegmentTool']
-            self.graphicsView.toLineSegmentToolMode()
+            self.toolMode = PriceBarChartWidget.ToolMode['LineSegment1Tool']
+            self.graphicsView.toLineSegment1ToolMode()
 
-        self.log.debug("Exiting toLineSegmentToolMode()")
+        self.log.debug("Exiting toLineSegment1ToolMode()")
+
+    def toLineSegment2ToolMode(self):
+        """Changes the tool mode to be the LineSegment2Tool."""
+
+        self.log.debug("Entered toLineSegment2ToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+               PriceBarChartWidget.ToolMode['LineSegment2Tool']:
+            
+            self.toolMode = PriceBarChartWidget.ToolMode['LineSegment2Tool']
+            self.graphicsView.toLineSegment2ToolMode()
+
+        self.log.debug("Exiting toLineSegment2ToolMode()")
 
     def toOctaveFanToolMode(self):
         """Changes the tool mode to be the OctaveFanTool."""
@@ -40121,7 +40196,8 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         # Flag to enable the conversion algorithm utilizing trading
         # days only.  (Monday through Friday, weekends ignored).
-        self.ignoreWeekendsEnabled = False
+        #self.ignoreWeekendsEnabled = False
+        self.ignoreWeekendsEnabled = True
 
         # Holds the scaling object which is used for scaling-related
         # calculations.
@@ -41556,7 +41632,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 "TimeRetracementTool"      : 12,
                 "PriceRetracementTool"     : 13,
                 "PriceTimeVectorTool"      : 14,
-                "LineSegmentTool"          : 15,
+                "LineSegment1Tool"          : 15,
                 "OctaveFanTool"            : 16,
                 "FibFanTool"               : 17,
                 "GannFanTool"              : 18,
@@ -41571,7 +41647,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 "ShodasottariDasaTool"     : 27,
                 "PanchottariDasaTool"      : 28,
                 "ShashtihayaniDasaTool"    : 29,
-                "PlanetLongitudeMovementMeasurementTool"      : 30 }
+                "PlanetLongitudeMovementMeasurementTool"      : 30,
+                "LineSegment2Tool"          : 31
+                }
 
     # Signal emitted when the mouse moves within the QGraphicsView.
     # The position emitted is in QGraphicsScene x, y, float coordinates.
@@ -41654,8 +41732,12 @@ class PriceBarChartGraphicsView(QGraphicsView):
         self.priceTimeVectorGraphicsItem = None
 
         # Variable used for storing the new LineSegmentGraphicsItem,
-        # as it is modified in LineSegmentToolMode.
-        self.lineSegmentGraphicsItem = None
+        # as it is modified in LineSegment1ToolMode.
+        self.lineSegment1GraphicsItem = None
+
+        # Variable used for storing the new LineSegmentGraphicsItem,
+        # as it is modified in LineSegment2ToolMode.
+        self.lineSegment2GraphicsItem = None
 
         # Variable used for storing the new OctaveFanGraphicsItem,
         # as it is modified in OctaveFanToolMode.
@@ -41727,7 +41809,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         #   - TimeRetracementTool
         #   - PriceRetracementTool
         #   - PriceTimeVectorTool
-        #   - LineSegmentTool
+        #   - LineSegment1Tool
+        #   - LineSegment2Tool
         #   - OctaveFanTool
         #   - FibFanTool
         #   - GannFanTool
@@ -41951,7 +42034,16 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
 
         elif self.toolMode == \
-                PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
+                PriceBarChartGraphicsView.ToolMode['LineSegment1Tool']:
+
+            if isinstance(item, PriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['LineSegment2Tool']:
 
             if isinstance(item, PriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
@@ -42549,17 +42641,17 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
         self.log.debug("Exiting toPriceTimeVectorToolMode()")
 
-    def toLineSegmentToolMode(self):
-        """Changes the tool mode to be the LineSegmentTool."""
+    def toLineSegment1ToolMode(self):
+        """Changes the tool mode to be the LineSegment1Tool."""
 
-        self.log.debug("Entered toLineSegmentToolMode()")
+        self.log.debug("Entered toLineSegment1ToolMode()")
 
         # Only do something if it is not currently in this mode.
         if self.toolMode != \
-                PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
+                PriceBarChartGraphicsView.ToolMode['LineSegment1Tool']:
 
             self.toolMode = \
-                PriceBarChartGraphicsView.ToolMode['LineSegmentTool']
+                PriceBarChartGraphicsView.ToolMode['LineSegment1Tool']
 
             self.setCursor(QCursor(Qt.ArrowCursor))
             self.setDragMode(QGraphicsView.NoDrag)
@@ -42567,7 +42659,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
             # Clear out internal working variables.
             self.clickOnePointF = None
             self.clickTwoPointF = None
-            self.lineSegmentGraphicsItem = None
+            self.lineSegment1GraphicsItem = None
 
             scene = self.scene()
             if scene != None:
@@ -42577,7 +42669,37 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 for item in items:
                     self.setGraphicsItemFlagsPerCurrToolMode(item)
                     
-        self.log.debug("Exiting toLineSegmentToolMode()")
+        self.log.debug("Exiting toLineSegment1ToolMode()")
+
+    def toLineSegment2ToolMode(self):
+        """Changes the tool mode to be the LineSegment2Tool."""
+
+        self.log.debug("Entered toLineSegment2ToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+                PriceBarChartGraphicsView.ToolMode['LineSegment2Tool']:
+
+            self.toolMode = \
+                PriceBarChartGraphicsView.ToolMode['LineSegment2Tool']
+
+            self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.NoDrag)
+
+            # Clear out internal working variables.
+            self.clickOnePointF = None
+            self.clickTwoPointF = None
+            self.lineSegment2GraphicsItem = None
+
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
+                items = scene.items()
+                for item in items:
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
+        self.log.debug("Exiting toLineSegment2ToolMode()")
 
     def toOctaveFanToolMode(self):
         """Changes the tool mode to be the OctaveFanTool."""
@@ -43772,20 +43894,48 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 super().keyPressEvent(qkeyevent)
 
         elif self.toolMode == \
-                PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
+                PriceBarChartGraphicsView.ToolMode['LineSegment1Tool']:
 
             if qkeyevent.key() == Qt.Key_Escape:
                 # Escape key causes any currently edited item to
                 # be removed and cleared out.  Temporary variables used
                 # are cleared out too.
-                if self.lineSegmentGraphicsItem != None:
-                    if self.lineSegmentGraphicsItem.scene() != None:
+                if self.lineSegment1GraphicsItem != None:
+                    if self.lineSegment1GraphicsItem.scene() != None:
                         self.scene().\
-                            removeItem(self.lineSegmentGraphicsItem)
+                            removeItem(self.lineSegment1GraphicsItem)
 
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
-                self.lineSegmentGraphicsItem = None
+                self.lineSegment1GraphicsItem = None
+            elif qkeyevent.key() == Qt.Key_Q:
+                # Turn on snap functionality.
+                self.snapEnabledFlag = True
+                self.log.debug("Snap mode enabled.")
+                self.statusMessageUpdate.emit("Snap mode enabled")
+            elif qkeyevent.key() == Qt.Key_W:
+                # Turn off snap functionality.
+                self.snapEnabledFlag = False
+                self.log.debug("Snap mode disabled.")
+                self.statusMessageUpdate.emit("Snap mode disabled")
+            else:
+                super().keyPressEvent(qkeyevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['LineSegment2Tool']:
+
+            if qkeyevent.key() == Qt.Key_Escape:
+                # Escape key causes any currently edited item to
+                # be removed and cleared out.  Temporary variables used
+                # are cleared out too.
+                if self.lineSegment2GraphicsItem != None:
+                    if self.lineSegment2GraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.lineSegment2GraphicsItem)
+
+                self.clickOnePointF = None
+                self.clickTwoPointF = None
+                self.lineSegment2GraphicsItem = None
             elif qkeyevent.key() == Qt.Key_Q:
                 # Turn on snap functionality.
                 self.snapEnabledFlag = True
@@ -45884,9 +46034,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.log.warn("Unexpected state reached.")
                     
         elif self.toolMode == \
-                PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
+                PriceBarChartGraphicsView.ToolMode['LineSegment1Tool']:
             
-            self.log.debug("Current toolMode is: LineSegmentTool")
+            self.log.debug("Current toolMode is: LineSegment1Tool")
 
             if qmouseevent.button() & Qt.LeftButton:
                 self.log.debug("Qt.LeftButton")
@@ -45911,35 +46061,36 @@ class PriceBarChartGraphicsView(QGraphicsView):
                         self.clickOnePointF.setX(closestPoint.x())
                         self.clickOnePointF.setY(closestPoint.y())
                     
-                    # Create the LineSegmentGraphicsItem and
+                    # Create the LineSegment1GraphicsItem and
                     # initialize it to the mouse location.
-                    self.lineSegmentGraphicsItem = \
+                    self.lineSegment1GraphicsItem = \
                         LineSegmentGraphicsItem()
-                    self.lineSegmentGraphicsItem.\
+                    self.lineSegment1GraphicsItem.\
                         loadSettingsFromPriceBarChartSettings(\
-                            self.priceBarChartSettings)
+                            self.priceBarChartSettings,
+                            lineSegmentNumberType=1)
         
-                    self.lineSegmentGraphicsItem.\
+                    self.lineSegment1GraphicsItem.\
                         setPos(self.clickOnePointF)
-                    self.lineSegmentGraphicsItem.\
+                    self.lineSegment1GraphicsItem.\
                         setStartPointF(self.clickOnePointF)
-                    self.lineSegmentGraphicsItem.\
+                    self.lineSegment1GraphicsItem.\
                         setEndPointF(self.clickOnePointF)
-                    self.scene().addItem(self.lineSegmentGraphicsItem)
+                    self.scene().addItem(self.lineSegment1GraphicsItem)
                     
                     # Make sure the proper flags are set for the mode we're in.
                     self.setGraphicsItemFlagsPerCurrToolMode(\
-                        self.lineSegmentGraphicsItem)
+                        self.lineSegment1GraphicsItem)
 
                 elif self.clickOnePointF != None and \
                     self.clickTwoPointF == None and \
-                    self.lineSegmentGraphicsItem != None:
+                    self.lineSegment1GraphicsItem != None:
 
                     self.log.debug("clickOnePointF != None, and " +
                                    "clickTwoPointF == None and " +
-                                   "lineSegmentGraphicsItem != None.")
+                                   "lineSegment1GraphicsItem != None.")
                     
-                    # Set the end point of the LineSegmentGraphicsItem.
+                    # Set the end point of the LineSegment1GraphicsItem.
                     self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
 
                     # If snap is enabled, then find the closest
@@ -45957,22 +46108,22 @@ class PriceBarChartGraphicsView(QGraphicsView):
                         self.clickTwoPointF.setX(closestPoint.x())
                         self.clickTwoPointF.setY(closestPoint.y())
                     
-                    self.lineSegmentGraphicsItem.\
+                    self.lineSegment1GraphicsItem.\
                         setEndPointF(self.clickTwoPointF)
-                    self.lineSegmentGraphicsItem.normalizeStartAndEnd()
+                    self.lineSegment1GraphicsItem.normalizeStartAndEnd()
         
                     # Call getArtifact() so that the item's artifact
                     # object gets updated and set.
-                    self.lineSegmentGraphicsItem.getArtifact()
+                    self.lineSegment1GraphicsItem.getArtifact()
                                                 
                     # Emit that the PriceBarChart has changed.
                     self.scene().priceBarChartArtifactGraphicsItemAdded.\
-                        emit(self.lineSegmentGraphicsItem)
+                        emit(self.lineSegment1GraphicsItem)
                     
                     sceneBoundingRect = \
-                        self.lineSegmentGraphicsItem.sceneBoundingRect()
+                        self.lineSegment1GraphicsItem.sceneBoundingRect()
                     
-                    self.log.debug("lineSegmentGraphicsItem " +
+                    self.log.debug("lineSegment1GraphicsItem " +
                                    "officially added.  " +
                                    "Its sceneBoundingRect is: {}.  ".\
                                    format(sceneBoundingRect) +
@@ -45986,7 +46137,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # Clear out working variables.
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
-                    self.lineSegmentGraphicsItem = None
+                    self.lineSegment1GraphicsItem = None
                     
                 else:
                     self.log.warn("Unexpected state reached.")
@@ -45997,32 +46148,182 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 
                 if self.clickOnePointF != None and \
                    self.clickTwoPointF == None and \
-                   self.lineSegmentGraphicsItem != None:
+                   self.lineSegment1GraphicsItem != None:
 
                     self.log.debug("clickOnePointF != None, and " +
                                    "clickTwoPointF == None and " +
-                                   "lineSegmentGraphicsItem != None.")
+                                   "lineSegment1GraphicsItem != None.")
                     
                     # Right-click during setting the
-                    # LineSegmentGraphicsItem causes the
+                    # LineSegment1GraphicsItem causes the
                     # currently edited bar count item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
-                    if self.lineSegmentGraphicsItem.scene() != None:
+                    if self.lineSegment1GraphicsItem.scene() != None:
                         self.scene().\
-                            removeItem(self.lineSegmentGraphicsItem)
+                            removeItem(self.lineSegment1GraphicsItem)
 
                     self.clickOnePointF = None
                     self.clickTwoPointF = None
-                    self.lineSegmentGraphicsItem = None
+                    self.lineSegment1GraphicsItem = None
                     
                 elif self.clickOnePointF == None and \
                      self.clickTwoPointF == None and \
-                     self.lineSegmentGraphicsItem == None:
+                     self.lineSegment1GraphicsItem == None:
                     
                     self.log.debug("clickOnePointF == None, and " +
                                    "clickTwoPointF == None and " +
-                                   "lineSegmentGraphicsItem == None.")
+                                   "lineSegment1GraphicsItem == None.")
+                    
+                    # Open a context menu at this location, in readonly mode.
+                    clickPosF = self.mapToScene(qmouseevent.pos())
+                    menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                    menu.exec_(qmouseevent.globalPos())
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['LineSegment2Tool']:
+            
+            self.log.debug("Current toolMode is: LineSegment2Tool")
+
+            if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
+                
+                if self.clickOnePointF == None:
+                    self.log.debug("clickOnePointF == None")
+                
+                    self.clickOnePointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar price to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X and Y.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        closestPoint = \
+                            self.scene().\
+                            getClosestPriceBarOHLCViewPoint(infoPointF)
+
+                        # Use these X and Y values.
+                        self.clickOnePointF.setX(closestPoint.x())
+                        self.clickOnePointF.setY(closestPoint.y())
+                    
+                    # Create the LineSegment2GraphicsItem and
+                    # initialize it to the mouse location.
+                    self.lineSegment2GraphicsItem = \
+                        LineSegmentGraphicsItem()
+                    self.lineSegment2GraphicsItem.\
+                        loadSettingsFromPriceBarChartSettings(\
+                            self.priceBarChartSettings,
+                            lineSegmentNumberType=2)
+        
+                    self.lineSegment2GraphicsItem.\
+                        setPos(self.clickOnePointF)
+                    self.lineSegment2GraphicsItem.\
+                        setStartPointF(self.clickOnePointF)
+                    self.lineSegment2GraphicsItem.\
+                        setEndPointF(self.clickOnePointF)
+                    self.scene().addItem(self.lineSegment2GraphicsItem)
+                    
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.lineSegment2GraphicsItem)
+
+                elif self.clickOnePointF != None and \
+                    self.clickTwoPointF == None and \
+                    self.lineSegment2GraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "lineSegment2GraphicsItem != None.")
+                    
+                    # Set the end point of the LineSegment2GraphicsItem.
+                    self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar price to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar X and Y.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        closestPoint = \
+                            self.scene().\
+                            getClosestPriceBarOHLCViewPoint(infoPointF)
+
+                        # Use these X and Y values.
+                        self.clickTwoPointF.setX(closestPoint.x())
+                        self.clickTwoPointF.setY(closestPoint.y())
+                    
+                    self.lineSegment2GraphicsItem.\
+                        setEndPointF(self.clickTwoPointF)
+                    self.lineSegment2GraphicsItem.normalizeStartAndEnd()
+        
+                    # Call getArtifact() so that the item's artifact
+                    # object gets updated and set.
+                    self.lineSegment2GraphicsItem.getArtifact()
+                                                
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartArtifactGraphicsItemAdded.\
+                        emit(self.lineSegment2GraphicsItem)
+                    
+                    sceneBoundingRect = \
+                        self.lineSegment2GraphicsItem.sceneBoundingRect()
+                    
+                    self.log.debug("lineSegment2GraphicsItem " +
+                                   "officially added.  " +
+                                   "Its sceneBoundingRect is: {}.  ".\
+                                   format(sceneBoundingRect) +
+                                   "Its x range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.left(),
+                                          sceneBoundingRect.right()) +
+                                   "Its y range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.top(),
+                                          sceneBoundingRect.bottom()))
+                    
+                    # Clear out working variables.
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.lineSegment2GraphicsItem = None
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
+            elif qmouseevent.button() & Qt.RightButton:
+                
+                self.log.debug("Qt.RightButton")
+                
+                if self.clickOnePointF != None and \
+                   self.clickTwoPointF == None and \
+                   self.lineSegment2GraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "lineSegment2GraphicsItem != None.")
+                    
+                    # Right-click during setting the
+                    # LineSegment2GraphicsItem causes the
+                    # currently edited bar count item to be removed
+                    # and cleared out.  Temporary variables used are
+                    # cleared out too.
+                    if self.lineSegment2GraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.lineSegment2GraphicsItem)
+
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.lineSegment2GraphicsItem = None
+                    
+                elif self.clickOnePointF == None and \
+                     self.clickTwoPointF == None and \
+                     self.lineSegment2GraphicsItem == None:
+                    
+                    self.log.debug("clickOnePointF == None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "lineSegment2GraphicsItem == None.")
                     
                     # Open a context menu at this location, in readonly mode.
                     clickPosF = self.mapToScene(qmouseevent.pos())
@@ -48644,9 +48945,15 @@ class PriceBarChartGraphicsView(QGraphicsView):
             super().mouseReleaseEvent(qmouseevent)
 
         elif self.toolMode == \
-                PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
+                PriceBarChartGraphicsView.ToolMode['LineSegment1Tool']:
 
-            self.log.debug("Current toolMode is: LineSegmentTool")
+            self.log.debug("Current toolMode is: LineSegment1Tool")
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['LineSegment2Tool']:
+
+            self.log.debug("Current toolMode is: LineSegment2Tool")
             super().mouseReleaseEvent(qmouseevent)
 
         elif self.toolMode == \
@@ -48928,16 +49235,30 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 super().mouseMoveEvent(qmouseevent)
 
         elif self.toolMode == \
-                PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
+                PriceBarChartGraphicsView.ToolMode['LineSegment1Tool']:
 
             if self.clickOnePointF != None and \
-                self.lineSegmentGraphicsItem != None:
+                self.lineSegment1GraphicsItem != None:
 
                 pos = self.mapToScene(qmouseevent.pos())
                 
                 # Update the end point of the current
-                # LineSegmentGraphicsItem.
-                self.lineSegmentGraphicsItem.setEndPointF(pos)
+                # LineSegment1GraphicsItem.
+                self.lineSegment1GraphicsItem.setEndPointF(pos)
+            else:
+                super().mouseMoveEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['LineSegment2Tool']:
+
+            if self.clickOnePointF != None and \
+                self.lineSegment2GraphicsItem != None:
+
+                pos = self.mapToScene(qmouseevent.pos())
+                
+                # Update the end point of the current
+                # LineSegment2GraphicsItem.
+                self.lineSegment2GraphicsItem.setEndPointF(pos)
             else:
                 super().mouseMoveEvent(qmouseevent)
 
@@ -49367,7 +49688,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 PriceBarChartGraphicsView.ToolMode['PriceTimeVectorTool']:
             self.setCursor(QCursor(Qt.ArrowCursor))
         elif self.toolMode == \
-                PriceBarChartGraphicsView.ToolMode['LineSegmentTool']:
+                PriceBarChartGraphicsView.ToolMode['LineSegment1Tool']:
+            self.setCursor(QCursor(Qt.ArrowCursor))
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['LineSegment2Tool']:
             self.setCursor(QCursor(Qt.ArrowCursor))
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['OctaveFanTool']:

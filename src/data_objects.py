@@ -20049,45 +20049,87 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
             defaultPriceTimeVectorGraphicsItemAngleTextFlag
     
-        # LineSegmentGraphicsItem bar color (QColor).
-        self.lineSegmentGraphicsItemColor = \
+        # LineSegment1GraphicsItem bar color (QColor).
+        self.lineSegment1GraphicsItemColor = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemColor
 
-        # LineSegmentGraphicsItem text color (QColor).
-        self.lineSegmentGraphicsItemTextColor = \
+        # LineSegment1GraphicsItem text color (QColor).
+        self.lineSegment1GraphicsItemTextColor = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemTextColor
     
-        # LineSegmentGraphicsItem bar width (float).
-        self.lineSegmentGraphicsItemBarWidth = \
+        # LineSegment1GraphicsItem bar width (float).
+        self.lineSegment1GraphicsItemBarWidth = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemBarWidth
 
-        # LineSegmentGraphicsItem text X scaling (float).
-        self.lineSegmentGraphicsItemTextXScaling = \
+        # LineSegment1GraphicsItem text X scaling (float).
+        self.lineSegment1GraphicsItemTextXScaling = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemTextXScaling
 
-        # LineSegmentGraphicsItem text Y scaling (float).
-        self.lineSegmentGraphicsItemTextYScaling = \
+        # LineSegment1GraphicsItem text Y scaling (float).
+        self.lineSegment1GraphicsItemTextYScaling = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemTextYScaling
 
         # Default font (this is basically the QFont, serialized to
-        # str) for the LineSegmentGraphicsItem.  This includes the
+        # str) for the LineSegment1GraphicsItem.  This includes the
         # font size.
-        self.lineSegmentGraphicsItemDefaultFontDescription = \
+        self.lineSegment1GraphicsItemDefaultFontDescription = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemDefaultFontDescription
 
-        # LineSegmentGraphicsItem tiltedTextFlag (bool).
-        self.lineSegmentGraphicsItemTiltedTextFlag = \
+        # LineSegment1GraphicsItem tiltedTextFlag (bool).
+        self.lineSegment1GraphicsItemTiltedTextFlag = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemTiltedTextFlag
     
-        # LineSegmentGraphicsItem angleTextFlag (bool).
-        self.lineSegmentGraphicsItemAngleTextFlag = \
+        # LineSegment1GraphicsItem angleTextFlag (bool).
+        self.lineSegment1GraphicsItemAngleTextFlag = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemAngleTextFlag
+
+        # LineSegment2GraphicsItem bar color (QColor).
+        self.lineSegment2GraphicsItemColor = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemColor
+
+        # LineSegment2GraphicsItem text color (QColor).
+        self.lineSegment2GraphicsItemTextColor = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemTextColor
+    
+        # LineSegment2GraphicsItem bar width (float).
+        self.lineSegment2GraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemBarWidth
+
+        # LineSegment2GraphicsItem text X scaling (float).
+        self.lineSegment2GraphicsItemTextXScaling = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemTextXScaling
+
+        # LineSegment2GraphicsItem text Y scaling (float).
+        self.lineSegment2GraphicsItemTextYScaling = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemTextYScaling
+
+        # Default font (this is basically the QFont, serialized to
+        # str) for the LineSegment2GraphicsItem.  This includes the
+        # font size.
+        self.lineSegment2GraphicsItemDefaultFontDescription = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemDefaultFontDescription
+
+        # LineSegment2GraphicsItem tiltedTextFlag (bool).
+        self.lineSegment2GraphicsItemTiltedTextFlag = \
+            PriceBarChartSettings.\
+            defaultLineSegmentGraphicsItemTiltedTextFlag
+    
+        # LineSegment2GraphicsItem angleTextFlag (bool).
+        self.lineSegment2GraphicsItemAngleTextFlag = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemAngleTextFlag
 
@@ -20570,7 +20612,7 @@ class PriceBarChartSettings:
         self.log = logging.getLogger("data_objects.PriceBarChartSettings")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 7:
+        if self.classVersion < 8:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartSettings (version {}).  ".\
                           format(self.classVersion))
@@ -21934,6 +21976,141 @@ class PriceBarChartSettings:
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 7
+        
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
+            if self.classVersion == 7:
+                # Version 8 removed the following member variables:
+                #
+                #   self.lineSegmentGraphicsItemColor
+                #   self.lineSegmentGraphicsItemTextColor
+                #   self.lineSegmentGraphicsItemBarWidth
+                #   self.lineSegmentGraphicsItemTextXScaling
+                #   self.lineSegmentGraphicsItemTextYScaling
+                #   self.lineSegmentGraphicsItemDefaultFontDescription
+                #   self.lineSegmentGraphicsItemTiltedTextFlag
+                #   self.lineSegmentGraphicsItemAngleTextFlag
+                #
+                #   
+                # 
+                # Version 8 added the following member variables:
+                #                
+                #   self.lineSegment1GraphicsItemColor
+                #   self.lineSegment1GraphicsItemTextColor
+                #   self.lineSegment1GraphicsItemBarWidth
+                #   self.lineSegment1GraphicsItemTextXScaling
+                #   self.lineSegment1GraphicsItemTextYScaling
+                #   self.lineSegment1GraphicsItemDefaultFontDescription
+                #   self.lineSegment1GraphicsItemTiltedTextFlag
+                #   self.lineSegment1GraphicsItemAngleTextFlag
+                #   self.lineSegment2GraphicsItemColor
+                #   self.lineSegment2GraphicsItemTextColor
+                #   self.lineSegment2GraphicsItemBarWidth
+                #   self.lineSegment2GraphicsItemTextXScaling
+                #   self.lineSegment2GraphicsItemTextYScaling
+                #   self.lineSegment2GraphicsItemDefaultFontDescription
+                #   self.lineSegment2GraphicsItemTiltedTextFlag
+                #   self.lineSegment2GraphicsItemAngleTextFlag
+                #
+                #
+
+                try:
+                    # See if the variable is set already.
+                    
+                    self.lineSegment1GraphicsItemColor
+                    self.lineSegment1GraphicsItemTextColor
+                    self.lineSegment1GraphicsItemBarWidth
+                    self.lineSegment1GraphicsItemTextXScaling
+                    self.lineSegment1GraphicsItemTextYScaling
+                    self.lineSegment1GraphicsItemDefaultFontDescription
+                    self.lineSegment1GraphicsItemTiltedTextFlag
+                    self.lineSegment1GraphicsItemAngleTextFlag
+                    self.lineSegment2GraphicsItemColor
+                    self.lineSegment2GraphicsItemTextColor
+                    self.lineSegment2GraphicsItemBarWidth
+                    self.lineSegment2GraphicsItemTextXScaling
+                    self.lineSegment2GraphicsItemTextYScaling
+                    self.lineSegment2GraphicsItemDefaultFontDescription
+                    self.lineSegment2GraphicsItemTiltedTextFlag
+                    self.lineSegment2GraphicsItemAngleTextFlag
+                    
+                    # If it got here, then the fields are already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have these fields.")
+
+                except AttributeError:
+                    # Variable was not set.  Set the new variables to
+                    # what the old one was set to.
+                    
+                    self.lineSegment1GraphicsItemColor = \
+                        self.lineSegmentGraphicsItemColor
+                    self.lineSegment1GraphicsItemTextColor = \
+                        self.lineSegmentGraphicsItemTextColor
+                    self.lineSegment1GraphicsItemBarWidth = \
+                        self.lineSegmentGraphicsItemBarWidth
+                    self.lineSegment1GraphicsItemTextXScaling = \
+                        self.lineSegmentGraphicsItemTextXScaling
+                    self.lineSegment1GraphicsItemTextYScaling = \
+                        self.lineSegmentGraphicsItemTextYScaling
+                    self.lineSegment1GraphicsItemDefaultFontDescription = \
+                        self.lineSegmentGraphicsItemDefaultFontDescription
+                    self.lineSegment1GraphicsItemTiltedTextFlag = \
+                        self.lineSegmentGraphicsItemTiltedTextFlag
+                    self.lineSegment1GraphicsItemAngleTextFlag = \
+                        self.lineSegmentGraphicsItemAngleTextFlag
+                    self.lineSegment2GraphicsItemColor = \
+                        self.lineSegmentGraphicsItemColor
+                    self.lineSegment2GraphicsItemTextColor = \
+                        self.lineSegmentGraphicsItemTextColor
+                    self.lineSegment2GraphicsItemBarWidth = \
+                        self.lineSegmentGraphicsItemBarWidth
+                    self.lineSegment2GraphicsItemTextXScaling = \
+                        self.lineSegmentGraphicsItemTextXScaling
+                    self.lineSegment2GraphicsItemTextYScaling = \
+                        self.lineSegmentGraphicsItemTextYScaling
+                    self.lineSegment2GraphicsItemDefaultFontDescription = \
+                        self.lineSegmentGraphicsItemDefaultFontDescription
+                    self.lineSegment2GraphicsItemTiltedTextFlag = \
+                        self.lineSegmentGraphicsItemTiltedTextFlag
+                    self.lineSegment2GraphicsItemAngleTextFlag = \
+                        self.lineSegmentGraphicsItemAngleTextFlag
+                    
+                    
+                    self.log.debug("Added field(s): " + \
+                                   "'lineSegment1GraphicsItemColor', " + \
+                                   "'lineSegment1GraphicsItemTextColor', " + \
+                                   "'lineSegment1GraphicsItemBarWidth', " + \
+                                   "'lineSegment1GraphicsItemTextXScaling', " + \
+                                   "'lineSegment1GraphicsItemTextYScaling', " + \
+                                   "'lineSegment1GraphicsItemDefaultFontDescription', " + \
+                                   "'lineSegment1GraphicsItemTiltedTextFlag', " + \
+                                   "'lineSegment1GraphicsItemAngleTextFlag', " + \
+                                   "'lineSegment2GraphicsItemColor', " + \
+                                   "'lineSegment2GraphicsItemTextColor', " + \
+                                   "'lineSegment2GraphicsItemBarWidth', " + \
+                                   "'lineSegment2GraphicsItemTextXScaling', " + \
+                                   "'lineSegment2GraphicsItemTextYScaling', " + \
+                                   "'lineSegment2GraphicsItemDefaultFontDescription', " + \
+                                   "'lineSegment2GraphicsItemTiltedTextFlag', " + \
+                                   "'lineSegment2GraphicsItemAngleTextFlag', " + \
+                                   "to the loaded PriceBarChartSettings.")
+
+                    # Remove old fields.
+                    del self.lineSegmentGraphicsItemColor
+                    del self.lineSegmentGraphicsItemTextColor
+                    del self.lineSegmentGraphicsItemBarWidth
+                    del self.lineSegmentGraphicsItemTextXScaling
+                    del self.lineSegmentGraphicsItemTextYScaling
+                    del self.lineSegmentGraphicsItemDefaultFontDescription
+                    del self.lineSegmentGraphicsItemTiltedTextFlag
+                    del self.lineSegmentGraphicsItemAngleTextFlag
+                    
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 8
         
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
