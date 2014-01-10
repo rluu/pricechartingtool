@@ -3918,29 +3918,34 @@ class MainWindow(QMainWindow):
 
         self.log.debug("Entered keyPressEvent()")
 
-        if qkeyevent.key() == Qt.Key_F1:
-            self.log.debug("Key Pressed: Qt.Key_F1")
+        if qkeyevent.key() == Qt.Key_F1 or \
+               (platform.system() == "Darwin" and qkeyevent.key() == Qt.Key_1):
+            
+            self.log.debug("Key Pressed: Qt.Key_F1 or (Qt.Key_1 on Darwin)")
             
             # Trigger ReadOnlyPointerToolAction.
             if self.readOnlyPointerToolAction.isEnabled():
                 self.readOnlyPointerToolAction.trigger()
                 
-        elif qkeyevent.key() == Qt.Key_F2:
-            self.log.debug("Key Pressed: Qt.Key_F2")
+        elif qkeyevent.key() == Qt.Key_F2 or \
+               (platform.system() == "Darwin" and qkeyevent.key() == Qt.Key_2):
+            self.log.debug("Key Pressed: Qt.Key_F2 or (Qt.Key_2 on Darwin)")
             
             # Trigger PointerToolAction.
             if self.pointerToolAction.isEnabled():
                 self.pointerToolAction.trigger()
 
-        elif qkeyevent.key() == Qt.Key_F3:
-            self.log.debug("Key Pressed: Qt.Key_F3")
+        elif qkeyevent.key() == Qt.Key_F3 or \
+               (platform.system() == "Darwin" and qkeyevent.key() == Qt.Key_3):
+            self.log.debug("Key Pressed: Qt.Key_F3 or (Qt.Key_3 on Darwin)")
 
             # Trigger HandToolAction.
             if self.handToolAction.isEnabled():
                 self.handToolAction.trigger()
 
-        elif qkeyevent.key() == Qt.Key_F4:
-            self.log.debug("Key Pressed: Qt.Key_F4")
+        elif qkeyevent.key() == Qt.Key_F4 or \
+               (platform.system() == "Darwin" and qkeyevent.key() == Qt.Key_4):
+            self.log.debug("Key Pressed: Qt.Key_F4 or (Qt.Key_4 on Darwin)")
             
             # Trigger the last used QGraphicsItem tool mode QAction.
             if self.mostRecentGraphicsItemToolModeAction != None:
