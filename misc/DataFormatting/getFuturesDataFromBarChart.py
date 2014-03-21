@@ -140,6 +140,7 @@ defaultHttpHeaders = \
          ('Accept-Charset', 'ISO-8859-1,utf-8;q=0.7,*;q=0.7')]
 
 # For logging.
+#logging.basicConfig(level=logging.DEBUG,
 logging.basicConfig(level=logging.INFO,
                     format='%(levelname)s: %(message)s')
 moduleName = globals()['__name__']
@@ -575,10 +576,10 @@ def getPriceBarDataLines():
                     break
                 
             if storedVolumeFlag == False:
-                log.error("Couldn't find a matching timestamp to " + \
+                log.warn("Couldn't find a matching timestamp to " + \
                           "store the volume.  Volume timestampStr == {}".\
                           format(timestampStr))
-                shutdown(1)
+                #shutdown(1)
                 
         elif studyNameStr == "Interest":
             # Flag that says we found the PriceBar that has a
@@ -596,11 +597,11 @@ def getPriceBarDataLines():
                     break
                 
             if storedOpenIntFlag == False:
-                log.error("Couldn't find a matching timestamp to " + \
+                log.warn("Couldn't find a matching timestamp to " + \
                           "store the openInt.  " + \
                           "OpenInt timestampStr == {}".\
                           format(timestampStr))
-                shutdown(1)
+                #shutdown(1)
         
     # At this point, 'priceBars' now has a list of PriceBar
     # objects.  We need to convert these objects into the str

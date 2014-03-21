@@ -3,7 +3,7 @@
 # Description:
 #
 #   Module for adding various PriceBarChartArtifacts to a
-#   PriceChartDocumentData object that are relevant to a Silver
+#   PriceChartDocumentData object that are relevant to a ABX stock
 #   chart.
 #
 ##############################################################################
@@ -40,38 +40,18 @@ moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
 log.setLevel(logLevel)
 
+eastern = pytz.timezone('US/Eastern')
+
 # Start and ending timestamps for drawing.
-#startDt = datetime.datetime(year=1508, month=1, day=1,n
-#                            hour=0, minute=0, second=0,
-#                            tzinfo=pytz.utc)
-#startDt = datetime.datetime(year=1704, month=1, day=1,
-#                            hour=0, minute=0, second=0,
-#                            tzinfo=pytz.utc)
-#startDt = datetime.datetime(year=1968, month=1, day=1,
-#                            hour=0, minute=0, second=0,
-#                            tzinfo=pytz.utc)
-#startDt = datetime.datetime(year=2001, month=1, day=1,
-#                            hour=0, minute=0, second=0,
-#                            tzinfo=pytz.utc)
-startDt = datetime.datetime(year=1970, month=1, day=1,
+startDt = datetime.datetime(year=1985, month=1, day=1,
                             hour=0, minute=0, second=0,
-                            tzinfo=pytz.utc)
+                            tzinfo=eastern)
 
-#endDt   = datetime.datetime(year=2008, month=1, day=1,
-#                            hour=0, minute=0, second=0,
-#                            tzinfo=pytz.utc)
-#endDt   = datetime.datetime(year=2012, month=1, day=1,
-#                            hour=0, minute=0, second=0,
-#                            tzinfo=pytz.utc)
-endDt   = datetime.datetime(year=2014, month=1, day=1,
+endDt   = datetime.datetime(year=2016, month=1, day=1,
                             hour=0, minute=0, second=0,
-                            tzinfo=pytz.utc)
-#endDt   = datetime.datetime(year=2020, month=1, day=1,
-#                            hour=0, minute=0, second=0,
-#                            tzinfo=pytz.utc)
-
+                            tzinfo=eastern)
 # High and low price limits for drawing the vertical lines.
-highPrice = 50.0
+highPrice = 70.0
 lowPrice = 0.0
 
 ##############################################################################
@@ -104,288 +84,120 @@ def processPCDD(pcdd, tag):
     #lowPrice = 600.0
     #lowPrice = 300.0
 
-    #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Mercury", 
-    #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Venus", 
-    #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Mars", 
-    #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Uranus", 
-    #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Saturn", 
-    #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="MeanOfFive", 
-    #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="CycleOfEight", 
-    #    color=None, stepSizeTd=stepSizeTd)
+    if False:
+        degreeValue = 0
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Moon", "geocentric", "tropical",
+            "Sun", "geocentric", "tropical",
+            degreeValue, color=QColor(Qt.blue))
+    
+    if False:
+        degreeValue = 180
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Moon", "geocentric", "tropical",
+            "Sun", "geocentric", "tropical",
+            degreeValue, color=QColor(Qt.red))
 
-    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
-    #    pcdd, startDt, endDt, highPrice=700, lowPrice=660,
-    #    planetName="Moon", 
-    #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Mercury", 
-    #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Venus", 
-    #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Mars", 
-    #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Jupiter", 
-    #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Saturn", 
-    #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Uranus", 
-    #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Neptune", 
-    #    color=None, stepSizeTd=stepSizeTd)
-    #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Pluto", 
-    #    color=None, stepSizeTd=stepSizeTd)
+    # G.Mercury 30 degree increments from 15 Libra 04'.
+    if True:
+        # For obtaining a color for a given planet.
+        from astrologychart import AstrologyUtils
+        col = AstrologyUtils.getForegroundColorForPlanetName("Mercury")
+        
+        success = PlanetaryCombinationsLibrary.\
+            addPlanetLongitudeTraversalIncrementsVerticalLines(
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Mercury", "geocentric", "tropical", 
+            planetEpocDt=datetime.datetime(year=2013, month=12, day=6,
+                                           hour=10, minute=0, second=0,
+                                           tzinfo=eastern),
+#            planetEpocDt=datetime.datetime(year=1985, month=10, day=1,
+#                                           hour=10, minute=0, second=0,
+#                                           tzinfo=eastern),
+            degreeIncrement=30,
+            color=col)
+    
+    if False:
+        success = PlanetaryCombinationsLibrary.\
+            addGeoLongitudeVelocityPolarityChangeVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Mercury", color=QColor(Qt.red))
+
+    if False:
+        success = PlanetaryCombinationsLibrary.\
+            addHelioLatitudeVelocityPolarityChangeVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Mercury", color=QColor(Qt.blue))
+
+    # G.Mars 9 degree increments from 88 degrees.
+    if True:
+        # For obtaining a color for a given planet.
+        from astrologychart import AstrologyUtils
+        col = AstrologyUtils.getForegroundColorForPlanetName("Mars")
+        
+        success = PlanetaryCombinationsLibrary.\
+            addPlanetLongitudeTraversalIncrementsVerticalLines(
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Mars", "geocentric", "tropical",
+            planetEpocDt=datetime.datetime(year=2011, month=12, day=2,
+                                           hour=12, minute=0, second=0,
+                                           tzinfo=eastern),
+            
+#            planetEpocDt=datetime.datetime(year=1985, month=10, day=5,
+#                                           hour=12, minute=0, second=0,
+#                                           tzinfo=eastern),
+            degreeIncrement=9,
+            color=col)
+        
+    if False:
+        success = PlanetaryCombinationsLibrary.\
+            addGeoLongitudeVelocityPolarityChangeVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Mars", color=QColor(Qt.blue))
+
+    if False:
+        success = PlanetaryCombinationsLibrary.\
+            addHelioLatitudeVelocityPolarityChangeVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Mars", color=QColor(Qt.green))
+
+    # G.Jupiter 5 degree increments from  degrees.
+    if False:
+        # For obtaining a color for a given planet.
+        from astrologychart import AstrologyUtils
+        col = AstrologyUtils.getForegroundColorForPlanetName("Jupiter")
+        
+        success = PlanetaryCombinationsLibrary.\
+            addPlanetLongitudeTraversalIncrementsVerticalLines(
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Jupiter", "geocentric", "tropical",
+            planetEpocDt=datetime.datetime(year=2011, month=7, day=25,
+                                           hour=12, minute=0, second=0,
+                                           tzinfo=eastern),
+            
+#            planetEpocDt=datetime.datetime(year=1985, month=10, day=5,
+#                                           hour=12, minute=0, second=0,
+#                                           tzinfo=eastern),
+            degreeIncrement=5,
+            color=col)
+        
+    if False:
+        success = PlanetaryCombinationsLibrary.\
+            addGeoLongitudeVelocityPolarityChangeVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Jupiter", color=QColor(Qt.blue))
+
+    if False:
+        success = PlanetaryCombinationsLibrary.\
+            addHelioLatitudeVelocityPolarityChangeVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Jupiter", color=QColor(Qt.green))
 
     
-    p = 1000
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="H1")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="H2")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="H3")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="H4")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="H5")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="H6")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="H7")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="H8")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="H9")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="H10")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="H11")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="H12")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="ARMC")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="Vertex")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="EquatorialAscendant")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="CoAscendant1")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="CoAscendant2")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="PolarAscendant")
-    #p += 20
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="Sun")
-    #p += 200
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="Moon")
-    #p += 200
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="Mercury")
-    #p += 200
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="Venus")
-    #p += 200
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="Mars")
-    #p += 200
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="Jupiter")
-    #p += 200
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="Saturn")
-    #p += 200
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="Uranus")
-    #p += 200
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="Neptune")
-    #p += 200
-    #success = PlanetaryCombinationsLibrary.\
-    #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
-    #    pcdd, startDt, endDt, price=p, planetName="Pluto")
-    #p += 200
-
-
-
-    #success = PlanetaryCombinationsLibrary.\
-    #    addZeroDeclinationVerticalLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice, planetName="Venus")
-    
-    #success = PlanetaryCombinationsLibrary.\
-    #    addDeclinationVelocityPolarityChangeVerticalLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice, planetName="Venus")
-    
-    #success = PlanetaryCombinationsLibrary.\
-    #    addGeoLongitudeElongationVerticalLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice, planetName="Venus")
-     
-    #success = PlanetaryCombinationsLibrary.\
-    #    addGeoLongitudeElongationVerticalLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice, planetName="Mercury")
-     
-    #success = PlanetaryCombinationsLibrary.\
-    #    addContraparallelDeclinationAspectVerticalLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planet1Name="Venus", planet2Name="Mars")
-    
-    #success = PlanetaryCombinationsLibrary.\
-    #    addParallelDeclinationAspectVerticalLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planet1Name="Venus", planet2Name="Mars")
-    
-    #success = PlanetaryCombinationsLibrary.\
-    #    addPlanetOOBVerticalLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Venus")
-    
-    #success =  PlanetaryCombinationsLibrary.\
-    #    addGeoLatitudeLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Venus")
-    #success =  PlanetaryCombinationsLibrary.\
-    #    addGeoLatitudeLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Jupiter", stepSizeTd=datetime.timedelta(days=7))
-    #success =  PlanetaryCombinationsLibrary.\
-    #    addGeoLatitudeLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Saturn", stepSizeTd=datetime.timedelta(days=7))
-    #success =  PlanetaryCombinationsLibrary.\
-    #    addGeoLatitudeLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Uranus", stepSizeTd=datetime.timedelta(days=7))
-    
-    #success =  PlanetaryCombinationsLibrary.\
-    #    addZeroGeoLatitudeVerticalLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Venus")
-
-    #success = PlanetaryCombinationsLibrary.\
-    #    addGeoLatitudeVelocityPolarityChangeVerticalLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice, planetName="Venus")
-    
-    #success = PlanetaryCombinationsLibrary.\
-    #    addContraparallelGeoLatitudeAspectVerticalLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planet1Name="Venus", planet2Name="Mars")
-    
-    #success = PlanetaryCombinationsLibrary.\
-    #    addParallelGeoLatitudeAspectVerticalLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planet1Name="Venus", planet2Name="Mars")
-    
-    #success = PlanetaryCombinationsLibrary.\
-    #    addPlanetLongitudeTraversalIncrementsVerticalLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "geocentric", "sidereal", 
-    #    planetEpocDt=datetime.datetime(year=1976, month=4, day=1,
-    #                                   hour=13, minute=0, second=0,
-    #                                   tzinfo=pytz.utc),
-    #    degreeIncrement=18)
-
-    #success = PlanetaryCombinationsLibrary.\
-    #    addPlanetLongitudeTraversalIncrementsVerticalLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "heliocentric", "sidereal", 
-    #    planetEpocDt=datetime.datetime(year=1970, month=3, day=21,
-    #                                   hour=0, minute=0, second=0,
-    #                                   tzinfo=pytz.utc),
-    #    degreeIncrement=30)
-
-    #success = PlanetaryCombinationsLibrary.\
-    #    addPlanetLongitudeTraversalIncrementsVerticalLines(
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Sun", "geocentric", "tropical", 
-    #    planetEpocDt=datetime.datetime(year=1970, month=3, day=21,
-    #                                   hour=6, minute=0, second=0,
-    #                                   tzinfo=pytz.utc),
-    #    degreeIncrement=15)
-
-    #success = PlanetaryCombinationsLibrary.\
-    #    addGeoLongitudeVelocityPolarityChangeVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Mercury")
-
     ############################################################################
 
     # Silver responds to this combination very well.
@@ -420,20 +232,6 @@ def processPCDD(pcdd, tag):
                 pcdd, startDt, endDt, highPrice, lowPrice,
                 "Venus", "geocentric", "sidereal",
                 "Venus", "heliocentric", "sidereal",
-                degreeDiff)
-            degreeDiff += step
-    
-    if True:
-        step = 15
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            success = PlanetaryCombinationsLibrary.\
-                addLongitudeAspectVerticalLines(\
-                pcdd, startDt, endDt, highPrice, lowPrice,
-                "Venus", "heliocentric", "tropical",
-                "Earth", "heliocentric", "tropical",
                 degreeDiff)
             degreeDiff += step
     

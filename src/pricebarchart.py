@@ -40222,8 +40222,8 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         # Flag to enable the conversion algorithm utilizing trading
         # days only.  (Monday through Friday, weekends ignored).
-        #self.ignoreWeekendsEnabled = False
-        self.ignoreWeekendsEnabled = True
+        self.ignoreWeekendsEnabled = False
+        #self.ignoreWeekendsEnabled = True
 
         # Holds the scaling object which is used for scaling-related
         # calculations.

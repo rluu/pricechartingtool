@@ -17457,7 +17457,7 @@ class PriceBarChartSettings:
     
     # Default value for the TimeMeasurementGraphicsItem
     # showMonthsTextFlag (bool).
-    defaultTimeMeasurementGraphicsItemShowMonthsTextFlag = True
+    defaultTimeMeasurementGraphicsItemShowMonthsTextFlag = False
     
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrtMonthsTextFlag (bool).
@@ -17541,7 +17541,7 @@ class PriceBarChartSettings:
 
     # Default value for the TimeMeasurementGraphicsItem
     # showMasaTextFlag (bool).
-    defaultTimeMeasurementGraphicsItemShowMasaTextFlag = True
+    defaultTimeMeasurementGraphicsItemShowMasaTextFlag = False
 
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrtMasaTextFlag (bool).
@@ -17565,7 +17565,7 @@ class PriceBarChartSettings:
 
     # Default value for the TimeMeasurementGraphicsItem
     # showSamaTextFlag (bool).
-    defaultTimeMeasurementGraphicsItemShowSamaTextFlag = True
+    defaultTimeMeasurementGraphicsItemShowSamaTextFlag = False
 
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrtSamaTextFlag (bool).

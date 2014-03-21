@@ -66,15 +66,15 @@ startDt = datetime.datetime(year=1970, month=1, day=1,
 #endDt   = datetime.datetime(year=2012, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-#endDt   = datetime.datetime(year=2014, month=1, day=1,
-#                            hour=0, minute=0, second=0,
-#                            tzinfo=pytz.utc)
+endDt   = datetime.datetime(year=2015, month=1, day=1,
+                            hour=0, minute=0, second=0,
+                            tzinfo=pytz.utc)
 #endDt   = datetime.datetime(year=2020, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-endDt = datetime.datetime(year=2002, month=1, day=1,
-                          hour=0, minute=0, second=0,
-                          tzinfo=pytz.utc)
+#endDt = datetime.datetime(year=2002, month=1, day=1,
+#                          hour=0, minute=0, second=0,
+#                          tzinfo=pytz.utc)
 
 # High and low price limits for drawing the vertical lines.
 highPrice = 1200.0
@@ -804,10 +804,35 @@ def processPCDD(pcdd, tag):
     #                                   tzinfo=pytz.utc),
     #    degreeIncrement=15)
 
-    #success = PlanetaryCombinationsLibrary.\
-    #    addGeoLongitudeVelocityPolarityChangeVerticalLines(\
-    #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Mercury")
+    if True:
+        success = PlanetaryCombinationsLibrary.\
+            addGeoLongitudeVelocityPolarityChangeVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Mercury")
+
+    if True:
+        success = PlanetaryCombinationsLibrary.\
+            addGeoLongitudeVelocityPolarityChangeVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Venus")
+
+    if False:
+        success = PlanetaryCombinationsLibrary.\
+            addGeoLongitudeVelocityPolarityChangeVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Mars")
+
+    if False:
+        success = PlanetaryCombinationsLibrary.\
+            addGeoLongitudeVelocityPolarityChangeVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Jupiter")
+
+    if True:
+        success = PlanetaryCombinationsLibrary.\
+            addGeoLongitudeVelocityPolarityChangeVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Saturn")
 
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\

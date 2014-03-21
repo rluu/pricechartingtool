@@ -23,5 +23,37 @@ H.Venus/H.Earth: 0 deg. to 30 deg.
 H.Venus/H.Earth: 300 deg. to (315 or 330) deg.
 
 
+rluu_20140119:
+Some cycles found:
+G.Mars    turn every 72 degrees: strong cycle.
+G.Mars    turn every 22 degrees: weak cycle.
+G.Jupiter turn every 20 degrees: strong cycle.
+H.Earth   turn every 40 degrees: strong cycle.
+G.Mercury turn every 30 degrees: strong cycle in certain areas. (research more)
+
+Maybe:
+G.Venus   turn every 50 degrees: Maybe cycle. (needs more research)
+
+To test:
+G.Venus   at low, stock moving upwards for G.Venus 400 degrees, then dies. (needs more research)
+
+
+I need to map this out forward and make a forecast.  There are some interesting effects I noticed though.  Inversions don't invert all cycles.  Inversions aren't usually big turns either.  
+
+
+rluu_20140119:
+Okay, so investigating further, it appears that the two best cycles to use on ABX (larger moves) is:
+G.Mars    turn every 72 degrees: strong cycle.
+G.Jupiter turn every 20 degrees: strong cycle.
+
+But really, these two above are not the real cycle sizes.  There are smaller vibrations within it, which is the real cycle.  So the real tradable cycles in this stock are:
+G.Mars    turn every 9 degrees: strong cycle.
+G.Jupiter turn every 5 degrees: strong cycle.
+
+This one should be watched also, as it marks important turns, but it is not clear that it is consistent over the longer term.
+H.Earth   turn every 40 degrees: strong cycle.
+
+
+
 
 ##############################################################################

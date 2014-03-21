@@ -27,10 +27,18 @@
 #
 #     ./getStockDataFromYahoo.py --stock-symbol=FSLR --output-file=/tmp/testing.txt
 #
+#     rluu_20140213: Below used to work, but today it doesn't.  
 #     ./getStockDataFromYahoo.py --stock-symbol=^DJI --start-timestamp=20091001 --end-timestamp=20111014 --output-file=/tmp/testing.txt
+#     rluu_20140213: The below worked for the Dow.
+#     ./getStockDataFromYahoo.py --stock-symbol=DJIA --start-timestamp=20091001 --end-timestamp=20111014 --output-file=/tmp/testing.txt
 #
+#     S&P 500.
+#     ./getStockDataFromYahoo.py --stock-symbol=^GSPC --start-timestamp=20091001 --end-timestamp=20111014 --output-file=/tmp/testing.txt
+#     
+#     Nasdaq composite:
 #     ./getStockDataFromYahoo.py --stock-symbol=^IXIC --start-timestamp=20091001 --end-timestamp=20111014 --output-file=/tmp/testing.txt
 #
+#     Nasdaq 100:
 #     ./getStockDataFromYahoo.py --stock-symbol=^NDX --start-timestamp=20091001 --end-timestamp=20111014 --output-file=/tmp/testing.txt
 #
 #
