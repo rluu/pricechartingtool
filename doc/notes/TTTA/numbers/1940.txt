@@ -10,6 +10,11 @@ The Foreword is written when H.Mercury is at 0 Aries.
 
 ##############################################################################
 
+6, 19, 40, 69
+are on the same angle on the square of 9 spiral.
+
+##############################################################################
+
 360 degrees * (1/22) = 16.3636363636
 
 16.36363636 * 3 = 49.0909090909
@@ -174,3 +179,4 @@ giving an error of only about half an hour in 687 years (2.5 seconds a year), al
 Meton of Athens approximated the cycle to a whole number (6940) of days, obtained by 125 long months of 30 days and 110 short months of 29 days. During the next century Callippus developed the Callippic cycle of four 19-year periods for a 76-year cycle with a mean year of exactly 365.25 days.
 
 ##############################################################################
+
