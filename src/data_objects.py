@@ -5085,7 +5085,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 3
+        self.classVersion = 5
 
         # Create the logger.
         self.log = \
@@ -5447,6 +5447,11 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
         
+        # Flag for measurement of planet MoSu enabled.
+        self.planetMoSuEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag
+        
         # Flag for measurement of planet MeVe enabled.
         self.planetMeVeEnabledFlag = \
             PriceBarChartSettings.\
@@ -5551,86 +5556,6 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         self.planetSaUrEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag
-        
-        # Flag for measurement of planet MeVeEa enabled.
-        self.planetMeVeEaEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag
-        
-        # Flag for measurement of planet MeVeMa enabled.
-        self.planetMeVeMaEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag
-        
-        # Flag for measurement of planet VeEaMe enabled.
-        self.planetVeEaMeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag
-        
-        # Flag for measurement of planet VeEaMa enabled.
-        self.planetVeEaMaEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag
-        
-        # Flag for measurement of planet VeMaMe enabled.
-        self.planetVeMaMeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag
-        
-        # Flag for measurement of planet VeMaEa enabled.
-        self.planetVeMaEaEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag
-        
-        # Flag for measurement of planet EaMaMe enabled.
-        self.planetEaMaMeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag
-        
-        # Flag for measurement of planet EaMaVe enabled.
-        self.planetEaMaVeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag
-        
-        # Flag for measurement of planet MaJuMe enabled.
-        self.planetMaJuMeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag
-        
-        # Flag for measurement of planet MaJuVe enabled.
-        self.planetMaJuVeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag
-        
-        # Flag for measurement of planet MaJuEa enabled.
-        self.planetMaJuEaEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag
-        
-        # Flag for measurement of planet EaJuMe enabled.
-        self.planetEaJuMeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag
-        
-        # Flag for measurement of planet EaJuVe enabled.
-        self.planetEaJuVeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag
-        
-        # Flag for measurement of planet EaSaMe enabled.
-        self.planetEaSaMeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag
-        
-        # Flag for measurement of planet EaSaVe enabled.
-        self.planetEaSaVeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag
-        
-        # Flag for measurement of planet EaSaMa enabled.
-        self.planetEaSaMaEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag
         
         
     def setFont(self, font):
@@ -7133,6 +7058,28 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
 
         return self.planetAvgJuSaEnabledFlag
 
+    def setPlanetMoSuEnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.planetMoSuEnabledFlag = flag
+        
+    def getPlanetMoSuEnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.planetMoSuEnabledFlag
+
     def setPlanetMeVeEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7595,358 +7542,6 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
 
         return self.planetSaUrEnabledFlag
 
-    def setPlanetMeVeEaEnabledFlag(self, flag):
-        """Sets the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        self.planetMeVeEaEnabledFlag = flag
-        
-    def getPlanetMeVeEaEnabledFlag(self):
-        """Returns the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        return self.planetMeVeEaEnabledFlag
-
-    def setPlanetMeVeMaEnabledFlag(self, flag):
-        """Sets the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        self.planetMeVeMaEnabledFlag = flag
-        
-    def getPlanetMeVeMaEnabledFlag(self):
-        """Returns the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        return self.planetMeVeMaEnabledFlag
-
-    def setPlanetVeEaMeEnabledFlag(self, flag):
-        """Sets the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        self.planetVeEaMeEnabledFlag = flag
-        
-    def getPlanetVeEaMeEnabledFlag(self):
-        """Returns the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        return self.planetVeEaMeEnabledFlag
-
-    def setPlanetVeEaMaEnabledFlag(self, flag):
-        """Sets the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        self.planetVeEaMaEnabledFlag = flag
-        
-    def getPlanetVeEaMaEnabledFlag(self):
-        """Returns the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        return self.planetVeEaMaEnabledFlag
-
-    def setPlanetVeMaMeEnabledFlag(self, flag):
-        """Sets the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        self.planetVeMaMeEnabledFlag = flag
-        
-    def getPlanetVeMaMeEnabledFlag(self):
-        """Returns the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        return self.planetVeMaMeEnabledFlag
-
-    def setPlanetVeMaEaEnabledFlag(self, flag):
-        """Sets the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        self.planetVeMaEaEnabledFlag = flag
-        
-    def getPlanetVeMaEaEnabledFlag(self):
-        """Returns the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        return self.planetVeMaEaEnabledFlag
-
-    def setPlanetEaMaMeEnabledFlag(self, flag):
-        """Sets the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        self.planetEaMaMeEnabledFlag = flag
-        
-    def getPlanetEaMaMeEnabledFlag(self):
-        """Returns the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        return self.planetEaMaMeEnabledFlag
-
-    def setPlanetEaMaVeEnabledFlag(self, flag):
-        """Sets the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        self.planetEaMaVeEnabledFlag = flag
-        
-    def getPlanetEaMaVeEnabledFlag(self):
-        """Returns the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        return self.planetEaMaVeEnabledFlag
-
-    def setPlanetMaJuMeEnabledFlag(self, flag):
-        """Sets the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        self.planetMaJuMeEnabledFlag = flag
-        
-    def getPlanetMaJuMeEnabledFlag(self):
-        """Returns the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        return self.planetMaJuMeEnabledFlag
-
-    def setPlanetMaJuVeEnabledFlag(self, flag):
-        """Sets the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        self.planetMaJuVeEnabledFlag = flag
-        
-    def getPlanetMaJuVeEnabledFlag(self):
-        """Returns the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        return self.planetMaJuVeEnabledFlag
-
-    def setPlanetMaJuEaEnabledFlag(self, flag):
-        """Sets the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        self.planetMaJuEaEnabledFlag = flag
-        
-    def getPlanetMaJuEaEnabledFlag(self):
-        """Returns the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        return self.planetMaJuEaEnabledFlag
-
-    def setPlanetEaJuMeEnabledFlag(self, flag):
-        """Sets the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        self.planetEaJuMeEnabledFlag = flag
-        
-    def getPlanetEaJuMeEnabledFlag(self):
-        """Returns the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        return self.planetEaJuMeEnabledFlag
-
-    def setPlanetEaJuVeEnabledFlag(self, flag):
-        """Sets the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        self.planetEaJuVeEnabledFlag = flag
-        
-    def getPlanetEaJuVeEnabledFlag(self):
-        """Returns the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        return self.planetEaJuVeEnabledFlag
-
-    def setPlanetEaSaMeEnabledFlag(self, flag):
-        """Sets the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        self.planetEaSaMeEnabledFlag = flag
-        
-    def getPlanetEaSaMeEnabledFlag(self):
-        """Returns the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        return self.planetEaSaMeEnabledFlag
-
-    def setPlanetEaSaVeEnabledFlag(self, flag):
-        """Sets the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        self.planetEaSaVeEnabledFlag = flag
-        
-    def getPlanetEaSaVeEnabledFlag(self):
-        """Returns the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        return self.planetEaSaVeEnabledFlag
-
-    def setPlanetEaSaMaEnabledFlag(self, flag):
-        """Sets the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        self.planetEaSaMaEnabledFlag = flag
-        
-    def getPlanetEaSaMaEnabledFlag(self):
-        """Returns the flag that indicates that the planet geocentric
-        longitude movement measurements should be displayed for this
-        planet.
-
-        Arguments:
-        flag - bool value for the enabled flag.
-        """
-
-        return self.planetEaSaMaEnabledFlag
-
     def __str__(self):
         """Returns the string representation of this object."""
 
@@ -7984,7 +7579,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
             "data_objects.PriceBarChartPlanetLongitudeMovementMeasurementArtifact")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 3:
+        if self.classVersion < 5:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartPlanetLongitudeMovementMeasurementArtifact (version {}).  ".\
                           format(self.classVersion))
@@ -8018,22 +7613,6 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                 # self.planetJuSaEnabledFlag
                 # self.planetJuUrEnabledFlag
                 # self.planetSaUrEnabledFlag
-                # self.planetMeVeEaEnabledFlag
-                # self.planetMeVeMaEnabledFlag
-                # self.planetVeEaMeEnabledFlag
-                # self.planetVeEaMaEnabledFlag
-                # self.planetVeMaMeEnabledFlag
-                # self.planetVeMaEaEnabledFlag
-                # self.planetEaMaMeEnabledFlag
-                # self.planetEaMaVeEnabledFlag
-                # self.planetMaJuMeEnabledFlag
-                # self.planetMaJuVeEnabledFlag
-                # self.planetMaJuEaEnabledFlag
-                # self.planetEaJuMeEnabledFlag
-                # self.planetEaJuVeEnabledFlag
-                # self.planetEaSaMeEnabledFlag
-                # self.planetEaSaVeEnabledFlag
-                # self.planetEaSaMaEnabledFlag
                 #
     
                 
@@ -8724,22 +8303,6 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetJuSaEnabledFlag
                     self.planetJuUrEnabledFlag
                     self.planetSaUrEnabledFlag
-                    self.planetMeVeEaEnabledFlag
-                    self.planetMeVeMaEnabledFlag
-                    self.planetVeEaMeEnabledFlag
-                    self.planetVeEaMaEnabledFlag
-                    self.planetVeMaMeEnabledFlag
-                    self.planetVeMaEaEnabledFlag
-                    self.planetEaMaMeEnabledFlag
-                    self.planetEaMaVeEnabledFlag
-                    self.planetMaJuMeEnabledFlag
-                    self.planetMaJuVeEnabledFlag
-                    self.planetMaJuEaEnabledFlag
-                    self.planetEaJuMeEnabledFlag
-                    self.planetEaJuVeEnabledFlag
-                    self.planetEaSaMeEnabledFlag
-                    self.planetEaSaVeEnabledFlag
-                    self.planetEaSaMaEnabledFlag
                     
                     # If it got here, then the fields are already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
@@ -8834,69 +8397,6 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag
                     
-                    self.planetMeVeEaEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag
-                    
-                    self.planetMeVeMaEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag
-                    
-                    self.planetVeEaMeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag
-                    
-                    self.planetVeEaMaEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag
-                    
-                    self.planetVeMaMeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag
-                    
-                    self.planetVeMaEaEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag
-                    
-                    self.planetEaMaMeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag
-                    
-                    self.planetEaMaVeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag
-                    
-                    self.planetMaJuMeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag
-                    
-                    self.planetMaJuVeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag
-                    
-                    self.planetMaJuEaEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag
-                    
-                    self.planetEaJuMeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag
-                    
-                    self.planetEaJuVeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag
-                    
-                    self.planetEaSaMeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag
-                    
-                    self.planetEaSaVeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag
-                    
-                    self.planetEaSaMaEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag
                     
                     self.log.debug("Added fields " + \
                                    "'self.planetMeVeEnabledFlag', " + \
@@ -8920,24 +8420,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                                    "'self.planetJuSaEnabledFlag', " + \
                                    "'self.planetJuUrEnabledFlag', " + \
                                    "'self.planetSaUrEnabledFlag', " + \
-                                   "'self.planetMeVeEaEnabledFlag', " + \
-                                   "'self.planetMeVeMaEnabledFlag', " + \
-                                   "'self.planetVeEaMeEnabledFlag', " + \
-                                   "'self.planetVeEaMaEnabledFlag', " + \
-                                   "'self.planetVeMaMeEnabledFlag', " + \
-                                   "'self.planetVeMaEaEnabledFlag', " + \
-                                   "'self.planetEaMaMeEnabledFlag', " + \
-                                   "'self.planetEaMaVeEnabledFlag', " + \
-                                   "'self.planetMaJuMeEnabledFlag', " + \
-                                   "'self.planetMaJuVeEnabledFlag', " + \
-                                   "'self.planetMaJuEaEnabledFlag', " + \
-                                   "'self.planetEaJuMeEnabledFlag', " + \
-                                   "'self.planetEaJuVeEnabledFlag', " + \
-                                   "'self.planetEaSaMeEnabledFlag', " + \
-                                   "'self.planetEaSaVeEnabledFlag', " + \
-                                   "'self.planetEaSaMaEnabledFlag', " + \
                                    "to the loaded object.")
-    
                 
                 # Update the class version.
                 prevClassVersion = self.classVersion
@@ -8975,6 +8458,202 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
+                
+            if self.classVersion == 3:
+                # Version 4 adds the following member variables:
+                #
+                # self.planetMoSuEnabledFlag
+                #
+    
+                # Handle variables that were added in this version.
+                try:
+                    # See if the variable is set.
+                    self.planetMoSuEnabledFlag
+    
+                    # If it got here, then the field is already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have this field.")
+                except AttributeError:
+                    # Variables were not set.  Set them to the default
+                    # values.
+                    
+                    self.planetMoSuEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag
+                    
+                    self.log.debug("Added field " + \
+                                   "'self.planetMoSuEnabledFlag' " + \
+                                   "to the loaded object.")
+                                   
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 4
+                                  
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
+            if self.classVersion == 4:
+                # Version 5 removed the following member variables:
+                #
+                # self.planetMeVeEaEnabledFlag
+                # self.planetMeVeMaEnabledFlag
+                # self.planetVeEaMeEnabledFlag
+                # self.planetVeEaMaEnabledFlag
+                # self.planetVeMaMeEnabledFlag
+                # self.planetVeMaEaEnabledFlag
+                # self.planetEaMaMeEnabledFlag
+                # self.planetEaMaVeEnabledFlag
+                # self.planetMaJuMeEnabledFlag
+                # self.planetMaJuVeEnabledFlag
+                # self.planetMaJuEaEnabledFlag
+                # self.planetEaJuMeEnabledFlag
+                # self.planetEaJuVeEnabledFlag
+                # self.planetEaSaMeEnabledFlag
+                # self.planetEaSaVeEnabledFlag
+                # self.planetEaSaMaEnabledFlag
+                #
+
+                try:
+                    del(self.planetMeVeEaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+                
+                try:
+                    del(self.planetMeVeMaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+                
+                try:
+                    del(self.planetVeEaMeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+                
+                try:
+                    del(self.planetVeEaMaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+                
+                try:
+                    del(self.planetVeMaMeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+                
+                try:
+                    del(self.planetVeMaEaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+                
+                try:
+                    del(self.planetEaMaMeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+                
+                try:
+                    del(self.planetEaMaVeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+                
+                try:
+                    del(self.planetMaJuMeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+                
+                try:
+                    del(self.planetMaJuVeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+                
+                try:
+                    del(self.planetMaJuEaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+                
+                try:
+                    del(self.planetEaJuMeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+                
+                try:
+                    del(self.planetEaJuVeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+                
+                try:
+                    del(self.planetEaSaMeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+                
+                try:
+                    del(self.planetEaSaVeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+                
+                try:
+                    del(self.planetEaSaMaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                self.log.debug("Removed fields " + \
+                               "'self.planetMeVeEaEnabledFlag', " + \
+                               "'self.planetMeVeMaEnabledFlag', " + \
+                               "'self.planetVeEaMeEnabledFlag', " + \
+                               "'self.planetVeEaMaEnabledFlag', " + \
+                               "'self.planetVeMaMeEnabledFlag', " + \
+                               "'self.planetVeMaEaEnabledFlag', " + \
+                               "'self.planetEaMaMeEnabledFlag', " + \
+                               "'self.planetEaMaVeEnabledFlag', " + \
+                               "'self.planetMaJuMeEnabledFlag', " + \
+                               "'self.planetMaJuVeEnabledFlag', " + \
+                               "'self.planetMaJuEaEnabledFlag', " + \
+                               "'self.planetEaJuMeEnabledFlag', " + \
+                               "'self.planetEaJuVeEnabledFlag', " + \
+                               "'self.planetEaSaMeEnabledFlag', " + \
+                               "'self.planetEaSaVeEnabledFlag', " + \
+                               "'self.planetEaSaMaEnabledFlag', " + \
+                               "from the loaded object.")
+                                   
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 5
+                                  
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
                 
         # Log that we set the state of this object.
         self.log.debug("Set state of a " +
@@ -17907,6 +17586,10 @@ class PriceBarChartSettings:
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag = False
         
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetMoSuEnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag = False
+        
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMeVeEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag = False
         
@@ -17989,70 +17672,6 @@ class PriceBarChartSettings:
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetSaUrEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag = False
-        
-    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
-    # planetMeVeEaEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag = False
-        
-    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
-    # planetMeVeMaEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag = False
-        
-    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
-    # planetVeEaMeEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag = False
-        
-    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
-    # planetVeEaMaEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag = False
-        
-    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
-    # planetVeMaMeEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag = False
-        
-    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
-    # planetVeMaEaEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag = False
-        
-    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
-    # planetEaMaMeEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag = False
-        
-    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
-    # planetEaMaVeEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag = False
-        
-    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
-    # planetMaJuMeEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag = False
-        
-    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
-    # planetMaJuVeEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag = False
-        
-    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
-    # planetMaJuEaEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag = False
-        
-    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
-    # planetEaJuMeEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag = False
-        
-    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
-    # planetEaJuVeEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag = False
-        
-    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
-    # planetEaSaMeEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag = False
-        
-    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
-    # planetEaSaVeEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag = False
-        
-    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
-    # planetEaSaMaEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag = False
         
     # Default font description text (this is basically the QFont,
     # serialized to str) for the TextGraphicsItem.  This includes the
@@ -18730,7 +18349,7 @@ class PriceBarChartSettings:
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 7
+        self.classVersion = 10
 
         # List of scalings used in the PriceBarChartGraphicsView.  
         # This is list of PriceBarChartScaling objects.
@@ -19511,6 +19130,12 @@ class PriceBarChartSettings:
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
         
         # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetMoSuEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag
+        
+        # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMeVeEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag = \
             PriceBarChartSettings.\
@@ -19636,101 +19261,6 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag
         
-        # PlanetLongitudeMovementMeasurementGraphicsItem
-        # planetMeVeEaEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag
-        
-        # PlanetLongitudeMovementMeasurementGraphicsItem
-        # planetMeVeMaEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag
-        
-        # PlanetLongitudeMovementMeasurementGraphicsItem
-        # planetVeEaMeEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag
-        
-        # PlanetLongitudeMovementMeasurementGraphicsItem
-        # planetVeEaMaEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag
-        
-        # PlanetLongitudeMovementMeasurementGraphicsItem
-        # planetVeMaMeEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag
-        
-        # PlanetLongitudeMovementMeasurementGraphicsItem
-        # planetVeMaEaEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag
-        
-        # PlanetLongitudeMovementMeasurementGraphicsItem
-        # planetEaMaMeEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag
-        
-        # PlanetLongitudeMovementMeasurementGraphicsItem
-        # planetEaMaVeEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag
-        
-        # PlanetLongitudeMovementMeasurementGraphicsItem
-        # planetMaJuMeEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag
-        
-        # PlanetLongitudeMovementMeasurementGraphicsItem
-        # planetMaJuVeEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag
-        
-        # PlanetLongitudeMovementMeasurementGraphicsItem
-        # planetMaJuEaEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag
-        
-        # PlanetLongitudeMovementMeasurementGraphicsItem
-        # planetEaJuMeEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag
-        
-        # PlanetLongitudeMovementMeasurementGraphicsItem
-        # planetEaJuVeEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag
-        
-        # PlanetLongitudeMovementMeasurementGraphicsItem
-        # planetEaSaMeEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag
-        
-        # PlanetLongitudeMovementMeasurementGraphicsItem
-        # planetEaSaVeEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag
-        
-        # PlanetLongitudeMovementMeasurementGraphicsItem
-        # planetEaSaMaEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag = \
-            PriceBarChartSettings.\
-            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag
         
         # Default font description text (this is basically the QFont,
         # serialized to str) for the TextGraphicsItem.  This includes the
@@ -20612,7 +20142,7 @@ class PriceBarChartSettings:
         self.log = logging.getLogger("data_objects.PriceBarChartSettings")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 8:
+        if self.classVersion < 10:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartSettings (version {}).  ".\
                           format(self.classVersion))
@@ -21372,22 +20902,6 @@ class PriceBarChartSettings:
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag
-                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag
-                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag
-                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag
-                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag
-                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag
-                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag
-                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag
-                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag
-                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag
-                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag
-                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag
-                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag
-                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag
-                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag
-                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag
-                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag
                 #
                 
                 try:
@@ -21413,22 +20927,6 @@ class PriceBarChartSettings:
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag
                     
                     # If it got here, then the fields are already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
@@ -21670,181 +21168,6 @@ class PriceBarChartSettings:
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
                     
-                    # PlanetLongitudeMovementMeasurementGraphicsItem
-                    # planetMeVeEaEnabledFlag (bool).
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag
-                    
-                    self.log.debug(\
-                        "Added field " + \
-                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
-                    
-                    # PlanetLongitudeMovementMeasurementGraphicsItem
-                    # planetMeVeMaEnabledFlag (bool).
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag
-                    
-                    self.log.debug(\
-                        "Added field " + \
-                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
-                    
-                    # PlanetLongitudeMovementMeasurementGraphicsItem
-                    # planetVeEaMeEnabledFlag (bool).
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag
-                    
-                    self.log.debug(\
-                        "Added field " + \
-                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
-                    
-                    # PlanetLongitudeMovementMeasurementGraphicsItem
-                    # planetVeEaMaEnabledFlag (bool).
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag
-                    
-                    self.log.debug(\
-                        "Added field " + \
-                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
-                    
-                    # PlanetLongitudeMovementMeasurementGraphicsItem
-                    # planetVeMaMeEnabledFlag (bool).
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag
-                    
-                    self.log.debug(\
-                        "Added field " + \
-                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
-                    
-                    # PlanetLongitudeMovementMeasurementGraphicsItem
-                    # planetVeMaEaEnabledFlag (bool).
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag
-                    
-                    self.log.debug(\
-                        "Added field " + \
-                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
-                    
-                    # PlanetLongitudeMovementMeasurementGraphicsItem
-                    # planetEaMaMeEnabledFlag (bool).
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag
-                    
-                    self.log.debug(\
-                        "Added field " + \
-                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
-                    
-                    # PlanetLongitudeMovementMeasurementGraphicsItem
-                    # planetEaMaVeEnabledFlag (bool).
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag
-                    
-                    self.log.debug(\
-                        "Added field " + \
-                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
-                    
-                    # PlanetLongitudeMovementMeasurementGraphicsItem
-                    # planetMaJuMeEnabledFlag (bool).
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag
-                    
-                    self.log.debug(\
-                        "Added field " + \
-                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
-                    
-                    # PlanetLongitudeMovementMeasurementGraphicsItem
-                    # planetMaJuVeEnabledFlag (bool).
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag
-                    
-                    self.log.debug(\
-                        "Added field " + \
-                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
-                    
-                    # PlanetLongitudeMovementMeasurementGraphicsItem
-                    # planetMaJuEaEnabledFlag (bool).
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag
-                    
-                    self.log.debug(\
-                        "Added field " + \
-                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
-                    
-                    # PlanetLongitudeMovementMeasurementGraphicsItem
-                    # planetEaJuMeEnabledFlag (bool).
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag
-                    
-                    self.log.debug(\
-                        "Added field " + \
-                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
-                    
-                    # PlanetLongitudeMovementMeasurementGraphicsItem
-                    # planetEaJuVeEnabledFlag (bool).
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag
-                    
-                    self.log.debug(\
-                        "Added field " + \
-                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
-                    
-                    # PlanetLongitudeMovementMeasurementGraphicsItem
-                    # planetEaSaMeEnabledFlag (bool).
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag
-                    
-                    self.log.debug(\
-                        "Added field " + \
-                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
-                    
-                    # PlanetLongitudeMovementMeasurementGraphicsItem
-                    # planetEaSaVeEnabledFlag (bool).
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag
-                    
-                    self.log.debug(\
-                        "Added field " + \
-                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
-                    
-                    # PlanetLongitudeMovementMeasurementGraphicsItem
-                    # planetEaSaMaEnabledFlag (bool).
-                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag = \
-                        PriceBarChartSettings.\
-                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag
-                    
-                    self.log.debug(\
-                        "Added field " + \
-                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
                     
                 # Update the class version.
                 prevClassVersion = self.classVersion
@@ -22116,6 +21439,206 @@ class PriceBarChartSettings:
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
                 
+            if self.classVersion == 8:
+                # Version 9 added the following member variables:
+                #
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag
+                #
+
+                try:
+                    # See if the variables are set.
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag
+                
+                    # If it got here, then the fields are already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have these fields.")
+
+                except AttributeError:
+                    # Variable was not set.  Set it to the default
+                    # PriceBarChartSettings value.
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetMoSuEnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag
+                    
+                    self.log.debug(\
+                        "Added field " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag', " + \
+                        "to the loaded PriceBarChartSettings.")
+                    
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 9
+        
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
+            if self.classVersion == 9:
+                # Version 10 removed the following member variables:
+                #
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag
+                #
+
+                try:
+                    del(self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                try:
+                    del(self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                try:
+                    del(self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                try:
+                    del(self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                try:
+                    del(self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                try:
+                    del(self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                try:
+                    del(self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                try:
+                    del(self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                try:
+                    del(self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                try:
+                    del(self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                try:
+                    del(self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                try:
+                    del(self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                try:
+                    del(self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                try:
+                    del(self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                try:
+                    del(self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                try:
+                    del(self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag)
+                except AttributeError:
+                    # Member variable doesn't exist or is not set yet.
+                    # No need to do anything special.
+                    pass
+
+                self.log.debug(\
+                    "Removed fields " + \
+                    "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag', " + \
+                    "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag', " + \
+                    "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag', " + \
+                    "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag', " + \
+                    "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag', " + \
+                    "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag', " + \
+                    "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag', " + \
+                    "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag', " + \
+                    "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag', " + \
+                    "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag', " + \
+                    "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag', " + \
+                    "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag', " + \
+                    "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag', " + \
+                    "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag', " + \
+                    "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag', " + \
+                    "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag', " + \
+                    "from the loaded PriceBarChartSettings.")
+                    
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 10
+        
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
+
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + PriceBarChartSettings.__name__ +
                        " object of version {}".format(self.classVersion))

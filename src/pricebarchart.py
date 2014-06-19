@@ -7321,6 +7321,9 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag == True:
             self.planetNamesEnabled.append("AvgJuSa")
         if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag == True:
+            self.planetNamesEnabled.append("MoSu")
+        if PriceBarChartSettings.\
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag == True:
             self.planetNamesEnabled.append("MeVe")
         if PriceBarChartSettings.\
@@ -7383,54 +7386,6 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         if PriceBarChartSettings.\
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag == True:
             self.planetNamesEnabled.append("SaUr")
-        if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag == True:
-            self.planetNamesEnabled.append("MeVeEa")
-        if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag == True:
-            self.planetNamesEnabled.append("MeVeMa")
-        if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag == True:
-            self.planetNamesEnabled.append("VeEaMe")
-        if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag == True:
-            self.planetNamesEnabled.append("VeEaMa")
-        if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag == True:
-            self.planetNamesEnabled.append("VeMaMe")
-        if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag == True:
-            self.planetNamesEnabled.append("VeMaEa")
-        if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag == True:
-            self.planetNamesEnabled.append("EaMaMe")
-        if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag == True:
-            self.planetNamesEnabled.append("EaMaVe")
-        if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag == True:
-            self.planetNamesEnabled.append("MaJuMe")
-        if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag == True:
-            self.planetNamesEnabled.append("MaJuVe")
-        if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag == True:
-            self.planetNamesEnabled.append("MaJuEa")
-        if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag == True:
-            self.planetNamesEnabled.append("EaJuMe")
-        if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag == True:
-            self.planetNamesEnabled.append("EaJuVe")
-        if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag == True:
-            self.planetNamesEnabled.append("EaSaMe")
-        if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag == True:
-            self.planetNamesEnabled.append("EaSaVe")
-        if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag == True:
-            self.planetNamesEnabled.append("EaSaMa")
         
         ############################################################
 
@@ -7773,6 +7728,9 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag == True:
             self.planetNamesEnabled.append("AvgJuSa")
         if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag == True:
+            self.planetNamesEnabled.append("MoSu")
+        if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag == True:
             self.planetNamesEnabled.append("MeVe")
         if priceBarChartSettings.\
@@ -7835,54 +7793,6 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag == True:
             self.planetNamesEnabled.append("SaUr")
-        if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEaEnabledFlag == True:
-            self.planetNamesEnabled.append("MeVeEa")
-        if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeMaEnabledFlag == True:
-            self.planetNamesEnabled.append("MeVeMa")
-        if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMeEnabledFlag == True:
-            self.planetNamesEnabled.append("VeEaMe")
-        if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaMaEnabledFlag == True:
-            self.planetNamesEnabled.append("VeEaMa")
-        if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaMeEnabledFlag == True:
-            self.planetNamesEnabled.append("VeMaMe")
-        if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEaEnabledFlag == True:
-            self.planetNamesEnabled.append("VeMaEa")
-        if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaMeEnabledFlag == True:
-            self.planetNamesEnabled.append("EaMaMe")
-        if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaVeEnabledFlag == True:
-            self.planetNamesEnabled.append("EaMaVe")
-        if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuMeEnabledFlag == True:
-            self.planetNamesEnabled.append("MaJuMe")
-        if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuVeEnabledFlag == True:
-            self.planetNamesEnabled.append("MaJuVe")
-        if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEaEnabledFlag == True:
-            self.planetNamesEnabled.append("MaJuEa")
-        if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuMeEnabledFlag == True:
-            self.planetNamesEnabled.append("EaJuMe")
-        if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuVeEnabledFlag == True:
-            self.planetNamesEnabled.append("EaJuVe")
-        if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag == True:
-            self.planetNamesEnabled.append("EaSaMe")
-        if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag == True:
-            self.planetNamesEnabled.append("EaSaVe")
-        if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag == True:
-            self.planetNamesEnabled.append("EaSaMa")
         
         ####################################################################
 
@@ -9384,6 +9294,8 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.planetNamesEnabled.append("AvgJuSaUrNe")
         if self.artifact.getPlanetAvgJuSaEnabledFlag():
             self.planetNamesEnabled.append("AvgJuSa")
+        if self.artifact.getPlanetMoSuEnabledFlag():
+            self.planetNamesEnabled.append("MoSu")
         if self.artifact.getPlanetMeVeEnabledFlag():
             self.planetNamesEnabled.append("MeVe")
         if self.artifact.getPlanetMeEaEnabledFlag():
@@ -9426,38 +9338,6 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.planetNamesEnabled.append("JuUr")
         if self.artifact.getPlanetSaUrEnabledFlag():
             self.planetNamesEnabled.append("SaUr")
-        if self.artifact.getPlanetMeVeEaEnabledFlag():
-            self.planetNamesEnabled.append("MeVeEa")
-        if self.artifact.getPlanetMeVeMaEnabledFlag():
-            self.planetNamesEnabled.append("MeVeMa")
-        if self.artifact.getPlanetVeEaMeEnabledFlag():
-            self.planetNamesEnabled.append("VeEaMe")
-        if self.artifact.getPlanetVeEaMaEnabledFlag():
-            self.planetNamesEnabled.append("VeEaMa")
-        if self.artifact.getPlanetVeMaMeEnabledFlag():
-            self.planetNamesEnabled.append("VeMaMe")
-        if self.artifact.getPlanetVeMaEaEnabledFlag():
-            self.planetNamesEnabled.append("VeMaEa")
-        if self.artifact.getPlanetEaMaMeEnabledFlag():
-            self.planetNamesEnabled.append("EaMaMe")
-        if self.artifact.getPlanetEaMaVeEnabledFlag():
-            self.planetNamesEnabled.append("EaMaVe")
-        if self.artifact.getPlanetMaJuMeEnabledFlag():
-            self.planetNamesEnabled.append("MaJuMe")
-        if self.artifact.getPlanetMaJuVeEnabledFlag():
-            self.planetNamesEnabled.append("MaJuVe")
-        if self.artifact.getPlanetMaJuEaEnabledFlag():
-            self.planetNamesEnabled.append("MaJuEa")
-        if self.artifact.getPlanetEaJuMeEnabledFlag():
-            self.planetNamesEnabled.append("EaJuMe")
-        if self.artifact.getPlanetEaJuVeEnabledFlag():
-            self.planetNamesEnabled.append("EaJuVe")
-        if self.artifact.getPlanetEaSaMeEnabledFlag():
-            self.planetNamesEnabled.append("EaSaMe")
-        if self.artifact.getPlanetEaSaVeEnabledFlag():
-            self.planetNamesEnabled.append("EaSaVe")
-        if self.artifact.getPlanetEaSaMaEnabledFlag():
-            self.planetNamesEnabled.append("EaSaMa")
 
         #############
 
@@ -9625,6 +9505,8 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             "AvgJuSaUrNe" in self.planetNamesEnabled)
         self.artifact.setPlanetAvgJuSaEnabledFlag(\
             "AvgJuSa" in self.planetNamesEnabled)
+        self.artifact.setPlanetMoSuEnabledFlag(\
+            "MoSu" in self.planetNamesEnabled)
         self.artifact.setPlanetMeVeEnabledFlag(\
             "MeVe" in self.planetNamesEnabled)
         self.artifact.setPlanetMeEaEnabledFlag(\
@@ -9667,38 +9549,6 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             "JuUr" in self.planetNamesEnabled)
         self.artifact.setPlanetSaUrEnabledFlag(\
             "SaUr" in self.planetNamesEnabled)
-        self.artifact.setPlanetMeVeEaEnabledFlag(\
-            "MeVeEa" in self.planetNamesEnabled)
-        self.artifact.setPlanetMeVeMaEnabledFlag(\
-            "MeVeMa" in self.planetNamesEnabled)
-        self.artifact.setPlanetVeEaMeEnabledFlag(\
-            "VeEaMe" in self.planetNamesEnabled)
-        self.artifact.setPlanetVeEaMaEnabledFlag(\
-            "VeEaMa" in self.planetNamesEnabled)
-        self.artifact.setPlanetVeMaMeEnabledFlag(\
-            "VeMaMe" in self.planetNamesEnabled)
-        self.artifact.setPlanetVeMaEaEnabledFlag(\
-            "VeMaEa" in self.planetNamesEnabled)
-        self.artifact.setPlanetEaMaMeEnabledFlag(\
-            "EaMaMe" in self.planetNamesEnabled)
-        self.artifact.setPlanetEaMaVeEnabledFlag(\
-            "EaMaVe" in self.planetNamesEnabled)
-        self.artifact.setPlanetMaJuMeEnabledFlag(\
-            "MaJuMe" in self.planetNamesEnabled)
-        self.artifact.setPlanetMaJuVeEnabledFlag(\
-            "MaJuVe" in self.planetNamesEnabled)
-        self.artifact.setPlanetMaJuEaEnabledFlag(\
-            "MaJuEa" in self.planetNamesEnabled)
-        self.artifact.setPlanetEaJuMeEnabledFlag(\
-            "EaJuMe" in self.planetNamesEnabled)
-        self.artifact.setPlanetEaJuVeEnabledFlag(\
-            "EaJuVe" in self.planetNamesEnabled)
-        self.artifact.setPlanetEaSaMeEnabledFlag(\
-            "EaSaMe" in self.planetNamesEnabled)
-        self.artifact.setPlanetEaSaVeEnabledFlag(\
-            "EaSaVe" in self.planetNamesEnabled)
-        self.artifact.setPlanetEaSaMaEnabledFlag(\
-            "EaSaMa" in self.planetNamesEnabled)
         
         self.log.debug("Exiting getArtifact()")
         
