@@ -81,20 +81,26 @@ minuteOfHour = 0
 #startDt = datetime.datetime(year=1894, month=1, day=1,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
-startDt = datetime.datetime(year=2016, month=12, day=1,
+#startDt = datetime.datetime(year=2016, month=12, day=1,
+#                            hour=hourOfDay, minute=minuteOfHour,
+#                            tzinfo=timezone)
+startDt = datetime.datetime(year=1932, month=1, day=1,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
 
 
-endDt   = datetime.datetime(year=2016, month=12, day=31,
-                            hour=hourOfDay, minute=minuteOfHour,
-                            tzinfo=timezone)
+#endDt   = datetime.datetime(year=2016, month=12, day=31,
+#                            hour=hourOfDay, minute=minuteOfHour,
+#                            tzinfo=timezone)
 #endDt   = datetime.datetime(year=1940, month=12, day=31,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
 #endDt   = datetime.datetime(year=1979, month=12, day=31,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
+endDt   = datetime.datetime(year=1942, month=12, day=31,
+                            hour=hourOfDay, minute=minuteOfHour,
+                            tzinfo=timezone)
 
 
 # Destination output CSV file.

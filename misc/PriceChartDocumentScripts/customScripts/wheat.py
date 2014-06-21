@@ -357,6 +357,24 @@ def processPCDD(pcdd, tag):
             "Sun", "geocentric", "tropical",
             degreeValue, color=QColor(Qt.red))
     
+    if True:
+        degreeValue = 0
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Mercury", "geocentric", "tropical",
+            "Sun", "geocentric", "tropical",
+            degreeValue, color=None)
+    
+    if True:
+        degreeValue = 0
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Venus", "geocentric", "tropical",
+            "Sun", "geocentric", "tropical",
+            degreeValue, color=None)
+    
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
@@ -804,13 +822,13 @@ def processPCDD(pcdd, tag):
     #                                   tzinfo=pytz.utc),
     #    degreeIncrement=15)
 
-    if True:
+    if False:
         success = PlanetaryCombinationsLibrary.\
             addGeoLongitudeVelocityPolarityChangeVerticalLines(\
             pcdd, startDt, endDt, highPrice, lowPrice,
             "Mercury")
 
-    if True:
+    if False:
         success = PlanetaryCombinationsLibrary.\
             addGeoLongitudeVelocityPolarityChangeVerticalLines(\
             pcdd, startDt, endDt, highPrice, lowPrice,
@@ -828,7 +846,7 @@ def processPCDD(pcdd, tag):
             pcdd, startDt, endDt, highPrice, lowPrice,
             "Jupiter")
 
-    if True:
+    if False:
         success = PlanetaryCombinationsLibrary.\
             addGeoLongitudeVelocityPolarityChangeVerticalLines(\
             pcdd, startDt, endDt, highPrice, lowPrice,
