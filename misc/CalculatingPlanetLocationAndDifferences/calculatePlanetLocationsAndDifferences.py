@@ -58,36 +58,255 @@ locationLongitude = -74.0064
 locationLatitude = 40.7142
 locationElevation = 0
 
+
+loc1Name = "New York City"
+loc1Longitude = -74.0064
+loc1Latitude = 40.7142
+loc1Elevation = 0
+nycLoc = (loc1Name, loc1Longitude, loc1Latitude, loc1Elevation)
+
+loc1Name = "Sherman"
+loc1Longitude = -96.609
+loc1Latitude = 33.635
+loc1Elevation = 0
+shermanLoc = (loc1Name, loc1Longitude, loc1Latitude, loc1Elevation)
+
+loc1Name = "Texarkana"
+loc1Longitude = -94.048
+loc1Latitude = 33.045
+loc1Elevation = 0
+texarkanaLoc = (loc1Name, loc1Longitude, loc1Latitude, loc1Elevation)
+
+loc1Name = "Paris"
+loc1Longitude = 2.333
+loc1Latitude = 48.87
+loc1Elevation = 0
+parisLoc = (loc1Name, loc1Longitude, loc1Latitude, loc1Elevation)
+
+loc1Name = "Chicago"
+loc1Longitude = 87.65
+loc1Latitude = 41.85
+loc1Elevation = 0
+chicagoLoc = (loc1Name, loc1Longitude, loc1Latitude, loc1Elevation)
+
+
+
 # Timezone information to use with the Ephemeris.
 timezone = pytz.timezone("US/Eastern")
 eastern = pytz.timezone("US/Eastern")
+central =pytz.timezone("US/Central")
 
 # Time of the day to use to whem getting ephemeris measurements.
 #hourOfDay = 12
 #minuteOfHour = 0
 
+#loc1Tuple = shermanLoc
+loc1Tuple = nycLoc
+
+
 
 #startDt
-tz1 = pytz.timezone("US/Eastern")
-#dt1 = datetime.datetime(year=1930, month=5, day=15,
-#                        hour=12, minute=0,
-#                        tzinfo=tz1)
-dt1 = wallStreet69
-loc1Name = "New York City"
-loc1Longitude = -74.0064
-loc1Latitude = 40.7142
-loc1Elevation = 0
+#dt1 = datetime.datetime(year=1927, month=3, day=26,
+#                        hour=21, minute=28,
+#                        tzinfo=eastern)
+
+#dt1 = mrKInNYCPg64
+#dt1 = mrKOilStocksHighPg65
+#dt1 = mrKOilStocksLowPg65
+#dt1 = marieBirthdayCandidatePg179
+#dt1 = windowPg40
+#dt1 = christmas1926Pg42
+#dt1 = letterOfCommendationPg43
+#dt1 = letterRGTexarkanatoMrKpg62
+#dt1 = letterWalterInNYCPg63
+#dt1 = letterRGtoMrK2Pg65
+#dt1 = rgRoadToFameAndFortunePg70
+#dt1 = marieLetterToRgPg71
+#dt1 = futureCyclesPg75
+#dt1 = mrKFaithInRgPg91
+#dt1 = rgGreatVictoryPg92
+#dt1 = marieHopePrayLoveOfHeartPg94
+#dt1 = cottonStartedUpFastPg94
+#dt1 = cottonAdvancePg94
+#dt1 = noProfitMarieFaith400pg95
+#dt1 = marieFaithTradeCottonPurchasePg96
+#dt1 = floodStartedMississippiValleyPg96
+#dt1 = stLouisBirthdayPg96
+#dt1 = fortuneSmilingPg97
+#dt1 = marieLoveAndTrustPg97
+#dt1 = rgGreatestWeekUpToThatTimePg101
+#dt1 = rgAndMrKConferencePrivateOfficePg101
+#dt1 = rgGreatestWeekUpToThatTimePg102
+#dt1 = marieOverjoyedAtRGSuccessPg103
+#dt1 = mariesPromisePg103
+#dt1 = timeToStartBuyingWheatAndCornPg103
+#dt1 = rgBuysCornForMariesAccountPg103
+#dt1 = lindberghOverIrelandPg105
+#dt1 = rgRedLetterDayPg105
+dt1 = rgLightestHeartPg108
+#dt1 = rgAndMarieInDallasPg110
+#dt1 = rgAndMarieReturnToShermanPg111
+#dt1 = rgAndMarieInShermanPg111
+#dt1 = rgSaysGoodbyeToMariePg111
+#dt1 = rgLastDayInMrKOfficePg112
+#dt1 = rgCycleTheoryPg112
+#dt1 = rgMrKWeddingPresentPg113
+#dt1 = rgCallsMarieOverLongDistanceBcSuccessPg114
+#dt1 = rgRailroadStationAtTexarkanaTicketPg115
+#dt1 = rgHeartInThroatPg116
+#dt1 = rgHeartInThroatPg116
+#dt1 = searchForMariePg118
+#dt1 = marieMysteriousLetterPg120
+#dt1 = nearlyNoonUnionStationClockPg123
+#dt1 = noonUnionStationClockPg123
+#dt1 = rgTroubledAndDiscouragedHeartSadPg124
+#dt1 = rgTimeAppointedToWaitPg125
+#dt1 = rgHopelessToWaitSecretConfidedPg131
+#dt1 = rgHeartHeavyShockRingPg133
+#dt1 = sunThruWindowOfHotelPg137
+#dt1 = prayerToUniversalPowerSignNeedPg140
+#dt1 = rgHoldingRAFactPg146
+#dt1 = mrKOnTelephoneWireJune6Pg147
+#dt1 = mrKOnTelephoneWireJune7Pg147
+#dt1 = openingOnTuesdayMorningJune7Pg152
+#dt1 = stantonsDeepLetterToRGAtPlantersPg153
+#dt1 = letterRgToStantonsPg154
+#dt1 = newspapersWereOutPg156
+#dt1 = sunsetDayWaningSadnessPg156
+#dt1 = personalNoticesPlacedPg157
+#dt1 = rgDreamsOfHisBirthdayPg159
+#dt1 = rgBirthday1927Pg161
+#dt1 = clockAt11OnRGBirthdayMindRevertPg162
+#dt1 = clockAt12OnRGBirthdayPg162
+#dt1 = clockAfter12OnRGBirthdayPg162
+#dt1 = rgBeganToBeDisappointedOverHopefulPg163
+#dt1 = rgBoughtEveningNewsPaperLookedOverFinancialPagePg171
+#dt1 = rgSeesMadamCleoPg172
+#dt1 = mrKLeavingOnSunshineSpecialPg179
+#dt1 = mrKStLouisArrivalPg179
+#dt1 = mrKAndRgAtStLouisPg180
+#dt1 = rgFirstArrivalNYCPg184
+#dt1 = mrKAndWalterTalkAboutRGPg186
+#dt1 = lindberghMarchUpBroadwayPg187
+#dt1 = oneForAllPlayPg187
+#dt1 = majorMotorsPyramidPg197
+#dt1 = wallStreet69Pg217
+#dt1 = presElectionForecastPg218
+#dt1 = justBeforeChristmasPg222
+#dt1 = aFewDaysBeforeChristmasPg223
+#dt1 = motherInNYPg224
+#dt1 = rgBirthday1929
+#dt1 = rgBirthday1929
+#dt1 = walterEdnaMarriage
+#dt1 = losAngeles
+#dt1 = attackOnStLouisStartedPg315
+#dt1 = nycGiganticAttack
+#dt1 = rgBirthday1932
+#dt1 = peaceConference
+#dt1 = timeAfterDiscoveryOfAmerica
+
+
+
+loc2Tuple = nycLoc
 
 #endDt
-tz2 = pytz.timezone("US/Eastern")
-dt2 = datetime.datetime(year=1928, month=6, day=15,
-                        hour=12, minute=0,
-                        tzinfo=tz2)
-#dt2 = 
-loc2Name = "New York City"
-loc2Longitude = -74.0064
-loc2Latitude = 40.7142
-loc2Elevation = 0
+#dt2 = datetime.datetime(year=1927, month=6, day=9,
+#                        hour=12, minute=0,
+#                        tzinfo=eastern)
+
+#dt2 = mrKInNYCPg64
+#dt2 = mrKOilStocksHighPg65
+#dt2 = mrKOilStocksLowPg65
+#dt2 = marieBirthdayCandidatePg179
+#dt2 = windowPg40
+#dt2 = christmas1926Pg42
+#dt2 = letterOfCommendationPg43
+#dt2 = letterRGTexarkanatoMrKpg62
+#dt2 = letterWalterInNYCPg63
+#dt2 = letterRGtoMrK2Pg65
+#dt2 = rgRoadToFameAndFortunePg70
+#dt2 = marieLetterToRgPg71
+#dt2 = futureCyclesPg75
+#dt2 = mrKFaithInRgPg91
+#dt2 = rgGreatVictoryPg92
+#dt2 = marieHopePrayLoveOfHeartPg94
+#dt2 = cottonStartedUpFastPg94
+#dt2 = cottonAdvancePg94
+#dt2 = noProfitMarieFaith400pg95
+#dt2 = marieFaithTradeCottonPurchasePg96
+#dt2 = floodStartedMississippiValleyPg96
+#dt2 = stLouisBirthdayPg96
+#dt2 = fortuneSmilingPg97
+#dt2 = marieLoveAndTrustPg97
+#dt2 = rgGreatestWeekUpToThatTimePg101
+#dt2 = rgAndMrKConferencePrivateOfficePg101
+#dt2 = rgGreatestWeekUpToThatTimePg102
+#dt2 = marieOverjoyedAtRGSuccessPg103
+#dt2 = mariesPromisePg103
+#dt2 = timeToStartBuyingWheatAndCornPg103
+#dt2 = rgBuysCornForMariesAccountPg103
+#dt2 = lindberghOverIrelandPg105
+#dt2 = rgRedLetterDayPg105
+#dt2 = rgLightestHeartPg108
+#dt2 = rgAndMarieInDallasPg110
+#dt2 = rgAndMarieReturnToShermanPg111
+#dt2 = rgAndMarieInShermanPg111
+#dt2 = rgSaysGoodbyeToMariePg111
+#dt2 = rgLastDayInMrKOfficePg112
+#dt2 = rgCycleTheoryPg112
+#dt2 = rgMrKWeddingPresentPg113
+#dt2 = rgCallsMarieOverLongDistanceBcSuccessPg114
+#dt2 = rgRailroadStationAtTexarkanaTicketPg115
+#dt2 = rgHeartInThroatPg116
+#dt2 = rgHeartInThroatPg116
+#dt2 = searchForMariePg118
+#dt2 = marieMysteriousLetterPg120
+#dt2 = nearlyNoonUnionStationClockPg123
+#dt2 = noonUnionStationClockPg123
+#dt2 = rgTroubledAndDiscouragedHeartSadPg124
+#dt2 = rgTimeAppointedToWaitPg125
+#dt2 = rgHopelessToWaitSecretConfidedPg131
+#dt2 = rgHeartHeavyShockRingPg133
+#dt2 = sunThruWindowOfHotelPg137
+#dt2 = prayerToUniversalPowerSignNeedPg140
+#dt2 = rgHoldingRAFactPg146
+#dt2 = mrKOnTelephoneWireJune6Pg147
+#dt2 = mrKOnTelephoneWireJune7Pg147
+#dt2 = openingOnTuesdayMorningJune7Pg152
+#dt2 = stantonsDeepLetterToRGAtPlantersPg153
+#dt2 = letterRgToStantonsPg154
+#dt2 = newspapersWereOutPg156
+#dt2 = sunsetDayWaningSadnessPg156
+#dt2 = personalNoticesPlacedPg157
+#dt2 = rgDreamsOfHisBirthdayPg159
+#dt2 = rgBirthday1927Pg161
+#dt2 = clockAt11OnRGBirthdayMindRevertPg162
+#dt2 = clockAt12OnRGBirthdayPg162
+#dt2 = clockAfter12OnRGBirthdayPg162
+#dt2 = rgBeganToBeDisappointedOverHopefulPg163
+#dt2 = rgBoughtEveningNewsPaperLookedOverFinancialPagePg171
+#dt2 = rgSeesMadamCleoPg172
+#dt2 = mrKLeavingOnSunshineSpecialPg179
+#dt2 = mrKStLouisArrivalPg179
+#dt2 = mrKAndRgAtStLouisPg180
+#dt2 = rgFirstArrivalNYCPg184
+#dt2 = mrKAndWalterTalkAboutRGPg186
+#dt2 = lindberghMarchUpBroadwayPg187
+#dt2 = oneForAllPlayPg187
+#dt2 = majorMotorsPyramidPg197
+#dt2 = wallStreet69Pg217
+#dt2 = presElectionForecastPg218
+#dt2 = justBeforeChristmasPg222
+#dt2 = aFewDaysBeforeChristmasPg223
+#dt2 = motherInNYPg224
+dt2 = rgBirthday1928
+#dt2 = rgBirthday1929
+#dt2 = walterEdnaMarriage
+#dt2 = losAngeles
+#dt2 = nycGiganticAttack
+#dt2 = rgBirthday1932
+#dt2 = peaceConference
+#dt2 = timeAfterDiscoveryOfAmerica
 
 
 # Step size used when incrementing through all the timestamps between
@@ -102,6 +321,10 @@ outputFilename = "/home/rluu/programming/pricechartingtool/misc/CalculatingPlane
 
 # Planet names to do calculations for.
 geocentricPlanetNames = [\
+#    "H1",
+#    "H4",
+#    "H7",
+#    "H10",
     "Moon",
     "MoSu",
     "Sun",
@@ -111,7 +334,7 @@ geocentricPlanetNames = [\
     "Mars",
     "Jupiter",
     "Saturn",
-    "Uranus",
+    #"Uranus",
     #"Neptune",
     #"Pluto",
     "TrueNorthNode",
@@ -129,12 +352,35 @@ heliocentricPlanetNames = [\
     "Mars",
     "Jupiter",
     "Saturn",
-    "Uranus",
+    #"Uranus",
     #"Neptune",
     #"Pluto",
     #"TrueNorthNode",
     #"Chiron",
-    #"Isis"
+    #"Isis",
+
+
+    "MeVe",
+    "MeEa",
+    "MeMa",
+    "MeJu",
+    "MeSa",
+#    #"MeUr",
+    "VeEa",
+    "VeMa",
+    "VeJu",
+    "VeSa",
+#    #"VeUr",
+    "EaMa",
+#    "EaJu",
+#    "EaSa",
+#    #"EaUr",
+#    "MaJu",
+#    "MaSa",
+#    #"MaUr",
+#    #"JuSa",
+#    #"JuUr",
+#    #"SaUr",
     ]
 
 # Line separator.
@@ -204,10 +450,15 @@ def formatToDateAndTimeStr(dt):
     return dateAndTimeStr
 
 
-def getPlanetsForDatetimeAndTimezone(dt, locName, locLongitude, locLatitude, locElevation):
+def getPlanetsForDatetimeAndTimezone(dt, locTuple):
     """Returns a string with the planet longitude position for the given
     datetime and timezone.
     """
+
+    locName = locTuple[0]
+    locLongitude = locTuple[1]
+    locLatitude = locTuple[2]
+    locElevation = locTuple[3]
 
     # Set the Location (required).
     Ephemeris.setGeographicPosition(locLongitude,
@@ -224,9 +475,18 @@ def getPlanetsForDatetimeAndTimezone(dt, locName, locLongitude, locLatitude, loc
     for planetName in geocentricPlanetNames:
         pi = Ephemeris.getPlanetaryInfo(planetName, dt)
 
-        rv += "  {: <14}".format("G." + planetName + ": ") + \
-              "{:>.3f}".format(pi.geocentric[longitudeType][fieldName]) + \
-              endl
+        longitude = pi.geocentric[longitudeType][fieldName]
+                           
+        # Format differently for lunation phase of G.MoSu.
+        if planetName == "MoSu":
+            rv += "  {: <14}".format("G." + planetName + ": ") + \
+                  "{:>.3f}".format(longitude) + \
+                  "    Phase (of max 30): {:.2f}".format(longitude / 12.0) + \
+                  endl
+        else:
+            rv += "  {: <14}".format("G." + planetName + ": ") + \
+                  "{:>.3f}".format(longitude) + \
+                  endl
 
     rv += endl
         
@@ -243,16 +503,23 @@ def getPlanetsForDatetimeAndTimezone(dt, locName, locLongitude, locLatitude, loc
 def getLongitudeDiffBetweenDatetimes(planetName,
                                      centricityType,
                                      dt1,
-                                     loc1Longitude,
-                                     loc1Latitude,
-                                     loc1Elevation,
+                                     loc1Tuple,
                                      dt2,
-                                     loc2Longitude,
-                                     loc2Latitude,
-                                     loc2Elevation):
+                                     loc2Tuple):
 
     startTimestamp = dt1
     endTimestamp = dt2
+
+    loc1Name = loc1Tuple[0]
+    loc1Longitude = loc1Tuple[1]
+    loc1Latitude = loc1Tuple[2]
+    loc1Elevation = loc1Tuple[3]
+
+    loc2Name = loc2Tuple[0]
+    loc2Longitude = loc2Tuple[1]
+    loc2Latitude = loc2Tuple[2]
+    loc2Elevation = loc2Tuple[3]
+
 
     # maxErrorTd - datetime.timedelta object holding the maximum
     #              time difference between the exact planetary
@@ -619,18 +886,23 @@ def getLongitudeDiffBetweenDatetimes(planetName,
 
     
 def getPlanetDiffsForDatetimes(dt1,
-                               loc1Name,
-                               loc1Longitude,
-                               loc1Latitude,
-                               loc1Elevation,
+                               loc1Tuple,
                                dt2,
-                               loc2Name,
-                               loc2Longitude,
-                               loc2Latitude,
-                               loc2Elevation):
+                               loc2Tuple):
     """Returns a string with the planet longitude differences between the given
     datetimes and location.
     """
+
+    loc1Name = loc1Tuple[0]
+    loc1Longitude = loc1Tuple[1]
+    loc1Latitude = loc1Tuple[2]
+    loc1Elevation = loc1Tuple[3]
+
+    loc2Name = loc2Tuple[0]
+    loc2Longitude = loc2Tuple[1]
+    loc2Latitude = loc2Tuple[2]
+    loc2Elevation = loc2Tuple[3]
+
 
     longitudeType = "tropical"
     fieldName = "longitude"
@@ -649,22 +921,28 @@ def getPlanetDiffsForDatetimes(dt1,
         longitudeDiff = getLongitudeDiffBetweenDatetimes(planetName,
                                                          "geocentric",
                                                          dt1,
-                                                         loc1Longitude,
-                                                         loc1Latitude,
-                                                         loc1Elevation,
+                                                         loc1Tuple,
                                                          dt2,
-                                                         loc2Longitude,
-                                                         loc2Latitude,
-                                                         loc2Elevation)
+                                                         loc2Tuple)
         longitudeDiffFullRevs = int(longitudeDiff // 360)
         longitudeDiffMod360 = longitudeDiff % 360
         
-        rv += "  {: <16}".format("Diff G." + planetName + ": ") + \
-              "{:>10.3f}".format(longitudeDiff) + \
-              "    or  {:>4} rev + {:>7.3f} deg".format(longitudeDiffFullRevs,
-                                                        longitudeDiffMod360) + \
-              endl
-
+        # Format differently for lunation phase of G.MoSu.
+        if planetName == "MoSu":
+            rv += "  {: <16}".format("Diff G." + planetName + ": ") + \
+                  "{:>10.3f}".format(longitudeDiff) + \
+                  "    or  {:>4} rev + {:>7.3f} deg".format(longitudeDiffFullRevs,
+                                                            longitudeDiffMod360) + \
+                  "     PhaseCountTotal: {:.2f}, Phase (of max 30): {:.2f}".\
+                  format(longitudeDiff / 12.0, longitudeDiffMod360 / 12.0) + \
+                  endl
+        else:
+            rv += "  {: <16}".format("Diff G." + planetName + ": ") + \
+                  "{:>10.3f}".format(longitudeDiff) + \
+                  "    or  {:>4} rev + {:>7.3f} deg".format(longitudeDiffFullRevs,
+                                                            longitudeDiffMod360) + \
+                  endl
+            
     rv += endl
         
     for planetName in heliocentricPlanetNames:
@@ -672,13 +950,9 @@ def getPlanetDiffsForDatetimes(dt1,
         longitudeDiff = getLongitudeDiffBetweenDatetimes(planetName,
                                                          "heliocentric",
                                                          dt1,
-                                                         loc1Longitude,
-                                                         loc1Latitude,
-                                                         loc1Elevation,
+                                                         loc1Tuple,
                                                          dt2,
-                                                         loc2Longitude,
-                                                         loc2Latitude,
-                                                         loc2Elevation)
+                                                         loc2Tuple)
         longitudeDiffFullRevs = int(longitudeDiff // 360)
         longitudeDiffMod360 = longitudeDiff % 360
         
@@ -708,35 +982,23 @@ if __name__ == "__main__":
     printDiff = True
     #printDiff = False
 
-    if printDt1 == True:
+    if 'printDt1' in locals() and printDt1 == True:
         outputStr = getPlanetsForDatetimeAndTimezone(dt1,
-                                                     loc1Name,
-                                                     loc1Longitude,
-                                                     loc1Latitude,
-                                                     loc1Elevation)
+                                                     loc1Tuple)
         print(outputStr)
 
 
-    if printDt2 == True:
+    if 'printDt2' in locals() and printDt2 == True:
         outputStr = getPlanetsForDatetimeAndTimezone(dt2,
-                                                     loc2Name,
-                                                     loc2Longitude,
-                                                     loc2Latitude,
-                                                     loc2Elevation)
+                                                     loc2Tuple)
         print(outputStr)
 
 
-    if printDiff == True:
+    if 'printDiff' in locals() and printDiff == True:
         outputStr = getPlanetDiffsForDatetimes(dt1,
-                                               loc1Name,
-                                               loc1Longitude,
-                                               loc1Latitude,
-                                               loc1Elevation,
+                                               loc1Tuple,
                                                dt2,
-                                               loc2Name,
-                                               loc2Longitude,
-                                               loc2Latitude,
-                                               loc2Elevation)
+                                               loc2Tuple)
         print(outputStr)
 
 
