@@ -10,7 +10,20 @@ import pytz
 eastern = pytz.timezone("US/Eastern")
 central = pytz.timezone("US/Central")
 
-# June 9, 1919 (NYC?)  
+# WWI broke out in 1914.  pg 7.
+# Just "1914" is given.
+# Actual breakout of war was July 28, 1914.
+ww1BrokeOutPg7 = datetime.datetime(year=1914, month=7, day=28,
+                                      hour=12, minute=0,
+                                      tzinfo=eastern)
+
+# US entered World War in 1917.   pg. 10
+# Young Robert was 11 years old.  
+usEnteredWorldWarPg10 = datetime.datetime(year=1917, month=4, day=6,
+                                      hour=12, minute=0,
+                                      tzinfo=eastern)
+
+# June 9, 1919 (NYC?)
 # Mr. K was in NYC many years ago.  pg. 64-65.
 mrKInNYCPg64 = datetime.datetime(year=1919, month=6, day=9,
                                  hour=12, minute=0,
@@ -27,6 +40,19 @@ mrKOilStocksHighPg65 = datetime.datetime(year=1919, month=11, day=3,
 mrKOilStocksLowPg65 = datetime.datetime(year=1921, month=8, day=24,
                                          hour=12, minute=0,
                                          tzinfo=eastern)
+
+
+# SF Earthquake.
+# pg. 1.
+sfEarthquakePg1 = datetime.datetime(year=1906, month=4, day=18,
+                               hour=5, minute=12,
+                               tzinfo=eastern)
+
+# RG birthday
+# pg. 1.
+rgBirthday1906Pg1 = datetime.datetime(year=1906, month=6, day=9,
+                               hour=19, minute=20,
+                               tzinfo=eastern)
 
 
 # Marie Birthday Candidate. pg. 179, 197.
@@ -82,6 +108,19 @@ marieLetterToRgPg71 = datetime.datetime(year=1927, month=1, day=26,
 futureCyclesPg75 = datetime.datetime(year=1927, month=1, day=28,
                                  hour=12, minute=0,
                                  tzinfo=eastern)
+
+# Outbreak of the World War in 1914.  pg. 80.
+ww1OutbreakPg80 = datetime.datetime(year=1914, month=7, day=28,
+                                     hour=12, minute=0,
+                                     tzinfo=eastern)
+
+# First non-stop flight from St. John's, Newfoundland, to Ireland. [pg. 87]
+# June 1919.
+# Actual flight was on June 14th, landing on June 15th, 1919.
+# [Using June 14th, 1919].
+nonStopFlightToIrelandPg87 = datetime.datetime(year=1919, month=6, day=14,
+                                     hour=12, minute=0,
+                                     tzinfo=eastern)
 
 # Mr. K faith in RG. pg. 91.
 mrKFaithInRgPg91 = datetime.datetime(year=1927, month=2, day=1,
@@ -291,7 +330,7 @@ rgHeartInThroatPg116 = datetime.datetime(year=1927, month=6, day=4,
 # RG and Marie talk about plans until after midnight on Sunshine Special.
 # pg. 116.
 # [Using 12:30 am]
-rgHeartInThroatPg116 = datetime.datetime(year=1927, month=6, day=5,
+rgMariePlansOnSunshineSpecialPg116 = datetime.datetime(year=1927, month=6, day=5,
                                          hour=0, minute=30,
                                          tzinfo=eastern)
 
@@ -307,6 +346,16 @@ searchForMariePg118 = datetime.datetime(year=1927, month=6, day=5,
 marieMysteriousLetterPg120 = datetime.datetime(year=1927, month=6, day=5,
                                                hour=3, minute=0,
                                                tzinfo=eastern)
+
+# RG boards local airplane for Silver Springs and arrived in the afternoon.
+# It was a fitting setting for the scene.  Beautiful, sunshine. [pg. 257].
+#
+# Sunday morning about 10 o'clock.
+# [Unknown which date this is for.  Using 1927-06-05 10:00 am.]
+# 
+rgAirplaneToSilverSpringPg257_candidate1 = datetime.datetime(year=1927, month=6, day=5,
+                                                     hour=10, minute=0,
+                                                     tzinfo=eastern)
 
 # Nearly 12 o'clock noon.
 # pg. 123
@@ -450,7 +499,7 @@ personalNoticesPlacedPg157 = datetime.datetime(year=1927, month=6, day=8,
 # RG went to sleep to dream of his birthday.
 # [using sunset.]
 # pg. 159-160.
-rgDreamsOfHisBirthdayPg159 = datetime.datetime(year=1927, month=6, day=8,
+rgDreamsOfHisBirthdayPg160 = datetime.datetime(year=1927, month=6, day=8,
                                                hour=19, minute=20,
                                                tzinfo=eastern)
 
@@ -487,7 +536,7 @@ clockAt12OnRGBirthdayPg162 = datetime.datetime(year=1927, month=6, day=9,
 # telegram from Walter.
 # pg. 162.
 clockAfter12OnRGBirthdayPg162 = datetime.datetime(year=1927, month=6, day=9,
-                                   hour=12, minute=15,
+                                   hour=12, minute=10,
                                    tzinfo=eastern)
 
 # A little later in the day, RG received a long telegram from Mr. K,
@@ -558,8 +607,11 @@ mrKStLouisArrivalPg179 = datetime.datetime(year=1927, month=6, day=11,
 #
 # [using 1 hour after sunrise].
 # pg. 180-181.
-mrKAndRgAtStLouisPg180 = datetime.datetime(year=1927, month=6, day=11,
+mrKAndRgAtUnionStationStLouisCandidate1Pg180 = datetime.datetime(year=1927, month=6, day=11,
                                    hour=5, minute=30,
+                                   tzinfo=eastern)
+mrKAndRgAtUnionStationStLouisCandidate2Pg180 = datetime.datetime(year=1927, month=6, day=11,
+                                   hour=10, minute=0,
                                    tzinfo=eastern)
 
 
@@ -599,6 +651,12 @@ lindberghMarchUpBroadwayPg187 = datetime.datetime(year=1927, month=6, day=13,
 # pg. 187
 oneForAllPlayPg187 = datetime.datetime(year=1927, month=6, day=13,
                                       hour=19, minute=20,
+                                      tzinfo=eastern)
+
+# Time Factor Discovery.
+# pg. 197.
+timeFactorDiscoveryPg197 = datetime.datetime(year=1927, month=6, day=19,
+                                      hour=12, minute=0,
                                       tzinfo=eastern)
 
 # Major Motors: Pyramid, start an advance.
@@ -643,10 +701,22 @@ motherInNYPg224 = datetime.datetime(year=1928, month=1, day=3,
                                     hour=12, minute=0,
                                     tzinfo=eastern)
 
+
 # RG birthday.  1928.
 rgBirthday1928 = datetime.datetime(year=1928, month=6, day=9,
                                    hour=12, minute=0,
                                    tzinfo=eastern)
+
+# RG flight to Paris.
+rgFlightToParisPg240 = datetime.datetime(year=1929, month=2, day=2,
+                                   hour=18, minute=0,
+                                   tzinfo=eastern)
+
+# Robert Gordon and Lady Bersford in Sebring.  [pg. 267]
+# March 27, [1929].
+rgLadyBersfordInSebringPg267 = datetime.datetime(year=1929, month=3, day=27,
+                                    hour=12, minute=0,
+                                    tzinfo=eastern)
 
 # RG birthday dinner and celebration.  1929.
 rgBirthday1929 = datetime.datetime(year=1929, month=6, day=9,
@@ -671,20 +741,156 @@ attackOnStLouisStartedPg315 = datetime.datetime(year=1931, month=8, day=8,
                                       hour=12, minute=0,
                                       tzinfo=eastern)
 
-
-# New York City
-nycGiganticAttack = datetime.datetime(year=1932, month=6, day=8,
-                                      hour=10, minute=10,
+# France first attack on England and Germany. [pg. 318].
+franceAttackOnEnglandGermany1_Pg318 = datetime.datetime(year=1931, month=9, day=6,
+                                      hour=12, minute=0,
                                       tzinfo=eastern)
+
+
+# Chicago. White flag.  [pg. 320, 322]
+# October 3, [1931], 10 a.m.  Sun rose.  
+chicagoWhiteFlag_10am_Pg322 = datetime.datetime(year=1931, month=10, day=3,
+                                          hour=10, minute=0,
+                                          tzinfo=eastern)
+
+# Detroit #1.  Radium Ray.  [pg. 345]
+# November 24, [1931], Just before 10 o'clock [pm].
+detroit1_RadiumRay_10pm_Pg345 = datetime.datetime(year=1931, month=11, day=24,
+                                          hour=22, minute=0,
+                                          tzinfo=eastern)
+
+# Detroit #1.   [pg. 347-348]
+# November 24, [1931] night, waiting till after 12 o'clock [am], which would actually be November 25, 1931.
+detroit1_12am_Pg347 = datetime.datetime(year=1931, month=11, day=25,
+                                          hour=0, minute=0,
+                                          tzinfo=eastern)
+
+# Detroit #2.   [pg. 349]
+# December 7, 1931, 3 o'clock in afternoon. 
+detroit2_3pm_Pg349 = datetime.datetime(year=1931, month=12, day=7,
+                                          hour=15, minute=0,
+                                          tzinfo=eastern)
+
+# Detroit #2.   [pg. 350]
+# December 7, 1931, About 5 o'clock. 
+detroit2_5pm_Pg350 = datetime.datetime(year=1931, month=12, day=7,
+                                          hour=17, minute=0,
+                                          tzinfo=eastern)
+
+# Detroit #2.   [pg. 352]
+# December 8, 1931, morning.  Newspapers thruout the US carried big headlines.
+# Fact of turn of war.  
+detroit2_5pm_Pg350 = datetime.datetime(year=1931, month=12, day=7,
+                                          hour=17, minute=0,
+                                          tzinfo=eastern)
+
+
+# MAM motor.  pg. 353.
+mamMotorPg353 = datetime.datetime(year=1931, month=12, day=25,
+                                      hour=12, minute=0,
+                                      tzinfo=eastern)
+
+# MAM first flight.  pg. 354.
+mamFirstFlightPg354 = datetime.datetime(year=1932, month=1, day=1,
+                                      hour=12, minute=0,
+                                      tzinfo=eastern)
+
+# France again attacks England and Germany. [pg. 357].
+franceAttackOnEnglandGermany2_Pg357 = datetime.datetime(year=1932, month=4, day=1,
+                                      hour=12, minute=0,
+                                      tzinfo=eastern)
+
+# Battle of Boston.  [pg. 358]
+# June 6th [1932].
+battleOfBostonPg358 = datetime.datetime(year=1932, month=6, day=6,
+                                        hour=12, minute=0,
+                                        tzinfo=eastern)
+
+# New York City.  [pg. 361-365]
+# 8 o'clock on the evening of June 8th, [1932].  [pg. 361]
+nycGiganticAttack_8pm_Pg361 = datetime.datetime(year=1932, month=6, day=8,
+                                      hour=20, minute=0,
+                                      tzinfo=eastern)
+# Combined attack at 10 o'clock that night. [June 8, 1932].  [pg. 361]
+nycGiganticAttack_10pm_Pg361 = datetime.datetime(year=1932, month=6, day=8,
+                                      hour=22, minute=0,
+                                      tzinfo=eastern)
+# About 10 minutes after 10 o'clock. [June 8, 1932].  [pg. 362]
+nycGiganticAttack_1010pm_Pg362 = datetime.datetime(year=1932, month=6, day=8,
+                                      hour=22, minute=10,
+                                      tzinfo=eastern)
+# About 12 o'clock. [June 9, 1932].  [pg. 365.]
+# Triangle form.
+nycGiganticAttack_12am_Pg365 = datetime.datetime(year=1932, month=6, day=9,
+                                      hour=0, minute=0,
+                                      tzinfo=eastern)
+
+# At 12:30 [am., June 9, 1932].  [gp. 366].
+nycGiganticAttack_1230am_Pg366 = datetime.datetime(year=1932, month=6, day=9,
+                                      hour=0, minute=30,
+                                      tzinfo=eastern)
+
+# President lands on Mammouth Building in NY. [pg. 375.]
+# About 4 am.
+presidentOnMammouthBuilding_4am_Pg375 = datetime.datetime(year=1932, month=6, day=9,
+                                      hour=4, minute=0,
+                                      tzinfo=eastern)
+
+
 
 # RG birthday.  1932.
 rgBirthday1932 = datetime.datetime(year=1932, month=6, day=9,
                                    hour=12, minute=0,
                                    tzinfo=eastern)
 
-# Peace Conference
-peaceConference = datetime.datetime(year=1932, month=8, day=30,
+# Colonel Edna Kennelworth went to Washington. [pg. 383]
+# July 2, [1932]
+colonelEdnaKennelworthInWashingtonPg383 = datetime.datetime(year=1932, month=7, day=2,
+                                    hour=12, minute=0,
+                                    tzinfo=eastern)
+
+# Battle of Washington [pg. 383].
+# July 4, [1932].
+battleOfWashingtonPg383 = datetime.datetime(year=1932, month=7, day=4,
+                                    hour=12, minute=0,
+                                    tzinfo=eastern)
+
+# RG's 7 days: SCG sailed away in the MAM.  [pg. 393]
+# 7 a.m. on July 21st [1932].
+rgSevenDays_7am_Pg393 = datetime.datetime(year=1932, month=7, day=21,
+                                    hour=7, minute=0,
+                                    tzinfo=eastern)
+
+# RG's 7 days: In a little over 3 hours, he was over London.  [pg. 393-394]
+# Exact time not given, but using math it would be:
+# [10:00 a.m. on July 21st 1932].
+rgSevenDays_10am_Pg393 = datetime.datetime(year=1932, month=7, day=21,
                                     hour=10, minute=0,
+                                    tzinfo=eastern)
+
+# All cities of in the world where SCG had destroyed buildings were heard from.
+# [pg. 403]
+# August 4, 1932.
+allCitiesInWorldWhereSCGDestroyedBuildingsHeardFromPg403 = datetime.datetime(year=1932, month=8, day=4,
+                                    hour=12, minute=0,
+                                    tzinfo=eastern)
+
+# Peace Conference [pg. 407]
+# About 10 A.M. on August 30th [1932].  The conference convened.
+peaceConference_10am_Pg407 = datetime.datetime(year=1932, month=8, day=30,
+                                    hour=10, minute=0,
+                                    tzinfo=eastern)
+# Peace Conference [pg. 407]
+# About 11 A.M. on August 30th [1932].  All officials were seated.
+# Shortly after, SCG escorted by the President of the US, General Walter Walter Kennelworth and his wife General Edna Kennelworth arrived.
+peaceConference_11am_Pg407 = datetime.datetime(year=1932, month=8, day=30,
+                                    hour=11, minute=0,
+                                    tzinfo=eastern)
+# Peace Conference [pg. 415]
+# Late in the evening. [August 30, 1932].
+# Exact time not given, so using: [7 pm].
+peaceConference_lateEvening_Pg415 = datetime.datetime(year=1932, month=8, day=30,
+                                    hour=19, minute=0,
                                     tzinfo=eastern)
 
 # Time after discovery of America

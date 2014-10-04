@@ -15,6 +15,11 @@ Also tested 252 rev of G.Moon/G.Sun, marking up the smallest turns I could see o
 
 
 
+rluu_20140826: I amy want to take a closer a look at: H.Venus 4643 deg., which is the measurement of time between:
+Between datetime: Sat 1919-06-14 12:00:00 EST-0500, location: New York City and 
+        datetime: Sat 1927-05-21 17:00:00 EST-0500, location: New York
+[pg. 87.  Ireland.] to [pg. 105.  Ireland/Lindbergh.]
+
 
 
 ##############################################################################

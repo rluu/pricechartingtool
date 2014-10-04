@@ -3,6 +3,66 @@ Cycles found in TTTA.
 
 ##############################################################################
 
+Cycle of repetition potential found on 20140826: 
+H.Venus 4643 deg., which is the measurement of time between:
+Between datetime: Sat 1919-06-14 12:00:00 EST-0500, location: New York City and 
+        datetime: Sat 1927-05-21 17:00:00 EST-0500, location: New York
+[pg. 87.  Ireland.] to [pg. 105.  Ireland/Lindbergh.]
+
+Checked in wheat, and I should look more closely.  Perhaps I shoudl check also H.Earth for this time period.
+
+
+Between datetime: Sat 1919-06-14 12:00:00 EST-0500, location: New York City and 
+        datetime: Sat 1927-05-21 17:00:00 EST-0500, location: New York City
+  Diff calendar days: 2898 days, 5:00:00
+  Diff G.Moon:     38186.369    or   106 rev +  26.369 deg
+  Diff G.MoSu:     35329.102    or    98 rev +  49.102 deg     PhaseCountTotal: 2944.09, Phase (of max 30): 4.09
+  Diff G.Sun:       2857.267    or     7 rev + 337.267 deg
+  Diff G.Mercury:   2855.587    or     7 rev + 335.587 deg
+  Diff G.Venus:     2854.171    or     7 rev + 334.171 deg
+  Diff G.Mars:      1477.057    or     4 rev +  37.057 deg
+  Diff G.Jupiter:    248.310    or     0 rev + 248.310 deg
+  Diff G.Saturn:     101.111    or     0 rev + 101.111 deg
+  Diff G.TrueNorthNode:   -875.728    or    -3 rev + 204.272 deg
+
+  Diff H.Mercury:  11850.054    or    32 rev + 330.054 deg
+  Diff H.Venus:     4643.094    or    12 rev + 323.094 deg
+  Diff H.Earth:     2857.267    or     7 rev + 337.267 deg
+  Diff H.Mars:      1511.293    or     4 rev +  71.293 deg
+  Diff H.Jupiter:    232.936    or     0 rev + 232.936 deg
+
+
+rluu_20140826_0631: Ehh... this measurement of H.Venus doesn't look like it works so well during other time periods in wheat.
+
+##############################################################################
+
+Cycle of repetition found on date 20140815:
+pg. 10, 130.
+
+"11 years old" connections.  
+US enters WWI on: April 6, 1917.
+The Best Thing On Earth article: Bible:  June 5, 1927.
+
+From 1917-04-06 to 1927-06-05 is: H.Mars 1942 degrees.
+
+Testing on the Dow from 1915 onwards for this cycle length matches up quite well.  
+
+##############################################################################
+
+Cycle of repetition found around date 20140815:
+
+pg. 77.  New York American.  "Some time ago"
+         Future Cycles article date: January 28, 1927.
+pg. 82.  New York American:          January 29, 1922.
+
+Difference 5 G.Sun revolutions.
+
+Seemed to work in the Dow for the 1914 time period or so.  
+Trying on Citigroup did not work so well but 10 G.Sun revolutions worked well.
+10 G.Sun revolutions is the cycle size that Gann says stocks work closest to in his Master Stock Market Course.
+
+##############################################################################
+
 pg. 1:  June 9, 1906     - 18th phase of moon.
 pg. 40: October 23, 1926 - 18th phase of moon.
 

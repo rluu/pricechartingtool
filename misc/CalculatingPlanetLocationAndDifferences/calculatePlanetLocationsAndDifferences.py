@@ -43,7 +43,8 @@ from data_objects import *
 
 # For variables set to TTTA dates.
 from ttta_dates import *
-
+from dow_pivots import *
+from planetaryEvents import *
 ##############################################################################
 
 ##############################################################################
@@ -106,15 +107,29 @@ loc1Tuple = nycLoc
 
 
 #startDt
-#dt1 = datetime.datetime(year=1927, month=3, day=26,
-#                        hour=21, minute=28,
+#dt1 = datetime.datetime(year=1992, month=2, day=11,
+#                        hour=12, minute=0,
 #                        tzinfo=eastern)
 
 #dt1 = mrKInNYCPg64
 #dt1 = mrKOilStocksHighPg65
 #dt1 = mrKOilStocksLowPg65
+#dt1 = sfEarthquakePg1
+#dt1 = rgBirthday1906Pg1
+
+#dt1 = dow_pivot_19260330
+#dt1 = dow_pivot_19260416
+#dt1 = dow_pivot_19260424
+#dt1 = dow_pivot_19260519
+#dt1 = dow_pivot_19260814
+#dt1 = dow_pivot_19260824
+#dt1 = dow_pivot_19260907
+#dt1 = dow_pivot_19261019
+
 #dt1 = marieBirthdayCandidatePg179
-#dt1 = windowPg40
+#dt1 = ww1BrokeOutPg7
+#dt1 = usEnteredWorldWarPg10
+dt1 = windowPg40
 #dt1 = christmas1926Pg42
 #dt1 = letterOfCommendationPg43
 #dt1 = letterRGTexarkanatoMrKpg62
@@ -123,6 +138,8 @@ loc1Tuple = nycLoc
 #dt1 = rgRoadToFameAndFortunePg70
 #dt1 = marieLetterToRgPg71
 #dt1 = futureCyclesPg75
+#dt1 = ww1OutbreakPg80
+#dt1 = nonStopFlightToIrelandPg87
 #dt1 = mrKFaithInRgPg91
 #dt1 = rgGreatVictoryPg92
 #dt1 = marieHopePrayLoveOfHeartPg94
@@ -143,7 +160,7 @@ loc1Tuple = nycLoc
 #dt1 = rgBuysCornForMariesAccountPg103
 #dt1 = lindberghOverIrelandPg105
 #dt1 = rgRedLetterDayPg105
-dt1 = rgLightestHeartPg108
+#dt1 = rgLightestHeartPg108
 #dt1 = rgAndMarieInDallasPg110
 #dt1 = rgAndMarieReturnToShermanPg111
 #dt1 = rgAndMarieInShermanPg111
@@ -154,9 +171,10 @@ dt1 = rgLightestHeartPg108
 #dt1 = rgCallsMarieOverLongDistanceBcSuccessPg114
 #dt1 = rgRailroadStationAtTexarkanaTicketPg115
 #dt1 = rgHeartInThroatPg116
-#dt1 = rgHeartInThroatPg116
+#dt1 = rgMariePlansOnSunshineSpecialPg116
 #dt1 = searchForMariePg118
 #dt1 = marieMysteriousLetterPg120
+#dt1 = rgAirplaneToSilverSpringPg257_candidate1
 #dt1 = nearlyNoonUnionStationClockPg123
 #dt1 = noonUnionStationClockPg123
 #dt1 = rgTroubledAndDiscouragedHeartSadPg124
@@ -174,7 +192,7 @@ dt1 = rgLightestHeartPg108
 #dt1 = newspapersWereOutPg156
 #dt1 = sunsetDayWaningSadnessPg156
 #dt1 = personalNoticesPlacedPg157
-#dt1 = rgDreamsOfHisBirthdayPg159
+#dt1 = rgDreamsOfHisBirthdayPg160
 #dt1 = rgBirthday1927Pg161
 #dt1 = clockAt11OnRGBirthdayMindRevertPg162
 #dt1 = clockAt12OnRGBirthdayPg162
@@ -184,25 +202,66 @@ dt1 = rgLightestHeartPg108
 #dt1 = rgSeesMadamCleoPg172
 #dt1 = mrKLeavingOnSunshineSpecialPg179
 #dt1 = mrKStLouisArrivalPg179
-#dt1 = mrKAndRgAtStLouisPg180
+#dt1 = mrKAndRgAtUnionStationStLouisCandidate1Pg180
+#dt1 = mrKAndRgAtUnionStationStLouisCandidate2Pg180
 #dt1 = rgFirstArrivalNYCPg184
 #dt1 = mrKAndWalterTalkAboutRGPg186
 #dt1 = lindberghMarchUpBroadwayPg187
 #dt1 = oneForAllPlayPg187
+#dt1 = timeFactorDiscoveryPg197
 #dt1 = majorMotorsPyramidPg197
 #dt1 = wallStreet69Pg217
 #dt1 = presElectionForecastPg218
+#dt1 = geoVenusRetrograde19270820
+#dt1 = geoVenusDirect19271001
 #dt1 = justBeforeChristmasPg222
 #dt1 = aFewDaysBeforeChristmasPg223
 #dt1 = motherInNYPg224
-#dt1 = rgBirthday1929
+#dt1 = rgBirthday1928
+#dt1 = rgFlightToParisPg240
+#dt1 = rgLadyBersfordInSebringPg267
 #dt1 = rgBirthday1929
 #dt1 = walterEdnaMarriage
+#dt1 = dow_pivot_19300416
 #dt1 = losAngeles
 #dt1 = attackOnStLouisStartedPg315
-#dt1 = nycGiganticAttack
+#dt1 = franceAttackOnEnglandGermany1_Pg318
+#dt1 = chicagoWhiteFlag_10am_Pg322
+
+#dt1 = detroit1_RadiumRay_10pm_Pg345
+#dt1 = detroit1_12am_Pg347
+#dt1 = detroit2_3pm_Pg349
+#dt1 = detroit2_5pm_Pg350
+
+#dt1 = mamMotorPg353
+#dt1 = mamFirstFlightPg354
+
+#dt1 = franceAttackOnEnglandGermany2_Pg357
+
+#dt1 = battleOfBostonPg358
+
+#dt1 = nycGiganticAttack_8pm_Pg361
+#dt1 = nycGiganticAttack_10pm_Pg361
+#dt1 = nycGiganticAttack_1010pm_Pg362
+#dt1 = nycGiganticAttack_12am_Pg365
+#dt1 = nycGiganticAttack_1230am_Pg366
+
+#dt1 = presidentOnMammouthBuilding_4am_Pg375
+
 #dt1 = rgBirthday1932
-#dt1 = peaceConference
+
+#dt1 = colonelEdnaKennelworthInWashingtonPg383
+#dt1 = battleOfWashingtonPg383
+
+#dt1 = rgSevenDays_7am_Pg393
+#dt1 = rgSevenDays_10am_Pg393
+
+#dt1 = allCitiesInWorldWhereSCGDestroyedBuildingsHeardFromPg403
+
+#dt1 = peaceConference_10am_Pg407
+#dt1 = peaceConference_11am_Pg407
+#dt1 = peaceConference_lateEvening_Pg415
+
 #dt1 = timeAfterDiscoveryOfAmerica
 
 
@@ -210,13 +269,14 @@ dt1 = rgLightestHeartPg108
 loc2Tuple = nycLoc
 
 #endDt
-#dt2 = datetime.datetime(year=1927, month=6, day=9,
+#dt2 = datetime.datetime(year=1997, month=4, day=21,
 #                        hour=12, minute=0,
 #                        tzinfo=eastern)
 
 #dt2 = mrKInNYCPg64
 #dt2 = mrKOilStocksHighPg65
 #dt2 = mrKOilStocksLowPg65
+#dt2 = sfEarthquakePg1
 #dt2 = marieBirthdayCandidatePg179
 #dt2 = windowPg40
 #dt2 = christmas1926Pg42
@@ -227,6 +287,7 @@ loc2Tuple = nycLoc
 #dt2 = rgRoadToFameAndFortunePg70
 #dt2 = marieLetterToRgPg71
 #dt2 = futureCyclesPg75
+#dt2 = ww1OutbreakPg80
 #dt2 = mrKFaithInRgPg91
 #dt2 = rgGreatVictoryPg92
 #dt2 = marieHopePrayLoveOfHeartPg94
@@ -258,7 +319,7 @@ loc2Tuple = nycLoc
 #dt2 = rgCallsMarieOverLongDistanceBcSuccessPg114
 #dt2 = rgRailroadStationAtTexarkanaTicketPg115
 #dt2 = rgHeartInThroatPg116
-#dt2 = rgHeartInThroatPg116
+#dt2 = rgMariePlansOnSunshineSpecialPg116
 #dt2 = searchForMariePg118
 #dt2 = marieMysteriousLetterPg120
 #dt2 = nearlyNoonUnionStationClockPg123
@@ -278,7 +339,7 @@ loc2Tuple = nycLoc
 #dt2 = newspapersWereOutPg156
 #dt2 = sunsetDayWaningSadnessPg156
 #dt2 = personalNoticesPlacedPg157
-#dt2 = rgDreamsOfHisBirthdayPg159
+#dt2 = rgDreamsOfHisBirthdayPg160
 #dt2 = rgBirthday1927Pg161
 #dt2 = clockAt11OnRGBirthdayMindRevertPg162
 #dt2 = clockAt12OnRGBirthdayPg162
@@ -288,24 +349,60 @@ loc2Tuple = nycLoc
 #dt2 = rgSeesMadamCleoPg172
 #dt2 = mrKLeavingOnSunshineSpecialPg179
 #dt2 = mrKStLouisArrivalPg179
-#dt2 = mrKAndRgAtStLouisPg180
+#dt2 = mrKAndRgAtUnionStationStLouisCandidate1Pg180
+#dt2 = mrKAndRgAtUnionStationStLouisCandidate2Pg180
 #dt2 = rgFirstArrivalNYCPg184
 #dt2 = mrKAndWalterTalkAboutRGPg186
 #dt2 = lindberghMarchUpBroadwayPg187
 #dt2 = oneForAllPlayPg187
+#dt2 = timeFactorDiscoveryPg197
 #dt2 = majorMotorsPyramidPg197
 #dt2 = wallStreet69Pg217
 #dt2 = presElectionForecastPg218
 #dt2 = justBeforeChristmasPg222
 #dt2 = aFewDaysBeforeChristmasPg223
 #dt2 = motherInNYPg224
-dt2 = rgBirthday1928
+#dt2 = rgBirthday1928
+#dt2 = rgFlightToParisPg240
 #dt2 = rgBirthday1929
 #dt2 = walterEdnaMarriage
 #dt2 = losAngeles
-#dt2 = nycGiganticAttack
+#dt2 = franceAttackOnEnglandGermany1_Pg318
+#dt2 = chicagoWhiteFlag_10am_Pg322
+
+#dt2 = detroit1_RadiumRay_10pm_Pg345
+#dt2 = detroit1_12am_Pg347
+#dt2 = detroit2_3pm_Pg349
+#dt2 = detroit2_5pm_Pg350
+
+#dt2 = mamMotorPg353
+#dt2 = mamFirstFlightPg354
+
+#dt2 = franceAttackOnEnglandGermany2_Pg357
+
+#dt2 = battleOfBostonPg358
+
+#dt2 = nycGiganticAttack_8pm_Pg361
+#dt2 = nycGiganticAttack_10pm_Pg361
+#dt2 = nycGiganticAttack_1010pm_Pg362
+#dt2 = nycGiganticAttack_12am_Pg365
+#dt2 = nycGiganticAttack_1230am_Pg366
+
+#dt2 = presidentOnMammouthBuilding_4am_Pg375
+
 #dt2 = rgBirthday1932
-#dt2 = peaceConference
+
+#dt2 = battleOfWashingtonPg383
+
+#dt2 = rgSevenDays_7am_Pg393
+#dt2 = rgSevenDays_10am_Pg393
+
+#dt2 = allCitiesInWorldWhereSCGDestroyedBuildingsHeardFromPg403
+
+#dt2 = peaceConference_10am_Pg407
+#dt2 = peaceConference_11am_Pg407
+#dt2 = peaceConference_lateEvening_Pg415
+
 #dt2 = timeAfterDiscoveryOfAmerica
 
 
@@ -321,10 +418,10 @@ outputFilename = "/home/rluu/programming/pricechartingtool/misc/CalculatingPlane
 
 # Planet names to do calculations for.
 geocentricPlanetNames = [\
-#    "H1",
-#    "H4",
-#    "H7",
-#    "H10",
+    "H1",
+    "H4",
+    "H7",
+    "H10",
     "Moon",
     "MoSu",
     "Sun",
@@ -360,25 +457,25 @@ heliocentricPlanetNames = [\
     #"Isis",
 
 
-    "MeVe",
-    "MeEa",
-    "MeMa",
-    "MeJu",
-    "MeSa",
-#    #"MeUr",
-    "VeEa",
-    "VeMa",
-    "VeJu",
-    "VeSa",
-#    #"VeUr",
-    "EaMa",
+#    "MeVe",
+#    "MeEa",
+#    "MeMa",
+#    "MeJu",
+#    "MeSa",
+###    #"MeUr",
+#    "VeEa",
+#    "VeMa",
+#    "VeJu",
+#    "VeSa",
+##    #"VeUr",
+#    "EaMa",
 #    "EaJu",
 #    "EaSa",
 #    #"EaUr",
 #    "MaJu",
 #    "MaSa",
 #    #"MaUr",
-#    #"JuSa",
+#    "JuSa",
 #    #"JuUr",
 #    #"SaUr",
     ]
@@ -976,10 +1073,10 @@ if __name__ == "__main__":
     printDt1 = True
     #printDt1 = False
     
-    printDt2 = True
+    #printDt2 = True
     #printDt2 = False
     
-    printDiff = True
+    #printDiff = True
     #printDiff = False
 
     if 'printDt1' in locals() and printDt1 == True:
