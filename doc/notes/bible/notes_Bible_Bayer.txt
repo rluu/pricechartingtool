@@ -1,9 +1,0 @@
-##############################################################################
-
-From Bayer's "Time Factors In The Stock Market", pg. 68:
-eagle == Zodiac sign of Scorpio.
-
-From Bayer's "Time Factors In The Stock Market", pg. 69:
-wilderness == Zodiac sign of Leo.
-
-##############################################################################
