@@ -1,5 +1,8 @@
-# Ignore pricebar CSV text files and also PriceChartDocument (.pcd) files.
-# These are in the following two directories:
+# Ignore pricebar CSV text files that I have stored in this directory.
 pricebars
+
+# Ignore PriceChartDocument (.pcd) files that I have stored in this directory.
 PriceChartDocumentFiles
 
+# Don't ignore this file.
+!.gitignore
