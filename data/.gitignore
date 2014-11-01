@@ -1,0 +1,5 @@
+# Ignore pricebar CSV text files and also PriceChartDocument (.pcd) files.
+# These are in the following two directories:
+pricebars
+PriceChartDocumentFiles
+

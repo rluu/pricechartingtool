@@ -6,19 +6,20 @@ Author:  Ryan Luu
 Email:   ryanluu@gmail.com
 
 
-Google code project creation:
 
+Google code project creation:
          2010-05-30 01:26:51 -0400 (Sun, 30 May 2010)
 
 Google code Subversion repository initial import:   
-
          2010-05-30 01:49:38 -0400 (Sun, 30 May 2010)
 
-Codesion Subversion repository initial import: 
+Location of creation and initial imports: Chantilly, VA
 
+Codesion Subversion repository initial import: 
          2010-06-16 01:40:06 -0400 (Wed, 16 Jun 2010)
 
-Location of creation and initial imports: Chantilly, VA
+GitHub repository migration:
+         Sat Oct  4, 2014
 
 ##############################################################################
 
