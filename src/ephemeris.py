@@ -617,11 +617,20 @@ class Ephemeris:
         str holding the time offset from UTC.
         """
 
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Entered getTimezoneOffsetFromDatetime()")
+            Ephemeris.log.debug("datetimeObj == {}".format(datetimeObj))
+            
         offsetStr = ""
 
         timeDelta = datetimeObj.utcoffset()
+        Ephemeris.log.debug("datetimeObj.utcoffset() == {}".\
+                            format(datetimeObj.utcoffset()))
+        
         offsetSeconds = (timeDelta.days * (24 * 60 * 60)) + timeDelta.seconds
 
+        Ephemeris.log.debug("offsetSeconds == {}".format(offsetSeconds))
+        
         if offsetSeconds < 0:
             offsetStr += "-"
         else:
@@ -630,8 +639,13 @@ class Ephemeris:
         offsetHours = abs(offsetSeconds) // (60 * 60)
         offsetMinutes = (abs(offsetSeconds) - (offsetHours * 60 * 60)) // 60
 
+        Ephemeris.log.debug("offsetHours == {}".format(offsetHours))
+        Ephemeris.log.debug("offsetMinutes == {}".format(offsetMinutes))
+
         offsetStr += "{:02}".format(offsetHours)
         offsetStr += "{:02}".format(offsetMinutes)
+
+        Ephemeris.log.debug("offsetStr == {}".format(offsetStr))
 
         return offsetStr
 

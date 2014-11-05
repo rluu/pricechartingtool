@@ -20,7 +20,29 @@ import logging.config
 class GeoNames:
     """This class provides access to the GeoNames geographical database.
     This database provides information on the geographical attributes of
-    various cities around the world.  
+    various cities around the world.
+
+    Web service calls previously did not require a username, but now they do.
+
+    Limits per username are: 30,000 credits per day, and 2,000 credits per hour.
+    http://www.geonames.org/export/credits.html
+    
+    # Search
+    # Each call to search uses 1 credit per request.
+    http://www.geonames.org/export/geonames-search.html
+
+    # Timezone
+    # Each call to timezone uses 1 credit per request.
+    http://www.geonames.org/export/web-services.html#timezone
+
+    # Elevation.
+    # Each call to srtm3     uses 0.2 credit per request.
+    # Each call to astergdem uses 0.3 credit per request.
+    # Each call to gtopo30   uses 0.1 credit per request.
+    http://www.geonames.org/export/web-services.html#srtm3
+    http://www.geonames.org/export/web-services.html#astergdem
+    http://www.geonames.org/export/web-services.html#gtopo30
+    
     """
 
     # Base URL used for web service queries.
@@ -34,6 +56,11 @@ class GeoNames:
     # Default is "US" (United States of America).
     COUNTRY_BIAS_DEFAULT = "US"
 
+    # Username that is required to be passed into the web service upon
+    # invocation.
+    GEONAMES_USERNAME = "pricechartingtool"
+    GEONAMES_PASSWORD = "password"
+    
     # Logger object for this class.
     log = logging.getLogger("geonames.GeoNames")
 
@@ -289,6 +316,8 @@ class GeoNames:
         # Append the desired fuzzy value.
         url += "&fuzzy={}".format(fuzzyFloat)
 
+        # Append username information.
+        url += "&username={}".format(GeoNames.GEONAMES_USERNAME)
         
         # Okay, we've completed assembling the URL.
         GeoNames.log.debug("GeoNames.search(): request URL is: " + url)
@@ -326,7 +355,11 @@ class GeoNames:
                       format(rootElement.tag))
             return geoInfos
 
+        GeoNames.log.debug("rootElement has {} children.".\
+                           format(len(rootElement.getchildren())))
+                           
         for child in rootElement.getchildren():
+            
             if child.tag == "totalResultsCount":
                 totalResultsCountStr = child.text
                 GeoNames.log.debug("HTTP Response: Total results count is " + \
@@ -436,13 +469,17 @@ class GeoNames:
                     else:
                         debugStr = \
                             "FYI: Found an unknown element tag under 'geoname':" + \
-                            " {}".format(e.text)
+                            " {}".format(e.tag)
                         GeoNames.log.debug(debugStr)
                 GeoNames.log.debug("Adding GeoInfo: {}".format(geoInfo))
                 geoInfos.append(geoInfo)
+            elif child.tag == "status":
+                infoStr = "Status message returned: {}".\
+                          format(child.attrib["message"])
+                GeoNames.log.info(infoStr)
             else:
                 debugStr = "FYI: Found an unknown element tag under 'geonames':" + \
-                    " {}".format(e.text)
+                    " {}".format(child.tag)
                 GeoNames.log.debug(debugStr)
 
         # Return the list of GeoInfo objects parsed from the XML.
@@ -512,6 +549,8 @@ class GeoNames:
         if radius != None:
             url += "&radius={}".format(radius)
 
+        # Append username information.
+        url += "&username={}".format(GeoNames.GEONAMES_USERNAME)
 
         # Okay, we've completed assembling the URL.
         GeoNames.log.debug("getTimezone(): request URL is: " + url)
@@ -756,6 +795,9 @@ class GeoNames:
         url += "lat={}".format(latitude)
         url += "&lng={}".format(longitude)
 
+        # Append username information.
+        url += "&username={}".format(GeoNames.GEONAMES_USERNAME)
+        
         # Okay, we've completed assembling the URL.
         GeoNames.log.debug("getElevation(): request URL is: " + url)
 

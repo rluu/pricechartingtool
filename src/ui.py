@@ -3241,6 +3241,7 @@ class MainWindow(QMainWindow):
             # Save application settings/preferences.
             self._writeSettings()
 
+            self.log.info("Exiting.")
             closeEvent.accept()
         else:
             self.log.debug("Ignoring close event.")
@@ -3254,6 +3255,7 @@ class MainWindow(QMainWindow):
 
         self.log.debug("Entered _exitApp()")
 
+        self.log.info("Exiting.")
         qApp.closeAllWindows()
 
         self.log.debug("Exiting _exitApp()")
