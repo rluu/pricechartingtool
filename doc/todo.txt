@@ -4,10 +4,6 @@ Outstanding things to work on going forward:
 
 TODO:  
 
-  - PlanetLatitudeMovementMeasurementTool
-
-  - PlanetDeclinationMovementMeasurementTool
-
   - PriceChartDocumentScripts changes:
 
     - Add longitude traversal amounts of a certain planet.  Can
@@ -36,8 +32,6 @@ TODO:
       longitude-aspect-between-two-planets.  Gradiants would be drawn
       on the chart for this feature.
 
-  - Fix MOF, COE, etc. to be calculated properly.
-
   - Widget/area (kinda like a spreadsheet but with filterable choices
     for selections) to step through certain timestamps in a chart so
     that it is focused on in the pricebarchart and so that it is
@@ -63,10 +57,6 @@ TODO:
     there are more X's at a location, then the color sum of the hit is
     displayed, so that if there are many hits to a degree, the drawn
     area would be much darker than X's in less frequently hit areas.
-
-  - Add to ephemeris, functions to get HoraLagna, GhatiLagna,
-    MeanSouthNode, TrueSouthNode.  Then fix the TODO's for HoraLagna,
-    GhatiLagna, MeanSouthNode, TrueSouthNode.
 
   - Change display of longitude degrees in the astrology chart to use
     the longitude degree [0, 30) and the astro sign format.
@@ -245,6 +235,9 @@ TODO:
 
 TODO's that are done:
 
+DONE  - PlanetLatitudeMovementMeasurementTool
+DONE  - PlanetDeclinationMovementMeasurementTool
+DONE
 DONE  - Set sensible defaults for TimeMeasurementTool (which text to have
 DONE    displayed by default).
 DONE
@@ -339,3 +332,10 @@ DONE
 DONE    Calculations need for measurements to be checked and validated to
 DONE    be fully correct before depending on them.
 DONE
+WILL_NOT_IMPLEMENT  - Fix MOF, COE, etc. to be calculated properly.
+WILL_NOT_IMPLEMENT
+WILL_NOT_IMPLEMENT  - Add to ephemeris, functions to get HoraLagna, GhatiLagna,
+WILL_NOT_IMPLEMENT    MeanSouthNode, TrueSouthNode.  
+WILL_NOT_IMPLEMENT    Then fix the TODO's for HoraLagna,
+WILL_NOT_IMPLEMENT    GhatiLagna, MeanSouthNode, TrueSouthNode.
+
