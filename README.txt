@@ -95,7 +95,9 @@ Steps for building on the Windows platform:
   C:\Python34.
 
   Run the following in a MinGW/MSYS shell to add a symbolic link from
-  python.exe to python3.exe.
+  python.exe to python3.exe.  If this symlink is not created, then the
+  application cannot be started by simply running "./main.py", but
+  instead you would have to do "python main.py".  Not a big deal...
 
     cd /c/Python34/
     ln -s python.exe python3.exe
