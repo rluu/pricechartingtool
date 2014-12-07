@@ -1,4 +1,1 @@
-# Ignore everything in this directory
-*
-# Except this file
-!.gitignore
+# Placeholder so that the logs directory remains in Git.

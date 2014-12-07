@@ -58,7 +58,7 @@ Notes for running on the Windows platform:
 
   Preferred way to get this going is:
 
-   1) Install Python3 for Windows.
+   1) Install Python3 for Windows.  [As of 2014-12-07, current version is 3.4]
 
    2) Install the binary PyQt executable for Windows.  (This includes Qt).
 
@@ -91,13 +91,13 @@ Steps for building on the Windows platform:
     mingw-get install gcc g++ mingw32-make msys-wget msys-zip msys-unzip
 
   Download and install Python 3 for Windows.  The rest of this how-to
-  section assumes that Python 3.2 was installed, and to directory
-  C:\Python32.
+  section assumes that Python 3.4 was installed, and to directory
+  C:\Python34.
 
   Run the following in a MinGW/MSYS shell to add a symbolic link from
   python.exe to python3.exe.
 
-    cd /c/Python32/
+    cd /c/Python34/
     ln -s python.exe python3.exe
 
   Download and install Qt4 for Windows MinGW.  If the Qt4 installer
@@ -109,14 +109,14 @@ Steps for building on the Windows platform:
 
     C:\MinGW\msys\1.0\bin
     C:\MinGW\bin
-    C:\Python32
+    C:\Python34
     C:\Qt\4.7.4\bin
 
   In MinGW/MSYS, add the following to ~/.bashrc (and change the
   install paths accordingly):
 
     export QTDIR=/c/Qt/4.7.4
-    export PATH=/c/Python32:$QTDIR/bin:/mingw/bin:$PATH
+    export PATH=/c/Python34:$QTDIR/bin:/mingw/bin:$PATH
 
   Note that ~/.bashrc does not get sourced by MinGW/MSYS
   automatically, so it needs to be done each time you open a shell.
@@ -152,10 +152,10 @@ Steps for building on the Windows platform:
   Install pytz:
 
     Open a cmd.exe window and run:
-
+      
       cd C:\MinGW\msys\1.0\home\rluu\programming\pricechartingtool\tps\pytz
-      tar xjvf pytz-2010h.modsForPython3.tar.bz2
-      cd pytz-2010h
+      tar xjvf pytz-2014.9.tar.bz2
+      cd pytz-2014.9
       python setup.py install
 
   Install pyswisseph (requires the following hacks to build on MinGW):
@@ -164,18 +164,20 @@ Steps for building on the Windows platform:
     compilation of pyswisseph (and possibly other packages).  
     The error seen without this fix is: 'error: Unable to find vcvarsall.bat'.
     
-      Create or edit file C:\Python32\Lib\distutils\distutils.cfg 
+      Create or edit file C:\Python34\Lib\distutils\distutils.cfg 
       so that it has the following contents:
 
         [build]
         compiler=mingw32
-    
-    Edit C:\Python32\Lib\distutils\cygwinccompiler.py to avoid a gcc
+
+    # Note: [This paragraph below was true for Python 3.2, but this
+    # issue doesn't appear to exist for Python 3.4.]
+    Edit C:\Python34\Lib\distutils\cygwinccompiler.py to avoid a gcc
     compiler error where gcc doesn't know what what the command-line
     option '-mno-cygwin' is.  Here we will remove all locations where
     '-mno-cygwin' is found in this file.
     
-      vim /c/Python32/Lib/distutils/cygwinccompiler.py
+      vim /c/Python34/Lib/distutils/cygwinccompiler.py
 
         :%s/-mno-cygwin //gc
         :wq
@@ -191,12 +193,16 @@ Steps for building on the Windows platform:
 
       vim src/Makefile
 
-    Edit file 'pyswisseph.c' and and c-style comments around "#define
-    USE_SWEPHELP".  This has to happen because this part of pyswisseph
+    Edit file 'pyswisseph.c' and and c-style comments around 
+    "#define USE_SWEPHELP".  We want it not defined.  
+    In version 1.77.00-0 the line is:
+    "#define PYSWE_USE_SWEPHELP      1", which should be changed to:
+    "#define PYSWE_USE_SWEPHELP      0".
+    This has to happen because this part of pyswisseph
     uses pthread, setenv(), and unsetenv(), which are supported only
     on POSIX.  Usage of those POSIX features are minimal, so if I
     wanted to, I could one day modify that code so that it is more
-    platform-independent.
+    platform-independent.  
 
     Edit the top-level setup.py file:
       
@@ -325,10 +331,18 @@ Directory contents:
 
 pricechartingtool
   |
+  |- conf: Hold configuration information.
+  | 
   |- data: Holds emphemeris data to be used with the Swiss Ephemeris.
   |
   |- doc:  Holds some documentation.
   |
+  |- logs: Holds log files.
+  |
+  |- misc: Miscellaneous scripts and utilities.  
+  |        Some of these interact with saved files from the application.  
+  |        Some are merely CSV file generators and data formatting scripts.  
+  | 
   |- resources:  Holds image files that are processed into a resource .py file.
   |              See file resources/images/source.txt for more details on the
   |              images used.
