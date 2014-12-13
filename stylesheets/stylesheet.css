@@ -148,6 +148,23 @@ img {
   -ms-box-shadow: 0 0 5px #ebebeb;
 }
 
+/* rluu: Image for the logo without any image border.  */
+#logo {
+  padding: 0px;
+  margin: 0px 0 0px 0;
+  border: 0px solid #ebebeb;
+
+  box-shadow: 0 0 0px #ebebeb;
+  -webkit-box-shadow: 0 0 0px #ebebeb;
+  -moz-box-shadow: 0 0 0px #ebebeb;
+  -o-box-shadow: 0 0 0px #ebebeb;
+  -ms-box-shadow: 0 0 0px #ebebeb;
+
+  display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 p img {
   display: inline;
   margin: 0;
@@ -305,6 +322,8 @@ Full-Width Styles
   font-size: 42px;
   font-weight: 700;
   text-shadow: #111 0px 0px 10px;
+  
+  text-align: center;
 }
 
 #project_tagline {
@@ -313,6 +332,8 @@ Full-Width Styles
   font-weight: 300;
   background: none;
   text-shadow: #111 0px 0px 10px;
+
+  text-align: center;
 }
 
 #downloads {
