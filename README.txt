@@ -5,7 +5,11 @@
 Author:  Ryan Luu
 Email:   ryanluu@gmail.com
 
+Project website: http://rluu.github.io/pricechartingtool/
 
+##############################################################################
+
+Project history:
 
 Google code project creation:
          2010-05-30 01:26:51 -0400 (Sun, 30 May 2010)
