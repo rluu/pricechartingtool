@@ -16767,6 +16767,173 @@ class PriceBarChartScaling:
                        PriceBarChartScaling.__name__ +
                        " object of version {}".format(self.classVersion))
 
+class LoopbackMultiple:
+    """Contains data and parameters for the amount of time to look
+    back when drawing or comparing past PriceBar data to current
+    present PriceBar data.
+    """
+
+    def __init__(self,
+                 name="Unnamed",
+                 lookbackMultiple=1.0,
+                 baseUnit=1.0,
+                 baseUnitTypeDegreesFlag=False,
+                 baseUnitTypeRevolutionsFlag=True,
+                 color=QColor(Qt.gray),
+                 enabled=False,
+                 planetName="",
+                 geocentricFlag=False,
+                 heliocentricFlag=False
+                 ):
+        """Initializes the member variables to the values specified as
+        arguments.
+
+        The lookback period of time is determined by multiplying,
+        depending on whether the baseUnit is in degrees or in
+        revolutions:
+        
+            lookbackMultiple * baseUnit * 1.0
+            lookbackMultiple * baseUnit * 360.0
+
+        Arguments:
+        
+        name     - str value for thhe name of the LoopbackMultiple.
+                   This is the display name used in the UI.
+                   
+        loopbackMultiple - float value for the multiple to look back.
+        
+        baseUnit - float value for the base unit to look back.
+        
+        baseUnitTypeDegreesFlag - boolean for indicating that the
+                                  baseUnit is in degrees.  If this
+                                  value if True, then
+                                  baseUnitTypeRevolutionsFlag must be
+                                  False.  If this value is False, then
+                                  baseUnitTypeRevolutionsFlag must be
+                                  True.
+        
+        baseUnitTypeRevolutionsFlag - boolean for indicating that the
+                                      baseUnit is in revolutions.  If
+                                      this value is True, then
+                                      baseUnitTypeDegreesFlag must be
+                                      False.  If this value is False,
+                                      then baseUnitTypeDegreesFlag
+                                      must be True.
+
+        color - QColor object holding the color that will be used to
+                draw the PriceBars of the past history.
+
+        enabled - boolean for whether this LookbackMultiple is enabled
+                  or disabled.  An enabled LookbackMultiple is drawn.
+        
+        planetName - str value holding a valid planet name (from
+                     Ephemeris.py) to use for the looking back in time.
+        
+        geocentricFlag - boolean flag indicating that the lookback is
+                         to be done with geocentric planet
+                         measurements.  If this value is True, then
+                         heliocentricFlag must be False.  If this
+                         value is False, then heliocentricFlag must be
+                         True.
+        
+        heliocentricFlag - boolean flag indicating that the lookback
+                         is to be done with heliocentric planet
+                         measurements.  If this value is True, then
+                         geocentricFlag must be False.  If this value
+                         is False, then geocentricFlag must be True.
+        """
+
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = logging.getLogger("data_objects.LoopbackMultiple")
+
+        # Validate input.
+
+        if baseUnitTypeDegreesFlag == None or \
+           baseUnitTypeRevolutionsFlag == None or \
+           baseUnitTypeDegreesFlag == baseUnitTypeRevolutionsFlag:
+            self.log.error("Invalid parameters.  " +
+                           "Base Planet for the LookbackMulitple must be " +
+                           "either geocentric or heliocentric.")
+            self.log.error("baseUnitTypeDegreesFlag == {}".
+                           format(baseUnitTypeDegreesFlag))
+            self.log.error("baseUnitTypeRevolutionsFlag == {}".
+                           format(baseUnitTypeRevolutionsFlag))
+            return
+            
+        if geocentricFlag == None or heliocentricFlag == None or \
+               geocentricFlag == heliocentricFlag:
+            self.log.error("Invalid parameters.  " +
+                           "Planet for the LookbackMulitple must be " +
+                           "either geocentric or heliocentric.")
+            self.log.error("geocentricFlag == {}".format(geocentricFlag))
+            self.log.error("heliocentricFlag == {}".format(heliocentricFlag))
+            return
+        
+        if planetName == "":
+            self.log.error("Invalid planet name given: '{}'".format(planetName))
+            return
+
+        
+        # Store class members.
+
+        # Display name.  (str)
+        self.name = name
+
+        # Multiple.  (float)
+        self.lookbackMultiple = lookbackMultiple
+
+        # Base unit that gets multipled to the lookback multiple.
+        self.baseUnit = baseUnit
+        
+        # Flag that indicates the base unit is in units degrees.
+        self.baseUnitTypeDegreesFlag = baseUnitTypeDegreesFlag
+        
+        # Flag that indicates the base unit is in units revolutions.
+        self.baseUnitTypeRevolutionsFlag = baseUnitTypeRevolutionsFlag
+        
+        # Color to draw the past history.  (QColor)
+        self.color = color
+
+        # Enabled flag.  (boolean)
+        self.enabled = enabled
+
+        # Planet name of the planet to use for looking back.  (str)
+        self.planetName = planetName
+
+        # Flag that indicates to use geocentric planet measurements. (boolean)
+        self.geocentricFlag = geocentricFlag
+
+        # Flag that indicates to use heliocentric planet measurements. (boolean)
+        self.heliocentricFlag = heliocentricFlag
+
+
+    def getName(self):
+        """Returns the display name of the LookbackMultiple."""
+        return self.name
+
+    def setName(self, name):
+        """Sets the display name of the LookbackMultiple.
+
+        Arguments:
+        name - str value represneting the name of the LoopbackMultiple."
+        """
+        self.name = name
+
+    def getLookbackMultiple(self):
+        """Returns the multiple of time to look backwards in time
+
+        TODO: continue here; finish writing the getters and setters, plus the pickling/serialization code.
+        
+        """
+
+    def setLookbackMultiple
+        
+        
+
 class PriceChartDocumentData:
     """Contains all the data about the price chart and price data.
     This class is used for holding the data so that it can be 
@@ -16800,7 +16967,6 @@ class PriceChartDocumentData:
 
         # List of the class names of SpreadsheetCalcFormulas utilized.
         self.settingsSpreadsheetCalcFormulas = []
-        
 
         # Settings information for the PriceBarChartWidget.
         self.priceBarChartSettings = PriceBarChartSettings()
