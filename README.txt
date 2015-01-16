@@ -38,7 +38,7 @@ Dependencies to build/run this project are:
 
   - Python 3.1
   - Qt 4.7.4
-  - PyQt 4.8.5            [Included in tps directory]
+  - PyQt 4.11.3           [Included in tps directory]
   - pyswisseph 1.77       [Included in tps directory]
       (Uses Swiss Ephemeris version 1.77.00, which was released Jan. 26, 2010)
   - pytz 2014.9           [Included in tps directory]
@@ -137,9 +137,9 @@ Steps for building on the Windows platform:
 
     Open a cmd.exe window and run:
 
-      cd C:\MinGW\msys\1.0\home\rluu\programming\pricechartingtool\tps\pyqt\4.8.5
-      unzip sip-4.12.4.zip
-      cd sip-4.12.4
+      cd C:\MinGW\msys\1.0\home\rluu\programming\pricechartingtool\tps\pyqt\4.11.3
+      unzip sip-4.16.5.zip
+      cd sip-4.16.5
       python configure.py -p win32-g++
       mingw32-make install
 
@@ -147,9 +147,9 @@ Steps for building on the Windows platform:
 
     Open a cmd.exe window and run:
 
-      cd C:\MinGW\msys\1.0\home\rluu\programming\pricechartingtool\tps\pyqt\4.8.5
-      unzip PyQt-win-gpl-4.8.5.zip
-      cd PyQt-win-gpl-4.8.5
+      cd C:\MinGW\msys\1.0\home\rluu\programming\pricechartingtool\tps\pyqt\4.11.3
+      unzip PyQt-win-gpl-4.11.3.zip
+      cd PyQt-win-gpl-4.11.3
       python configure.py -p win32-g++
       mingw32-make install
 
