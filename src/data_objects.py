@@ -835,6 +835,61 @@ class PriceBar:
         self.log.debug("Set state of a " + PriceBar.__name__ +
                        " object of version {}".format(self.classVersion))
 
+class LookbackMultiplePriceBar:
+    """Contains price information for a historic period of time,
+    projected onto the current time period.
+
+    LookbackMultiplePriceBar can include the following information: 
+
+    - timestamp of the current period of time.
+    - timestamp of the historic period of time.
+    - PriceBar object for the price information of a historical time period.
+    - LookbackMultiple object for this LookbackMultiplePriceBar
+    """
+    
+    def __init__(self, lookbackMultiple, priceBar):
+        """Initializes the PriceBar object.  
+
+        Arguments are as follows:
+        priceBar - PriceBar object that 
+        """
+
+        self.log = logging.getLogger("data_objects.PriceBar")
+
+        # Class version stored for pickling and unpickling.
+        self.classVersion = 1
+
+        self.lookbackMultiple = lookbackMultiple
+        self.priceBar = priceBar
+        self.currentTimestamp = None
+        self.historicTimestamp = priceBar.timestamp
+        
+    def recalculateCurrentTimestamp(self):
+        """Based on the information in self.lookbackMultiple, this
+        method will recalculate the currentTimestamp corresponding to
+        the lookback period.
+        """
+        
+        # TODO:  add code here.
+        pass
+    
+
+    def toString(self):
+        """Returns the string representation of the
+        LookbackMultiplePriceBar data
+        """
+
+        rv = Util.objToString(self)
+        
+        return rv
+
+    def __str__(self):
+        """Returns the string representation of the
+        LookbackMultiplePriceBar data
+        """
+
+        return self.toString()
+
 class Ratio:
     """Contains information about a ratio.  Includes the
     following information:
@@ -16913,6 +16968,7 @@ class LoopbackMultiple:
 
     def getName(self):
         """Returns the display name of the LookbackMultiple."""
+        
         return self.name
 
     def setName(self, name):
@@ -16921,18 +16977,218 @@ class LoopbackMultiple:
         Arguments:
         name - str value represneting the name of the LoopbackMultiple."
         """
+
         self.name = name
 
     def getLookbackMultiple(self):
-        """Returns the multiple of time to look backwards in time
+        """Returns the multiple of time to look backwards in time."""
 
-        TODO: continue here; finish writing the getters and setters, plus the pickling/serialization code.
-        
+        return self.lookbackMultiple
+
+    def setLookbackMultiple(self, lookbackMultiple):
+        """Sets the multiple of time to look backwards in time.
+
+        Arguments:
+        lookbackMultiple - float value representing the multiple of
+                           time to look backwards.
         """
 
-    def setLookbackMultiple
+        self.lookbackMultiple = lookbackMultiple
+
+    def getBaseUnit(self):
+        """Returns the base unit multiple to look back in time."""
+
+        return self.baseUnit
+    
+    def setBaseUnit(self, baseUnit):
+        """Sets the base unit multiple to look back in time.
+
+        Arguments:
+        baseUnit - float value for the base unit to look back.
+        """
+
+        self.baseUnit = baseUnit
+
+    def getBaseUnitTypeDegreesFlag(self):
+        """Returns the boolean flag that indicates whether or not the
+        baseUnit is in degrees.
+        """
+
+        return self.baseUnitTypeDegreesFlag
+
+    def setBaseUnitTypeDegreesFlag(self, baseUnitTypeDegreesFlag)
+        """Sets the boolean flag that indicates whether or not the
+        baseUnit is in degrees.
+
+        Note: Setting this flag will automatically set the
+        baseUnitTypeRevolutionsFlag to the opposite of this value.
+
+        Arguments:
+        baseUnitTypeDegreesFlag - boolean value for indicating that the
+                                  baseUnit is in degrees.  
+        """
+
+        self.baseUnitTypeDegreesFlag = baseUnitTypeDegreesFlag
+        self.baseUnitTypeRevolutionsFlag = not baseUnitTypeDegreesFlag
+
+    def getBaseUnitTypeRevolutionsFlag(self):
+        """Returns the boolean flag that indicates whether or not the
+        baseUnit is in revolutions.
+        """
+
+        return self.baseUnitTypeRevolutionsFlag
+
+    def setBaseUnitTypeRevolutionsFlag(self, baseUnitTypeRevolutionsFlag)
+        """Sets the boolean flag that indicates whether or not the
+        baseUnit is in revolutions.
+
+        Note: Setting this flag will automatically set the
+        baseUnitTypeDegreesFlag to the opposite of this value.
+
+        Arguments:
+        baseUnitTypeRevolutionsFlag - boolean value for indicating that the
+                                  baseUnit is in revolutions.  
+        """
+
+        self.baseUnitTypeRevolutionsFlag = baseUnitTypeRevolutionsFlag
+        self.baseUnitTypeDegreesFlag = not baseUnitTypeRevolutionsFlag
+
+
+    def getColor(self):
+        """Returns the color of the PriceBars for the lookback multiple, as
+        a QColor object.
+        """
+
+        return self.color
         
+    def setColor(self, color):
+        """Sets the color of the PriceBars for the lookback multiple.
+
+        Arguments:
+        color - QColor object holding the color that will be used to
+                draw the PriceBars of the past history.
+        """
+
+        self.color = color
+
+    def getEnabled(self):
+        """Returns the boolean flag for whether this LookbackMultiple
+        is enabled or disabled.  An enabled LookbackMultiple is
+        drawn.
+        """
+
+        return self.enabled
+
+    def setEnabled(self, enabled):
+        """Sets the flag for whether this LookbackMultiple
+        is enabled or disabled.  An enabled LookbackMultiple is
+        drawn.
+
+        Arguments:
+        enabled - boolean for whether this LookbackMultiple is enabled
+                  or disabled.  An enabled LookbackMultiple is drawn.
+        """
+
+        self.enabled = enabled
+
+    def getPlanetName(self):
+        """Returns the name of the planet (from the list in
+        Ephemeris.py) to use for the lookback multiple.
+        """
+
+        return self.planetName
+
+    def setPlanetName(self, planetName):
+        """Sets the name of the planet (from the list in
+        Ephemeris.py) to use for the lookback multiple.
+
+        Arguments:
+        planetName - str value holding a valid planet name (from
+                     Ephemeris.py) to use for the looking back in time.
+        """
+
+        self.planetName = planetName
         
+    def getGeocentricFlag(self):
+        """Returns the boolean flag indicating that the lookback is to
+        be done with geocentric planet measurements.
+        """
+
+        return self.geocentricFlag
+
+    def setGeocentricFlag(self, geocentricFlag):
+        """Sets the boolean flag indicating that the lookback is to
+        be done with geocentric planet measurements.
+        
+        Note: Setting this flag will automatically set the
+        heliocentricFlag to the opposite of this value.
+        """
+
+        self.geocentricFlag = geocentricFlag
+        self.heliocentricFlag = not geocentricFlag
+
+    def getHeliocentricFlag(self):
+        """Returns the boolean flag indicating that the lookback is to
+        be done with heliocentric planet measurements.
+        """
+
+        return self.heliocentricFlag
+
+    def setHeliocentricFlag(self, heliocentricFlag):
+        """Sets the boolean flag indicating that the lookback is to
+        be done with heliocentric planet measurements.
+        
+        Note: Setting this flag will automatically set the
+        geocentricFlag to the opposite of this value.
+        """
+
+        self.heliocentricFlag = heliocentricFlag
+        self.geocentricFlag = not heliocentricFlag
+        
+
+    def toString(self):
+        """Returns the string representation of most of the attributes in this
+        LoopbackMultiple object.
+        """
+        
+        rv = Util.objToString(self)
+
+        return rv
+
+    def __str__(self):
+        """Returns the string representation of most of the attributes in this
+        LoopbackMultiple object.
+        """
+
+        return self.toString()
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = logging.getLogger("data_objects.LoopbackMultiple")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " + LoopbackMultiple.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 
 class PriceChartDocumentData:
     """Contains all the data about the price chart and price data.
