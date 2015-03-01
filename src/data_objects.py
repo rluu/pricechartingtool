@@ -17155,6 +17155,65 @@ class LoopbackMultiple:
 
         return rv
 
+    def __eq__(self, other):
+        """Returns True if the two LookbackMultiples are equal."""
+        
+        rv = True
+        
+        leftObj = self
+        rightObj = other
+        
+        if rightObj == None:
+            return False
+        
+        self.log.debug("leftObj: {}".format(leftObj.toString()))
+        self.log.debug("rightObj: {}".format(rightObj.toString()))
+
+        if leftObj.classVersion != rightObj.classVersion:
+            self.log.debug("classVersion differs.")
+            rv = False
+        if leftObj.name != rightObj.name:
+            self.log.debug("name differs.")
+            rv = False
+        if leftObj.lookbackMultiple != rightObj.lookbackMultiple:
+            self.log.debug("lookbackMultiple differs.")
+            rv = False
+        if leftObj.baseUnit != rightObj.baseUnit:
+            self.log.debug("baseUnit differs.")
+            rv = False
+        if leftObj.baseUnitTypeDegreesFlag != rightObj.baseUnitTypeDegreesFlag:
+            self.log.debug("baseUnitTypeDegreesFlag differs.")
+            rv = False
+        if leftObj.baseUnitTypeRevolutionsFlag != \
+                rightObj.baseUnitTypeRevolutionsFlag:
+            self.log.debug("baseUnitTypeRevolutionsFlag differs.")
+            rv = False
+        if leftObj.color != rightObj.color:
+            self.log.debug("color differs.")
+            rv = False
+        if leftObj.enabled != rightObj.enabled:
+            self.log.debug("enabled differs.")
+            rv = False
+        if leftObj.planetName != rightObj.planetName:
+            self.log.debug("planetName differs.")
+            rv = False
+        if leftObj.geocentricFlag != rightObj.geocentricFlag:
+            self.log.debug("geocentricFlag differs.")
+            rv = False
+        if leftObj.heliocentricFlag != rightObj.heliocentricFlag:
+            self.log.debug("heliocentricFlag differs.")
+            rv = False
+
+        self.log.debug("__eq__() returning: {}".format(rv))
+        
+        return rv
+
+    def __ne__(self, other):
+        """Returns True if the LookbackMultiples are not equal.
+        Returns False otherwise."""
+
+        return not self.__eq__(other)
+    
     def __str__(self):
         """Returns the string representation of most of the attributes in this
         LoopbackMultiple object.
@@ -17212,6 +17271,9 @@ class PriceChartDocumentData:
         # List of PriceBar objects, sorted by timestamp.
         self.priceBars = []
         
+        # List of LookbackMultiple objects.
+        self.lookbackMultiples = []
+
         # List of PriceBarChartArtifact objects.
         self.priceBarChartArtifacts = []
 
@@ -17473,6 +17535,18 @@ class PriceBarChartSettings:
 
     # Default width of the right extension (closing price) of a price bar.
     defaultPriceBarGraphicsItemRightExtensionWidth = 0.5
+
+    # Default pen width for a non-highlighted 
+    # LookbackMultiplePriceBarGraphicsItem.
+    defaultLookbackMultiplePriceBarGraphicsItemPenWidth = 0.0
+
+    # Default width of the left extension (opening price) of a 
+    # LookbackMultiplePriceBarGraphicsItem.
+    defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth = 0.5
+
+    # Default width of the right extension (closing price) of a 
+    # LookbackMultiplePriceBarGraphicsItem.
+    defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth = 0.5
 
     # Default value for the BarCountGraphicsItem bar height (float).
     defaultBarCountGraphicsItemBarHeight = 4.0
@@ -18771,7 +18845,7 @@ class PriceBarChartSettings:
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 10
+        self.classVersion = 11
 
         # List of scalings used in the PriceBarChartGraphicsView.  
         # This is list of PriceBarChartScaling objects.
@@ -18787,17 +18861,34 @@ class PriceBarChartSettings:
         self.priceBarGraphicsItemPenWidth = \
             PriceBarChartSettings.defaultPriceBarGraphicsItemPenWidth 
 
-        # Width of the left extension drawn that represents the open price.
-        # This is a float value.
+        # Width of the left extension drawn that represents the open price of a
+        # PriceBar.  This is a float value.
         self.priceBarGraphicsItemLeftExtensionWidth = \
             PriceBarChartSettings.\
                 defaultPriceBarGraphicsItemLeftExtensionWidth 
 
-        # Width of the right extension drawn that represents the close price.
-        # This is a float value.
+        # Width of the right extension drawn that represents the close price of
+        # a PriceBar.  This is a float value.
         self.priceBarGraphicsItemRightExtensionWidth = \
             PriceBarChartSettings.\
                 defaultPriceBarGraphicsItemRightExtensionWidth 
+
+        # Pen width for LookbackMultiplePriceBars.
+        # This is a float value.
+        self.lookbackMultiplePriceBarGraphicsItemPenWidth = \
+            PriceBarChartSettings.defaultLookbackMultiplePriceBarGraphicsItemPenWidth 
+
+        # Width of the left extension drawn that represents the open price of a
+        # LookbackMultiplePriceBar.  This is a float value.
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth = \
+            PriceBarChartSettings.\
+                defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth 
+
+        # Width of the right extension drawn that represents the close price of
+        # a LookbackMultiplePriceBar.  This is a float value.
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidth = \
+            PriceBarChartSettings.\
+                defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth 
 
         # BarCountGraphicsItem bar height (float).
         self.barCountGraphicsItemBarHeight = \
@@ -20564,7 +20655,7 @@ class PriceBarChartSettings:
         self.log = logging.getLogger("data_objects.PriceBarChartSettings")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 10:
+        if self.classVersion < 11:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartSettings (version {}).  ".\
                           format(self.classVersion))
@@ -22055,6 +22146,62 @@ class PriceBarChartSettings:
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 10
+        
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
+            if self.classVersion == 10:
+                # Version 11 added the following member variables:
+                #
+                # self.lookbackMultiplePriceBarGraphicsItemPenWidth
+                # self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth
+                # self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidth
+                
+                try:
+                    # See if the variables are set.
+                    self.lookbackMultiplePriceBarGraphicsItemPenWidth
+                    self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth
+                    self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidth
+
+                    # If it got here, then the fields are already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have these fields.")
+
+                except AttributeError:
+                    # Variable was not set.  Set it to the default
+                    # PriceBarChartSettings value.
+
+                    # Pen width for LookbackMultiplePriceBars.
+                    # This is a float value.
+                    self.lookbackMultiplePriceBarGraphicsItemPenWidth = \
+                      PriceBarChartSettings.defaultLookbackMultiplePriceBarGraphicsItemPenWidth 
+
+                      # Width of the left extension drawn that represents the
+                      # open price of a LookbackMultiplePriceBar.  This is a
+                      # float value.
+                    self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth = \
+                      PriceBarChartSettings.\
+                      defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth 
+
+                      # Width of the right extension drawn that represents the
+                      # close price of a LookbackMultiplePriceBar.  This is a
+                      # float value.
+                    self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidth = \
+                      PriceBarChartSettings.\
+                      defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth 
+
+                    self.log.debug(\
+                                   "Added field " + \
+                        "'lookbackMultiplePriceBarGraphicsItemPenWidth', " + \
+                        "'lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth', " + \
+                        "'lookbackMultiplePriceBarGraphicsItemRightExtensionWidth', " + \
+                        "to the loaded PriceBarChartSettings.")
+                    
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 11
         
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\

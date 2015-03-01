@@ -38205,6 +38205,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceBarGraphicsItemGroupBox = \
             self._buildPriceBarGraphicsItemGroupBox()
 
+        # QGroupBox to hold the edit widgets and form for
+        # LookbackMultiplePriceBarGraphicsItem.
+        self.lookbackMultiplePriceBarGraphicsItemGroupBox = \
+            self._buildLookbackMultiplePriceBarGraphicsItemGroupBox()
+
         # QGroupBox to hold the edit widgets and form for BarCountGraphicsItem.
         self.barCountGraphicsItemGroupBox = \
             self._buildBarCountGraphicsItemGroupBox()
@@ -38349,6 +38354,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.tabWidget.addTab(\
             self.priceBarGraphicsItemGroupBox,
             QIcon(":/images/rluu/priceBar.png"),
+            "")
+
+        self.tabWidget.addTab(\
+            self.lookbackMultiplePriceBarGraphicsItemGroupBox,
+            QIcon(),  # TODO:  add icon path here.
             "")
 
         self.tabWidget.addTab(\
@@ -38573,6 +38583,15 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(self._handlePriceBarLeftExtensionWidthResetButtonClicked)
         self.priceBarGraphicsItemRightExtensionWidthResetButton.clicked.\
             connect(self._handlePriceBarRightExtensionWidthResetButtonClicked)
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthResetButton.\
+            clicked.connect(\
+            self._handleLookbackMultiplePriceBarPenWidthResetButtonClicked)
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthResetButton.\
+            clicked.connect(\
+            self._handleLookbackMultiplePriceBarLeftExtensionWidthResetButtonClicked)
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthResetButton.\
+            clicked.connect(\
+            self._handleLookbackMultiplePriceBarRightExtensionWidthResetButtonClicked)
         self.barCountGraphicsItemBarHeightResetButton.clicked.\
             connect(self._handleBarCountGraphicsItemBarHeightResetButtonClicked)
         self.barCountGraphicsItemFontSizeResetButton.clicked.\
@@ -39282,6 +39301,92 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceBarGraphicsItemGroupBox.setLayout(layout)
 
         return self.priceBarGraphicsItemGroupBox
+
+    def _buildLookbackMultiplePriceBarGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a LookbackMultiplePriceBarGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.lookbackMultiplePriceBarGraphicsItemGroupBox = \
+            QGroupBox("LookbackMultiplePriceBarGraphicsItem settings:")
+
+        # lookbackMultiplePriceBarGraphicsItemPenWidth (float).
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthLabel = \
+            QLabel("LookbackMultiplePriceBarGraphicsItem pen width:")
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthSpinBox = QDoubleSpinBox()
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthSpinBox.setDecimals(4)
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthSpinBox.setMinimum(0.0)
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthSpinBox.setMaximum(1000.0)
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthResetButton = \
+            QPushButton("Reset to default")
+
+        # lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth (float).
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthLabel = \
+            QLabel("LookbackMultiplePriceBarGraphicsItem left extension width:")
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthSpinBox = QDoubleSpinBox()
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthSpinBox.setDecimals(4)
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthSpinBox.setMinimum(0.0)
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthSpinBox.setMaximum(1000.0)
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthResetButton = \
+            QPushButton("Reset to default")
+
+        # lookbackMultiplePriceBarGraphicsItemRightExtensionWidth (float).
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthLabel = \
+            QLabel("LookbackMultiplePriceBarGraphicsItem right extension width:")
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthSpinBox = QDoubleSpinBox()
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthSpinBox.setDecimals(4)
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthSpinBox.setMinimum(0.0)
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthSpinBox.setMaximum(1000.0)
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthResetButton = \
+            QPushButton("Reset to default")
+
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(self.lookbackMultiplePriceBarGraphicsItemPenWidthLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.lookbackMultiplePriceBarGraphicsItemPenWidthSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(self.lookbackMultiplePriceBarGraphicsItemPenWidthResetButton, 
+                      r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthResetButton, 
+                      r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthSpinBox, 
+                      r, 1, ar)
+        gridLayout.addWidget\
+            (self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthResetButton, 
+             r, 2, ar)
+        r += 1
+
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.lookbackMultiplePriceBarGraphicsItemGroupBox.setLayout(layout)
+
+        return self.lookbackMultiplePriceBarGraphicsItemGroupBox
 
     def _buildBarCountGraphicsItemGroupBox(self):
         """Builds the groupbox containing info to edit the
@@ -46489,6 +46594,20 @@ class PriceBarChartSettingsEditWidget(QWidget):
             setValue(self.priceBarChartSettings.\
                         priceBarGraphicsItemRightExtensionWidth)
 
+        # lookbackMultiplePriceBarGraphicsItemPenWidth (float).
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthSpinBox.\
+            setValue(self.priceBarChartSettings.lookbackMultiplePriceBarGraphicsItemPenWidth)
+
+        # lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth (float).
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth)
+
+        # lookbackMultiplePriceBarGraphicsItemRightExtensionWidth (float).
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        lookbackMultiplePriceBarGraphicsItemRightExtensionWidth)
+
         # barCountGraphicsItemBarHeight (float).
         self.barCountGraphicsItemBarHeightSpinBox.\
             setValue(self.priceBarChartSettings.\
@@ -49090,6 +49209,18 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # priceBarGraphicsItemRightExtensionWidth (float).
         self.priceBarChartSettings.priceBarGraphicsItemRightExtensionWidth = \
             float(self.priceBarGraphicsItemRightExtensionWidthSpinBox.value())
+
+        # lookbackMultiplePriceBarGraphicsItemPenWidth (float).
+        self.priceBarChartSettings.lookbackMultiplePriceBarGraphicsItemPenWidth = \
+            float(self.lookbackMultiplePriceBarGraphicsItemPenWidthSpinBox.value())
+
+        # lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth (float).
+        self.priceBarChartSettings.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth = \
+            float(self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthSpinBox.value())
+       
+        # lookbackMultiplePriceBarGraphicsItemRightExtensionWidth (float).
+        self.priceBarChartSettings.lookbackMultiplePriceBarGraphicsItemRightExtensionWidth = \
+            float(self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthSpinBox.value())
 
         # barCountGraphicsItemBarHeight (float).
         self.priceBarChartSettings.barCountGraphicsItemBarHeight = \
@@ -51721,6 +51852,36 @@ class PriceBarChartSettingsEditWidget(QWidget):
         value = PriceBarChartSettings.\
                     defaultPriceBarGraphicsItemRightExtensionWidth
         self.priceBarGraphicsItemRightExtensionWidthSpinBox.setValue(value)
+
+    def _handleLookbackMultiplePriceBarPenWidthResetButtonClicked(self):
+        """Called when the penWidthResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarChartSettings.\
+                defaultLookbackMultiplePriceBarGraphicsItemPenWidth
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthSpinBox.\
+            setValue(value)
+
+    def _handleLookbackMultiplePriceBarLeftExtensionWidthResetButtonClicked(self):
+        """Called when the leftExtensionWidthResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarChartSettings.\
+                defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthSpinBox.\
+            setValue(value)
+
+    def _handleLookbackMultiplePriceBarRightExtensionWidthResetButtonClicked(self):
+        """Called when the rightExtensionWidthResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarChartSettings.\
+                    defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthSpinBox.\
+            setValue(value)
 
     def _handleBarCountGraphicsItemBarHeightResetButtonClicked(self):
         """Called when the barCountGraphicsItemBarHeightResetButton

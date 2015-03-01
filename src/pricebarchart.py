@@ -682,6 +682,559 @@ class PriceBarGraphicsItem(QGraphicsItem):
         # The GraphicsItem's scene X position represents the time.
         self.scene().openAstrolog(self.scenePos().x())
         
+
+class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
+    """QGraphicsItem that visualizes a LookbackMultiplePriceBar object.
+
+    There exists two kinds of standard LookbackMultiplePriceBar drawings:
+        - Candle
+        - Bar with open and close
+
+    This draws the second one.  It is displayed as a bar with open
+    and close ticks on the left and right side.  The bar is drawn with a
+    green pen if the high is higher than or equal the low, and drawn as
+    red otherwise.
+    """
+    
+    def __init__(self, parent=None, scene=None):
+
+        # Logger
+        self.log = logging.getLogger("pricebarchart.LookbackMultiplePriceBarGraphicsItem")
+        self.log.debug("Entered __init__().")
+
+        super().__init__(parent, scene)
+
+        # Pen width for LookbackMultiplePriceBars.
+        self.penWidth = \
+            PriceBarChartSettings.defaultLookbackMultiplePriceBarGraphicsItemPenWidth
+
+        # Width of the left extension drawn that represents the open price.
+        self.leftExtensionWidth = \
+            LookbackMultiplePriceBarChartSettings.\
+                defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth 
+
+        # Width of the right extension drawn that represents the close price.
+        self.rightExtensionWidth = \
+            LookbackMultiplePriceBarChartSettings.\
+                defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth 
+
+
+        # Internally stored LookbackMultiplePriceBar.
+        self.priceBar = None
+
+        # Pen which is used to do the painting.
+        self.pen = QPen()
+        self.pen.setColor(QColor(Qt.black))
+        self.pen.setWidthF(self.penWidth)
+
+        # Read the QSettings preferences for the various parameters of
+        # this price bar.
+        self.loadSettingsFromAppPreferences()
+
+
+    def loadSettingsFromLookbackMultiplePriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        LookbackMultiplePriceBarGraphicsItem from the given LookbackMultiplePriceBarChartSettings object.
+        """
+
+        # priceBarGraphicsItemPenWidth (float).
+        self.penWidth = priceBarChartSettings.priceBarGraphicsItemPenWidth
+
+        # priceBarGraphicsItemLeftExtensionWidth (float).
+        self.leftExtensionWidth = \
+            priceBarChartSettings.priceBarGraphicsItemLeftExtensionWidth
+
+        # priceBarGraphicsItemRightExtensionWidth (float).
+        self.rightExtensionWidth = \
+            priceBarChartSettings.priceBarGraphicsItemRightExtensionWidth
+
+
+        # Update the pen.
+        self.pen.setWidthF(self.penWidth)
+
+        # Schedule an update.
+        self.prepareGeometryChange()
+
+
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        GraphicsItem from the QSettings object. 
+        """
+
+        # No settings.
+        pass
+    
+    def setLookbackMultiplePriceBar(self, priceBar):
+        """Sets the internally used priceBar.  
+        This has an effect on the color of the pricebar.
+        """
+
+        self.log.debug("Entered setLookbackMultiplePriceBar().  priceBar={}".\
+                       format(priceBar.toString()))
+
+        self.priceBar = priceBar
+
+        # Set if it is a green or red pricebar.
+        if self.priceBar != None:
+            if self.priceBar.open <= self.priceBar.close:
+                self.setLookbackMultiplePriceBarColor(self.higherLookbackMultiplePriceBarColor)
+            else:
+                self.setLookbackMultiplePriceBarColor(self.lowerLookbackMultiplePriceBarColor)
+        else:
+            # LookbackMultiplePriceBar is None.  Just use a black bar.
+            self.setLookbackMultiplePriceBarColor(Qt.black)
+
+        # Schedule an update to redraw the QGraphicsItem.
+        self.prepareGeometryChange()
+
+        self.log.debug("Leaving setLookbackMultiplePriceBar().")
+
+    def getLookbackMultiplePriceBar(self):
+        """Returns the internally stored LookbackMultiplePriceBar.
+        If no LookbackMultiplePriceBar was previously stored in
+        this LookbackMultiplePriceBarGraphicsItem, then None is returned.
+        """
+
+        return self.priceBar
+    
+    def setLookbackMultiplePriceBarColor(self, color):
+        """Sets the color of the price bar."""
+
+        self.log.debug("Entered setLookbackMultiplePriceBarColor().")
+
+        if self.pen.color() != color:
+            self.log.debug("Updating pen color.")
+            self.pen.setColor(color)
+            self.update()
+
+        self.log.debug("Leaving setLookbackMultiplePriceBarColor().")
+
+    def getLookbackMultiplePriceBarOpenScenePoint(self):
+        """Returns the scene coordinates of the open point of this
+        LookbackMultiplePriceBar.
+
+        Returns: QPointF in scene coordinates of where the open of this
+        pricebar is.
+        """
+
+        openPrice = 0.0
+        high = 0.0
+        low = 0.0
+
+        if self.priceBar != None:
+            openPrice = self.priceBar.open
+            high = self.priceBar.high
+            low = self.priceBar.low
+
+        priceMidpoint = (high + low) * 0.5
+
+        x = 0.0
+        yOpen = -1.0 * (openPrice - priceMidpoint)
+        yHigh = -1.0 * (high - priceMidpoint)
+        yLow = -1.0 * (low - priceMidpoint)
+
+        # Return value.
+        rv = self.mapToScene(QPointF(x, yOpen))
+
+        return rv
+
+
+    def getLookbackMultiplePriceBarHighScenePoint(self):
+        """Returns the scene coordinates of the high point of this
+        LookbackMultiplePriceBar.
+
+        Returns: QPointF in scene coordinates of where the high of this
+        pricebar is.
+        """
+
+        high = 0.0
+        low = 0.0
+
+        if self.priceBar != None:
+            high = self.priceBar.high
+            low = self.priceBar.low
+
+        priceMidpoint = (high + low) * 0.5
+
+        x = 0.0
+        yHigh = -1.0 * (high - priceMidpoint)
+        yLow = -1.0 * (low - priceMidpoint)
+
+        # Return value.
+        rv = self.mapToScene(QPointF(x, yHigh))
+
+        return rv
+
+
+    def getLookbackMultiplePriceBarLowScenePoint(self):
+        """Returns the scene coordinates of the low point of this
+        LookbackMultiplePriceBar.
+
+        Returns: QPointF in scene coordinates of where the high of this
+        pricebar is.
+        """
+
+        high = 0.0
+        low = 0.0
+
+        if self.priceBar != None:
+            high = self.priceBar.high
+            low = self.priceBar.low
+
+        priceMidpoint = (high + low) * 0.5
+
+        x = 0.0
+        yHigh = -1.0 * (high - priceMidpoint)
+        yLow = -1.0 * (low - priceMidpoint)
+
+        # Return value.
+        rv = self.mapToScene(QPointF(x, yLow))
+
+        return rv
+
+    def getLookbackMultiplePriceBarCloseScenePoint(self):
+        """Returns the scene coordinates of the close point of this
+        LookbackMultiplePriceBar.
+
+        Returns: QPointF in scene coordinates of where the close of this
+        pricebar is.
+        """
+
+        close = 0.0
+        high = 0.0
+        low = 0.0
+
+        if self.priceBar != None:
+            close = self.priceBar.close
+            high = self.priceBar.high
+            low = self.priceBar.low
+
+        priceMidpoint = (high + low) * 0.5
+
+        x = 0.0
+        yClose = -1.0 * (close - priceMidpoint)
+        yHigh = -1.0 * (high - priceMidpoint)
+        yLow = -1.0 * (low - priceMidpoint)
+
+        # Return value.
+        rv = self.mapToScene(QPointF(x, yClose))
+
+        return rv
+
+
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinates (0, 0) is the center of the widget.  
+        # The QRectF returned should be related to this point as the
+        # center.
+
+        halfPenWidth = self.penWidth * 0.5
+
+        openPrice = 0.0
+        highPrice = 0.0
+        lowPrice = 0.0
+        closePrice = 0.0
+
+        if self.priceBar != None:
+            openPrice = self.priceBar.open
+            highPrice = self.priceBar.high
+            lowPrice = self.priceBar.low
+            closePrice = self.priceBar.close
+
+        # For X we have:
+        #     leftExtensionWidth units for the left extension (open price)
+        #     rightExtensionWidth units for the right extension (close price)
+        #     halfPenWidth on the left side
+        #     halfPenWidth on the right side
+
+        # For Y we have:
+        #     halfPenWidth for the bottom side.
+        #     priceRange units
+        #     halfPenWidth for the top side
+
+        priceRange = abs(highPrice - lowPrice)
+
+        x = -1.0 * (self.leftExtensionWidth + halfPenWidth)
+        y = -1.0 * ((priceRange * 0.5) + halfPenWidth)
+
+        height = halfPenWidth + priceRange + halfPenWidth
+
+        width = \
+                halfPenWidth + \
+                self.leftExtensionWidth + \
+                self.rightExtensionWidth + \
+                halfPenWidth
+
+        return QRectF(x, y, width, height)
+
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that self.pen is set
+        to what we want for the drawing style.
+        """
+
+        if painter.pen() != self.pen:
+            painter.setPen(self.pen)
+
+        openPrice = 0.0
+        highPrice = 0.0
+        lowPrice = 0.0
+        closePrice = 0.0
+
+        if self.priceBar != None:
+            openPrice = self.priceBar.open
+            highPrice = self.priceBar.high
+            lowPrice = self.priceBar.low
+            closePrice = self.priceBar.close
+
+        priceRange = abs(highPrice - lowPrice)
+        priceMidpoint = (highPrice + lowPrice) * 0.5
+
+        halfPriceRange = priceRange * 0.5
+
+        # Draw the stem.
+        x1 = 0.0
+        y1 = 1.0 * halfPriceRange
+        x2 = 0.0
+        y2 = -1.0 * halfPriceRange
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        # Draw the left extension (open price).
+        x1 = 0.0
+        y1 = -1.0 * (openPrice - priceMidpoint)
+        x2 = -1.0 * self.leftExtensionWidth
+        y2 = y1
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        # Draw the right extension (close price).
+        x1 = 0.0
+        y1 = -1.0 * (closePrice - priceMidpoint)
+        x2 = 1.0 * self.rightExtensionWidth
+        y2 = y1
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        # Draw the bounding rect if the item is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.pen.widthF() * 0.5;
+            
+            penWidth = 0.0
+
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+
+            boundingRect = self.boundingRect()
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawRect(boundingRect)
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawRect(boundingRect)
+
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this LookbackMultiplePriceBarGraphicsItem.  Actions that
+        are triggered from this menu run various methods in the
+        LookbackMultiplePriceBarGraphicsItem to handle the desired functionality.
+
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+                       readonly actions.
+        """
+
+        # Set the menu title.
+        if self.priceBar != None:
+            datetimeObj = self.priceBar.timestamp
+            timestampStr = Ephemeris.datetimeToDayStr(datetimeObj)
+            menu.setTitle("LookbackMultiplePriceBar_" + timestampStr)
+        else:
+            menu.setTitle("LookbackMultiplePriceBar_" + "Unknown")
+        
+        # These are the QActions that are in the menu.
+        parent = menu
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
+        removeAction = QAction("&Remove", parent)
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
+        setAstro1Action = QAction("Set timestamp on Astro Chart &1", parent)
+        setAstro2Action = QAction("Set timestamp on Astro Chart &2", parent)
+        setAstro3Action = QAction("Set timestamp on Astro Chart &3", parent)
+        openJHoraAction = QAction("Open JHor&a with timestamp", parent)
+        openAstrologAction = QAction("Open As&trolog with timestamp", parent)
+        
+        selectAction.triggered.\
+            connect(self._handleSelectAction)
+        unselectAction.triggered.\
+            connect(self._handleUnselectAction)
+        removeAction.triggered.\
+            connect(self._handleRemoveAction)
+        infoAction.triggered.\
+            connect(self._handleInfoAction)
+        editAction.triggered.\
+            connect(self._handleEditAction)
+        setAstro1Action.triggered.\
+            connect(self._handleSetAstro1Action)
+        setAstro2Action.triggered.\
+            connect(self._handleSetAstro2Action)
+        setAstro3Action.triggered.\
+            connect(self._handleSetAstro3Action)
+        openJHoraAction.triggered.\
+            connect(self._handleOpenJHoraAction)
+        openAstrologAction.triggered.\
+            connect(self._handleOpenAstrologAction)
+                    
+        # Enable or disable actions.
+        selectAction.setEnabled(True)
+        unselectAction.setEnabled(True)
+        removeAction.setEnabled(False)
+        infoAction.setEnabled(True)
+        editAction.setEnabled(not readOnlyMode)
+        setAstro1Action.setEnabled(True)
+        setAstro2Action.setEnabled(True)
+        setAstro3Action.setEnabled(True)
+        openJHoraAction.setEnabled(True)
+        openAstrologAction.setEnabled(True)
+
+        # Add the QActions to the menu.
+        menu.addAction(selectAction)
+        menu.addAction(unselectAction)
+        menu.addSeparator()
+        menu.addAction(removeAction)
+        menu.addSeparator()
+        menu.addAction(infoAction)
+        menu.addAction(editAction)
+        menu.addSeparator()
+        menu.addAction(setAstro1Action)
+        menu.addAction(setAstro2Action)
+        menu.addAction(setAstro3Action)
+        menu.addAction(openJHoraAction)
+        menu.addAction(openAstrologAction)
+        
+        return menu
+
+    def _handleSelectAction(self):
+        """Causes the QGraphicsItem to become selected."""
+
+        self.setSelected(True)
+
+    def _handleUnselectAction(self):
+        """Causes the QGraphicsItem to become unselected."""
+
+        self.setSelected(False)
+
+    def _handleRemoveAction(self):
+        """Causes the QGraphicsItem to be removed from the scene."""
+
+        scene = self.scene()
+        if scene != None:
+            scene.removeItem(self)
+            scene.priceBarChartChanged.emit()
+
+    def _handleInfoAction(self):
+        """Causes a dialog to be executed to show information about
+        the QGraphicsItem pricebar.
+        """
+
+        pb = self.getLookbackMultiplePriceBar()
+        
+        dialog = LookbackMultiplePriceBarEditDialog(priceBar=pb, readOnly=True)
+
+        # Run the dialog.  We don't care about what is returned
+        # because the dialog is read-only.
+        rv = dialog.exec_()
+        
+    def _handleEditAction(self):
+        """Causes a dialog to be executed to edit information about
+        the QGraphicsItem pricebar.
+        """
+
+        pb = self.getLookbackMultiplePriceBar()
+        
+        dialog = LookbackMultiplePriceBarEditDialog(priceBar=pb, readOnly=False)
+
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # Set the item with the new values.
+
+            self.setLookbackMultiplePriceBar(dialog.getLookbackMultiplePriceBar())
+
+            # X location based on the timestamp.
+            x = self.scene().datetimeToSceneXPos(self.priceBar.timestamp)
+
+            # Y location based on the mid price (average of high and low).
+            y = self.scene().priceToSceneYPos(self.priceBar.midPrice())
+
+            # Set the position, in parent coordinates.
+            self.setPos(QPointF(x, y))
+
+            # Flag that a redraw of this QGraphicsItem is required.
+            self.prepareGeometryChange()
+            
+            # Emit that the LookbackMultiplePriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        else:
+            # The user canceled so don't change anything.
+            pass
+        
+    def _handleSetAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of this LookbackMultiplePriceBarGraphicsItem.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().setAstroChart1(self.scenePos().x())
+        
+    def _handleSetAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of this LookbackMultiplePriceBarGraphicsItem.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().setAstroChart2(self.scenePos().x())
+        
+    def _handleSetAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of this LookbackMultiplePriceBarGraphicsItem.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().setAstroChart3(self.scenePos().x())
+
+    def _handleOpenJHoraAction(self):
+        """Causes the timestamp of this LookbackMultiplePriceBarGraphicsItem to be
+        opened in JHora.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().openJHora(self.scenePos().x())
+        
+    def _handleOpenAstrologAction(self):
+        """Causes the timestamp of this LookbackMultiplePriceBarGraphicsItem to be
+        opened in Astrolog.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().openAstrolog(self.scenePos().x())
+        
+
+
 class PriceBarChartArtifactGraphicsItem(QGraphicsItem):
     """QGraphicsItem that has members to indicate and set the
     readOnly mode.
@@ -38283,7 +38836,7 @@ class PriceBarChartWidget(QWidget):
                 "PanchottariDasaTool"      : 28,
                 "ShashtihayaniDasaTool"    : 29,
                 "PlanetLongitudeMovementMeasurementTool"    : 30,
-                "LineSegment2Tool"         : 31
+                "LineSegment2Tool"         : 31,
                 }
 
 
@@ -39606,7 +40159,6 @@ class PriceBarChartWidget(QWidget):
             self.graphicsView.toBarCountToolMode()
 
         self.log.debug("Exiting toBarCountToolMode()")
-
 
     def toTimeMeasurementToolMode(self):
         """Changes the tool mode to be the TimeMeasurementTool."""
@@ -41524,7 +42076,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 "PanchottariDasaTool"      : 28,
                 "ShashtihayaniDasaTool"    : 29,
                 "PlanetLongitudeMovementMeasurementTool"      : 30,
-                "LineSegment2Tool"          : 31
+                "LineSegment2Tool"         : 31,
                 }
 
     # Signal emitted when the mouse moves within the QGraphicsView.
