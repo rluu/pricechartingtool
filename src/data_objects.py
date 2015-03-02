@@ -16822,7 +16822,7 @@ class PriceBarChartScaling:
                        PriceBarChartScaling.__name__ +
                        " object of version {}".format(self.classVersion))
 
-class LoopbackMultiple:
+class LookbackMultiple:
     """Contains data and parameters for the amount of time to look
     back when drawing or comparing past PriceBar data to current
     present PriceBar data.
@@ -16830,6 +16830,7 @@ class LoopbackMultiple:
 
     def __init__(self,
                  name="Unnamed",
+                 description="",
                  lookbackMultiple=1.0,
                  baseUnit=1.0,
                  baseUnitTypeDegreesFlag=False,
@@ -16837,7 +16838,7 @@ class LoopbackMultiple:
                  color=QColor(Qt.gray),
                  enabled=False,
                  planetName="",
-                 geocentricFlag=False,
+                 geocentricFlag=True,
                  heliocentricFlag=False
                  ):
         """Initializes the member variables to the values specified as
@@ -16852,10 +16853,12 @@ class LoopbackMultiple:
 
         Arguments:
         
-        name     - str value for thhe name of the LoopbackMultiple.
+        name     - str value for the name of the LookbackMultiple.
                    This is the display name used in the UI.
-                   
-        loopbackMultiple - float value for the multiple to look back.
+    
+        description - str value for the description of the LookbackMultiple.
+
+        lookbackMultiple - float value for the multiple to look back.
         
         baseUnit - float value for the base unit to look back.
         
@@ -16903,7 +16906,7 @@ class LoopbackMultiple:
         self.classVersion = 1
 
         # Create the logger.
-        self.log = logging.getLogger("data_objects.LoopbackMultiple")
+        self.log = logging.getLogger("data_objects.LookbackMultiple")
 
         # Validate input.
 
@@ -16937,6 +16940,9 @@ class LoopbackMultiple:
 
         # Display name.  (str)
         self.name = name
+
+        # Description.  (str)
+        self.description = description
 
         # Multiple.  (float)
         self.lookbackMultiple = lookbackMultiple
@@ -16975,10 +16981,25 @@ class LoopbackMultiple:
         """Sets the display name of the LookbackMultiple.
 
         Arguments:
-        name - str value represneting the name of the LoopbackMultiple."
+        name - str value represneting the name of the LookbackMultiple."
         """
 
         self.name = name
+
+    def getDescription(self):
+        """Returns the description of the LookbackMultiple."""
+        
+        return self.description
+
+    def setDescription(self, description):
+        """Sets the description of the LookbackMultiple.
+
+        Arguments:
+        description - str value representing the description of the 
+                      LookbackMultiple.
+        """
+
+        self.description = description
 
     def getLookbackMultiple(self):
         """Returns the multiple of time to look backwards in time."""
@@ -17148,7 +17169,7 @@ class LoopbackMultiple:
 
     def toString(self):
         """Returns the string representation of most of the attributes in this
-        LoopbackMultiple object.
+        LookbackMultiple object.
         """
         
         rv = Util.objToString(self)
@@ -17174,6 +17195,9 @@ class LoopbackMultiple:
             rv = False
         if leftObj.name != rightObj.name:
             self.log.debug("name differs.")
+            rv = False
+        if leftObj.description != rightObj.description:
+            self.log.debug("description differs.")
             rv = False
         if leftObj.lookbackMultiple != rightObj.lookbackMultiple:
             self.log.debug("lookbackMultiple differs.")
@@ -17216,7 +17240,7 @@ class LoopbackMultiple:
     
     def __str__(self):
         """Returns the string representation of most of the attributes in this
-        LoopbackMultiple object.
+        LookbackMultiple object.
         """
 
         return self.toString()
@@ -17242,10 +17266,10 @@ class LoopbackMultiple:
         self.__dict__.update(state)
 
         # Re-open the logger because it was not pickled.
-        self.log = logging.getLogger("data_objects.LoopbackMultiple")
+        self.log = logging.getLogger("data_objects.LookbackMultiple")
 
         # Log that we set the state of this object.
-        self.log.debug("Set state of a " + LoopbackMultiple.__name__ +
+        self.log.debug("Set state of a " + LookbackMultiple.__name__ +
                        " object of version {}".format(self.classVersion))
 
 

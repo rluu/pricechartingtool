@@ -294,6 +294,106 @@ class Ephemeris:
                  'GauquelinSectors' : b'G'}
 
     @staticmethod
+    def getSupportedPlanetNamesList():
+        """Returns a list of str objects that is the list of planet
+        names supported by this Ephemeris class, that can be used to
+        obtain a PlanetaryInfo object.  
+
+        This includes the house cusps and custom 2-planet combinations.
+        """
+        
+        swissEphemerisPlanetNames = [
+            "Sun",
+            "Moon",
+            "Mercury",
+            "Venus",
+            "Mars",
+            "Jupiter",
+            "Saturn",
+            "Uranus",
+            "Neptune",
+            "Pluto",
+            "MeanNorthNode",
+            "TrueNorthNode",
+            "MeanLunarApogee",
+            "OsculatingLunarApogee",
+            "InterpolatedLunarApogee",
+            "InterpolatedLunarPerigee",
+            "Earth",
+            "Chiron",
+            "Pholus",
+            "Ceres",
+            "Pallas",
+            "Juno",
+            "Vesta",
+            "Isis",
+            "Nibiru",
+            ]
+        
+        ascmcPlanetNames = [\
+            "Ascendant",
+            "MC",
+            "ARMC",
+            "Vertex",
+            "EquatorialAscendant",   # "Equatorial ascendant"
+            "CoAscendant1",          # "Co-ascendant" (Walter Koch)
+            "CoAscendant2",          # "Co-ascendant" (Michael Munkasey)
+            "PolarAscendant"]        # "Polar ascendant" (M. Munkasey)
+
+        houseCuspPlanetNames = [
+            "H1",
+            "H2",
+            "H3",
+            "H4",
+            "H5",
+            "H6",
+            "H7",
+            "H8",
+            "H9",
+            "H10",
+            "H11",
+            "H12",
+            ]
+            
+        customPlanetCombinationPlanetNames = [
+            "MeanOfFive",
+            "CycleOfEight",
+            "AvgMaJuSaUrNePl",
+            "AvgJuSaUrNe",
+            "AvgJuSa",
+            "MoSu",
+            "MeVe",
+            "MeEa",
+            "MeMa",
+            "MeJu",
+            "MeSa",
+            "MeUr",
+            "VeEa",
+            "VeMa",
+            "VeJu",
+            "VeSa",
+            "VeUr",
+            "EaMa",
+            "EaJu",
+            "EaSa",
+            "EaUr",
+            "MaJu",
+            "MaSa",
+            "MaUr",
+            "JuSa",
+            "JuUr",
+            "SaUr",
+            ]
+        
+        allPlanetNames = \
+          swissEphemerisPlanetNames + \
+          ascmcPlanetNames + \
+          houseCuspPlanetNames + \
+          customPlanetCombinationPlanetNames
+        
+        return allPlanetNames
+  
+    @staticmethod
     def initialize():
         """Initializes the Ephemeris with default settings."""
 

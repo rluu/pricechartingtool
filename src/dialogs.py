@@ -30,6 +30,7 @@ import resources
 from data_objects import PriceBar
 from data_objects import BirthInfo
 from data_objects import PriceBarChartScaling
+from data_objects import LookbackMultiple
 from data_objects import PriceBarChartSettings
 
 # For geocoding.
@@ -38173,6 +38174,325 @@ class PriceBarChartScalingsListEditDialog(QDialog):
 
         return self.priceBarChartScalingsListEditWidget.\
                 getPriceBarChartScalingsIndex()
+
+
+class LookbackMultipleEditWidget(QWidget):
+    """QWidget for editing a LookbackMultiple.
+    """
+
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self, lookbackMultiple, parent=None):
+        super().__init__(parent)
+
+        # Logger object.
+        self.log = logging.\
+            getLogger("dialogs.")
+
+        # Save off the LookbackMultiple object.
+        self.lookbackMultiple = lookbackMultiple
+
+        # QGroupBox to hold the edit widgets and form.
+        self.groupBox = \
+            QGroupBox("LookbackMultiple:")
+
+        # Name.
+        self.nameLabel = QLabel("Name:")
+        self.nameLineEdit = QLineEdit()
+
+        # Description.
+        self.descriptionLabel = QLabel("Description:")
+        self.descriptionTextEdit = QTextEdit()
+
+        # lookbackMultiple (float).
+        self.lookbacMultipleLabel = \
+            QLabel("Lookback multiple:")
+        self.lookbackMultipleSpinBox = QDoubleSpinBox()
+        self.lookbackMultipleSpinBox.setDecimals(6)
+        self.lookbackMultipleSpinBox.setMinimum(0.000001)
+        self.lookbackMultipleSpinBox.setMaximum(100000.0)
+        self.lookbackMultipleSpinBox.setValue(1)
+
+        # baseUnit (float).
+        self.baseUnitLabel = \
+            QLabel("Base unit:")
+        self.baseUnitSpinBox = QDoubleSpinBox()
+        self.baseUnitSpinBox.setDecimals(6)
+        self.baseUnitSpinBox.setMinimum(0.000001)
+        self.baseUnitSpinBox.setMaximum(100000.0)
+        self.baseUnitSpinBox.setValue(1)
+
+        # baseUnitTypeDegreesFlag (bool).
+        # baseUnitTypeRevolutionsFlag (bool).
+        self.baseUnitTypeLabel = QLabel("Base unit type:")
+        self.baseUnitTypeComboBox = QComboBox()
+        self.baseUnitTypeComboBox.addItem("Degrees")
+        self.baseUnitTypeComboBox.addItem("Revolutions")
+        self.baseUnitTypeComboBox.setCurrentIndex(0)
+
+        # color (QColor).
+        self.colorLabel = QLabel("Color:")
+        self.colorEditButton = ColorEditPushButton()
+
+        # enabled (bool)
+        self.enabledLabel = QLabel("Enabled:")
+        self.enabledCheckBox = QCheckBox()
+
+        # planetName (str) 
+        #
+        # We will only support a limited number of the planets for the
+        # LookbackMultiple, just because the length of the list will be
+        # too unwieldly in the dropdown selection.
+        self.supportedPlanetNames = [
+            "Sun",
+            "Moon",
+            "Mercury",
+            "Venus",
+            "Earth",
+            "Mars",
+            "Jupiter",
+            "Saturn",
+            "Uranus",
+            "Neptune",
+            "Pluto",
+            "Chiron",
+            "MeanNorthNode",
+            "TrueNorthNode",
+            "H1",
+            "H10",
+            "MoSu",
+            "MeVe",
+            "MeEa",
+            "MeMa",
+            "MeJu",
+            "MeSa",
+            "MeUr",
+            "VeEa",
+            "VeMa",
+            "VeJu",
+            "VeSa",
+            "VeUr",
+            "EaMa",
+            "EaJu",
+            "EaSa",
+            "EaUr",
+            "MaJu",
+            "MaSa",
+            "MaUr",
+            "JuSa",
+            "JuUr",
+            "SaUr",
+            ]
+        self.planetNameLabel = QLabel("Planet name:")
+        self.planetNameComboBox = QComboBox()
+        self.planetNameComboBox.addItems(self.supportedPlanetNames)
+        self.setCurrentIndex(0)
+        
+        # geocentricFlag (bool).
+        # heliocentricFlag (bool).
+        self.centricityTypeLabel = QLabel("Centricity type:")
+        self.centricityTypeComboBox = QComboBox()
+        self.centricityTypeComboBox.addItem("Geocentric")
+        self.centricityTypeComboBox.addItem("Heliocentric")
+        self.centricityTypeComboBox.setCurrentIndex(0)
+        
+        # Form layout.
+        self.formLayout = QFormLayout()
+        self.formLayout.setLabelAlignment(Qt.AlignLeft)
+        self.formLayout.addRow(self.nameLabel, self.nameLineEdit)
+        self.formLayout.addRow(self.descriptionLabel, 
+                               self.descriptionTextEdit)
+        self.formLayout.addRow(self.baseUnitLabel, 
+                               self.baseUnitSpinBox)
+        self.formLayout.addRow(self.baseUnitTypeLabel, 
+                               self.baseUnitTypeComboBox)
+        self.formLayout.addRow(self.colorLabel,
+                               self.colorEditButton)
+        self.formLayout.addRow(self.enabledLabel,
+                               self.enabledCheckBox)
+        self.formLayout.addRow(self.planetNameLabel,
+                               self.planetNameComboBox)
+        self.formLayout.addRow(self.centricityTypeLabel,
+                               self.centricityTypeComboBox)
+        
+        self.groupBox.setLayout(self.formLayout)
+
+        # Buttons at bottom.
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addWidget(self.groupBox) 
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+
+        # Now that all the widgets are created, load the values from the
+        # settings.
+        self.loadLookbackMultiple(self.lookbackMultiple)
+
+        # Connect signals and slots.
+
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+    def loadLookbackMultiple(self, lookbackMultiple):
+        """Loads the widgets with values from the given
+        LookbackMultiple object.
+        """
+
+        self.log.debug("Entered loadLookbackMultiple()")
+
+        # Check inputs.
+        if lookbackMultiple == None:
+            self.log.error("Invalid parameter to loadLookbackMultiple().  " + \
+                           "lookbackMultiple can't be None.")
+            self.log.debug("Exiting loadLookbackMultiple()")
+            return
+        else:
+            self.lookbackMultiple = lookbackMultiple
+            
+        self.nameLineEdit.setText(self.lookbackMultiple.getName())
+        self.descriptionTextEdit.\
+            setText(self.lookbackMultiple.getDescription())
+        self.lookbackMultipleSpinBox.\
+            setValue(self.lookbackMultiple.getLookbackMultiple())
+        self.baseUnitSpinBox.\
+            setValue(self.lookbackMultiple.getBaseUnit())
+        if self.lookbackMultiple.getBaseUnitTypeDegreesFlag() == True:
+            self.baseUnitTypeComboBox.setCurrentIndex(\
+                self.baseUnitTypeComboBox.findText("Degrees"))
+        if self.lookbackMultiple.getBaseUnitTypeRevolutionsFlag() == True:
+            self.baseUnitTypeComboBox.setCurrentIndex(\
+                self.baseUnitTypeComboBox.findText("Revolutions"))
+        self.colorEditButton.\
+            setColor(self.lookbackMultiple.getColor())
+        self.enabledCheckBox.\
+            setChecked(self.lookbackMultiple.getEnabled())
+
+        planetName = self.lookbackMultiple.getPlanetName()
+        if planetName not in self.supportedPlanetNames:
+            errMsg = "Planet name '{}' may be valid, but it is not a planet name supported by this edit widget.".format(planetName)
+            self.log.error(errMsg)
+            parent = self
+            QMessageBox.warning(parent, "Load Error", errMsg)
+        else:
+            self.planetNameComboBox.setCurrentIndex(\
+                self.planetNameComboBox.findText(planetName))
+
+        if self.lookbackMultiple.getGeocentricFlag() == True:
+            self.centricityTypeComboBox.setCurrentIndex(\
+                self.centricityTypeComboBox.findText("Geocentric"))
+        if self.lookbackMultiple.getHeliocentricFlag() == True:
+            self.centricityTypeComboBox.setCurrentIndex(\
+                self.centricityTypeComboBox.findText("Heliocentric"))
+
+        self.log.debug("Exiting loadLookbackMultiple()")
+        
+    def saveLookbackMultiple(self):
+        """Saves the values in the widgets to the 
+        LookbackMultiple object passed in this class's constructor.
+        """
+    
+        self.log.debug("Entered saveLookbackMultiple()")
+
+        self.lookbackMultiple.setName(self.nameLineEdit.text())
+        self.lookbackMultiple.setDescription(self.descriptionTextEdit.text())
+        self.lookbackMultiple.setLookbackMultiple(\
+            self.lookbackMultipleSpinBox.value())
+        self.lookbackMultiple.setBaseUnit(self.baseUnitSpinBox.value())
+
+        if self.baseUnitTypeComboBox.currentText() == "Degrees":
+            self.lookbackMultiple.setBaseUnitTypeDegreesFlag(True)
+            self.lookbackMultiple.setBaseUnitTypeRevolutionsFlag(False)
+        elif self.baseUnitTypeComboBox.currentText() == "Revolutions":
+            self.lookbackMultiple.setBaseUnitTypeDegreesFlag(False)
+            self.lookbackMultiple.setBaseUnitTypeRevolutionsFlag(True)
+
+        self.lookbackMultiple.setColor(self.colorEditButton.getColor())
+        self.lookbackMultiple.setPlanetName(\
+            self.planetNameComboBox.currentText())
+        if self.centricityTypeComboBox.currentText() == "Geocentric":
+            self.lookbackMultiple.setGeocentricFlag(True)
+            self.lookbackMultiple.setHeliocentricFlag(False)
+        if self.centricityTypeComboBox.currentText() == "Heliocentric":
+            self.lookbackMultiple.setGeocentricFlag(False)
+            self.lookbackMultiple.setHeliocentricFlag(True)
+
+        self.log.debug("Exiting saveLookbackMultiple()")
+
+    def getLookbackMultiple(self):
+        """Returns the internally stored LookbackMultiple object.
+        This may or may not represent what is in the widgets, depending on
+        whether or not saveLookbackMultiple has been called.
+        """
+
+        return self.lookbackMultiple
+
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        self.saveLookbackMultiple()
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
+
+class LookbackMultipleEditDialog(QDialog):
+    """QDialog for editing a LookbackMultiple object's class members.
+    """
+
+    def __init__(self, lookbackMultiple, parent=None):
+        """Initializes the dialog and internal widget with the current
+        LookbackMultiple object."""
+
+        super().__init__(parent)
+
+        # Logger object.
+        self.log = logging.\
+            getLogger("dialogs.LookbackMultipleEditDialog")
+
+        self.setWindowTitle("LookbackMultiple")
+
+        # Save a reference to the LookbackMultiple object.
+        self.lookbackMultiple = lookbackMultiple
+
+        # Create the contents.
+        self.lookbackMultipleEditWidget = \
+            LookbackMultipleEditWidget(self.lookbackMultiple)
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.lookbackMultipleEditWidget)
+        self.setLayout(layout)
+
+        self.lookbackMultipleEditWidget.okayButtonClicked.\
+            connect(self.accept)
+        self.lookbackMultipleEditWidget.cancelButtonClicked.\
+            connect(self.reject)
+
+    def getLookbackMultiple(self):
+        """Returns the internally stored LookbackMultiple object."""
+
+        lookbackMultiple = \
+            self.lookbackMultipleEditWidget.getLookbackMultiple()
+        
+        return lookbackMultiple
 
 
 class PriceBarChartSettingsEditWidget(QWidget):
