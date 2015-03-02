@@ -3334,6 +3334,8 @@ class MainWindow(QMainWindow):
             if dialog.exec_() == QDialog.Accepted:
                 self.log.debug("PriceChartDocumentDataEditDialog accepted.")
 
+                priceChartDocumentData = dialog.getPriceChartDocumentData()
+
                 # Reload the entire PriceChartDocument.
                 priceChartDocument.\
                     setPriceChartDocumentData(priceChartDocumentData)
@@ -3377,6 +3379,8 @@ class MainWindow(QMainWindow):
 
             if dialog.exec_() == QDialog.Accepted:
                 self.log.debug("PriceBarChartSettingsEditDialog accepted.")
+
+                priceBarChartSettings = dialog.getPriceBarChartSettings()
 
                 # Apply the settings changes to the PriceChartDocument.
                 # This should trigger a redraw of everything in the chart.

@@ -52639,6 +52639,15 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.log.debug("Exiting saveValuesToSettings()")
 
 
+    def getPriceBarChartSettings(self):
+        """Returns the internally stored PriceBarChartSettings.  
+
+        This object has modifications if the user clicked Okay, and
+        remains unchanged if the user clicked Cancel.
+        """
+
+        return self.priceBarChartSettings
+
     def _handleTimeMeasurementGraphicsItemDefaultFontModifyButtonClicked(self):
         """Called when the
         self.timeMeasurementGraphicsItemDefaultFontModifyButton button is
@@ -58097,12 +58106,9 @@ class PriceBarChartSettingsEditDialog(QDialog):
 
         self.setWindowTitle("PriceBarChart Settings")
 
-        # Save a reference to the PriceBarChartSettings object.
-        self.priceBarChartSettings = priceBarChartSettings
-
         # Create the contents.
         self.priceBarChartSettingsEditWidget = \
-            PriceBarChartSettingsEditWidget(self.priceBarChartSettings)
+            PriceBarChartSettingsEditWidget(priceBarChartSettings)
 
         # Setup the layout.
         layout = QVBoxLayout()
@@ -58113,6 +58119,15 @@ class PriceBarChartSettingsEditDialog(QDialog):
             connect(self.accept)
         self.priceBarChartSettingsEditWidget.cancelButtonClicked.\
             connect(self.reject)
+
+    def getPriceBarChartSettings(self):
+        """Returns the internally stored PriceBarChartSettings.  
+
+        This object has modifications if the user clicked Okay, and
+        remains unchanged if the user clicked Cancel.
+        """
+
+        return self.priceBarChartSettingsEditWidget.getPriceBarChartSettings()
 
 class PriceChartDocumentDataEditWidget(QWidget):
     """QWidget for editing some of the member objects in a
@@ -58256,6 +58271,14 @@ class PriceChartDocumentDataEditWidget(QWidget):
         
         self.log.debug("Exiting saveValues()")
 
+    def getPriceChartDocumentData(self):
+        """Returns the internally stored PriceChartDocumentData.  
+
+        This object has modifications if the user clicked Okay, and
+        remains unchanged if the user clicked Cancel.
+        """
+
+        return self.priceChartDocumentData
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""
@@ -58291,12 +58314,9 @@ class PriceChartDocumentDataEditDialog(QDialog):
 
         self.setWindowTitle("Edit PriceChartDocument Data")
 
-        # Save a reference to the PriceChartDocumentData object.
-        self.priceChartDocumentData = priceChartDocumentData
-
         # Create the contents.
         self.priceChartDocumentDataEditWidget = \
-            PriceChartDocumentDataEditWidget(self.priceChartDocumentData)
+            PriceChartDocumentDataEditWidget(priceChartDocumentData)
 
         # Setup the layout.
         layout = QVBoxLayout()
@@ -58307,6 +58327,15 @@ class PriceChartDocumentDataEditDialog(QDialog):
             connect(self.accept)
         self.priceChartDocumentDataEditWidget.cancelButtonClicked.\
             connect(self.reject)
+
+    def getPriceChartDocumentData(self):
+        """Returns the internally stored PriceChartDocumentData.  
+
+        This object has modifications if the user clicked Okay, and
+        remains unchanged if the user clicked Cancel.
+        """
+
+        return self.priceChartDocumentDataEditWidget.getPriceChartDocumentData()
 
 
 class TimestampEditWidget(QWidget):

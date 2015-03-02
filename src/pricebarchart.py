@@ -2527,6 +2527,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # object was modified.  Set the artifact to this
             # PriceBarChartArtifactGraphicsItem, which will cause it to be
             # reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
@@ -4615,6 +4616,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # object was modified.  Set the artifact to this
             # PriceBarChartArtifactGraphicsItem, which will cause it to be
             # reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
@@ -10526,6 +10528,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             # object was modified.  Set the artifact to this
             # PriceBarChartArtifactGraphicsItem, which will cause it to be
             # reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
@@ -12628,6 +12631,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # object was modified.  Set the artifact to this
             # PriceBarChartArtifactGraphicsItem, which will cause it to be
             # reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
@@ -13874,6 +13878,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # object was modified.  Set the artifact to this
             # PriceBarChartArtifactGraphicsItem, which will cause it to be
             # reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
@@ -15158,6 +15163,7 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # object was modified.  Set the artifact to this
             # PriceBarChartArtifactGraphicsItem, which will cause it to be
             # reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
@@ -16362,6 +16368,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # object was modified.  Set the artifact to this
             # PriceBarChartArtifactGraphicsItem, which will cause it to be
             # reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
@@ -17570,6 +17577,7 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # object was modified.  Set the artifact to this
             # PriceBarChartArtifactGraphicsItem, which will cause it to be
             # reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
