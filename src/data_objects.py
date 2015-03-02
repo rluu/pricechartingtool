@@ -16982,7 +16982,7 @@ class LookbackMultiple:
 
         return self.baseUnitTypeDegreesFlag
 
-    def setBaseUnitTypeDegreesFlag(self, baseUnitTypeDegreesFlag)
+    def setBaseUnitTypeDegreesFlag(self, baseUnitTypeDegreesFlag):
         """Sets the boolean flag that indicates whether or not the
         baseUnit is in degrees.
 
@@ -17004,7 +17004,7 @@ class LookbackMultiple:
 
         return self.baseUnitTypeRevolutionsFlag
 
-    def setBaseUnitTypeRevolutionsFlag(self, baseUnitTypeRevolutionsFlag)
+    def setBaseUnitTypeRevolutionsFlag(self, baseUnitTypeRevolutionsFlag):
         """Sets the boolean flag that indicates whether or not the
         baseUnit is in revolutions.
 
@@ -17132,7 +17132,7 @@ class LookbackMultiple:
             centricityTypeStr = "H."
             
         planetNameStr = self.planetName
-        lookbackMultipleStr = "{:.3f}".format(self.lookbackMultiple)
+        lookbackMultipleStr = "{}".format(self.lookbackMultiple)
         
         baseUnitStr = "{}".format(self.baseUnit)
 

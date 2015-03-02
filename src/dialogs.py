@@ -37162,6 +37162,13 @@ class BirthInfoEditDialog(QDialog):
 
 class PriceBarChartScalingEditWidget(QWidget):
     """QWidget for editing the scaling used in a PriceBarChart.
+
+    Note: 
+    Clicking on the Okay button will save and modify the original
+    PriceBarChartScaling passed into the constructor.
+
+    Clicking on the Cancel button will cause no changes to occur to 
+    the original PriceBarChartScaling.  
     """
 
     # Signal emitted when the Okay button is clicked and 
@@ -37345,6 +37352,13 @@ class PriceBarChartScalingEditWidget(QWidget):
 
 class PriceBarChartScalingEditDialog(QDialog):
     """QDialog for editing a PriceBarChartScaling object's class members.
+
+    Note: 
+    Clicking on the Okay button will save and modify the original
+    PriceBarChartScaling passed into the constructor.
+
+    Clicking on the Cancel button will cause no changes to occur to 
+    the original PriceBarChartScaling.  
     """
 
     def __init__(self, priceBarChartScaling, parent=None):
@@ -37387,6 +37401,14 @@ class PriceBarChartScalingEditDialog(QDialog):
 
 class PriceBarChartScalingsListEditWidget(QWidget):
     """QWidget for editing the list of scalings used in a PriceBarChart.
+
+    Note: No matter if the dialog is accepted or rejected, any additions
+    or removals of PriceBarChartScalings from the list do not change the
+    original that is passed into the constructor.  Similarly for the
+    priceBarChartScalingsIndex passed into the constructor.  You have to call
+    getPriceBarChartScalings() or getPriceBarChartScalingsIndex() in
+    order to get the new values (which will have any modifications,
+    regardless of accepted or rejected).
     """
 
     # Signal emitted when the Okay button is clicked and 
@@ -37406,11 +37428,13 @@ class PriceBarChartScalingsListEditWidget(QWidget):
 
         priceBarChartScalings - List of PriceBarChartScaling objects.
                                 This is the list of scalings we are editing.
+                                A deep copy is made of this for editing.
 
         priceBarChartScalingsIndex - int value holding the index of the
                                      currently selected scaling.  
                                      This value is an index into the
                                      priceBarChartScalings list.
+                                     A deep copy is made of this for editing.
         parent - QWidget parent
         """
 
@@ -37420,11 +37444,13 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         self.log = logging.\
             getLogger("dialogs.PriceBarChartScalingsListEditWidget")
 
-        # Save off the list of PriceBarChartScalings.
-        self.priceBarChartScalings = list(priceBarChartScalings)
+        # Internally stored copy of the list of PriceBarChartScaling objects.
+        # The value for this will be set later by calling loadScalings().
+        self.priceBarChartScalings = []
 
-        # Save off the index of the currently selected scaling.
-        self.priceBarChartScalingsIndex = priceBarChartScalingsIndex
+        # Internally stored copy of the index of the currently selected scaling.
+        # The value for this will be set later by calling loadScalings().
+        self.priceBarChartScalingsIndex = -1
 
         self.scalingsListGroupBox = \
             QGroupBox("List of PriceBarChart scalings:")
@@ -37448,6 +37474,7 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         self.selectedScalingDescriptionLabel = QLabel("Description:")
         self.selectedScalingDescriptionTextEdit = QTextEdit()
         self.selectedScalingDescriptionTextEdit.setAcceptRichText(False)
+        self.selectedScalingDescriptionTextEdit.setTabChangesFocus(True)
         self.selectedScalingDescriptionTextEdit.setEnabled(False)
         self.selectedScalingDescriptionTextEdit.setTextColor(Qt.black)
         self.selectedScalingDescriptionTextEdit.setMaximumHeight(80)
@@ -37518,6 +37545,7 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         self.currentScalingDescriptionLabel = QLabel("Description:")
         self.currentScalingDescriptionTextEdit = QTextEdit()
         self.currentScalingDescriptionTextEdit.setAcceptRichText(False)
+        self.currentScalingDescriptionTextEdit.setTabChangesFocus(True)
         self.currentScalingDescriptionTextEdit.setEnabled(False)
         self.currentScalingDescriptionTextEdit.setTextColor(Qt.black)
         self.currentScalingDescriptionTextEdit.setMaximumHeight(80)
@@ -37650,10 +37678,9 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         self.okayButton.clicked.connect(self._handleOkayButtonClicked)
         self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
 
-        # Now that all the widgets are created, load the values from the
-        # settings.
-        self.loadScalings(self.priceBarChartScalings,
-                          self.priceBarChartScalingsIndex)
+        # Now that all the widgets are created, load the values.
+        self.loadScalings(priceBarChartScalings,
+                          priceBarChartScalingsIndex)
 
     def loadScalings(self, 
                      priceBarChartScalings,
@@ -37664,18 +37691,22 @@ class PriceBarChartScalingsListEditWidget(QWidget):
 
         priceBarChartScalings - List of PriceBarChartScaling objects.
                                 This is the list of scalings we are editing.
+                                A deep copy is made of this for editing.
 
         priceBarChartScalingsIndex - int value holding the index of the
                                      currently selected scaling.  
                                      This value is an index into the
                                      priceBarChartScalings list.
+                                     A deep copy is made of this for editing.
         """
 
         self.log.debug("Entered loadScalings()")
 
-        # Save off the values.
-        self.priceBarChartScalings = list(priceBarChartScalings)
-        self.priceBarChartScalingsIndex = priceBarChartScalingsIndex
+        # Save off the values (deep copy).
+        self.priceBarChartScalings = \
+            copy.deepcopy(priceBarChartScalings)
+        self.priceBarChartScalingsIndex = \
+            copy.deepcopy(priceBarChartScalingsIndex)
 
         # Populate the QListWidget with the scalings.
         self.listWidget.clear()
@@ -37819,6 +37850,9 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         dialog = PriceBarChartScalingEditDialog(scaling)
 
         if dialog.exec_() == QDialog.Accepted:
+            # Obtain the PriceBarChartScaling object that was accepted.
+            scaling = dialog.getPriceBarChartScaling()
+
             # Add the scaling object to the list.
             self.priceBarChartScalings.append(scaling)
 
@@ -37966,6 +38000,10 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         dialog = PriceBarChartScalingEditDialog(scaling)
 
         if dialog.exec_() == QDialog.Accepted:
+            # Obtain the PriceBarChartScaling object that was accepted.
+            scaling = dialog.getPriceBarChartScaling()
+
+            # Save the new PriceBarChartScaling.
             self.priceBarChartScalings[row] = scaling
 
             # Get the QListWidgetItem so we can update the text of it.
@@ -38113,6 +38151,14 @@ class PriceBarChartScalingsListEditWidget(QWidget):
 class PriceBarChartScalingsListEditDialog(QDialog):
     """QDialog for editing a list of PriceBarChartScaling objects and the
     current scaling to use in the PriceBarChart.
+
+    Note: No matter if the dialog is accepted or rejected, any additions
+    or removals of PriceBarChartScalings from the list do not change the
+    original that is passed into the constructor.  Similarly for the
+    priceBarChartScalingsIndex passed into the constructor.  You have to call
+    getPriceBarChartScalings() or getPriceBarChartScalingsIndex() in
+    order to get the new values (which will have any modifications,
+    regardless of accepted or rejected).
     """
 
     def __init__(self, 
@@ -38126,11 +38172,13 @@ class PriceBarChartScalingsListEditDialog(QDialog):
 
         priceBarChartScalings - List of PriceBarChartScaling objects.
                                 This is the list of scalings we are editing.
+                                A deep copy is made of this for editing.
 
         priceBarChartScalingsIndex - int value holding the index of the
                                      currently selected scaling.  
                                      This value is an index into the
                                      priceBarChartScalings list.
+                                     A deep copy is made of this for editing.
         """
 
         super().__init__(parent)
@@ -38178,6 +38226,13 @@ class PriceBarChartScalingsListEditDialog(QDialog):
 
 class LookbackMultipleEditWidget(QWidget):
     """QWidget for editing a LookbackMultiple.
+
+    Note: 
+    Clicking on the Okay button will save and modify the original
+    LookbackMultiple passed into the constructor.
+
+    Clicking on the Cancel button will cause no changes to occur to 
+    the original LookbackMultiple.  
     """
 
     # Signal emitted when the Okay button is clicked and 
@@ -38192,7 +38247,7 @@ class LookbackMultipleEditWidget(QWidget):
 
         # Logger object.
         self.log = logging.\
-            getLogger("dialogs.")
+            getLogger("dialogs.LookbackMultipleEditWidget")
 
         # Save off the LookbackMultiple object.
         self.lookbackMultiple = lookbackMultiple
@@ -38209,6 +38264,7 @@ class LookbackMultipleEditWidget(QWidget):
         self.descriptionLabel = QLabel("Description:")
         self.descriptionTextEdit = QTextEdit()
         self.descriptionTextEdit.setAcceptRichText(False)
+        self.descriptionTextEdit.setTabChangesFocus(True)
         self.descriptionTextEdit.setTextColor(Qt.black)
         self.descriptionTextEdit.setMaximumHeight(80)
 
@@ -38292,7 +38348,7 @@ class LookbackMultipleEditWidget(QWidget):
         self.planetNameLabel = QLabel("Planet name:")
         self.planetNameComboBox = QComboBox()
         self.planetNameComboBox.addItems(self.supportedPlanetNames)
-        self.setCurrentIndex(0)
+        self.planetNameComboBox.setCurrentIndex(0)
         
         # geocentricFlag (bool).
         # heliocentricFlag (bool).
@@ -38410,7 +38466,8 @@ class LookbackMultipleEditWidget(QWidget):
         self.log.debug("Entered saveLookbackMultiple()")
 
         self.lookbackMultiple.setName(self.nameLineEdit.text())
-        self.lookbackMultiple.setDescription(self.descriptionTextEdit.text())
+        self.lookbackMultiple.setDescription(\
+            self.descriptionTextEdit.toPlainText())
         self.lookbackMultiple.setLookbackMultiple(\
             self.lookbackMultipleSpinBox.value())
         self.lookbackMultiple.setBaseUnit(self.baseUnitSpinBox.value())
@@ -38455,7 +38512,14 @@ class LookbackMultipleEditWidget(QWidget):
 
 
 class LookbackMultipleEditDialog(QDialog):
-    """QDialog for editing a LookbackMultiple object's class members.
+    """QDialog for editing a LookbackMultiple object.
+
+    Note: 
+    Clicking on the Okay button will save and modify the original
+    LookbackMultiple passed into the constructor.
+
+    Clicking on the Cancel button will cause no changes to occur to 
+    the original LookbackMultiple.  
     """
 
     def __init__(self, lookbackMultiple, parent=None):
@@ -38498,6 +38562,12 @@ class LookbackMultipleEditDialog(QDialog):
 
 class LookbackMultipleListEditWidget(QWidget):
     """QWidget for editing the list of LookbackMultiple objects.
+
+    Note: No matter if the dialog is accepted or rejected, any additions
+    or removals of LookbackMultiples from the list do not change the
+    original that is passed into the constructor.  You have to call
+    dialog.getLookbackMultiples() in order to get the new list (which
+    will have any modifications, regardless of accepted or rejected).
     """
 
     # Signal emitted when the Okay button is clicked and 
@@ -38514,8 +38584,8 @@ class LookbackMultipleListEditWidget(QWidget):
 
         Arguments:
 
-        lookbackMultiples - List of LookbackMultiple objects we are editing.
-
+        lookbackMultiples - List of LookbackMultiple objects to edit.
+                            A deep copy is made of this for editing.
         parent - QWidget parent
         """
 
@@ -38525,8 +38595,10 @@ class LookbackMultipleListEditWidget(QWidget):
         self.log = logging.\
             getLogger("dialogs.LookbackMultipleListEditWidget")
 
-        # Save off the list of LookbackMultiple objects.
-        self.lookbackMultiples = list(lookbackMultiples)
+        # Internally stored copy of the list of LookbackMultiple objects.
+        # The value for this will be set later by calling 
+        # loadLookbackMultiples().
+        self.lookbackMultiples = []
 
         self.lookbackMultiplesListGroupBox = \
             QGroupBox("List of LookbackMultiples:")
@@ -38551,6 +38623,7 @@ class LookbackMultipleListEditWidget(QWidget):
         self.selectedLookbackMultipleDescriptionLabel = QLabel("Description:")
         self.selectedLookbackMultipleDescriptionTextEdit = QTextEdit()
         self.selectedLookbackMultipleDescriptionTextEdit.setAcceptRichText(False)
+        self.selectedLookbackMultipleDescriptionTextEdit.setTabChangesFocus(True)
         self.selectedLookbackMultipleDescriptionTextEdit.setEnabled(False)
         self.selectedLookbackMultipleDescriptionTextEdit.setTextColor(Qt.black)
         self.selectedLookbackMultipleDescriptionTextEdit.setMaximumHeight(80)
@@ -38562,20 +38635,19 @@ class LookbackMultipleListEditWidget(QWidget):
         self.selectedLookbackMultipleBaseUnitValueLabel = QLabel()
         
         self.selectedLookbackMultipleBaseUnitTypeLabel = QLabel("Base unit type:")
-        self.selectedBaseUnitTypeValueLabel = QLabel()
+        self.selectedLookbackMultipleBaseUnitTypeValueLabel = QLabel()
 
-        self.selectedColorLabel = QLabel("Color:")
-        self.selectedLookbackMultipleColorEditButton = ColorEditPushButton()
-        self.selectedLookbackMultipleColorEditButton.setEnabled(False)
+        self.selectedLookbackMultipleColorLabel = QLabel("Color:")
+        self.selectedLookbackMultipleColorLabelLabel = ColorLabel()
         
-        self.selectedEnabledLabel = QLabel("Enabled:")
+        self.selectedLookbackMultipleEnabledLabel = QLabel("Enabled:")
         self.selectedLookbackMultipleEnabledCheckBox = QCheckBox()
         self.selectedLookbackMultipleEnabledCheckBox.setEnabled(False)
         
-        self.selectedPlanetNameLabel = QLabel("Planet name:")
+        self.selectedLookbackMultiplePlanetNameLabel = QLabel("Planet name:")
         self.selectedLookbackMultiplePlanetNameValueLabel = QLabel()
 
-        self.selectedCentricityTypeLabel = QLabel("Centricity type:")
+        self.selectedLookbackMultipleCentricityTypeLabel = QLabel("Centricity type:")
         self.selectedLookbackMultipleCentricityTypeValueLabel = QLabel()
 
         # Grid layout.  
@@ -38610,25 +38682,25 @@ class LookbackMultipleListEditWidget(QWidget):
         self.selectedLookbackMultipleGridLayout.\
             addWidget(self.selectedLookbackMultipleBaseUnitTypeLabel, r, 0, al)
         self.selectedLookbackMultipleGridLayout.\
-            addWidget(self.selectedBaseUnitTypeValueLabel, r, 1, al)
+            addWidget(self.selectedLookbackMultipleBaseUnitTypeValueLabel, r, 1, al)
         r += 1
         self.selectedLookbackMultipleGridLayout.\
-            addWidget(self.selectedColorLabel, r, 0, al)
+            addWidget(self.selectedLookbackMultipleColorLabel, r, 0, al)
         self.selectedLookbackMultipleGridLayout.\
-            addWidget(self.selectedLookbackMultipleColorEditButton, r, 1, al)
+            addWidget(self.selectedLookbackMultipleColorLabelLabel, r, 1, al)
         r += 1
         self.selectedLookbackMultipleGridLayout.\
-            addWidget(self.selectedEnabledLabel, r, 0, al)
+            addWidget(self.selectedLookbackMultipleEnabledLabel, r, 0, al)
         self.selectedLookbackMultipleGridLayout.\
             addWidget(self.selectedLookbackMultipleEnabledCheckBox, r, 1, al)
         r += 1
         self.selectedLookbackMultipleGridLayout.\
-            addWidget(self.selectedPlanetNameLabel, r, 0, al)
+            addWidget(self.selectedLookbackMultiplePlanetNameLabel, r, 0, al)
         self.selectedLookbackMultipleGridLayout.\
             addWidget(self.selectedLookbackMultiplePlanetNameValueLabel, r, 1, al)
         r += 1
         self.selectedLookbackMultipleGridLayout.\
-            addWidget(self.selectedCentricityTypeLabel, r, 0, al)
+            addWidget(self.selectedLookbackMultipleCentricityTypeLabel, r, 0, al)
         self.selectedLookbackMultipleGridLayout.\
             addWidget(self.selectedLookbackMultipleCentricityTypeValueLabel, r, 1, al)
         r += 1
@@ -38711,7 +38783,7 @@ class LookbackMultipleListEditWidget(QWidget):
 
         # Now that all the widgets are created, load the values from the
         # settings.
-        self.loadLookbackMultiples(self.lookbackMultiples)
+        self.loadLookbackMultiples(lookbackMultiples)
 
     def loadLookbackMultiples(self, lookbackMultiples):
         """Loads the widgets with values from the given arguments.
@@ -38719,13 +38791,13 @@ class LookbackMultipleListEditWidget(QWidget):
         Arguments:
 
         lookbackMultiples - List of LookbackMultiple objects we are editing.
-
+                            A deep copy is made of this for editing.
         """
 
         self.log.debug("Entered loadLookbackMultiples()")
 
-        # Save off the values.
-        self.lookbackMultiples = list(lookbackMultiples)
+        # Save off the values (deep copy).
+        self.lookbackMultiples = copy.deepcopy(lookbackMultiples)
 
         # Populate the QListWidget with the LookbackMultiples.
         self.listWidget.clear()
@@ -38787,8 +38859,8 @@ class LookbackMultipleListEditWidget(QWidget):
         self.selectedLookbackMultipleDescriptionTextEdit.setPlainText("")
         self.selectedLookbackMultipleValueLabel.setText("")
         self.selectedLookbackMultipleBaseUnitValueLabel.setText("")
-        self.selectedLookbackMultipleBaseUnitTypeLabel.setText("")
-        self.selectedLookbackMultipleColorEditButton.setColor(QColor())
+        self.selectedLookbackMultipleBaseUnitTypeValueLabel.setText("")
+        self.selectedLookbackMultipleColorLabelLabel.setColor(QColor())
         self.selectedLookbackMultipleEnabledCheckBox.setCheckState(Qt.Unchecked)
         self.selectedLookbackMultiplePlanetNameValueLabel.setText("")
         self.selectedLookbackMultipleCentricityTypeValueLabel.setText("")
@@ -38813,15 +38885,15 @@ class LookbackMultipleListEditWidget(QWidget):
         self.selectedLookbackMultipleBaseUnitValueLabel.\
             setText("{}".format(lookbackMultiple.getBaseUnit()))
 
-        self.selectedLookbackMultipleBaseUnitTypeLabel.setText("")
+        self.selectedLookbackMultipleBaseUnitTypeValueLabel.setText("")
         if lookbackMultiple.getBaseUnitTypeDegreesFlag() == True:
-            self.selectedLookbackMultipleBaseUnitTypeLabel.\
+            self.selectedLookbackMultipleBaseUnitTypeValueLabel.\
                 setText("Degrees")
         if lookbackMultiple.getBaseUnitTypeRevolutionsFlag() == True:
-            self.selectedLookbackMultipleBaseUnitTypeLabel.\
+            self.selectedLookbackMultipleBaseUnitTypeValueLabel.\
                 setText("Revolutions")
             
-        self.selectedLookbackMultipleColorEditButton.\
+        self.selectedLookbackMultipleColorLabelLabel.\
             setColor(lookbackMultiple.getColor())
 
         value = lookbackMultiple.getEnabled()
@@ -38904,6 +38976,9 @@ class LookbackMultipleListEditWidget(QWidget):
         dialog = LookbackMultipleEditDialog(lookbackMultiple)
 
         if dialog.exec_() == QDialog.Accepted:
+            # Obtain the LookbackMultiple object that was accepted.
+            lookbackMultiple = dialog.getLookbackMultiple()
+
             # Add the LookbackMultiple object to the list.
             self.lookbackMultiples.append(lookbackMultiple)
 
@@ -38952,9 +39027,13 @@ class LookbackMultipleListEditWidget(QWidget):
         lookbackMultiple = self.lookbackMultiples[row]
         
         # Create a dialog and allow the user to edit it.
-        dialog = PriceBarChartLookbackMultipleEditDialog(lookbackMultiple)
+        dialog = LookbackMultipleEditDialog(lookbackMultiple)
 
         if dialog.exec_() == QDialog.Accepted:
+            # Obtain the LookbackMultiple object that was accepted.
+            lookbackMultiple = dialog.getLookbackMultiple()
+
+            # Save the new LookbackMultiple.
             self.lookbackMultiples[row] = lookbackMultiple
 
             # Get the QListWidgetItem so we can update the text of it.
@@ -39034,8 +39113,13 @@ class LookbackMultipleListEditWidget(QWidget):
 
 
 class LookbackMultipleListEditDialog(QDialog):
-    """QDialog for editing a list of LookbackMultiple objects and the
-    current scaling to use in the PriceBarChart.
+    """QDialog for editing a list of LookbackMultiple objects.
+
+    Note: No matter if the dialog is accepted or rejected, any additions
+    or removals of LookbackMultiples from the list do not change the
+    original that is passed into the constructor.  You have to call
+    dialog.getLookbackMultiples() in order to get the new list (which
+    will have any modifications, regardless of accepted or rejected).
     """
 
     def __init__(self, 
@@ -39047,6 +39131,8 @@ class LookbackMultipleListEditDialog(QDialog):
         Arguments:
 
         lookbackMultiples - List of LookbackMultiple objects we are editing.
+                            A deep copy is made of this for editing.
+        parent - QWidget parent
         """
 
         super().__init__(parent)
@@ -58069,6 +58155,7 @@ class PriceChartDocumentDataEditWidget(QWidget):
         self.userNotesLabel = QLabel("&User notes:")
         self.userNotesTextEdit = QTextEdit()
         self.userNotesTextEdit.setAcceptRichText(False)
+        self.userNotesTextEdit.setTabChangesFocus(True)
         self.userNotesLabel.setBuddy(self.userNotesTextEdit)
 
         # Source data file which we got the PriceBar data from.
@@ -59864,7 +59951,7 @@ def testPriceBarChartScalingsListEditDialog():
 
     if returnVal == QDialog.Accepted:
         print("Accepted!");
-
+        print("Saving the dialog's values/mods back to the original variable.")
         scalings = dialog.getPriceBarChartScalings()
         index = dialog.getPriceBarChartScalingsIndex()
     else:
@@ -59875,6 +59962,111 @@ def testPriceBarChartScalingsListEditDialog():
         print("Scaling is: " + scalings[i].toString())
     print("Index of 'current' is: {}".format(index))
     
+def testLookbackMultipleEditDialog():
+    print("Running " + inspect.stack()[0][3] + "()")
+    
+    lm = LookbackMultiple(name="49ers",
+                          description="MyDescription",
+                          lookbackMultiple=1.0,
+                          baseUnit=49.0,
+                          baseUnitTypeDegreesFlag=False,
+                          baseUnitTypeRevolutionsFlag=True,
+                          color=QColor(Qt.gray),
+                          enabled=False,
+                          planetName="H1",
+                          geocentricFlag=True,
+                          heliocentricFlag=False)
+
+    print("LookbackMultiple before: {}".format(lm))
+    
+    dialog = LookbackMultipleEditDialog(lm)
+    
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted.")
+        print("Saving the dialog's values/mods back to the original variable.")
+        lm = dialog.getLookbackMultiple()
+    else:
+        print("Rejected.")
+
+    print("LookbackMultiple  after: {}".format(lm))
+
+
+def testLookbackMultipleListEditDialog():
+    print("Running " + inspect.stack()[0][3] + "()")
+    
+    lm1 = LookbackMultiple(name="49ers",
+                          description="MyDescription1",
+                          lookbackMultiple=1.0,
+                          baseUnit=49.0,
+                          baseUnitTypeDegreesFlag=False,
+                          baseUnitTypeRevolutionsFlag=True,
+                          color=QColor(Qt.gray),
+                          enabled=False,
+                          planetName="H1",
+                          geocentricFlag=True,
+                          heliocentricFlag=False)
+
+    lm2 = LookbackMultiple(name="40 deg Earth",
+                          description="MyDescription2",
+                          lookbackMultiple=1.0,
+                          baseUnit=40.0,
+                          baseUnitTypeDegreesFlag=True,
+                          baseUnitTypeRevolutionsFlag=False,
+                          color=QColor(Qt.red),
+                          enabled=True,
+                          planetName="Earth",
+                          geocentricFlag=False,
+                          heliocentricFlag=True)
+
+    lm3 = LookbackMultiple(name="360 deg Moon",
+                          description="MyDescription3",
+                          lookbackMultiple=1.0,
+                          baseUnit=360.0,
+                          baseUnitTypeDegreesFlag=True,
+                          baseUnitTypeRevolutionsFlag=False,
+                          color=QColor(Qt.blue),
+                          enabled=True,
+                          planetName="Moon",
+                          geocentricFlag=True,
+                          heliocentricFlag=False)
+
+    lm4 = LookbackMultiple(name="360 deg G.MoSu",
+                          description="MyDescription4",
+                          lookbackMultiple=1.0,
+                          baseUnit=360.0,
+                          baseUnitTypeDegreesFlag=True,
+                          baseUnitTypeRevolutionsFlag=False,
+                          color=QColor(Qt.black),
+                          enabled=True,
+                          planetName="MoSu",
+                          geocentricFlag=True,
+                          heliocentricFlag=False)
+
+    lookbackMultiples = [lm1, lm2, lm3, lm4]
+
+    print("LookbackMultiple before: len(lookbackMultiples)={}".\
+          format(len(lookbackMultiples)))
+    for i in range(len(lookbackMultiples)):
+        lm = lookbackMultiples[i]
+        print("LookbackMultiple before: lookbackMultiples[{}]={}".format(i, lm))
+
+    dialog = LookbackMultipleListEditDialog(lookbackMultiples)
+    
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted.")
+        print("Saving the dialog's values/mods back to the original variable.")
+        lookbackMultiples = dialog.getLookbackMultiples()
+    else:
+        print("Rejected.")
+
+    print("LookbackMultiple  after: len(lookbackMultiples)={}".\
+          format(len(lookbackMultiples)))
+    for i in range(len(lookbackMultiples)):
+        lm = lookbackMultiples[i]
+        print("LookbackMultiple  after: lookbackMultiples[{}]={}".format(i, lm))
+
 def testTimestampEditDialog():
     print("Running " + inspect.stack()[0][3] + "()")
 
@@ -60029,9 +60221,11 @@ if __name__=="__main__":
     #testPriceChartDocumentLocationTimezoneWizardPage()
     #testLocationTimezoneEditWidget()
     #testBirthInfoEditWidget()
-    testBirthInfoEditDialog()
+    #testBirthInfoEditDialog()
     #testPriceChartDocumentWizard()
-    #testPriceBarChartScalingsListEditDialog()
+    testPriceBarChartScalingsListEditDialog()
+    #testLookbackMultipleEditDialog()
+    #testLookbackMultipleListEditDialog()
     #testTimestampEditDialog()
     #testPriceBarTagEditDialog()
     #testPriceBarEditDialog()
