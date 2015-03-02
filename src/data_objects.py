@@ -835,61 +835,6 @@ class PriceBar:
         self.log.debug("Set state of a " + PriceBar.__name__ +
                        " object of version {}".format(self.classVersion))
 
-class LookbackMultiplePriceBar:
-    """Contains price information for a historic period of time,
-    projected onto the current time period.
-
-    LookbackMultiplePriceBar can include the following information: 
-
-    - timestamp of the current period of time.
-    - timestamp of the historic period of time.
-    - PriceBar object for the price information of a historical time period.
-    - LookbackMultiple object for this LookbackMultiplePriceBar
-    """
-    
-    def __init__(self, lookbackMultiple, priceBar):
-        """Initializes the PriceBar object.  
-
-        Arguments are as follows:
-        priceBar - PriceBar object that 
-        """
-
-        self.log = logging.getLogger("data_objects.PriceBar")
-
-        # Class version stored for pickling and unpickling.
-        self.classVersion = 1
-
-        self.lookbackMultiple = lookbackMultiple
-        self.priceBar = priceBar
-        self.currentTimestamp = None
-        self.historicTimestamp = priceBar.timestamp
-        
-    def recalculateCurrentTimestamp(self):
-        """Based on the information in self.lookbackMultiple, this
-        method will recalculate the currentTimestamp corresponding to
-        the lookback period.
-        """
-        
-        # TODO:  add code here.
-        pass
-    
-
-    def toString(self):
-        """Returns the string representation of the
-        LookbackMultiplePriceBar data
-        """
-
-        rv = Util.objToString(self)
-        
-        return rv
-
-    def __str__(self):
-        """Returns the string representation of the
-        LookbackMultiplePriceBar data
-        """
-
-        return self.toString()
-
 class Ratio:
     """Contains information about a ratio.  Includes the
     following information:
@@ -16837,7 +16782,7 @@ class LookbackMultiple:
                  baseUnitTypeRevolutionsFlag=True,
                  color=QColor(Qt.gray),
                  enabled=False,
-                 planetName="",
+                 planetName="Sun",
                  geocentricFlag=True,
                  heliocentricFlag=False
                  ):
@@ -16931,13 +16876,13 @@ class LookbackMultiple:
             self.log.error("heliocentricFlag == {}".format(heliocentricFlag))
             return
         
-        if planetName == "":
+        if planetName == "" or \
+                planetName not in Ephemeris.getSupportedPlanetNamesList():
+
             self.log.error("Invalid planet name given: '{}'".format(planetName))
             return
 
         
-        # Store class members.
-
         # Display name.  (str)
         self.name = name
 
@@ -17166,6 +17111,48 @@ class LookbackMultiple:
         self.heliocentricFlag = heliocentricFlag
         self.geocentricFlag = not heliocentricFlag
         
+        
+    def toShortString(self):
+        """Returns a short str representation of only some of the member
+        variables of this object.
+
+        The returned string is in the format of:
+        
+            MyName (G.Mars 3 x 1 rev.)
+            MyName (G.MoSu 7 x 360 deg.)
+            MyName (H.Venus 1.618 x 360 deg.)
+        """
+
+        nameStr = self.name
+
+        centricityTypeStr = ""
+        if self.geocentricFlag == True:
+            centricityTypeStr = "G."
+        if self.heliocentricFlag == True:
+            centricityTypeStr = "H."
+            
+        planetNameStr = self.planetName
+        lookbackMultipleStr = "{:.3f}".format(self.lookbackMultiple)
+        
+        baseUnitStr = "{}".format(self.baseUnit)
+
+        baseUnitTypeStr = ""
+        if self.baseUnitTypeDegreesFlag == True:
+            baseUnitTypeStr = "deg."
+        if self.baseUnitTypeRevolutionsFlag == True:
+            baseUnitTypeStr = "rev."
+
+        # Return value.
+        rv = "{} ({}{} {} x {} {})".\
+            format(nameStr, 
+                   centricityTypeStr, 
+                   planetNameStr, 
+                   lookbackMultipleStr, 
+                   baseUnitStr, 
+                   baseUnitTypeStr)
+        
+        return rv
+
 
     def toString(self):
         """Returns the string representation of most of the attributes in this
@@ -17271,6 +17258,62 @@ class LookbackMultiple:
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + LookbackMultiple.__name__ +
                        " object of version {}".format(self.classVersion))
+
+
+class LookbackMultiplePriceBar:
+    """Contains price information for a historic period of time,
+    projected onto the current time period.
+
+    LookbackMultiplePriceBar can include the following information: 
+
+    - timestamp of the current period of time.
+    - timestamp of the historic period of time.
+    - PriceBar object for the price information of a historical time period.
+    - LookbackMultiple object for this LookbackMultiplePriceBar
+    """
+    
+    def __init__(self, lookbackMultiple, priceBar):
+        """Initializes the PriceBar object.  
+
+        Arguments are as follows: # TODO: finish writing this comment.
+        priceBar - PriceBar object that 
+        """
+
+        self.log = logging.getLogger("data_objects.PriceBar")
+
+        # Class version stored for pickling and unpickling.
+        self.classVersion = 1
+
+        self.lookbackMultiple = lookbackMultiple
+        self.priceBar = priceBar
+        self.currentTimestamp = None
+        self.historicTimestamp = priceBar.timestamp
+        
+    def recalculateCurrentTimestamp(self):
+        """Based on the information in self.lookbackMultiple, this
+        method will recalculate the currentTimestamp corresponding to
+        the lookback period.
+        """
+        
+        # TODO:  add code here.
+        pass
+    
+
+    def toString(self):
+        """Returns the string representation of the
+        LookbackMultiplePriceBar data
+        """
+
+        rv = Util.objToString(self)
+        
+        return rv
+
+    def __str__(self):
+        """Returns the string representation of the
+        LookbackMultiplePriceBar data
+        """
+
+        return self.toString()
 
 
 class PriceChartDocumentData:

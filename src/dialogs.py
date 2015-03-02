@@ -38208,10 +38208,12 @@ class LookbackMultipleEditWidget(QWidget):
         # Description.
         self.descriptionLabel = QLabel("Description:")
         self.descriptionTextEdit = QTextEdit()
+        self.descriptionTextEdit.setAcceptRichText(False)
+        self.descriptionTextEdit.setTextColor(Qt.black)
+        self.descriptionTextEdit.setMaximumHeight(80)
 
         # lookbackMultiple (float).
-        self.lookbacMultipleLabel = \
-            QLabel("Lookback multiple:")
+        self.lookbackMultipleLabel = QLabel("Lookback multiple:")
         self.lookbackMultipleSpinBox = QDoubleSpinBox()
         self.lookbackMultipleSpinBox.setDecimals(6)
         self.lookbackMultipleSpinBox.setMinimum(0.000001)
@@ -38219,8 +38221,7 @@ class LookbackMultipleEditWidget(QWidget):
         self.lookbackMultipleSpinBox.setValue(1)
 
         # baseUnit (float).
-        self.baseUnitLabel = \
-            QLabel("Base unit:")
+        self.baseUnitLabel = QLabel("Base unit:")
         self.baseUnitSpinBox = QDoubleSpinBox()
         self.baseUnitSpinBox.setDecimals(6)
         self.baseUnitSpinBox.setMinimum(0.000001)
@@ -38366,7 +38367,7 @@ class LookbackMultipleEditWidget(QWidget):
             
         self.nameLineEdit.setText(self.lookbackMultiple.getName())
         self.descriptionTextEdit.\
-            setText(self.lookbackMultiple.getDescription())
+            setPlainText(self.lookbackMultiple.getDescription())
         self.lookbackMultipleSpinBox.\
             setValue(self.lookbackMultiple.getLookbackMultiple())
         self.baseUnitSpinBox.\
@@ -38493,6 +38494,591 @@ class LookbackMultipleEditDialog(QDialog):
             self.lookbackMultipleEditWidget.getLookbackMultiple()
         
         return lookbackMultiple
+
+
+class LookbackMultipleListEditWidget(QWidget):
+    """QWidget for editing the list of LookbackMultiple objects.
+    """
+
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self, 
+                 lookbackMultiples=[], 
+                 parent=None):
+        """Initializes the edit widget with the given values.
+
+        Arguments:
+
+        lookbackMultiples - List of LookbackMultiple objects we are editing.
+
+        parent - QWidget parent
+        """
+
+        super().__init__(parent)
+
+        # Logger object.
+        self.log = logging.\
+            getLogger("dialogs.LookbackMultipleListEditWidget")
+
+        # Save off the list of LookbackMultiple objects.
+        self.lookbackMultiples = list(lookbackMultiples)
+
+        self.lookbackMultiplesListGroupBox = \
+            QGroupBox("List of LookbackMultiples:")
+
+        self.listWidget = QListWidget()
+        self.listWidget.setSelectionMode(QAbstractItemView.SingleSelection)
+
+        # Layout to hold the list widget.
+        self.listWidgetLayout = QVBoxLayout()
+        self.listWidgetLayout.addWidget(self.listWidget)
+
+        self.lookbackMultiplesListGroupBox.setLayout(self.listWidgetLayout)
+        
+        # GroupBox holding the selected LookbackMultiple.
+        self.selectedLookbackMultipleGroupBox = \
+            QGroupBox("Selected LookbackMultiple:")
+
+        # Widgets for displaying the selected LookbackMultiple.
+        self.selectedLookbackMultipleNameLabel = QLabel("Name:")
+        self.selectedLookbackMultipleNameValueLabel = QLabel()
+        
+        self.selectedLookbackMultipleDescriptionLabel = QLabel("Description:")
+        self.selectedLookbackMultipleDescriptionTextEdit = QTextEdit()
+        self.selectedLookbackMultipleDescriptionTextEdit.setAcceptRichText(False)
+        self.selectedLookbackMultipleDescriptionTextEdit.setEnabled(False)
+        self.selectedLookbackMultipleDescriptionTextEdit.setTextColor(Qt.black)
+        self.selectedLookbackMultipleDescriptionTextEdit.setMaximumHeight(80)
+
+        self.selectedLookbackMultipleLabel = QLabel("Lookback multiple:")
+        self.selectedLookbackMultipleValueLabel = QLabel()
+        
+        self.selectedLookbackMultipleBaseUnitLabel = QLabel("Base unit:")
+        self.selectedLookbackMultipleBaseUnitValueLabel = QLabel()
+        
+        self.selectedLookbackMultipleBaseUnitTypeLabel = QLabel("Base unit type:")
+        self.selectedBaseUnitTypeValueLabel = QLabel()
+
+        self.selectedColorLabel = QLabel("Color:")
+        self.selectedLookbackMultipleColorEditButton = ColorEditPushButton()
+        self.selectedLookbackMultipleColorEditButton.setEnabled(False)
+        
+        self.selectedEnabledLabel = QLabel("Enabled:")
+        self.selectedLookbackMultipleEnabledCheckBox = QCheckBox()
+        self.selectedLookbackMultipleEnabledCheckBox.setEnabled(False)
+        
+        self.selectedPlanetNameLabel = QLabel("Planet name:")
+        self.selectedLookbackMultiplePlanetNameValueLabel = QLabel()
+
+        self.selectedCentricityTypeLabel = QLabel("Centricity type:")
+        self.selectedLookbackMultipleCentricityTypeValueLabel = QLabel()
+
+        # Grid layout.  
+        self.selectedLookbackMultipleGridLayout = QGridLayout()
+
+        # Row.
+        r = 0
+
+        # Alignment.
+        al = Qt.AlignLeft
+
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleNameLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleNameValueLabel, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleDescriptionLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleDescriptionTextEdit, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleValueLabel, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleBaseUnitLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleBaseUnitValueLabel, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleBaseUnitTypeLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedBaseUnitTypeValueLabel, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedColorLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleColorEditButton, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedEnabledLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleEnabledCheckBox, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedPlanetNameLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultiplePlanetNameValueLabel, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedCentricityTypeLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleCentricityTypeValueLabel, r, 1, al)
+        r += 1
+
+        self.selectedLookbackMultipleGroupBox.\
+            setLayout(self.selectedLookbackMultipleGridLayout)
+
+        # Buttons for doing actions like adding, removing, and editing a
+        # LookbackMultiple, etc.
+
+        self.addLookbackMultipleButton = \
+            QPushButton("&Add LookbackMultiple")
+        self.removeLookbackMultipleButton = \
+            QPushButton("&Remove LookbackMultiple")
+        self.editLookbackMultipleButton = \
+            QPushButton("&Edit LookbackMultiple")
+        self.moveSelectedLookbackMultipleUpButton = \
+            QPushButton("Move LookbackMultiple &up")
+        self.moveSelectedLookbackMultipleDownButton = \
+            QPushButton("Move LookbackMultiple &down")
+
+        self.buttonsOnRightLayout = QVBoxLayout()
+        self.buttonsOnRightLayout.addWidget(self.addLookbackMultipleButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.addWidget(self.removeLookbackMultipleButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.addWidget(self.editLookbackMultipleButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.\
+            addWidget(self.moveSelectedLookbackMultipleUpButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.\
+            addWidget(self.moveSelectedLookbackMultipleDownButton)
+        self.buttonsOnRightLayout.addStretch()
+
+        self.centerAreaLayout = QVBoxLayout()
+        self.centerAreaLayout.addWidget(self.selectedLookbackMultipleGroupBox)
+
+        self.mainWidgetsLayout = QHBoxLayout()
+        self.mainWidgetsLayout.addWidget(self.lookbackMultiplesListGroupBox)
+        self.mainWidgetsLayout.addLayout(self.centerAreaLayout)
+        self.mainWidgetsLayout.addLayout(self.buttonsOnRightLayout)
+
+        # Buttons at bottom.
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addLayout(self.mainWidgetsLayout) 
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+
+        # Connect signals and slots.
+        self.listWidget.itemSelectionChanged.\
+            connect(self._handleLookbackMultipleSelected)
+        self.listWidget.itemDoubleClicked.\
+            connect(self._handleEditLookbackMultipleButtonClicked)
+        self.addLookbackMultipleButton.clicked.\
+            connect(self._handleAddLookbackMultipleButtonClicked)
+        self.removeLookbackMultipleButton.clicked.\
+            connect(self._handleRemoveLookbackMultipleButtonClicked)
+        self.editLookbackMultipleButton.clicked.\
+            connect(self._handleEditLookbackMultipleButtonClicked)
+        self.moveSelectedLookbackMultipleUpButton.clicked.\
+            connect(self._handleMoveLookbackMultipleUpButtonClicked)
+        self.moveSelectedLookbackMultipleDownButton.clicked.\
+            connect(self._handleMoveLookbackMultipleDownButtonClicked)
+
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+        # Now that all the widgets are created, load the values from the
+        # settings.
+        self.loadLookbackMultiples(self.lookbackMultiples)
+
+    def loadLookbackMultiples(self, lookbackMultiples):
+        """Loads the widgets with values from the given arguments.
+
+        Arguments:
+
+        lookbackMultiples - List of LookbackMultiple objects we are editing.
+
+        """
+
+        self.log.debug("Entered loadLookbackMultiples()")
+
+        # Save off the values.
+        self.lookbackMultiples = list(lookbackMultiples)
+
+        # Populate the QListWidget with the LookbackMultiples.
+        self.listWidget.clear()
+        for lookbackMultiple in self.lookbackMultiples:
+            self._appendLookbackMultipleAsListWidgetItem(lookbackMultiple, 
+                                                         False)
+        
+        # Clear the widgets that display information about the 
+        # selected LookbackMultiple.  These widgets will be set again shortly.
+        self._clearSelectedLookbackMultipleWidgets()
+
+        # Select the first item in the list by default.
+        index = 0
+        if index >= 0 and index < len(self.lookbackMultiples):
+            # Valid index value.
+
+            # Set the current index's LookbackMultiple as also the one that is
+            # selected in the list.
+            self.listWidget.setCurrentRow(index)
+
+            # This is the selected LookbackMultiple.
+            selectedLookbackMultiple = self.lookbackMultiples[index]
+
+            # Populate the widgets that display the selected LookbackMultiple.
+            self._populateSelectedLookbackMultipleWidgets(\
+                selectedLookbackMultiple)
+
+        self.log.debug("Exiting loadLookbackMultiples()")
+        
+    def saveLookbackMultiples(self):
+        """Ensures the values in the widgets are saved to their underlying
+        variables, such that subsequent calls to
+        getLookbackMultiples() will return valid values for what has changed.
+        """
+    
+        self.log.debug("Entered saveLookbackMultiple()")
+
+        # Actually, we directly change the underlying member variable
+        # whenever it is modified, so no internal changes are required
+        # here.
+
+        self.log.debug("Exiting saveLookbackMultiple()")
+
+    def getLookbackMultiples(self):
+        """Returns the internally stored list of
+        PriceBarChartLookbackMultiple objects.  This may or may not
+        represent what is in the widgets, depending on whether or not
+        saveLookbackMultiples has been called recently.
+        """
+
+        return self.lookbackMultiples
+
+    def _clearSelectedLookbackMultipleWidgets(self):
+        """Clears widgets that display the information about the
+        currently selected LookbackMultiple.
+        """
+
+        self.selectedLookbackMultipleNameValueLabel.setText("")
+        self.selectedLookbackMultipleDescriptionTextEdit.setPlainText("")
+        self.selectedLookbackMultipleValueLabel.setText("")
+        self.selectedLookbackMultipleBaseUnitValueLabel.setText("")
+        self.selectedLookbackMultipleBaseUnitTypeLabel.setText("")
+        self.selectedLookbackMultipleColorEditButton.setColor(QColor())
+        self.selectedLookbackMultipleEnabledCheckBox.setCheckState(Qt.Unchecked)
+        self.selectedLookbackMultiplePlanetNameValueLabel.setText("")
+        self.selectedLookbackMultipleCentricityTypeValueLabel.setText("")
+
+    def _populateSelectedLookbackMultipleWidgets(self, lookbackMultiple):
+        """Populates the widgets that display the currently 
+        selected LookbackMultiple.
+
+        Arguments:
+        lookbackMultiple - LookbackMultiple object to use to populate 
+                           the widgets with.
+        """
+        
+        # Populate the widgets for the selected LookbackMultiple.
+        self.selectedLookbackMultipleNameValueLabel.\
+            setText(lookbackMultiple.getName())
+        self.selectedLookbackMultipleDescriptionTextEdit.\
+            setPlainText(lookbackMultiple.getDescription())
+        self.selectedLookbackMultipleValueLabel.\
+            setText("{}".format(\
+                lookbackMultiple.getLookbackMultiple()))
+        self.selectedLookbackMultipleBaseUnitValueLabel.\
+            setText("{}".format(lookbackMultiple.getBaseUnit()))
+
+        self.selectedLookbackMultipleBaseUnitTypeLabel.setText("")
+        if lookbackMultiple.getBaseUnitTypeDegreesFlag() == True:
+            self.selectedLookbackMultipleBaseUnitTypeLabel.\
+                setText("Degrees")
+        if lookbackMultiple.getBaseUnitTypeRevolutionsFlag() == True:
+            self.selectedLookbackMultipleBaseUnitTypeLabel.\
+                setText("Revolutions")
+            
+        self.selectedLookbackMultipleColorEditButton.\
+            setColor(lookbackMultiple.getColor())
+
+        value = lookbackMultiple.getEnabled()
+        if value == True:
+            self.selectedLookbackMultipleEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.selectedLookbackMultipleEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+                        
+        self.selectedLookbackMultiplePlanetNameValueLabel.\
+            setText(lookbackMultiple.getPlanetName())
+
+        self.selectedLookbackMultipleCentricityTypeValueLabel.setText("")
+        if lookbackMultiple.getGeocentricFlag() == True:
+            self.selectedLookbackMultipleCentricityTypeValueLabel.\
+                setText("Geocentric")
+        if lookbackMultiple.getHeliocentricFlag() == True:
+            self.selectedLookbackMultipleCentricityTypeValueLabel.\
+                setText("Heliocentric")
+
+    def _appendLookbackMultipleAsListWidgetItem(self, 
+                                       lookbackMultiple, 
+                                       selectItem=True):
+        """Appends the given LookbackMultiple object to the
+        QListWidget as a QListWidgetItem.
+
+        Arguments:
+        
+        lookbackMultiple - LookbackMultiple object who's information 
+                           will be appended to the self.listWidget QListWidget.
+                           This function does not modify self.lookbackMultiples
+                           list, so if that is intended, the caller needs 
+                           to do that themselves manually.
+
+        selectItem - bool flag that indicates whether the item should be
+                     selected after being created and appended to the list.
+        """
+
+        listWidgetItem = QListWidgetItem()
+        
+        lookbackMultipleStr = lookbackMultiple.toShortString()
+
+        listWidgetItem.setText(lookbackMultipleStr)
+
+        self.listWidget.addItem(listWidgetItem)
+        
+        if selectItem == True:
+            self.listWidget.setCurrentRow(self.listWidget.count() - 1)
+
+    def _handleLookbackMultipleSelected(self):
+        """Called when a LookbackMultiple is selected in the QListWidget.
+        This will update the QLabels to tell the user the properties of
+        what is selected.
+        """
+
+        # Find which item is selected.
+        index = self.listWidget.currentRow()
+        if index >= 0 and index < len(self.lookbackMultiples):
+            # Valid index value.
+
+            # Set the current index's LookbackMultiple as also the one that is
+            # selected in the list.
+            self.listWidget.setCurrentRow(index)
+
+            # This is the selected LookbackMultiple.
+            selectedLookbackMultiple = self.lookbackMultiples[index]
+
+            # Populate the widgets that display the selected LookbackMultiple.
+            self._populateSelectedLookbackMultipleWidgets(\
+                selectedLookbackMultiple)
+
+    def _handleAddLookbackMultipleButtonClicked(self):
+        """Called when the 'Add LookbackMultiple' button is clicked."""
+
+        # Create a new LookbackMultiple object for editing.
+        lookbackMultiple = LookbackMultiple()
+        
+        # Create a dialog and allow the user to edit it.
+        dialog = LookbackMultipleEditDialog(lookbackMultiple)
+
+        if dialog.exec_() == QDialog.Accepted:
+            # Add the LookbackMultiple object to the list.
+            self.lookbackMultiples.append(lookbackMultiple)
+
+            # Append and select the LookbackMultiple object in the QListWidget.
+            self._appendLookbackMultipleAsListWidgetItem(lookbackMultiple, True)
+
+    def _handleRemoveLookbackMultipleButtonClicked(self):
+        """Called when the 'Remove LookbackMultiple' button is clicked."""
+
+        # Get the selected row.
+        row = self.listWidget.currentRow()
+
+        if row >= 0 and row < self.listWidget.count():
+            # It is a valid row.
+
+            # First remove the item from the QListWidget.
+            self.listWidget.takeItem(row)
+
+            # If there is another item after that one in the list, then
+            # select that one as the current, otherwise select the index
+            # before.
+            if self.listWidget.item(row) != None:
+                # There an item after this one, so set that one as the
+                # current.
+                self.listWidget.setCurrentRow(row)
+            else:
+                # The one we just removed was the last item in the
+                # list.  Select the one before it if it exists,
+                # otherwise, clear out the display fields.
+                if row != 0:
+                    self.listWidget.setCurrentRow(row - 1)
+                else:
+                    self._clearSelectedLookbackMultipleWidgets()
+
+            # Do some book-keeping to remove that LookbackMultiple from the
+            # internal list as well.
+            self.lookbackMultiples.pop(row)
+
+    def _handleEditLookbackMultipleButtonClicked(self):
+        """Called when the 'Edit LookbackMultiple' button is clicked."""
+
+        # Get the selected row.
+        row = self.listWidget.currentRow()
+
+        # Get the LookbackMultiple object for editing.
+        lookbackMultiple = self.lookbackMultiples[row]
+        
+        # Create a dialog and allow the user to edit it.
+        dialog = PriceBarChartLookbackMultipleEditDialog(lookbackMultiple)
+
+        if dialog.exec_() == QDialog.Accepted:
+            self.lookbackMultiples[row] = lookbackMultiple
+
+            # Get the QListWidgetItem so we can update the text of it.
+            listWidgetItem = self.listWidget.item(row)
+            
+            lookbackMultipleStr = lookbackMultiple.toShortString()
+
+            listWidgetItem.setText(lookbackMultipleStr)
+
+            # Update the widgets for this selection.
+            self._handleLookbackMultipleSelected()
+
+    def _handleMoveLookbackMultipleUpButtonClicked(self):
+        """Called when the 'Move LookbackMultiple up' button is clicked."""
+
+        # Get the selected row.
+        row = self.listWidget.currentRow()
+
+        # Proceed only if the selected LookbackMultiple is not the 
+        # top entry in the QListWidget.
+        if row > 0:
+            # It is not the top row yet, so we can do a swap to move it
+            # higher.
+
+            currItem = self.listWidget.takeItem(row)
+            self.listWidget.insertItem(row - 1, currItem)
+
+            # Swap the LookbackMultiples in the list.
+            lookbackMultipleA = self.lookbackMultiples[row]
+            lookbackMultipleB = self.lookbackMultiples[row - 1]
+            self.lookbackMultiples[row] = lookbackMultipleB
+            self.lookbackMultiples[row - 1] = lookbackMultipleA
+
+            # Set the selected row as the same underlying LookbackMultiple.
+            self.listWidget.setCurrentRow(row - 1)
+
+    def _handleMoveLookbackMultipleDownButtonClicked(self):
+        """Called when the 'Move LookbackMultiple down' button is clicked."""
+
+        # Get the selected row.
+        row = self.listWidget.currentRow()
+
+        # Proceed only if the selected LookbackMultiple is not the 
+        # bottom entry in the QListWidget.
+        if row < (self.listWidget.count() - 1) and row >= 0:
+            # It is not the bottom row yet, so we can do a swap to move it
+            # lower.
+
+            currItem = self.listWidget.takeItem(row)
+            self.listWidget.insertItem(row + 1, currItem)
+
+            # Swap the LookbackMultiples in the list.
+            lookbackMultipleA = self.lookbackMultiples[row]
+            lookbackMultipleB = self.lookbackMultiples[row + 1]
+            self.lookbackMultiples[row] = lookbackMultipleB
+            self.lookbackMultiples[row + 1] = lookbackMultipleA
+
+            # Update the currentLookbackMultiple if required.
+            if self.lookbackMultiplesIndex == row:
+                self.lookbackMultiplesIndex += 1
+            elif self.lookbackMultiplesIndex == row + 1:
+                self.lookbackMultiplesIndex -= 1
+                
+            # Set the selected row as the same underlying LookbackMultiple.
+            self.listWidget.setCurrentRow(row + 1)
+
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        self.saveLookbackMultiples()
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
+
+class LookbackMultipleListEditDialog(QDialog):
+    """QDialog for editing a list of LookbackMultiple objects and the
+    current scaling to use in the PriceBarChart.
+    """
+
+    def __init__(self, 
+                 lookbackMultiples=[],
+                 parent=None):
+        """Initializes the dialog and internal widgets with the given
+        values.
+        
+        Arguments:
+
+        lookbackMultiples - List of LookbackMultiple objects we are editing.
+        """
+
+        super().__init__(parent)
+
+        # Logger object.
+        self.log = logging.\
+            getLogger("dialogs.LookbackMultipleListEditDialog")
+
+        self.setWindowTitle("LookbackMultiples")
+
+        # Create the contents.
+        self.lookbackMultipleListEditWidget = \
+            LookbackMultipleListEditWidget(list(lookbackMultiples))
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.lookbackMultipleListEditWidget)
+        self.setLayout(layout)
+
+        self.lookbackMultipleListEditWidget.okayButtonClicked.\
+            connect(self.accept)
+        self.lookbackMultipleListEditWidget.cancelButtonClicked.\
+            connect(self.reject)
+
+    def getLookbackMultiples(self):
+        """Returns the internally stored list of LookbackMultiple
+        objects.  This is only meaningful if the user has accepted the
+        dialog.
+        """
+
+        return self.lookbackMultipleListEditWidget.\
+                getLookbackMultiples()
 
 
 class PriceBarChartSettingsEditWidget(QWidget):
