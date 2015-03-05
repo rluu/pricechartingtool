@@ -43,7 +43,7 @@ TODOs for cycle hunter features:
 
 Notes algorithm for lookback multiple:
 
-1) Clear all LookbackMultiplePriceBarGraphicsItems (these contain the references to the LookbackMultiplePriceBars, which garbage collect them as needed).
+1) Clear all LookbackMultiplePriceBarGraphicsItems (these contain the references to the LookbackMultiplePriceBars, which garbage collect them as needed).  These should be removed from the graphics scene.  
 
 2) Get viewport of the PCD.  
 3) From the viewport, get the start and end timestamps visable in teh viewport, via converting to scene coordinates, and then converting to timestamps.  
@@ -77,6 +77,17 @@ This is the end historic pricebar (inclusive).
          - TODO: what needs to go in this?
       - Create LookbackMultiplePriceBarGraphicsItem.
          - TODO: what needs to go in this?
+
+8) Collect all the LookbackMultiplePriceBarGraphicsItem / LookbackMultiplePriceBar objects.  These are stored for further processing, and also if the user clicks apply/redraw again, all these objects will need to be removed from the scene.  
+
+9) From the viewport of the PCD, determine max and min prices of what is displayed.
+
+10) From all the LookbackMultiplePriceBarGraphicsItem / LookbackMultiplePriceBar objects, determine the max and min prices of these.
+
+ - Determine offset, and scaling factors.  Then apply it to the LookbackMultiplePriceBarGraphicsItem / LookbackMultiplePriceBar objects.
+
+##############################################################################
+
 
 ##############################################################################
 
