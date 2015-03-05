@@ -1,6 +1,84 @@
-
+##############################################################################
 
 Outstanding things to work on going forward:
+
+TODOs for cycle hunter features:
+  - LookbackMultiplePriceBar
+    - Reference to the closest historic PriceBar
+    - Reference to the LookbackMultiple.
+
+  - LookbackMultiplePriceBar edit and dialog widgets.
+
+  - LookbackMultiplePriceBarGraphicsItem - confirm it is correct and complete.
+    - Reference to the underlying LookbackMultiplePriceBar.
+    - Right-click context menu can trigger the edit dialog of the underlying LookbackMultiplePriceBar.
+
+  - LookbackMultiple panel widget:
+    - Apply/Redraw button.  
+      --> Applies the enabled lookback multiples to the pricebars that 
+          are visible in the QGraphicsView.
+             - Removes any existing LookbackMultiplePriceBarGraphicsItems in the scene.
+             - Creates LookbackMultiplePriceBars
+             - Creates LookbackMultiplePriceBarGraphicsItems
+                 - Has reference to the underlying LookbackMultiplePriceBar.
+                 - These need to have some kind of scaling algorithm applied relative to the QGraphicsView before being placed in the scene.  
+                   When to apply this scaling algorithm?  I guess it would need to be after the creation of all of them, because I need min and max prices of this list of pricebars.
+
+    - List of LookbackMultiples.
+      - Displays enable checkbox.  (checking will set dirty flag of the PCD).
+      - Displays short name of the lookback multiple. 
+
+  - LookbackMultiple legend.  (perhaps not implement this?  Is this needed?)
+    - This would display the current mouse location and the datetimes for the LookbackMultiples that are enabled.  See my paper docs.
+
+  - Menu items (QActions, perhaps icons for these too):
+    - Lookback multiple
+      - Edit list of lookback multiples.
+         - Sets dirty flag of the PCD if the edit dialog is accepted 
+           (i.e. any mods accepted).
+      - Enable LookbackMultiple panel.
+      - Enable LookbackMultiple legend.
+
+##############################################################################
+
+Notes algorithm for lookback multiple:
+
+1) Clear all LookbackMultiplePriceBarGraphicsItems (these contain the references to the LookbackMultiplePriceBars, which garbage collect them as needed).
+
+2) Get viewport of the PCD.  
+3) From the viewport, get the start and end timestamps visable in teh viewport, via converting to scene coordinates, and then converting to timestamps.  
+
+Now we have for the current period:
+  - start timestamp
+  - end timestamp
+
+4) For the start timestamp:
+   - Get the lookback timestamps (could be 1 or 3 timestamps, depending on retrograde movements).
+   - Get the EARLIEST of the timestamps.
+   - Get the historic pricebar that occurs BEFORE this lookback timestamp.
+
+This is the start historic pricebar (inclusive).
+
+5) For the end timestamp:
+   - Get the lookback timestamps (could be 1 or 3 timestamps, depending on retrograde movements).
+   - Get the LATEST of the timestamps.
+   - Get the historic pricebar that occurs AFTER this lookback timestamp.
+
+This is the end historic pricebar (inclusive).
+
+6) Get list of pricebars in the time between (inclusive) the start historic pricebar and the end historic pricebar.  
+
+7) For each pricebar in the list:
+   - Get pricebar timestamp
+   - Get the lookforward timestamps (could be 1 or 3 timestamps, depending on retrograde movements).
+
+     For each lookforward timestamp: 
+      - Create LookbackMultiplePriceBar.
+         - TODO: what needs to go in this?
+      - Create LookbackMultiplePriceBarGraphicsItem.
+         - TODO: what needs to go in this?
+
+##############################################################################
 
 TODO:  
 

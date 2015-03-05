@@ -365,6 +365,35 @@ class MainWindow(QMainWindow):
             connect(self._handleClearAstroChart3Action)
         
         ####################
+        # Create actions for the LookbackMultiple Menu.
+
+        # Create the enableAndShowLookbackMultiplePanelAction.
+        icon = QIcon() # TODO: add an icon here for this.
+        self.enableAndShowLookbackMultiplePanelAction = \
+            QAction(icon, "Enable Lookback Multiple Panel", self)
+        self.enableAndShowLookbackMultiplePanelAction.\
+            setStatusTip("Enable Lookback Multiple Panel")
+        self.enableAndShowLookbackMultiplePanelAction.setCheckable(True)
+
+        # Create the enableAndShowLookbackMultipleLegendAction.
+        icon = QIcon() # TODO: add an icon here for this.
+        self.enableAndShowLookbackMultipleLegendAction = \
+            QAction(icon, "Enable Lookback Multiple Legend", self)
+        self.enableAndShowLookbackMultipleLegendAction.\
+            setStatusTip("Enable Lookback Multiple Legend")
+        self.enableAndShowLookbackMultipleLegendAction.setCheckable(True)
+
+        # Create the editLookbackMultiplesAction.
+        icon = QIcon() # TODO: add an icon here for this.
+        self.editLookbackMultiplesAction = \
+            QAction(icon, "Edit Lookback Multiples", self)
+        self.editLookbackMultiplesAction.\
+            setStatusTip("Edit Lookback Multiples")
+        self.editLookbackMultiplesAction.triggered.\
+            connect()  # TODO:  add method to handle the edit action.
+
+        
+        ####################
         # Create actions for the Tools Menu.
         
         # Create the ReadOnlyPointerToolAction.

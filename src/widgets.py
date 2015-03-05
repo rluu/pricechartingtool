@@ -54,6 +54,10 @@ class ColorLabel(QLabel):
 
         super().__init__()
 
+        # Default width and height for the pixmap.
+        self.pixmapWidth = 32
+        self.pixmapHeight = 32
+
         # Internally stored QColor object.
         self.color = color
 
@@ -78,10 +82,25 @@ class ColorLabel(QLabel):
         if color == None:
             self.color = QColor()
                 
-        pixmap = QPixmap(QSize(32, 32))
+        pixmap = QPixmap(QSize(self.pixmapWidth, self.pixmapHeight))
         pixmap.fill(self.color)
 
         self.setPixmap(pixmap)
+
+
+    def setDimensions(self, width=32, height=32):
+        """Sets the width and height of the QPixmap used for the label.
+        Arguments:
+        width - int value for the width.
+        height - int value for the height.
+        """
+        
+        # Set the variables.
+        self.pixmapWidth = width
+        self.pixmapHeight = height
+        
+        # Re-set the color to apply the changes in pixmap size.
+        self.setColor(self.color)
 
 
 class ColorEditPushButton(QPushButton):
@@ -159,7 +178,7 @@ def testColorIcon():
                   colorIcon5
                   ]
     
-    # The below doesn't work.  How do I display Icons only?
+    # TODO: Create a test for ColorIcon().  The below doesn't work.  How do I get Qt to display the Icons only?
 
     #for colorIcon in colorIcons:
     #    layout = QVBoxLayout()

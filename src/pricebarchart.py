@@ -720,6 +720,8 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
 
 
         # Internally stored LookbackMultiplePriceBar.
+# TODO: change all instances of this variable to self.lookbackMultiplePriceBar so that it is more explicit and doesn't get confused with an actual PriceBar in data_objects.py.
+# TODO:  start coding starting from here, to make sure that the graphics item is as i want/need it.
         self.priceBar = None
 
         # Pen which is used to do the painting.

@@ -16774,7 +16774,7 @@ class LookbackMultiple:
     """
 
     def __init__(self,
-                 name="Unnamed",
+                 name="",
                  description="",
                  lookbackMultiple=1.0,
                  baseUnit=1.0,
@@ -17267,7 +17267,8 @@ class LookbackMultiplePriceBar:
     LookbackMultiplePriceBar can include the following information: 
 
     - timestamp of the current period of time.
-    - timestamp of the historic period of time.
+    - timestamp of the historic period of time.  
+        (this is extracted from the PriceBar)
     - PriceBar object for the price information of a historical time period.
     - LookbackMultiple object for this LookbackMultiplePriceBar
     """
@@ -17275,8 +17276,10 @@ class LookbackMultiplePriceBar:
     def __init__(self, lookbackMultiple, priceBar):
         """Initializes the PriceBar object.  
 
-        Arguments are as follows: # TODO: finish writing this comment.
-        priceBar - PriceBar object that 
+        Arguments are as follows: 
+TODO:  Think about what variables and information would be needed in this class. 
+        lookbackMultiple - LookbackMultiple that is associated with this LookbackMultiplePriceBar.
+        priceBar - PriceBar object that is the closest 
         """
 
         self.log = logging.getLogger("data_objects.PriceBar")
@@ -17284,10 +17287,14 @@ class LookbackMultiplePriceBar:
         # Class version stored for pickling and unpickling.
         self.classVersion = 1
 
+        # TODO:  Think about what variables and information would be needed in this class. 
         self.lookbackMultiple = lookbackMultiple
-        self.priceBar = priceBar
-        self.currentTimestamp = None
-        self.historicTimestamp = priceBar.timestamp
+
+        self.currentPriceBar = currentPriceBar
+        self.historicPriceBar = historicPriceBar
+
+        self.currentTimestamp = self.currentPriceBar.timestamp
+        self.historicTimestamp = self.historicPriceBar.timestamp
         
     def recalculateCurrentTimestamp(self):
         """Based on the information in self.lookbackMultiple, this

@@ -38320,8 +38320,8 @@ class LookbackMultipleEditWidget(QWidget):
             "Chiron",
             "MeanNorthNode",
             "TrueNorthNode",
-            "H1",
-            "H10",
+            "Ascendant",
+            "MC",
             "MoSu",
             "MeVe",
             "MeEa",
@@ -59889,6 +59889,8 @@ class PriceBarsCompareDialog(QDialog):
         """
 
         self.accept()
+
+# TODO: add here classes for the LookbackMultiplePriceBar edit widget and edit dialog.  These will have a lot of commonality with a regular PriceBar edit widget and edit dialog.
         
 ##############################################################################
     
@@ -60002,7 +60004,7 @@ def testLookbackMultipleEditDialog():
                           baseUnitTypeRevolutionsFlag=True,
                           color=QColor(Qt.gray),
                           enabled=False,
-                          planetName="H1",
+                          planetName="Ascendant",
                           geocentricFlag=True,
                           heliocentricFlag=False)
 
@@ -60032,7 +60034,7 @@ def testLookbackMultipleListEditDialog():
                           baseUnitTypeRevolutionsFlag=True,
                           color=QColor(Qt.gray),
                           enabled=False,
-                          planetName="H1",
+                          planetName="Ascendant",
                           geocentricFlag=True,
                           heliocentricFlag=False)
 
@@ -60230,6 +60232,10 @@ if __name__=="__main__":
     # For inspect.stack().
     import inspect
     
+    # For logging and for exiting.
+    import os
+    import sys
+
     # Initialize the Ephemeris (required).
     Ephemeris.initialize()
 
@@ -60252,9 +60258,9 @@ if __name__=="__main__":
     #testBirthInfoEditWidget()
     #testBirthInfoEditDialog()
     #testPriceChartDocumentWizard()
-    testPriceBarChartScalingsListEditDialog()
+    #testPriceBarChartScalingsListEditDialog()
     #testLookbackMultipleEditDialog()
-    #testLookbackMultipleListEditDialog()
+    testLookbackMultipleListEditDialog()
     #testTimestampEditDialog()
     #testPriceBarTagEditDialog()
     #testPriceBarEditDialog()
@@ -60266,7 +60272,6 @@ if __name__=="__main__":
 
     # Quit.
     print("Exiting.")
-    import sys
     sys.exit()
 
 
