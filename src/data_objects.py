@@ -634,7 +634,7 @@ class PriceBar:
 
 
     def __init__(self, timestamp, open=None, high=None, low=None, close=None, 
-            oi=None, vol=None, tags=[]):
+            oi=None, vol=None, tags=list()):
         """Initializes the PriceBar object.  
 
         Arguments are as follows:
@@ -763,6 +763,9 @@ class PriceBar:
 
         if leftObj.classVersion != rightObj.classVersion:
             self.log.debug("classVersion differs.")
+            rv = False
+        if leftObj.timestamp != rightObj.timestamp:
+            self.log.debug("timestamp differs.")
             rv = False
         if leftObj.open != rightObj.open:
             self.log.debug("open differs.")
@@ -17263,18 +17266,26 @@ class LookbackMultiple:
 class LookbackMultiplePriceBar:
     """Contains price information for a historic period of time,
     projected onto the current time period.
+    
+    The this class has the same information provided as member
+    variables, and methods as the regular PriceBar class, but it is not
+    a subclass of a PriceBar.  
+
+    TODO:  improve documentation and commenting here.
 
     LookbackMultiplePriceBar can include the following information: 
 
     - timestamp of the current period of time.
     - timestamp of the historic period of time.  
-        (this is extracted from the PriceBar)
+    (this is extracted from the PriceBar)
     - PriceBar object for the price information of a historical time period.
     - LookbackMultiple object for this LookbackMultiplePriceBar
     """
     
-    def __init__(self, lookbackMultiple, priceBar):
+    def __init__(self, lookbackMultiple, historicPriceBar):
         """Initializes the PriceBar object.  
+
+# currentPriceBar - this is calculated based on the arguments given.  
 
         Arguments are as follows: 
 TODO:  Think about what variables and information would be needed in this class. 
@@ -17282,19 +17293,39 @@ TODO:  Think about what variables and information would be needed in this class.
         priceBar - PriceBar object that is the closest 
         """
 
-        self.log = logging.getLogger("data_objects.PriceBar")
+        self.log = logging.getLogger("data_objects.LookbackMultiple")
 
         # Class version stored for pickling and unpickling.
         self.classVersion = 1
 
-        # TODO:  Think about what variables and information would be needed in this class. 
-        self.lookbackMultiple = lookbackMultiple
+        # Verify that neither of the inputs are None.
+        
 
-        self.currentPriceBar = currentPriceBar
+        self.lookbackMultiple = lookbackMultiple
         self.historicPriceBar = historicPriceBar
 
-        self.currentTimestamp = self.currentPriceBar.timestamp
-        self.historicTimestamp = self.historicPriceBar.timestamp
+        
+        # Member variables that hold information about this particular
+        # LookbackMultiplePriceBar's information.  
+        # 
+        # The data of member variables are basically the historic PriceBar, but
+        # projected into the future by the LookbackMultiple's time period.  The
+        # price data here is not meaningful, because it is the historic
+        # PriceBar's information, but with scaling applied for charting
+        # purposes, and it is only meaningful relative to other
+        # LookbackMultiplePriceBar next to this one.
+        self.timestamp = None
+        self.open = None
+        self.high = None
+        self.low = None
+        self.close = None
+        self.oi = None
+        self.vol = None
+        self.tags = []
+
+        
+        #self.currentTimestamp = self.currentPriceBar.timestamp
+        #self.historicTimestamp = self.historicPriceBar.timestamp
         
     def recalculateCurrentTimestamp(self):
         """Based on the information in self.lookbackMultiple, this
@@ -17306,21 +17337,190 @@ TODO:  Think about what variables and information would be needed in this class.
         pass
     
 
+    def midPrice(self):
+        """Returns the average of the high and low.  I.e., ((high+low)/2.0)
+        If high is None or low is None, then None is returned.
+        """
+
+        if self.high == None or self.low == None:
+            return None
+        else:
+            return (self.high + self.low) / 2.0
+
+    def addTag(self, tagToAdd):
+        """Adds a given tag string to the tags for this 
+        LookbackMultiplePriceBar."""
+
+        # Strip any leading or trailing whitespace
+        tagToAdd = tagToAdd.strip()
+
+        # The tag added must be non-empty and must not already exist in the
+        # list.
+        if tagToAdd != "" and tagToAdd not in self.tags:
+            self.tags.append(tagToAdd)
+
+    def hasTag(self, tagToCheck):
+        """Returns True if the given tagToCheck is in the list of tags."""
+
+        if tagToCheck in self.tags:
+            return True
+        else:
+            return False
+
+    def clearTags(self):
+        """Clears all the tags associated with this LookbackMultiplePriceBar."""
+
+        self.tags = []
+
+    def removeTag(self, tagToRemove):
+        """Removes a given tag string from the tags in this
+        LookbackMultiplePriceBar.
+        """
+
+        while tagToRemove in self.tags:
+            self.tags.remove(tagToRemove)
+
+
+    def hasHigherHighThan(self, anotherLookbackMultiplePriceBar):
+        """Returns True if this LookbackMultiplePriceBar has a higher
+        high price than LookbackMultiplePicebar
+        'anotherLookbackMultiplePriceBar'
+        """
+
+        if self.high == None:
+            return False
+        elif anotherLookbackMultiplePriceBar.high == None:
+            return True
+        else:
+            if self.high > anotherLookbackMultiplePriceBar.high:
+                return True
+            else:
+                return False
+
+    def hasLowerLowThan(self, anotherLookbackMultiplePriceBar):
+        """Returns True if this LookbackMultiplePriceBar has a lower low
+        price than LookbackMultpile 'anotherLookbackMultiplePriceBar'
+        """
+
+        if self.low == None:
+            return False
+        elif anotherLookbackMultiplePriceBar.low == None:
+            return True
+        else:
+            if self.low < anotherLookbackMultiplePriceBar.low:
+                return True
+            else:
+                return False
+
+
     def toString(self):
         """Returns the string representation of the
-        LookbackMultiplePriceBar data
+        LookbackMultiplePriceBar data.
         """
 
         rv = Util.objToString(self)
         
         return rv
 
+    def __eq__(self, other):
+        """Returns True if the two LookbackMultiplePriceBars are equal."""
+        
+        rv = True
+
+        leftObj = self
+        rightObj = other
+
+        if rightObj == None:
+            return False
+        
+        self.log.debug("leftObj: {}".format(leftObj.toString()))
+        self.log.debug("rightObj: {}".format(rightObj.toString()))
+
+        if leftObj.classVersion != rightObj.classVersion:
+            self.log.debug("classVersion differs.")
+            rv = False
+        if leftObj.lookbackMultiple != rightObj.lookbackMultiple:
+            self.log.debug("lookbackMultiple differs.")
+            rv = False
+        if leftObj.historicPriceBar != rightObj.historicPriceBar:
+            self.log.debug("historicPriceBar differs.")
+            rv = False
+        if leftObj.timestamp != rightObj.timestamp:
+            self.log.debug("timestamp differs.")
+            rv = False
+        if leftObj.open != rightObj.open:
+            self.log.debug("open differs.")
+            rv = False
+        if leftObj.high != rightObj.high:
+            self.log.debug("high differs.")
+            rv = False
+        if leftObj.low != rightObj.low:
+            self.log.debug("low differs.")
+            rv = False
+        if leftObj.close != rightObj.close:
+            self.log.debug("close differs.")
+            rv = False
+        if leftObj.oi != rightObj.oi:
+            self.log.debug("oi differs.")
+            rv = False
+        if leftObj.vol != rightObj.vol:
+            self.log.debug("vol differs.")
+            rv = False
+            
+        if len(leftObj.tags) != len(rightObj.tags):
+            self.log.debug("len(tags) differs.")
+            rv = False
+        else:
+            for i in range(len(leftObj.tags)):
+                if leftObj.tags[i] != rightObj.tags[i]:
+                    self.log.debug("tags differs.")
+                    rv = False
+                    break
+
+        self.log.debug("__eq__() returning: {}".format(rv))
+        
+        return rv
+
+    def __ne__(self, other):
+        """Returns True if the LookbackMultiplePriceBars are not equal.
+        Returns False otherwise.
+        """
+
+        return not self.__eq__(other)
+    
     def __str__(self):
         """Returns the string representation of the
-        LookbackMultiplePriceBar data
+        LookbackMultiplePriceBar data.
         """
 
         return self.toString()
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = logging.getLogger("data_objects.LookbackMultiplePriceBar")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " + LookbackMultiplePriceBar.__name__ +
+                       " object of version {}".format(self.classVersion))
 
 
 class PriceChartDocumentData:

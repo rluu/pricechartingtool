@@ -687,13 +687,13 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
     """QGraphicsItem that visualizes a LookbackMultiplePriceBar object.
 
     There exists two kinds of standard LookbackMultiplePriceBar drawings:
-        - Candle
-        - Bar with open and close
+      - Candle
+      - Bar with open and close
 
-    This draws the second one.  It is displayed as a bar with open
-    and close ticks on the left and right side.  The bar is drawn with a
-    green pen if the high is higher than or equal the low, and drawn as
-    red otherwise.
+    This draws the second one.  It is displayed as a bar with open and
+    close ticks on the left and right side.  The bar is drawn in the
+    color that is specified in the underlying LookbackMultiplePriceBar's
+    LookbackMultiple color.
     """
     
     def __init__(self, parent=None, scene=None):
@@ -706,23 +706,22 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
 
         # Pen width for LookbackMultiplePriceBars.
         self.penWidth = \
-            PriceBarChartSettings.defaultLookbackMultiplePriceBarGraphicsItemPenWidth
+            PriceBarChartSettings.\
+            defaultLookbackMultiplePriceBarGraphicsItemPenWidth
 
         # Width of the left extension drawn that represents the open price.
         self.leftExtensionWidth = \
-            LookbackMultiplePriceBarChartSettings.\
-                defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth 
+            PriceBarChartSettings.\
+            defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth 
 
         # Width of the right extension drawn that represents the close price.
         self.rightExtensionWidth = \
-            LookbackMultiplePriceBarChartSettings.\
-                defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth 
+            PriceBarChartSettings.\
+            defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth 
 
 
         # Internally stored LookbackMultiplePriceBar.
-# TODO: change all instances of this variable to self.lookbackMultiplePriceBar so that it is more explicit and doesn't get confused with an actual PriceBar in data_objects.py.
-# TODO:  start coding starting from here, to make sure that the graphics item is as i want/need it.
-        self.priceBar = None
+        self.lookbackMultiplePriceBar = None
 
         # Pen which is used to do the painting.
         self.pen = QPen()
@@ -736,19 +735,24 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
 
     def loadSettingsFromLookbackMultiplePriceBarChartSettings(self, priceBarChartSettings):
         """Reads some of the parameters/settings of this
-        LookbackMultiplePriceBarGraphicsItem from the given LookbackMultiplePriceBarChartSettings object.
+        LookbackMultiplePriceBarGraphicsItem from the given 
+        PriceBarChartSettings object.
         """
 
-        # priceBarGraphicsItemPenWidth (float).
-        self.penWidth = priceBarChartSettings.priceBarGraphicsItemPenWidth
+        # lookbackMultiplePriceBarGraphicsItemPenWidth (float).
+        self.penWidth = \
+            priceBarChartSettings.\
+            lookbackMultiplePriceBarGraphicsItemPenWidth
 
-        # priceBarGraphicsItemLeftExtensionWidth (float).
+        # lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth (float).
         self.leftExtensionWidth = \
-            priceBarChartSettings.priceBarGraphicsItemLeftExtensionWidth
+            priceBarChartSettings.\
+            lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth
 
-        # priceBarGraphicsItemRightExtensionWidth (float).
+        # lookbackMultiplePriceBarGraphicsItemRightExtensionWidth (float).
         self.rightExtensionWidth = \
-            priceBarChartSettings.priceBarGraphicsItemRightExtensionWidth
+            priceBarChartSettings.\
+            lookbackMultiplePriceBarGraphicsItemRightExtensionWidth
 
 
         # Update the pen.
@@ -766,25 +770,19 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
         # No settings.
         pass
     
-    def setLookbackMultiplePriceBar(self, priceBar):
-        """Sets the internally used priceBar.  
-        This has an effect on the color of the pricebar.
+    def setLookbackMultiplePriceBar(self, lookbackMultiplePriceBar):
+        """Sets the internally used LookbackMultiplePriceBar.  
         """
 
-        self.log.debug("Entered setLookbackMultiplePriceBar().  priceBar={}".\
-                       format(priceBar.toString()))
+        self.log.debug("Entered setLookbackMultiplePriceBar().  " + \
+                       "lookbackMultiplePriceBar={}".\
+                       format(lookbackMultiplePriceBar.toString()))
 
-        self.priceBar = priceBar
+        self.lookbackMultiplePriceBar = lookbackMultiplePriceBar
 
-        # Set if it is a green or red pricebar.
-        if self.priceBar != None:
-            if self.priceBar.open <= self.priceBar.close:
-                self.setLookbackMultiplePriceBarColor(self.higherLookbackMultiplePriceBarColor)
-            else:
-                self.setLookbackMultiplePriceBarColor(self.lowerLookbackMultiplePriceBarColor)
-        else:
-            # LookbackMultiplePriceBar is None.  Just use a black bar.
-            self.setLookbackMultiplePriceBarColor(Qt.black)
+        # Set the color of the LookbackMultiplePriceBarGraphicsItem.
+        color = self.lookbackMultiplePriceBar.lookbackMultiple.getColor()
+        self.setLookbackMultiplePriceBarColor(color)
 
         # Schedule an update to redraw the QGraphicsItem.
         self.prepareGeometryChange()
@@ -797,7 +795,7 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
         this LookbackMultiplePriceBarGraphicsItem, then None is returned.
         """
 
-        return self.priceBar
+        return self.lookbackMultiplePriceBar
     
     def setLookbackMultiplePriceBarColor(self, color):
         """Sets the color of the price bar."""
@@ -823,10 +821,10 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
         high = 0.0
         low = 0.0
 
-        if self.priceBar != None:
-            openPrice = self.priceBar.open
-            high = self.priceBar.high
-            low = self.priceBar.low
+        if self.lookbackMultiplePriceBar != None:
+            openPrice = self.lookbackMultiplePriceBar.open
+            high = self.lookbackMultiplePriceBar.high
+            low = self.lookbackMultiplePriceBar.low
 
         priceMidpoint = (high + low) * 0.5
 
@@ -852,9 +850,9 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
         high = 0.0
         low = 0.0
 
-        if self.priceBar != None:
-            high = self.priceBar.high
-            low = self.priceBar.low
+        if self.lookbackMultiplePriceBar != None:
+            high = self.lookbackMultiplePriceBar.high
+            low = self.lookbackMultiplePriceBar.low
 
         priceMidpoint = (high + low) * 0.5
 
@@ -879,9 +877,9 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
         high = 0.0
         low = 0.0
 
-        if self.priceBar != None:
-            high = self.priceBar.high
-            low = self.priceBar.low
+        if self.lookbackMultiplePriceBar != None:
+            high = self.lookbackMultiplePriceBar.high
+            low = self.lookbackMultiplePriceBar.low
 
         priceMidpoint = (high + low) * 0.5
 
@@ -906,10 +904,10 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
         high = 0.0
         low = 0.0
 
-        if self.priceBar != None:
-            close = self.priceBar.close
-            high = self.priceBar.high
-            low = self.priceBar.low
+        if self.lookbackMultiplePriceBar != None:
+            close = self.lookbackMultiplePriceBar.close
+            high = self.lookbackMultiplePriceBar.high
+            low = self.lookbackMultiplePriceBar.low
 
         priceMidpoint = (high + low) * 0.5
 
@@ -938,11 +936,11 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
         lowPrice = 0.0
         closePrice = 0.0
 
-        if self.priceBar != None:
-            openPrice = self.priceBar.open
-            highPrice = self.priceBar.high
-            lowPrice = self.priceBar.low
-            closePrice = self.priceBar.close
+        if self.lookbackMultiplePriceBar != None:
+            openPrice = self.lookbackMultiplePriceBar.open
+            highPrice = self.lookbackMultiplePriceBar.high
+            lowPrice = self.lookbackMultiplePriceBar.low
+            closePrice = self.lookbackMultiplePriceBar.close
 
         # For X we have:
         #     leftExtensionWidth units for the left extension (open price)
@@ -983,11 +981,11 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
         lowPrice = 0.0
         closePrice = 0.0
 
-        if self.priceBar != None:
-            openPrice = self.priceBar.open
-            highPrice = self.priceBar.high
-            lowPrice = self.priceBar.low
-            closePrice = self.priceBar.close
+        if self.lookbackMultiplePriceBar != None:
+            openPrice = self.lookbackMultiplePriceBar.open
+            highPrice = self.lookbackMultiplePriceBar.high
+            lowPrice = self.lookbackMultiplePriceBar.low
+            closePrice = self.lookbackMultiplePriceBar.close
 
         priceRange = abs(highPrice - lowPrice)
         priceMidpoint = (highPrice + lowPrice) * 0.5
@@ -1048,19 +1046,20 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
 
     def appendActionsToContextMenu(self, menu, readOnlyMode=False):
         """Modifies the given QMenu object to update the title and add
-        actions relevant to this LookbackMultiplePriceBarGraphicsItem.  Actions that
-        are triggered from this menu run various methods in the
-        LookbackMultiplePriceBarGraphicsItem to handle the desired functionality.
+        actions relevant to this LookbackMultiplePriceBarGraphicsItem.
+        Actions that are triggered from this menu run various methods in
+        the LookbackMultiplePriceBarGraphicsItem to handle the desired
+        functionality.
 
         Arguments:
         menu - QMenu object to modify.
         readOnlyMode - bool value that indicates the actions are to be
-                       readonly actions.
+        readonly actions.
         """
 
         # Set the menu title.
-        if self.priceBar != None:
-            datetimeObj = self.priceBar.timestamp
+        if self.lookbackMultiplePriceBar != None:
+            datetimeObj = self.lookbackMultiplePriceBar.timestamp
             timestampStr = Ephemeris.datetimeToDayStr(datetimeObj)
             menu.setTitle("LookbackMultiplePriceBar_" + timestampStr)
         else:
@@ -1149,12 +1148,14 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
 
     def _handleInfoAction(self):
         """Causes a dialog to be executed to show information about
-        the QGraphicsItem pricebar.
+        the QGraphicsItem.
         """
 
-        pb = self.getLookbackMultiplePriceBar()
+        lmpb = self.getLookbackMultiplePriceBar()
         
-        dialog = LookbackMultiplePriceBarEditDialog(priceBar=pb, readOnly=True)
+        dialog = LookbackMultiplePriceBarEditDialog(\
+            lookbackMultiplePriceBar=lmpb, 
+            readOnly=True)
 
         # Run the dialog.  We don't care about what is returned
         # because the dialog is read-only.
@@ -1162,25 +1163,30 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
         
     def _handleEditAction(self):
         """Causes a dialog to be executed to edit information about
-        the QGraphicsItem pricebar.
+        the QGraphicsItem.
         """
 
-        pb = self.getLookbackMultiplePriceBar()
+        lmpb = self.getLookbackMultiplePriceBar()
         
-        dialog = LookbackMultiplePriceBarEditDialog(priceBar=pb, readOnly=False)
+        dialog = LookbackMultiplePriceBarEditDialog(\
+            lookbackMultiplePriceBar=lmpb, 
+            readOnly=False)
 
         rv = dialog.exec_()
         
         if rv == QDialog.Accepted:
             # Set the item with the new values.
 
-            self.setLookbackMultiplePriceBar(dialog.getLookbackMultiplePriceBar())
+            self.setLookbackMultiplePriceBar(\
+                dialog.getLookbackMultiplePriceBar())
 
             # X location based on the timestamp.
-            x = self.scene().datetimeToSceneXPos(self.priceBar.timestamp)
+            x = self.scene().datetimeToSceneXPos(\
+                self.lookbackMultiplePriceBar.timestamp)
 
             # Y location based on the mid price (average of high and low).
-            y = self.scene().priceToSceneYPos(self.priceBar.midPrice())
+            y = self.scene().priceToSceneYPos(\
+                self.lookbackMultiplePriceBar.midPrice())
 
             # Set the position, in parent coordinates.
             self.setPos(QPointF(x, y))
@@ -1188,8 +1194,8 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
             # Flag that a redraw of this QGraphicsItem is required.
             self.prepareGeometryChange()
             
-            # Emit that the LookbackMultiplePriceBarChart has changed so that the
-            # dirty flag can be set.
+            # Emit that the LookbackMultiplePriceBarChart has changed so that
+            # the dirty flag can be set.
             self.scene().priceBarChartChanged.emit()
         else:
             # The user canceled so don't change anything.
@@ -1220,16 +1226,17 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
         self.scene().setAstroChart3(self.scenePos().x())
 
     def _handleOpenJHoraAction(self):
-        """Causes the timestamp of this LookbackMultiplePriceBarGraphicsItem to be
-        opened in JHora.
+        """Causes the timestamp of this
+        LookbackMultiplePriceBarGraphicsItem to be opened in JHora.
         """
 
         # The GraphicsItem's scene X position represents the time.
         self.scene().openJHora(self.scenePos().x())
         
     def _handleOpenAstrologAction(self):
-        """Causes the timestamp of this LookbackMultiplePriceBarGraphicsItem to be
-        opened in Astrolog.
+        """Causes the timestamp of this
+        LookbackMultiplePriceBarGraphicsItem to be opened in
+        Astrolog.
         """
 
         # The GraphicsItem's scene X position represents the time.
