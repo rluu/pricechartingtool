@@ -16783,7 +16783,7 @@ class LookbackMultiple:
                  baseUnit=1.0,
                  baseUnitTypeDegreesFlag=False,
                  baseUnitTypeRevolutionsFlag=True,
-                 color=QColor(Qt.gray),
+                 color=QColor(Qt.blue),
                  enabled=False,
                  planetName="Sun",
                  geocentricFlag=True,
@@ -17271,7 +17271,7 @@ class LookbackMultiplePriceBar:
     variables, and methods as the regular PriceBar class, but it is not
     a subclass of a PriceBar.  
 
-    TODO:  improve documentation and commenting here.
+    TODO:  improve documentation and commenting here for LookbackMultiplePriceBar.
 
     LookbackMultiplePriceBar can include the following information: 
 
@@ -17333,7 +17333,7 @@ TODO:  Think about what variables and information would be needed in this class.
         the lookback period.
         """
         
-        # TODO:  add code here.
+        # TODO:  add code here for recalculateCurrentTimestamp().  To think about: Should I even be making ephemeris-type calculations within a LookbackMultiplePriceBar?  Or should the ephemeris-type calculations be done in a separate class or method somewhere else?
         pass
     
 
@@ -17537,7 +17537,7 @@ class PriceChartDocumentData:
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 1
+        self.classVersion = 2
 
         # Description label.
         self.description = ""
@@ -17546,7 +17546,8 @@ class PriceChartDocumentData:
         self.priceBars = []
         
         # List of LookbackMultiple objects.
-        self.lookbackMultiples = []
+        self.lookbackMultiples = \
+            PriceChartDocumentData.createDefaultLookbackMultiples()
 
         # List of PriceBarChartArtifact objects.
         self.priceBarChartArtifacts = []
@@ -17588,6 +17589,18 @@ class PriceChartDocumentData:
 
         # Notes that are added by the user in the the GUI.
         self.userNotes = ""
+
+        
+    @staticmethod
+    def createDefaultLookbackMultiples():
+        """Returns a list of LookbackMultiple objects that can be used as 
+        a default initial set.
+        """
+
+        # TODO: add code here for createDefaultLookbackMultiples().
+        pass
+        
+        return []
 
     def setDescription(self, description):
         """Sets the description of this trading entity."""
@@ -17792,6 +17805,45 @@ class PriceChartDocumentData:
         # Re-open the logger because it was not pickled.
         self.log = logging.getLogger("data_objects.PriceChartDocumentData")
 
+        # Update the object to the most current version if it is not current.
+        if self.classVersion < 2:
+            self.log.info("Detected an old class version of " + \
+                          "PriceChartDocumentData (version {}).  ".\
+                          format(self.classVersion))
+            
+            if self.classVersion == 1:
+                # Version 2 added the following member variables:
+                #
+                # self.lookbackMultiples
+                #
+                
+                try:
+                    # See if the variable is set.
+                    self.lookbackMultiples
+                    
+                    # If it got here, then the field is already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have this field.")
+                    
+                except AttributeError:
+                    # Variable was not set.  Set it to the default
+                    # initial values.
+                    self.lookbackMultiples = \
+                        PriceChartDocumentData.createDefaultLookbackMultiples()
+
+                    self.log.debug("Added field " + \
+                                   "'lookbackMultiples' " + \
+                                   "to the loaded PriceChartDocumentData.")
+                    
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 2
+        
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + PriceChartDocumentData.__name__ +
                        " object of version {}".format(self.classVersion))

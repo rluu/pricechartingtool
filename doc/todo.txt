@@ -3,15 +3,16 @@
 Outstanding things to work on going forward:
 
 TODOs for cycle hunter features:
-  - LookbackMultiplePriceBar
+
+  - LookbackMultiplePriceBar  - NEED TO CONFIRM CORRECT/COMPLETE.
     - Reference to the closest historic PriceBar
     - Reference to the LookbackMultiple.
 
-  - LookbackMultiplePriceBar edit and dialog widgets.
-
-  - LookbackMultiplePriceBarGraphicsItem - confirm it is correct and complete.
+  - LookbackMultiplePriceBarGraphicsItem - NEED TO CONFIRM CORRECT/COMPLETE.
     - Reference to the underlying LookbackMultiplePriceBar.
     - Right-click context menu can trigger the edit dialog of the underlying LookbackMultiplePriceBar.
+
+
 
   - LookbackMultiple panel widget:
     - Apply/Redraw button.  
@@ -24,12 +25,12 @@ TODOs for cycle hunter features:
                  - These need to have some kind of scaling algorithm applied relative to the QGraphicsView before being placed in the scene.  
                    When to apply this scaling algorithm?  I guess it would need to be after the creation of all of them, because I need min and max prices of this list of pricebars.
 
-    - List of LookbackMultiples.
-      - Displays enable checkbox.  (checking will set dirty flag of the PCD).
-      - Displays short name of the lookback multiple. 
 
-  - LookbackMultiple legend.  (perhaps not implement this?  Is this needed?)
-    - This would display the current mouse location and the datetimes for the LookbackMultiples that are enabled.  See my paper docs.
+
+  - LookbackMultiple datetime table.  (perhaps not implement this?  Is this needed?)
+    - This would display a set datetime (either set manually via context menu, or via using the current mouse location being tracked) and also the datetimes for the LookbackMultiples that are enabled.  See my paper docs.
+
+
 
   - Menu items (QActions, perhaps icons for these too):
     - Lookback multiple
@@ -37,7 +38,16 @@ TODOs for cycle hunter features:
          - Sets dirty flag of the PCD if the edit dialog is accepted 
            (i.e. any mods accepted).
       - Enable LookbackMultiple panel.
-      - Enable LookbackMultiple legend.
+      - Enable LookbackMultiple datetime table.
+      - Enable LookbackMultiple datetime table mouse tracking.
+
+
+
+DONE  - LookbackMultiplePriceBar edit and dialog widgets.
+
+DONE    - List of LookbackMultiples.
+DONE      - Displays enable checkbox.  (checking will set dirty flag of the PCD).
+DONE      - Displays short name of the lookback multiple. 
 
 ##############################################################################
 

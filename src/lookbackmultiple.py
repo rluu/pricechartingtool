@@ -72,7 +72,7 @@ class LookbackMultiplePanelWidget(QWidget):
         layout.addWidget(self.applyRedrawButton)
         layout.addWidget(self.tableWidget)
         self.setLayout(layout)
-        
+
         # Connect signals and slots.
         self.applyRedrawButton.clicked.\
             connect(self.applyRedrawLookbackMultiplesButtonClicked)
@@ -81,7 +81,25 @@ class LookbackMultiplePanelWidget(QWidget):
         self.tableWidget.itemDoubleClicked.\
           connect(self._handleItemDoubleClicked)
         
-        
+        self.log.debug("size is: w={},h={}".\
+                       format(self.size().width(), 
+                              self.size().height()))
+        self.log.debug("sizeHint is: w={},h={}".\
+                       format(self.sizeHint().width(), 
+                              self.sizeHint().height()))
+
+#    def sizeHint(self):
+#        """Overrides the QWidget's sizeHint() method to provide a 
+#        size hint for this widget.
+#        """
+#
+#        self.log.debug("Inside sizeHint().")
+#
+#        width=278
+#        height=246
+#
+#        return QSize(width, height)
+
     def setLookbackMultiples(self, lookbackMultiples):
         """Sets the given list of LookbackMultiple objects to be
         visualized in this widget.  This widget can potentially modify
@@ -352,6 +370,26 @@ def testLookbackMultiplePanelWidget():
     rv = dialog.exec_()
 
 
+def testLookbackMultiplePanelWidgetEmpty():
+    print("Running " + inspect.stack()[0][3] + "()")
+    
+    # Just display the panel widget without any LookbackMultiples.
+    # This is to get an idea about the minimum/default sizes of the widget.
+    
+    lookbackMultiples = []
+
+    widget = LookbackMultiplePanelWidget()
+    #widget.setLookbackMultiples(lookbackMultiples)
+
+    layout = QVBoxLayout()
+    layout.addWidget(widget)
+    
+    dialog = QDialog()
+    dialog.setLayout(layout)
+    rv = dialog.exec_()
+
+    
+
 ##############################################################################
 
 # For debugging the module during development.  
@@ -379,6 +417,7 @@ if __name__=="__main__":
 
     # Various tests to run:
     testLookbackMultiplePanelWidget()
+    testLookbackMultiplePanelWidgetEmpty()
 
     # Exit the app when all windows are closed.
     app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
