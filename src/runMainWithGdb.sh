@@ -1,5 +1,5 @@
 #!/bin/bash
 
-SRCDIR=/home/rluu/programming/pricechartingtool/src
+SRCDIR=$( cd "$( dirname "$0" )" && pwd )
 
 gdb --args /usr/bin/python3 $SRCDIR/main.py

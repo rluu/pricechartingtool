@@ -1,7 +1,7 @@
 #!/bin/bash
 ##############################################################################
 
-SRCDIR=/home/rluu/programming/pricechartingtool/src
+SRCDIR=$( cd "$( dirname "$0" )" && pwd )
 PYTHON=/usr/bin/python3
 
 
