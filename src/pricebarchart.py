@@ -38795,6 +38795,7 @@ class PriceBarChartWidget(QWidget):
     # It does NOT include:
     #   - User selecting a pricebar
     #   - User opening a wheel astrology chart from a pricebar
+    #   - Creation/Modification/Deletion of a LookbackMultiplePriceBar.
     #
     priceBarChartChanged = QtCore.pyqtSignal()
 
@@ -39237,31 +39238,6 @@ class PriceBarChartWidget(QWidget):
         self.updateNumPriceBarsLabel(0)
         self.updateSelectedPriceBarLabels(None)
         self.graphicsScene.clearCachedPriceBars()
-
-    def getPriceBarChartArtifacts(self):
-        """Returns the list of PriceBarChartArtifacts that have been used
-        to draw the the artifacts in the QGraphicsScene.
-        """
-
-        self.log.debug("Entered getPriceBarChartArtifacts()")
-        
-        # List of PriceBarChartArtifact objects returned.
-        artifacts = []
-        
-        # Go through all the QGraphicsItems and for each artifact type,
-        # extract the PriceBarChartArtifact.
-        graphicsItems = self.graphicsScene.items()
-        
-        for item in graphicsItems:
-            if isinstance(item, PriceBarChartArtifactGraphicsItem):
-                artifacts.append(item.getArtifact())
-
-        self.log.debug("Number of artifacts being returned is: {}".\
-                       format(len(artifacts)))
-        
-        self.log.debug("Exiting getPriceBarChartArtifacts()")
-        
-        return artifacts
 
     def loadPriceBarChartArtifacts(self, priceBarChartArtifacts):
         """Loads the given list of PriceBarChartArtifact objects
@@ -39856,17 +39832,31 @@ class PriceBarChartWidget(QWidget):
 
 
 
-    def addPriceBarChartArtifact(self, priceBarChartArtifact):
-        """Adds the given PriceBarChartArtifact objects 
-        into this widget as QGraphicsItems."""
+    def getPriceBarChartArtifacts(self):
+        """Returns the list of PriceBarChartArtifacts that have been used
+        to draw the the artifacts in the QGraphicsScene.
+        """
 
-        # List of one element.
-        artifacts = [priceBarChartArtifact]
-
-        # Load it via a list.  If it is added, then it will emit
-        # the self.priceBarChartChanged signal for us.
-        self.loadPriceBarChartArtifacts(artifacts)
+        self.log.debug("Entered getPriceBarChartArtifacts()")
         
+        # List of PriceBarChartArtifact objects returned.
+        artifacts = []
+        
+        # Go through all the QGraphicsItems and for each artifact type,
+        # extract the PriceBarChartArtifact.
+        graphicsItems = self.graphicsScene.items()
+        
+        for item in graphicsItems:
+            if isinstance(item, PriceBarChartArtifactGraphicsItem):
+                artifacts.append(item.getArtifact())
+
+        self.log.debug("Number of artifacts being returned is: {}".\
+                       format(len(artifacts)))
+        
+        self.log.debug("Exiting getPriceBarChartArtifacts()")
+        
+        return artifacts
+
     def clearAllPriceBarChartArtifacts(self):
         """Clears all the PriceBarChartArtifact objects from the 
         QGraphicsScene."""
@@ -39893,7 +39883,56 @@ class PriceBarChartWidget(QWidget):
             self.graphicsScene.priceBarChartChanged.emit()
             
         self.log.debug("Exiting clearAllPriceBarChartArtifacts()")
+
+    def drawLookbackMultiplePriceBars(self, lookbackMultiples):
+        """Causes the drawing of LookbackMultiplePriceBarGraphicsItems
+
+        These are only drawn for the currently visible area of the 
+        QGraphicsScene.
+
+        Note: This drawing does not cause a priceBarChartChanged signal
+        to be emitted.  That is because LookbackMultiplePriceBars are
+        transient and are not persisted.  They get redrawn frequently, 
+        where they are drawn are highly dependent on the user's current 
+        view.
+        """
         
+        self.log.debug("Entered drawLookbackMultiplePriceBars()")
+        
+        # TODO: add code here for drawLookbackMultiplePriceBars().
+        pass
+
+        self.log.debug("Exiting drawLookbackMultiplePriceBars()")
+        
+    def clearAllLookbackMultiplePriceBars(self):
+        """Causes the removal of all LookbackMultiplePriceBarGraphicsItems.
+        
+        Note: This clearing does not cause a priceBarChartChanged signal
+        to be emitted.  That is because LookbackMultiplePriceBars are
+        transient and are not persisted.  They get redrawn frequently, 
+        where they are drawn are highly dependent on the user's current 
+        view.
+        """
+
+        self.log.debug("Entered clearAllLookbackMultiplePriceBars()")
+        
+        # Go through all the QGraphicsItems and remove the artifact items.
+        graphicsItems = self.graphicsScene.items()
+
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+
+                debugStr = \
+                    "Removing LookbackMultiplePriceBarGraphicsItem for " + \
+                    "LookbackMultiplePriceBar: " + \
+                    item.getLookbackMultiplePriceBar().toString()
+                self.log.debug(debugStr)
+                               
+                if item.scene() != None:
+                    self.graphicsScene.removeItem(item)
+                
+        self.log.debug("Exiting clearAllLookbackMultiplePriceBars()")
+
     def applyPriceBarChartSettings(self, priceBarChartSettings):
         """Applies the settings in the given PriceBarChartSettings object.
         """

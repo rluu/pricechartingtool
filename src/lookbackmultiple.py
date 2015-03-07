@@ -88,17 +88,27 @@ class LookbackMultiplePanelWidget(QWidget):
                        format(self.sizeHint().width(), 
                               self.sizeHint().height()))
 
-#    def sizeHint(self):
-#        """Overrides the QWidget's sizeHint() method to provide a 
-#        size hint for this widget.
-#        """
-#
-#        self.log.debug("Inside sizeHint().")
-#
-#        width=278
-#        height=246
-#
-#        return QSize(width, height)
+    def getLookbackMultiples(self):
+        """Returns the reference to the list of LookbackMultiple objects."""
+        
+        if self.log.isEnabledFor(logging.DEBUG):
+            self.log.debug("Entered getLookbackMultiples()")
+
+            self.log.debug("len(self.lookbackMultiples) is currently: {}".\
+                           format(len(self.lookbackMultiples)))
+
+            self.log.debug("self.lookbackMultiples is currently: ".\
+                           format(self.lookbackMultiples))
+
+            for i in range(len(self.lookbackMultiples)):
+                lm = self.lookbackMultiples[i]
+                self.log.debug("self.lookbackMultiples[{}] is: {}".\
+                               format(i, lm.toString()))
+
+            self.log.debug("Exiting getLookbackMultiples()")
+
+        return self.lookbackMultiples
+
 
     def setLookbackMultiples(self, lookbackMultiples):
         """Sets the given list of LookbackMultiple objects to be

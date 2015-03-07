@@ -1071,6 +1071,12 @@ class MainWindow(QMainWindow):
             flag = self.trackMouseToAstroChart3Action.isChecked()
             priceChartDocument.setTrackMouseToAstroChart3(flag)
         
+        # Depending on whether or not the LookbackMultiplePanelWidget
+        # is enabled or not, then set it to be visible or not, respectively.
+        if isActive:
+            flag = self.enableAndShowLookbackMultiplePanelAction.isChecked()
+            priceChartDocument.setEnableAndShowLookbackMultiplePanel(flag)
+
         # Depending on what ToolMode QAction is checked,
         # set the priceChartDocument to be in that mode.
         if isActive:
@@ -4496,6 +4502,9 @@ class PriceChartDocument(QMdiSubWindow):
         # Therefore, all we need to retrieve is the pricebarchart
         # artifacts and the settings objects.
 
+        self.priceChartDocumentData.lookbackMultiples = \
+            self.widgets.getLookbackMultiples()
+
         self.priceChartDocumentData.priceBarChartArtifacts = \
             self.widgets.getPriceBarChartArtifacts()
 
@@ -4526,6 +4535,7 @@ class PriceChartDocument(QMdiSubWindow):
         # Clear all the old data.
         self.widgets.clearAllPriceBars()
         self.widgets.clearAllPriceBarChartArtifacts()
+        self.widgets.clearAllLookbackMultiplePriceBars()
 
         # Set the description text.
         self.widgets.\
@@ -4540,6 +4550,10 @@ class PriceChartDocument(QMdiSubWindow):
         # Load pricebars.
         priceBars = self.priceChartDocumentData.priceBars
         self.widgets.loadPriceBars(priceBars)
+
+        # Load LookbackMultiple objects.
+        lookbackMultiples = self.priceChartDocumentData.lookbackMultiples
+        self.widgets.loadLookbackMultiples(lookbackMultiples)
 
         # Apply the settings objects.
         priceBarChartSettings = \
@@ -4805,6 +4819,8 @@ class PriceChartDocument(QMdiSubWindow):
                         priceChartDocumentData.toString()
 
                     self.log.debug(debugMsg)
+
+                self.log.debug("Setting dirty flag to False...")
 
                 # Filename shouldn't have changed, so there's no need to
                 # set it again.
@@ -5442,7 +5458,7 @@ class PriceChartDocument(QMdiSubWindow):
 
         # Get the list of LookbackMultiple objects. 
         lookbackMultiples = \
-            self.getPriceChartDocumentData().lookbackMultiples
+            self.priceChartDocumentData.lookbackMultiples
 
         # Create a dialog to edit the PriceBarChart's list of
         # LookbackMultiple objects.
@@ -5456,7 +5472,7 @@ class PriceChartDocument(QMdiSubWindow):
             lookbackMultiples = dialog.getLookbackMultiples()
 
             # Set lookbackMultiples into the PriceChartDocument.
-            self.getPriceChartDocumentData().lookbackMultiples = \
+            self.priceChartDocumentData.lookbackMultiples = \
                 lookbackMultiples
 
             # Set the dirty flag because the object has now changed.
@@ -5465,7 +5481,7 @@ class PriceChartDocument(QMdiSubWindow):
             # Notify the widgets that the LookbackMultiples have changed.  
             # This will cause the necessary refreshes/updates in the 
             # widgets and the charts.
-            self.widgets.handleLookbackMultiplesChanged()
+            self.widgets.handleLookbackMultiplesChanged(lookbackMultiples)
         else:
             self.log.debug("LookbackMultipleListEditDialog " + \
                            "rejected.  Doing nothing more.")
@@ -5666,30 +5682,6 @@ class PriceChartDocumentWidget(QWidget):
 
         self.priceBarChartWidget.setTimezone(timezone)
 
-    def clearAllPriceBars(self):
-        """Clears all PriceBars from all the internal widgets.
-        This is called if a full reload is desired.
-        After this call, one can then call loadPriceBars(priceBars) 
-        with all the pricebars to be loaded.
-        """
-
-        self.log.debug("Entered clearAllPriceBars()")
-
-        # PriceBars in the PriceBarChart.
-        self.priceBarChartWidget.clearAllPriceBars()
-
-        # PriceBars in the PriceBarSpreadsheet.
-        self.priceBarSpreadsheetWidget.clearAllPriceBars()
-
-        self.log.debug("Leaving clearAllPriceBars()")
-        
-    def clearAllPriceBarChartArtifacts(self):
-        """Clears all the PriceBarChartArtifact objects from the 
-        PriceBarChartWidget."""
-
-        self.priceBarChartWidget.clearAllPriceBarChartArtifacts()
-
-
     def loadPriceBars(self, priceBars):
         """Loads the price bars into the widgets.
         
@@ -5710,6 +5702,23 @@ class PriceChartDocumentWidget(QWidget):
         self.log.debug("Leaving loadPriceBars({} pricebars)".\
                        format(len(priceBars)))
 
+    def clearAllPriceBars(self):
+        """Clears all PriceBars from all the internal widgets.
+        This is called if a full reload is desired.
+        After this call, one can then call loadPriceBars(priceBars) 
+        with all the pricebars to be loaded.
+        """
+
+        self.log.debug("Entered clearAllPriceBars()")
+
+        # PriceBars in the PriceBarChart.
+        self.priceBarChartWidget.clearAllPriceBars()
+
+        # PriceBars in the PriceBarSpreadsheet.
+        self.priceBarSpreadsheetWidget.clearAllPriceBars()
+
+        self.log.debug("Leaving clearAllPriceBars()")
+        
     def loadPriceBarChartArtifacts(self, priceBarChartArtifacts):
         """Loads the PriceBarChart artifacts.
 
@@ -5727,6 +5736,75 @@ class PriceChartDocumentWidget(QWidget):
         self.log.debug("Leaving loadPriceBarChartArtifacts({} artifacts)".\
                        format(len(priceBarChartArtifacts)))
 
+    def clearAllPriceBarChartArtifacts(self):
+        """Clears all the PriceBarChartArtifact objects from the 
+        PriceBarChartWidget."""
+
+        self.priceBarChartWidget.clearAllPriceBarChartArtifacts()
+
+
+    def loadLookbackMultiples(self, lookbackMultiples):
+        """Loads a list of LookbackMultiple objects.
+        These are only loaded into the LookbackMultiplePanelWidget.
+        They are not redrawn in the PriceBarChartWidget.
+        
+        Arguments:
+        lookbackMultiples - list of LookbackMultiple objects to be loaded,
+        """
+        
+        self.log.debug("Entered loadLookbackMultiples({} LookbackMultiples)".\
+                       format(len(lookbackMultiples)))
+
+        self.lookbackMultiplePanelWidget.\
+            setLookbackMultiples(lookbackMultiples)
+    
+        self.log.debug("Exiting loadLookbackMultiples({} LookbackMultiples)".\
+                       format(len(lookbackMultiples)))
+
+    def getLookbackMultiples(self):
+        """ Returns the list of LookbackMultiple objects that are used 
+        in this widget.
+        """
+        
+        return self.lookbackMultiplePanelWidget.getLookbackMultiples()
+    
+    def applyRedrawLookbackMultiples(self):
+        """Causes a removal of all
+        LookbackMultiplePriceBarGraphicsItems, and then a drawing of all
+        new LookbackMultiplePriceBarGraphicsItems.
+        """
+        
+        self.log.debug("Entered applyRedrawLookbackMultiples()")
+
+        self.clearAllLookbackMultiplePriceBars()
+        self.drawLookbackMultiplePriceBars()
+
+        self.log.debug("Exiting applyRedrawLookbackMultiples()")
+
+    def drawLookbackMultiplePriceBars(self):
+        """Causes the drawing of LookbackMultiplePriceBarGraphicsItems
+        These are only drawn for the currently visible area of the 
+        QGraphicsScene.
+        """
+        
+        self.log.debug("Entered drawLookbackMultiplePriceBars()")
+        
+        lookbackMultiples = \
+            self.lookbackMultiplePanelWidget.getLookbackMultiples()
+        self.priceBarChartWidget.\
+            drawLookbackMultiplePriceBars(lookbackMultiples)
+        
+        self.log.debug("Exiting drawLookbackMultiplePriceBars()")
+
+    def clearAllLookbackMultiplePriceBars(self):
+        """Causes the removal of all LookbackMultiplePriceBarGraphicsItems."""
+
+        self.log.debug("Entered clearAllLookbackMultiplePriceBars()")
+        
+        self.priceBarChartWidget.clearAllLookbackMultiplePriceBars()
+
+        self.log.debug("Exiting clearAllLookbackMultiplePriceBars()")
+
     def applyPriceBarChartSettings(self, priceBarChartSettings):
         """Applies the given PriceBarChartSettings object to the
         internal PriceBarChartWidget.  
@@ -5737,8 +5815,8 @@ class PriceChartDocumentWidget(QWidget):
 
         self.log.debug("Entered applyPriceBarChartSettings()")
 
-        self.log.debug("Applying the following settings: {}".\
-                       format(priceBarChartSettings.toString()))
+        #self.log.debug("Applying the following settings: {}".\
+        #               format(priceBarChartSettings.toString()))
         
         self.priceBarChartWidget.\
             applyPriceBarChartSettings(priceBarChartSettings)
@@ -6226,41 +6304,37 @@ class PriceChartDocumentWidget(QWidget):
             self.lookbackMultiplePanelWidget.setVisible(flag)
             self.lookbackMultiplePanelWidgetEnabled = flag
             
-    def handleLookbackMultiplesChanged(self):
+    def handleLookbackMultiplesChanged(self, lookbackMultiples):
         """Handles what needs to happen when the list of
         LookbackMultiple objects has changed or has been modified/updated.
 
         This method causes the following things to happen:
         - LookbackMultiplePanel is refreshed.
         - LookbackMultipleDatetimeTable is refreshed
-        - PriceBarChartGraphicsScene removes all LookbackMultiplePriceBarGraphicsItems.
+        - PriceBarChartGraphicsScene removes all 
+          LookbackMultiplePriceBarGraphicsItems.
+
             Note: LookbackMultiplePriceBarGraphicsItems should NOT be redrawn.
-            The reason is because we don't want edits coming LookbackMultiplePanel
-            to cause a redraw, unless the user explicitly asks for it via the button.
+            The reason is because we don't want edits coming from 
+            LookbackMultiplePanel to cause a redraw, 
+            unless the user explicitly asks for it via the button.
+
         - Signal priceChartDocumentWidgetChanged is emitted.
+
+        Arguments:
+        lookbackMultiples - list of updated new LookbackMultiple objects.
         """
     
         self.log.debug("Entered handleLookbackMultiplesChanged()")
 
-        # TODO: add code here for handleLookbackMultiplesChanged().
-        pass
-    
+        self.lookbackMultiplePanelWidget.\
+            setLookbackMultiples(lookbackMultiples)
+        #self.lookbackMultipleDatetimeTableWidget.refresh()
+        self.clearAllLookbackMultiplePriceBars()
+        self.priceChartDocumentWidgetChanged.emit()
+
         self.log.debug("Exiting handleLookbackMultiplesChanged()")
     
-    def applyRedrawLookbackMultiples(self):
-        """Causes a removal of all
-        LookbackMultiplePriceBarGraphicsItems, and then a drawing of all
-        new LookbackMultiplePriceBarGraphicsItems.
-        """
-        
-        self.log.debug("Entered applyRedrawLookbackMultiples()")
-
-        # TODO: add code here for applyRedrawLookbackMultiples().
-        #self.priceBarChartWidget.ADD_METHOD_HERE
-        pass
-
-        self.log.debug("Exiting applyRedrawLookbackMultiples()")
-
     def _handleCurrentTimestampChanged(self, dt):
         """Handles when the current mouse cursor datetime changes.
         This just calls certain astrology widgets to update their

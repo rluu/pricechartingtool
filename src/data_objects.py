@@ -17598,7 +17598,6 @@ class PriceChartDocumentData:
         """
 
         # TODO: add code here for createDefaultLookbackMultiples().
-        pass
         
         return []
 
@@ -17748,22 +17747,19 @@ class PriceChartDocumentData:
                     format(self.description) + \
                 "numPriceBars={}, ".\
                     format(len(self.priceBars)) + \
+                "numLookbackMultiples={}, ".\
+                    format(len(self.lookbackMultiples)) + \
                 "numArtifacts={}, ".\
                     format(len(self.priceBarChartArtifacts)) + \
-                "artifacts={}, ".\
-                    format(artifactStrings) + \
+                "artifacts=[OMITTED], " + \
                 "firstPriceBarTimestamp={}, ".\
                     format(firstPriceBarTimestamp) + \
                 "lastPriceBarTimestamp={}, ".\
                     format(lastPriceBarTimestamp) + \
-                "settingsSpreadsheetTagColors={}, ".\
-                    format(self.settingsSpreadsheetTagColors) + \
-                "settingsSpreadsheetCalcFormulas={}, ".\
-                    format(self.settingsSpreadsheetCalcFormulas) + \
-                "priceBarChartSettings={}, ".\
-                    format(self.priceBarChartSettings.toString()) + \
-                "priceBarSpreadsheetSettings={}, ".\
-                    format(self.priceBarSpreadsheetSettings.toString()) + \
+                "settingsSpreadsheetTagColors=[OMITTED], " + \
+                "settingsSpreadsheetCalcFormulas=[OMITTED], " + \
+                "priceBarChartSettings=[OMITTED], " + \
+                "priceBarSpreadsheetSettings=[OMITTED], " + \
                 "locationTimezone={}, ".\
                     format(self.locationTimezone) + \
                 "priceBarsFileFilename={}, ".\
