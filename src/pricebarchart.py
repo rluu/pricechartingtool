@@ -8594,11 +8594,6 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         
         # Update the planetLongitudeMovementMeasurement label position.
         
-        # TODO: determine if I need to do anything here to account for
-        # the text rotation angle.  (my guess is not, since
-        # boundingRect() called below should handle everything fine,
-        # but I need to verify)
-
         # Changes in x and y.
         deltaX = self.endPointF.x() - self.startPointF.x()
         deltaY = self.endPointF.y() - self.startPointF.y()
@@ -39893,14 +39888,55 @@ class PriceBarChartWidget(QWidget):
         Note: This drawing does not cause a priceBarChartChanged signal
         to be emitted.  That is because LookbackMultiplePriceBars are
         transient and are not persisted.  They get redrawn frequently, 
-        where they are drawn are highly dependent on the user's current 
+        and where they are drawn are highly dependent on the user's current 
         view.
         """
         
         self.log.debug("Entered drawLookbackMultiplePriceBars()")
         
-        # TODO: add code here for drawLookbackMultiplePriceBars().
-        pass
+        # Below is the algorithm taken to draw LookbackMultiplePriceBars.
+        # TODO: add documentation here for the algorithm taken.  (see my todo.txt notes)
+
+
+        # Set the birth location in the Ephemeris.
+        # We need to set this each time because there is no
+        # guarantee that the last use of the Ephemeris was with
+        # this location.
+        birthInfo = self.graphicsScene.getBirthInfo()
+        Ephemeris.setGeographicPosition(birthInfo.longitudeDegrees,
+                                        birthInfo.latitudeDegrees,
+                                        birthInfo.elevation)
+
+        # Get area of the QGraphicsScene that is visualized by the 
+        # QGraphicsView, as a QRect.
+        sceneRect = self.graphicsView.sceneRect()
+        
+        self.log.debug("sceneRect is: x={}, y={}, w={}, h={}".\
+                       format(sceneRect.x(), 
+                              sceneRect.y(), 
+                              sceneRect.width(), 
+                              sceneRect.height()))
+
+        # Convert the scene rectangle coordinates to dates and prices.
+        earliestViewDt = \
+            self.graphicsScene.sceneXPosToDatetime(sceneRect.x())
+        latestViewDt = \
+            self.graphicsScene.sceneXPosToDatetime(sceneRect.x() + \
+                                                   sceneRect.width())
+        highestViewPrice = \
+            self.graphicsScene.sceneYPosToPrice(sceneRect.y())
+        lowestViewPrice = \
+            self.graphicsScene.sceneYPosToPrice(sceneRect.y() + \
+                                                sceneRect.height())
+
+        self.log.debug("earliestViewDt == {}".\
+                       format(Ephemeris.datetimeToDayStr(earliestViewDt)))
+        self.log.debug("latestViewDt   == {}".\
+                       format(Ephemeris.datetimeToDayStr(latestViewDt)))
+        self.log.debug("highestViewPrice == {}".format(highestViewPrice))
+        self.log.debug("lowestViewPrice  == {}".format(lowestViewPrice))
+
+        # TODO: add more code here for drawLookbackMultiplePriceBars().
 
         self.log.debug("Exiting drawLookbackMultiplePriceBars()")
         
@@ -39910,7 +39946,7 @@ class PriceBarChartWidget(QWidget):
         Note: This clearing does not cause a priceBarChartChanged signal
         to be emitted.  That is because LookbackMultiplePriceBars are
         transient and are not persisted.  They get redrawn frequently, 
-        where they are drawn are highly dependent on the user's current 
+        and where they are drawn are highly dependent on the user's current 
         view.
         """
 
