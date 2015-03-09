@@ -381,7 +381,9 @@ class LookbackMultipleUtils:
                     # already.
                     if centricityType == "heliocentric" or \
                         (centricityType == "geocentric" and \
-                         (planetName == "Sun" or planetName == "Moon" or planetName == "MoSu")):
+                         (planetName == "Sun" or
+                          planetName == "Moon" or
+                          planetName == "MoSu")):
                          
                          LookbackMultipleUtils.log.debug(\
                              "No need to look for anymore timestamps " + \
@@ -392,10 +394,6 @@ class LookbackMultipleUtils:
                          done = True
                     
                     while (prevDiff <= 120 or prevDiff > 240) and done != True:
-
-                        LookbackMultipleUtils.log.debug(\
-                            "Looking for other potential datetimes for " + \
-                            "the desiredDeltaDegrees, if they exist.")
 
                         p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
                         currDiff = Util.toNormalizedAngle(\
@@ -884,7 +882,9 @@ class LookbackMultipleUtils:
                     # already.
                     if centricityType == "heliocentric" or \
                         (centricityType == "geocentric" and \
-                         (planetName == "Sun" or planetName == "Moon" or planetName == "MoSu")):
+                         (planetName == "Sun" or 
+                          planetName == "Moon" or 
+                          planetName == "MoSu")):
                          
                          LookbackMultipleUtils.log.debug(\
                              "No need to look for anymore timestamps " + \
@@ -895,10 +895,6 @@ class LookbackMultipleUtils:
                          done = True
                     
                     while (prevDiff >= 240 or prevDiff < 120) and done != True:
-
-                        LookbackMultipleUtils.log.debug(\
-                            "Looking for other potential datetimes for " + \
-                            "the desiredDeltaDegrees, if they exist.")
 
                         p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
                         currDiff = Util.toNormalizedAngle(\
