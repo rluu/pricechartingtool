@@ -39,7 +39,6 @@ class LookbackMultipleUtils:
     # Logger object for this class.
     log = logging.getLogger("lookbackmultiple.LookbackMultipleUtils")
     
-
     @staticmethod
     def getDatetimesOfLongitudeDeltaDegreesInFuture(\
         planetName, 
@@ -111,47 +110,12 @@ class LookbackMultipleUtils:
 
         # Field name we are getting.
         fieldName = "longitude"
+
+        # Step size timedelta.  
+        stepSizeTd = \
+            LookbackMultipleUtils._getOptimalStepSizeTd(centricityType, 
+                                                        planetName)
         
-        # Set the step size.  Planet should not ever move more than
-        # 120 degrees per step size.
-        stepSizeTd = datetime.timedelta(days=1)
-
-        # Optimize the step size accord to the planet being used.
-        if Ephemeris.isHouseCuspPlanetName(planetName) or \
-               Ephemeris.isAscmcPlanetName(planetName):
-
-            # House cusps and ascmc planets need a smaller step size.
-            stepSizeTd = datetime.timedelta(hours=1)
-
-        # These planets don't go retrograde, so we don't have to worry about
-        # losing data points if our step size is too big.
-        # We just have to keep the step size probably lower than 60 degrees.
-        # Here, I'll just use some overly safe values.
-        if centricityType == "geocentric":
-            if planetName == "Moon":
-                stepSizeTd = datetime.timedelta(days=1)
-            elif planetName == "Sun":
-                stepSizeTd = datetime.timedelta(days=6)
-        elif centricityType == "heliocentric":
-            if planetName == "Mercury":
-                stepSizeTd = datetime.timedelta(days=1)
-            elif planetName == "Venus":
-                stepSizeTd = datetime.timedelta(days=3)
-            elif planetName == "Earth":
-                stepSizeTd = datetime.timedelta(days=6)
-            elif planetName == "Mars":
-                stepSizeTd = datetime.timedelta(days=12)
-            elif planetName == "Jupiter":
-                stepSizeTd = datetime.timedelta(days=24)
-            elif planetName == "Saturn":
-                stepSizeTd = datetime.timedelta(days=30)
-            elif planetName == "Uranus":
-                stepSizeTd = datetime.timedelta(days=60)
-            elif planetName == "Neptune":
-                stepSizeTd = datetime.timedelta(days=120)
-            elif planetName == "Pluto":
-                stepSizeTd = datetime.timedelta(days=180)
-
         # Running count of number of full 360-degree circles.
         numFullCircles = 0
         
@@ -208,6 +172,8 @@ class LookbackMultipleUtils:
 
             if planetReferenceLongitude == None:
                 planetReferenceLongitude = getFieldValue(p1, fieldName)
+                LookbackMultipleUtils.log.debug("planetReferenceLongitude == {}".\
+                                                format(planetReferenceLongitude))
             
             longitudesP1[-1] = getFieldValue(p1, fieldName)
             
@@ -570,7 +536,563 @@ class LookbackMultipleUtils:
         return rv
 
         
-    # TODO: Adapt/copy-and-paste-then-modify the LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture() for looking into the past.
+    @staticmethod
+    def getDatetimesOfLongitudeDeltaDegreesInPast(\
+        planetName, 
+        centricityType,
+        longitudeType,
+        referenceDt,
+        desiredDeltaDegrees,
+        maxErrorTd=datetime.timedelta(seconds=2)):
+        """Returns a list of datetime.datetime objects that hold the
+        timestamps when the given planet is at 'degreeElapsed'
+        longitude degrees from the longitude degrees calculated at
+        moment 'referenceDt'.
+        
+        Pre-requisites:
+        This method assumes that the user has initialized the Ephemeris 
+        and has called Ephemeris.setGeographicPosition() prior to running
+        this method.
+
+        Arguments:
+        planetName - str holding the name of the planet to do the
+                     calculations for.
+        centricityType - str value holding either "geocentric",
+                         "topocentric", or "heliocentric".
+        longitudeType - str value holding either "tropical" or "sidereal".
+        referenceDt - datetime.datetime object for the reference time.
+                      The planet longitude at this moment is taken as
+                      the zero-point.  Increments or decrements in time 
+                      are started from this moment in time.
+        desiredDeltaDegrees - float value for the number of longitude degrees
+                        elapsed from the longitude at 'referenceDt'.
+        maxErrorTd - datetime.timedelta object holding the maximum
+                     time difference between the exact planetary
+                     combination timestamp, and the one calculated.
+                     This would define the accuracy of the
+                     calculations.  
+        
+        Returns:
+        List of datetime.datetime objects.  The datetime.datetime
+        objects in this list are the timestamps where the planet is at
+        the elapsed number of degrees away from the longitude at
+        'referenceDt'.
+        """
+        
+        LookbackMultipleUtils.log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        # Return value.
+        rv = []
+
+        centricityTypeOrig = centricityType
+        centricityType = centricityType.lower()
+        if centricityType != "geocentric" and \
+           centricityType != "topocentric" and \
+           centricityType != "heliocentric":
+
+            LookbackMultipleUtils.log.error("Invalid input: centricityType is invalid.  " + \
+                      "Value given was: {}".format(centricityTypeOrig))
+            rv = []
+            return rv
+
+        longitudeTypeOrig = longitudeType
+        longitudeType = longitudeType.lower()
+        if longitudeType != "tropical" and \
+           longitudeType != "sidereal":
+
+            LookbackMultipleUtils.log.error("Invalid input: longitudeType is invalid.  " + \
+                      "Value given was: {}".format(longitudeTypeOrig))
+            rv = []
+            return rv
+
+        # Field name we are getting.
+        fieldName = "longitude"
+
+        # Step size timedelta.  
+        stepSizeTd = \
+            LookbackMultipleUtils._getOptimalStepSizeTd(centricityType, 
+                                                        planetName)
+        
+        # Invert the step size if desiredDeltaDegrees is negative.
+        if desiredDeltaDegrees < 0:
+            stepSizeTd = stepSizeTd * -1
+
+        # Running count of number of full 360-degree circles.
+        numFullCircles = 0
+        
+        # Desired degree.
+        desiredDegree = None
+        
+        # Longitude of the planet at datetime referenceDt.
+        planetReferenceLongitude = None
+
+        # Iterate through, creating artfacts and adding them as we go.
+        steps = []
+        steps.append(copy.deepcopy(referenceDt))
+        steps.append(copy.deepcopy(referenceDt))
+
+        longitudesP1 = []
+        longitudesP1.append(None)
+        longitudesP1.append(None)
+        
+        def getFieldValue(planetaryInfo, fieldName):
+            pi = planetaryInfo
+            fieldValue = None
+            
+            if centricityType == "geocentric":
+                fieldValue = pi.geocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "topocentric":
+                fieldValue = pi.topocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "heliocentric":
+                fieldValue = pi.heliocentric[longitudeType][fieldName]
+            else:
+                LookbackMultipleUtils.log.error("Unknown centricity type.")
+                fieldValue = None
+
+            return fieldValue
+            
+        LookbackMultipleUtils.log.debug("Stepping through timestamps from {} ...".\
+                  format(Ephemeris.datetimeToStr(referenceDt)))
+
+        currDiff = None
+        prevDiff = None
+
+        # Current and previous number of degrees elapsed.
+        currElapsed = None
+        
+        done = False
+        while not done:
+        
+            currDt = steps[-1]
+            prevDt = steps[-2]
+            
+            LookbackMultipleUtils.log.debug("Looking at currDt == {} ...".\
+                      format(Ephemeris.datetimeToStr(currDt)))
+
+            p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
+
+            if planetReferenceLongitude == None:
+                planetReferenceLongitude = getFieldValue(p1, fieldName)
+                LookbackMultipleUtils.log.debug("planetReferenceLongitude == {}".\
+                                                format(planetReferenceLongitude))
+
+            longitudesP1[-1] = getFieldValue(p1, fieldName)
+            
+            LookbackMultipleUtils.log.debug("{} {} {} {} is: {}".\
+                      format(p1.name, centricityType, longitudeType, fieldName,
+                             getFieldValue(p1, fieldName)))
+            
+            # Calculate the difference in planet longitudes between the current
+            # datetime and the referenceDt.  
+            # (This value will be in the range [0, 360) ).
+            #
+            currDiff = Util.toNormalizedAngle(\
+                longitudesP1[-1] - planetReferenceLongitude)
+
+            LookbackMultipleUtils.log.debug("prevDiff == {}".format(prevDiff))
+            LookbackMultipleUtils.log.debug("currDiff == {}".format(currDiff))
+            
+            # If this is not the first iteration of the loop 
+            # (i.e. we have both a prevDiff and a currDiff to compare).
+            if prevDiff != None and longitudesP1[-2] != None:
+                
+                if prevDiff > 240 and currDiff < 120:
+                    LookbackMultipleUtils.log.debug("Crossed over planet reference longitude {} ".\
+                              format(planetReferenceLongitude) + \
+                              "from below to above!")
+
+                    # This is the upper-bound of the error timedelta.
+                    t1 = prevDt
+                    t2 = currDt
+                    currErrorTd = Util.absTd(t2 - t1)
+                    
+                    # Refine the timestamp until it is less than the threshold.
+                    while currErrorTd > maxErrorTd:
+                        LookbackMultipleUtils.log.debug("Refining between {} and {}".\
+                                  format(Ephemeris.datetimeToStr(t1),
+                                         Ephemeris.datetimeToStr(t2)))
+
+                        # Check the timestamp between.
+                        timeWindowTd = t2 - t1
+                        halfTimeWindowTd = \
+                            datetime.\
+                            timedelta(days=(timeWindowTd.days / 2.0),
+                                seconds=(timeWindowTd.seconds / 2.0),
+                                microseconds=(timeWindowTd.microseconds / 2.0))
+                        testDt = t1 + halfTimeWindowTd
+
+                        p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
+
+                        testValueP1 = getFieldValue(p1, fieldName)
+
+                        testDiff = Util.toNormalizedAngle(\
+                            testValueP1 - planetReferenceLongitude)
+
+                        if testDiff < 120:
+                            t2 = testDt
+                            
+                            # Update the curr values.
+                            currDt = t2
+                            currDiff = testDiff
+                        else:
+                            t1 = testDt
+
+                        currErrorTd = Util.absTd(t2 - t1)
+
+                    # Update our lists.
+                    steps[-1] = currDt
+
+                    # Increment the number of 360-degree circles traversed.
+                    numFullCircles += 1
+
+                elif prevDiff < 120 and currDiff > 240:
+                    LookbackMultipleUtils.log.debug("Crossed over planet reference longitude {} ".\
+                              format(planetReferenceLongitude) + \
+                              "from above to below!")
+
+                    # This is the upper-bound of the error timedelta.
+                    t1 = prevDt
+                    t2 = currDt
+                    currErrorTd = Util.absTd(t2 - t1)
+
+                    # Refine the timestamp until it is less than the threshold.
+                    while currErrorTd > maxErrorTd:
+                        LookbackMultipleUtils.log.debug("Refining between {} and {}".\
+                                  format(Ephemeris.datetimeToStr(t1),
+                                         Ephemeris.datetimeToStr(t2)))
+
+                        # Check the timestamp between.
+                        timeWindowTd = t2 - t1
+                        halfTimeWindowTd = \
+                            datetime.\
+                            timedelta(days=(timeWindowTd.days / 2.0),
+                                seconds=(timeWindowTd.seconds / 2.0),
+                                microseconds=(timeWindowTd.microseconds / 2.0))
+                        testDt = t1 + halfTimeWindowTd
+
+                        p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
+
+                        testValueP1 = getFieldValue(p1, fieldName)
+
+                        testDiff = Util.toNormalizedAngle(\
+                            testValueP1 - planetReferenceLongitude)
+
+                        if testDiff < 120:
+                            t1 = testDt
+                        else:
+                            t2 = testDt
+                            
+                            # Update the curr values.
+                            currDt = t2
+                            currDiff = testDiff
+
+                            LookbackMultipleUtils.log.debug("currDiff updated to: {}".format(currDiff))
+
+                        currErrorTd = Util.absTd(t2 - t1)
+
+                    # Update our lists.
+                    steps[-1] = currDt
+
+                    # Decrement the number of 360-degree circles traversed.
+                    numFullCircles -= 1
+
+                # Calculate the total number of degrees elapsed so far.
+                currElapsed = (numFullCircles * 360.0) + currDiff
+
+                LookbackMultipleUtils.log.debug("currElapsed == {}".format(currElapsed))
+                LookbackMultipleUtils.log.debug("desiredDeltaDegrees == {}".\
+                          format(desiredDeltaDegrees))
+                
+                if currElapsed < desiredDeltaDegrees:
+                    # We pased the number of degrees past that we were
+                    # looking for.  Now we have to calculate the exact
+                    # timestamp and find out if there are other
+                    # moments in time where the planet is elapsed this
+                    # many degrees (in the event that the planet goes
+                    # retrograde).
+                    LookbackMultipleUtils.log.debug("Passed the desired number of " + \
+                              "elapsed degrees from above to below.  " + \
+                              "Narrowing down to the exact moment in time ...")
+                    
+                    # Actual degree we are looking for.
+                    desiredDegree = \
+                        Util.toNormalizedAngle(\
+                        planetReferenceLongitude + 
+                        (desiredDeltaDegrees % 360.0))
+
+                    LookbackMultipleUtils.log.debug("desiredDegree == {}".format(desiredDegree))
+                    
+                    # Check starting from steps[-2] to steps[-1] to
+                    # see exactly when it passes this desiredDegree.
+
+                    # This is the upper-bound of the error timedelta.
+                    t1 = steps[-2]
+                    t2 = steps[-1]
+                    currErrorTd = Util.absTd(t2 - t1)
+                    
+                    # Refine the timestamp until it is less than the threshold.
+                    while currErrorTd > maxErrorTd:
+                        LookbackMultipleUtils.log.debug("Refining between {} and {}".\
+                                  format(Ephemeris.datetimeToStr(t1),
+                                         Ephemeris.datetimeToStr(t2)))
+
+                        # Check the timestamp between.
+                        timeWindowTd = t2 - t1
+                        halfTimeWindowTd = \
+                            datetime.\
+                            timedelta(days=(timeWindowTd.days / 2.0),
+                                seconds=(timeWindowTd.seconds / 2.0),
+                                microseconds=(timeWindowTd.microseconds / 2.0))
+                        testDt = t1 + halfTimeWindowTd
+
+                        p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
+                        
+                        testValueP1 = getFieldValue(p1, fieldName)
+
+                        testDiff = Util.toNormalizedAngle(\
+                            testValueP1 - desiredDegree)
+                        
+                        if testDiff > 240:
+                            t2 = testDt
+                        else:
+                            t1 = testDt
+
+                        currErrorTd = Util.absTd(t2 - t1)
+
+                    # t2 holds the moment in time.
+                    rv.append(t2)
+
+                    LookbackMultipleUtils.log.debug("First moment in time found to be: {}".\
+                              format(Ephemeris.datetimeToStr(t2)))
+
+                    # Now we will want to find the other elapsed points, if they
+                    # exist.  We know it doesn't exist if it traverses
+                    # more than 120 degrees from desiredDegree.
+                    startDt = t2
+                    prevDt = startDt
+                    currDt = startDt + stepSizeTd
+                    p1 = Ephemeris.getPlanetaryInfo(planetName, prevDt)
+                    prevDiff = Util.toNormalizedAngle(\
+                        getFieldValue(p1, fieldName) - desiredDegree)
+                    currDiff = None
+
+                    LookbackMultipleUtils.log.debug("desiredDegree == {}".format(desiredDegree))
+                    
+                    # There is only need to continue looking for more potential
+                    # timestamps if the planet can go retrograde.  Direct-only
+                    # planets will yield only 1 timestamp, and we have found it
+                    # already.
+                    if centricityType == "heliocentric" or \
+                        (centricityType == "geocentric" and \
+                         (planetName == "Sun" or planetName == "Moon" or planetName == "MoSu")):
+                         
+                         LookbackMultipleUtils.log.debug(\
+                             "No need to look for anymore timestamps " + \
+                             "because this planet doesn't go retrograde.")
+
+                         # Set the done flag, which will stop us from looking
+                         # for more timestamps.
+                         done = True
+                    
+                    while (prevDiff >= 240 or prevDiff < 120) and done != True:
+
+                        LookbackMultipleUtils.log.debug(\
+                            "Looking for other potential datetimes for " + \
+                            "the desiredDeltaDegrees, if they exist.")
+
+                        p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
+                        currDiff = Util.toNormalizedAngle(\
+                            getFieldValue(p1, fieldName) - desiredDegree)
+
+                        LookbackMultipleUtils.log.debug("currDt == {}, ".\
+                                  format(Ephemeris.datetimeToStr(currDt)) + 
+                                  "longitude == {}, ".\
+                                  format(getFieldValue(p1, fieldName)) + \
+                                  "currDiff == {}".\
+                                  format(currDiff))
+
+                        if prevDiff < 120 and currDiff > 240:
+                            LookbackMultipleUtils.log.debug("Passed the desired number of " + \
+                                      "elapsed degrees from " + \
+                                      "below to above.  " + \
+                                      "Narrowing down to the exact moment " + \
+                                      "in time ...")
+                    
+                            # This is the upper-bound of the error timedelta.
+                            t1 = prevDt
+                            t2 = currDt
+                            currErrorTd = Util.absTd(t2 - t1)
+                            
+                            # Refine the timestamp until it is less
+                            # than the threshold.
+                            while currErrorTd > maxErrorTd:
+                                LookbackMultipleUtils.log.debug("Refining between {} and {}".\
+                                          format(Ephemeris.datetimeToStr(t1),
+                                                 Ephemeris.datetimeToStr(t2)))
+                                
+                                # Check the timestamp between.
+                                timeWindowTd = t2 - t1
+                                halfTimeWindowTd = \
+                                    datetime.\
+                                    timedelta(days=(timeWindowTd.days / 2.0),
+                                        seconds=(timeWindowTd.seconds / 2.0),
+                                        microseconds=\
+                                              (timeWindowTd.microseconds / 2.0))
+                                testDt = t1 + halfTimeWindowTd
+        
+                                p1 = Ephemeris.getPlanetaryInfo(\
+                                    planetName, testDt)
+                                
+                                testValueP1 = getFieldValue(p1, fieldName)
+        
+                                testDiff = Util.toNormalizedAngle(\
+                                    testValueP1 - desiredDegree)
+                                
+                                if testDiff > 240:
+                                    t2 = testDt
+
+                                    currDt = t2
+                                    currDiff = testDiff
+                                else:
+                                    t1 = testDt
+        
+                                currErrorTd = Util.absTd(t2 - t1)
+
+
+                            # currDt holds the moment in time.
+                            LookbackMultipleUtils.log.debug("Appending moment in time: {}".\
+                                      format(Ephemeris.datetimeToStr(currDt)))
+                            rv.append(currDt)
+
+                        elif prevDiff > 240 and currDiff < 120:
+                            LookbackMultipleUtils.log.debug("Passed the desired number of " + \
+                                      "elapsed degrees from " + \
+                                      "above to below.  " + \
+                                      "Narrowing down to the exact moment " + \
+                                      "in time ...")
+                    
+                            # This is the upper-bound of the error timedelta.
+                            t1 = prevDt
+                            t2 = currDt
+                            currErrorTd = Util.absTd(t2 - t1)
+                            
+                            # Refine the timestamp until it is less
+                            # than the threshold.
+                            while currErrorTd > maxErrorTd:
+                                LookbackMultipleUtils.log.debug("Refining between {} and {}".\
+                                          format(Ephemeris.datetimeToStr(t1),
+                                                 Ephemeris.datetimeToStr(t2)))
+                                
+                                # Check the timestamp between.
+                                timeWindowTd = t2 - t1
+                                halfTimeWindowTd = \
+                                    datetime.\
+                                    timedelta(days=(timeWindowTd.days / 2.0),
+                                        seconds=(timeWindowTd.seconds / 2.0),
+                                        microseconds=\
+                                              (timeWindowTd.microseconds / 2.0))
+                                testDt = t1 + halfTimeWindowTd
+        
+                                p1 = Ephemeris.getPlanetaryInfo(\
+                                    planetName, testDt)
+                                
+                                testValueP1 = getFieldValue(p1, fieldName)
+        
+                                testDiff = Util.toNormalizedAngle(\
+                                    testValueP1 - desiredDegree)
+                                
+                                if testDiff < 120:
+                                    t2 = testDt
+
+                                    currDt = t2
+                                    currDiff = testDiff
+                                else:
+                                    t1 = testDt
+        
+                                currErrorTd = Util.absTd(t2 - t1)
+        
+                            # currDt holds the moment in time.
+                            LookbackMultipleUtils.log.debug("Appending moment in time: {}".\
+                                      format(Ephemeris.datetimeToStr(currDt)))
+                            rv.append(currDt)
+
+                        prevDt = currDt
+                        currDt = copy.deepcopy(currDt) + stepSizeTd
+                        prevDiff = currDiff
+                        currDiff = None
+
+                    LookbackMultipleUtils.log.debug("Done searching for timestamps.")
+                        
+                    # We have our timestamps, so we are done.
+                    done = True
+                    
+            # Prepare for the next iteration.
+            steps.append(copy.deepcopy(steps[-1]) + stepSizeTd)
+            del steps[0]
+            longitudesP1.append(None)
+            del longitudesP1[0]
+
+            # Update prevDiff as the currDiff.
+            prevDiff = currDiff
+
+        LookbackMultipleUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+
+        
+
+
+
+    @staticmethod
+    def _getOptimalStepSizeTd(centricityType, planetName):
+        """Helper function that will try to determine a better step size
+        for supporting other methods of LookbackMultipleUtils.
+        
+        The step size chosen here is dependent on centricityType and planetName.
+        """
+        
+        # This is the default step size.  
+        # Planet should not ever move more than 120 degrees per step size.
+        stepSizeTd = datetime.timedelta(days=1)
+
+        # Optimize the step size accord to the planet being used.
+        if Ephemeris.isHouseCuspPlanetName(planetName) or \
+               Ephemeris.isAscmcPlanetName(planetName):
+
+            # House cusps and ascmc planets need a smaller step size.
+            stepSizeTd = datetime.timedelta(hours=1)
+
+        # These planets don't go retrograde, so we don't have to worry about
+        # losing data points if our step size is too big.  We just have to keep
+        # the step size to lower than 120 degrees.  Here, I'll just
+        # use some overly safe values, because planets move a different speeds
+        # due to their elliptical orbits
+        if centricityType == "geocentric":
+            if planetName == "Moon":
+                stepSizeTd = datetime.timedelta(days=1)
+            elif planetName == "Sun":
+                stepSizeTd = datetime.timedelta(days=40)
+        elif centricityType == "heliocentric":
+            if planetName == "Mercury":
+                stepSizeTd = datetime.timedelta(days=3)
+            elif planetName == "Venus":
+                stepSizeTd = datetime.timedelta(days=10)
+            elif planetName == "Earth":
+                stepSizeTd = datetime.timedelta(days=40)
+            elif planetName == "Mars":
+                stepSizeTd = datetime.timedelta(days=60)
+            elif planetName == "Jupiter":
+                stepSizeTd = datetime.timedelta(days=120)
+            elif planetName == "Saturn":
+                stepSizeTd = datetime.timedelta(days=180)
+            elif planetName == "Uranus":
+                stepSizeTd = datetime.timedelta(days=240)
+            elif planetName == "Neptune":
+                stepSizeTd = datetime.timedelta(days=300)
+            elif planetName == "Pluto":
+                stepSizeTd = datetime.timedelta(days=400)
+
+        return stepSizeTd
+
 
 class LookbackMultiplePanelWidget(QWidget):
     """Widget holding the QTableView that displays the PriceBar 
@@ -964,7 +1486,7 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         centricityType="geocentric"
         longitudeType="tropical"
         referenceDt = datetime.datetime(1983, 10, 25, 19, 34, tzinfo=eastern)
-        desiredDeltaDegrees = 150
+        desiredDeltaDegrees = 510
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
@@ -975,7 +1497,7 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("Expected  num results == 1")
-        print("Expected resultDts[0] == 1984-03-22 06:15:13.681641-04:56")
+        print("Expected resultDts[0] == 1985-03-22 12:02:53.752443-04:56")
 
     if True:
         print("------------------------------------------------------------")
@@ -1225,6 +1747,140 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         print("Expected resultDts[0] == 1994-10-20 07:06:05.625006+00:00")
 
 
+def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
+    """Tests planet movements.
+
+    For retrograde planet movements, there are 5 basic test locations, 
+    which in the tests will be described as Points A, B, C, D, and E.
+
+    Point A: Planet going direct.
+             Longitude location less than retrograde movement location, and 
+             less than the longitude location of the direct movement 
+             that follows in time after the retrograde movement.  
+    Point B: Planet going direct.
+             Longitude location less than retrograde movement location, and
+             greater than the longitude location of the direct movement 
+             that follows in time after the retrograde movement.  
+             This is the first time the planet goes direct, crossing 
+             this longitude degree.
+    Point C: Planet going retrograde.
+             Longitude location less than retrograde movement location, and
+             greater than the longitude location of the direct movement 
+             that follows in time after the retrograde movement.  
+    Point D: Planet going direct.
+             Longitude location less than retrograde movement location, and
+             greater than the longitude location of the direct movement 
+             that follows in time after the retrograde movement.  
+             This is the second time the planet goes direct, crossing 
+             this longitude degree.
+    Point E: Planet going direct.
+             Longitude location greater than retrograde movement location.
+    """
+
+    
+    print("Running " + inspect.stack()[0][3] + "()")
+    
+    # Assumes that Ephemeris has been initialized by this point of execution.
+
+
+    eastern = pytz.timezone('US/Eastern')
+
+    def printDatetimeResults(resultDts, planetName, centricityType, longitudeType, referenceDt, desiredDeltaDegrees):
+        print("Result datetimes for planetName={}, centricityType={}, longitudeType={}, referenceDt={}, desiredDeltaDegrees={} are:".\
+              format(planetName, 
+                     centricityType, 
+                     longitudeType, 
+                     referenceDt, 
+                     desiredDeltaDegrees))
+
+        print("Actual    num results == {}".format(len(resultDts)))
+
+        for i in range(len(resultDts)):
+            dt = resultDts[i]
+            print("Actual   resultDts[{}] == {}".format(i, dt))
+
+
+    if False:
+        print("------------------------------------------------------------")
+        print("Testing G.Sun moving -3 degrees, not crossing 0 Aries.")
+        planetName="Sun"
+        centricityType="geocentric"
+        longitudeType="tropical"
+        referenceDt = datetime.datetime(1983, 10, 25, 19, 34, tzinfo=eastern)
+        desiredDeltaDegrees = -3
+
+        resultDts = \
+            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
+            planetName, centricityType, longitudeType, referenceDt, 
+            desiredDeltaDegrees)
+
+        printDatetimeResults(resultDts, planetName, centricityType, 
+                             longitudeType, referenceDt, desiredDeltaDegrees)
+        print("Expected  num results == 1")
+
+
+    if False:
+        print("------------------------------------------------------------")
+        print("Testing G.Sun moving -150 degrees, crossing 0 Aries.")
+        planetName="Sun"
+        centricityType="geocentric"
+        longitudeType="tropical"
+        referenceDt = datetime.datetime(1983, 10, 25, 19, 34, tzinfo=eastern)
+        desiredDeltaDegrees = -150
+
+        resultDts = \
+            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
+                planetName, centricityType, longitudeType, referenceDt, 
+                desiredDeltaDegrees)
+
+        printDatetimeResults(resultDts, planetName, centricityType, 
+                             longitudeType, referenceDt, desiredDeltaDegrees)
+
+        print("Expected  num results == 1")
+
+    if False:
+        print("------------------------------------------------------------")
+        print("Testing G.Sun moving -510 degrees, crossing 0 Aries.")
+        planetName="Sun"
+        centricityType="geocentric"
+        longitudeType="tropical"
+        referenceDt = datetime.datetime(1983, 10, 25, 19, 34, tzinfo=eastern)
+        desiredDeltaDegrees = -510
+
+        resultDts = \
+            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
+                planetName, centricityType, longitudeType, referenceDt, 
+                desiredDeltaDegrees)
+
+        printDatetimeResults(resultDts, planetName, centricityType, 
+                             longitudeType, referenceDt, desiredDeltaDegrees)
+
+        print("Expected  num results == 1")
+
+
+    # TODO: continue writing tests and verifying functionality starting from here.
+    # THe method has not been fully verified for geocentric/retrograde motions or heliocentric motions.
+    
+    if False:
+        print("------------------------------------------------------------")
+        print("Testing G.Mercury moving -360 degrees.  Point A to Points B/C/D.")
+        planetName="Mercury"
+        centricityType="geocentric"
+        longitudeType="tropical"
+        referenceDt = datetime.datetime(1968, 5, 10, 0, 0, tzinfo=pytz.utc)
+        desiredDeltaDegrees = -360
+
+        resultDts = \
+            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
+                planetName, centricityType, longitudeType, referenceDt, 
+                desiredDeltaDegrees)
+
+        printDatetimeResults(resultDts, planetName, centricityType, 
+                             longitudeType, referenceDt, desiredDeltaDegrees)
+
+        print("Expected  num results == ")
+
+
 def testLookbackMultiplePanelWidget():
     print("Running " + inspect.stack()[0][3] + "()")
     
@@ -1339,7 +1995,8 @@ if __name__=="__main__":
 
 
     # Various tests to run:
-    testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture()
+    #testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture()
+    testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast()
     #testLookbackMultiplePanelWidget()
     #testLookbackMultiplePanelWidgetEmpty()
 
