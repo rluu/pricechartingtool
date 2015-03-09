@@ -69,6 +69,7 @@ class LookbackMultipleUtils:
                       are started from this moment in time.
         desiredDeltaDegrees - float value for the number of longitude degrees
                         elapsed from the longitude at 'referenceDt'.
+                        This parameter must be a positive value.
         maxErrorTd - datetime.timedelta object holding the maximum
                      time difference between the exact planetary
                      combination timestamp, and the one calculated.
@@ -87,26 +88,31 @@ class LookbackMultipleUtils:
         # Return value.
         rv = []
 
+        # Verify inputs.
         centricityTypeOrig = centricityType
         centricityType = centricityType.lower()
         if centricityType != "geocentric" and \
            centricityType != "topocentric" and \
            centricityType != "heliocentric":
 
-            LookbackMultipleUtils.log.error("Invalid input: centricityType is invalid.  " + \
-                      "Value given was: {}".format(centricityTypeOrig))
-            rv = []
-            return rv
+            errMsg = "Invalid input: centricityType is invalid.  " + \
+                      "Value given was: {}".format(centricityTypeOrig)
+            raise ValueError(errMsg)
 
         longitudeTypeOrig = longitudeType
         longitudeType = longitudeType.lower()
         if longitudeType != "tropical" and \
            longitudeType != "sidereal":
 
-            LookbackMultipleUtils.log.error("Invalid input: longitudeType is invalid.  " + \
-                      "Value given was: {}".format(longitudeTypeOrig))
-            rv = []
-            return rv
+            errMsg = "Invalid input: longitudeType is invalid.  " + \
+                      "Value given was: {}".format(longitudeTypeOrig)
+            raise ValueError(errMsg)
+
+        if desiredDeltaDegrees < 0:
+            errMsg = "Invalid input: " + \
+                      "desiredDeltaDegrees must be a positive value.  " + \
+                      "Value given was: {}".format(desiredDeltaDegrees)
+            raise ValueError(errMsg)
 
         # Field name we are getting.
         fieldName = "longitude"
@@ -564,6 +570,7 @@ class LookbackMultipleUtils:
                       are started from this moment in time.
         desiredDeltaDegrees - float value for the number of longitude degrees
                         elapsed from the longitude at 'referenceDt'.
+                        This parameter must be a negative value.
         maxErrorTd - datetime.timedelta object holding the maximum
                      time difference between the exact planetary
                      combination timestamp, and the one calculated.
@@ -588,20 +595,24 @@ class LookbackMultipleUtils:
            centricityType != "topocentric" and \
            centricityType != "heliocentric":
 
-            LookbackMultipleUtils.log.error("Invalid input: centricityType is invalid.  " + \
-                      "Value given was: {}".format(centricityTypeOrig))
-            rv = []
-            return rv
+            errMsg = "Invalid input: centricityType is invalid.  " + \
+                      "Value given was: {}".format(centricityTypeOrig)
+            raise ValueError(errMsg)
 
         longitudeTypeOrig = longitudeType
         longitudeType = longitudeType.lower()
         if longitudeType != "tropical" and \
            longitudeType != "sidereal":
 
-            LookbackMultipleUtils.log.error("Invalid input: longitudeType is invalid.  " + \
-                      "Value given was: {}".format(longitudeTypeOrig))
-            rv = []
-            return rv
+            errMsg = "Invalid input: longitudeType is invalid.  " + \
+                      "Value given was: {}".format(longitudeTypeOrig)
+            raise ValueError(errMsg)
+
+        if desiredDeltaDegrees > 0:
+            errMsg = "Invalid input: " + \
+                      "desiredDeltaDegrees must be a negative value.  " + \
+                      "Value given was: {}".format(desiredDeltaDegrees)
+            raise ValueError(errMsg)
 
         # Field name we are getting.
         fieldName = "longitude"
@@ -611,8 +622,8 @@ class LookbackMultipleUtils:
             LookbackMultipleUtils._getOptimalStepSizeTd(centricityType, 
                                                         planetName)
         
-        # Invert the step size if desiredDeltaDegrees is negative.
-        if desiredDeltaDegrees < 0:
+        # Invert the step size if desiredDeltaDegrees is zero or negative.
+        if desiredDeltaDegrees <= 0:
             stepSizeTd = stepSizeTd * -1
 
         # Running count of number of full 360-degree circles.
@@ -1421,23 +1432,23 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
     eastern = pytz.timezone('US/Eastern')
 
     def printDatetimeResults(resultDts, planetName, centricityType, longitudeType, referenceDt, desiredDeltaDegrees):
-        print("Result datetimes for planetName={}, centricityType={}, longitudeType={}, referenceDt={}, desiredDeltaDegrees={} are:".\
+        print("  Result datetimes for planetName={}, centricityType={}, longitudeType={}, referenceDt={}, desiredDeltaDegrees={} are:".\
               format(planetName, 
                      centricityType, 
                      longitudeType, 
                      referenceDt, 
                      desiredDeltaDegrees))
 
-        print("Actual    num results == {}".format(len(resultDts)))
+        print("  Actual    num results == {}".format(len(resultDts)))
 
         for i in range(len(resultDts)):
             dt = resultDts[i]
-            print("Actual   resultDts[{}] == {}".format(i, dt))
+            print("  Actual   resultDts[{}] == {}".format(i, dt))
 
 
     if True:
-        print("------------------------------------------------------------")
-        print("Testing G.Sun moving 3 degrees, not crossing 0 Aries.")
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Sun moving 3 degrees, not crossing 0 Aries.")
         planetName="Sun"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1451,13 +1462,13 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
-        print("Expected  num results == 1")
-        print("Expected resultDts[0] == 1983-10-28 19:43:36.123047-04:56")
+        print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1983-10-28 19:43:36.123047-04:56")
 
 
     if True:
-        print("------------------------------------------------------------")
-        print("Testing G.Sun moving 150 degrees, crossing 0 Aries.")
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Sun moving 150 degrees, crossing 0 Aries.")
         planetName="Sun"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1472,12 +1483,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == 1")
-        print("Expected resultDts[0] == 1984-03-22 06:15:13.681641-04:56")
+        print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1984-03-22 06:15:13.681641-04:56")
 
     if True:
-        print("------------------------------------------------------------")
-        print("Testing G.Sun moving 510 degrees, crossing 0 Aries.")
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Sun moving 510 degrees, crossing 0 Aries.")
         planetName="Sun"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1492,12 +1503,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == 1")
-        print("Expected resultDts[0] == 1985-03-22 12:02:53.752443-04:56")
+        print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1985-03-22 12:02:53.752443-04:56")
 
     if True:
-        print("------------------------------------------------------------")
-        print("Testing G.Mercury moving 360 degrees.  Point A to Points B/C/D.")
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mercury moving 360 degrees.  Point A to Points B/C/D.")
         planetName="Mercury"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1512,14 +1523,14 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == 3")
-        print("Expected resultDts[0] == 1969-05-05 10:48:05.009766+00:00")
-        print("Expected resultDts[1] == 1969-06-02 06:33:37.089845+00:00")
-        print("Expected resultDts[2] == 1969-06-18 12:00:05.273439+00:00")
+        print("  Expected  num results == 3")
+        print("  Expected resultDts[0] == 1969-05-05 10:48:05.009766+00:00")
+        print("  Expected resultDts[1] == 1969-06-02 06:33:37.089845+00:00")
+        print("  Expected resultDts[2] == 1969-06-18 12:00:05.273439+00:00")
 
     if True:
-        print("------------------------------------------------------------")
-        print("Testing G.Mercury moving 10 degrees.  Point B to Points E.  From about 4 Gem to 14 Gem.")
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mercury moving 10 degrees.  Point B to Points E.  From about 4 Gem to 14 Gem.")
         planetName="Mercury"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1534,12 +1545,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == 1")
-        print("Expected resultDts[0] == 1969-06-27 19:19:03.457032+00:00")
+        print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1969-06-27 19:19:03.457032+00:00")
 
     if True:
-        print("------------------------------------------------------------")
-        print("Testing G.Mercury moving 5 degrees. Point B to Points B/C/D.  From about 4 deg Gem to 9 deg Gem.")
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mercury moving 5 degrees. Point B to Points B/C/D.  From about 4 deg Gem to 9 deg Gem.")
         planetName="Mercury"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1554,14 +1565,14 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == 3")
-        print("Expected resultDts[0] == 1969-05-09 12:37:25.166016+00:00")
-        print("Expected resultDts[1] == 1969-05-26 22:51:00.351563+00:00")
-        print("Expected resultDts[2] == 1969-06-23 02:29:24.843751+00:00")
+        print("  Expected  num results == 3")
+        print("  Expected resultDts[0] == 1969-05-09 12:37:25.166016+00:00")
+        print("  Expected resultDts[1] == 1969-05-26 22:51:00.351563+00:00")
+        print("  Expected resultDts[2] == 1969-06-23 02:29:24.843751+00:00")
 
     if True:
-        print("------------------------------------------------------------")
-        print("Testing G.Mercury moving 5 degrees. Point B to Points D.  From about 4 deg Gem to 9 deg Gem.")
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mercury moving 5 degrees. Point B to Points D.  From about 4 deg Gem to 9 deg Gem.")
         planetName="Mercury"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1576,12 +1587,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == 1")
-        print("Expected resultDts[0] == 1969-06-23 11:22:08.466798+00:00")
+        print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1969-06-23 11:22:08.466798+00:00")
 
     if True:
-        print("------------------------------------------------------------")
-        print("Testing G.Mercury moving 5 degrees. Point C to Points D.  From about 4 deg Gem to 9 deg Gem.")
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mercury moving 5 degrees. Point C to Points D.  From about 4 deg Gem to 9 deg Gem.")
         planetName="Mercury"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1596,12 +1607,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == 1")
-        print("Expected resultDts[0] == 1969-06-23 10:24:30.410156+00:00")
+        print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1969-06-23 10:24:30.410156+00:00")
 
     if True:
-        print("------------------------------------------------------------")
-        print("Testing G.Mercury moving 360 degrees.  Point A to Points B/C/D.  Over an Aries boundary.  From 4 Aries to 4 Aries.")
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mercury moving 360 degrees.  Point A to Points B/C/D.  Over an Aries boundary.  From 4 Aries to 4 Aries.")
         planetName="Mercury"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1616,14 +1627,14 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == 3")
-        print("Expected resultDts[0] == 1979-03-07 17:51:40.341797+00:00")
-        print("Expected resultDts[1] == 1979-03-22 23:18:08.525391+00:00")
-        print("Expected resultDts[2] == 1979-04-22 17:11:26.425782+00:00")
+        print("  Expected  num results == 3")
+        print("  Expected resultDts[0] == 1979-03-07 17:51:40.341797+00:00")
+        print("  Expected resultDts[1] == 1979-03-22 23:18:08.525391+00:00")
+        print("  Expected resultDts[2] == 1979-04-22 17:11:26.425782+00:00")
 
     if True:
-        print("------------------------------------------------------------")
-        print("Testing G.Mercury moving 20 degrees.  Point B to Points E.  From about 27 Pisces to 17 Aries.")
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mercury moving 20 degrees.  Point B to Points E.  From about 27 Pisces to 17 Aries.")
         planetName="Mercury"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1637,12 +1648,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == 1")
-        print("Expected 1979-05-02 17:28:46.611329+00:00")
+        print("  Expected  num results == 1")
+        print("  Expected resultsDt[0] == 1979-05-02 17:28:46.611329+00:00")
 
     if True:
-        print("------------------------------------------------------------")
-        print("Testing G.Mercury moving 10 degrees.  Point B to Points B/C/D.  From about 27 Pisces to 7 Aries.")
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mercury moving 10 degrees.  Point B to Points B/C/D.  From about 27 Pisces to 7 Aries.")
         planetName="Mercury"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1657,14 +1668,14 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == 3")
-        print("Expected resultDts[0] == 1979-03-10 17:36:09.580079+00:00")
-        print("Expected resultDts[1] == 1979-03-19 12:57:09.052735+00:00")
-        print("Expected resultDts[2] == 1979-04-24 23:16:49.423829+00:00")
+        print("  Expected  num results == 3")
+        print("  Expected resultDts[0] == 1979-03-10 17:36:09.580079+00:00")
+        print("  Expected resultDts[1] == 1979-03-19 12:57:09.052735+00:00")
+        print("  Expected resultDts[2] == 1979-04-24 23:16:49.423829+00:00")
 
     if True:
-        print("------------------------------------------------------------")
-        print("Testing G.Mercury moving 10 degrees. Point B to Points D.  From about 27 deg Pisces to 7 deg Aries.")
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mercury moving 10 degrees. Point B to Points D.  From about 27 deg Pisces to 7 deg Aries.")
         planetName="Mercury"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1679,12 +1690,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == 1")
-        print("Expected resultDts[0] == 1979-04-25 06:17:36.005860+00:00")
+        print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1979-04-25 06:17:36.005860+00:00")
 
     if True:
-        print("------------------------------------------------------------")
-        print("Testing G.Mercury moving 10 degrees. Point C to Points D.  From about 27 deg Pisces to 7 deg Aries.")
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mercury moving 10 degrees. Point C to Points D.  From about 27 deg Pisces to 7 deg Aries.")
         planetName="Mercury"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1699,12 +1710,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == 1")
-        print("Expected resultDts[0] == 1979-04-25 09:26:57.626954+00:00")
+        print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1979-04-25 09:26:57.626954+00:00")
 
     if True:
-        print("------------------------------------------------------------")
-        print("Testing G.Moon moving 22 rev. Point A to Point E.  From about 0 Taurus to 0 Taurus.")
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Moon moving 22 rev. Point A to Point E.  From about 0 Taurus to 0 Taurus.")
         planetName="Moon"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1719,12 +1730,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == 1")
-        print("Expected resultDts[0] == 1981-01-13 22:23:20.537117+00:00")
+        print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1981-01-13 22:23:20.537117+00:00")
 
     if True:
-        print("------------------------------------------------------------")
-        print("Testing H.Venus moving 22 rev. Point A to Point E.  From about 18 Aries to 18 Aries.")
+        print("  ------------------------------------------------------------")
+        print("  Testing H.Venus moving 22 rev. Point A to Point E.  From about 18 Aries to 18 Aries.")
         planetName="Venus"
         centricityType="heliocentric"
         longitudeType="tropical"
@@ -1739,8 +1750,58 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == 1")
-        print("Expected resultDts[0] == 1994-10-20 07:06:05.625006+00:00")
+        print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1994-10-20 07:06:05.625006+00:00")
+
+    if True:
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mars moving invalid input: negative degrees.")
+        planetName="Mars"
+        centricityType="geocentric"
+        longitudeType="tropical"
+        referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
+        desiredDeltaDegrees = -50
+
+        exceptionThrownFlag = False
+        try: 
+            resultDts = \
+                LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
+                    planetName, centricityType, longitudeType, referenceDt, 
+                    desiredDeltaDegrees)
+
+            printDatetimeResults(resultDts, planetName, centricityType, 
+                                 longitudeType, referenceDt, desiredDeltaDegrees)
+        except ValueError as e:
+            exceptionThrownFlag = True
+
+        if exceptionThrownFlag == False:
+            print("  Test Failure: Exception was not thrown as expected.")
+        else:
+            print("  Test Success: Exception was thrown as expected.")
+                
+
+    if True:
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mars moving 0 degrees into the future.")
+        planetName="Mars"
+        centricityType="geocentric"
+        longitudeType="tropical"
+        referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
+        desiredDeltaDegrees = 0
+
+        resultDts = \
+            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
+                planetName, centricityType, longitudeType, referenceDt, 
+                desiredDeltaDegrees)
+
+        printDatetimeResults(resultDts, planetName, centricityType, 
+                             longitudeType, referenceDt, desiredDeltaDegrees)
+
+        print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1994-10-20 00:00:01.318360+00:00")
+
+
+    print("")
 
 
 def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
@@ -1782,23 +1843,23 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
     eastern = pytz.timezone('US/Eastern')
 
     def printDatetimeResults(resultDts, planetName, centricityType, longitudeType, referenceDt, desiredDeltaDegrees):
-        print("Result datetimes for planetName={}, centricityType={}, longitudeType={}, referenceDt={}, desiredDeltaDegrees={} are:".\
+        print("  Result datetimes for planetName={}, centricityType={}, longitudeType={}, referenceDt={}, desiredDeltaDegrees={} are:".\
               format(planetName, 
                      centricityType, 
                      longitudeType, 
                      referenceDt, 
                      desiredDeltaDegrees))
 
-        print("Actual    num results == {}".format(len(resultDts)))
+        print("  Actual    num results == {}".format(len(resultDts)))
 
         for i in range(len(resultDts)):
             dt = resultDts[i]
-            print("Actual   resultDts[{}] == {}".format(i, dt))
+            print("  Actual   resultDts[{}] == {}".format(i, dt))
 
 
-    if False:
-        print("------------------------------------------------------------")
-        print("Testing G.Sun moving -3 degrees, not crossing 0 Aries.")
+    if True:
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Sun moving -3 degrees, not crossing 0 Aries.")
         planetName="Sun"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1812,12 +1873,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
 
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
-        print("Expected  num results == 1")
+        print("  Expected  num results == 1")
 
 
-    if False:
-        print("------------------------------------------------------------")
-        print("Testing G.Sun moving -150 degrees, crossing 0 Aries.")
+    if True:
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Sun moving -150 degrees, crossing 0 Aries.")
         planetName="Sun"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1832,11 +1893,11 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == 1")
+        print("  Expected  num results == 1")
 
-    if False:
-        print("------------------------------------------------------------")
-        print("Testing G.Sun moving -510 degrees, crossing 0 Aries.")
+    if True:
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Sun moving -510 degrees, crossing 0 Aries.")
         planetName="Sun"
         centricityType="geocentric"
         longitudeType="tropical"
@@ -1851,19 +1912,16 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == 1")
+        print("  Expected  num results == 1")
 
 
-    # TODO: continue writing tests and verifying functionality starting from here.
-    # THe method has not been fully verified for geocentric/retrograde motions or heliocentric motions.
-    
-    if False:
-        print("------------------------------------------------------------")
-        print("Testing G.Mercury moving -360 degrees.  Point A to Points B/C/D.")
+    if True:
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mercury moving -360 degrees.  Point E to Points B/C/D.  28 Libra to 28 Libra.")
         planetName="Mercury"
         centricityType="geocentric"
         longitudeType="tropical"
-        referenceDt = datetime.datetime(1968, 5, 10, 0, 0, tzinfo=pytz.utc)
+        referenceDt = datetime.datetime(1969, 11, 1, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = -360
 
         resultDts = \
@@ -1874,7 +1932,163 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
-        print("Expected  num results == ")
+        print("  Expected  num results == 3")
+        print("  Expected resultDts[0] == 1968-11-07 16:05:41.894530+00:00")
+        print("  Expected resultDts[1] == 1968-10-09 15:01:36.240233+00:00")
+        print("  Expected resultDts[2] == 1968-09-26 13:28:07.939452+00:00")
+
+    if True:
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mercury moving -5 degrees.  3 Scorp to 28 Libra.")
+        planetName="Mercury"
+        centricityType="geocentric"
+        longitudeType="tropical"
+        referenceDt = datetime.datetime(1968, 11, 11, 0, 0, tzinfo=pytz.utc)
+        desiredDeltaDegrees = -5
+
+        resultDts = \
+            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
+                planetName, centricityType, longitudeType, referenceDt, 
+                desiredDeltaDegrees)
+
+        printDatetimeResults(resultDts, planetName, centricityType, 
+                             longitudeType, referenceDt, desiredDeltaDegrees)
+
+        print("  Expected  num results == 3")
+        print("  Expected resultDts[0] == 1968-11-07 16:29:03.310546+00:00")
+        print("  Expected resultDts[1] == 1968-10-09 14:18:25.664061+00:00")
+        print("  Expected resultDts[2] == 1968-09-26 14:21:50.009764+00:00")
+
+    if True:
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mercury moving -5 degrees.  Retrograde 26 Libra to 21 Libra direct.")
+        planetName="Mercury"
+        centricityType="geocentric"
+        longitudeType="tropical"
+        referenceDt = datetime.datetime(1968, 10, 12, 0, 0, tzinfo=pytz.utc)
+        desiredDeltaDegrees = -5
+
+        resultDts = \
+            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
+                planetName, centricityType, longitudeType, referenceDt, 
+                desiredDeltaDegrees)
+
+        printDatetimeResults(resultDts, planetName, centricityType, 
+                             longitudeType, referenceDt, desiredDeltaDegrees)
+
+        print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1968-09-18 07:05:23.437499+00:00")
+
+    if True:
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mercury moving -5 degrees.  Direct 26 Libra to 21 Libra direct.")
+        planetName="Mercury"
+        centricityType="geocentric"
+        longitudeType="tropical"
+        referenceDt = datetime.datetime(1968, 9, 23, 0, 0, tzinfo=pytz.utc)
+        desiredDeltaDegrees = -5
+
+        resultDts = \
+            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
+                planetName, centricityType, longitudeType, referenceDt, 
+                desiredDeltaDegrees)
+
+        printDatetimeResults(resultDts, planetName, centricityType, 
+                             longitudeType, referenceDt, desiredDeltaDegrees)
+
+        print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1968-09-17 20:48:15.996093+00:00")
+
+
+    if True:
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Moon moving 22 rev. Point E to Point A.  From about 0 Taurus to 0 Taurus.")
+        planetName="Moon"
+        centricityType="geocentric"
+        longitudeType="tropical"
+        referenceDt = datetime.datetime(1981, 1, 13, 22, 0, tzinfo=pytz.utc)
+        desiredDeltaDegrees = -360 * 22
+
+        resultDts = \
+            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
+                planetName, centricityType, longitudeType, referenceDt, 
+                desiredDeltaDegrees)
+
+        printDatetimeResults(resultDts, planetName, centricityType, 
+                             longitudeType, referenceDt, desiredDeltaDegrees)
+
+        print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1979-05-23 11:35:54.638665+00:00")
+
+    if True:
+        print("  ------------------------------------------------------------")
+        print("  Testing H.Venus moving 22 rev. Point E to Point A.  From about 18 Aries to 18 Aries.")
+        planetName="Venus"
+        centricityType="heliocentric"
+        longitudeType="tropical"
+        referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
+        desiredDeltaDegrees = -360 * 22
+
+        resultDts = \
+            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
+                planetName, centricityType, longitudeType, referenceDt, 
+                desiredDeltaDegrees)
+
+        printDatetimeResults(resultDts, planetName, centricityType, 
+                             longitudeType, referenceDt, desiredDeltaDegrees)
+
+        print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1981-04-07 16:53:55.922122+00:00")
+
+    if True:
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mars moving invalid input: positive degrees.")
+        planetName="Mars"
+        centricityType="geocentric"
+        longitudeType="tropical"
+        referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
+        desiredDeltaDegrees = 50
+
+        exceptionThrownFlag = False
+        try: 
+            resultDts = \
+                LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
+                    planetName, centricityType, longitudeType, referenceDt, 
+                    desiredDeltaDegrees)
+    
+            printDatetimeResults(resultDts, planetName, centricityType, 
+                                 longitudeType, referenceDt, desiredDeltaDegrees)
+        except ValueError as e:
+            exceptionThrownFlag = True
+
+        if exceptionThrownFlag == False:
+            print("  Test Failure: Exception was not thrown as expected.")
+        else:
+            print("  Test Success: Exception was thrown as expected.")
+                
+
+    if True:
+        print("  ------------------------------------------------------------")
+        print("  Testing G.Mars moving 0 degrees into the past.")
+        planetName="Mars"
+        centricityType="geocentric"
+        longitudeType="tropical"
+        referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
+        desiredDeltaDegrees = 0
+
+        resultDts = \
+            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
+                planetName, centricityType, longitudeType, referenceDt, 
+                desiredDeltaDegrees)
+    
+        printDatetimeResults(resultDts, planetName, centricityType, 
+                             longitudeType, referenceDt, desiredDeltaDegrees)
+                
+        print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1994-10-19 23:59:58.681640+00:00")
+
+
+    print("")
 
 
 def testLookbackMultiplePanelWidget():
@@ -1992,7 +2206,7 @@ if __name__=="__main__":
 
     # Various tests to run:
     #testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture()
-    testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast()
+    #testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast()
     #testLookbackMultiplePanelWidget()
     #testLookbackMultiplePanelWidgetEmpty()
 
