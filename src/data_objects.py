@@ -130,6 +130,17 @@ class Util:
         return rv
             
     @staticmethod
+    def absTd(timedelta):
+        """Returns the absolute value of this datetime.timedelta object.
+        This is to ensure timedeltas are positive for comparison purposes.
+        """
+        
+        if timedelta < datetime.timedelta(0):
+            return timedelta * -1
+        else:
+            return timedelta
+        
+    @staticmethod
     def fuzzyIsEqual(f1, f2, maxDiff=0.00000001):
         """Fuzzy test for floating point values being equal.
         
