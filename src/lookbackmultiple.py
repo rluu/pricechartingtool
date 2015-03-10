@@ -97,6 +97,7 @@ class LookbackMultipleUtils:
 
             errMsg = "Invalid input: centricityType is invalid.  " + \
                       "Value given was: {}".format(centricityTypeOrig)
+            LookbackMultipleUtils.log.error(errMsg)
             raise ValueError(errMsg)
 
         longitudeTypeOrig = longitudeType
@@ -106,12 +107,14 @@ class LookbackMultipleUtils:
 
             errMsg = "Invalid input: longitudeType is invalid.  " + \
                       "Value given was: {}".format(longitudeTypeOrig)
+            LookbackMultipleUtils.log.error(errMsg)
             raise ValueError(errMsg)
 
         if desiredDeltaDegrees < 0:
             errMsg = "Invalid input: " + \
                       "desiredDeltaDegrees must be a positive value.  " + \
                       "Value given was: {}".format(desiredDeltaDegrees)
+            LookbackMultipleUtils.log.error(errMsg)
             raise ValueError(errMsg)
 
         # Field name we are getting.
@@ -597,6 +600,7 @@ class LookbackMultipleUtils:
 
             errMsg = "Invalid input: centricityType is invalid.  " + \
                       "Value given was: {}".format(centricityTypeOrig)
+            LookbackMultipleUtils.log.error(errMsg)
             raise ValueError(errMsg)
 
         longitudeTypeOrig = longitudeType
@@ -606,12 +610,14 @@ class LookbackMultipleUtils:
 
             errMsg = "Invalid input: longitudeType is invalid.  " + \
                       "Value given was: {}".format(longitudeTypeOrig)
+            LookbackMultipleUtils.log.error(errMsg)
             raise ValueError(errMsg)
 
         if desiredDeltaDegrees > 0:
             errMsg = "Invalid input: " + \
                       "desiredDeltaDegrees must be a negative value.  " + \
                       "Value given was: {}".format(desiredDeltaDegrees)
+            LookbackMultipleUtils.log.error(errMsg)
             raise ValueError(errMsg)
 
         # Field name we are getting.
@@ -1072,10 +1078,12 @@ class LookbackMultipleUtils:
         # losing data points if our step size is too big.  We just have to keep
         # the step size to lower than 120 degrees.  Here, I'll just
         # use some overly safe values, because planets move a different speeds
-        # due to their elliptical orbits
+        # due to their elliptical orbits.
         if centricityType == "geocentric":
             if planetName == "Moon":
-                stepSizeTd = datetime.timedelta(days=1)
+                stepSizeTd = datetime.timedelta(days=3)
+            elif planetName == "MoSu":
+                stepSizeTd = datetime.timedelta(days=3)
             elif planetName == "Sun":
                 stepSizeTd = datetime.timedelta(days=40)
         elif centricityType == "heliocentric":
@@ -1366,6 +1374,12 @@ class LookbackMultiplePanelWidget(QWidget):
         planetNameStr = lm.getPlanetName()
         lookbackMultipleStr = "{}".format(lm.getLookbackMultiple())
         
+        longitudeTypeStr = ""
+        if lm.getTropicalFlag() == True:
+            longitudeTypeStr = "Trop."
+        if lm.getSiderealFlag() == True:
+            longitudeTypeStr = "Sid."
+            
         baseUnitStr = "{}".format(lm.getBaseUnit())
 
         baseUnitTypeStr = ""
@@ -1379,9 +1393,10 @@ class LookbackMultiplePanelWidget(QWidget):
         formattedText += "Name: {}".format(lm.getName()) + endl
         formattedText += "Enabled: {}".format(lm.getEnabled()) + endl
         formattedText += \
-            "Summary: {}{} {} x {} {}".\
+            "Summary: {}{} {} {} x {} {}".\
             format(centricityTypeStr, 
                    planetNameStr, 
+                   longitudeTypeStr,
                    lookbackMultipleStr, 
                    baseUnitStr, 
                    baseUnitTypeStr) + endl
@@ -2104,7 +2119,9 @@ def testLookbackMultiplePanelWidget():
                           enabled=False,
                           planetName="Ascendant",
                           geocentricFlag=True,
-                          heliocentricFlag=False)
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
 
     lm2 = LookbackMultiple(name="40 deg Earth",
                           description="MyDescription2",
@@ -2116,7 +2133,9 @@ def testLookbackMultiplePanelWidget():
                           enabled=True,
                           planetName="Earth",
                           geocentricFlag=False,
-                          heliocentricFlag=True)
+                          heliocentricFlag=True,
+                          tropicalFlag=True,
+                          siderealFlag=False)
 
     lm3 = LookbackMultiple(name="360 deg Moon",
                           description="MyDescription3",
@@ -2128,7 +2147,9 @@ def testLookbackMultiplePanelWidget():
                           enabled=True,
                           planetName="Moon",
                           geocentricFlag=True,
-                          heliocentricFlag=False)
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
 
     lm4 = LookbackMultiple(name="360 deg G.MoSu",
                           description="MyDescription4",
@@ -2140,7 +2161,9 @@ def testLookbackMultiplePanelWidget():
                           enabled=True,
                           planetName="MoSu",
                           geocentricFlag=True,
-                          heliocentricFlag=False)
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
 
     lookbackMultiples = [lm1, lm2, lm3, lm4]
 

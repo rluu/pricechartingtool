@@ -3,7 +3,6 @@
 Outstanding things to work on going forward:
 
 TODOs for cycle hunter features:
-
   - LookbackMultiplePriceBar  - NEED TO CONFIRM CORRECT/COMPLETE.
     - Reference to the closest historic PriceBar
     - Reference to the LookbackMultiple.
@@ -34,19 +33,25 @@ TODOs for cycle hunter features:
 
   - Menu items (QActions, perhaps icons for these too):
     - Lookback multiple
-      - Edit list of lookback multiples.
-         - Sets dirty flag of the PCD if the edit dialog is accepted 
-           (i.e. any mods accepted).
-      - Enable LookbackMultiple panel.
       - Enable LookbackMultiple datetime table.
       - Enable LookbackMultiple datetime table mouse tracking.
+DONE      - Edit list of lookback multiples.
+DONE         - Sets dirty flag of the PCD if the edit dialog is accepted 
+DONE           (i.e. any mods accepted).
+DONE      - Enable LookbackMultiple panel.
 
+
+DONE  - Add fields to LookbackMultiple:
+DONE    - longitudeTypeTropicalFlag or tropicalLongitudeFlag
+DONE    - longitudeTypeSiderealFlag or siderealLongitudeFlag
+DONE
+DONE    - Update edit widgets/dialogs, etc., and uses of them.
+DONE    - Update tests of widgets.
 
 
 DONE  - LookbackMultiplePriceBar edit and dialog widgets.
-
 DONE    - List of LookbackMultiples.
-DONE      - Displays enable checkbox.  (checking will set dirty flag of the PCD).
+DONE      - Displays enable checkbox. (checking will set dirty flag of the PCD).
 DONE      - Displays short name of the lookback multiple. 
 
 ##############################################################################

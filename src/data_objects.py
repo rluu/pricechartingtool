@@ -16798,7 +16798,9 @@ class LookbackMultiple:
                  enabled=False,
                  planetName="Sun",
                  geocentricFlag=True,
-                 heliocentricFlag=False
+                 heliocentricFlag=False,
+                 tropicalFlag=True,
+                 siderealFlag=False
                  ):
         """Initializes the member variables to the values specified as
         arguments.
@@ -16858,6 +16860,16 @@ class LookbackMultiple:
                          measurements.  If this value is True, then
                          geocentricFlag must be False.  If this value
                          is False, then geocentricFlag must be True.
+
+        tropicalFlag - boolean flag that indicates that the measurements 
+                       are using the tropical zodiac.  If this value 
+                       is True then siderealFlag must be False.  
+                       If this value is False, then siderealFlag must be True.
+
+        siderealFlag - boolean flag that indicates that the measurements 
+                       are using sidereal zodiac.  If this value
+                       is True then tropicalFlag must be False.
+                       If this value is False then tropicalFlag must be True.
         """
 
         # Set the version of this class (used for pickling and unpickling
@@ -16896,7 +16908,17 @@ class LookbackMultiple:
             self.log.error("Invalid planet name given: '{}'".format(planetName))
             return
 
-        
+        if tropicalFlag == None or siderealFlag == None or \
+            tropicalFlag == siderealFlag:
+
+            self.log.error("Invalid parameters.  " +
+                           "zodiac type for the longitude " + 
+                           "measurements must be " +
+                           "either tropical or sidereal.")
+            self.log.error("tropicalFlag == {}".format(tropicalFlag))
+            self.log.error("siderealFlag == {}".format(siderealFlag))
+            return
+
         # Display name.  (str)
         self.name = name
 
@@ -16929,6 +16951,14 @@ class LookbackMultiple:
 
         # Flag that indicates to use heliocentric planet measurements. (boolean)
         self.heliocentricFlag = heliocentricFlag
+
+        # Flag that indicates to use the tropical zodiac for longitude
+        # measurements. (boolean)
+        self.tropicalFlag = tropicalFlag
+
+        # Flag that indicates to use the sidereal zodiac for longitude
+        # measurements. (boolean)
+        self.siderealFlag = siderealFlag
 
 
     def getName(self):
@@ -17125,16 +17155,51 @@ class LookbackMultiple:
         self.heliocentricFlag = heliocentricFlag
         self.geocentricFlag = not heliocentricFlag
         
-        
+    def getTropicalFlag(self):
+        """Returns the boolean flag that indicates that the tropical
+        zodiac should be used for longitude measurements.
+        """
+
+        return self.tropicalFlag
+
+    def setTropicalFlag(self, tropicalFlag):
+        """Sets the boolean flag that indicates that the tropical
+        zodiac should be used for longitude measurements.
+
+        Note: Setting this flag will automatically set the
+        siderealFlag to the opposite of this value.
+        """
+
+        self.tropicalFlag = tropicalFlag
+        self.siderealFlag = not tropicalFlag
+
+    def getSiderealFlag(self):
+        """Returns the boolean flag that indicates that the sidereal
+        zodiac should be used for longitude measurements.
+        """
+
+        return self.siderealFlag
+
+    def setSiderealFlag(self, siderealFlag):
+        """Sets the boolean flag that indicates that the sidereal
+        zodiac should be used for longitude measurements.
+
+        Note: Setting this flag will automatically set the
+        tropicalFlag to the opposite of this value.
+        """
+
+        self.siderealFlag = siderealFlag
+        self.tropicalFlag = not siderealFlag
+
     def toShortString(self):
         """Returns a short str representation of only some of the member
         variables of this object.
 
         The returned string is in the format of:
         
-            MyName (G.Mars 3 x 1 rev.)
-            MyName (G.MoSu 7 x 360 deg.)
-            MyName (H.Venus 1.618 x 360 deg.)
+            MyName (G.Mars Trop. 3 x 1 rev.)
+            MyName (G.MoSu Trop. 7 x 360 deg.)
+            MyName (H.Venus Sid. 1.618 x 360 deg.)
         """
 
         nameStr = self.name
@@ -17148,6 +17213,12 @@ class LookbackMultiple:
         planetNameStr = self.planetName
         lookbackMultipleStr = "{}".format(self.lookbackMultiple)
         
+        longitudeTypeStr = ""
+        if self.tropicalFlag == True:
+            longitudeTypeStr = "Trop."
+        if self.siderealFlag == True:
+            longitudeTypeStr = "Sid."
+            
         baseUnitStr = "{}".format(self.baseUnit)
 
         baseUnitTypeStr = ""
@@ -17157,10 +17228,11 @@ class LookbackMultiple:
             baseUnitTypeStr = "rev."
 
         # Return value.
-        rv = "{} ({}{} {} x {} {})".\
+        rv = "{} ({}{} {} {} x {} {})".\
             format(nameStr, 
                    centricityTypeStr, 
                    planetNameStr, 
+                   longitudeTypeStr,
                    lookbackMultipleStr, 
                    baseUnitStr, 
                    baseUnitTypeStr)
@@ -17227,6 +17299,12 @@ class LookbackMultiple:
             rv = False
         if leftObj.heliocentricFlag != rightObj.heliocentricFlag:
             self.log.debug("heliocentricFlag differs.")
+            rv = False
+        if leftObj.tropicalFlag != rightObj.tropicalFlag:
+            self.log.debug("tropicalFlag differs.")
+            rv = False
+        if leftObj.siderealFlag != rightObj.siderealFlag:
+            self.log.debug("siderealFlag differs.")
             rv = False
 
         self.log.debug("__eq__() returning: {}".format(rv))

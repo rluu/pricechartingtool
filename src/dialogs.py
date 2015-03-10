@@ -38360,6 +38360,14 @@ class LookbackMultipleEditWidget(QWidget):
         self.centricityTypeComboBox.addItem("Heliocentric")
         self.centricityTypeComboBox.setCurrentIndex(0)
         
+        # tropicalFlag (bool).
+        # siderealFlag (bool).
+        self.longitudeTypeLabel = QLabel("Longitude type:")
+        self.longitudeTypeComboBox = QComboBox()
+        self.longitudeTypeComboBox.addItem("Tropical")
+        self.longitudeTypeComboBox.addItem("Sidereal")
+        self.longitudeTypeComboBox.setCurrentIndex(0)
+        
         # Form layout.
         self.formLayout = QFormLayout()
         self.formLayout.setLabelAlignment(Qt.AlignLeft)
@@ -38378,6 +38386,8 @@ class LookbackMultipleEditWidget(QWidget):
                                self.planetNameComboBox)
         self.formLayout.addRow(self.centricityTypeLabel,
                                self.centricityTypeComboBox)
+        self.formLayout.addRow(self.longitudeTypeLabel,
+                               self.longitudeTypeComboBox)
         
         self.groupBox.setLayout(self.formLayout)
 
@@ -38458,6 +38468,13 @@ class LookbackMultipleEditWidget(QWidget):
             self.centricityTypeComboBox.setCurrentIndex(\
                 self.centricityTypeComboBox.findText("Heliocentric"))
 
+        if self.lookbackMultiple.getTropicalFlag() == True:
+            self.longitudeTypeComboBox.setCurrentIndex(\
+                self.longitudeTypeComboBox.findText("Tropical"))
+        if self.lookbackMultiple.getSiderealFlag() == True:
+            self.longitudeTypeComboBox.setCurrentIndex(\
+                self.longitudeTypeComboBox.findText("Sidereal"))
+
         self.log.debug("Exiting loadLookbackMultiple()")
         
     def saveLookbackMultiple(self):
@@ -38482,14 +38499,30 @@ class LookbackMultipleEditWidget(QWidget):
             self.lookbackMultiple.setBaseUnitTypeRevolutionsFlag(True)
 
         self.lookbackMultiple.setColor(self.colorEditButton.getColor())
+
+        if self.enabledCheckBox.checkState() == Qt.Checked:
+            self.lookbackMultiple.setEnabled(True)
+        else:
+            self.lookbackMultiple.setEnabled(False)
+
         self.lookbackMultiple.setPlanetName(\
             self.planetNameComboBox.currentText())
+
         if self.centricityTypeComboBox.currentText() == "Geocentric":
             self.lookbackMultiple.setGeocentricFlag(True)
             self.lookbackMultiple.setHeliocentricFlag(False)
+
         if self.centricityTypeComboBox.currentText() == "Heliocentric":
             self.lookbackMultiple.setGeocentricFlag(False)
             self.lookbackMultiple.setHeliocentricFlag(True)
+
+        if self.longitudeTypeComboBox.currentText() == "Tropical":
+            self.lookbackMultiple.setTropicalFlag(True)
+            self.lookbackMultiple.setSiderealFlag(False)
+
+        if self.longitudeTypeComboBox.currentText() == "Sidereal":
+            self.lookbackMultiple.setTropicalFlag(False)
+            self.lookbackMultiple.setSiderealFlag(True)
 
         self.log.debug("Exiting saveLookbackMultiple()")
 
@@ -38652,6 +38685,9 @@ class LookbackMultipleListEditWidget(QWidget):
         self.selectedLookbackMultipleCentricityTypeLabel = QLabel("Centricity type:")
         self.selectedLookbackMultipleCentricityTypeValueLabel = QLabel()
 
+        self.selectedLookbackMultipleLongitudeTypeLabel = QLabel("Longitude type:")
+        self.selectedLookbackMultipleLongitudeTypeValueLabel = QLabel()
+
         # Grid layout.  
         self.selectedLookbackMultipleGridLayout = QGridLayout()
 
@@ -38705,6 +38741,11 @@ class LookbackMultipleListEditWidget(QWidget):
             addWidget(self.selectedLookbackMultipleCentricityTypeLabel, r, 0, al)
         self.selectedLookbackMultipleGridLayout.\
             addWidget(self.selectedLookbackMultipleCentricityTypeValueLabel, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleLongitudeTypeLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleLongitudeTypeValueLabel, r, 1, al)
         r += 1
 
         self.selectedLookbackMultipleGroupBox.\
@@ -38866,6 +38907,7 @@ class LookbackMultipleListEditWidget(QWidget):
         self.selectedLookbackMultipleEnabledCheckBox.setCheckState(Qt.Unchecked)
         self.selectedLookbackMultiplePlanetNameValueLabel.setText("")
         self.selectedLookbackMultipleCentricityTypeValueLabel.setText("")
+        self.selectedLookbackMultipleLongitudeTypeValueLabel.setText("")
 
     def _populateSelectedLookbackMultipleWidgets(self, lookbackMultiple):
         """Populates the widgets that display the currently 
@@ -38916,6 +38958,14 @@ class LookbackMultipleListEditWidget(QWidget):
         if lookbackMultiple.getHeliocentricFlag() == True:
             self.selectedLookbackMultipleCentricityTypeValueLabel.\
                 setText("Heliocentric")
+
+        self.selectedLookbackMultipleLongitudeTypeValueLabel.setText("")
+        if lookbackMultiple.getTropicalFlag() == True:
+            self.selectedLookbackMultipleLongitudeTypeValueLabel.\
+                setText("Tropical")
+        if lookbackMultiple.getSiderealFlag() == True:
+            self.selectedLookbackMultipleLongitudeTypeValueLabel.\
+                setText("Sidereal")
 
     def _appendLookbackMultipleAsListWidgetItem(self, 
                                        lookbackMultiple, 
@@ -60149,6 +60199,9 @@ class LookbackMultiplePriceBarEditWidget(QWidget):
         self.lookbackMultipleCentricityTypeLabel = QLabel("Centricity type:")
         self.lookbackMultipleCentricityTypeValueLabel = QLabel()
 
+        self.lookbackMultipleLongitudeTypeLabel = QLabel("Longitude type:")
+        self.lookbackMultipleLongitudeTypeValueLabel = QLabel()
+
         # Grid layout.  
         self.lookbackMultipleGridLayout = QGridLayout()
 
@@ -60202,6 +60255,11 @@ class LookbackMultiplePriceBarEditWidget(QWidget):
             addWidget(self.lookbackMultipleCentricityTypeLabel, r, 0, al)
         self.lookbackMultipleGridLayout.\
             addWidget(self.lookbackMultipleCentricityTypeValueLabel, r, 1, al)
+        r += 1
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleLongitudeTypeLabel, r, 0, al)
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleLongitudeTypeValueLabel, r, 1, al)
         r += 1
 
         lookbackMultipleLayout = QVBoxLayout()
@@ -60262,6 +60320,14 @@ class LookbackMultiplePriceBarEditWidget(QWidget):
         if lookbackMultiple.getHeliocentricFlag() == True:
             self.lookbackMultipleCentricityTypeValueLabel.\
                 setText("Heliocentric")
+
+        self.lookbackMultipleLongitudeTypeValueLabel.setText("")
+        if lookbackMultiple.getTropicalFlag() == True:
+            self.lookbackMultipleLongitudeTypeValueLabel.\
+                setText("Tropical")
+        if lookbackMultiple.getSiderealFlag() == True:
+            self.lookbackMultipleLongitudeTypeValueLabel.\
+                setText("Sidereal")
 
 
     def setReadOnly(self, readOnlyFlag):
@@ -60658,7 +60724,9 @@ def testLookbackMultipleEditDialog():
                           enabled=False,
                           planetName="Ascendant",
                           geocentricFlag=True,
-                          heliocentricFlag=False)
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
 
     print("LookbackMultiple before: {}".format(lm))
     
@@ -60688,7 +60756,9 @@ def testLookbackMultipleListEditDialog():
                           enabled=False,
                           planetName="Ascendant",
                           geocentricFlag=True,
-                          heliocentricFlag=False)
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
 
     lm2 = LookbackMultiple(name="40 deg Earth",
                           description="MyDescription2",
@@ -60700,7 +60770,9 @@ def testLookbackMultipleListEditDialog():
                           enabled=True,
                           planetName="Earth",
                           geocentricFlag=False,
-                          heliocentricFlag=True)
+                          heliocentricFlag=True,
+                          tropicalFlag=True,
+                          siderealFlag=False)
 
     lm3 = LookbackMultiple(name="360 deg Moon",
                           description="MyDescription3",
@@ -60712,7 +60784,9 @@ def testLookbackMultipleListEditDialog():
                           enabled=True,
                           planetName="Moon",
                           geocentricFlag=True,
-                          heliocentricFlag=False)
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
 
     lm4 = LookbackMultiple(name="360 deg G.MoSu",
                           description="MyDescription4",
@@ -60724,7 +60798,9 @@ def testLookbackMultipleListEditDialog():
                           enabled=True,
                           planetName="MoSu",
                           geocentricFlag=True,
-                          heliocentricFlag=False)
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
 
     lookbackMultiples = [lm1, lm2, lm3, lm4]
 
@@ -60890,7 +60966,9 @@ def testLookbackMultiplePriceBarEditDialog():
                           enabled=False,
                           planetName="Ascendant",
                           geocentricFlag=True,
-                          heliocentricFlag=False)
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
 
     historicPriceBarTags = ["HH", "L", "LLLL", "HappyTag"]
     historicPriceBarTimestamp = \
