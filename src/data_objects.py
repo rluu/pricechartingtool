@@ -3215,6 +3215,824 @@ class MusicalRatio(Ratio):
                        " object of version {}".format(self.classVersion))
 
 
+class LookbackMultiple:
+    """Contains data and parameters for the amount of time to look
+    back when drawing or comparing past PriceBar data to current
+    present PriceBar data.
+    """
+
+    def __init__(self,
+                 name="",
+                 description="",
+                 lookbackMultiple=1.0,
+                 baseUnit=1.0,
+                 baseUnitTypeDegreesFlag=False,
+                 baseUnitTypeRevolutionsFlag=True,
+                 color=QColor(Qt.blue),
+                 enabled=False,
+                 planetName="Sun",
+                 geocentricFlag=True,
+                 heliocentricFlag=False,
+                 tropicalFlag=True,
+                 siderealFlag=False
+                 ):
+        """Initializes the member variables to the values specified as
+        arguments.
+
+        The lookback period of time is determined by multiplying,
+        depending on whether the baseUnit is in degrees or in
+        revolutions:
+        
+            lookbackMultiple * baseUnit * 1.0
+            lookbackMultiple * baseUnit * 360.0
+
+        Arguments:
+        
+        name     - str value for the name of the LookbackMultiple.
+                   This is the display name used in the UI.
+    
+        description - str value for the description of the LookbackMultiple.
+
+        lookbackMultiple - float value for the multiple to look back.
+        
+        baseUnit - float value for the base unit to look back.
+        
+        baseUnitTypeDegreesFlag - boolean for indicating that the
+                                  baseUnit is in degrees.  If this
+                                  value if True, then
+                                  baseUnitTypeRevolutionsFlag must be
+                                  False.  If this value is False, then
+                                  baseUnitTypeRevolutionsFlag must be
+                                  True.
+        
+        baseUnitTypeRevolutionsFlag - boolean for indicating that the
+                                      baseUnit is in revolutions.  If
+                                      this value is True, then
+                                      baseUnitTypeDegreesFlag must be
+                                      False.  If this value is False,
+                                      then baseUnitTypeDegreesFlag
+                                      must be True.
+
+        color - QColor object holding the color that will be used to
+                draw the PriceBars of the past history.
+
+        enabled - boolean for whether this LookbackMultiple is enabled
+                  or disabled.  An enabled LookbackMultiple is drawn.
+        
+        planetName - str value holding a valid planet name (from
+                     Ephemeris.py) to use for the looking back in time.
+        
+        geocentricFlag - boolean flag indicating that the lookback is
+                         to be done with geocentric planet
+                         measurements.  If this value is True, then
+                         heliocentricFlag must be False.  If this
+                         value is False, then heliocentricFlag must be
+                         True.
+        
+        heliocentricFlag - boolean flag indicating that the lookback
+                         is to be done with heliocentric planet
+                         measurements.  If this value is True, then
+                         geocentricFlag must be False.  If this value
+                         is False, then geocentricFlag must be True.
+
+        tropicalFlag - boolean flag that indicates that the measurements 
+                       are using the tropical zodiac.  If this value 
+                       is True then siderealFlag must be False.  
+                       If this value is False, then siderealFlag must be True.
+
+        siderealFlag - boolean flag that indicates that the measurements 
+                       are using sidereal zodiac.  If this value
+                       is True then tropicalFlag must be False.
+                       If this value is False then tropicalFlag must be True.
+        """
+
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = logging.getLogger("data_objects.LookbackMultiple")
+
+        # Validate input.
+
+        if baseUnitTypeDegreesFlag == None or \
+           baseUnitTypeRevolutionsFlag == None or \
+           baseUnitTypeDegreesFlag == baseUnitTypeRevolutionsFlag:
+            self.log.error("Invalid parameters.  " +
+                           "Base Planet for the LookbackMulitple must be " +
+                           "either geocentric or heliocentric.")
+            self.log.error("baseUnitTypeDegreesFlag == {}".
+                           format(baseUnitTypeDegreesFlag))
+            self.log.error("baseUnitTypeRevolutionsFlag == {}".
+                           format(baseUnitTypeRevolutionsFlag))
+            return
+            
+        if geocentricFlag == None or heliocentricFlag == None or \
+               geocentricFlag == heliocentricFlag:
+            self.log.error("Invalid parameters.  " +
+                           "Planet for the LookbackMulitple must be " +
+                           "either geocentric or heliocentric.")
+            self.log.error("geocentricFlag == {}".format(geocentricFlag))
+            self.log.error("heliocentricFlag == {}".format(heliocentricFlag))
+            return
+        
+        if planetName == "" or \
+                planetName not in Ephemeris.getSupportedPlanetNamesList():
+
+            self.log.error("Invalid planet name given: '{}'".format(planetName))
+            return
+
+        if tropicalFlag == None or siderealFlag == None or \
+            tropicalFlag == siderealFlag:
+
+            self.log.error("Invalid parameters.  " +
+                           "zodiac type for the longitude " + 
+                           "measurements must be " +
+                           "either tropical or sidereal.")
+            self.log.error("tropicalFlag == {}".format(tropicalFlag))
+            self.log.error("siderealFlag == {}".format(siderealFlag))
+            return
+
+        # Display name.  (str)
+        self.name = name
+
+        # Description.  (str)
+        self.description = description
+
+        # Multiple.  (float)
+        self.lookbackMultiple = lookbackMultiple
+
+        # Base unit that gets multipled to the lookback multiple.
+        self.baseUnit = baseUnit
+        
+        # Flag that indicates the base unit is in units degrees.
+        self.baseUnitTypeDegreesFlag = baseUnitTypeDegreesFlag
+        
+        # Flag that indicates the base unit is in units revolutions.
+        self.baseUnitTypeRevolutionsFlag = baseUnitTypeRevolutionsFlag
+        
+        # Color to draw the past history.  (QColor)
+        self.color = color
+
+        # Enabled flag.  (boolean)
+        self.enabled = enabled
+
+        # Planet name of the planet to use for looking back.  (str)
+        self.planetName = planetName
+
+        # Flag that indicates to use geocentric planet measurements. (boolean)
+        self.geocentricFlag = geocentricFlag
+
+        # Flag that indicates to use heliocentric planet measurements. (boolean)
+        self.heliocentricFlag = heliocentricFlag
+
+        # Flag that indicates to use the tropical zodiac for longitude
+        # measurements. (boolean)
+        self.tropicalFlag = tropicalFlag
+
+        # Flag that indicates to use the sidereal zodiac for longitude
+        # measurements. (boolean)
+        self.siderealFlag = siderealFlag
+
+
+    def getName(self):
+        """Returns the display name of the LookbackMultiple."""
+        
+        return self.name
+
+    def setName(self, name):
+        """Sets the display name of the LookbackMultiple.
+
+        Arguments:
+        name - str value represneting the name of the LookbackMultiple."
+        """
+
+        self.name = name
+
+    def getDescription(self):
+        """Returns the description of the LookbackMultiple."""
+        
+        return self.description
+
+    def setDescription(self, description):
+        """Sets the description of the LookbackMultiple.
+
+        Arguments:
+        description - str value representing the description of the 
+                      LookbackMultiple.
+        """
+
+        self.description = description
+
+    def getLookbackMultiple(self):
+        """Returns the multiple of time to look backwards in time."""
+
+        return self.lookbackMultiple
+
+    def setLookbackMultiple(self, lookbackMultiple):
+        """Sets the multiple of time to look backwards in time.
+
+        Arguments:
+        lookbackMultiple - float value representing the multiple of
+                           time to look backwards.
+        """
+
+        self.lookbackMultiple = lookbackMultiple
+
+    def getBaseUnit(self):
+        """Returns the base unit multiple to look back in time."""
+
+        return self.baseUnit
+    
+    def setBaseUnit(self, baseUnit):
+        """Sets the base unit multiple to look back in time.
+
+        Arguments:
+        baseUnit - float value for the base unit to look back.
+        """
+
+        self.baseUnit = baseUnit
+
+    def getBaseUnitTypeDegreesFlag(self):
+        """Returns the boolean flag that indicates whether or not the
+        baseUnit is in degrees.
+        """
+
+        return self.baseUnitTypeDegreesFlag
+
+    def setBaseUnitTypeDegreesFlag(self, baseUnitTypeDegreesFlag):
+        """Sets the boolean flag that indicates whether or not the
+        baseUnit is in degrees.
+
+        Note: Setting this flag will automatically set the
+        baseUnitTypeRevolutionsFlag to the opposite of this value.
+
+        Arguments:
+        baseUnitTypeDegreesFlag - boolean value for indicating that the
+                                  baseUnit is in degrees.  
+        """
+
+        self.baseUnitTypeDegreesFlag = baseUnitTypeDegreesFlag
+        self.baseUnitTypeRevolutionsFlag = not baseUnitTypeDegreesFlag
+
+    def getBaseUnitTypeRevolutionsFlag(self):
+        """Returns the boolean flag that indicates whether or not the
+        baseUnit is in revolutions.
+        """
+
+        return self.baseUnitTypeRevolutionsFlag
+
+    def setBaseUnitTypeRevolutionsFlag(self, baseUnitTypeRevolutionsFlag):
+        """Sets the boolean flag that indicates whether or not the
+        baseUnit is in revolutions.
+
+        Note: Setting this flag will automatically set the
+        baseUnitTypeDegreesFlag to the opposite of this value.
+
+        Arguments:
+        baseUnitTypeRevolutionsFlag - boolean value for indicating that the
+                                  baseUnit is in revolutions.  
+        """
+
+        self.baseUnitTypeRevolutionsFlag = baseUnitTypeRevolutionsFlag
+        self.baseUnitTypeDegreesFlag = not baseUnitTypeRevolutionsFlag
+
+
+    def getColor(self):
+        """Returns the color of the PriceBars for the lookback multiple, as
+        a QColor object.
+        """
+
+        return self.color
+        
+    def setColor(self, color):
+        """Sets the color of the PriceBars for the lookback multiple.
+
+        Arguments:
+        color - QColor object holding the color that will be used to
+                draw the PriceBars of the past history.
+        """
+
+        self.color = color
+
+    def getEnabled(self):
+        """Returns the boolean flag for whether this LookbackMultiple
+        is enabled or disabled.  An enabled LookbackMultiple is
+        drawn.
+        """
+
+        return self.enabled
+
+    def setEnabled(self, enabled):
+        """Sets the flag for whether this LookbackMultiple
+        is enabled or disabled.  An enabled LookbackMultiple is
+        drawn.
+
+        Arguments:
+        enabled - boolean for whether this LookbackMultiple is enabled
+                  or disabled.  An enabled LookbackMultiple is drawn.
+        """
+
+        self.enabled = enabled
+
+    def getPlanetName(self):
+        """Returns the name of the planet (from the list in
+        Ephemeris.py) to use for the lookback multiple.
+        """
+
+        return self.planetName
+
+    def setPlanetName(self, planetName):
+        """Sets the name of the planet (from the list in
+        Ephemeris.py) to use for the lookback multiple.
+
+        Arguments:
+        planetName - str value holding a valid planet name (from
+                     Ephemeris.py) to use for the looking back in time.
+        """
+
+        self.planetName = planetName
+        
+    def getGeocentricFlag(self):
+        """Returns the boolean flag indicating that the lookback is to
+        be done with geocentric planet measurements.
+        """
+
+        return self.geocentricFlag
+
+    def setGeocentricFlag(self, geocentricFlag):
+        """Sets the boolean flag indicating that the lookback is to
+        be done with geocentric planet measurements.
+        
+        Note: Setting this flag will automatically set the
+        heliocentricFlag to the opposite of this value.
+        """
+
+        self.geocentricFlag = geocentricFlag
+        self.heliocentricFlag = not geocentricFlag
+
+    def getHeliocentricFlag(self):
+        """Returns the boolean flag indicating that the lookback is to
+        be done with heliocentric planet measurements.
+        """
+
+        return self.heliocentricFlag
+
+    def setHeliocentricFlag(self, heliocentricFlag):
+        """Sets the boolean flag indicating that the lookback is to
+        be done with heliocentric planet measurements.
+        
+        Note: Setting this flag will automatically set the
+        geocentricFlag to the opposite of this value.
+        """
+
+        self.heliocentricFlag = heliocentricFlag
+        self.geocentricFlag = not heliocentricFlag
+        
+    def getTropicalFlag(self):
+        """Returns the boolean flag that indicates that the tropical
+        zodiac should be used for longitude measurements.
+        """
+
+        return self.tropicalFlag
+
+    def setTropicalFlag(self, tropicalFlag):
+        """Sets the boolean flag that indicates that the tropical
+        zodiac should be used for longitude measurements.
+
+        Note: Setting this flag will automatically set the
+        siderealFlag to the opposite of this value.
+        """
+
+        self.tropicalFlag = tropicalFlag
+        self.siderealFlag = not tropicalFlag
+
+    def getSiderealFlag(self):
+        """Returns the boolean flag that indicates that the sidereal
+        zodiac should be used for longitude measurements.
+        """
+
+        return self.siderealFlag
+
+    def setSiderealFlag(self, siderealFlag):
+        """Sets the boolean flag that indicates that the sidereal
+        zodiac should be used for longitude measurements.
+
+        Note: Setting this flag will automatically set the
+        tropicalFlag to the opposite of this value.
+        """
+
+        self.siderealFlag = siderealFlag
+        self.tropicalFlag = not siderealFlag
+
+    def toShortString(self):
+        """Returns a short str representation of only some of the member
+        variables of this object.
+
+        The returned string is in the format of:
+        
+            MyName (G.Mars Trop. 3 x 1 rev.)
+            MyName (G.MoSu Trop. 7 x 360 deg.)
+            MyName (H.Venus Sid. 1.618 x 360 deg.)
+        """
+
+        nameStr = self.name
+
+        centricityTypeStr = ""
+        if self.geocentricFlag == True:
+            centricityTypeStr = "G."
+        if self.heliocentricFlag == True:
+            centricityTypeStr = "H."
+            
+        planetNameStr = self.planetName
+        lookbackMultipleStr = "{}".format(self.lookbackMultiple)
+        
+        longitudeTypeStr = ""
+        if self.tropicalFlag == True:
+            longitudeTypeStr = "Trop."
+        if self.siderealFlag == True:
+            longitudeTypeStr = "Sid."
+            
+        baseUnitStr = "{}".format(self.baseUnit)
+
+        baseUnitTypeStr = ""
+        if self.baseUnitTypeDegreesFlag == True:
+            baseUnitTypeStr = "deg."
+        if self.baseUnitTypeRevolutionsFlag == True:
+            baseUnitTypeStr = "rev."
+
+        # Return value.
+        rv = "{} ({}{} {} {} x {} {})".\
+            format(nameStr, 
+                   centricityTypeStr, 
+                   planetNameStr, 
+                   longitudeTypeStr,
+                   lookbackMultipleStr, 
+                   baseUnitStr, 
+                   baseUnitTypeStr)
+        
+        return rv
+
+
+    def toString(self):
+        """Returns the string representation of most of the attributes in this
+        LookbackMultiple object.
+        """
+        
+        rv = Util.objToString(self)
+
+        return rv
+
+    def __eq__(self, other):
+        """Returns True if the two LookbackMultiples are equal."""
+        
+        rv = True
+        
+        leftObj = self
+        rightObj = other
+        
+        if rightObj == None:
+            return False
+        
+        self.log.debug("leftObj: {}".format(leftObj.toString()))
+        self.log.debug("rightObj: {}".format(rightObj.toString()))
+
+        if leftObj.classVersion != rightObj.classVersion:
+            self.log.debug("classVersion differs.")
+            rv = False
+        if leftObj.name != rightObj.name:
+            self.log.debug("name differs.")
+            rv = False
+        if leftObj.description != rightObj.description:
+            self.log.debug("description differs.")
+            rv = False
+        if leftObj.lookbackMultiple != rightObj.lookbackMultiple:
+            self.log.debug("lookbackMultiple differs.")
+            rv = False
+        if leftObj.baseUnit != rightObj.baseUnit:
+            self.log.debug("baseUnit differs.")
+            rv = False
+        if leftObj.baseUnitTypeDegreesFlag != rightObj.baseUnitTypeDegreesFlag:
+            self.log.debug("baseUnitTypeDegreesFlag differs.")
+            rv = False
+        if leftObj.baseUnitTypeRevolutionsFlag != \
+                rightObj.baseUnitTypeRevolutionsFlag:
+            self.log.debug("baseUnitTypeRevolutionsFlag differs.")
+            rv = False
+        if leftObj.color != rightObj.color:
+            self.log.debug("color differs.")
+            rv = False
+        if leftObj.enabled != rightObj.enabled:
+            self.log.debug("enabled differs.")
+            rv = False
+        if leftObj.planetName != rightObj.planetName:
+            self.log.debug("planetName differs.")
+            rv = False
+        if leftObj.geocentricFlag != rightObj.geocentricFlag:
+            self.log.debug("geocentricFlag differs.")
+            rv = False
+        if leftObj.heliocentricFlag != rightObj.heliocentricFlag:
+            self.log.debug("heliocentricFlag differs.")
+            rv = False
+        if leftObj.tropicalFlag != rightObj.tropicalFlag:
+            self.log.debug("tropicalFlag differs.")
+            rv = False
+        if leftObj.siderealFlag != rightObj.siderealFlag:
+            self.log.debug("siderealFlag differs.")
+            rv = False
+
+        self.log.debug("__eq__() returning: {}".format(rv))
+        
+        return rv
+
+    def __ne__(self, other):
+        """Returns True if the LookbackMultiples are not equal.
+        Returns False otherwise."""
+
+        return not self.__eq__(other)
+    
+    def __str__(self):
+        """Returns the string representation of most of the attributes in this
+        LookbackMultiple object.
+        """
+
+        return self.toString()
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = logging.getLogger("data_objects.LookbackMultiple")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " + LookbackMultiple.__name__ +
+                       " object of version {}".format(self.classVersion))
+
+
+class LookbackMultiplePriceBar:
+    """Contains price information for a historic period of time,
+    projected onto the current time period.
+    
+    The this class has the same information provided as member
+    variables, and methods as the regular PriceBar class, but it is not
+    a subclass of a PriceBar.  
+
+    TODO:  improve documentation and commenting here for LookbackMultiplePriceBar.
+
+    LookbackMultiplePriceBar can include the following information: 
+
+    - timestamp of the current period of time.
+    - timestamp of the historic period of time.  
+    (this is extracted from the PriceBar)
+    - PriceBar object for the price information of a historical time period.
+    - LookbackMultiple object for this LookbackMultiplePriceBar
+    """
+    
+    def __init__(self, lookbackMultiple, historicPriceBar):
+        """Initializes the PriceBar object.  
+
+# currentPriceBar - this is calculated based on the arguments given.  
+
+        Arguments are as follows: 
+TODO:  Think about what variables and information would be needed in this class. 
+        lookbackMultiple - LookbackMultiple that is associated with this LookbackMultiplePriceBar.
+        priceBar - PriceBar object that is the closest 
+        """
+
+        self.log = logging.getLogger("data_objects.LookbackMultiple")
+
+        # Class version stored for pickling and unpickling.
+        self.classVersion = 1
+
+        # Verify that neither of the inputs are None.
+        
+
+        self.lookbackMultiple = lookbackMultiple
+        self.historicPriceBar = historicPriceBar
+
+        
+        # Member variables that hold information about this particular
+        # LookbackMultiplePriceBar's information.  
+        # 
+        # The data of member variables are basically the historic PriceBar, but
+        # projected into the future by the LookbackMultiple's time period.  The
+        # price data here is not meaningful, because it is the historic
+        # PriceBar's information, but with scaling applied for charting
+        # purposes, and it is only meaningful relative to other
+        # LookbackMultiplePriceBar next to this one.
+        self.timestamp = None
+        self.open = None
+        self.high = None
+        self.low = None
+        self.close = None
+        self.oi = None
+        self.vol = None
+        self.tags = []
+
+        
+    def midPrice(self):
+        """Returns the average of the high and low.  I.e., ((high+low)/2.0)
+        If high is None or low is None, then None is returned.
+        """
+
+        if self.high == None or self.low == None:
+            return None
+        else:
+            return (self.high + self.low) / 2.0
+
+    def addTag(self, tagToAdd):
+        """Adds a given tag string to the tags for this 
+        LookbackMultiplePriceBar."""
+
+        # Strip any leading or trailing whitespace
+        tagToAdd = tagToAdd.strip()
+
+        # The tag added must be non-empty and must not already exist in the
+        # list.
+        if tagToAdd != "" and tagToAdd not in self.tags:
+            self.tags.append(tagToAdd)
+
+    def hasTag(self, tagToCheck):
+        """Returns True if the given tagToCheck is in the list of tags."""
+
+        if tagToCheck in self.tags:
+            return True
+        else:
+            return False
+
+    def clearTags(self):
+        """Clears all the tags associated with this LookbackMultiplePriceBar."""
+
+        self.tags = []
+
+    def removeTag(self, tagToRemove):
+        """Removes a given tag string from the tags in this
+        LookbackMultiplePriceBar.
+        """
+
+        while tagToRemove in self.tags:
+            self.tags.remove(tagToRemove)
+
+
+    def hasHigherHighThan(self, anotherLookbackMultiplePriceBar):
+        """Returns True if this LookbackMultiplePriceBar has a higher
+        high price than LookbackMultiplePicebar
+        'anotherLookbackMultiplePriceBar'
+        """
+
+        if self.high == None:
+            return False
+        elif anotherLookbackMultiplePriceBar.high == None:
+            return True
+        else:
+            if self.high > anotherLookbackMultiplePriceBar.high:
+                return True
+            else:
+                return False
+
+    def hasLowerLowThan(self, anotherLookbackMultiplePriceBar):
+        """Returns True if this LookbackMultiplePriceBar has a lower low
+        price than LookbackMultpile 'anotherLookbackMultiplePriceBar'
+        """
+
+        if self.low == None:
+            return False
+        elif anotherLookbackMultiplePriceBar.low == None:
+            return True
+        else:
+            if self.low < anotherLookbackMultiplePriceBar.low:
+                return True
+            else:
+                return False
+
+
+    def toString(self):
+        """Returns the string representation of the
+        LookbackMultiplePriceBar data.
+        """
+
+        rv = Util.objToString(self)
+        
+        return rv
+
+    def __eq__(self, other):
+        """Returns True if the two LookbackMultiplePriceBars are equal."""
+        
+        rv = True
+
+        leftObj = self
+        rightObj = other
+
+        if rightObj == None:
+            return False
+        
+        self.log.debug("leftObj: {}".format(leftObj.toString()))
+        self.log.debug("rightObj: {}".format(rightObj.toString()))
+
+        if leftObj.classVersion != rightObj.classVersion:
+            self.log.debug("classVersion differs.")
+            rv = False
+        if leftObj.lookbackMultiple != rightObj.lookbackMultiple:
+            self.log.debug("lookbackMultiple differs.")
+            rv = False
+        if leftObj.historicPriceBar != rightObj.historicPriceBar:
+            self.log.debug("historicPriceBar differs.")
+            rv = False
+        if leftObj.timestamp != rightObj.timestamp:
+            self.log.debug("timestamp differs.")
+            rv = False
+        if leftObj.open != rightObj.open:
+            self.log.debug("open differs.")
+            rv = False
+        if leftObj.high != rightObj.high:
+            self.log.debug("high differs.")
+            rv = False
+        if leftObj.low != rightObj.low:
+            self.log.debug("low differs.")
+            rv = False
+        if leftObj.close != rightObj.close:
+            self.log.debug("close differs.")
+            rv = False
+        if leftObj.oi != rightObj.oi:
+            self.log.debug("oi differs.")
+            rv = False
+        if leftObj.vol != rightObj.vol:
+            self.log.debug("vol differs.")
+            rv = False
+            
+        if len(leftObj.tags) != len(rightObj.tags):
+            self.log.debug("len(tags) differs.")
+            rv = False
+        else:
+            for i in range(len(leftObj.tags)):
+                if leftObj.tags[i] != rightObj.tags[i]:
+                    self.log.debug("tags differs.")
+                    rv = False
+                    break
+
+        self.log.debug("__eq__() returning: {}".format(rv))
+        
+        return rv
+
+    def __ne__(self, other):
+        """Returns True if the LookbackMultiplePriceBars are not equal.
+        Returns False otherwise.
+        """
+
+        return not self.__eq__(other)
+    
+    def __str__(self):
+        """Returns the string representation of the
+        LookbackMultiplePriceBar data.
+        """
+
+        return self.toString()
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = logging.getLogger("data_objects.LookbackMultiplePriceBar")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " + LookbackMultiplePriceBar.__name__ +
+                       " object of version {}".format(self.classVersion))
+
+
 class PriceBarChartArtifact:
     """Base class for user-added artifacts in the PriceBarChartWidget.
     Sub-classes to this must be pickleable.
@@ -16780,837 +17598,6 @@ class PriceBarChartScaling:
         self.log.debug("Set state of a " +
                        PriceBarChartScaling.__name__ +
                        " object of version {}".format(self.classVersion))
-
-class LookbackMultiple:
-    """Contains data and parameters for the amount of time to look
-    back when drawing or comparing past PriceBar data to current
-    present PriceBar data.
-    """
-
-    def __init__(self,
-                 name="",
-                 description="",
-                 lookbackMultiple=1.0,
-                 baseUnit=1.0,
-                 baseUnitTypeDegreesFlag=False,
-                 baseUnitTypeRevolutionsFlag=True,
-                 color=QColor(Qt.blue),
-                 enabled=False,
-                 planetName="Sun",
-                 geocentricFlag=True,
-                 heliocentricFlag=False,
-                 tropicalFlag=True,
-                 siderealFlag=False
-                 ):
-        """Initializes the member variables to the values specified as
-        arguments.
-
-        The lookback period of time is determined by multiplying,
-        depending on whether the baseUnit is in degrees or in
-        revolutions:
-        
-            lookbackMultiple * baseUnit * 1.0
-            lookbackMultiple * baseUnit * 360.0
-
-        Arguments:
-        
-        name     - str value for the name of the LookbackMultiple.
-                   This is the display name used in the UI.
-    
-        description - str value for the description of the LookbackMultiple.
-
-        lookbackMultiple - float value for the multiple to look back.
-        
-        baseUnit - float value for the base unit to look back.
-        
-        baseUnitTypeDegreesFlag - boolean for indicating that the
-                                  baseUnit is in degrees.  If this
-                                  value if True, then
-                                  baseUnitTypeRevolutionsFlag must be
-                                  False.  If this value is False, then
-                                  baseUnitTypeRevolutionsFlag must be
-                                  True.
-        
-        baseUnitTypeRevolutionsFlag - boolean for indicating that the
-                                      baseUnit is in revolutions.  If
-                                      this value is True, then
-                                      baseUnitTypeDegreesFlag must be
-                                      False.  If this value is False,
-                                      then baseUnitTypeDegreesFlag
-                                      must be True.
-
-        color - QColor object holding the color that will be used to
-                draw the PriceBars of the past history.
-
-        enabled - boolean for whether this LookbackMultiple is enabled
-                  or disabled.  An enabled LookbackMultiple is drawn.
-        
-        planetName - str value holding a valid planet name (from
-                     Ephemeris.py) to use for the looking back in time.
-        
-        geocentricFlag - boolean flag indicating that the lookback is
-                         to be done with geocentric planet
-                         measurements.  If this value is True, then
-                         heliocentricFlag must be False.  If this
-                         value is False, then heliocentricFlag must be
-                         True.
-        
-        heliocentricFlag - boolean flag indicating that the lookback
-                         is to be done with heliocentric planet
-                         measurements.  If this value is True, then
-                         geocentricFlag must be False.  If this value
-                         is False, then geocentricFlag must be True.
-
-        tropicalFlag - boolean flag that indicates that the measurements 
-                       are using the tropical zodiac.  If this value 
-                       is True then siderealFlag must be False.  
-                       If this value is False, then siderealFlag must be True.
-
-        siderealFlag - boolean flag that indicates that the measurements 
-                       are using sidereal zodiac.  If this value
-                       is True then tropicalFlag must be False.
-                       If this value is False then tropicalFlag must be True.
-        """
-
-        # Set the version of this class (used for pickling and unpickling
-        # different versions of this class).
-        self.classVersion = 1
-
-        # Create the logger.
-        self.log = logging.getLogger("data_objects.LookbackMultiple")
-
-        # Validate input.
-
-        if baseUnitTypeDegreesFlag == None or \
-           baseUnitTypeRevolutionsFlag == None or \
-           baseUnitTypeDegreesFlag == baseUnitTypeRevolutionsFlag:
-            self.log.error("Invalid parameters.  " +
-                           "Base Planet for the LookbackMulitple must be " +
-                           "either geocentric or heliocentric.")
-            self.log.error("baseUnitTypeDegreesFlag == {}".
-                           format(baseUnitTypeDegreesFlag))
-            self.log.error("baseUnitTypeRevolutionsFlag == {}".
-                           format(baseUnitTypeRevolutionsFlag))
-            return
-            
-        if geocentricFlag == None or heliocentricFlag == None or \
-               geocentricFlag == heliocentricFlag:
-            self.log.error("Invalid parameters.  " +
-                           "Planet for the LookbackMulitple must be " +
-                           "either geocentric or heliocentric.")
-            self.log.error("geocentricFlag == {}".format(geocentricFlag))
-            self.log.error("heliocentricFlag == {}".format(heliocentricFlag))
-            return
-        
-        if planetName == "" or \
-                planetName not in Ephemeris.getSupportedPlanetNamesList():
-
-            self.log.error("Invalid planet name given: '{}'".format(planetName))
-            return
-
-        if tropicalFlag == None or siderealFlag == None or \
-            tropicalFlag == siderealFlag:
-
-            self.log.error("Invalid parameters.  " +
-                           "zodiac type for the longitude " + 
-                           "measurements must be " +
-                           "either tropical or sidereal.")
-            self.log.error("tropicalFlag == {}".format(tropicalFlag))
-            self.log.error("siderealFlag == {}".format(siderealFlag))
-            return
-
-        # Display name.  (str)
-        self.name = name
-
-        # Description.  (str)
-        self.description = description
-
-        # Multiple.  (float)
-        self.lookbackMultiple = lookbackMultiple
-
-        # Base unit that gets multipled to the lookback multiple.
-        self.baseUnit = baseUnit
-        
-        # Flag that indicates the base unit is in units degrees.
-        self.baseUnitTypeDegreesFlag = baseUnitTypeDegreesFlag
-        
-        # Flag that indicates the base unit is in units revolutions.
-        self.baseUnitTypeRevolutionsFlag = baseUnitTypeRevolutionsFlag
-        
-        # Color to draw the past history.  (QColor)
-        self.color = color
-
-        # Enabled flag.  (boolean)
-        self.enabled = enabled
-
-        # Planet name of the planet to use for looking back.  (str)
-        self.planetName = planetName
-
-        # Flag that indicates to use geocentric planet measurements. (boolean)
-        self.geocentricFlag = geocentricFlag
-
-        # Flag that indicates to use heliocentric planet measurements. (boolean)
-        self.heliocentricFlag = heliocentricFlag
-
-        # Flag that indicates to use the tropical zodiac for longitude
-        # measurements. (boolean)
-        self.tropicalFlag = tropicalFlag
-
-        # Flag that indicates to use the sidereal zodiac for longitude
-        # measurements. (boolean)
-        self.siderealFlag = siderealFlag
-
-
-    def getName(self):
-        """Returns the display name of the LookbackMultiple."""
-        
-        return self.name
-
-    def setName(self, name):
-        """Sets the display name of the LookbackMultiple.
-
-        Arguments:
-        name - str value represneting the name of the LookbackMultiple."
-        """
-
-        self.name = name
-
-    def getDescription(self):
-        """Returns the description of the LookbackMultiple."""
-        
-        return self.description
-
-    def setDescription(self, description):
-        """Sets the description of the LookbackMultiple.
-
-        Arguments:
-        description - str value representing the description of the 
-                      LookbackMultiple.
-        """
-
-        self.description = description
-
-    def getLookbackMultiple(self):
-        """Returns the multiple of time to look backwards in time."""
-
-        return self.lookbackMultiple
-
-    def setLookbackMultiple(self, lookbackMultiple):
-        """Sets the multiple of time to look backwards in time.
-
-        Arguments:
-        lookbackMultiple - float value representing the multiple of
-                           time to look backwards.
-        """
-
-        self.lookbackMultiple = lookbackMultiple
-
-    def getBaseUnit(self):
-        """Returns the base unit multiple to look back in time."""
-
-        return self.baseUnit
-    
-    def setBaseUnit(self, baseUnit):
-        """Sets the base unit multiple to look back in time.
-
-        Arguments:
-        baseUnit - float value for the base unit to look back.
-        """
-
-        self.baseUnit = baseUnit
-
-    def getBaseUnitTypeDegreesFlag(self):
-        """Returns the boolean flag that indicates whether or not the
-        baseUnit is in degrees.
-        """
-
-        return self.baseUnitTypeDegreesFlag
-
-    def setBaseUnitTypeDegreesFlag(self, baseUnitTypeDegreesFlag):
-        """Sets the boolean flag that indicates whether or not the
-        baseUnit is in degrees.
-
-        Note: Setting this flag will automatically set the
-        baseUnitTypeRevolutionsFlag to the opposite of this value.
-
-        Arguments:
-        baseUnitTypeDegreesFlag - boolean value for indicating that the
-                                  baseUnit is in degrees.  
-        """
-
-        self.baseUnitTypeDegreesFlag = baseUnitTypeDegreesFlag
-        self.baseUnitTypeRevolutionsFlag = not baseUnitTypeDegreesFlag
-
-    def getBaseUnitTypeRevolutionsFlag(self):
-        """Returns the boolean flag that indicates whether or not the
-        baseUnit is in revolutions.
-        """
-
-        return self.baseUnitTypeRevolutionsFlag
-
-    def setBaseUnitTypeRevolutionsFlag(self, baseUnitTypeRevolutionsFlag):
-        """Sets the boolean flag that indicates whether or not the
-        baseUnit is in revolutions.
-
-        Note: Setting this flag will automatically set the
-        baseUnitTypeDegreesFlag to the opposite of this value.
-
-        Arguments:
-        baseUnitTypeRevolutionsFlag - boolean value for indicating that the
-                                  baseUnit is in revolutions.  
-        """
-
-        self.baseUnitTypeRevolutionsFlag = baseUnitTypeRevolutionsFlag
-        self.baseUnitTypeDegreesFlag = not baseUnitTypeRevolutionsFlag
-
-
-    def getColor(self):
-        """Returns the color of the PriceBars for the lookback multiple, as
-        a QColor object.
-        """
-
-        return self.color
-        
-    def setColor(self, color):
-        """Sets the color of the PriceBars for the lookback multiple.
-
-        Arguments:
-        color - QColor object holding the color that will be used to
-                draw the PriceBars of the past history.
-        """
-
-        self.color = color
-
-    def getEnabled(self):
-        """Returns the boolean flag for whether this LookbackMultiple
-        is enabled or disabled.  An enabled LookbackMultiple is
-        drawn.
-        """
-
-        return self.enabled
-
-    def setEnabled(self, enabled):
-        """Sets the flag for whether this LookbackMultiple
-        is enabled or disabled.  An enabled LookbackMultiple is
-        drawn.
-
-        Arguments:
-        enabled - boolean for whether this LookbackMultiple is enabled
-                  or disabled.  An enabled LookbackMultiple is drawn.
-        """
-
-        self.enabled = enabled
-
-    def getPlanetName(self):
-        """Returns the name of the planet (from the list in
-        Ephemeris.py) to use for the lookback multiple.
-        """
-
-        return self.planetName
-
-    def setPlanetName(self, planetName):
-        """Sets the name of the planet (from the list in
-        Ephemeris.py) to use for the lookback multiple.
-
-        Arguments:
-        planetName - str value holding a valid planet name (from
-                     Ephemeris.py) to use for the looking back in time.
-        """
-
-        self.planetName = planetName
-        
-    def getGeocentricFlag(self):
-        """Returns the boolean flag indicating that the lookback is to
-        be done with geocentric planet measurements.
-        """
-
-        return self.geocentricFlag
-
-    def setGeocentricFlag(self, geocentricFlag):
-        """Sets the boolean flag indicating that the lookback is to
-        be done with geocentric planet measurements.
-        
-        Note: Setting this flag will automatically set the
-        heliocentricFlag to the opposite of this value.
-        """
-
-        self.geocentricFlag = geocentricFlag
-        self.heliocentricFlag = not geocentricFlag
-
-    def getHeliocentricFlag(self):
-        """Returns the boolean flag indicating that the lookback is to
-        be done with heliocentric planet measurements.
-        """
-
-        return self.heliocentricFlag
-
-    def setHeliocentricFlag(self, heliocentricFlag):
-        """Sets the boolean flag indicating that the lookback is to
-        be done with heliocentric planet measurements.
-        
-        Note: Setting this flag will automatically set the
-        geocentricFlag to the opposite of this value.
-        """
-
-        self.heliocentricFlag = heliocentricFlag
-        self.geocentricFlag = not heliocentricFlag
-        
-    def getTropicalFlag(self):
-        """Returns the boolean flag that indicates that the tropical
-        zodiac should be used for longitude measurements.
-        """
-
-        return self.tropicalFlag
-
-    def setTropicalFlag(self, tropicalFlag):
-        """Sets the boolean flag that indicates that the tropical
-        zodiac should be used for longitude measurements.
-
-        Note: Setting this flag will automatically set the
-        siderealFlag to the opposite of this value.
-        """
-
-        self.tropicalFlag = tropicalFlag
-        self.siderealFlag = not tropicalFlag
-
-    def getSiderealFlag(self):
-        """Returns the boolean flag that indicates that the sidereal
-        zodiac should be used for longitude measurements.
-        """
-
-        return self.siderealFlag
-
-    def setSiderealFlag(self, siderealFlag):
-        """Sets the boolean flag that indicates that the sidereal
-        zodiac should be used for longitude measurements.
-
-        Note: Setting this flag will automatically set the
-        tropicalFlag to the opposite of this value.
-        """
-
-        self.siderealFlag = siderealFlag
-        self.tropicalFlag = not siderealFlag
-
-    def toShortString(self):
-        """Returns a short str representation of only some of the member
-        variables of this object.
-
-        The returned string is in the format of:
-        
-            MyName (G.Mars Trop. 3 x 1 rev.)
-            MyName (G.MoSu Trop. 7 x 360 deg.)
-            MyName (H.Venus Sid. 1.618 x 360 deg.)
-        """
-
-        nameStr = self.name
-
-        centricityTypeStr = ""
-        if self.geocentricFlag == True:
-            centricityTypeStr = "G."
-        if self.heliocentricFlag == True:
-            centricityTypeStr = "H."
-            
-        planetNameStr = self.planetName
-        lookbackMultipleStr = "{}".format(self.lookbackMultiple)
-        
-        longitudeTypeStr = ""
-        if self.tropicalFlag == True:
-            longitudeTypeStr = "Trop."
-        if self.siderealFlag == True:
-            longitudeTypeStr = "Sid."
-            
-        baseUnitStr = "{}".format(self.baseUnit)
-
-        baseUnitTypeStr = ""
-        if self.baseUnitTypeDegreesFlag == True:
-            baseUnitTypeStr = "deg."
-        if self.baseUnitTypeRevolutionsFlag == True:
-            baseUnitTypeStr = "rev."
-
-        # Return value.
-        rv = "{} ({}{} {} {} x {} {})".\
-            format(nameStr, 
-                   centricityTypeStr, 
-                   planetNameStr, 
-                   longitudeTypeStr,
-                   lookbackMultipleStr, 
-                   baseUnitStr, 
-                   baseUnitTypeStr)
-        
-        return rv
-
-
-    def toString(self):
-        """Returns the string representation of most of the attributes in this
-        LookbackMultiple object.
-        """
-        
-        rv = Util.objToString(self)
-
-        return rv
-
-    def __eq__(self, other):
-        """Returns True if the two LookbackMultiples are equal."""
-        
-        rv = True
-        
-        leftObj = self
-        rightObj = other
-        
-        if rightObj == None:
-            return False
-        
-        self.log.debug("leftObj: {}".format(leftObj.toString()))
-        self.log.debug("rightObj: {}".format(rightObj.toString()))
-
-        if leftObj.classVersion != rightObj.classVersion:
-            self.log.debug("classVersion differs.")
-            rv = False
-        if leftObj.name != rightObj.name:
-            self.log.debug("name differs.")
-            rv = False
-        if leftObj.description != rightObj.description:
-            self.log.debug("description differs.")
-            rv = False
-        if leftObj.lookbackMultiple != rightObj.lookbackMultiple:
-            self.log.debug("lookbackMultiple differs.")
-            rv = False
-        if leftObj.baseUnit != rightObj.baseUnit:
-            self.log.debug("baseUnit differs.")
-            rv = False
-        if leftObj.baseUnitTypeDegreesFlag != rightObj.baseUnitTypeDegreesFlag:
-            self.log.debug("baseUnitTypeDegreesFlag differs.")
-            rv = False
-        if leftObj.baseUnitTypeRevolutionsFlag != \
-                rightObj.baseUnitTypeRevolutionsFlag:
-            self.log.debug("baseUnitTypeRevolutionsFlag differs.")
-            rv = False
-        if leftObj.color != rightObj.color:
-            self.log.debug("color differs.")
-            rv = False
-        if leftObj.enabled != rightObj.enabled:
-            self.log.debug("enabled differs.")
-            rv = False
-        if leftObj.planetName != rightObj.planetName:
-            self.log.debug("planetName differs.")
-            rv = False
-        if leftObj.geocentricFlag != rightObj.geocentricFlag:
-            self.log.debug("geocentricFlag differs.")
-            rv = False
-        if leftObj.heliocentricFlag != rightObj.heliocentricFlag:
-            self.log.debug("heliocentricFlag differs.")
-            rv = False
-        if leftObj.tropicalFlag != rightObj.tropicalFlag:
-            self.log.debug("tropicalFlag differs.")
-            rv = False
-        if leftObj.siderealFlag != rightObj.siderealFlag:
-            self.log.debug("siderealFlag differs.")
-            rv = False
-
-        self.log.debug("__eq__() returning: {}".format(rv))
-        
-        return rv
-
-    def __ne__(self, other):
-        """Returns True if the LookbackMultiples are not equal.
-        Returns False otherwise."""
-
-        return not self.__eq__(other)
-    
-    def __str__(self):
-        """Returns the string representation of most of the attributes in this
-        LookbackMultiple object.
-        """
-
-        return self.toString()
-
-    def __getstate__(self):
-        """Returns the object's state for pickling purposes."""
-
-        # Copy the object's state from self.__dict__ which contains
-        # all our instance attributes. Always use the dict.copy()
-        # method to avoid modifying the original state.
-        state = self.__dict__.copy()
-
-        # Remove items we don't want to pickle.
-        del state['log']
-
-        return state
-
-
-    def __setstate__(self, state):
-        """Restores the object's state for unpickling purposes."""
-
-        # Restore instance attributes.
-        self.__dict__.update(state)
-
-        # Re-open the logger because it was not pickled.
-        self.log = logging.getLogger("data_objects.LookbackMultiple")
-
-        # Log that we set the state of this object.
-        self.log.debug("Set state of a " + LookbackMultiple.__name__ +
-                       " object of version {}".format(self.classVersion))
-
-
-class LookbackMultiplePriceBar:
-    """Contains price information for a historic period of time,
-    projected onto the current time period.
-    
-    The this class has the same information provided as member
-    variables, and methods as the regular PriceBar class, but it is not
-    a subclass of a PriceBar.  
-
-    TODO:  improve documentation and commenting here for LookbackMultiplePriceBar.
-
-    LookbackMultiplePriceBar can include the following information: 
-
-    - timestamp of the current period of time.
-    - timestamp of the historic period of time.  
-    (this is extracted from the PriceBar)
-    - PriceBar object for the price information of a historical time period.
-    - LookbackMultiple object for this LookbackMultiplePriceBar
-    """
-    
-    def __init__(self, lookbackMultiple, historicPriceBar):
-        """Initializes the PriceBar object.  
-
-# currentPriceBar - this is calculated based on the arguments given.  
-
-        Arguments are as follows: 
-TODO:  Think about what variables and information would be needed in this class. 
-        lookbackMultiple - LookbackMultiple that is associated with this LookbackMultiplePriceBar.
-        priceBar - PriceBar object that is the closest 
-        """
-
-        self.log = logging.getLogger("data_objects.LookbackMultiple")
-
-        # Class version stored for pickling and unpickling.
-        self.classVersion = 1
-
-        # Verify that neither of the inputs are None.
-        
-
-        self.lookbackMultiple = lookbackMultiple
-        self.historicPriceBar = historicPriceBar
-
-        
-        # Member variables that hold information about this particular
-        # LookbackMultiplePriceBar's information.  
-        # 
-        # The data of member variables are basically the historic PriceBar, but
-        # projected into the future by the LookbackMultiple's time period.  The
-        # price data here is not meaningful, because it is the historic
-        # PriceBar's information, but with scaling applied for charting
-        # purposes, and it is only meaningful relative to other
-        # LookbackMultiplePriceBar next to this one.
-        self.timestamp = None
-        self.open = None
-        self.high = None
-        self.low = None
-        self.close = None
-        self.oi = None
-        self.vol = None
-        self.tags = []
-
-        
-        #self.currentTimestamp = self.currentPriceBar.timestamp
-        #self.historicTimestamp = self.historicPriceBar.timestamp
-        
-    def recalculateCurrentTimestamp(self):
-        """Based on the information in self.lookbackMultiple, this
-        method will recalculate the currentTimestamp corresponding to
-        the lookback period.
-        """
-        
-        # TODO:  add code here for recalculateCurrentTimestamp().  To think about: Should I even be making ephemeris-type calculations within a LookbackMultiplePriceBar?  Or should the ephemeris-type calculations be done in a separate class or method somewhere else?
-        pass
-    
-
-    def midPrice(self):
-        """Returns the average of the high and low.  I.e., ((high+low)/2.0)
-        If high is None or low is None, then None is returned.
-        """
-
-        if self.high == None or self.low == None:
-            return None
-        else:
-            return (self.high + self.low) / 2.0
-
-    def addTag(self, tagToAdd):
-        """Adds a given tag string to the tags for this 
-        LookbackMultiplePriceBar."""
-
-        # Strip any leading or trailing whitespace
-        tagToAdd = tagToAdd.strip()
-
-        # The tag added must be non-empty and must not already exist in the
-        # list.
-        if tagToAdd != "" and tagToAdd not in self.tags:
-            self.tags.append(tagToAdd)
-
-    def hasTag(self, tagToCheck):
-        """Returns True if the given tagToCheck is in the list of tags."""
-
-        if tagToCheck in self.tags:
-            return True
-        else:
-            return False
-
-    def clearTags(self):
-        """Clears all the tags associated with this LookbackMultiplePriceBar."""
-
-        self.tags = []
-
-    def removeTag(self, tagToRemove):
-        """Removes a given tag string from the tags in this
-        LookbackMultiplePriceBar.
-        """
-
-        while tagToRemove in self.tags:
-            self.tags.remove(tagToRemove)
-
-
-    def hasHigherHighThan(self, anotherLookbackMultiplePriceBar):
-        """Returns True if this LookbackMultiplePriceBar has a higher
-        high price than LookbackMultiplePicebar
-        'anotherLookbackMultiplePriceBar'
-        """
-
-        if self.high == None:
-            return False
-        elif anotherLookbackMultiplePriceBar.high == None:
-            return True
-        else:
-            if self.high > anotherLookbackMultiplePriceBar.high:
-                return True
-            else:
-                return False
-
-    def hasLowerLowThan(self, anotherLookbackMultiplePriceBar):
-        """Returns True if this LookbackMultiplePriceBar has a lower low
-        price than LookbackMultpile 'anotherLookbackMultiplePriceBar'
-        """
-
-        if self.low == None:
-            return False
-        elif anotherLookbackMultiplePriceBar.low == None:
-            return True
-        else:
-            if self.low < anotherLookbackMultiplePriceBar.low:
-                return True
-            else:
-                return False
-
-
-    def toString(self):
-        """Returns the string representation of the
-        LookbackMultiplePriceBar data.
-        """
-
-        rv = Util.objToString(self)
-        
-        return rv
-
-    def __eq__(self, other):
-        """Returns True if the two LookbackMultiplePriceBars are equal."""
-        
-        rv = True
-
-        leftObj = self
-        rightObj = other
-
-        if rightObj == None:
-            return False
-        
-        self.log.debug("leftObj: {}".format(leftObj.toString()))
-        self.log.debug("rightObj: {}".format(rightObj.toString()))
-
-        if leftObj.classVersion != rightObj.classVersion:
-            self.log.debug("classVersion differs.")
-            rv = False
-        if leftObj.lookbackMultiple != rightObj.lookbackMultiple:
-            self.log.debug("lookbackMultiple differs.")
-            rv = False
-        if leftObj.historicPriceBar != rightObj.historicPriceBar:
-            self.log.debug("historicPriceBar differs.")
-            rv = False
-        if leftObj.timestamp != rightObj.timestamp:
-            self.log.debug("timestamp differs.")
-            rv = False
-        if leftObj.open != rightObj.open:
-            self.log.debug("open differs.")
-            rv = False
-        if leftObj.high != rightObj.high:
-            self.log.debug("high differs.")
-            rv = False
-        if leftObj.low != rightObj.low:
-            self.log.debug("low differs.")
-            rv = False
-        if leftObj.close != rightObj.close:
-            self.log.debug("close differs.")
-            rv = False
-        if leftObj.oi != rightObj.oi:
-            self.log.debug("oi differs.")
-            rv = False
-        if leftObj.vol != rightObj.vol:
-            self.log.debug("vol differs.")
-            rv = False
-            
-        if len(leftObj.tags) != len(rightObj.tags):
-            self.log.debug("len(tags) differs.")
-            rv = False
-        else:
-            for i in range(len(leftObj.tags)):
-                if leftObj.tags[i] != rightObj.tags[i]:
-                    self.log.debug("tags differs.")
-                    rv = False
-                    break
-
-        self.log.debug("__eq__() returning: {}".format(rv))
-        
-        return rv
-
-    def __ne__(self, other):
-        """Returns True if the LookbackMultiplePriceBars are not equal.
-        Returns False otherwise.
-        """
-
-        return not self.__eq__(other)
-    
-    def __str__(self):
-        """Returns the string representation of the
-        LookbackMultiplePriceBar data.
-        """
-
-        return self.toString()
-
-    def __getstate__(self):
-        """Returns the object's state for pickling purposes."""
-
-        # Copy the object's state from self.__dict__ which contains
-        # all our instance attributes. Always use the dict.copy()
-        # method to avoid modifying the original state.
-        state = self.__dict__.copy()
-
-        # Remove items we don't want to pickle.
-        del state['log']
-
-        return state
-
-
-    def __setstate__(self, state):
-        """Restores the object's state for unpickling purposes."""
-
-        # Restore instance attributes.
-        self.__dict__.update(state)
-
-        # Re-open the logger because it was not pickled.
-        self.log = logging.getLogger("data_objects.LookbackMultiplePriceBar")
-
-        # Log that we set the state of this object.
-        self.log.debug("Set state of a " + LookbackMultiplePriceBar.__name__ +
-                       " object of version {}".format(self.classVersion))
-
 
 class PriceChartDocumentData:
     """Contains all the data about the price chart and price data.

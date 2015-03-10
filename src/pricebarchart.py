@@ -40,10 +40,20 @@ from settings import SettingsKeys
 # For constants used.
 from astrologychart import AstrologyUtils
 
+# For conversions from julian day to datetime.datetime and vice versa.
+from ephemeris import Ephemeris
+
+# For getting datetimes forward and backward in time, 
+# to support LookbackMultiple.
+from lookbackmultiple import LookbackMultipleUtils
+
+
 # For PriceBars and artifacts in the chart.
 from data_objects import BirthInfo
 from data_objects import PriceBar
 from data_objects import MusicalRatio
+from data_objects import LookbackMultiple
+from data_objects import LookbackMultiplePriceBar
 from data_objects import PriceBarChartBarCountArtifact
 from data_objects import PriceBarChartTimeMeasurementArtifact
 from data_objects import PriceBarChartTimeModalScaleArtifact
@@ -73,9 +83,6 @@ from data_objects import PriceBarChartShashtihayaniDasaArtifact
 from data_objects import PriceBarChartScaling
 from data_objects import PriceBarChartSettings
 from data_objects import Util
-
-# For conversions from julian day to datetime.datetime and vice versa.
-from ephemeris import Ephemeris
 
 # For edit dialogs for modifying the PriceBarChartArtifact objects of
 # various PriceBarChartArtifactGraphicsItems.
@@ -733,7 +740,7 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
         self.loadSettingsFromAppPreferences()
 
 
-    def loadSettingsFromLookbackMultiplePriceBarChartSettings(self, priceBarChartSettings):
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
         """Reads some of the parameters/settings of this
         LookbackMultiplePriceBarGraphicsItem from the given 
         PriceBarChartSettings object.
@@ -39894,50 +39901,264 @@ class PriceBarChartWidget(QWidget):
         
         self.log.debug("Entered drawLookbackMultiplePriceBars()")
         
-        # Below is the algorithm taken to draw LookbackMultiplePriceBars.
-        # TODO: add documentation here for the algorithm taken.  (see my todo.txt notes)
-
-
         # Set the birth location in the Ephemeris.
-        # We need to set this each time because there is no
-        # guarantee that the last use of the Ephemeris was with
-        # this location.
+        #
+        # This is required before making Ephemeris calculations with
+        # LookbackMultipleUtils.
         birthInfo = self.graphicsScene.getBirthInfo()
         Ephemeris.setGeographicPosition(birthInfo.longitudeDegrees,
                                         birthInfo.latitudeDegrees,
                                         birthInfo.elevation)
 
-        # Get area of the QGraphicsScene that is visualized by the 
+        # Get area of the QGraphicsScene that is visible in the 
         # QGraphicsView, as a QRect.
-        sceneRect = self.graphicsView.sceneRect()
-        
-        self.log.debug("sceneRect is: x={}, y={}, w={}, h={}".\
-                       format(sceneRect.x(), 
-                              sceneRect.y(), 
-                              sceneRect.width(), 
-                              sceneRect.height()))
+        viewportRect = QRect(0, 0, 
+                             self.graphicsView.viewport().width(), 
+                             self.graphicsView.viewport().height());
+        visibleSceneRectF = \
+            self.graphicsView.mapToScene(viewportRect).boundingRect()
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("visibleSceneRect is: x={}, y={}, w={}, h={}".\
+                           format(visibleSceneRectF.x(), 
+                                  visibleSceneRectF.y(), 
+                                  visibleSceneRectF.width(), 
+                                  visibleSceneRectF.height()))
 
         # Convert the scene rectangle coordinates to dates and prices.
         earliestViewDt = \
-            self.graphicsScene.sceneXPosToDatetime(sceneRect.x())
+            self.graphicsScene.sceneXPosToDatetime(visibleSceneRectF.x())
         latestViewDt = \
-            self.graphicsScene.sceneXPosToDatetime(sceneRect.x() + \
-                                                   sceneRect.width())
+            self.graphicsScene.sceneXPosToDatetime(visibleSceneRectF.x() + \
+                                                   visibleSceneRectF.width())
         highestViewPrice = \
-            self.graphicsScene.sceneYPosToPrice(sceneRect.y())
+            self.graphicsScene.sceneYPosToPrice(visibleSceneRectF.y())
         lowestViewPrice = \
-            self.graphicsScene.sceneYPosToPrice(sceneRect.y() + \
-                                                sceneRect.height())
+            self.graphicsScene.sceneYPosToPrice(visibleSceneRectF.y() + \
+                                                visibleSceneRectF.height())
 
-        self.log.debug("earliestViewDt == {}".\
-                       format(Ephemeris.datetimeToDayStr(earliestViewDt)))
-        self.log.debug("latestViewDt   == {}".\
-                       format(Ephemeris.datetimeToDayStr(latestViewDt)))
-        self.log.debug("highestViewPrice == {}".format(highestViewPrice))
-        self.log.debug("lowestViewPrice  == {}".format(lowestViewPrice))
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("earliestViewDt == {}".\
+                           format(Ephemeris.datetimeToDayStr(earliestViewDt)))
+            self.log.debug("latestViewDt   == {}".\
+                           format(Ephemeris.datetimeToDayStr(latestViewDt)))
+            self.log.debug("highestViewPrice == {}".format(highestViewPrice))
+            self.log.debug("lowestViewPrice  == {}".format(lowestViewPrice))
 
-        # TODO: add more code here for drawLookbackMultiplePriceBars().
+        for lookbackMultiple in lookbackMultiples:
 
+            # Don't process disabled LookbackMultiples.
+            if lookbackMultiple.getEnabled() == False:
+                continue
+            else:
+                if self.log.isEnabledFor(logging.DEBUG) == True:
+                    self.log.debug("Processing LookbackMultiple: {}".\
+                                   format(lookbackMultiple.toString()))
+
+            # Extract needed information from the LookbackMultiple.
+            planetName = lookbackMultiple.getPlanetName()
+
+            centricityType = ""
+            if lookbackMultiple.getGeocentricFlag() == True:
+                centricityType = "geocentric"
+            if lookbackMultiple.getHeliocentricFlag() == True:
+                centricityType = "heliocentric"
+
+            longitudeType = ""
+            if lookbackMultiple.getTropicalFlag() == True:
+                longitudeType = "tropical"
+            if lookbackMultiple.getSiderealFlag() == True:
+                longitudeType = "sidereal"
+
+            desiredDeltaDegrees = 0
+            if lookbackMultiple.getBaseUnitTypeDegreesFlag() == True:
+                desiredDeltaDegrees = \
+                    lookbackMultiple.getLookbackMultiple() * \
+                    lookbackMultiple.getBaseUnit()
+            if lookbackMultiple.getBaseUnitTypeRevolutionsFlag() == True:
+                desiredDeltaDegrees = \
+                    lookbackMultiple.getLookbackMultiple() * \
+                    lookbackMultiple.getBaseUnit() * \
+                    360
+            
+            # Look backwards in time to get the start and end datetimes for
+            # obtaining the time range of historic PriceBars.
+            self.log.debug("Looking backwards in time ...")
+
+            startLookbackDts = \
+                LookbackMultipleUtils.\
+                getDatetimesOfLongitudeDeltaDegreesInPast(\
+                    planetName, 
+                    centricityType,
+                    longitudeType,
+                    referenceDt=earliestViewDt,
+                    desiredDeltaDegrees=desiredDeltaDegrees * -1)
+                                                          
+            endLookbackDts = \
+                LookbackMultipleUtils.\
+                getDatetimesOfLongitudeDeltaDegreesInPast(\
+                    planetName, 
+                    centricityType,
+                    longitudeType,
+                    referenceDt=latestViewDt,
+                    desiredDeltaDegrees=desiredDeltaDegrees * -1)
+            
+            if self.log.isEnabledFor(logging.DEBUG) == True:
+                self.log.debug("len(startLookbackDts) == {}".\
+                               format(len(startLookbackDts)))
+                for i in range(len(startLookbackDts)):
+                    dt = startLookbackDts[i]
+                    self.log.debug("startLookbackDts[{}] == {}".format(i, dt))
+    
+                self.log.debug("len(endLookbackDts) == {}".\
+                               format(len(endLookbackDts)))
+                for i in range(len(endLookbackDts)):
+                    dt = endLookbackDts[i]
+                    self.log.debug("endLookbackDts[{}] == {}".format(i, dt))
+
+            # Put the datetimes together into one list, then sort, and get the
+            # earliest and latest datetimes.  We need to do this because if the
+            # QGraphicsView is very zoomed in, and the planet is going
+            # retrograde, then the startLookbackDts may actually come after the
+            # endLookbackDts.  By doing this, we ensure that we get the largest
+            # possible set of PriceBars for the historic time period compared
+            # related to this current period.
+            startAndEndPriceBarSearchDts = startLookbackDts + endLookbackDts
+            startAndEndPriceBarSearchDts.sort()
+
+            startPriceBarSearchDt = startAndEndPriceBarSearchDts[0]
+            endPriceBarSearchDt = startAndEndPriceBarSearchDts[-1]
+
+            if self.log.isEnabledFor(logging.DEBUG) == True:
+                self.log.debug("startPriceBarSearchDt == {}".\
+                    format(Ephemeris.datetimeToDayStr(startPriceBarSearchDt)))
+                self.log.debug("endPriceBarSearchDt == {}".\
+                    format(Ephemeris.datetimeToDayStr(endPriceBarSearchDt)))
+
+            # Get the PriceBars in time between startPriceBarSearchDt and
+            # endPriceBarSearchDt.  Store these in list 'pbs'.
+            pbs = []
+
+            graphicsItems = self.graphicsScene.items()
+            for item in graphicsItems:
+                if isinstance(item, PriceBarGraphicsItem):
+                    pb = item.getPriceBar()
+                    dt = pb.timestamp
+                    if startPriceBarSearchDt <= dt <= endPriceBarSearchDt:
+                        # Found a PriceBar within our historic time range.
+                        pbs.append(pb)
+
+                        if self.log.isEnabledFor(logging.DEBUG) == True:
+                            debugStr = "Found a pricebar within " + \
+                                "our historic time range: {}".\
+                                format(Ephemeris.datetimeToDayStr(dt))
+                            self.log.debug(debugStr)
+    
+
+            # Working variables that will be used later for scaling the
+            # LookbackMultiplePriceBars to fit within the visible portion of
+            # the QGraphicsView.
+            highestPriceBarPrice = None
+            lowestPriceBarPrice = None
+            
+            for pb in pbs:
+                if highestPriceBarPrice == None:
+                    highestPriceBarPrice = pb.high
+                elif pb.high > highestPriceBarPrice:
+                    highestPriceBarPrice = pb.high
+
+                if lowestPriceBarPrice == None:
+                    lowestPriceBarPrice = pb.low
+                elif pb.low < lowestPriceBarPrice:
+                    lowestPriceBarPrice = pb.low
+
+            if self.log.isEnabledFor(logging.DEBUG) == True:
+                self.log.debug("highestPriceBarPrice == {}".\
+                               format(highestPriceBarPrice))
+                self.log.debug("lowestPriceBarPrice == {}".\
+                               format(lowestPriceBarPrice))
+            
+            # Create the LookbackMultiplePriceBars for these historic
+            # PriceBars and store them in a list.
+            lmpbs = []
+            for pb in pbs:
+                # Find the datetime(s) in the future for the LookbackMultiple.
+                # There can potentially be more than 1 datetime because of 
+                # planet retrograde motion.
+                dts = LookbackMultipleUtils.\
+                    getDatetimesOfLongitudeDeltaDegreesInFuture(\
+                        planetName, 
+                        centricityType,
+                        longitudeType,
+                        referenceDt=pb.timestamp,
+                        desiredDeltaDegrees=desiredDeltaDegrees)
+
+                # Create the LookbackMultiplePriceBar for each timestamp.
+                # The prices used in the LookbackMultiplePriceBars are 
+                # the underlying PriceBar's values scaled.
+                for dt in dts:
+                    lmpb = LookbackMultiplePriceBar(lookbackMultiple, pb)
+                    lmpb.timestamp = dt
+                    lmpb.open = \
+                        self._scaleLookbackMultiplePriceBarPrice(\
+                            highestViewPrice,
+                            lowestViewPrice,
+                            highestPriceBarPrice,
+                            lowestPriceBarPrice,
+                            priceBarPriceToScale=pb.open)
+                    lmpb.high = \
+                        self._scaleLookbackMultiplePriceBarPrice(\
+                            highestViewPrice,
+                            lowestViewPrice,
+                            highestPriceBarPrice,
+                            lowestPriceBarPrice,
+                            priceBarPriceToScale=pb.high)
+                    lmpb.low = \
+                        self._scaleLookbackMultiplePriceBarPrice(\
+                            highestViewPrice,
+                            lowestViewPrice,
+                            highestPriceBarPrice,
+                            lowestPriceBarPrice,
+                            priceBarPriceToScale=pb.low)
+                    lmpb.close = \
+                        self._scaleLookbackMultiplePriceBarPrice(\
+                            highestViewPrice,
+                            lowestViewPrice,
+                            highestPriceBarPrice,
+                            lowestPriceBarPrice,
+                            priceBarPriceToScale=pb.close)
+                    lmpb.oi = pb.oi
+                    lmpb.vol = pb.vol
+                    lmpb.tags = copy.deepcopy(pb.tags)
+
+                    # Append to our list of LookbackMultiplePriceBars.
+                    lmpbs.append(lmpb)
+
+            # Create and draw the LookbackMultiplePriceBarGraphicsItems for
+            # each of the LookbackMultiplePriceBars.
+            for lmpb in lmpbs:
+                # Create the QGraphicsItem.
+                item = LookbackMultiplePriceBarGraphicsItem()
+                item.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+                item.setLookbackMultiplePriceBar(lmpb)
+
+                # Add the item.
+                self.graphicsScene.addItem(item)
+
+                # Make sure the proper flags are set for the mode we're in.
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(item)
+    
+                # X location based on the timestamp.
+                x = self.graphicsScene.datetimeToSceneXPos(lmpb.timestamp)
+    
+                # Y location based on the mid price (average of high and low).
+                y = self.graphicsScene.priceToSceneYPos(lmpb.midPrice())
+    
+                # Set the position, in parent coordinates.
+                item.setPos(QPointF(x, y))
+        
+        
         self.log.debug("Exiting drawLookbackMultiplePriceBars()")
         
     def clearAllLookbackMultiplePriceBars(self):
@@ -40657,7 +40878,86 @@ class PriceBarChartWidget(QWidget):
         else:
             self.updateSelectedPriceBarLabels(None)
             
-        
+
+    def _scaleLookbackMultiplePriceBarPrice(self, 
+                                            highestViewPrice,
+                                            lowestViewPrice,
+                                            highestPriceBarPrice,
+                                            lowestPriceBarPrice,
+                                            priceBarPriceToScale):
+
+        """Helper function for LookbackMultiple to calculate a scaled
+        price value.
+
+        The price value to scale is the 'priceBarPriceToScale' value,
+        and this method will return a new price that is that value
+        scaled according to the QGraphicsView's price range.
+
+        This method helps us by allowing us to place 
+        LookbackMultiplePriceBars/LookbackMultiplePriceBarGraphicsItems 
+        into the QGraphicsScene at locations that will fit nicely 
+        within the visible portion of the QGraphicsView.
+
+        Arguments:
+        highestViewPrice - float value holding the highest price 
+                           that is visible within the QGraphicsView.
+
+        lowestViewPrice - float value holding the lowest price 
+                          that is visible within the QGraphicsView.
+
+        highestPriceBarPrice - float value holding the highest price within
+                               all the pricebars in the set that is 
+                               being analyzed.
+
+        lowestPriceBarPrice - float value holding the lowest price within
+                              all the pricebars in the set that is 
+                              being analyzed.
+
+        priceBarPriceToScale - float value that contains the 
+                               price before scaling.  This value is 
+                               converted to a new price via scaling.
+        """
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("Entered _scaleLookbackMultiplePriceBarPrice()")
+    
+            self.log.debug("highestViewPrice == {}".format(highestViewPrice))
+            self.log.debug("lowestViewPrice  == {}".format(lowestViewPrice))
+            self.log.debug("highestPriceBarPrice == {}".\
+                           format(highestPriceBarPrice))
+            self.log.debug("lowestPriceBarPrice == {}".\
+                           format(lowestPriceBarPrice))
+            self.log.debug("priceBarPriceToScale == {}".\
+                           format(priceBarPriceToScale))
+
+
+        viewPriceRange = highestViewPrice - lowestViewPrice
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("viewPriceRange  == {}".\
+                           format(viewPriceRange))
+
+        priceBarPriceRange = highestPriceBarPrice - lowestPriceBarPrice
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("priceBarPriceRange == {}".\
+                           format(priceBarPriceRange))
+            
+        ratioOfPriceRange = \
+            (priceBarPriceToScale - lowestPriceBarPrice) / priceBarPriceRange
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("ratioOfPriceRange == {}".format(ratioOfPriceRange))
+
+        newViewPrice = (ratioOfPriceRange * viewPriceRange) + lowestViewPrice
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("newViewPrice == {}".format(newViewPrice))
+            self.log.debug("Exiting _scaleLookbackMultiplePriceBarPrice()")
+
+        return newViewPrice
+
+
 class PriceBarChartGraphicsScene(QGraphicsScene):
     """QGraphicsScene holding all the pricebars and artifacts.
     We inherit QGraphicsScene to allow for future feature additions.

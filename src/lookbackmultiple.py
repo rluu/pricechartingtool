@@ -6,6 +6,9 @@ import logging
 # For newlines.
 import os
 
+# For printing out the current method's name.
+import inspect
+
 # For copy.deepcopy.
 import copy
 
@@ -48,9 +51,16 @@ class LookbackMultipleUtils:
         desiredDeltaDegrees,
         maxErrorTd=datetime.timedelta(seconds=2)):
         """Returns a list of datetime.datetime objects that hold the
-        timestamps when the given planet is at 'degreeElapsed'
+        timestamps when the given planet is at 'desiredDeltaDegrees'
         longitude degrees from the longitude degrees calculated at
-        moment 'referenceDt'.
+        moment 'referenceDt'.  Since this method looks in the future, 
+        the 'desiredDeltaDegrees' value needs to be positive.
+
+        Returns:
+        list of datetime.datetime objects, ordered chronologically 
+        from oldest to latest, of the timestamps when the planet 
+        is 'desiredDeltaDegrees' distance relative to the 
+        planet's longitude position at the reference datetime.datetime.
         
         Pre-requisites:
         This method assumes that the user has initialized the Ephemeris 
@@ -552,9 +562,16 @@ class LookbackMultipleUtils:
         desiredDeltaDegrees,
         maxErrorTd=datetime.timedelta(seconds=2)):
         """Returns a list of datetime.datetime objects that hold the
-        timestamps when the given planet is at 'degreeElapsed'
+        timestamps when the given planet is at 'desiredDeltaDegrees'
         longitude degrees from the longitude degrees calculated at
-        moment 'referenceDt'.
+        moment 'referenceDt'.  Since this method looks in the past, 
+        the 'desiredDeltaDegrees' value needs to be negative.
+
+        Returns:
+        list of datetime.datetime objects, ordered chronologically 
+        from oldest to latest, of the timestamps when the planet 
+        is 'desiredDeltaDegrees' distance relative to the 
+        planet's longitude position at the reference datetime.datetime.
         
         Pre-requisites:
         This method assumes that the user has initialized the Ephemeris 
@@ -1049,10 +1066,12 @@ class LookbackMultipleUtils:
             prevDiff = currDiff
 
         LookbackMultipleUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
-        return rv
-
         
-
+        # The order of the datetimes in the list to be returned should be
+        # chronological.  The way we extracted it was from later time to
+        # earlier time, so we need to reverse it before returning.
+        rv.reverse()
+        return rv
 
 
     @staticmethod
@@ -1889,6 +1908,7 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         printDatetimeResults(resultDts, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
         print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1983-10-22 19:16:21.027832-04:56")
 
 
     if True:
@@ -1909,6 +1929,7 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1983-05-23 12:32:07.500000-04:56")
 
     if True:
         print("  ------------------------------------------------------------")
@@ -1928,6 +1949,7 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
+        print("  Expected resultDts[0] == 1982-05-23 06:46:31.354980-04:56")
 
 
     if True:
@@ -1948,9 +1970,9 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 3")
-        print("  Expected resultDts[0] == 1968-11-07 16:05:41.894530+00:00")
+        print("  Expected resultDts[0] == 1968-09-26 13:28:07.939452+00:00")
         print("  Expected resultDts[1] == 1968-10-09 15:01:36.240233+00:00")
-        print("  Expected resultDts[2] == 1968-09-26 13:28:07.939452+00:00")
+        print("  Expected resultDts[2] == 1968-11-07 16:05:41.894530+00:00")
 
     if True:
         print("  ------------------------------------------------------------")
@@ -1970,9 +1992,9 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 3")
-        print("  Expected resultDts[0] == 1968-11-07 16:29:03.310546+00:00")
+        print("  Expected resultDts[0] == 1968-09-26 14:21:50.009764+00:00")
         print("  Expected resultDts[1] == 1968-10-09 14:18:25.664061+00:00")
-        print("  Expected resultDts[2] == 1968-09-26 14:21:50.009764+00:00")
+        print("  Expected resultDts[2] == 1968-11-07 16:29:03.310546+00:00")
 
     if True:
         print("  ------------------------------------------------------------")
@@ -2229,7 +2251,7 @@ if __name__=="__main__":
 
     # Various tests to run:
     #testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture()
-    #testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast()
+    testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast()
     #testLookbackMultiplePanelWidget()
     #testLookbackMultiplePanelWidgetEmpty()
 
