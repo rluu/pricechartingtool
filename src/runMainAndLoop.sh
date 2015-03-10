@@ -2,7 +2,7 @@
 ##############################################################################
 
 SRCDIR=$( cd "$( dirname "$0" )" && pwd )
-PYTHON=/usr/bin/python3
+PYTHON="/usr/bin/env python3"
 
 
 # Store each digit of the python3 version.  
@@ -19,15 +19,22 @@ minor2Version=`${PYTHON} --version 2>&1 | gawk '{print $2}' | cut -d"." -f3`
 
 
 while true; do 
-  # Remove ".pyc" files from the source directory if the python3
-  # version is less than 3.2.  We do this because prior to version 3.2,
-  # python did not put the pyc files into repository directories.
-  if [ ${majorVersion} -ge 3 -a ${minor1Version} -lt 2 ]
-    then
-      rm ${SRCDIR}/*.pyc
-      sleep 1
-  fi
-  
+
+  # Remove ".pyc" files from the source directory if those artifacts
+  # are produced in the source directory.  
+  # Python version 3.2 puts these .pyc files in a __pycache__ directory, 
+  # which is fine there.
+
+  PYC_FILES=`find ${SRCDIR} -maxdepth 0 -name "*.pyc"`
+  #echo "DEBUG: The .pyc files found in the source directory are: ${PYC_FILES}"
+
+  for file in ${PYC_FILES}; do
+      echo "Removing file: ${file} ..."
+      rm ${file}
+  done
+
+  sleep 1
+
   # Run main python source code file.
   ${PYTHON} ${SRCDIR}/main.py
 done
