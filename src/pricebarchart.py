@@ -84,6 +84,9 @@ from data_objects import PriceBarChartScaling
 from data_objects import PriceBarChartSettings
 from data_objects import Util
 
+# Edit dialogs.
+from dialogs import LookbackMultiplePriceBarEditDialog
+
 # For edit dialogs for modifying the PriceBarChartArtifact objects of
 # various PriceBarChartArtifactGraphicsItems.
 from pricebarchart_dialogs import PriceBarChartBarCountArtifactEditDialog
@@ -704,12 +707,11 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
     """
     
     def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
 
         # Logger
         self.log = logging.getLogger("pricebarchart.LookbackMultiplePriceBarGraphicsItem")
         self.log.debug("Entered __init__().")
-
-        super().__init__(parent, scene)
 
         # Pen width for LookbackMultiplePriceBars.
         self.penWidth = \
@@ -738,7 +740,6 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
         # Read the QSettings preferences for the various parameters of
         # this price bar.
         self.loadSettingsFromAppPreferences()
-
 
     def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
         """Reads some of the parameters/settings of this
@@ -39992,7 +39993,8 @@ class PriceBarChartWidget(QWidget):
                     centricityType,
                     longitudeType,
                     referenceDt=earliestViewDt,
-                    desiredDeltaDegrees=desiredDeltaDegrees * -1)
+                    desiredDeltaDegrees=desiredDeltaDegrees * -1,
+                    maxErrorTd=datetime.timedelta(minutes=5))
                                                           
             endLookbackDts = \
                 LookbackMultipleUtils.\
@@ -40001,7 +40003,8 @@ class PriceBarChartWidget(QWidget):
                     centricityType,
                     longitudeType,
                     referenceDt=latestViewDt,
-                    desiredDeltaDegrees=desiredDeltaDegrees * -1)
+                    desiredDeltaDegrees=desiredDeltaDegrees * -1,
+                    maxErrorTd=datetime.timedelta(minutes=5))
             
             if self.log.isEnabledFor(logging.DEBUG) == True:
                 self.log.debug("len(startLookbackDts) == {}".\
@@ -40091,7 +40094,8 @@ class PriceBarChartWidget(QWidget):
                         centricityType,
                         longitudeType,
                         referenceDt=pb.timestamp,
-                        desiredDeltaDegrees=desiredDeltaDegrees)
+                        desiredDeltaDegrees=desiredDeltaDegrees,
+                        maxErrorTd=datetime.timedelta(minutes=5))
 
                 # Create the LookbackMultiplePriceBar for each timestamp.
                 # The prices used in the LookbackMultiplePriceBars are 
@@ -42704,7 +42708,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         if self.toolMode == \
                PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 flags = QGraphicsItem.GraphicsItemFlags(QGraphicsItem.
                                                         ItemIsSelectable)
                 item.setFlags(flags)
@@ -42717,7 +42722,11 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PointerTool']:
              
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                item.setReadOnlyFlag(False)
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(False)
@@ -42730,7 +42739,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['HandTool']:
              
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42739,7 +42749,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ZoomInTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42748,7 +42759,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ZoomOutTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42757,7 +42769,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['BarCountTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42766,7 +42779,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TimeMeasurementTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42775,7 +42789,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TimeModalScaleTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42784,7 +42799,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceModalScaleTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42793,7 +42809,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PlanetLongitudeMovementMeasurementTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42802,7 +42819,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TextTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42811,7 +42829,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceTimeInfoTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42820,7 +42839,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceMeasurementTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42829,7 +42849,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TimeRetracementTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42838,7 +42859,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceRetracementTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42847,7 +42869,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceTimeVectorTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42856,7 +42879,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['LineSegment1Tool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42865,7 +42889,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['LineSegment2Tool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42874,7 +42899,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['OctaveFanTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42883,7 +42909,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['FibFanTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42892,7 +42919,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['GannFanTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42901,7 +42929,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['VimsottariDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42910,7 +42939,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['AshtottariDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42919,7 +42949,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['YoginiDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42928,7 +42959,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['DwisaptatiSamaDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42937,7 +42969,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ShattrimsaSamaDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42946,7 +42979,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['DwadasottariDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42955,7 +42989,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ChaturaseetiSamaDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42964,7 +42999,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['SataabdikaDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42973,7 +43009,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ShodasottariDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42982,7 +43019,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PanchottariDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42991,7 +43029,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ShashtihayaniDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -43004,6 +43043,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         This has the following effects on QGraphicsItem flags:
           - All PriceBarGraphicsItems are selectable.
           - All PriceBarGraphicsItems are not movable.
+          - All LookbackMultiplePriceBarGraphicsItem are selectable.
+          - All LookbackMultiplePriceBarGraphicsItem are not movable.
           - All PriceBarChartArtifactGraphicsItem are selectable.
           - All PriceBarChartArtifactGraphicsItem are not movable.
         """
@@ -43036,6 +43077,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         This has the following effects on QGraphicsItem flags:
           - All PriceBarGraphicsItems are not selectable.
           - All PriceBarGraphicsItems are not movable.
+          - All LookbackMultiplePriceBarGraphicsItem are not selectable.
+          - All LookbackMultiplePriceBarGraphicsItem are not movable.
           - All PriceBarChartArtifactGraphicsItem are selectable.
           - All PriceBarChartArtifactGraphicsItem are movable.
         """
@@ -43989,6 +44032,22 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 item.appendActionsToContextMenu(submenu,
                                                 readOnlyMode=readOnlyFlag)
 
+            elif isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                debugLogStr += \
+                    "LookbackMultiplePriceBarGraphicsItem with " + \
+                    "LookbackMultiplePriceBar: " + \
+                    item.getLookbackMultiplePriceBar().toString() + ". "
+                
+                numContextSubMenuItems += 1
+
+                # Add the menu for this item.  We create the menu this
+                # way so that 'submenu' is owned by 'menu'.
+                submenu = menu.addMenu("")
+                
+                # Append actions and update the submenu title.
+                item.appendActionsToContextMenu(submenu,
+                                                readOnlyMode=readOnlyFlag)
+
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 debugLogStr += \
                     "PriceBarChartArtifactGraphicsItem with " + \
@@ -44004,7 +44063,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 item.appendActionsToContextMenu(submenu,
                                                 readOnlyMode=readOnlyFlag)
             else:
-                self.log.debug("Non-PriceBar and Non-artifact item.")
+                self.log.debug("Non-PriceBar, " + \
+                               "Non-LookbackMultiplePriceBar " + \
+                               "and Non-artifact item.")
 
 
         self.log.debug("{} items under scene clickPosF({}, {}): {}".\

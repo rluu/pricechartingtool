@@ -1091,7 +1091,7 @@ class LookbackMultipleUtils:
                Ephemeris.isAscmcPlanetName(planetName):
 
             # House cusps and ascmc planets need a smaller step size.
-            stepSizeTd = datetime.timedelta(hours=1)
+            stepSizeTd = datetime.timedelta(hours=4)
 
         # These planets don't go retrograde, so we don't have to worry about
         # losing data points if our step size is too big.  We just have to keep

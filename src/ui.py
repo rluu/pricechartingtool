@@ -386,24 +386,6 @@ class MainWindow(QMainWindow):
         self.enableAndShowLookbackMultiplePanelAction.triggered.\
             connect(self._handleEnableAndShowLookbackMultiplePanelAction)
         
-        # TODO:  implement this functionality for the LookbackMultipleDatetimeTable.
-        # Create the enableAndShowLookbackMultipleDatetimeTableAction.
-        #self.enableAndShowLookbackMultipleDatetimeTableAction = \
-        #    QAction(icon, "Enable Lookback Multiple Datetime Table", self)
-        #self.enableAndShowLookbackMultipleDatetimeTableAction.\
-        #    setStatusTip("Enable Lookback Multiple Datetime Table")
-        #self.enableAndShowLookbackMultipleDatetimeTableAction.setCheckable(True)
-
-        # TODO:  implement this functionality for the LookbackMultipleDatetimeTable.
-        # Create the trackMouseToLookbackMultipleDatetimeTableAction.
-        #self.trackMouseToLookbackMultipleDatetimeTableAction = \
-        #    QAction(icon, "Enable Lookback Multiple Datetime Table", self)
-        #self.trackMouseToLookbackMultipleDatetimeTableAction.\
-        #    setStatusTip("Enable Lookback Multiple Datetime Table")
-        #self.trackMouseToLookbackMultipleDatetimeTableAction.setCheckable(True)
-
-
-        
         ####################
         # Create actions for the Tools Menu.
         
@@ -6310,7 +6292,6 @@ class PriceChartDocumentWidget(QWidget):
 
         This method causes the following things to happen:
         - LookbackMultiplePanel is refreshed.
-        - LookbackMultipleDatetimeTable is refreshed
         - PriceBarChartGraphicsScene removes all 
           LookbackMultiplePriceBarGraphicsItems.
 
@@ -6329,7 +6310,6 @@ class PriceChartDocumentWidget(QWidget):
 
         self.lookbackMultiplePanelWidget.\
             setLookbackMultiples(lookbackMultiples)
-        #self.lookbackMultipleDatetimeTableWidget.refresh()
         self.clearAllLookbackMultiplePriceBars()
         self.priceChartDocumentWidgetChanged.emit()
 

@@ -3,56 +3,32 @@
 Outstanding things to work on going forward:
 
 TODOs for cycle hunter features:
-  - LookbackMultiplePriceBar  - NEED TO CONFIRM CORRECT/COMPLETE.
-    - Reference to the closest historic PriceBar
-    - Reference to the LookbackMultiple.
 
-  - LookbackMultiplePriceBarGraphicsItem - NEED TO CONFIRM CORRECT/COMPLETE.
-    - Reference to the underlying LookbackMultiplePriceBar.
-    - Right-click context menu can trigger the edit dialog of the underlying LookbackMultiplePriceBar.
+  - Add LookbackMultiplePriceBarGraphicsItem snapping 
+    to mouse for the following tools:
 
+       - Line Segment 1
+       - Line Segment 2
+       - PriceTimeInfo
 
+  - Alorithm or computation is slow for LookbackMultiples.  
+    Consider profiling, or improving design, or using cloud computing.
+    (or all of the above).
 
-  - LookbackMultiple panel widget:
-    - Apply/Redraw button.  
-      --> Applies the enabled lookback multiples to the pricebars that 
-          are visible in the QGraphicsView.
-             - Removes any existing LookbackMultiplePriceBarGraphicsItems in the scene.
-             - Creates LookbackMultiplePriceBars
-             - Creates LookbackMultiplePriceBarGraphicsItems
-                 - Has reference to the underlying LookbackMultiplePriceBar.
-                 - These need to have some kind of scaling algorithm applied relative to the QGraphicsView before being placed in the scene.  
-                   When to apply this scaling algorithm?  I guess it would need to be after the creation of all of them, because I need min and max prices of this list of pricebars.
+  - Vertical Line drawing tool.
 
+  - Horizontal Line drawing tool?  (maybe)
 
+  - For ReadOnlyPointerTool and PointerTool:
+    - shortcut key: V activates vertical dotted line.
+    - shortcut key: H activates horizontal dotted line.
 
-  - LookbackMultiple datetime table.  (perhaps not implement this?  Is this needed?)
-    - This would display a set datetime (either set manually via context menu, or via using the current mouse location being tracked) and also the datetimes for the LookbackMultiples that are enabled.  See my paper docs.
+  - Implement a G.AsSu planet?  Ascendant - Sun.  
+    This would be for calculating calendar days.
 
 
+##############################################################################
 
-  - Menu items (QActions, perhaps icons for these too):
-    - Lookback multiple
-      - Enable LookbackMultiple datetime table.
-      - Enable LookbackMultiple datetime table mouse tracking.
-DONE      - Edit list of lookback multiples.
-DONE         - Sets dirty flag of the PCD if the edit dialog is accepted 
-DONE           (i.e. any mods accepted).
-DONE      - Enable LookbackMultiple panel.
-
-
-DONE  - Add fields to LookbackMultiple:
-DONE    - longitudeTypeTropicalFlag or tropicalLongitudeFlag
-DONE    - longitudeTypeSiderealFlag or siderealLongitudeFlag
-DONE
-DONE    - Update edit widgets/dialogs, etc., and uses of them.
-DONE    - Update tests of widgets.
-
-
-DONE  - LookbackMultiplePriceBar edit and dialog widgets.
-DONE    - List of LookbackMultiples.
-DONE      - Displays enable checkbox. (checking will set dirty flag of the PCD).
-DONE      - Displays short name of the lookback multiple. 
 
 ##############################################################################
 
@@ -89,9 +65,7 @@ This is the end historic pricebar (inclusive).
 
      For each lookforward timestamp: 
       - Create LookbackMultiplePriceBar.
-         - TODO: what needs to go in this?
       - Create LookbackMultiplePriceBarGraphicsItem.
-         - TODO: what needs to go in this?
 
 8) Collect all the LookbackMultiplePriceBarGraphicsItem / LookbackMultiplePriceBar objects.  These are stored for further processing, and also if the user clicks apply/redraw again, all these objects will need to be removed from the scene.  
 
@@ -110,11 +84,6 @@ TODO:
 
   - PriceChartDocumentScripts changes:
 
-    - Add longitude traversal amounts of a certain planet.  Can
-      specify parameter for whether it is geocentric, heliocentric,
-      etc., and also sidereal/tropical.  Also start time is a
-      parameter, and traversal degree increment amount is a parameter too.
-      
     - Plot line segments for elongation-degree-distances-between-two-planets.
       
     - Plot line segments that represent difference in longitude between planet X
@@ -436,6 +405,14 @@ DONE
 DONE    Calculations need for measurements to be checked and validated to
 DONE    be fully correct before depending on them.
 DONE
+
+
+DONE    - Add longitude traversal amounts of a certain planet.  Can
+DONE      specify parameter for whether it is geocentric, heliocentric,
+DONE      etc., and also sidereal/tropical.  Also start time is a
+DONE      parameter, and traversal degree increment amount is a parameter too.
+      
+
 WILL_NOT_IMPLEMENT  - Fix MOF, COE, etc. to be calculated properly.
 WILL_NOT_IMPLEMENT
 WILL_NOT_IMPLEMENT  - Add to ephemeris, functions to get HoraLagna, GhatiLagna,
@@ -443,3 +420,59 @@ WILL_NOT_IMPLEMENT    MeanSouthNode, TrueSouthNode.
 WILL_NOT_IMPLEMENT    Then fix the TODO's for HoraLagna,
 WILL_NOT_IMPLEMENT    GhatiLagna, MeanSouthNode, TrueSouthNode.
 
+
+WILL_NOT_IMPLEMENT  - LookbackMultiple datetime table.  
+WILL_NOT_IMPLEMENT         (perhaps not implement this?  Is this needed?)
+WILL_NOT_IMPLEMENT - This would display a set datetime (either set manually via
+WILL_NOT_IMPLEMENT   context menu, or via using the current mouse location being
+WILL_NOT_IMPLEMENT   tracked) and also the datetimes for the 
+WILL_NOT_IMPLEMENT   LookbackMultiples that are enabled.  See my paper docs.
+WILL_NOT_IMPLEMENT  - Menu items (QActions, perhaps icons for these too):
+WILL_NOT_IMPLEMENT     - Lookback multiple
+WILL_NOT_IMPLEMENT       - Enable LookbackMultiple datetime table.
+WILL_NOT_IMPLEMENT       - Enable LookbackMultiple datetime table mouse tracking
+
+
+DONE      - Edit list of lookback multiples.
+DONE         - Sets dirty flag of the PCD if the edit dialog is accepted 
+DONE           (i.e. any mods accepted).
+DONE      - Enable LookbackMultiple panel.
+
+DONE  - LookbackMultiplePriceBar
+DONE    - Reference to the closest historic PriceBar
+DONE    - Reference to the LookbackMultiple.
+
+DONE  - LookbackMultiplePriceBarGraphicsItem
+DONE    - Reference to the underlying LookbackMultiplePriceBar.
+DONE    - Right-click context menu can trigger the edit dialog of 
+DONE      the underlying LookbackMultiplePriceBar.
+
+DONE  - Add fields to LookbackMultiple:
+DONE    - longitudeTypeTropicalFlag or tropicalLongitudeFlag
+DONE    - longitudeTypeSiderealFlag or siderealLongitudeFlag
+DONE
+DONE    - Update edit widgets/dialogs, etc., and uses of them.
+DONE    - Update tests of widgets.
+
+
+DONE  - LookbackMultiplePriceBar edit and dialog widgets.
+DONE    - List of LookbackMultiples.
+DONE      - Displays enable checkbox. (checking will set dirty flag of the PCD).
+DONE      - Displays short name of the lookback multiple. 
+
+DONE  - LookbackMultiple panel widget:
+DONE    - Apply/Redraw button.  
+DONE      --> Applies the enabled lookback multiples to the pricebars that 
+DONE          are visible in the QGraphicsView.
+DONE             - Removes any existing LookbackMultiplePriceBarGraphicsItems 
+DONE               in the scene.
+DONE             - Creates LookbackMultiplePriceBars
+DONE             - Creates LookbackMultiplePriceBarGraphicsItems
+DONE                 - Has reference to the underlying LookbackMultiplePriceBar.
+DONE                 - These need to have some kind of scaling algorithm 
+DONE                   applied relative to the QGraphicsView before 
+DONE                   being placed in the scene.  
+DONE                   When to apply this scaling algorithm?  
+DONE                   I guess it would need to be after the creation of all 
+DONE                   of them, because I need min and max prices of 
+DONE                   this list of pricebars.
