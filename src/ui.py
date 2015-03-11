@@ -237,7 +237,7 @@ class MainWindow(QMainWindow):
             connect(self._editPriceBarChartScaling)
         
         # Create the editLookbackMultiplesAction.
-        icon = QIcon() # TODO: add an icon here for this.
+        icon = QIcon() # TODO: add an icon here for editLookbackMultiplesAction.
         self.editLookbackMultiplesAction = \
             QAction(icon, "Edit Lookback Multiples", self)
         self.editLookbackMultiplesAction.\
@@ -511,6 +511,14 @@ class MainWindow(QMainWindow):
         self.lineSegment2ToolAction.setStatusTip("Line Segment 2 Tool")
         self.lineSegment2ToolAction.setCheckable(True)
 
+        # Create the VerticalLineSegmentToolAction
+        icon = QIcon() # TODO: add icon for VerticalLineSegmentToolAction.
+        self.verticalLineSegmentToolAction = \
+            QAction(icon, "Vertical Line Segment Tool", self)
+        self.verticalLineSegmentToolAction.\
+            setStatusTip("Vertical Line Segment Tool")
+        self.verticalLineSegmentToolAction.setCheckable(True)
+
         # Create the OctaveFanToolAction
         icon = QIcon(":/images/rluu/octaveFan.png")
         self.octaveFanToolAction = \
@@ -643,6 +651,7 @@ class MainWindow(QMainWindow):
         self.toolActionGroup.addAction(self.priceTimeVectorToolAction)
         self.toolActionGroup.addAction(self.lineSegment1ToolAction)
         self.toolActionGroup.addAction(self.lineSegment2ToolAction)
+        self.toolActionGroup.addAction(self.verticalLineSegmentToolAction)
         self.toolActionGroup.addAction(self.octaveFanToolAction)
         self.toolActionGroup.addAction(self.fibFanToolAction)
         self.toolActionGroup.addAction(self.gannFanToolAction)
@@ -822,6 +831,7 @@ class MainWindow(QMainWindow):
         self.toolsMenu.addAction(self.priceTimeVectorToolAction)
         self.toolsMenu.addAction(self.lineSegment1ToolAction)
         self.toolsMenu.addAction(self.lineSegment2ToolAction)
+        self.toolsMenu.addAction(self.verticalLineSegmentToolAction)
         self.toolsMenu.addAction(self.octaveFanToolAction)
         self.toolsMenu.addAction(self.fibFanToolAction)
         self.toolsMenu.addAction(self.gannFanToolAction)
@@ -908,6 +918,7 @@ class MainWindow(QMainWindow):
             self.toolsToolBar.addAction(self.priceTimeVectorToolAction)
         self.toolsToolBar.addAction(self.lineSegment1ToolAction)
         self.toolsToolBar.addAction(self.lineSegment2ToolAction)
+        self.toolsToolBar.addAction(self.verticalLineSegmentToolAction)
         self.toolsToolBar.addAction(self.octaveFanToolAction)
         self.toolsToolBar.addAction(self.fibFanToolAction)
         self.toolsToolBar.addAction(self.gannFanToolAction)
@@ -1008,6 +1019,7 @@ class MainWindow(QMainWindow):
         self.priceTimeVectorToolAction.setEnabled(isActive)
         self.lineSegment1ToolAction.setEnabled(isActive)
         self.lineSegment2ToolAction.setEnabled(isActive)
+        self.verticalLineSegmentToolAction.setEnabled(isActive)
         self.octaveFanToolAction.setEnabled(isActive)
         self.fibFanToolAction.setEnabled(isActive)
         self.gannFanToolAction.setEnabled(isActive)
@@ -1099,6 +1111,8 @@ class MainWindow(QMainWindow):
                 priceChartDocument.toLineSegment1ToolMode()
             elif self.lineSegment2ToolAction.isChecked():
                 priceChartDocument.toLineSegment2ToolMode()
+            elif self.verticalLineSegmentToolAction.isChecked():
+                priceChartDocument.toVerticalLineSegmentToolMode()
             elif self.octaveFanToolAction.isChecked():
                 priceChartDocument.toOctaveFanToolMode()
             elif self.fibFanToolAction.isChecked():
@@ -3929,6 +3943,10 @@ class MainWindow(QMainWindow):
             self.log.debug("lineSegment2ToolAction triggered.")
             self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toLineSegment2ToolMode()
+        elif qaction == self.verticalLineSegmentToolAction:
+            self.log.debug("verticalLineSegmentToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
+            pcd.toVerticalLineSegmentToolMode()
         elif qaction == self.octaveFanToolAction:
             self.log.debug("octaveFanToolAction triggered.")
             self.mostRecentGraphicsItemToolModeAction = qaction
@@ -4095,7 +4113,9 @@ Snap key bindings are supported for the following tools:
   - TimeRetracementTool
   - PriceRetracementTool
   - PriceTimeVectorTool
-  - LineSegmentTool
+  - LineSegment1Tool
+  - LineSegment2Tool
+  - VerticalLineSegmentTool
   - OctaveFanTool
   - FibFanTool
   - GannFanTool
@@ -5226,6 +5246,11 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.toLineSegment2ToolMode()
 
+    def toVerticalLineSegmentToolMode(self):
+        """Changes the tool mode to be the VerticalLineSegmentTool."""
+
+        self.widgets.toVerticalLineSegmentToolMode()
+
     def toOctaveFanToolMode(self):
         """Changes the tool mode to be the OctaveFanTool."""
 
@@ -5932,6 +5957,11 @@ class PriceChartDocumentWidget(QWidget):
         """Changes the tool mode to be the LineSegment2Tool."""
 
         self.priceBarChartWidget.toLineSegment2ToolMode()
+
+    def toVerticalLineSegmentToolMode(self):
+        """Changes the tool mode to be the VerticalLineSegmentTool."""
+
+        self.priceBarChartWidget.toVerticalLineSegmentToolMode()
 
     def toOctaveFanToolMode(self):
         """Changes the tool mode to be the OctaveFanTool."""

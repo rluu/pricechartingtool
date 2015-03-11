@@ -34,6 +34,7 @@ from data_objects import PriceBarChartTimeRetracementArtifact
 from data_objects import PriceBarChartPriceRetracementArtifact
 from data_objects import PriceBarChartPriceTimeVectorArtifact
 from data_objects import PriceBarChartLineSegmentArtifact
+from data_objects import PriceBarChartVerticalLineSegmentArtifact
 from data_objects import PriceBarChartOctaveFanArtifact
 from data_objects import PriceBarChartFibFanArtifact
 from data_objects import PriceBarChartGannFanArtifact
@@ -10301,6 +10302,630 @@ class PriceBarChartLineSegmentArtifactEditDialog(QDialog):
         # Check input.
         if not isinstance(artifact,
                           PriceBarChartLineSegmentArtifact):
+            self.log.error("Input type invalid to " +
+                           self.__class__.__name__ +
+                           ".setArtifact()")
+            return
+
+        self.artifact = artifact
+
+        self.editWidget.loadValues(self.artifact)
+
+    def getArtifact(self):
+        """Returns a reference to the internally stored artifact object.
+        
+        Note: If the 'Okay' button was previously clicked, then this
+        object is modified with the widget's values, otherwise it is
+        unchanged.
+        """
+
+        return self.artifact
+
+
+class PriceBarChartVerticalLineSegmentArtifactEditWidget(QWidget):
+    """QWidget for editing some of the member objects in a
+    PriceBarChartVerticalLineSegmentArtifact within the context of a
+    PriceBarChart.  This means that fields that are editable in the
+    widgets are not actually a one-to-one mapping with the members in
+    a PriceBarChartVerticalLineSegmentArtifact.  They are derivatives of it such
+    that the user can modify it without having to do the underlying
+    conversions.
+    """
+
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self,
+                 artifact,
+                 convertObj,
+                 readOnlyFlag=False,
+                 parent=None):
+        """QWidget for editing some of the fields of a
+        PriceBarChartVerticalLineSegmentArtifact object.
+
+        Arguments:
+        artifact - PriceBarChartVerticalLineSegmentArtifact object to edit.
+        convertObj - PriceBarChartGraphicsScene object that is used for
+                unit conversions (x position to time, y position to price).
+        readOnlyFlag - bool value used to set the widgets in readonly mode.
+        """
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("pricebarchart_dialogs.PriceBarChartVerticalLineSegmentArtifactEditWidget")
+
+        # Save off the artifact object.
+        self.artifact = artifact
+
+        # Save off the scene object used for unit conversions.
+        self.convertObj = convertObj
+        
+        # Save off the readOnlyFlag
+        self.readOnlyFlag = readOnlyFlag
+        
+        # QGroupBox to hold the edit widgets and form.
+        self.groupBox = QGroupBox("PriceBarChartVerticalLineSegmentArtifact Data:")
+
+        # Value for extending the line segment by a certain multiple
+        # of the length.
+        # initialExtendMultiple (float).
+        initialExtendMultiple = 1.6
+
+        # Width of the QLineEdit, so it that it displays nicely.
+        lineEditWidth = 420
+        
+        self.internalNameLabel = QLabel("Internal name:")
+        self.internalNameLineEdit = QLineEdit()
+        self.internalNameLineEdit.setMinimumWidth(lineEditWidth)
+
+        self.uuidLabel = QLabel("Uuid:")
+        self.uuidLineEdit = QLineEdit()
+        self.uuidLineEdit.setMinimumWidth(lineEditWidth)
+
+        self.colorLabel = QLabel("Color: ")
+        self.colorEditButton = ColorEditPushButton()
+
+        self.startPointPriceLocationValueLabel = \
+            QLabel("VerticalLineSegment Start Point (in price):")
+        self.startPointPriceLocationValueSpinBox = QDoubleSpinBox()
+        self.startPointPriceLocationValueSpinBox.setDecimals(4)
+        self.startPointPriceLocationValueSpinBox.setMinimum(-999999999.0)
+        self.startPointPriceLocationValueSpinBox.setMaximum(999999999.0)
+        startPointPriceLocationValueLayout = QHBoxLayout()
+        startPointPriceLocationValueLayout.\
+            addWidget(self.startPointPriceLocationValueLabel)
+        startPointPriceLocationValueLayout.addStretch()
+        startPointPriceLocationValueLayout.\
+            addWidget(self.startPointPriceLocationValueSpinBox)
+
+        self.endPointPriceLocationValueLabel = \
+            QLabel("VerticalLineSegment End Point (in price):")
+        self.endPointPriceLocationValueSpinBox = QDoubleSpinBox()
+        self.endPointPriceLocationValueSpinBox.setDecimals(4)
+        self.endPointPriceLocationValueSpinBox.setMinimum(-999999999.0)
+        self.endPointPriceLocationValueSpinBox.setMaximum(999999999.0)
+        endPointPriceLocationValueLayout = QHBoxLayout()
+        endPointPriceLocationValueLayout.\
+            addWidget(self.endPointPriceLocationValueLabel)
+        endPointPriceLocationValueLayout.addStretch()
+        endPointPriceLocationValueLayout.\
+            addWidget(self.endPointPriceLocationValueSpinBox)
+
+        self.startPointDatetimeLocationWidget = TimestampEditWidget()
+        self.startPointDatetimeLocationWidget.groupBox.\
+            setTitle("VerticalLineSegment Start Point (in time)")
+        self.startPointDatetimeLocationWidget.okayButton.setVisible(False)
+        self.startPointDatetimeLocationWidget.cancelButton.setVisible(False)
+        
+        self.endPointDatetimeLocationWidget = TimestampEditWidget()
+        self.endPointDatetimeLocationWidget.groupBox.\
+            setTitle("VerticalLineSegment End Point (in time)")
+        self.endPointDatetimeLocationWidget.okayButton.setVisible(False)
+        self.endPointDatetimeLocationWidget.cancelButton.setVisible(False)
+        
+        self.extendStartPointLabel = QLabel("Extend start point by: ")
+        self.extendStartPointSpinBox = QDoubleSpinBox()
+        self.extendStartPointSpinBox.setDecimals(4)
+        self.extendStartPointSpinBox.setMinimum(0.0)
+        self.extendStartPointSpinBox.setMaximum(999999999.0)
+        self.extendStartPointSpinBox.setValue(initialExtendMultiple)
+        self.extendStartPointButton = QPushButton("Extend")
+        extendStartPointLayout = QHBoxLayout()
+        extendStartPointLayout.addWidget(self.extendStartPointLabel)
+        extendStartPointLayout.addWidget(self.extendStartPointSpinBox)
+        extendStartPointLayout.addWidget(self.extendStartPointButton)
+        
+        self.extendEndPointLabel = QLabel("Extend end point by: ")
+        self.extendEndPointSpinBox = QDoubleSpinBox()
+        self.extendEndPointSpinBox.setDecimals(4)
+        self.extendEndPointSpinBox.setMinimum(0.0)
+        self.extendEndPointSpinBox.setMaximum(999999999.0)
+        self.extendEndPointSpinBox.setValue(initialExtendMultiple)
+        self.extendEndPointButton = QPushButton("Extend")
+        extendEndPointLayout = QHBoxLayout()
+        extendEndPointLayout.addWidget(self.extendEndPointLabel)
+        extendEndPointLayout.addWidget(self.extendEndPointSpinBox)
+        extendEndPointLayout.addWidget(self.extendEndPointButton)
+        
+        # Layout.
+        self.gridLayout = QGridLayout()
+
+        # Row.
+        r = 0
+
+        # Alignments.
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        self.gridLayout.addWidget(self.internalNameLabel, r, 0, al)
+        self.gridLayout.addWidget(self.internalNameLineEdit, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.uuidLabel, r, 0, al)
+        self.gridLayout.addWidget(self.uuidLineEdit, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.colorLabel, r, 0, al)
+        self.gridLayout.addWidget(self.colorEditButton, r, 1, al)
+        r += 1
+        self.gridLayout.addLayout(startPointPriceLocationValueLayout, r, 0, al)
+        self.gridLayout.addLayout(endPointPriceLocationValueLayout, r, 1, al)
+        r += 1
+        self.gridLayout.addWidget(self.startPointDatetimeLocationWidget,
+                                  r, 0, al)
+        self.gridLayout.addWidget(self.endPointDatetimeLocationWidget,
+                                  r, 1, al)
+        r += 1
+        self.gridLayout.addLayout(extendStartPointLayout, r, 0, al)
+        self.gridLayout.addLayout(extendEndPointLayout, r, 1, al)
+        r += 1
+
+        # Put all the layouts together.
+        self.layout = QVBoxLayout()
+        self.layout.addLayout(self.gridLayout)
+        self.groupBox.setLayout(self.layout)
+
+        # Buttons at bottom.
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addWidget(self.groupBox) 
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+        
+        self.setReadOnly(self.readOnlyFlag)
+        
+        # Now that all the widgets are created, load the values from the
+        # artifact object.
+        self.loadValues(self.artifact)
+
+        # Connect signals and slots.
+
+        self.extendStartPointButton.clicked.\
+            connect(self._handleExtendStartPointButtonClicked)
+        self.extendEndPointButton.clicked.\
+            connect(self._handleExtendEndPointButtonClicked)
+        
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+    def setConvertObj(self, convertObj):
+        """Sets the object that is used for the conversion between
+        scene position and timestamp or price.
+
+        Arguments:
+        convertObj - PriceBarChartGraphicsScene object that is used
+                     for scene position conversions of X point to
+                     timestamp and Y point to price.
+        """
+
+        self.convertObj = convertObj
+
+        # Need to reload the artifact, so that the proper conversion
+        # is done with the new conversion object.
+        self.loadValues(self.artifact)
+        
+    def getConvertObj(self):
+        """Returns the object used for conversion calculations between
+        scene position point and timestamp or price.
+
+        Returns:
+        PriceBarChartGraphicsScene object that is used
+        for scene position conversions of X point to
+        timestamp and Y point to price.
+        """
+
+        return self.convertObj
+    
+        
+    def getArtifact(self):
+        """Returns the internally stored artifact object.
+
+        Note: If saveValues() was called previously, then this object
+        was updated with the values from the edit widgets.
+        """
+
+        return self.artifact
+        
+    def setReadOnly(self, readOnlyFlag):
+        """Sets the internal edit widgets to be read only or not
+        depending on the bool state of readOnlyFlag.
+
+        Arguments:
+        readOnlyFlag - bool value indicating whether the widget is in
+        ReadOnly mode.
+        """
+
+        self.readOnlyFlag = readOnlyFlag
+
+        # Set the internal widgets as readonly or not depending on this flag.
+        self.internalNameLineEdit.setReadOnly(True)
+        self.uuidLineEdit.setReadOnly(True)
+        self.colorEditButton.setEnabled(not self.readOnlyFlag)
+        self.startPointPriceLocationValueSpinBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.endPointPriceLocationValueSpinBox.\
+            setEnabled(not self.readOnlyFlag)
+        self.startPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
+        self.endPointDatetimeLocationWidget.setReadOnly(self.readOnlyFlag)
+        self.extendStartPointSpinBox.setReadOnly(self.readOnlyFlag)
+        self.extendStartPointButton.setEnabled(not self.readOnlyFlag)
+        self.extendEndPointSpinBox.setReadOnly(self.readOnlyFlag)
+        self.extendEndPointButton.setEnabled(not self.readOnlyFlag)
+        
+        # Don't allow the Okay button to be pressed for saving.
+        self.okayButton.setEnabled(not self.readOnlyFlag)
+        
+    def getReadOnly(self):
+        """Returns the flag that indicates that this widget is in
+        read-only mode.  If the returned value is True, then it means
+        the user cannot edit any of the fields in the PriceBar.
+        """
+        
+        return self.readOnlyFlag
+
+    def loadValues(self, artifact):
+        """Loads the widgets with values from the given
+        PriceBarChartVerticalLineSegmentArtifact.
+
+        Note: Upon calling saveValues(), the edit widget overwrites
+        the values in the object pointed to by 'artifact' with the
+        values in the edit widgets.
+
+        Arguments:
+        
+        artifact - PriceBarChartVerticalLineSegmentArtifact object to load the
+        values into the edit widgets.  
+        """
+
+        self.log.debug("Entered loadValues()")
+
+        # Check inputs.
+        if artifact == None:
+            self.log.error("Invalid parameter to " + \
+                           "loadValues().  artifact can't be None.")
+            self.log.debug("Exiting loadValues()")
+            return
+        else:
+            self.artifact = artifact
+
+        # Set the widgets.
+        self.internalNameLineEdit.\
+            setText(self.artifact.getInternalName())
+        
+        self.uuidLineEdit.\
+            setText(str(self.artifact.getUuid()))
+        
+        self.colorEditButton.setColor(self.artifact.getColor())
+        
+        startPointY = self.artifact.startPointF.y()
+        startPointPrice = self.convertObj.sceneYPosToPrice(startPointY)
+        self.startPointPriceLocationValueSpinBox.setValue(startPointPrice)
+        
+        startPointX = self.artifact.startPointF.x()
+        startPointDatetime = self.convertObj.sceneXPosToDatetime(startPointX)
+        self.startPointDatetimeLocationWidget.\
+            loadTimestamp(startPointDatetime)
+        
+        endPointY = self.artifact.endPointF.y()
+        endPointPrice = self.convertObj.sceneYPosToPrice(endPointY)
+        self.endPointPriceLocationValueSpinBox.setValue(endPointPrice)
+        
+        endPointX = self.artifact.endPointF.x()
+        endPointDatetime = self.convertObj.sceneXPosToDatetime(endPointX)
+        self.endPointDatetimeLocationWidget.\
+            loadTimestamp(endPointDatetime)
+
+        self.log.debug("Exiting loadValues()")
+        
+    def saveValues(self):
+        """Saves the values in the widgets to the
+        PriceBarChartVerticalLineSegmentArtifact object passed in this class's
+        constructor or the loadValues() function.
+        """
+    
+        self.log.debug("Entered saveValues()")
+
+        # Call save on the timestamp widgets.
+        self.startPointDatetimeLocationWidget.saveTimestamp()
+        self.endPointDatetimeLocationWidget.saveTimestamp()
+        
+        startPointPrice = self.startPointPriceLocationValueSpinBox.value()
+        startPointY = self.convertObj.priceToSceneYPos(startPointPrice)
+
+        endPointPrice = self.endPointPriceLocationValueSpinBox.value()
+        endPointY = self.convertObj.priceToSceneYPos(endPointPrice)
+        
+        startPointDatetime = \
+            self.startPointDatetimeLocationWidget.getTimestamp()
+        endPointDatetime = \
+            self.endPointDatetimeLocationWidget.getTimestamp()
+
+        color = self.colorEditButton.getColor()
+
+        startPointX = self.convertObj.datetimeToSceneXPos(startPointDatetime)
+        endPointX = self.convertObj.datetimeToSceneXPos(endPointDatetime)
+
+        # Position and start point should be the same values.
+
+        posF = QPointF(startPointX, startPointY)
+        startPointF = QPointF(startPointX, startPointY)
+        endPointF = QPointF(endPointX, endPointY)
+
+        # Set the values in the artifact.
+        self.artifact.setPos(posF)
+        self.artifact.setColor(color)
+        self.artifact.setStartPointF(startPointF)
+        self.artifact.setEndPointF(endPointF)
+
+        self.log.debug("Exiting saveValues()")
+
+
+    def _handleExtendStartPointButtonClicked(self):
+        """Called when the 'Extend' button is clicked for the start
+        point.  This will modify the start point so that it is a
+        multiple of the distance between the start and end points.
+        That multiple is indicated by the value in the
+        self.extendStartPointSpinBox.
+        """
+
+        # First get the start and end points' X and Y values.
+        startPointPrice = self.startPointPriceLocationValueSpinBox.value()
+        startPointY = self.convertObj.priceToSceneYPos(startPointPrice)
+
+        endPointPrice = self.endPointPriceLocationValueSpinBox.value()
+        endPointY = self.convertObj.priceToSceneYPos(endPointPrice)
+        
+        startPointDatetime = \
+            self.startPointDatetimeLocationWidget.getTimestamp()
+        endPointDatetime = \
+            self.endPointDatetimeLocationWidget.getTimestamp()
+
+        startPointX = self.convertObj.datetimeToSceneXPos(startPointDatetime)
+        endPointX = self.convertObj.datetimeToSceneXPos(endPointDatetime)
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = endPointX - startPointX
+        deltaY = endPointY - startPointY
+
+        # Calculate the new offsets from the end point.
+        extendMultiple = self.extendStartPointSpinBox.value()
+        offsetX = deltaX * extendMultiple
+        offsetY = deltaY * extendMultiple
+
+        # Calculate new start point X and Y values.
+        newStartPointX = endPointX - offsetX
+        newStartPointY = endPointY - offsetY
+
+        # Convert the new X and Y values to datetime and price.
+        newStartPointDatetime = \
+            self.convertObj.sceneXPosToDatetime(newStartPointX)
+        newStartPointPrice = \
+            self.convertObj.sceneYPosToPrice(newStartPointY)
+
+        # Set the edit widgets with these new values.
+        self.startPointPriceLocationValueSpinBox.\
+            setValue(newStartPointPrice)
+        self.startPointDatetimeLocationWidget.\
+            loadTimestamp(newStartPointDatetime)
+
+    def _handleExtendEndPointButtonClicked(self):
+        """Called when the 'Extend' button is clicked for the end
+        point.  This will modify the end point so that it is a
+        multiple of the distance between the start and end points.
+        That multiple is indicated by the value in the
+        self.extendEndPointSpinBox.
+        """
+
+        # First get the start and end points' X and Y values.
+        startPointPrice = self.startPointPriceLocationValueSpinBox.value()
+        startPointY = self.convertObj.priceToSceneYPos(startPointPrice)
+
+        endPointPrice = self.endPointPriceLocationValueSpinBox.value()
+        endPointY = self.convertObj.priceToSceneYPos(endPointPrice)
+        
+        startPointDatetime = \
+            self.startPointDatetimeLocationWidget.getTimestamp()
+        endPointDatetime = \
+            self.endPointDatetimeLocationWidget.getTimestamp()
+
+        startPointX = self.convertObj.datetimeToSceneXPos(startPointDatetime)
+        endPointX = self.convertObj.datetimeToSceneXPos(endPointDatetime)
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = endPointX - startPointX
+        deltaY = endPointY - startPointY
+
+        # Calculate the new offsets from the end point.
+        extendMultiple = self.extendEndPointSpinBox.value()
+        offsetX = deltaX * extendMultiple
+        offsetY = deltaY * extendMultiple
+
+        # Calculate new start point X and Y values.
+        newEndPointX = startPointX + offsetX
+        newEndPointY = startPointY + offsetY
+
+        # Convert the new X and Y values to datetime and price.
+        newEndPointDatetime = \
+            self.convertObj.sceneXPosToDatetime(newEndPointX)
+        newEndPointPrice = \
+            self.convertObj.sceneYPosToPrice(newEndPointY)
+
+        # Set the edit widgets with these new values.
+        self.endPointPriceLocationValueSpinBox.\
+            setValue(newEndPointPrice)
+        self.endPointDatetimeLocationWidget.\
+            loadTimestamp(newEndPointDatetime)
+
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        self.saveValues()
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
+
+class PriceBarChartVerticalLineSegmentArtifactEditDialog(QDialog):
+    """QDialog for editing some of the members objects in a 
+    PriceBarChartVerticalLineSegmentArtifact.
+    """
+
+    def __init__(self,
+                 priceBarChartVerticalLineSegmentArtifact,
+                 convertObj,
+                 readOnlyFlag=False,
+                 parent=None):
+        """Initializes the dialog and internal widget with the values
+        from the given PriceBarChartVerticalLineSegmentArtifact.
+        
+        Note: The 'priceBarChartVerticalLineSegmentArtifact' object gets modified
+        if the user clicks the 'Okay' button.
+
+        Arguments:
+        artifact - PriceBarChartVerticalLineSegmentArtifact object to edit.
+                   This object gets modified if the user clicks the
+                   'Okay' button.
+        convertObj - PriceBarChartGraphicsScene object that is used for
+                unit conversions (x position to time, y position to price).
+        readOnlyFlag - bool value used to set the widgets in readonly mode.
+        """
+
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.getLogger(\
+        "pricebarchart_dialogs.PriceBarChartVerticalLineSegmentArtifactEditDialog")
+
+        self.setWindowTitle("Edit PriceBarChartVerticalLineSegmentArtifact Data")
+
+        # Check input.
+        if not isinstance(priceBarChartVerticalLineSegmentArtifact,
+                          PriceBarChartVerticalLineSegmentArtifact):
+            self.log.error("Input type invalid to " +
+                           self.__class__.__name__ +
+                           " constructor.")
+            return
+
+        # Save a reference to the artifact object.
+        self.artifact = priceBarChartVerticalLineSegmentArtifact
+
+        # Save a reference to the conversion object.
+        self.convertObj = convertObj
+        
+        # Save the readOnlyFlag value.
+        self.readOnlyFlag = readOnlyFlag
+        
+        # Create the contents.
+        self.editWidget = \
+            PriceBarChartVerticalLineSegmentArtifactEditWidget(self.artifact,
+                                                    self.convertObj,
+                                                    self.readOnlyFlag)
+        
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.editWidget)
+        self.setLayout(layout)
+
+        self.editWidget.okayButtonClicked.connect(self.accept)
+        self.editWidget.cancelButtonClicked.connect(self.reject)
+
+    def setReadOnly(self, readOnlyFlag):
+        """Sets the internal edit widgets to be read only or not
+        depending on the bool state of readOnlyFlag.
+
+        Arguments:
+        readOnlyFlag - bool value indicating whether the widget is in
+                       ReadOnly mode.
+        """
+
+        self.readOnlyFlag = readOnlyFlag
+
+        self.editWidget.setReadOnly(self.readOnlyFlag)
+        
+    def getReadOnly(self):
+        """Returns the flag that indicates that this widget is in
+        read-only mode.  If the returned value is True, then it means
+        the user cannot edit any of the fields.
+        """
+        
+        return self.readOnlyFlag
+
+    def setConvertObj(self, convertObj):
+        """Sets the object that is used for the conversion between
+        scene position and timestamp or price.
+
+        Arguments:
+        convertObj - PriceBarChartGraphicsScene object that is used
+                     for scene position conversions of X point to
+                     timestamp and Y point to price.
+        """
+
+        self.convertObj = convertObj
+
+        self.editWidget.setConvertObj(self.convertObj)
+        
+    def getConvertObj(self):
+        """Returns the object used for conversion calculations between
+        scene position point and timestamp or price.
+
+        Returns:
+        PriceBarChartGraphicsScene object that is used
+        for scene position conversions of X point to
+        timestamp and Y point to price.
+        """
+
+        return self.convertObj
+    
+    def setArtifact(self, artifact):
+        """Loads the edit widget with the given artifact object.
+        
+        Note:  Upon clicking 'Okay' this object will be modified.
+
+        Arguments:
+        artifact - PriceBarChartVerticalLineSegmentArtifact object to load the
+                   widgets with.
+        """
+
+        # Check input.
+        if not isinstance(artifact,
+                          PriceBarChartVerticalLineSegmentArtifact):
             self.log.error("Input type invalid to " +
                            self.__class__.__name__ +
                            ".setArtifact()")
@@ -22891,6 +23516,60 @@ def testPriceBarChartLineSegmentArtifactEditDialog():
           "PriceBarChartLineSegmentArtifact: {}".\
           format(artifact.toString()))
     
+def testPriceBarChartVerticalLineSegmentArtifactEditDialog():
+    print("Running " + inspect.stack()[0][3] + "()")
+    
+    # Create an artifact.
+    artifact = PriceBarChartVerticalLineSegmentArtifact()
+
+    # Set the artifact's position and start/end points.  It needs to
+    # be at a position where the converted datetime.datetime is
+    # greater than the datetime.datetime.MINYEAR.
+    # A X value of 2450000 is in year 1995.
+    pos = QPointF(2450000, -1000)
+    artifact.setPos(pos)
+    artifact.setStartPointF(pos)
+    artifact.setEndPointF(QPoint(pos.x() + 1000, pos.y() - 10))
+
+    # Create an object for doing unit conversions.
+    eastern = pytz.timezone('US/Eastern')
+    from pricebarchart import PriceBarChartGraphicsScene
+    convertObj = PriceBarChartGraphicsScene()
+    convertObj.setTimezone(eastern)
+    
+    # Run the dialog in readonly mode.
+    print("Before (readonly), " +
+          "PriceBarChartVerticalLineSegmentArtifact: {}".\
+          format(artifact.toString()))
+    dialog = PriceBarChartVerticalLineSegmentArtifactEditDialog(artifact,
+                                                     convertObj,
+                                                     readOnlyFlag=True)
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted")
+    else:
+        print("Rejected")
+    print("After  (readonly), " +
+          "PriceBarChartVerticalLineSegmentArtifact: {}".\
+          format(artifact.toString()))
+
+    
+    # Run the dialog in non-readonly mode.
+    print("Before (not readonly), " +
+          "PriceBarChartVerticalLineSegmentArtifact: {}".\
+          format(artifact.toString()))
+    dialog = PriceBarChartVerticalLineSegmentArtifactEditDialog(artifact,
+                                                     convertObj,
+                                                     readOnlyFlag=False)
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted")
+    else:
+        print("Rejected")
+    print("After  (not readonly), " +
+          "PriceBarChartVerticalLineSegmentArtifact: {}".\
+          format(artifact.toString()))
+    
 def testPriceBarChartOctaveFanArtifactEditDialog():
     print("Running " + inspect.stack()[0][3] + "()")
     
@@ -23680,7 +24359,7 @@ if __name__=="__main__":
     #testPriceBarChartTimeMeasurementArtifactEditDialog()
     #testPriceBarChartTimeModalScaleArtifactEditDialog()
     #testPriceBarChartPriceModalScaleArtifactEditDialog()
-    testPriceBarChartPlanetLongitudeMovementMeasurementArtifactEditDialog()
+    #testPriceBarChartPlanetLongitudeMovementMeasurementArtifactEditDialog()
     #testPriceBarChartTextArtifactEditDialog()
     #testPriceBarChartPriceTimeInfoArtifactEditDialog()
     #testPriceBarChartPriceMeasurementArtifactEditDialog()
@@ -23688,6 +24367,7 @@ if __name__=="__main__":
     #testPriceBarChartPriceRetracementArtifactEditDialog()
     #testPriceBarChartPriceTimeVectorArtifactEditDialog()
     #testPriceBarChartLineSegmentArtifactEditDialog()
+    #testPriceBarChartVerticalLineSegmentArtifactEditDialog()
     #testPriceBarChartOctaveFanArtifactEditDialog()
     #testPriceBarChartFibFanArtifactEditDialog()
     #testPriceBarChartGannFanArtifactEditDialog()

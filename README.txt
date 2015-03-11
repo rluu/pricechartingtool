@@ -301,7 +301,9 @@ Snap key bindings are supported for the following tools:
   - TimeRetracementTool
   - PriceRetracementTool
   - PriceTimeVectorTool
-  - LineSegmentTool
+  - LineSegment1Tool
+  - LineSegment2Tool
+  - VerticalLineSegmentTool
   - OctaveFanTool
   - FibFanTool
   - GannFanTool

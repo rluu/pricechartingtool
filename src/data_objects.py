@@ -11425,6 +11425,119 @@ class PriceBarChartLineSegmentArtifact(PriceBarChartArtifact):
                        PriceBarChartLineSegmentArtifact.__name__ +
                        " object of version {}".format(self.classVersion))
 
+class PriceBarChartVerticalLineSegmentArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates a vertical line segment on
+    the graphics scene.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartVerticalLineSegmentArtifact")
+
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "VerticalLineSegment_" + str(self.uuid)
+
+        # Start and end points of the artifact.
+        self.startPointF = QPointF()
+        self.endPointF = QPointF()
+
+        # lineSegmentGraphicsItemColor (QColor).
+        self.color = \
+            PriceBarChartSettings.\
+                defaultVerticalLineSegmentGraphicsItemColor
+
+    def setStartPointF(self, startPointF):
+        """Stores the starting point of the VerticalLineSegmentArtifact.
+        Arguments:
+
+        startPointF - QPointF for the starting point of the artifact.
+        """
+        
+        self.startPointF = startPointF
+        
+    def getStartPointF(self):
+        """Returns the starting point of the VerticalLineSegmentArtifact."""
+        
+        return self.startPointF
+        
+    def setEndPointF(self, endPointF):
+        """Stores the ending point of the VerticalLineSegmentArtifact.
+        Arguments:
+
+        endPointF - QPointF for the ending point of the artifact.
+        """
+        
+        self.endPointF = endPointF
+        
+    def getEndPointF(self):
+        """Returns the ending point of the VerticalLineSegmentArtifact."""
+        
+        return self.endPointF
+
+    def setColor(self, color):
+        """Sets the bar color.
+        
+        Arguments:
+        color - QColor object for the bar color.
+        """
+        
+        self.color = color
+
+    def getColor(self):
+        """Gets the bar color as a QColor object."""
+        
+        return self.color
+
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = Util.objToString(self)
+        
+        return rv
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartVerticalLineSegmentArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartVerticalLineSegmentArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that indicates the the data elements of a
     OctaveFanGraphicsItem.
@@ -18834,6 +18947,12 @@ class PriceBarChartSettings:
     # angleTextFlag (bool).
     defaultLineSegmentGraphicsItemAngleTextFlag = False
     
+    # Default color for the bar of a VerticalLineSegmentGraphicsItem (QColor).
+    defaultVerticalLineSegmentGraphicsItemColor = QColor(Qt.gray)
+
+    # Default value for the VerticalLineSegmentGraphicsItem bar width (float).
+    defaultVerticalLineSegmentGraphicsItemBarWidth = 3.3
+
     # Default musical ratios enabled in a
     # OctaveFanGraphicsItem (list of MusicalRatio)
     defaultOctaveFanGraphicsItemMusicalRatios = \
@@ -19243,7 +19362,7 @@ class PriceBarChartSettings:
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 11
+        self.classVersion = 12
 
         # List of scalings used in the PriceBarChartGraphicsView.  
         # This is list of PriceBarChartScaling objects.
@@ -20574,6 +20693,16 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemAngleTextFlag
 
+        # VerticalLineSegmentGraphicsItem bar color (QColor).
+        self.verticalLineSegmentGraphicsItemColor = \
+            PriceBarChartSettings.\
+            defaultVerticalLineSegmentGraphicsItemColor
+
+        # VerticalLineSegment1GraphicsItem bar width (float).
+        self.verticalLineSegmentGraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+            defaultVerticalLineSegmentGraphicsItemBarWidth
+
         # OctaveFanGraphicsItem musical ratios (list of MusicalRatio).
         self.octaveFanGraphicsItemMusicalRatios = \
             PriceBarChartSettings.\
@@ -21053,7 +21182,7 @@ class PriceBarChartSettings:
         self.log = logging.getLogger("data_objects.PriceBarChartSettings")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 11:
+        if self.classVersion < 12:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartSettings (version {}).  ".\
                           format(self.classVersion))
@@ -22574,21 +22703,21 @@ class PriceBarChartSettings:
                     # Pen width for LookbackMultiplePriceBars.
                     # This is a float value.
                     self.lookbackMultiplePriceBarGraphicsItemPenWidth = \
-                      PriceBarChartSettings.defaultLookbackMultiplePriceBarGraphicsItemPenWidth 
+                        PriceBarChartSettings.defaultLookbackMultiplePriceBarGraphicsItemPenWidth 
 
-                      # Width of the left extension drawn that represents the
-                      # open price of a LookbackMultiplePriceBar.  This is a
-                      # float value.
+                    # Width of the left extension drawn that represents the
+                    # open price of a LookbackMultiplePriceBar.  This is a
+                    # float value.
                     self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth = \
-                      PriceBarChartSettings.\
-                      defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth 
+                        PriceBarChartSettings.\
+                        defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth 
 
-                      # Width of the right extension drawn that represents the
-                      # close price of a LookbackMultiplePriceBar.  This is a
-                      # float value.
+                    # Width of the right extension drawn that represents the
+                    # close price of a LookbackMultiplePriceBar.  This is a
+                    # float value.
                     self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidth = \
-                      PriceBarChartSettings.\
-                      defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth 
+                        PriceBarChartSettings.\
+                        defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth 
 
                     self.log.debug(\
                                    "Added field " + \
@@ -22600,6 +22729,50 @@ class PriceBarChartSettings:
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 11
+        
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
+            if self.classVersion == 11:
+                # Version 12 added the following member variables:
+                #
+                # self.verticalLineSegmentGraphicsItemColor
+                # self.verticalLineSegmentGraphicsItemBarWidth
+                
+                try:
+                    # See if the variables are set.
+                    self.verticalLineSegmentGraphicsItemColor
+                    self.verticalLineSegmentGraphicsItemBarWidth
+
+                    # If it got here, then the fields are already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have these fields.")
+
+                except AttributeError:
+                    # Variable was not set.  Set it to the default
+                    # PriceBarChartSettings value.
+
+                    # VerticalLineSegmentGraphicsItem bar color (QColor).
+                    self.verticalLineSegmentGraphicsItemColor = \
+                        PriceBarChartSettings.\
+                        defaultVerticalLineSegmentGraphicsItemColor
+
+                    # VerticalLineSegment1GraphicsItem bar width (float).
+                    self.verticalLineSegmentGraphicsItemBarWidth = \
+                        PriceBarChartSettings.\
+                        defaultVerticalLineSegmentGraphicsItemBarWidth
+
+                    self.log.debug(\
+                                   "Added field " + \
+                        "'verticalLineSegmentGraphicsItemColor', " + \
+                        "'verticalLineSegmentGraphicsItemBarWidth', " + \
+                        "to the loaded PriceBarChartSettings.")
+                    
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 12
         
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
