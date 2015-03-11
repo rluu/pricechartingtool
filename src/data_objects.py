@@ -5917,7 +5917,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 5
+        self.classVersion = 6
 
         # Create the logger.
         self.log = \
@@ -6278,6 +6278,16 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         self.planetAvgJuSaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
+        
+        # Flag for measurement of planet AsSu enabled.
+        self.planetAsSuEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
+        
+        # Flag for measurement of planet AsMo enabled.
+        self.planetAsMoEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
         
         # Flag for measurement of planet MoSu enabled.
         self.planetMoSuEnabledFlag = \
@@ -7890,6 +7900,50 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
 
         return self.planetAvgJuSaEnabledFlag
 
+    def setPlanetAsSuEnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.planetAsSuEnabledFlag = flag
+        
+    def getPlanetAsSuEnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.planetAsSuEnabledFlag
+
+    def setPlanetAsMoEnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.planetAsMoEnabledFlag = flag
+        
+    def getPlanetAsMoEnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.planetAsMoEnabledFlag
+
     def setPlanetMoSuEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -8411,7 +8465,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
             "data_objects.PriceBarChartPlanetLongitudeMovementMeasurementArtifact")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 5:
+        if self.classVersion < 6:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartPlanetLongitudeMovementMeasurementArtifact (version {}).  ".\
                           format(self.classVersion))
@@ -9486,6 +9540,47 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
                 
+            if self.classVersion == 5:
+                # Version 6 adds the following member variables:
+                #
+                # self.planetAsSuEnabledFlag
+                # self.planetAsMoEnabledFlag
+                #
+    
+                # Handle variables that were added in this version.
+                try:
+                    # See if the variable is set.
+                    self.planetAsSuEnabledFlag
+                    self.planetAsMoEnabledFlag
+    
+                    # If it got here, then the field is already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have this field.")
+                except AttributeError:
+                    # Variables were not set.  Set them to the default
+                    # values.
+                    
+                    self.planetAsSuEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
+                    
+                    self.planetAsMoEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
+                    
+                    self.log.debug("Added field " + \
+                                   "'self.planetAsSuEnabledFlag', " + \
+                                   "'self.planetAsMoEnabledFlag', " + \
+                                   "to the loaded object.")
+                                   
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 6
+                                  
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
                 
         # Log that we set the state of this object.
         self.log.debug("Set state of a " +
@@ -18706,6 +18801,14 @@ class PriceBarChartSettings:
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag = False
         
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetAsSuEnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag = False
+        
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetAsMoEnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag = False
+        
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMoSuEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag = False
         
@@ -19481,7 +19584,7 @@ class PriceBarChartSettings:
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 12
+        self.classVersion = 13
 
         # List of scalings used in the PriceBarChartGraphicsView.  
         # This is list of PriceBarChartScaling objects.
@@ -20277,6 +20380,18 @@ class PriceBarChartSettings:
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
+        
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetAsSuEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
+        
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetAsMoEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
         
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMoSuEnabledFlag (bool).
@@ -21311,7 +21426,7 @@ class PriceBarChartSettings:
         self.log = logging.getLogger("data_objects.PriceBarChartSettings")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 12:
+        if self.classVersion < 13:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartSettings (version {}).  ".\
                           format(self.classVersion))
@@ -22918,6 +23033,53 @@ class PriceBarChartSettings:
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 12
+        
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
+            if self.classVersion == 12:
+                # Version 13 added the following member variables:
+                #
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
+                #
+
+                try:
+                    # See if the variables are set.
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
+                
+                    # If it got here, then the fields are already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have these fields.")
+
+                except AttributeError:
+                    # Variable was not set.  Set it to the default
+                    # PriceBarChartSettings value.
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetAsSuEnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
+                    
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetAsMoEnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
+                    
+                    self.log.debug(\
+                        "Added field " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag', " + \
+                        "to the loaded PriceBarChartSettings.")
+                    
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 13
         
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\

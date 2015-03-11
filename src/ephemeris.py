@@ -361,6 +361,8 @@ class Ephemeris:
             "AvgMaJuSaUrNePl",
             "AvgJuSaUrNe",
             "AvgJuSa",
+            "AsSu",
+            "AsMo",
             "MoSu",
             "MeVe",
             "MeEa",
@@ -917,6 +919,8 @@ class Ephemeris:
                         CoAscendant1
                         CoAscendant2
                         PolarAscendant
+                        AsSu
+                        AsMo
                         
         Arguments:
         planetName - str for the planet name to analyze.
@@ -937,7 +941,12 @@ class Ephemeris:
             "EquatorialAscendant",   # "Equatorial ascendant"
             "CoAscendant1",          # "Co-ascendant" (Walter Koch)
             "CoAscendant2",          # "Co-ascendant" (Michael Munkasey)
-            "PolarAscendant"]        # "Polar ascendant" (M. Munkasey)
+            "PolarAscendant",        # "Polar ascendant" (M. Munkasey)
+            "AsSu",
+            "AsMo",
+            ]
+
+
 
         if planetName in ascmcPlanetNames:
             isAscmcPlanetName = True
@@ -3411,6 +3420,10 @@ class Ephemeris:
                 return Ephemeris.getAvgJuSaUrNePlanetaryInfo(dt)
             elif planetName == "AvgJuSa":
                 return Ephemeris.getAvgJuSaPlanetaryInfo(dt)
+            elif planetName == "AsSu":
+                return Ephemeris.getAsSuPlanetaryInfo(dt)
+            elif planetName == "AsMo":
+                return Ephemeris.getAsMoPlanetaryInfo(dt)
             elif planetName == "MoSu":
                 return Ephemeris.getMoSuPlanetaryInfo(dt)
             elif planetName == "MeVe":
@@ -5346,6 +5359,62 @@ class Ephemeris:
         return rv
     
     @staticmethod
+    def getAsSuPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Ascendant - Sun) at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+        
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+            
+        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
+        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
+        
+        planetaryInfos = []
+        planetaryInfos.append(ascendantPI)
+        planetaryInfos.append(sunPI)
+        
+        planetName = "AsSu"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+        
+        return rv
+
+    @staticmethod
+    def getAsMoPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Ascendant - Moon) at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+        
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+            
+        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
+        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
+        
+        planetaryInfos = []
+        planetaryInfos.append(ascendantPI)
+        planetaryInfos.append(moonPI)
+        
+        planetName = "AsMo"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+        
+        return rv
+
+    @staticmethod
     def getMoSuPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Moon - Sun) at the given timestamp.
@@ -6060,6 +6129,12 @@ def testGetPlanetaryInfos():
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
     p = Ephemeris.getAvgJuSaPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getAsSuPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getAsMoPlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
     p = Ephemeris.getMoSuPlanetaryInfo(now)
@@ -9463,7 +9538,7 @@ if __name__=="__main__":
     # Different tests that can be run:
     #testGetPlanetaryInfos()
     #testHouseCusps()
-    testAscmc()
+    #testAscmc()
     #testPlanetTopicalLongitude()
     #testDatetimeJulianPrecisionLoss()
 

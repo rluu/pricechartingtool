@@ -703,6 +703,14 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetAvgJuSaGlyphUnicodeKey,
                                 SettingsKeys.planetAvgJuSaGlyphUnicodeDefValue,
                                 type=str)
+        elif planetName == "AsSu":
+            rv = settings.value(SettingsKeys.planetAsSuGlyphUnicodeKey,
+                                SettingsKeys.planetAsSuGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "AsMo":
+            rv = settings.value(SettingsKeys.planetAsMoGlyphUnicodeKey,
+                                SettingsKeys.planetAsMoGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "MoSu":
             rv = settings.value(SettingsKeys.planetMoSuGlyphUnicodeKey,
                                 SettingsKeys.planetMoSuGlyphUnicodeDefValue,
@@ -1026,6 +1034,14 @@ class AstrologyUtils:
         elif planetName == "AvgJuSa":
             rv = settings.value(SettingsKeys.planetAvgJuSaGlyphFontSizeKey,
                                 SettingsKeys.planetAvgJuSaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "AsSu":
+            rv = settings.value(SettingsKeys.planetAsSuGlyphFontSizeKey,
+                                SettingsKeys.planetAsSuGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "AsMo":
+            rv = settings.value(SettingsKeys.planetAsMoGlyphFontSizeKey,
+                                SettingsKeys.planetAsMoGlyphFontSizeDefValue,
                                 type=float)
         elif planetName == "MoSu":
             rv = settings.value(SettingsKeys.planetMoSuGlyphFontSizeKey,
@@ -1352,6 +1368,14 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetAvgJuSaAbbreviationKey,
                                 SettingsKeys.planetAvgJuSaAbbreviationDefValue,
                                 type=str)
+        elif planetName == "AsSu":
+            rv = settings.value(SettingsKeys.planetAsSuAbbreviationKey,
+                                SettingsKeys.planetAsSuAbbreviationDefValue,
+                                type=str)
+        elif planetName == "AsMo":
+            rv = settings.value(SettingsKeys.planetAsMoAbbreviationKey,
+                                SettingsKeys.planetAsMoAbbreviationDefValue,
+                                type=str)
         elif planetName == "MoSu":
             rv = settings.value(SettingsKeys.planetMoSuAbbreviationKey,
                                 SettingsKeys.planetMoSuAbbreviationDefValue,
@@ -1676,6 +1700,14 @@ class AstrologyUtils:
         elif planetName == "AvgJuSa":
             rv = settings.value(SettingsKeys.planetAvgJuSaForegroundColorKey,
                                 SettingsKeys.planetAvgJuSaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsSu":
+            rv = settings.value(SettingsKeys.planetAsSuForegroundColorKey,
+                                SettingsKeys.planetAsSuForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsMo":
+            rv = settings.value(SettingsKeys.planetAsMoForegroundColorKey,
+                                SettingsKeys.planetAsMoForegroundColorDefValue,\
                                 type=QColor)
         elif planetName == "MoSu":
             rv = settings.value(SettingsKeys.planetMoSuForegroundColorKey,
@@ -2005,6 +2037,14 @@ class AstrologyUtils:
         elif planetName == "AvgJuSa":
             rv = settings.value(SettingsKeys.planetAvgJuSaBackgroundColorKey,
                                 SettingsKeys.planetAvgJuSaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsSu":
+            rv = settings.value(SettingsKeys.planetAsSuBackgroundColorKey,
+                                SettingsKeys.planetAsSuBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsMo":
+            rv = settings.value(SettingsKeys.planetAsMoBackgroundColorKey,
+                                SettingsKeys.planetAsMoBackgroundColorDefValue,\
                                 type=QColor)
         elif planetName == "MoSu":
             rv = settings.value(SettingsKeys.planetMoSuBackgroundColorKey,
@@ -6142,6 +6182,20 @@ class PlanetaryInfoTableWidget(QTableWidget):
             enabledPlanetNames.append("AvgJuSa")
 
         if settings.value(\
+            SettingsKeys.planetAsSuEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetAsSuEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsSu")
+
+        if settings.value(\
+            SettingsKeys.planetAsMoEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetAsMoEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMo")
+
+        if settings.value(\
             SettingsKeys.planetMoSuEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetMoSuEnabledForPlanetaryInfoTableDefValue,
             type=bool):
@@ -7509,6 +7563,20 @@ class AstrologyChartWidget(QWidget):
             planets.append(Ephemeris.getAvgJuSaPlanetaryInfo(dt))
 
         if settings.value(\
+            SettingsKeys.planetAsSuCalculationsEnabledKey, \
+            SettingsKeys.planetAsSuCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getAsSuPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetAsMoCalculationsEnabledKey, \
+            SettingsKeys.planetAsMoCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getAsMoPlanetaryInfo(dt))
+
+        if settings.value(\
             SettingsKeys.planetMoSuCalculationsEnabledKey, \
             SettingsKeys.planetMoSuCalculationsEnabledDefValue,
             type=bool):
@@ -8047,6 +8115,20 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("AvgJuSa")
+
+        if settings.value(\
+            SettingsKeys.planetAsSuEnabledForDeclinationKey, \
+            SettingsKeys.planetAsSuEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsSu")
+
+        if settings.value(\
+            SettingsKeys.planetAsMoEnabledForDeclinationKey, \
+            SettingsKeys.planetAsMoEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMo")
 
         if settings.value(\
             SettingsKeys.planetMoSuEnabledForDeclinationKey, \
@@ -8589,6 +8671,20 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("AvgJuSa")
 
         if settings.value(\
+            SettingsKeys.planetAsSuEnabledForLatitudeKey, \
+            SettingsKeys.planetAsSuEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsSu")
+
+        if settings.value(\
+            SettingsKeys.planetAsMoEnabledForLatitudeKey, \
+            SettingsKeys.planetAsMoEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMo")
+
+        if settings.value(\
             SettingsKeys.planetMoSuEnabledForLatitudeKey, \
             SettingsKeys.planetMoSuEnabledForLatitudeDefValue,
             type=bool):
@@ -9127,6 +9223,20 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("AvgJuSa")
+
+        if settings.value(\
+            SettingsKeys.planetAsSuEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetAsSuEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsSu")
+
+        if settings.value(\
+            SettingsKeys.planetAsMoEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetAsMoEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMo")
 
         if settings.value(\
             SettingsKeys.planetMoSuEnabledForGeoSidRadixChartKey, \
@@ -9669,6 +9779,20 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("AvgJuSa")
 
         if settings.value(\
+            SettingsKeys.planetAsSuEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetAsSuEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsSu")
+
+        if settings.value(\
+            SettingsKeys.planetAsMoEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetAsMoEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMo")
+
+        if settings.value(\
             SettingsKeys.planetMoSuEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetMoSuEnabledForGeoTropRadixChartDefValue,
             type=bool):
@@ -10207,6 +10331,20 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("AvgJuSa")
+
+        if settings.value(\
+            SettingsKeys.planetAsSuEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetAsSuEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsSu")
+
+        if settings.value(\
+            SettingsKeys.planetAsMoEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetAsMoEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMo")
 
         if settings.value(\
             SettingsKeys.planetMoSuEnabledForHelioTropRadixChartKey, \

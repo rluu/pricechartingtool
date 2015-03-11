@@ -7897,6 +7897,12 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag == True:
             self.planetNamesEnabled.append("AvgJuSa")
         if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag == True:
+            self.planetNamesEnabled.append("AsSu")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag == True:
+            self.planetNamesEnabled.append("AsMo")
+        if PriceBarChartSettings.\
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag == True:
             self.planetNamesEnabled.append("MoSu")
         if PriceBarChartSettings.\
@@ -8303,6 +8309,12 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag == True:
             self.planetNamesEnabled.append("AvgJuSa")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag == True:
+            self.planetNamesEnabled.append("AsSu")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag == True:
+            self.planetNamesEnabled.append("AsMo")
         if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag == True:
             self.planetNamesEnabled.append("MoSu")
@@ -8836,7 +8848,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                 if Ephemeris.isHouseCuspPlanetName(planetName) or \
                        Ephemeris.isAscmcPlanetName(planetName):
                     
-                    stepSizeTd = datetime.timedelta(hours=1)
+                    stepSizeTd = datetime.timedelta(hours=4)
                     
                 elif planetName == "Jupiter" or \
                      planetName == "Saturn" or \
@@ -8848,8 +8860,8 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                 
                 if self.log.isEnabledFor(logging.DEBUG) == True:
                     self.log.debug("Stepping through from {} to {} ...".\
-                                   format(Ephemeris.datetimeToStr(startTimestamp),
-                                          Ephemeris.datetimeToStr(endTimestamp)))
+                        format(Ephemeris.datetimeToStr(startTimestamp),
+                               Ephemeris.datetimeToStr(endTimestamp)))
                 
                 # Current datetime as we step through all the
                 # timestamps between the start and end timestamp.
@@ -9865,6 +9877,10 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.planetNamesEnabled.append("AvgJuSaUrNe")
         if self.artifact.getPlanetAvgJuSaEnabledFlag():
             self.planetNamesEnabled.append("AvgJuSa")
+        if self.artifact.getPlanetAsSuEnabledFlag():
+            self.planetNamesEnabled.append("AsSu")
+        if self.artifact.getPlanetAsMoEnabledFlag():
+            self.planetNamesEnabled.append("AsMo")
         if self.artifact.getPlanetMoSuEnabledFlag():
             self.planetNamesEnabled.append("MoSu")
         if self.artifact.getPlanetMeVeEnabledFlag():
@@ -10076,6 +10092,10 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             "AvgJuSaUrNe" in self.planetNamesEnabled)
         self.artifact.setPlanetAvgJuSaEnabledFlag(\
             "AvgJuSa" in self.planetNamesEnabled)
+        self.artifact.setPlanetAsSuEnabledFlag(\
+            "AsSu" in self.planetNamesEnabled)
+        self.artifact.setPlanetAsMoEnabledFlag(\
+            "AsMo" in self.planetNamesEnabled)
         self.artifact.setPlanetMoSuEnabledFlag(\
             "MoSu" in self.planetNamesEnabled)
         self.artifact.setPlanetMeVeEnabledFlag(\

@@ -402,6 +402,8 @@ class LookbackMultipleUtils:
                         (centricityType == "geocentric" and \
                          (planetName == "Sun" or
                           planetName == "Moon" or
+                          Ephemeris.isHouseCuspPlanetName(planetName) or
+                          Ephemeris.isAscmcPlanetName(planetName) or
                           planetName == "MoSu")):
                          
                          LookbackMultipleUtils.log.debug(\
@@ -918,6 +920,8 @@ class LookbackMultipleUtils:
                         (centricityType == "geocentric" and \
                          (planetName == "Sun" or 
                           planetName == "Moon" or 
+                          Ephemeris.isHouseCuspPlanetName(planetName) or
+                          Ephemeris.isAscmcPlanetName(planetName) or
                           planetName == "MoSu")):
                          
                          LookbackMultipleUtils.log.debug(\
