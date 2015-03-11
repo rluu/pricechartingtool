@@ -290,7 +290,7 @@ Snap key bindings are:
   - Key_Q: Turn snap mode on.
   - Key_W: Turn snap mode off.
 
-Snap key bindings are supported for the following tools:
+Snap key bindings to PriceBars are supported for the following tools:
   - BarCountTool
   - TimeMeasurementTool
   - PriceMeasurementTool
@@ -304,6 +304,7 @@ Snap key bindings are supported for the following tools:
   - LineSegment1Tool
   - LineSegment2Tool
   - VerticalLineSegmentTool
+  - HorizontalLineSegmentTool
   - OctaveFanTool
   - FibFanTool
   - GannFanTool
@@ -319,6 +320,14 @@ Snap key bindings are supported for the following tools:
   - PanchottariDasaTool
   - ShashtihayaniDasaTool
   
+Note: For these tools below, the snap will work with 
+both PriceBars and LookbackMultiplePriceBars:
+
+  - PriceTimeInfoTool
+  - LineSegment1Tool
+  - LineSegment2Tool
+  - VerticalLineSegmentTool
+
 ##############################################################################
 
 Note: 

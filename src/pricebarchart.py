@@ -44810,6 +44810,687 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         return closestPriceBarY
 
+    def getClosestLookbackMultiplePriceBarOHLCPoint(self, pointF):
+        """Goes through all the LookbackMultiplePriceBars, looking at the 
+        QPointF of the open, high, low, and close of each bar (in price and
+        time), and tests it to locate the point out of all the bars
+        that is the closest to 'pointF'.
+
+        WARNING: This may not do what you expect to do!  The reason is
+        because our current scaling for time (x coordinate) is 1 unit
+        of x per day.  Our price scaling (y coordinate) is 1 unit of
+        price per y.  This means the 'qgraphicsview' scaling of x and
+        y (in appearance) is misleading when compared to actual
+        coordinates.  So the algorithm works correctly, but may not
+        produce expected results due to a huge skew in scaling.  If
+        this is not what you want, then consider using
+        getClosestLookbackMultiplePriceBarOHLCViewPoint().
+        
+        Returns:
+        QPointF - Point that is a scene pos of a open, high, low,
+                  or close of a LookbackMultiplePriceBar, where it is the closest
+                  to the given 'pointF'.
+        """
+
+        self.log.debug("Entered getClosestLookbackMultiplePriceBarOHLCPoint()")
+        
+        # QPointF for the closest point.
+        closestPoint = None
+
+        # Smallest length of line from pointF to desired point.
+        smallestLength = None
+        
+        # LookbackMultiplePriceBarGraphicsItem that is the closest.
+        closestLookbackMultiplePriceBarGraphicsItem = None
+        
+        # Allocate lines ahead of time so we don't have
+        # to create and destroy a whole bunch of them in the loop.
+        lineToOpen = QLineF()
+        lineToHigh = QLineF()
+        lineToLow = QLineF()
+        lineToClose = QLineF()
+
+        graphicsItems = self.items()
+
+        self.log.debug("PointF is: ({}, {})".format(pointF.x(), pointF.y()))
+                       
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                # Get the points of the open, high, low, and close of
+                # this LookbackMultiplePriceBarGraphicsItem.
+                openPointF = item.getLookbackMultiplePriceBarOpenScenePoint()
+                highPointF = item.getLookbackMultiplePriceBarHighScenePoint()
+                lowPointF = item.getLookbackMultiplePriceBarLowScenePoint()
+                closePointF = item.getLookbackMultiplePriceBarCloseScenePoint()
+
+                #self.log.debug("openPointF is: ({}, {})".
+                #               format(openPointF.x(), openPointF.y()))
+                #self.log.debug("highPointF is: ({}, {})".
+                #               format(highPointF.x(), highPointF.y()))
+                #self.log.debug("lowPointF is: ({}, {})".
+                #               format(lowPointF.x(), lowPointF.y()))
+                #self.log.debug("closePointF is: ({}, {})".
+                #               format(closePointF.x(), closePointF.y()))
+
+                # Create lines so we can get the lengths between the points.
+                lineToOpen.setPoints(pointF, openPointF)
+                lineToHigh.setPoints(pointF, highPointF)
+                lineToLow.setPoints(pointF, lowPointF)
+                lineToClose.setPoints(pointF, closePointF)
+
+                lineToOpenLength = lineToOpen.length()
+                lineToHighLength = lineToHigh.length()
+                lineToLowLength = lineToLow.length()
+                lineToCloseLength = lineToClose.length()
+                
+                #self.log.debug("lineToOpenLength is: {}".\
+                #               format(lineToOpenLength))
+                #self.log.debug("lineToHighLength is: {}".\
+                #               format(lineToHighLength))
+                #self.log.debug("lineToLowLength is: {}".\
+                #               format(lineToLowLength))
+                #self.log.debug("lineToCloseLength is: {}".\
+                #               format(lineToCloseLength))
+
+                # Set the initial smallestLength as the first point if
+                # it is not set already.
+                if smallestLength == None:
+                    closestPoint = openPointF
+                    smallestLength = lineToOpen.length()
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+
+                # Test the open, high, low, and close points to see if
+                # they are now the closest to pointF.
+                if lineToOpenLength < smallestLength:
+                    closestPoint = openPointF
+                    smallestLength = lineToOpenLength
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+                    #self.log.debug("New closest point is now: " +
+                    #               "({}, {})".format(closestPoint.x(),
+                    #                                 closestPoint.y()))
+
+                if lineToHighLength < smallestLength:
+                    closestPoint = highPointF
+                    smallestLength = lineToHighLength
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+                    #self.log.debug("New closest point is now: " +
+                    #               "({}, {})".format(closestPoint.x(),
+                    #                                 closestPoint.y()))
+
+                if lineToLowLength < smallestLength:
+                    closestPoint = lowPointF
+                    smallestLength = lineToLowLength
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+                    #self.log.debug("New closest point is now: " +
+                    #               "({}, {})".format(closestPoint.x(),
+                    #                                 closestPoint.y()))
+
+                if lineToCloseLength < smallestLength:
+                    closestPoint = closePointF
+                    smallestLength = lineToCloseLength
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+                    #self.log.debug("New closest point is now: " +
+                    #               "({}, {})".format(closestPoint.x(),
+                    #                                 closestPoint.y()))
+                    
+        if closestPoint == None:
+            # If the closestPoint is still None, then that means there are 
+            # no LookbackMultiplePriceBars.  
+            # In this case, use pointF as the closestPoint.
+            closestPoint = pointF
+
+            self.log.debug("There are no LookbackMultiplePriceBars, " + \
+                           "so useing pointF as the closest point.")
+        else:
+            self.log.debug("Closest point is: ({}, {})".format(closestPoint.x(),
+                                                               closestPoint.y()))
+
+        self.log.debug("Exiting getClosestLookbackMultiplePriceBarOHLCPoint()")
+        
+        return closestPoint
+
+    def getClosestLookbackMultiplePriceBarOHLCViewPoint(self, pointF):
+        """Goes through all the LookbackMultiplePriceBars, looking at the QPointF of
+        the open, high, low, and close of each pricebar (in price and
+        time), and tests it to locate the point out of all the bars
+        that is the closest to 'pointF' in the GraphicsView.  This
+        utilizes the graphics view scaling to see what is closest.  
+
+        Arguments:
+        pointF - QPointF object that is a point in scene
+        coordinates.  This point is used as a reference point to
+        calculate distances to the open, high, low, and close points
+        of the price bars.
+        
+        Returns:
+        QPointF - Point in scene coordinates of the closest pricebar's
+        open, high, low, or close (in price and time), when computed
+        using scaled view coordinates.
+        """
+        
+        self.log.debug("Entered getClosestLookbackMultiplePriceBarOHLCViewPoint()")
+        
+        # QPointF for the closest point.
+        closestPoint = None
+
+        # Smallest length of line from pointF to desired point.
+        smallestLength = None
+        
+        # LookbackMultiplePriceBarGraphicsItem that is the closest.
+        closestLookbackMultiplePriceBarGraphicsItem = None
+
+        # Scaling object to use.
+        scaling = self.scaling
+        
+        self.log.debug("PointF is: ({}, {})".format(pointF.x(), pointF.y()))
+
+        viewScaledPointF = QPointF(pointF.x() * scaling.getViewScalingX(),
+                                   pointF.y() * scaling.getViewScalingY())
+        
+        self.log.debug("View-scaled PointF is: ({}, {})".\
+                       format(viewScaledPointF.x(), viewScaledPointF.y()))
+
+        # Allocate the points and lines ahead of time so we don't have
+        # to create and destroy a whole bunch of them in the loop.
+        viewScaledOpenPointF = QPointF()
+        viewScaledHighPointF = QPointF()
+        viewScaledLowPointF = QPointF()
+        viewScaledClosePointF = QPointF()
+        lineToOpen = QLineF()
+        lineToHigh = QLineF()
+        lineToLow = QLineF()
+        lineToClose = QLineF()
+
+        graphicsItems = self.items()
+
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                # Get the points of the open, high, low, and close of
+                # this LookbackMultiplePriceBarGraphicsItem.
+                openPointF = item.getLookbackMultiplePriceBarOpenScenePoint()
+                highPointF = item.getLookbackMultiplePriceBarHighScenePoint()
+                lowPointF = item.getLookbackMultiplePriceBarLowScenePoint()
+                closePointF = item.getLookbackMultiplePriceBarCloseScenePoint()
+
+                #self.log.debug("openPointF is: ({}, {})".
+                #               format(openPointF.x(), openPointF.y()))
+                #self.log.debug("highPointF is: ({}, {})".
+                #               format(highPointF.x(), highPointF.y()))
+                #self.log.debug("lowPointF is: ({}, {})".
+                #               format(lowPointF.x(), lowPointF.y()))
+                #self.log.debug("closePointF is: ({}, {})".
+                #               format(closePointF.x(), closePointF.y()))
+
+                viewScaledOpenPointF.\
+                    setX(openPointF.x() * scaling.getViewScalingX())
+                viewScaledOpenPointF.\
+                    setY(openPointF.y() * scaling.getViewScalingY())
+                
+                viewScaledHighPointF.\
+                    setX(highPointF.x() * scaling.getViewScalingX())
+                viewScaledHighPointF.\
+                    setY(highPointF.y() * scaling.getViewScalingY())
+                
+                viewScaledLowPointF.\
+                    setX(lowPointF.x() * scaling.getViewScalingX())
+                viewScaledLowPointF.\
+                    setY(lowPointF.y() * scaling.getViewScalingY())
+                
+                viewScaledClosePointF.\
+                    setX(closePointF.x() * scaling.getViewScalingX())
+                viewScaledClosePointF.\
+                    setY(closePointF.y() * scaling.getViewScalingY())
+
+                #self.log.debug("viewScaledOpenPointF is: ({}, {})".
+                #               format(viewScaledOpenPointF.x(),
+                #                      viewScaledOpenPointF.y()))
+                #self.log.debug("viewScaledHighPointF is: ({}, {})".
+                #               format(viewScaledHighPointF.x(),
+                #                      viewScaledHighPointF.y()))
+                #self.log.debug("viewScaledLowPointF is: ({}, {})".
+                #               format(viewScaledLowPointF.x(),
+                #                      viewScaledLowPointF.y()))
+                #self.log.debug("viewScaledClosePointF is: ({}, {})".
+                #               format(viewScaledClosePointF.x(),
+                #                      viewScaledClosePointF.y()))
+
+                # Create lines so we can get the lengths between the points.
+                lineToOpen.setPoints(viewScaledPointF, viewScaledOpenPointF)
+                lineToHigh.setPoints(viewScaledPointF, viewScaledHighPointF)
+                lineToLow.setPoints(viewScaledPointF, viewScaledLowPointF)
+                lineToClose.setPoints(viewScaledPointF, viewScaledClosePointF)
+
+                lineToOpenLength = lineToOpen.length()
+                lineToHighLength = lineToHigh.length()
+                lineToLowLength = lineToLow.length()
+                lineToCloseLength = lineToClose.length()
+                
+                #self.log.debug("lineToOpenLength is: {}".\
+                #               format(lineToOpenLength))
+                #self.log.debug("lineToHighLength is: {}".\
+                #               format(lineToHighLength))
+                #self.log.debug("lineToLowLength is: {}".\
+                #               format(lineToLowLength))
+                #self.log.debug("lineToCloseLength is: {}".\
+                #               format(lineToCloseLength))
+
+                # Set the initial smallestLength as the first point if
+                # it is not set already.
+                if smallestLength == None:
+                    # Here we are keeping the scene coordinate, not the
+                    # view-scaled one.
+                    closestPoint = openPointF
+                    smallestLength = lineToOpen.length()
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+
+                # Test the open, high, low, and close points to see if
+                # they are now the closest to pointF.
+                if lineToOpenLength < smallestLength:
+                    # Here we are keeping the scene coordinate, not the
+                    # view-scaled one.
+                    closestPoint = openPointF
+                    smallestLength = lineToOpenLength
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+                    #self.log.debug("New closest point is now: ({}, {})".\
+                    #               format(closestPoint.x(),
+                    #                      closestPoint.y()))
+
+                if lineToHighLength < smallestLength:
+                    # Here we are keeping the scene coordinate, not the
+                    # view-scaled one.
+                    closestPoint = highPointF
+                    smallestLength = lineToHighLength
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+                    #self.log.debug("New closest point is now: ({}, {})".\
+                    #               format(closestPoint.x(),
+                    #                      closestPoint.y()))
+
+                if lineToLowLength < smallestLength:
+                    # Here we are keeping the scene coordinate, not the
+                    # view-scaled one.
+                    closestPoint = lowPointF
+                    smallestLength = lineToLowLength
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+                    #self.log.debug("New closest point is now: ({}, {})".\
+                    #               format(closestPoint.x(),
+                    #                      closestPoint.y()))
+
+                if lineToCloseLength < smallestLength:
+                    # Here we are keeping the scene coordinate, not the
+                    # view-scaled one.
+                    closestPoint = closePointF
+                    smallestLength = lineToCloseLength
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+                    #self.log.debug("New closest point is now: ({}, {})".\
+                    #               format(closestPoint.x(),
+                    #                      closestPoint.y()))
+                    
+
+        if closestPoint == None:
+            # If the closestPoint is still None, then that means there are 
+            # no LookbackMultiplePriceBars.  
+            # In this case, use pointF as the closestPoint.
+            closestPoint = pointF
+
+            self.log.debug("There are no LookbackMultiplePriceBars, " + \
+                           "so useing pointF as the closest point.")
+        else:    
+            self.log.debug("Closest point is: ({}, {})".\
+                           format(closestPoint.x(), closestPoint.y()))
+
+        self.log.debug("Exiting getClosestLookbackMultiplePriceBarOHLCViewPoint()")
+        
+        return closestPoint
+        
+        
+    def getClosestLookbackMultiplePriceBarX(self, pointF):
+        """Gets the X position value of the closest LookbackMultiplePriceBar (on the X
+        axis) to the given QPointF position.
+
+        Arguments:
+        pointF - QPointF to do the lookup on.
+
+        Returns:
+        float value for the X value.  If there are no LookbackMultiplePriceBars, then it
+        returns the X given in the input pointF.
+        """
+
+        # Get all the QGraphicsItems.
+        graphicsItems = self.items()
+
+        closestLookbackMultiplePriceBarX = None
+        currClosestDistance = None
+
+        # Go through the LookbackMultiplePriceBarGraphicsItems and find the closest one in
+        # X coordinates.
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+
+                x = item.getLookbackMultiplePriceBarHighScenePoint().x()
+                distance = abs(pointF.x() - x)
+
+                if closestLookbackMultiplePriceBarX == None:
+                    closestLookbackMultiplePriceBarX = x
+                    currClosestDistance = distance
+                elif (currClosestDistance != None) and \
+                        (distance < currClosestDistance):
+
+                    closestLookbackMultiplePriceBarX = x
+                    currClosestDistance = distance
+                    
+        if closestLookbackMultiplePriceBarX == None:
+            closestLookbackMultiplePriceBarX = pointF.x()
+
+        return closestLookbackMultiplePriceBarX
+
+    def getClosestLookbackMultiplePriceBarOHLCY(self, pointF):
+        """Gets the Y position value of the closest open, high, low,
+        or close price on all the LookbackMultiplePriceBars (on the Y axis) to the
+        given QPointF position.
+
+        Arguments:
+        pointF - QPointF to do the lookup on.
+
+        Returns:
+        float value for the Y value.  If there are no LookbackMultiplePriceBars, then it
+        returns the Y given in the input pointF.
+        """
+
+        # Get all the QGraphicsItems.
+        graphicsItems = self.items()
+
+        closestLookbackMultiplePriceBarY = None
+        currClosestDistance = None
+
+        # Go through the LookbackMultiplePriceBarGraphicsItems and find the closest one in
+        # Y coordinates.
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+
+                # High price's Y.
+                y = item.getLookbackMultiplePriceBarHighScenePoint().y()
+                distance = abs(pointF.y() - y)
+                
+                if closestLookbackMultiplePriceBarY == None:
+                    closestLookbackMultiplePriceBarY = y
+                    currClosestDistance = distance
+                elif (currClosestDistance != None) and \
+                        (distance < currClosestDistance):
+
+                    closestLookbackMultiplePriceBarY = y
+                    currClosestDistance = distance
+
+                # Low price's Y.
+                y = item.getLookbackMultiplePriceBarLowScenePoint().y()
+                distance = abs(pointF.y() - y)
+
+                if closestLookbackMultiplePriceBarY == None:
+                    closestLookbackMultiplePriceBarY = y
+                    currClosestDistance = distance
+                elif (currClosestDistance != None) and \
+                        (distance < currClosestDistance):
+
+                    closestLookbackMultiplePriceBarY = y
+                    currClosestDistance = distance
+                    
+        if closestLookbackMultiplePriceBarY == None:
+            closestLookbackMultiplePriceBarY = pointF.y()
+
+        return closestLookbackMultiplePriceBarY
+
+    def getClosestPriceBarAndLookbackMultiplePriceBarOHLCPoint(self, pointF):
+        """Goes through all the PriceBars and LookbackMultiplePriceBars, 
+        looking at the QPointF of the open, high, low, and close of 
+        each bar (in price and time), and tests it to locate 
+        the point out of all the bars that is the closest to 'pointF'.
+
+        WARNING: This may not do what you expect to do!  The reason is
+        because our current scaling for time (x coordinate) is 1 unit
+        of x per day.  Our price scaling (y coordinate) is 1 unit of
+        price per y.  This means the 'qgraphicsview' scaling of x and
+        y (in appearance) is misleading when compared to actual
+        coordinates.  So the algorithm works correctly, but may not
+        produce expected results due to a huge skew in scaling.  If
+        this is not what you want, then consider using
+        getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint().
+        
+        Returns:
+        QPointF - Point that is a scene pos of a open, high, low,
+                  or close of a PriceBar or a LookbackMultiplePriceBar, 
+                  where it is the closest to the given 'pointF'.
+        """
+
+        self.log.debug("Entered getClosestPriceBarAndLookbackMultiplePriceBarOHLCPoint()")
+
+        # Returned QPointF object.
+        rv = None
+
+        # Get the point for PriceBars and the point for LookbackMultiplePriceBars.
+        closestPriceBarPointF = \
+            self.getClosestPriceBarOHLCPoint(pointF)
+        closestLookbackMultiplePriceBarPointF = \
+            self.getClosestLookbackMultiplePriceBarOHLCPoint(pointF)
+
+        # Special case:
+        # 
+        # If there are no LookbackMultiplePriceBars, then 
+        # getClosestLookbackMultiplePriceBarOHLCPoint would 
+        # return the pointF, which is 
+        # not what we want.  Handle that here.
+        if self.getNumLookbackMultiplePriceBarGraphicsItems() == 0:
+            rv = closestPriceBarPointF
+        else:
+            # Compare the lengths of each closest one and 
+            # return the point that is closest.
+            lengthToPriceBarPointF = \
+                QLineF(pointF, closestPriceBarPointF).length()
+            lengthToLookbackMultiplePriceBarPointF = \
+                QLineF(pointF, closestLookbackMultiplePriceBarPointF).length()
+            
+            if lengthToPriceBarPointF <= lengthToLookbackMultiplePriceBarPointF:
+                rv = closestPriceBarPointF
+            else:
+                rv = closestLookbackMultiplePriceBarPointF
+
+        self.log.debug("Exiting getClosestPriceBarAndLookbackMultiplePriceBarOHLCPoint()")
+        
+        return rv
+    
+    def getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint(self, pointF):
+        """Goes through all the PriceBars and LookbackMultiplePriceBars,
+        looking at the QPointF of the open, high, low, and close of each
+        bar (in price and time), and tests it to locate the point out of
+        all the bars that is the closest to 'pointF' in the
+        GraphicsView.  This utilizes the graphics view scaling to see
+        what is closest.
+
+        Arguments:
+        pointF - QPointF object that is a point in scene
+        coordinates.  This point is used as a reference point to
+        calculate distances to the open, high, low, and close points
+        of the bars.
+        
+        Returns:
+        QPointF - Point in scene coordinates of the closest 
+        PriceBar or LookbackMultiplePriceBars
+        open, high, low, or close (in price and time), when computed
+        using scaled view coordinates.
+        """
+        
+        self.log.debug("Entered getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint()")
+
+        # Returned QPointF object.
+        rv = None
+
+        # Scaling object to use.
+        scaling = self.scaling
+        
+        self.log.debug("PointF is: ({}, {})".format(pointF.x(), pointF.y()))
+
+        viewScaledPointF = QPointF(pointF.x() * scaling.getViewScalingX(),
+                                   pointF.y() * scaling.getViewScalingY())
+        
+        self.log.debug("View-scaled PointF is: ({}, {})".\
+                       format(viewScaledPointF.x(), viewScaledPointF.y()))
+
+        # Get the point for PriceBars and the point for LookbackMultiplePriceBars.
+        closestPriceBarPointF = \
+            self.getClosestPriceBarOHLCViewPoint(pointF)
+        closestLookbackMultiplePriceBarPointF = \
+            self.getClosestLookbackMultiplePriceBarOHLCViewPoint(pointF)
+            
+        closestPriceBarViewScaledPointF = QPointF()
+        closestPriceBarViewScaledPointF.\
+            setX(closestPriceBarPointF.x() * \
+                 scaling.getViewScalingX())
+        closestPriceBarViewScaledPointF.\
+            setY(closestPriceBarPointF.y() * \
+                 scaling.getViewScalingY())
+
+        closestLookbackMultiplePriceBarViewScaledPointF = QPointF()
+        closestLookbackMultiplePriceBarViewScaledPointF.\
+            setX(closestLookbackMultiplePriceBarPointF.x() * \
+                 scaling.getViewScalingX())
+        closestLookbackMultiplePriceBarViewScaledPointF.\
+            setY(closestLookbackMultiplePriceBarPointF.y() * \
+                 scaling.getViewScalingY())
+
+        # Special case:
+        # 
+        # If there are no LookbackMultiplePriceBars, then 
+        # getClosestLookbackMultiplePriceBarOHLCViewPoint 
+        # would return the pointF, 
+        # which is not what we want.  Handle that here.
+        if self.getNumLookbackMultiplePriceBarGraphicsItems() == 0:
+            rv = closestPriceBarPointF
+        else:
+            # Compare the lengths of each closest one and 
+            # return the point that is closest.
+            lengthToPriceBarPointF = \
+                QLineF(viewScaledPointF, 
+                       closestPriceBarViewScaledPointF).length()
+            lengthToLookbackMultiplePriceBarPointF = \
+                QLineF(viewScaledPointF, 
+                       closestLookbackMultiplePriceBarViewScaledPointF).length()
+            
+            if lengthToPriceBarPointF <= lengthToLookbackMultiplePriceBarPointF:
+                rv = closestPriceBarPointF
+            else:
+                rv = closestLookbackMultiplePriceBarPointF
+
+        self.log.debug("Exiting getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint()")
+        
+        return rv
+
+
+    def getClosestPriceBarAndLookbackMultiplePriceBarX(self, pointF):
+        """Goes through all the PriceBar and LookbackMultiplePriceBar
+        and gets the X position value of the closest PriceBar or
+        LookbackMultiplePriceBar (on the X axis) to the given QPointF
+        position.
+
+        Arguments:
+        pointF - QPointF to do the lookup on.
+
+        Returns:
+        float value for the X value.  If there are no 
+        PriceBars or LookbackMultiplePriceBars, then it
+        returns the X given in the input pointF.
+        """
+
+        # Get the closest X for PriceBars and LookbackMultiplePriceBars, 
+        # separately.
+        closestPriceBarX = \
+            self.getClosestPriceBarX(pointF)
+        closestLookbackMultiplePriceBarX = \
+            self.getClosestLookbackMultiplePriceBarX(pointF)
+
+        # Special case:
+        # 
+        # If there are no LookbackMultiplePriceBars, then 
+        # getClosestLookbackMultiplePriceBarX() would 
+        # return the pointF's x, which is not what we want.  
+        # Handle that here.
+        if self.getNumLookbackMultiplePriceBarGraphicsItems() == 0:
+            rv = closestPriceBarX
+        else:
+            # Get the distances of each to compare.
+            closestPriceBarDistanceX = \
+                abs(pointF.x() - closestPriceBarX)
+            closestLookbackMultiplePriceBarDistanceX = \
+                abs(pointF.x() - closestLookbackMultiplePriceBarX)
+            
+            if closestPriceBarDistanceX <= \
+                closestLookbackMultiplePriceBarDistanceX:
+                
+                rv = closestPriceBarX
+
+            else:
+                rv = closestLookbackMultiplePriceBarX
+
+        return rv
+
+    def getClosestPriceBarAndLookbackMultiplePriceBarOHLCY(self, pointF):
+        """Goes through all the PriceBar and LookbackMultiplePriceBar
+        and gets the Y position value of the closest PriceBar or
+        LookbackMultiplePriceBar (on the Y axis) to the given QPointF
+        position.
+
+        Arguments:
+        pointF - QPointF to do the lookup on.
+
+        Returns:
+        float value for the Y value.  If there are no 
+        PriceBars or LookbackMultiplePriceBars, then it
+        returns the Y given in the input pointF.
+        """
+
+        # Get the closest Y for PriceBars and LookbackMultiplePriceBars, 
+        # separately.
+        closestPriceBarY = \
+            self.getClosestPriceBarOHLCY(pointF)
+        closestLookbackMultiplePriceBarY = \
+            self.getClosestLookbackMultiplePriceBarOHLCY(pointF)
+
+        # Special case:
+        # 
+        # If there are no LookbackMultiplePriceBars, then 
+        # getClosestLookbackMultiplePriceBarOHLCY() would 
+        # return the pointF's y, which is not what we want.  
+        # Handle that here.
+        if self.getNumLookbackMultiplePriceBarGraphicsItems() == 0:
+            rv = closestPriceBarY
+        else:
+            # Get the distances of each to compare.
+            closestPriceBarDistanceY = \
+                abs(pointF.y() - closestPriceBarY)
+            closestLookbackMultiplePriceBarDistanceY = \
+                abs(pointF.y() - closestLookbackMultiplePriceBarY)
+            
+            if closestPriceBarDistanceY <= \
+                closestLookbackMultiplePriceBarDistanceY:
+                
+                rv = closestPriceBarY
+
+            else:
+                rv = closestLookbackMultiplePriceBarY
+
+        return rv
+
+    def getNumLookbackMultiplePriceBarGraphicsItems(self):
+        """Returns the number of LookbackMultiplePriceBarGraphicsItems 
+        in the scene.
+        """
+        
+        count = 0
+
+        graphicsItems = self.items()
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                count += 1
+        
+        return count
+
     def setAstroChart1(self, x):
         """Emits the astroChart1Update signal so that an external
         astrology chart can be plotted with a timestamp.
@@ -45147,6 +45828,13 @@ class PriceBarChartGraphicsView(QGraphicsView):
         #   - PanchottariDasaTool
         #   - ShashtihayaniDasaTool
         #
+        # Note: For these tools below, the snap will work with 
+        # both PriceBars and LookbackMultiplePriceBars:
+        #
+        #   - PriceTimeInfoTool
+        #   - LineSegment1Tool
+        #   - LineSegment2Tool
+        #   - VerticalLineSegmentTool
         #
         self.snapEnabledFlag = True
 
@@ -49026,23 +49714,24 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # If snap is enabled, then find the closest high, low,
                     # open or close QPointF to the place clicked.
                     infoPointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # PriceBar or LookbackMultiplePriceBar price 
+                    # to the place clicked.
                     if self.snapEnabledFlag == True:
                         self.log.debug("Snap is enabled, so snapping to " +
-                                       "closest pricebar X.")
+                                       "closest PriceBar or " + \
+                                       "LookbackMultiplePriceBar X and Y.")
                         
-                        # Find if there is a point closer to this
-                        # infoPointF related to a PriceBarGraphicsItem.
-                        barPoint = \
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        closestPoint = \
                             self.scene().\
-                            getClosestPriceBarOHLCViewPoint(infoPointF)
-
-                        # If a point was found, then use it as the info point.
-                        if barPoint != None:
-                            infoPointF = barPoint
+                            getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint(infoPointF)
+                        infoPointF = closestPoint
                             
-                            # Set this also as the first click point,
-                            # as if the user clicked perfectly.
-                            self.clickOnePointF = infoPointF
+                        # Set this also as the first click point,
+                        # as if the user clicked perfectly.
+                        self.clickOnePointF = infoPointF
 
                     # Get and modify the artifact.
                     artifact = self.priceTimeInfoGraphicsItem.getArtifact()
@@ -49763,15 +50452,17 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.clickOnePointF = self.mapToScene(qmouseevent.pos())
 
                     # If snap is enabled, then find the closest
-                    # pricebar price to the place clicked.
+                    # PriceBar or LookbackMultiplePriceBar price 
+                    # to the place clicked.
                     if self.snapEnabledFlag == True:
                         self.log.debug("Snap is enabled, so snapping to " +
-                                       "closest pricebar X and Y.")
+                                       "closest PriceBar or " + \
+                                       "LookbackMultiplePriceBar X and Y.")
                         
                         infoPointF = self.mapToScene(qmouseevent.pos())
                         closestPoint = \
                             self.scene().\
-                            getClosestPriceBarOHLCViewPoint(infoPointF)
+                            getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint(infoPointF)
 
                         # Use these X and Y values.
                         self.clickOnePointF.setX(closestPoint.x())
@@ -49810,15 +50501,17 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
 
                     # If snap is enabled, then find the closest
-                    # pricebar price to the place clicked.
+                    # PriceBar or LookbackMultiplePriceBar price 
+                    # to the place clicked.
                     if self.snapEnabledFlag == True:
                         self.log.debug("Snap is enabled, so snapping to " +
-                                       "closest pricebar X and Y.")
+                                       "closest PriceBar or " + \
+                                       "LookbackMultiplePriceBar X and Y.")
                         
                         infoPointF = self.mapToScene(qmouseevent.pos())
                         closestPoint = \
                             self.scene().\
-                            getClosestPriceBarOHLCViewPoint(infoPointF)
+                            getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint(infoPointF)
 
                         # Use these X and Y values.
                         self.clickTwoPointF.setX(closestPoint.x())
@@ -49913,15 +50606,17 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.clickOnePointF = self.mapToScene(qmouseevent.pos())
 
                     # If snap is enabled, then find the closest
-                    # pricebar price to the place clicked.
+                    # PriceBar or LookbackMultiplePriceBar price 
+                    # to the place clicked.
                     if self.snapEnabledFlag == True:
                         self.log.debug("Snap is enabled, so snapping to " +
-                                       "closest pricebar X and Y.")
+                                       "closest PriceBar or " + \
+                                       "LookbackMultiplePriceBar X and Y.")
                         
                         infoPointF = self.mapToScene(qmouseevent.pos())
                         closestPoint = \
                             self.scene().\
-                            getClosestPriceBarOHLCViewPoint(infoPointF)
+                            getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint(infoPointF)
 
                         # Use these X and Y values.
                         self.clickOnePointF.setX(closestPoint.x())
@@ -49960,15 +50655,17 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
 
                     # If snap is enabled, then find the closest
-                    # pricebar price to the place clicked.
+                    # PriceBar or LookbackMultiplePriceBar price 
+                    # to the place clicked.
                     if self.snapEnabledFlag == True:
                         self.log.debug("Snap is enabled, so snapping to " +
-                                       "closest pricebar X and Y.")
+                                       "closest PriceBar or " + \
+                                       "LookbackMultiplePriceBar X and Y.")
                         
                         infoPointF = self.mapToScene(qmouseevent.pos())
                         closestPoint = \
                             self.scene().\
-                            getClosestPriceBarOHLCViewPoint(infoPointF)
+                            getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint(infoPointF)
 
                         # Use these X and Y values.
                         self.clickTwoPointF.setX(closestPoint.x())
@@ -50063,17 +50760,20 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.clickOnePointF = self.mapToScene(qmouseevent.pos())
 
                     # If snap is enabled, then find the closest
-                    # pricebar timestamp to the place clicked.
+                    # PriceBar or LookbackMultiplePriceBar timestamp
+                    # to the place clicked.
                     if self.snapEnabledFlag == True:
                         self.log.debug("Snap is enabled, so snapping to " +
-                                       "closest pricebar X.")
+                                       "closest PriceBar or " + \
+                                       "LookbackMultiplePriceBar X.")
                         
                         infoPointF = self.mapToScene(qmouseevent.pos())
-                        closestPriceBarX = \
-                            self.scene().getClosestPriceBarX(infoPointF)
+                        closestPointX = \
+                            self.scene().\
+                            getClosestPriceBarAndLookbackMultiplePriceBarX(infoPointF)
 
                         # Use these X and Y values.
-                        self.clickOnePointF.setX(closestPriceBarX)
+                        self.clickOnePointF.setX(closestPointX)
                         self.clickOnePointF.setY(infoPointF.y())
                     
                     # Create the VerticalLineSegmentGraphicsItem and
