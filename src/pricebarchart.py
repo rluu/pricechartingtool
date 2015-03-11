@@ -38783,6 +38783,313 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openAstrolog(self.endPointF.x())
         
+
+class TransientDashedLineSegmentGraphicsItem(QGraphicsItem):
+    """QGraphicsItem that visualizes a dashed line segment in
+    the GraphicsView.  This QGraphicsItem does not have any artifact
+    backing it.
+    """
+    
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+
+        # Logger
+        self.log = logging.getLogger(\
+            "pricebarchart.TransientDashedLineSegmentGraphicsItem")
+        
+        self.log.debug("Entered __init__().")
+
+        # Width of the line segment, for bounding rect calculation purposes.
+        self.lineSegmentGraphicsItemBarWidth = 1
+ 
+        # Color of the item.
+        self.lineSegmentGraphicsItemColor = QColor(Qt.gray)
+
+        # Read the QSettings preferences for the various parameters of
+        # this price bar.
+        self.loadSettingsFromAppPreferences()
+        
+        # Pen which is used to do the painting of the bar ruler.
+        self.lineSegmentPenWidth = 0.0
+        self.lineSegmentPen = QPen()
+        self.lineSegmentPen.\
+            setColor(self.lineSegmentGraphicsItemColor)
+        self.lineSegmentPen.\
+            setWidthF(self.lineSegmentPenWidth)
+        self.lineSegmentPen.setStyle(Qt.DashLine)
+        
+        # Starting point, in scene coordinates.
+        self.startPointF = QPointF(0, 0)
+
+        # Ending point, in scene coordinates.
+        self.endPointF = QPointF(0, 0)
+
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the given PriceBarChartSettings object.
+
+        Parameters:
+        
+        priceBarChartSettings - PriceBarChartSettings object from which
+                                to pull settings information from.
+        """
+
+        self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
+        
+        # No settings.
+
+        self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
+        
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        GraphicsItem from the QSettings object. 
+        """
+
+        # No settings.
+        
+    def setPos(self, pos):
+        """Overwrites the QGraphicsItem setPos() function.
+
+        Here we use the new position to re-set the self.startPointF and
+        self.endPointF.
+
+        Arguments:
+        pos - QPointF holding the new position.
+        """
+        self.log.debug("Entered setPos()")
+        
+        super().setPos(pos)
+
+        newScenePos = pos
+
+        posDelta = newScenePos - self.startPointF
+
+        # Update the start and end points accordingly. 
+        self.startPointF = self.startPointF + posDelta
+        self.endPointF = self.endPointF + posDelta
+
+        if self.scene() != None:
+            self.recalculateLineSegment()
+            self.prepareGeometryChange()
+
+        self.log.debug("Exiting setPos()")
+        
+    def mousePressEvent(self, event):
+        """Overwrites the QGraphicsItem mousePressEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        super().mousePressEvent(event)
+        
+    def mouseMoveEvent(self, event):
+        """Overwrites the QGraphicsItem mouseMoveEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        """Overwrites the QGraphicsItem mouseReleaseEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+        
+        super().mouseReleaseEvent(event)
+
+    def refreshItem(self):
+        """Refreshes the item by recalculating and updating the text
+        position/rotation.
+        """
+
+        self.recalculateLineSegment()
+        
+        self._updateTextItemPositions()
+        
+    def setStartPointF(self, pointF):
+        """Sets the starting point of the bar count.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        newValue = QPointF(pointF.x(), pointF.y())
+
+        if self.startPointF != newValue: 
+            self.startPointF = newValue
+
+            self.setPos(self.startPointF)
+
+            if self.scene() != None:
+                self.recalculateLineSegment()
+                self.prepareGeometryChange()
+                
+    def setEndPointF(self, pointF):
+        """Sets the ending point of the bar count.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        newValue = QPointF(pointF.x(), pointF.y())
+
+        if self.endPointF != newValue:
+            self.endPointF = newValue
+
+            if self.scene() != None:
+                self.recalculateLineSegment()
+                self.prepareGeometryChange()
+
+    def normalizeStartAndEnd(self):
+        """Does not do anything since normalization is not applicable
+        to this graphics item.
+        """
+
+        # Do don't anything.
+        pass
+
+    def recalculateLineSegment(self):
+        """Recalculates the lineSegment.
+        """
+
+        self.prepareGeometryChange()
+        
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinate (0, 0) in local coordinates is the startPointF.
+        # If the user created the widget with the startPointF to the
+        # right of the endPointF, then the startPointF will have a
+        # higher X value than endPointF.
+
+        # The QRectF returned is relative to this (0, 0) point.
+
+        rv = self.shape().boundingRect()
+
+        return rv
+
+    def shape(self):
+        """Overwrites the QGraphicsItem.shape() function to return a
+        more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
+        """
+
+        # Calculate the points that would be the selection box area
+        # around the line.
+
+        # Start and end points in local coordinates.
+        localStartPointF = self.mapFromScene(self.startPointF)
+        localEndPointF = self.mapFromScene(self.endPointF)
+
+        # Utilize scaling from the scene if it is available.
+        scaling = PriceBarChartScaling()
+        if self.scene() != None:
+            scaling = self.scene().getScaling()
+            
+        viewScaledStartPoint = \
+            QPointF(self.startPointF.x() * scaling.getViewScalingX(),
+                    self.startPointF.y() * scaling.getViewScalingY())
+        viewScaledEndPoint = \
+            QPointF(self.endPointF.x() * scaling.getViewScalingX(),
+                    self.endPointF.y() * scaling.getViewScalingY())
+
+        # Here we are calculating the angle of the text and the line
+        # as the user would see it.  Actual angle is different if we
+        # are calculating it from a scene perspective.
+        angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
+        angleRad = math.radians(angleDeg)
+        
+        shiftX = math.sin(angleRad) * \
+                     (0.5 * self.lineSegmentGraphicsItemBarWidth) / \
+                     scaling.getViewScalingX()
+        
+        shiftY = math.cos(angleRad) * \
+                     (0.5 * self.lineSegmentGraphicsItemBarWidth) / \
+                     scaling.getViewScalingY()
+
+        # Create new points.
+        p1 = \
+            QPointF(localStartPointF.x() - shiftX,
+                    localStartPointF.y() - shiftY)
+        p2 = \
+            QPointF(localStartPointF.x() + shiftX,
+                    localStartPointF.y() + shiftY)
+        p3 = \
+            QPointF(localEndPointF.x() - shiftX,
+                    localEndPointF.y() - shiftY)
+        p4 = \
+            QPointF(localEndPointF.x() + shiftX,
+                    localEndPointF.y() + shiftY)
+
+        points = [p2, p1, p3, p4, p2]
+        polygon = QPolygonF(points)
+
+        painterPath = QPainterPath()
+        painterPath.addPolygon(polygon)
+
+        return painterPath
+        
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that self.lineSegmentPen is set
+        to what we want for the drawing style.
+        """
+
+        self.log.debug("LineSegmentGraphicsItem.paint()")
+        
+        if painter.pen() != self.lineSegmentPen:
+            painter.setPen(self.lineSegmentPen)
+        
+        # Draw the line.
+        localStartPointF = self.mapFromScene(self.startPointF)
+        localEndPointF = self.mapFromScene(self.endPointF)
+        painter.drawLine(QLineF(localStartPointF, localEndPointF))
+        
+        # Draw the shape if the item is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.lineSegmentPen.widthF() * 0.5;
+            penWidth = 0.0
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this TransientDashedLineSegmentGraphicsItem.
+        Actions that are triggered from this menu run various methods in
+        the TransientDashedLineSegmentGraphicsItem to handle the desired
+        functionality.
+        
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+        readonly actions.
+        """
+
+        # Do nothing.  
+        pass
+
+
 class PriceBarChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays
     the PriceBar information along with other indicators and analysis
@@ -41930,6 +42237,106 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         return lowestPriceBar
 
+    def getEarliestLookbackMultiplePriceBar(self):
+        """Goes through all the LookbackMultiplePriceBars, 
+        looking at the one that has the earliest timestamp.  
+        This LookbackMultiplePriceBar is returned.
+        
+        Returns:
+        LookbackMultiplePriceBar - LookbackMultiplePriceBar object that has the 
+                                   earliest timestamp.
+        """
+
+        earliestLookbackMultiplePriceBar = None
+        
+        graphicsItems = self.items()
+
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                lmpb = item.getLookbackMultiplePriceBar()
+
+                if earliestLookbackMultiplePriceBar == None:
+                    earliestLookbackMultiplePriceBar = lmpb
+                elif lmpb.timestamp < earliestLookbackMultiplePriceBar.timestamp:
+                    earliestLookbackMultiplePriceBar = lmpb
+
+        return earliestLookbackMultiplePriceBar
+
+    def getLatestLookbackMultiplePriceBar(self):
+        """Goes through all the LookbackMultiplePriceBars, 
+        looking at the one that has the latest timestamp.  
+        This LookbackMultiplePriceBar is returned.
+        
+        Returns:
+        LookbackMultiplePriceBar - LookbackMultiplePriceBar object that has the 
+                                   latest timestamp.
+        """
+
+        latestLookbackMultiplePriceBar = None
+        
+        graphicsItems = self.items()
+
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                lmpb = item.getLookbackMultiplePriceBar()
+
+                if latestLookbackMultiplePriceBar == None:
+                    latestLookbackMultiplePriceBar = lmpb
+                elif lmpb.timestamp > latestLookbackMultiplePriceBar.timestamp:
+                    latestLookbackMultiplePriceBar = lmpb
+
+        return latestLookbackMultiplePriceBar
+
+    def getHighestLookbackMultiplePriceBar(self):
+        """Goes through all the LookbackMultiplePriceBars, looking at
+        the one that has the highest high price.  This
+        LookbackMultiplePriceBar is returned.
+        
+        Returns:
+        LookbackMultiplePriceBar - LookbackMultiplePriceBar object containing the 
+                                   highest high price.
+        """
+
+        highestLookbackMultiplePriceBar = None
+        
+        graphicsItems = self.items()
+
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                lmpb = item.getLookbackMultiplePriceBar()
+
+                if highestLookbackMultiplePriceBar == None:
+                    highestLookbackMultiplePriceBar = lmpb
+                elif lmpb.hasHigherHighThan(highestLookbackMultiplePriceBar):
+                    highestLookbackMultiplePriceBar = lmpb
+                    
+        return highestLookbackMultiplePriceBar
+
+    def getLowestLookbackMultiplePriceBar(self):
+        """Goes through all the LookbackMultiplePriceBars, looking at
+        the one that has the lowest low price.  This
+        LookbackMultiplePriceBar is returned.
+        
+        Returns:
+        LookbackMultiplePriceBar - LookbackMultiplePriceBar object containing the 
+                                   lowest low price.
+        """
+
+        lowestLookbackMultiplePriceBar = None
+        
+        graphicsItems = self.items()
+
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                lmpb = item.getLookbackMultiplePriceBar()
+
+                if lowestLookbackMultiplePriceBar == None:
+                    lowestLookbackMultiplePriceBar = lmpb
+                elif lmpb.hasLowerLowThan(lowestLookbackMultiplePriceBar):
+                    lowestLookbackMultiplePriceBar = lmpb
+                    
+        return lowestLookbackMultiplePriceBar
+
     def getClosestPriceBarOHLCPoint(self, pointF):
         """Goes through all the PriceBars, looking at the QPointF of
         the open, high, low, and close of each bar (in price and
@@ -42511,6 +42918,20 @@ class PriceBarChartGraphicsView(QGraphicsView):
         self.clickTwoPointF = None
         self.clickThreePointF = None
 
+        # Variable used for storing the last mouse position, in scene
+        # coordinates (QPointF).
+        self.lastMousePosScene = None
+
+        # Boolean flag indicating that either vertical or horizontal dashed
+        # lines should be drawn where the mouse cursor is currently at.
+        self.verticalDashedLineEnabled = False
+        self.horizontalDashedLineEnabled = False
+        
+        # Variable used for storing the vertical and horizontal dashed lines 
+        # drawn when in in any tool mode.
+        self.verticalDashedLineGraphicsItem = None
+        self.horizontalDashedLineGraphicsItem = None
+
         # Variable used for storing the new BarCountGraphicsItem,
         # as it is modified in BarCountToolMode.
         self.barCountGraphicsItem = None
@@ -42619,8 +43040,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # as it is modified in ShashtihayaniDasaToolMode.
         self.shashtihayaniDasaGraphicsItem = None
 
-        # Variable used for storing that snapping to the closest bar
-        # high or low is enabled.
+        # Variable used for storing that snapping to the closest pricebar
+        # time or price is enabled.
         #
         # Used in:
         #   - BarCountTool
@@ -42649,6 +43070,13 @@ class PriceBarChartGraphicsView(QGraphicsView):
         #   - ShodasottariDasaTool
         #   - PanchottariDasaTool
         #   - ShashtihayaniDasaTool
+        #
+        # Note: For these tools, the snap will work with 
+        #       LookbackMultiplePriceBarGraphicsItems also:
+        #
+        #          - PriceTimeInfoTool
+        #          - LineSegment1Tool
+        #          - LineSegment2Tool
         #
         self.snapEnabledFlag = True
 
@@ -44238,6 +44666,206 @@ class PriceBarChartGraphicsView(QGraphicsView):
         """
 
         self.log.debug("Entered keyPressEvent()")
+
+        # Handle key functionality relevant to all tool modes.
+        if self.toolMode in PriceBarChartGraphicsView.ToolMode.values():
+
+            if qkeyevent.key() == Qt.Key_V:
+                self.log.debug("V key was pressed.")
+
+                # Invert the flag that indicates that a 
+                # dashed vertical line should be drawn where the 
+                # mouse cursor is.
+                self.verticalDashedLineEnabled = \
+                    not self.verticalDashedLineEnabled
+
+                self.log.debug("self.verticalDashedLineEnabled is now {}".\
+                               format(self.verticalDashedLineEnabled))
+
+                if self.verticalDashedLineEnabled == False:
+
+                    # Drawing the vertical dashed line is no longer enabled, so
+                    # remove the vertical dashed line item.
+
+                    self.statusMessageUpdate.emit("Vertical dashed line disabled.")
+
+                    if self.verticalDashedLineGraphicsItem != None and \
+                            self.verticalDashedLineGraphicsItem.scene() != None:
+
+                        self.log.debug("Removing item.")
+                        self.scene().removeItem(self.verticalDashedLineGraphicsItem)
+
+                    self.verticalDashedLineGraphicsItem = None
+
+                    # No need to emit any signals that an item is removed
+                    # because this item is transient and has no backing
+                    # artifact object.
+
+                elif self.verticalDashedLineEnabled == True:
+
+                    # Vertical dashed line is enabled, so create/update it.
+
+                    self.statusMessageUpdate.emit("Vertical dashed line enabled.")
+
+                    if self.verticalDashedLineGraphicsItem == None:
+
+                        self.log.debug("Adding item.")
+
+                        # Create the vertical dashed line.
+                        self.verticalDashedLineGraphicsItem = \
+                            TransientDashedLineSegmentGraphicsItem()
+                        self.verticalDashedLineGraphicsItem.\
+                            loadSettingsFromPriceBarChartSettings(\
+                                self.priceBarChartSettings)
+    
+                        self.scene().addItem(self.verticalDashedLineGraphicsItem)
+    
+                        self.verticalDashedLineGraphicsItem.\
+                            setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+                    # Gather information for setting the line's location 
+                    # and start/end points.
+
+                    # Get the lowest and highest prices among both PriceBars and 
+                    # LookbackMultiplePriceBars.
+                    lowestPrice = self.scene().getLowestPriceBar().low
+                    highestPrice = self.scene().getHighestPriceBar().high
+    
+                    lowestLookbackMultiplePriceBar = \
+                        self.scene().getLowestLookbackMultiplePriceBar()
+                    if lowestLookbackMultiplePriceBar != None:
+                        lmpbLowestPrice = lowestLookbackMultiplePriceBar.low
+                        if lmpbLowestPrice < lowestPrice:
+                            lowestPrice = lmpbLowestPrice
+    
+                    highestLookbackMultiplePriceBar = \
+                        self.scene().getHighestLookbackMultiplePriceBar()
+                    if highestLookbackMultiplePriceBar != None:
+                        lmpbHighestPrice = highestLookbackMultiplePriceBar.high
+                        if lmpbHighestPrice > highestPrice:
+                            highestPrice = lmpbHighestPrice
+    
+                    lowY = self.scene().priceToSceneYPos(lowestPrice)
+                    highY = self.scene().priceToSceneYPos(highestPrice)
+
+                    posX = None
+                    if self.lastMousePosScene != None:
+                        posX = self.lastMousePosScene.x()
+                    else:
+                        # No last mouse position, so just use the X position 
+                        # of an arbitrary PriceBar in the scene.
+                        dt = self.scene().getHighestPriceBar().timestamp
+                        posX = self.scene().datetimeToSceneXPos(dt)
+
+                    lowPointF = QPointF(posX, lowY)
+                    highPointF = QPointF(posX, highY)
+    
+                    # Set the position and start/end points.
+                    self.verticalDashedLineGraphicsItem.setPos(lowPointF)
+                    self.verticalDashedLineGraphicsItem.setStartPointF(lowPointF)
+                    self.verticalDashedLineGraphicsItem.setEndPointF(highPointF)
+
+                    # No need to emit any signals that an item is changed
+                    # because this item is transient and has no backing
+                    # artifact object.
+
+            elif qkeyevent.key() == Qt.Key_H:
+                self.log.debug("H key was pressed.")
+
+                # Invert the flag that indicates that a 
+                # dashed horizontal line should be drawn where the 
+                # mouse cursor is.
+                self.horizontalDashedLineEnabled = \
+                    not self.horizontalDashedLineEnabled
+
+                if self.horizontalDashedLineEnabled == False:
+
+                    # Drawing the horizontal dashed line is no longer enabled, so
+                    # remove the horizontal dashed line item.
+
+                    self.statusMessageUpdate.emit("Horizontal dashed line disabled.")
+
+                    if self.horizontalDashedLineGraphicsItem != None and \
+                            self.horizontalDashedLineGraphicsItem.scene() != None:
+
+                        self.log.debug("Removing item.")
+                        self.scene().removeItem(self.horizontalDashedLineGraphicsItem)
+
+                    self.horizontalDashedLineGraphicsItem = None
+
+                    # No need to emit any signals that an item is removed
+                    # because this item is transient and has no backing
+                    # artifact object.
+
+                elif self.horizontalDashedLineEnabled == True:
+
+                    # Horizontal dashed line is enabled, so create/update it.
+
+                    self.statusMessageUpdate.emit("Horizontal dashed line enabled.")
+
+                    if self.horizontalDashedLineGraphicsItem == None:
+                        # Create the horizontal dashed line.
+                        self.horizontalDashedLineGraphicsItem = \
+                            TransientDashedLineSegmentGraphicsItem()
+                        self.horizontalDashedLineGraphicsItem.\
+                            loadSettingsFromPriceBarChartSettings(\
+                                self.priceBarChartSettings)
+    
+                        self.scene().addItem(self.horizontalDashedLineGraphicsItem)
+    
+                        self.horizontalDashedLineGraphicsItem.\
+                            setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+                    # Gather information for setting the line's location 
+                    # and start/end points.
+                    
+                    # Get the earliest and latest timestamps among both PriceBars 
+                    # and LookbackMultiplePriceBars.
+                    earliestDt = self.scene().getEarliestPriceBar().timestamp
+                    latestDt = self.scene().getLatestPriceBar().timestamp
+    
+                    earliestLookbackMultiplePriceBar = \
+                        self.scene().getEarliestLookbackMultiplePriceBar()
+                    if earliestLookbackMultiplePriceBar != None:
+                        lmpbEarliestDt = \
+                            earliestLookbackMultiplePriceBar.timestamp
+                        if lmpbEarliestDt < earliestDt:
+                            earliestDt = lmpbEarliestDt
+    
+                    latestLookbackMultiplePriceBar = \
+                        self.scene().getLatestLookbackMultiplePriceBar()
+                    if latestLookbackMultiplePriceBar != None:
+                        lmpbLatestDt = \
+                            latestLookbackMultiplePriceBar.timestamp
+                        if lmpbLatestDt > latestDt:
+                            latestDt = lmpbLatestDt
+    
+                    earliestX = self.scene().datetimeToSceneXPos(earliestDt)
+                    latestX = self.scene().datetimeToSceneXPos(latestDt)
+    
+                    posY = None
+                    if self.lastMousePosScene != None:
+                        posY = self.lastMousePosScene.y()
+                    else:
+                        # No last mouse position, so just use the Y position 
+                        # of an arbitrary PriceBar in the scene.
+                        highPrice = self.scene().getLatestPriceBar().high
+                        posY = self.scene().priceToSceneYPos(highPrice)
+    
+                    earliestPointF = QPointF(earliestX, posY)
+                    latestPointF = QPointF(latestX, posY)
+
+                    # Set the position and start/end points.
+                    self.horizontalDashedLineGraphicsItem.setPos(earliestPointF)
+                    self.horizontalDashedLineGraphicsItem.setStartPointF(earliestPointF)
+                    self.horizontalDashedLineGraphicsItem.setEndPointF(latestPointF)
+    
+                    # No need to emit any signals that an item is changed
+                    # because this item is transient and has no backing
+                    # artifact object.
+
+
+        # Handle key functionality relevant to each particular tool mode.
 
         if self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
@@ -49934,9 +50562,104 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         # Emit the current mouse location in scene coordinates.
         posScene = self.mapToScene(qmouseevent.pos())
+        self.lastMousePosScene = posScene
         self.mouseLocationUpdate.emit(posScene.x(), posScene.y())
 
-        
+        # Handle key functionality relevant to all tool modes.
+        if self.toolMode in PriceBarChartGraphicsView.ToolMode.values():
+            
+            if self.verticalDashedLineEnabled == True and \
+                    self.verticalDashedLineGraphicsItem != None:
+
+                # Gather information for setting the line's location 
+                # and start/end points.
+                
+                # Get the lowest and highest prices among both PriceBars and 
+                # LookbackMultiplePriceBars.
+                lowestPrice = self.scene().getLowestPriceBar().low
+                highestPrice = self.scene().getHighestPriceBar().high
+
+                lowestLookbackMultiplePriceBar = \
+                    self.scene().getLowestLookbackMultiplePriceBar()
+                if lowestLookbackMultiplePriceBar != None:
+                    lmpbLowestPrice = lowestLookbackMultiplePriceBar.low
+                    if lmpbLowestPrice < lowestPrice:
+                        lowestPrice = lmpbLowestPrice
+
+                highestLookbackMultiplePriceBar = \
+                    self.scene().getHighestLookbackMultiplePriceBar()
+                if highestLookbackMultiplePriceBar != None:
+                    lmpbHighestPrice = highestLookbackMultiplePriceBar.high
+                    if lmpbHighestPrice > highestPrice:
+                        highestPrice = lmpbHighestPrice
+
+                lowY = self.scene().priceToSceneYPos(lowestPrice)
+                highY = self.scene().priceToSceneYPos(highestPrice)
+
+                posX = None
+                if self.lastMousePosScene != None:
+                    posX = self.lastMousePosScene.x()
+                else:
+                    # No last mouse position, so just use the X position 
+                    # of an arbitrary PriceBar in the scene.
+                    dt = self.scene().getHighestPriceBar().timestamp
+                    posX = self.scene().datetimeToSceneXPos(dt)
+
+                lowPointF = QPointF(posX, lowY)
+                highPointF = QPointF(posX, highY)
+    
+                # Set the position and start/end points.
+                self.verticalDashedLineGraphicsItem.setPos(lowPointF)
+                self.verticalDashedLineGraphicsItem.setStartPointF(lowPointF)
+                self.verticalDashedLineGraphicsItem.setEndPointF(highPointF)
+
+            if self.horizontalDashedLineEnabled == True and \
+                    self.horizontalDashedLineGraphicsItem != None:
+
+                # Gather information for setting the line's location 
+                # and start/end points.
+                
+                # Get the earliest and latest timestamps among both PriceBars 
+                # and LookbackMultiplePriceBars.
+                earliestDt = self.scene().getEarliestPriceBar().timestamp
+                latestDt = self.scene().getLatestPriceBar().timestamp
+
+                earliestLookbackMultiplePriceBar = \
+                    self.scene().getEarliestLookbackMultiplePriceBar()
+                if earliestLookbackMultiplePriceBar != None:
+                    lmpbEarliestDt = \
+                        earliestLookbackMultiplePriceBar.timestamp
+                    if lmpbEarliestDt < earliestDt:
+                        earliestDt = lmpbEarliestDt
+
+                latestLookbackMultiplePriceBar = \
+                    self.scene().getLatestLookbackMultiplePriceBar()
+                if latestLookbackMultiplePriceBar != None:
+                    lmpbLatestDt = \
+                        latestLookbackMultiplePriceBar.timestamp
+                    if lmpbLatestDt > latestDt:
+                        latestDt = lmpbLatestDt
+
+                earliestX = self.scene().datetimeToSceneXPos(earliestDt)
+                latestX = self.scene().datetimeToSceneXPos(latestDt)
+
+                posY = None
+                if self.lastMousePosScene != None:
+                    posY = self.lastMousePosScene.y()
+                else:
+                    # No last mouse position, so just use the Y position 
+                    # of an arbitrary PriceBar in the scene.
+                    highPrice = self.scene().getLatestPriceBar().high
+                    posY = self.scene().priceToSceneYPos(highPrice)
+
+                earliestPointF = QPointF(earliestX, posY)
+                latestPointF = QPointF(latestX, posY)
+
+                # Set the position and start/end points.
+                self.horizontalDashedLineGraphicsItem.setPos(earliestPointF)
+                self.horizontalDashedLineGraphicsItem.setStartPointF(earliestPointF)
+                self.horizontalDashedLineGraphicsItem.setEndPointF(latestPointF)
+
         if self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
 

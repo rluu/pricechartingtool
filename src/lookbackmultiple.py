@@ -2250,7 +2250,7 @@ if __name__=="__main__":
 
 
     # Various tests to run:
-    #testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture()
+    testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture()
     testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast()
     #testLookbackMultiplePanelWidget()
     #testLookbackMultiplePanelWidgetEmpty()

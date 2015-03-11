@@ -280,6 +280,12 @@ Octave Fan Tool:
   - Key_G: Rotate the modal scale down.
   - Key_R: Reverse the direction of the modal scale.
 
+Drawing vertical or horizontal dotted lines at the 
+mouse position (works in all tool modes):
+
+  - Key_V: Toggle vertical dotted line drawing on/off.
+  - Key_H: Toggle horizontal dotted line drawing on/off.
+
 Snap key bindings are:
   - Key_Q: Turn snap mode on.
   - Key_W: Turn snap mode off.
