@@ -4,27 +4,14 @@ Outstanding things to work on going forward:
 
 TODOs for cycle hunter features:
 
-  - Add LookbackMultiplePriceBarGraphicsItem snapping 
-    to mouse for the following tools:
-
-       - Line Segment 1
-       - Line Segment 2
-       - PriceTimeInfo
-
   - Alorithm or computation is slow for LookbackMultiples.  
     Consider profiling, or improving design, or using cloud computing.
     (or all of the above).
 
-  - Vertical Line drawing tool.
+  - If I am going to utilize cloud computing, I would need to set up a
+    deployment process, or at least document whatever it would be.
 
-  - Horizontal Line drawing tool?  (maybe)
-
-  - For ReadOnlyPointerTool and PointerTool:
-    - shortcut key: V activates vertical dotted line.
-    - shortcut key: H activates horizontal dotted line.
-
-  - Implement a G.AsSu planet?  Ascendant - Sun.  
-    This would be for calculating calendar days.
+  - Consider setting up the use of virtualenv with cyclehunter.
 
 
 ##############################################################################
@@ -476,3 +463,21 @@ DONE                   When to apply this scaling algorithm?
 DONE                   I guess it would need to be after the creation of all 
 DONE                   of them, because I need min and max prices of 
 DONE                   this list of pricebars.
+
+DONE  - Add LookbackMultiplePriceBarGraphicsItem snapping 
+DONE    to mouse for the following tools:
+DONE         - Line Segment 1
+DONE         - Line Segment 2
+DONE         - PriceTimeInfo
+DONE
+DONE  - Vertical Line drawing tool.
+DONE  - Horizontal Line drawing tool.
+DONE
+DONE  - For ReadOnlyPointerTool and PointerTool:
+DONE    - shortcut key: V activates vertical dotted line.
+DONE    - shortcut key: H activates horizontal dotted line.
+DONE
+DONE  - Implement a G.AsSu planet:  Ascendant - Sun.  
+DONE  - Implement a G.AsMo planet:  Ascendant - Moon.  
+DONE
+
