@@ -39158,6 +39158,8 @@ class LookbackMultipleEditWidget(QWidget):
         self.formLayout.addRow(self.nameLabel, self.nameLineEdit)
         self.formLayout.addRow(self.descriptionLabel, 
                                self.descriptionTextEdit)
+        self.formLayout.addRow(self.lookbackMultipleLabel, 
+                               self.lookbackMultipleSpinBox)
         self.formLayout.addRow(self.baseUnitLabel, 
                                self.baseUnitSpinBox)
         self.formLayout.addRow(self.baseUnitTypeLabel, 
