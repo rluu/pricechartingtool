@@ -11538,6 +11538,119 @@ class PriceBarChartVerticalLineSegmentArtifact(PriceBarChartArtifact):
                        PriceBarChartVerticalLineSegmentArtifact.__name__ +
                        " object of version {}".format(self.classVersion))
 
+class PriceBarChartHorizontalLineSegmentArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates a horizontal line segment on
+    the graphics scene.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartHorizontalLineSegmentArtifact")
+
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "HorizontalLineSegment_" + str(self.uuid)
+
+        # Start and end points of the artifact.
+        self.startPointF = QPointF()
+        self.endPointF = QPointF()
+
+        # lineSegmentGraphicsItemColor (QColor).
+        self.color = \
+            PriceBarChartSettings.\
+                defaultHorizontalLineSegmentGraphicsItemColor
+
+    def setStartPointF(self, startPointF):
+        """Stores the starting point of the HorizontalLineSegmentArtifact.
+        Arguments:
+
+        startPointF - QPointF for the starting point of the artifact.
+        """
+        
+        self.startPointF = startPointF
+        
+    def getStartPointF(self):
+        """Returns the starting point of the HorizontalLineSegmentArtifact."""
+        
+        return self.startPointF
+        
+    def setEndPointF(self, endPointF):
+        """Stores the ending point of the HorizontalLineSegmentArtifact.
+        Arguments:
+
+        endPointF - QPointF for the ending point of the artifact.
+        """
+        
+        self.endPointF = endPointF
+        
+    def getEndPointF(self):
+        """Returns the ending point of the HorizontalLineSegmentArtifact."""
+        
+        return self.endPointF
+
+    def setColor(self, color):
+        """Sets the bar color.
+        
+        Arguments:
+        color - QColor object for the bar color.
+        """
+        
+        self.color = color
+
+    def getColor(self):
+        """Gets the bar color as a QColor object."""
+        
+        return self.color
+
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = Util.objToString(self)
+        
+        return rv
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartHorizontalLineSegmentArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartHorizontalLineSegmentArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
 class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that indicates the the data elements of a
     OctaveFanGraphicsItem.
@@ -18953,6 +19066,12 @@ class PriceBarChartSettings:
     # Default value for the VerticalLineSegmentGraphicsItem bar width (float).
     defaultVerticalLineSegmentGraphicsItemBarWidth = 3.3
 
+    # Default color for the bar of a HorizontalLineSegmentGraphicsItem (QColor).
+    defaultHorizontalLineSegmentGraphicsItemColor = QColor(Qt.gray)
+
+    # Default value for the HorizontalLineSegmentGraphicsItem bar width (float).
+    defaultHorizontalLineSegmentGraphicsItemBarWidth = 3.3
+
     # Default musical ratios enabled in a
     # OctaveFanGraphicsItem (list of MusicalRatio)
     defaultOctaveFanGraphicsItemMusicalRatios = \
@@ -20702,6 +20821,16 @@ class PriceBarChartSettings:
         self.verticalLineSegmentGraphicsItemBarWidth = \
             PriceBarChartSettings.\
             defaultVerticalLineSegmentGraphicsItemBarWidth
+
+        # HorizontalLineSegmentGraphicsItem bar color (QColor).
+        self.horizontalLineSegmentGraphicsItemColor = \
+            PriceBarChartSettings.\
+            defaultHorizontalLineSegmentGraphicsItemColor
+
+        # HorizontalLineSegment1GraphicsItem bar width (float).
+        self.horizontalLineSegmentGraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+            defaultHorizontalLineSegmentGraphicsItemBarWidth
 
         # OctaveFanGraphicsItem musical ratios (list of MusicalRatio).
         self.octaveFanGraphicsItemMusicalRatios = \
@@ -22739,11 +22868,15 @@ class PriceBarChartSettings:
                 #
                 # self.verticalLineSegmentGraphicsItemColor
                 # self.verticalLineSegmentGraphicsItemBarWidth
+                # self.horizontalLineSegmentGraphicsItemColor
+                # self.horizontalLineSegmentGraphicsItemBarWidth
                 
                 try:
                     # See if the variables are set.
                     self.verticalLineSegmentGraphicsItemColor
                     self.verticalLineSegmentGraphicsItemBarWidth
+                    self.horizontalLineSegmentGraphicsItemColor
+                    self.horizontalLineSegmentGraphicsItemBarWidth
 
                     # If it got here, then the fields are already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
@@ -22764,10 +22897,22 @@ class PriceBarChartSettings:
                         PriceBarChartSettings.\
                         defaultVerticalLineSegmentGraphicsItemBarWidth
 
+                    # HorizontalLineSegmentGraphicsItem bar color (QColor).
+                    self.horizontalLineSegmentGraphicsItemColor = \
+                        PriceBarChartSettings.\
+                        defaultHorizontalLineSegmentGraphicsItemColor
+
+                    # HorizontalLineSegment1GraphicsItem bar width (float).
+                    self.horizontalLineSegmentGraphicsItemBarWidth = \
+                        PriceBarChartSettings.\
+                        defaultHorizontalLineSegmentGraphicsItemBarWidth
+
                     self.log.debug(\
                                    "Added field " + \
                         "'verticalLineSegmentGraphicsItemColor', " + \
                         "'verticalLineSegmentGraphicsItemBarWidth', " + \
+                        "'horizontalLineSegmentGraphicsItemColor', " + \
+                        "'horizontalLineSegmentGraphicsItemBarWidth', " + \
                         "to the loaded PriceBarChartSettings.")
                     
                 # Update the class version.

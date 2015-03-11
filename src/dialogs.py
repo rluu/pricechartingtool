@@ -39327,6 +39327,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self._buildVerticalLineSegmentGraphicsItemGroupBox()
 
         # QGroupBox to hold the edit widgets and form for
+        # HorizontalLineSegmentGraphicsItem.
+        self.horizontalLineSegmentGraphicsItemGroupBox = \
+            self._buildHorizontalLineSegmentGraphicsItemGroupBox()
+
+        # QGroupBox to hold the edit widgets and form for
         # OctaveFanGraphicsItem.
         self.octaveFanGraphicsItemGroupBox = \
             self._buildOctaveFanGraphicsItemGroupBox()
@@ -39488,6 +39493,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.tabWidget.addTab(\
             self.verticalLineSegmentGraphicsItemGroupBox,
             QIcon(), # TODO: add icon for VerticalLineSegment.
+            "")
+
+        self.tabWidget.addTab(\
+            self.horizontalLineSegmentGraphicsItemGroupBox,
+            QIcon(), # TODO: add icon for HorizontalLineSegment.
             "")
 
         self.tabWidget.addTab(\
@@ -40016,6 +40026,13 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.verticalLineSegmentGraphicsItemColorResetButton.clicked.\
             connect(\
             self._handleVerticalLineSegmentGraphicsItemColorResetButtonClicked)
+
+        self.horizontalLineSegmentGraphicsItemBarWidthResetButton.clicked.\
+            connect(\
+            self._handleHorizontalLineSegmentGraphicsItemBarWidthResetButtonClicked)
+        self.horizontalLineSegmentGraphicsItemColorResetButton.clicked.\
+            connect(\
+            self._handleHorizontalLineSegmentGraphicsItemColorResetButtonClicked)
 
         self.octaveFanGraphicsItemBarHeightResetButton.clicked.\
             connect(\
@@ -45058,6 +45075,77 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         return self.verticalLineSegmentGraphicsItemGroupBox
     
+    def _buildHorizontalLineSegmentGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a HorizontalLineSegmentGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.horizontalLineSegmentGraphicsItemGroupBox = \
+            QGroupBox("HorizontalLineSegmentGraphicsItem settings:")
+
+        # horizontalLineSegmentGraphicsItemBarWidth (float).
+        self.horizontalLineSegmentGraphicsItemBarWidthLabel = \
+            QLabel("HorizontalLineSegmentGraphicsItem bar width: ")
+        self.horizontalLineSegmentGraphicsItemBarWidthSpinBox = QDoubleSpinBox()
+        self.horizontalLineSegmentGraphicsItemBarWidthSpinBox.setDecimals(4)
+        self.horizontalLineSegmentGraphicsItemBarWidthSpinBox.setMinimum(0.0)
+        self.horizontalLineSegmentGraphicsItemBarWidthSpinBox.setMaximum(1000.0)
+        self.horizontalLineSegmentGraphicsItemBarWidthResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # horizontalLineSegmentGraphicsItemColor (QColor)
+        self.horizontalLineSegmentGraphicsItemColorLabel = \
+            QLabel("HorizontalLineSegmentGraphicsItem default color:")
+        self.horizontalLineSegmentGraphicsItemColorEditButton = \
+            ColorEditPushButton()
+        self.horizontalLineSegmentGraphicsItemColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(\
+            self.horizontalLineSegmentGraphicsItemBarWidthLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.horizontalLineSegmentGraphicsItemBarWidthSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.horizontalLineSegmentGraphicsItemBarWidthResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.horizontalLineSegmentGraphicsItemColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.horizontalLineSegmentGraphicsItemColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.horizontalLineSegmentGraphicsItemColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.horizontalLineSegmentGraphicsItemGroupBox.setLayout(layout)
+        
+        return self.horizontalLineSegmentGraphicsItemGroupBox
+    
     def _buildOctaveFanGraphicsItemGroupBox(self):
         """Builds the groupbox containing info to edit the
         PriceBarChartSettings related to a OctaveFanGraphicsItem.
@@ -49771,6 +49859,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             setColor(self.priceBarChartSettings.\
                      verticalLineSegmentGraphicsItemColor)
 
+        # horizontalLineSegmentGraphicsItemBarWidth (float).
+        self.horizontalLineSegmentGraphicsItemBarWidthSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                     horizontalLineSegmentGraphicsItemBarWidth)
+
+        # horizontalLineSegmentGraphicsItemColor (QColor).
+        self.horizontalLineSegmentGraphicsItemColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     horizontalLineSegmentGraphicsItemColor)
+
         # octaveFanGraphicsItemBarHeight (float).
         self.octaveFanGraphicsItemBarHeightSpinBox.\
             setValue(self.priceBarChartSettings.\
@@ -52324,6 +52422,14 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # verticalLineSegmentGraphicsItemColor (QColor).
         self.priceBarChartSettings.verticalLineSegmentGraphicsItemColor = \
             self.verticalLineSegmentGraphicsItemColorEditButton.getColor()
+
+        # horizontalLineSegmentGraphicsItemBarWidth (float).
+        self.priceBarChartSettings.horizontalLineSegmentGraphicsItemBarWidth = \
+            float(self.horizontalLineSegmentGraphicsItemBarWidthSpinBox.value())
+
+        # horizontalLineSegmentGraphicsItemColor (QColor).
+        self.priceBarChartSettings.horizontalLineSegmentGraphicsItemColor = \
+            self.horizontalLineSegmentGraphicsItemColorEditButton.getColor()
 
         # octaveFanGraphicsItemBarHeight (float).
         self.priceBarChartSettings.octaveFanGraphicsItemBarHeight = \
@@ -54923,7 +55029,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         value = \
             PriceBarChartSettings.\
-            defaultLineSegmentGraphicsItemBarWidth
+            defaultVerticalLineSegmentGraphicsItemBarWidth
 
         self.verticalLineSegmentGraphicsItemBarWidthSpinBox.setValue(value)
 
@@ -54935,9 +55041,33 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         value = \
             PriceBarChartSettings.\
-            defaultLineSegmentGraphicsItemColor
+            defaultVerticalLineSegmentGraphicsItemColor
 
         self.verticalLineSegmentGraphicsItemColorEditButton.\
+            setColor(value)
+
+    def _handleHorizontalLineSegmentGraphicsItemBarWidthResetButtonClicked(self):
+        """Called when the horizontalLineSegmentGraphicsItemBarWidthResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+            defaultHorizontalLineSegmentGraphicsItemBarWidth
+
+        self.horizontalLineSegmentGraphicsItemBarWidthSpinBox.setValue(value)
+
+    def _handleHorizontalLineSegmentGraphicsItemColorResetButtonClicked(self):
+        """Called when the
+        horizontalLineSegmentGraphicsItemColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+            defaultHorizontalLineSegmentGraphicsItemColor
+
+        self.horizontalLineSegmentGraphicsItemColorEditButton.\
             setColor(value)
 
     def _octaveFanGraphicsItemReloadMusicalRatiosGrid(self,
@@ -58160,6 +58290,9 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self._handleVerticalLineSegmentGraphicsItemBarWidthResetButtonClicked()
         self._handleVerticalLineSegmentGraphicsItemColorResetButtonClicked()
+
+        self._handleHorizontalLineSegmentGraphicsItemBarWidthResetButtonClicked()
+        self._handleHorizontalLineSegmentGraphicsItemColorResetButtonClicked()
 
         self._handleOctaveFanGraphicsItemBarHeightResetButtonClicked()
         self._handleOctaveFanGraphicsItemColorResetButtonClicked()
