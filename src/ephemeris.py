@@ -399,7 +399,8 @@ class Ephemeris:
     def initialize():
         """Initializes the Ephemeris with default settings."""
 
-        Ephemeris.log.debug("Entering initialize()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Entering initialize()")
 
 
         # Set up the swiss ephemeris data directory location.
@@ -428,13 +429,15 @@ class Ephemeris:
         Using the ephemeris after calling this yields undefined results.  
         """
 
-        Ephemeris.log.debug("Entered closeEphemeris()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Entered closeEphemeris()")
 
         # Call close on the Swiss Ephemeris so it can cleanup files and
         # deallocate memory, etc.
         swe.close()
 
-        Ephemeris.log.debug("Exiting closeEphemeris()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Exiting closeEphemeris()")
 
     @staticmethod
     def setGeographicPosition(geoLongitudeDeg, 
@@ -726,12 +729,15 @@ class Ephemeris:
         offsetStr = ""
 
         timeDelta = datetimeObj.utcoffset()
-        Ephemeris.log.debug("datetimeObj.utcoffset() == {}".\
-                            format(datetimeObj.utcoffset()))
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("datetimeObj.utcoffset() == {}".\
+                                format(datetimeObj.utcoffset()))
         
         offsetSeconds = (timeDelta.days * (24 * 60 * 60)) + timeDelta.seconds
 
-        Ephemeris.log.debug("offsetSeconds == {}".format(offsetSeconds))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("offsetSeconds == {}".format(offsetSeconds))
         
         if offsetSeconds < 0:
             offsetStr += "-"
@@ -741,13 +747,15 @@ class Ephemeris:
         offsetHours = abs(offsetSeconds) // (60 * 60)
         offsetMinutes = (abs(offsetSeconds) - (offsetHours * 60 * 60)) // 60
 
-        Ephemeris.log.debug("offsetHours == {}".format(offsetHours))
-        Ephemeris.log.debug("offsetMinutes == {}".format(offsetMinutes))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("offsetHours == {}".format(offsetHours))
+            Ephemeris.log.debug("offsetMinutes == {}".format(offsetMinutes))
 
         offsetStr += "{:02}".format(offsetHours)
         offsetStr += "{:02}".format(offsetMinutes)
 
-        Ephemeris.log.debug("offsetStr == {}".format(offsetStr))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("offsetStr == {}".format(offsetStr))
 
         return offsetStr
 
@@ -9536,11 +9544,11 @@ if __name__=="__main__":
     Ephemeris.setGeographicPosition(lon, lat)
     
     # Different tests that can be run:
-    #testGetPlanetaryInfos()
-    #testHouseCusps()
-    #testAscmc()
-    #testPlanetTopicalLongitude()
-    #testDatetimeJulianPrecisionLoss()
+    testGetPlanetaryInfos()
+    testHouseCusps()
+    testAscmc()
+    testPlanetTopicalLongitude()
+    testDatetimeJulianPrecisionLoss()
 
     # These tests will take a long time, so I've commented it out.
     #testMinMaxPlanetLongitudeSpeeds()
