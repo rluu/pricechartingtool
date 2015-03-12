@@ -41,7 +41,7 @@ from pricebarchart import *
 from pricebarspreadsheet import *
 from astrologychart import AstrologyChartWidget
 from astrologychart import PlanetaryInfoTableWidget
-from lookbackmultiple import LookbackMultiplePanelWidget
+from lookbackmultiple_ui import LookbackMultiplePanelWidget
 
 class MainWindow(QMainWindow):
     """The QMainWindow class that is a multiple document interface (MDI)."""

@@ -374,6 +374,26 @@ pricechartingtool
 
 ##############################################################################
 
+Slow startup time notes:
+
+Description:
+  The first call to pytz.timezone() is very slow, up to about 8 seconds.
+  Subsequent calls are fast.
+ 
+  Reason: pytz gets its timezone settings from within the egg and the
+  first call to timezone has to check that all the timezone files exist,
+  the first call could be slow depending on how the os has to find those
+  files.
+ 
+Solution is to uncompress it via pip:
+
+     pip unzip pytz
+
+Source: 
+  http://stackoverflow.com/questions/20500910/first-call-to-pytz-timezone-is-slow-in-virtualenv
+
+##############################################################################
+
 Notes to the user of this application:
 
 I have tried to be as accurate as possible in my calculations and usage of

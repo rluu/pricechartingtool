@@ -45,7 +45,7 @@ from ephemeris import Ephemeris
 
 # For getting datetimes forward and backward in time, 
 # to support LookbackMultiple.
-from lookbackmultiple import LookbackMultipleUtils
+from lookbackmultiple_calc import LookbackMultipleUtils
 
 
 # For PriceBars and artifacts in the chart.
