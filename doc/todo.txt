@@ -9,7 +9,7 @@ TODOs for cycle hunter features:
     (or all of the above).
 
   - If I am going to utilize cloud computing, I would need to set up a
-    deployment process, or at least document whatever it would be.
+    deployment process, or at least document whatever it would be.  
 
   - Consider setting up the use of virtualenv with cyclehunter.
 
