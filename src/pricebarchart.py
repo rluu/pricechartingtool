@@ -47,6 +47,9 @@ from ephemeris import Ephemeris
 # to support LookbackMultiple.
 from lookbackmultiple_calc import LookbackMultipleUtils
 
+# For generic utility helper methods.
+from util import Util
+
 
 # For PriceBars and artifacts in the chart.
 from data_objects import BirthInfo
@@ -84,7 +87,6 @@ from data_objects import PriceBarChartPanchottariDasaArtifact
 from data_objects import PriceBarChartShashtihayaniDasaArtifact
 from data_objects import PriceBarChartScaling
 from data_objects import PriceBarChartSettings
-from data_objects import Util
 
 # Edit dialogs.
 from dialogs import LookbackMultiplePriceBarEditDialog

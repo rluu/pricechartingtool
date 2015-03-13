@@ -16,13 +16,12 @@ import math
 import logging
 import logging.config
 
-# Import the Swiss Ephemeris
-import swisseph as swe
-
+# Import the Ephemeris classes.
 from ephemeris import PlanetaryInfo
 from ephemeris import Ephemeris
 
-from data_objects import Util
+# For generic utility helper methods.
+from util import Util
 
 ##############################################################################
 

@@ -30,156 +30,16 @@ from PyQt4.QtCore import QSettings
 # For datetime.datetime to str conversion.
 from ephemeris import Ephemeris
 
+# For generic utility helper methods.
+from util import Util
+
 # For QSettings keys.
 from settings import SettingsKeys
 
-class Util:
+
+class ObjectUtils:
     """Contains some generic static functions that may be helpful."""
 
-    @staticmethod
-    def monthNumberToAbbrev(monthNumber):
-        """Converts the given month number to a 3-letter abbreviation
-        for the month.  The monthNumber is 1-based, so 1 will convert
-        to 'Jan'.
-
-        Arguments:
-        monthNumber - int for the month number, where 1 represents January.
-
-        Returns:
-        str value holding the month abbreviation (e.g. 'Jan').  If the
-                  input is invalid, then None is returned.
-        
-        """
-
-        rv = None
-
-        if monthNumber == 1:
-            rv = "Jan"
-        elif monthNumber == 2:
-            rv = "Feb"
-        elif monthNumber == 3:
-            rv = "Mar"
-        elif monthNumber == 4:
-            rv = "Apr"
-        elif monthNumber == 5:
-            rv = "May"
-        elif monthNumber == 6:
-            rv = "Jun"
-        elif monthNumber == 7:
-            rv = "Jul"
-        elif monthNumber == 8:
-            rv = "Aug"
-        elif monthNumber == 9:
-            rv = "Sep"
-        elif monthNumber == 10:
-            rv = "Oct"
-        elif monthNumber == 11:
-            rv = "Nov"
-        elif monthNumber == 12:
-            rv = "Dec"
-        else:
-            rv = None
-
-        return rv
-            
-    @staticmethod
-    def monthAbbrevToNumber(monthAbbrev):
-        """Converts the given month 3-letter abbreviation to the month
-        number.  The monthNumber is 1-based, so 'Jan' will convert to 1.
-
-        Arguments:
-        monthAbbrev - str holding the abbreviation of the month.
-
-        Returns:
-        int value holding the month number.  The number is 1-based,
-        ie. 1 maps to January.  input is invalid, then None is
-        returned.
-        """
-
-        rv = None
-
-        ma = monthAbbrev.lower()
-
-        if ma == "jan":
-            rv = 1
-        elif ma == "feb":
-            rv = 2
-        elif ma == "mar":
-            rv = 3
-        elif ma == "apr":
-            rv = 4
-        elif ma == "may":
-            rv = 5
-        elif ma == "jun":
-            rv = 6
-        elif ma == "jul":
-            rv = 7
-        elif ma == "aug":
-            rv = 8
-        elif ma == "sep":
-            rv = 9
-        elif ma == "oct":
-            rv = 10
-        elif ma == "nov":
-            rv = 11
-        elif ma == "dec":
-            rv = 12
-        else:
-            rv = None
-
-        return rv
-            
-    @staticmethod
-    def absTd(timedelta):
-        """Returns the absolute value of this datetime.timedelta object.
-        This is to ensure timedeltas are positive for comparison purposes.
-        """
-        
-        if timedelta < datetime.timedelta(0):
-            return timedelta * -1
-        else:
-            return timedelta
-        
-    @staticmethod
-    def fuzzyIsEqual(f1, f2, maxDiff=0.00000001):
-        """Fuzzy test for floating point values being equal.
-        
-        Arguments:
-        f1 - float value to test against variable f2.
-        f2 - float value to test against variable f1.
-        maxDiff - float value for the maximum difference before
-                  f1 and f2 are not considered equal.
-
-        Returns:
-        bool value - True if the values are within maxDiff
-                     from each other, False otherwise.
-        """
-
-        if abs(f1 - f2) <= maxDiff:
-            return True
-        else:
-            return False
-    
-    @staticmethod
-    def toNormalizedAngle(angleDeg):
-        """Normalizes the given angle to a value in the range [0, 360).
-
-        Arguments:
-        angleDeg - float value in degrees of an angle to normalize.
-
-        Returns:
-        float value holding the equivalent angle, but in the range [0, 360).
-        """
-
-        a = float(angleDeg)
-        
-        while a < 0.0:
-            a += 360.0
-        while a >= 360.0:
-            a -= 360.0
-
-        return a
-    
     @staticmethod
     def qColorToStr(qcolor):
         """Returns a string formatting of a QColor object."""
@@ -226,7 +86,7 @@ class Util:
                 # Do special handling for QColor objects and lists.
                 if isinstance(attrObj, QColor):
                     rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
+                          format(attr, ObjectUtils.qColorToStr(attrObj))
                 elif isinstance(attrObj, list):
                     rv += "{}=[".format(attr)
                     for item in attrObj:
@@ -243,6 +103,7 @@ class Util:
 
         return rv
         
+
 class BirthInfo:
     """Contains data related to the birth of an entity or person.
     See the documentation for the '__init__()' function to see what
@@ -588,7 +449,7 @@ class BirthInfo:
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -754,7 +615,7 @@ class PriceBar:
     def toString(self):
         """Returns the string representation of the PriceBar data"""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -1356,7 +1217,7 @@ class Ratio:
     def toString(self):
         """Returns the string representation of the data."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -3178,7 +3039,7 @@ class MusicalRatio(Ratio):
     def toString(self):
         """Returns the string representation of the data."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -3679,7 +3540,7 @@ class LookbackMultiple:
         LookbackMultiple object.
         """
         
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
 
         return rv
 
@@ -3928,7 +3789,7 @@ TODO:  Think about what variables and information would be needed in this class.
         LookbackMultiplePriceBar data.
         """
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -4130,7 +3991,7 @@ class PriceBarChartArtifact:
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -4195,7 +4056,7 @@ class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -5162,7 +5023,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -5518,7 +5379,7 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -5872,7 +5733,7 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -8436,7 +8297,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -9740,7 +9601,7 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -10119,7 +9980,7 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
     
@@ -10394,7 +10255,7 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -10674,7 +10535,7 @@ class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -10954,7 +10815,7 @@ class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -11251,7 +11112,7 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -11486,7 +11347,7 @@ class PriceBarChartLineSegmentArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -11599,7 +11460,7 @@ class PriceBarChartVerticalLineSegmentArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -11712,7 +11573,7 @@ class PriceBarChartHorizontalLineSegmentArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -12432,7 +12293,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -13119,7 +12980,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -13805,7 +13666,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -14161,7 +14022,7 @@ class PriceBarChartVimsottariDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -14517,7 +14378,7 @@ class PriceBarChartAshtottariDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -14873,7 +14734,7 @@ class PriceBarChartYoginiDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -15229,7 +15090,7 @@ class PriceBarChartDwisaptatiSamaDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -15585,7 +15446,7 @@ class PriceBarChartShattrimsaSamaDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -15941,7 +15802,7 @@ class PriceBarChartDwadasottariDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -16297,7 +16158,7 @@ class PriceBarChartChaturaseetiSamaDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -16653,7 +16514,7 @@ class PriceBarChartSataabdikaDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -17009,7 +16870,7 @@ class PriceBarChartShodasottariDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -17365,7 +17226,7 @@ class PriceBarChartPanchottariDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -17721,7 +17582,7 @@ class PriceBarChartShashtihayaniDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -17887,7 +17748,7 @@ class PriceBarChartScaling:
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
     
@@ -23093,7 +22954,7 @@ class PriceBarChartSettings:
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -23153,7 +23014,7 @@ class PriceBarSpreadsheetSettings:
     def toString(self):
         """Prints the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
     

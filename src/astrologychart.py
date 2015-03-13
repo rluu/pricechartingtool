@@ -27,8 +27,8 @@ from settings import SettingsKeys
 # For BirthInfo.
 from data_objects import BirthInfo
 
-# For various utility functions.
-from data_objects import Util
+# For generic utility helper methods.
+from util import Util
 
 # For conversions from julian day to datetime.datetime and vice versa.
 from ephemeris import Ephemeris
@@ -2804,7 +2804,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
     def toString(self):
         """Returns a str representing this object's contents."""
 
-        return Util.objToString(self)
+        return ObjectUtils.objToString(self)
         
     def boundingRect(self):
         """Returns the bounding rectangle for this graphicsitem."""
@@ -3680,7 +3680,7 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
     def toString(self):
         """Returns a str representing this object's contents."""
 
-        return Util.objToString(self)
+        return ObjectUtils.objToString(self)
         
     def boundingRect(self):
         """Returns the bounding rectangle for this graphicsitem.
