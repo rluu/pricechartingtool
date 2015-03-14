@@ -27,8 +27,8 @@ class LookbackMultipleUtils:
     LookbackMultiple periods forwards and backwards.
 
     Note:
-    This class has two main methods for public use:
-
+    This class has the following methods for public use:
+      initializeEphemeris()
       getDatetimesOfLongitudeDeltaDegreesInFuture()
       getDatetimesOfLongitudeDeltaDegreesInPast()
 
@@ -38,13 +38,43 @@ class LookbackMultipleUtils:
     geocentric planet such as G.Mercury, when Mercury is between it's
     max and min elongation points relative to the Sun can have different
     results, based on the same desiredDeltaDegrees.  For example, if 0
-    is specified as the desiredDeltaDegrees when G.Mercury is very close
+    is specified as the desiredDeltaDegrees when G.Mercury is close
     to the Sun can yield different dates, depending on whether we are
-    looking into the past or the future (both correct dates).
+    looking into the past or the future (both correct dates), because 
+    of direct and retrograde motions.
     """
     
     # Logger object for this class.
     log = logging.getLogger("lookbackmultiple_calc.LookbackMultipleUtils")
+
+    @staticmethod
+    def initializeEphemeris(locationLongitudeDegrees=-74.0064,
+                            locationLatitudeDegrees=40.7142,
+                            locationElevationMeters=0):
+        """Initializes or re-initializes the Ephemeris with the location
+        given as parameters.
+        
+        Arguments:
+        geoLongitudeDeg - Longitude in degrees.  
+                          West longitudes are negative,
+                          East longitudes are positive.
+                          Value should be in the range of -180 to 180.
+                          Default value is the longitude of New York City.
+        geoLatitudeDeg  - Latitude in degrees.  North latitudes are positive, 
+                          south latitudes are negative.  
+                          Value should be in the range of -90 to 90.
+                          Default value is the latitude of New York City.
+        altitudeMeters  - Altitude in meters.
+        
+        """
+        
+        # Initialize the Ephemeris.
+        Ephemeris.initialize()
+        
+        # Set a geographic location.
+        Ephemeris.setGeographicPosition(locationLongitudeDegrees, 
+                                        locationLatitudeDegrees,
+                                        locationElevationMeters)
     
     @staticmethod
     def getDatetimesOfLongitudeDeltaDegreesInFuture(\
@@ -53,10 +83,7 @@ class LookbackMultipleUtils:
         longitudeType,
         referenceDt,
         desiredDeltaDegrees,
-        maxErrorTd=datetime.timedelta(seconds=2),
-        locationLongitudeDegrees=-74.0064,
-        locationLatitudeDegrees=40.7142,
-        locationElevationMeters=0):
+        maxErrorTd=datetime.timedelta(seconds=2)):
         """Returns a list of datetime.datetime objects that hold the
         timestamps when the given planet is at 'desiredDeltaDegrees'
         longitude degrees relative to the longitude degrees calculated at
@@ -68,6 +95,13 @@ class LookbackMultipleUtils:
         is 'desiredDeltaDegrees' distance relative to the 
         planet's longitude position at the reference datetime.datetime.
         
+        Pre-requisites:
+        This method assumes that the user has initialized the Ephemeris 
+        via Ephemeris.initialize() and has called 
+        Ephemeris.setGeographicPosition() prior to running this method.  
+        Calling the LookbackMultipleUtils.initializeEphemeris() 
+        method would work as a substitute for this.
+
         Arguments:
         planetName - str holding the name of the planet to do the
                      calculations for.
@@ -85,17 +119,7 @@ class LookbackMultipleUtils:
                      combination timestamp, and the one calculated.
                      This would define the accuracy of the
                      calculations.  
-        geoLongitudeDeg - Longitude in degrees.  
-                          West longitudes are negative,
-                          East longitudes are positive.
-                          Value should be in the range of -180 to 180.
-                          Default value is the longitude of New York City.
-        geoLatitudeDeg  - Latitude in degrees.  North latitudes are positive, 
-                          south latitudes are negative.  
-                          Value should be in the range of -90 to 90.
-                          Default value is the latitude of New York City.
-        altitudeMeters  - Altitude in meters.
-        
+
         Returns:
         List of datetime.datetime objects.  The datetime.datetime
         objects in this list are the timestamps where the planet is at
@@ -130,14 +154,6 @@ class LookbackMultipleUtils:
                       "Value given was: {}".format(longitudeTypeOrig)
             LookbackMultipleUtils.log.error(errMsg)
             raise ValueError(errMsg)
-
-        # Initialize the Ephemeris.
-        Ephemeris.initialize()
-        
-        # Set a geographic location.
-        Ephemeris.setGeographicPosition(locationLongitudeDegrees, 
-                                        locationLatitudeDegrees,
-                                        locationElevationMeters)
 
         # Field name we are getting.
         fieldName = "longitude"
@@ -576,10 +592,7 @@ class LookbackMultipleUtils:
         longitudeType,
         referenceDt,
         desiredDeltaDegrees,
-        maxErrorTd=datetime.timedelta(seconds=2),
-        locationLongitudeDegrees=-74.0064,
-        locationLatitudeDegrees=40.7142,
-        locationElevationMeters=0):
+        maxErrorTd=datetime.timedelta(seconds=2)):
         """Returns a list of datetime.datetime objects that hold the
         timestamps when the given planet is at 'desiredDeltaDegrees'
         longitude degrees relative to the longitude degrees calculated at
@@ -591,6 +604,13 @@ class LookbackMultipleUtils:
         is 'desiredDeltaDegrees' distance relative to the 
         planet's longitude position at the reference datetime.datetime.
         
+        Pre-requisites:
+        This method assumes that the user has initialized the Ephemeris 
+        via Ephemeris.initialize() and has called 
+        Ephemeris.setGeographicPosition() prior to running this method.  
+        Calling the LookbackMultipleUtils.initializeEphemeris() 
+        method would work as a substitute for this.
+
         Arguments:
         planetName - str holding the name of the planet to do the
                      calculations for.
@@ -608,16 +628,6 @@ class LookbackMultipleUtils:
                      combination timestamp, and the one calculated.
                      This would define the accuracy of the
                      calculations.  
-        geoLongitudeDeg - Longitude in degrees.  
-                          West longitudes are negative,
-                          East longitudes are positive.
-                          Value should be in the range of -180 to 180.
-                          Default value is the longitude of New York City.
-        geoLatitudeDeg  - Latitude in degrees.  North latitudes are positive, 
-                          south latitudes are negative.  
-                          Value should be in the range of -90 to 90.
-                          Default value is the latitude of New York City.
-        altitudeMeters  - Altitude in meters.
         
         Returns:
         List of datetime.datetime objects.  The datetime.datetime
@@ -653,14 +663,6 @@ class LookbackMultipleUtils:
                       "Value given was: {}".format(longitudeTypeOrig)
             LookbackMultipleUtils.log.error(errMsg)
             raise ValueError(errMsg)
-
-        # Initialize the Ephemeris.
-        Ephemeris.initialize()
-        
-        # Set a geographic location.
-        Ephemeris.setGeographicPosition(locationLongitudeDegrees, 
-                                        locationLatitudeDegrees,
-                                        locationElevationMeters)
 
         # Field name we are getting.
         fieldName = "longitude"
@@ -2111,7 +2113,7 @@ def testLookbackMultipleUtils_speedTest():
     # For timing the calculations.
     import time
 
-    if True:
+    if False:
         maxErrorTd = datetime.timedelta(minutes=60)
         #maxErrorTd = datetime.timedelta(minutes=5)
         #maxErrorTd = datetime.timedelta(seconds=2)
@@ -2136,7 +2138,7 @@ def testLookbackMultipleUtils_speedTest():
         endTime = time.time()
         print("    Calculations took: {} sec".format(endTime - startTime))
 
-    if True:
+    if False:
         maxErrorTd = datetime.timedelta(minutes=60)
         #maxErrorTd = datetime.timedelta(minutes=5)
         #maxErrorTd = datetime.timedelta(seconds=2)
@@ -2152,6 +2154,28 @@ def testLookbackMultipleUtils_speedTest():
             longitudeType="tropical"
             referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
             desiredDeltaDegrees = -360 * 360
+
+            resultDts = \
+                LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
+                    planetName, centricityType, longitudeType, referenceDt, 
+                    desiredDeltaDegrees, maxErrorTd)
+
+    if True:
+        maxErrorTd = datetime.timedelta(minutes=60)
+        #maxErrorTd = datetime.timedelta(minutes=5)
+        #maxErrorTd = datetime.timedelta(seconds=2)
+        
+        print("  Testing G.MoSu moving 12 rev., 30 times, with maxErrorTd={}".\
+              format(maxErrorTd))
+        
+        startTime = time.time()
+        
+        for i in range(30):
+            planetName="MoSu"
+            centricityType="geocentric"
+            longitudeType="tropical"
+            referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
+            desiredDeltaDegrees = -360 * 12
 
             resultDts = \
                 LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
@@ -2178,23 +2202,21 @@ if __name__=="__main__":
     import os
     import sys
     
-    
-    # Normally, we would be required to initialize the Ephemeris and also set
-    # the location, but our tests called will utilize the default location
-    # defined as default arguments of the method parameters.
-    #
-    # Initialize the Ephemeris (required).
-    #Ephemeris.initialize()
-    # New York City:
-    #lon = -74.0064
-    #lat = 40.7142
-    # Set a default location (required).
-    #Ephemeris.setGeographicPosition(lon, lat)
-
     # Initialize logging.
     LOG_CONFIG_FILE = os.path.join(sys.path[0], "../conf/logging.conf")
     logging.config.fileConfig(LOG_CONFIG_FILE)
     #logging.disable(logging.CRITICAL)
+
+
+    # Initialize the Ephemeris (required).
+    Ephemeris.initialize()
+
+    # New York City:
+    lon = -74.0064
+    lat = 40.7142
+
+    # Set a default location (required).
+    Ephemeris.setGeographicPosition(lon, lat)
 
     # Create the Qt application.
     #app = QApplication(sys.argv)
@@ -2202,8 +2224,8 @@ if __name__=="__main__":
     # Various tests to run:
 
     def runTests():
-        #testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture()
-        #testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast()
+        testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture()
+        testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast()
         testLookbackMultipleUtils_speedTest()
 
     startTime = time.time()
