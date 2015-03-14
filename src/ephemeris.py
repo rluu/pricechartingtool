@@ -402,23 +402,27 @@ class Ephemeris:
 
 
         # Set up the swiss ephemeris data directory location.
-        Ephemeris.log.info("Setting Ephemeris data directory to " +
-                           Ephemeris.SWISS_EPHEMERIS_DATA_DIR)
+        if Ephemeris.log.isEnabledFor(logging.INFO) == True:
+            Ephemeris.log.info("Setting Ephemeris data directory to " +
+                               Ephemeris.SWISS_EPHEMERIS_DATA_DIR)
         swe.set_ephe_path(Ephemeris.SWISS_EPHEMERIS_DATA_DIR)
 
         # Reset the iflag used.
         Ephemeris.iflag = 0
 
         # Use Swiss Ephemeris (and not JPL or Moshier)
-        Ephemeris.log.info("Setting flag to use Swiss Ephemeris")
+        if Ephemeris.log.isEnabledFor(logging.INFO) == True:
+            Ephemeris.log.info("Setting flag to use Swiss Ephemeris")
         Ephemeris.iflag |= swe.FLG_SWIEPH
 
         # Calculate speeds when doing calculations.
-        Ephemeris.log.info("Setting flag to calculate speeds")
+        if Ephemeris.log.isEnabledFor(logging.INFO) == True:
+            Ephemeris.log.info("Setting flag to calculate speeds")
         Ephemeris.iflag |= swe.FLG_SPEED
 
         # Use true positions of the planets by default.
-        Ephemeris.log.info("Setting to use true planetary positions")
+        if Ephemeris.log.isEnabledFor(logging.INFO) == True:
+            Ephemeris.log.info("Setting to use true planetary positions")
         Ephemeris.setTruePlanetaryPositions()
         
     @staticmethod
