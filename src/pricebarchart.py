@@ -45,7 +45,7 @@ from ephemeris import Ephemeris
 
 # For getting datetimes forward and backward in time, 
 # to support LookbackMultiple.
-from lookbackmultiple_calc import LookbackMultipleUtils
+from lookbackmultiple_parallel import LookbackMultipleParallel
 
 # For generic utility helper methods.
 from util import Util
@@ -42256,11 +42256,15 @@ class PriceBarChartWidget(QWidget):
         """
         
         self.log.debug("Entered drawLookbackMultiplePriceBars()")
+
+        # Maximum error for calculation of LookbackMultiple results.
+        maxErrorTd = datetime.timedelta(minutes=60)
+        
         
         # Set the birth location in the Ephemeris.
         #
-        # This is required before making Ephemeris calculations with
-        # LookbackMultipleUtils.
+        # This is required before making Ephemeris calculations for
+        # LookbackMultiple.
         birthInfo = self.graphicsScene.getBirthInfo()
         Ephemeris.setGeographicPosition(birthInfo.longitudeDegrees,
                                         birthInfo.latitudeDegrees,
@@ -42340,26 +42344,42 @@ class PriceBarChartWidget(QWidget):
             # Look backwards in time to get the start and end datetimes for
             # obtaining the time range of historic PriceBars.
             self.log.debug("Looking backwards in time ...")
+            
+            argsTupleList = []
 
-            startLookbackDts = \
-                LookbackMultipleUtils.\
-                getDatetimesOfLongitudeDeltaDegreesInPast(\
+            startLookbackArgs = (\
                     planetName, 
-                    centricityType,
-                    longitudeType,
-                    referenceDt=earliestViewDt,
-                    desiredDeltaDegrees=desiredDeltaDegrees * -1,
-                    maxErrorTd=datetime.timedelta(minutes=5))
-                                                          
-            endLookbackDts = \
-                LookbackMultipleUtils.\
-                getDatetimesOfLongitudeDeltaDegreesInPast(\
+                    centricityType, 
+                    longitudeType, 
+                    earliestViewDt, 
+                    desiredDeltaDegrees * -1, 
+                    maxErrorTd, 
+                    birthInfo.longitudeDegrees,
+                    birthInfo.latitudeDegrees,
+                    birthInfo.elevation)
+
+            argsTupleList.append(startLookbackArgs)
+
+            endLookbackArgs = (\
                     planetName, 
-                    centricityType,
-                    longitudeType,
-                    referenceDt=latestViewDt,
-                    desiredDeltaDegrees=desiredDeltaDegrees * -1,
-                    maxErrorTd=datetime.timedelta(minutes=5))
+                    centricityType, 
+                    longitudeType, 
+                    latestViewDt, 
+                    desiredDeltaDegrees * -1, 
+                    maxErrorTd, 
+                    birthInfo.longitudeDegrees,
+                    birthInfo.latitudeDegrees,
+                    birthInfo.elevation)
+
+            argsTupleList.append(endLookbackArgs)
+
+            # Compute results in parallel.
+            resultsList = \
+                LookbackMultipleParallel.\
+                getDatetimesOfLongitudeDeltaDegreesInPastParallel(argsTupleList)
+    
+            startLookbackDts = resultsList[0]
+            endLookbackDts = resultsList[1]
             
             if self.log.isEnabledFor(logging.DEBUG) == True:
                 self.log.debug("len(startLookbackDts) == {}".\
@@ -42436,26 +42456,60 @@ class PriceBarChartWidget(QWidget):
                 self.log.debug("lowestPriceBarPrice == {}".\
                                format(lowestPriceBarPrice))
             
+            # Calculate LookbackMultiple datetimes for each PriceBar's
+            # timestamp.
+
+            # Assemble arguments for each method invocation to get datetimes.
+            argsTupleList = []
+            for pb in pbs:
+                referenceDt = pb.timestamp
+                
+                args = (\
+                    planetName, 
+                    centricityType, 
+                    longitudeType, 
+                    referenceDt, 
+                    desiredDeltaDegrees, 
+                    maxErrorTd, 
+                    birthInfo.longitudeDegrees,
+                    birthInfo.latitudeDegrees,
+                    birthInfo.elevation)
+
+                argsTupleList.append(args)
+            
+            if self.log.isEnabledFor(logging.INFO) == True:
+                infoMsg = \
+                    "Calculating LookbackMultiple datetimes " + \
+                    "in the future for {} historic PriceBars ".\
+                    format(len(pbs)) + \
+                    "(startDt={}, endDt={}) ...".\
+                    format(Ephemeris.datetimeToDayStr(startPriceBarSearchDt),
+                           Ephemeris.datetimeToDayStr(endPriceBarSearchDt))
+                self.log.info(infoMsg)
+            
+            # Compute results in parallel.
+            resultsList = \
+                LookbackMultipleParallel.\
+                getDatetimesOfLongitudeDeltaDegreesInFutureParallel(\
+                    argsTupleList)
+    
+            if self.log.isEnabledFor(logging.INFO) == True:
+                self.log.info("Calculation of LookbackMultiples complete.")
+            
             # Create the LookbackMultiplePriceBars for these historic
             # PriceBars and store them in a list.
             lmpbs = []
-            for pb in pbs:
-                # Find the datetime(s) in the future for the LookbackMultiple.
-                # There can potentially be more than 1 datetime because of 
-                # planet retrograde motion.
-                dts = LookbackMultipleUtils.\
-                    getDatetimesOfLongitudeDeltaDegreesInFuture(\
-                        planetName, 
-                        centricityType,
-                        longitudeType,
-                        referenceDt=pb.timestamp,
-                        desiredDeltaDegrees=desiredDeltaDegrees,
-                        maxErrorTd=datetime.timedelta(minutes=5))
-
+            for i in range(len(pbs)):
+                
+                # Current PriceBar and it's LookbackMultiple datetimes 
+                # in the future.
+                pb = pbs[i]
+                resultDts = resultsList[i]
+                
                 # Create the LookbackMultiplePriceBar for each timestamp.
                 # The prices used in the LookbackMultiplePriceBars are 
                 # the underlying PriceBar's values scaled.
-                for dt in dts:
+                for dt in resultDts:
                     lmpb = LookbackMultiplePriceBar(lookbackMultiple, pb)
                     lmpb.timestamp = dt
                     lmpb.open = \

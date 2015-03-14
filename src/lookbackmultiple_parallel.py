@@ -174,7 +174,8 @@ def testLookbackMultipleParallel_speedTestParallel():
         
 
         endTime = time.time()
-        print("  Calculations in parallel took: {} sec".format(endTime - startTime))
+        print("  Calculations in parallel took: {} sec".\
+              format(endTime - startTime))
 
 
 def testLookbackMultipleParallel_speedTestSerial():
@@ -240,7 +241,8 @@ def testLookbackMultipleParallel_speedTestSerial():
         
 
         endTime = time.time()
-        print("  Calculations in serial took: {} sec".format(endTime - startTime))
+        print("  Calculations in serial took: {} sec".\
+              format(endTime - startTime))
 
 
 ##############################################################################
