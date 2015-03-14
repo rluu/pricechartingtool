@@ -2207,7 +2207,6 @@ if __name__=="__main__":
     logging.config.fileConfig(LOG_CONFIG_FILE)
     #logging.disable(logging.CRITICAL)
 
-
     # Initialize the Ephemeris (required).
     Ephemeris.initialize()
 
@@ -2231,7 +2230,9 @@ if __name__=="__main__":
     startTime = time.time()
     runTests()
     endTime = time.time()
-    print("Tests took: {} sec".format(endTime - startTime))
+
+    print("")
+    print("Running all tests took: {} sec".format(endTime - startTime))
 
     #cProfile.run('runTests()')
     
