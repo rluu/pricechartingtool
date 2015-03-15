@@ -352,7 +352,7 @@ Directory contents:
 
 pricechartingtool
   |
-  |- conf: Hold configuration information.
+  |- conf: Holds configuration information.
   | 
   |- data: Holds emphemeris data to be used with the Swiss Ephemeris.
   |

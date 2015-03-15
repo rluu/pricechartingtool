@@ -65,6 +65,10 @@ tar -xjvf pytz-2014.9.tar.bz2
 cd pytz-2014.9
 python3 setup.py install
 
+# Extract the pytz egg so that pytz.timezone() runs faster 
+# (otherwise the first usage takes several seconds!).
+pip unzip pytz
+
 # Install pyswisseph
 cd ~/programming/pricechartingtool/master/tps/pyswisseph
 tar -xjvf pyswisseph-1.77.00-0.tar.bz2
