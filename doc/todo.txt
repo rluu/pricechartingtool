@@ -4,16 +4,40 @@ Outstanding things to work on going forward:
 
 TODOs for cycle hunter features:
 
+  - Verify PCDs of older versions work fine.
+  - Backup PCDs before merging with PCT.
+  - Merge.
+  
   - Alorithm or computation is slow for LookbackMultiples.  
     Consider profiling, or improving design, or using cloud computing.
     (or all of the above).
 
+      - Make QSettings settings in AppPreferences for whether to run
+        locally or via Amazon?  Or maybe just a flag in my software.
+	Settings options would be:
+	  - Run as multiple processes on local machine.
+	  - Run as distrubted processes on remote machines.
+	    - hostname, port, and authkey.
+
+	- Handle use cases, such as 'ConnectionRefusedError', 'EOFError', etc.
+	
+      - Segment out the code so that it can run both as multiple processes
+        and also asa distributed cloud processing method (with manager,
+        workers, and taskers).
+
   - If I am going to utilize cloud computing, I would need to set up a
-    deployment process, or at least document whatever it would be.  
+    deployment process, or at least document whatever it would be.
+
+      - Try out Starcluster.
+
+      - Create an instance-store AMI.
+
+      - Need scripts to start instances, deploy my code (maybe it already lives on the image), then launch the server manager script on a node, and worker script on all the other nodes.
 
   - Consider setting up the use of virtualenv with cyclehunter.
 
-
+      - Get README.txt from my EC2 instance.
+  
 ##############################################################################
 
 
@@ -181,17 +205,7 @@ TODO:
                seen from Earth: Approx. 354.37 days.
 	       
 
-         - Later: Measurement of all the planetary (heliocentric) 
-                     synodic cycles.
-         - Later: Measurement of all the planetary (geocentric) cycles.
-
-  - Dasa measurement tools:
-      - Should I add an option to modify dasa lifespan (i.e. timerange)?
-
-  - Add the vedic month (what nakshatra the full moon is in) on the
-    astro charts.
-
-  - Add panchanga fields and the rulers onto the astro charts.
+- Add panchanga fields and the rulers onto the astro charts.
 
   - Add a right-click option to all the items to copy the following
     (as separate options, and as applicable) to the copy-and-paste
@@ -200,15 +214,6 @@ TODO:
         - Just the price as a string
         - Just the timestamp as a string
         - Both the price and timestamp, as a string of two lines.
-
-  - Add square root price modal scale.  (vertical bar) This is high
-    and low price square rooted, and the musical scale from that, and
-    then squared again to get the price.
-
-  - Add square root time modal scale.  (horizontal bar) This is
-    earlier timestamp square rooted, to the later timestamp square
-    rooted. and the musical scale is created from that, and then
-    squared again to get the timestamp.
 
   - Other time intervals that I may want to explore and check out
     (from Jyotish knowledge):
@@ -269,8 +274,6 @@ TODO:
     to a test component?
 
   Indicators:
-  - Need to implement indicator for static octaves (in time).
-
   - Need to implement indicator (moving lines) for dynamic Octive (interval) ratio measurements as the planets move.
   - Need to implement indicator (moving) lines for aspect strength 
     (shad bala and ashtakavarga).
@@ -481,3 +484,26 @@ DONE  - Implement a G.AsSu planet:  Ascendant - Sun.
 DONE  - Implement a G.AsMo planet:  Ascendant - Moon.  
 DONE
 
+DONE         - Later: Measurement of all the planetary (heliocentric) 
+DONE                     synodic cycles.
+DONE         - Later: Measurement of all the planetary (geocentric) cycles.
+DONE
+DONE  - Dasa measurement tools:
+DONE      - Should I add an option to modify dasa lifespan (i.e. timerange)?
+DONE
+DONE  - Add the vedic month (what nakshatra the full moon is in) on the
+DONE    astro charts.
+DONE
+
+
+DONE  - Need to implement indicator for static octaves (in time).
+DONE
+
+WILL_NOT_DO  - Add square root price modal scale.  (vertical bar) This is high
+WILL_NOT_DO    and low price square rooted, and the musical scale from that, and
+WILL_NOT_DO    then squared again to get the price.
+
+WILL_NOT_DO  - Add square root time modal scale.  (horizontal bar) This is
+WILL_NOT_DO    earlier timestamp square rooted, to the later timestamp square
+WILL_NOT_DO    rooted. and the musical scale is created from that, and then
+WILL_NOT_DO    squared again to get the timestamp.
