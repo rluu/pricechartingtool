@@ -10,11 +10,11 @@ import copy
 # For datetimes
 import datetime
 
-# For math.floor()
-import math
-
 # For timezone conversion info.
 import pytz
+
+# For math.floor()
+import math
 
 # For logging.
 import logging
@@ -23,13 +23,7 @@ import logging.config
 # Import the Swiss Ephemeris
 import swisseph as swe
 
-##############################################################################
 
-# Directory where the swiss ephemeris files are located.
-SWISS_EPHEMERIS_DATA_DIR = \
-    os.path.abspath(os.path.join(sys.path[0], "../data/ephe"))
-
-##############################################################################
 
 
 class PlanetaryInfo:
@@ -257,6 +251,10 @@ class Ephemeris:
     log = logging.getLogger("ephemeris.Ephemeris")
 
 
+    # Directory where the swiss ephemeris files are located.
+    SWISS_EPHEMERIS_DATA_DIR = \
+        os.path.abspath(os.path.join(sys.path[0], "../data/ephe"))
+
     # Flag that is used in Swiss Ephemeris calculations.  
     # We make mods to this variable to add options.
     iflag = 0
@@ -294,30 +292,137 @@ class Ephemeris:
                  'GauquelinSectors' : b'G'}
 
     @staticmethod
+    def getSupportedPlanetNamesList():
+        """Returns a list of str objects that is the list of planet
+        names supported by this Ephemeris class, that can be used to
+        obtain a PlanetaryInfo object.  
+
+        This includes the house cusps and custom 2-planet combinations.
+        """
+        
+        swissEphemerisPlanetNames = [
+            "Sun",
+            "Moon",
+            "Mercury",
+            "Venus",
+            "Mars",
+            "Jupiter",
+            "Saturn",
+            "Uranus",
+            "Neptune",
+            "Pluto",
+            "MeanNorthNode",
+            "TrueNorthNode",
+            "MeanLunarApogee",
+            "OsculatingLunarApogee",
+            "InterpolatedLunarApogee",
+            "InterpolatedLunarPerigee",
+            "Earth",
+            "Chiron",
+            "Pholus",
+            "Ceres",
+            "Pallas",
+            "Juno",
+            "Vesta",
+            "Isis",
+            "Nibiru",
+            ]
+        
+        ascmcPlanetNames = [\
+            "Ascendant",
+            "MC",
+            "ARMC",
+            "Vertex",
+            "EquatorialAscendant",   # "Equatorial ascendant"
+            "CoAscendant1",          # "Co-ascendant" (Walter Koch)
+            "CoAscendant2",          # "Co-ascendant" (Michael Munkasey)
+            "PolarAscendant"]        # "Polar ascendant" (M. Munkasey)
+
+        houseCuspPlanetNames = [
+            "H1",
+            "H2",
+            "H3",
+            "H4",
+            "H5",
+            "H6",
+            "H7",
+            "H8",
+            "H9",
+            "H10",
+            "H11",
+            "H12",
+            ]
+            
+        customPlanetCombinationPlanetNames = [
+            "MeanOfFive",
+            "CycleOfEight",
+            "AvgMaJuSaUrNePl",
+            "AvgJuSaUrNe",
+            "AvgJuSa",
+            "AsSu",
+            "AsMo",
+            "MoSu",
+            "MeVe",
+            "MeEa",
+            "MeMa",
+            "MeJu",
+            "MeSa",
+            "MeUr",
+            "VeEa",
+            "VeMa",
+            "VeJu",
+            "VeSa",
+            "VeUr",
+            "EaMa",
+            "EaJu",
+            "EaSa",
+            "EaUr",
+            "MaJu",
+            "MaSa",
+            "MaUr",
+            "JuSa",
+            "JuUr",
+            "SaUr",
+            ]
+        
+        allPlanetNames = \
+          swissEphemerisPlanetNames + \
+          ascmcPlanetNames + \
+          houseCuspPlanetNames + \
+          customPlanetCombinationPlanetNames
+        
+        return allPlanetNames
+  
+    @staticmethod
     def initialize():
         """Initializes the Ephemeris with default settings."""
 
-        Ephemeris.log.debug("Entering initialize()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Entering initialize()")
 
 
         # Set up the swiss ephemeris data directory location.
-        Ephemeris.log.info("Setting Ephemeris data directory to " +
-                           SWISS_EPHEMERIS_DATA_DIR)
-        swe.set_ephe_path(SWISS_EPHEMERIS_DATA_DIR)
+        if Ephemeris.log.isEnabledFor(logging.INFO) == True:
+            Ephemeris.log.info("Setting Ephemeris data directory to " +
+                               Ephemeris.SWISS_EPHEMERIS_DATA_DIR)
+        swe.set_ephe_path(Ephemeris.SWISS_EPHEMERIS_DATA_DIR)
 
         # Reset the iflag used.
         Ephemeris.iflag = 0
 
         # Use Swiss Ephemeris (and not JPL or Moshier)
-        Ephemeris.log.info("Setting flag to use Swiss Ephemeris")
+        if Ephemeris.log.isEnabledFor(logging.INFO) == True:
+            Ephemeris.log.info("Setting flag to use Swiss Ephemeris")
         Ephemeris.iflag |= swe.FLG_SWIEPH
 
         # Calculate speeds when doing calculations.
-        Ephemeris.log.info("Setting flag to calculate speeds")
+        if Ephemeris.log.isEnabledFor(logging.INFO) == True:
+            Ephemeris.log.info("Setting flag to calculate speeds")
         Ephemeris.iflag |= swe.FLG_SPEED
 
         # Use true positions of the planets by default.
-        Ephemeris.log.info("Setting to use true planetary positions")
+        if Ephemeris.log.isEnabledFor(logging.INFO) == True:
+            Ephemeris.log.info("Setting to use true planetary positions")
         Ephemeris.setTruePlanetaryPositions()
         
     @staticmethod
@@ -326,13 +431,15 @@ class Ephemeris:
         Using the ephemeris after calling this yields undefined results.  
         """
 
-        Ephemeris.log.debug("Entered closeEphemeris()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Entered closeEphemeris()")
 
         # Call close on the Swiss Ephemeris so it can cleanup files and
         # deallocate memory, etc.
         swe.close()
 
-        Ephemeris.log.debug("Exiting closeEphemeris()")
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Exiting closeEphemeris()")
 
     @staticmethod
     def setGeographicPosition(geoLongitudeDeg, 
@@ -624,12 +731,15 @@ class Ephemeris:
         offsetStr = ""
 
         timeDelta = datetimeObj.utcoffset()
-        Ephemeris.log.debug("datetimeObj.utcoffset() == {}".\
-                            format(datetimeObj.utcoffset()))
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("datetimeObj.utcoffset() == {}".\
+                                format(datetimeObj.utcoffset()))
         
         offsetSeconds = (timeDelta.days * (24 * 60 * 60)) + timeDelta.seconds
 
-        Ephemeris.log.debug("offsetSeconds == {}".format(offsetSeconds))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("offsetSeconds == {}".format(offsetSeconds))
         
         if offsetSeconds < 0:
             offsetStr += "-"
@@ -639,13 +749,15 @@ class Ephemeris:
         offsetHours = abs(offsetSeconds) // (60 * 60)
         offsetMinutes = (abs(offsetSeconds) - (offsetHours * 60 * 60)) // 60
 
-        Ephemeris.log.debug("offsetHours == {}".format(offsetHours))
-        Ephemeris.log.debug("offsetMinutes == {}".format(offsetMinutes))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("offsetHours == {}".format(offsetHours))
+            Ephemeris.log.debug("offsetMinutes == {}".format(offsetMinutes))
 
         offsetStr += "{:02}".format(offsetHours)
         offsetStr += "{:02}".format(offsetMinutes)
 
-        Ephemeris.log.debug("offsetStr == {}".format(offsetStr))
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("offsetStr == {}".format(offsetStr))
 
         return offsetStr
 
@@ -817,6 +929,8 @@ class Ephemeris:
                         CoAscendant1
                         CoAscendant2
                         PolarAscendant
+                        AsSu
+                        AsMo
                         
         Arguments:
         planetName - str for the planet name to analyze.
@@ -837,7 +951,12 @@ class Ephemeris:
             "EquatorialAscendant",   # "Equatorial ascendant"
             "CoAscendant1",          # "Co-ascendant" (Walter Koch)
             "CoAscendant2",          # "Co-ascendant" (Michael Munkasey)
-            "PolarAscendant"]        # "Polar ascendant" (M. Munkasey)
+            "PolarAscendant",        # "Polar ascendant" (M. Munkasey)
+            "AsSu",
+            "AsMo",
+            ]
+
+
 
         if planetName in ascmcPlanetNames:
             isAscmcPlanetName = True
@@ -1432,341 +1551,336 @@ class Ephemeris:
                 # Not the first PlanetaryInfo.  Combine the field
                 # values by doing a subtraction operation.
 
-                # Start with the current PlanetaryInfo and then modify
-                # that as we go.
-                newCombinedPI = copy.deepcopy(currCombinedPI)
-                
-                
                 p = planetaryInfos[i]
                 
                 
-                newCombinedPI.geocentric['tropical']['longitude'] = \
+                currCombinedPI.geocentric['tropical']['longitude'] = \
                     p.geocentric['tropical']['longitude'] - \
                     currCombinedPI.geocentric['tropical']['longitude']
-                newCombinedPI.geocentric['tropical']['latitude'] = \
+                currCombinedPI.geocentric['tropical']['latitude'] = \
                     p.geocentric['tropical']['latitude'] - \
                     currCombinedPI.geocentric['tropical']['latitude']
-                newCombinedPI.geocentric['tropical']['distance'] = \
+                currCombinedPI.geocentric['tropical']['distance'] = \
                     p.geocentric['tropical']['distance'] - \
                     currCombinedPI.geocentric['tropical']['distance']
-                newCombinedPI.geocentric['tropical']['longitude_speed'] = \
+                currCombinedPI.geocentric['tropical']['longitude_speed'] = \
                     p.geocentric['tropical']['longitude_speed'] - \
                     currCombinedPI.geocentric['tropical']['longitude_speed']
-                newCombinedPI.geocentric['tropical']['latitude_speed'] = \
+                currCombinedPI.geocentric['tropical']['latitude_speed'] = \
                     p.geocentric['tropical']['latitude_speed'] - \
                     currCombinedPI.geocentric['tropical']['latitude_speed']
-                newCombinedPI.geocentric['tropical']['distance_speed'] = \
+                currCombinedPI.geocentric['tropical']['distance_speed'] = \
                     p.geocentric['tropical']['distance_speed'] - \
                     currCombinedPI.geocentric['tropical']['distance_speed']
-                newCombinedPI.geocentric['tropical']['rectascension'] = \
+                currCombinedPI.geocentric['tropical']['rectascension'] = \
                     p.geocentric['tropical']['rectascension'] - \
                     currCombinedPI.geocentric['tropical']['rectascension']
-                newCombinedPI.geocentric['tropical']['declination'] = \
+                currCombinedPI.geocentric['tropical']['declination'] = \
                     p.geocentric['tropical']['declination'] - \
                     currCombinedPI.geocentric['tropical']['declination']
-                newCombinedPI.geocentric['tropical']['distance'] = \
+                currCombinedPI.geocentric['tropical']['distance'] = \
                     p.geocentric['tropical']['distance'] - \
                     currCombinedPI.geocentric['tropical']['distance']
-                newCombinedPI.geocentric['tropical']['rectascension_speed'] = \
+                currCombinedPI.geocentric['tropical']['rectascension_speed'] = \
                     p.geocentric['tropical']['rectascension_speed'] - \
                     currCombinedPI.geocentric['tropical']['rectascension_speed']
-                newCombinedPI.geocentric['tropical']['declination_speed'] = \
+                currCombinedPI.geocentric['tropical']['declination_speed'] = \
                     p.geocentric['tropical']['declination_speed'] - \
                     currCombinedPI.geocentric['tropical']['declination_speed']
-                newCombinedPI.geocentric['tropical']['distance_speed'] = \
+                currCombinedPI.geocentric['tropical']['distance_speed'] = \
                     p.geocentric['tropical']['distance_speed'] - \
                     currCombinedPI.geocentric['tropical']['distance_speed']
-                newCombinedPI.geocentric['tropical']['X'] = \
+                currCombinedPI.geocentric['tropical']['X'] = \
                     p.geocentric['tropical']['X'] - \
                     currCombinedPI.geocentric['tropical']['X']
-                newCombinedPI.geocentric['tropical']['Y'] = \
+                currCombinedPI.geocentric['tropical']['Y'] = \
                     p.geocentric['tropical']['Y'] - \
                     currCombinedPI.geocentric['tropical']['Y']
-                newCombinedPI.geocentric['tropical']['Z'] = \
+                currCombinedPI.geocentric['tropical']['Z'] = \
                     p.geocentric['tropical']['Z'] - \
                     currCombinedPI.geocentric['tropical']['Z']
-                newCombinedPI.geocentric['tropical']['dX'] = \
+                currCombinedPI.geocentric['tropical']['dX'] = \
                     p.geocentric['tropical']['dX'] - \
                     currCombinedPI.geocentric['tropical']['dX']
-                newCombinedPI.geocentric['tropical']['dY'] = \
+                currCombinedPI.geocentric['tropical']['dY'] = \
                     p.geocentric['tropical']['dY'] - \
                     currCombinedPI.geocentric['tropical']['dY']
-                newCombinedPI.geocentric['tropical']['dZ'] = \
+                currCombinedPI.geocentric['tropical']['dZ'] = \
                     p.geocentric['tropical']['dZ'] - \
                     currCombinedPI.geocentric['tropical']['dZ']
 
-                newCombinedPI.geocentric['sidereal']['longitude'] = \
+                currCombinedPI.geocentric['sidereal']['longitude'] = \
                     p.geocentric['sidereal']['longitude'] - \
                     currCombinedPI.geocentric['sidereal']['longitude']
-                newCombinedPI.geocentric['sidereal']['latitude'] = \
+                currCombinedPI.geocentric['sidereal']['latitude'] = \
                     p.geocentric['sidereal']['latitude'] - \
                     currCombinedPI.geocentric['sidereal']['latitude']
-                newCombinedPI.geocentric['sidereal']['distance'] = \
+                currCombinedPI.geocentric['sidereal']['distance'] = \
                     p.geocentric['sidereal']['distance'] - \
                     currCombinedPI.geocentric['sidereal']['distance']
-                newCombinedPI.geocentric['sidereal']['longitude_speed'] = \
+                currCombinedPI.geocentric['sidereal']['longitude_speed'] = \
                     p.geocentric['sidereal']['longitude_speed'] - \
                     currCombinedPI.geocentric['sidereal']['longitude_speed']
-                newCombinedPI.geocentric['sidereal']['latitude_speed'] = \
+                currCombinedPI.geocentric['sidereal']['latitude_speed'] = \
                     p.geocentric['sidereal']['latitude_speed'] - \
                     currCombinedPI.geocentric['sidereal']['latitude_speed']
-                newCombinedPI.geocentric['sidereal']['distance_speed'] = \
+                currCombinedPI.geocentric['sidereal']['distance_speed'] = \
                     p.geocentric['sidereal']['distance_speed'] - \
                     currCombinedPI.geocentric['sidereal']['distance_speed']
-                newCombinedPI.geocentric['sidereal']['rectascension'] = \
+                currCombinedPI.geocentric['sidereal']['rectascension'] = \
                     p.geocentric['sidereal']['rectascension'] - \
                     currCombinedPI.geocentric['sidereal']['rectascension']
-                newCombinedPI.geocentric['sidereal']['declination'] = \
+                currCombinedPI.geocentric['sidereal']['declination'] = \
                     p.geocentric['sidereal']['declination'] - \
                     currCombinedPI.geocentric['sidereal']['declination']
-                newCombinedPI.geocentric['sidereal']['distance'] = \
+                currCombinedPI.geocentric['sidereal']['distance'] = \
                     p.geocentric['sidereal']['distance'] - \
                     currCombinedPI.geocentric['sidereal']['distance']
-                newCombinedPI.geocentric['sidereal']['rectascension_speed'] = \
+                currCombinedPI.geocentric['sidereal']['rectascension_speed'] = \
                     p.geocentric['sidereal']['rectascension_speed'] - \
                     currCombinedPI.geocentric['sidereal']['rectascension_speed']
-                newCombinedPI.geocentric['sidereal']['declination_speed'] = \
+                currCombinedPI.geocentric['sidereal']['declination_speed'] = \
                     p.geocentric['sidereal']['declination_speed'] - \
                     currCombinedPI.geocentric['sidereal']['declination_speed']
-                newCombinedPI.geocentric['sidereal']['distance_speed'] = \
+                currCombinedPI.geocentric['sidereal']['distance_speed'] = \
                     p.geocentric['sidereal']['distance_speed'] - \
                     currCombinedPI.geocentric['sidereal']['distance_speed']
-                newCombinedPI.geocentric['sidereal']['X'] = \
+                currCombinedPI.geocentric['sidereal']['X'] = \
                     p.geocentric['sidereal']['X'] - \
                     currCombinedPI.geocentric['sidereal']['X']
-                newCombinedPI.geocentric['sidereal']['Y'] = \
+                currCombinedPI.geocentric['sidereal']['Y'] = \
                     p.geocentric['sidereal']['Y'] - \
                     currCombinedPI.geocentric['sidereal']['Y']
-                newCombinedPI.geocentric['sidereal']['Z'] = \
+                currCombinedPI.geocentric['sidereal']['Z'] = \
                     p.geocentric['sidereal']['Z'] - \
                     currCombinedPI.geocentric['sidereal']['Z']
-                newCombinedPI.geocentric['sidereal']['dX'] = \
+                currCombinedPI.geocentric['sidereal']['dX'] = \
                     p.geocentric['sidereal']['dX'] - \
                     currCombinedPI.geocentric['sidereal']['dX']
-                newCombinedPI.geocentric['sidereal']['dY'] = \
+                currCombinedPI.geocentric['sidereal']['dY'] = \
                     p.geocentric['sidereal']['dY'] - \
                     currCombinedPI.geocentric['sidereal']['dY']
-                newCombinedPI.geocentric['sidereal']['dZ'] = \
+                currCombinedPI.geocentric['sidereal']['dZ'] = \
                     p.geocentric['sidereal']['dZ'] - \
                     currCombinedPI.geocentric['sidereal']['dZ']
 
-                newCombinedPI.topocentric['tropical']['longitude'] = \
+                currCombinedPI.topocentric['tropical']['longitude'] = \
                     p.topocentric['tropical']['longitude'] - \
                     currCombinedPI.topocentric['tropical']['longitude']
-                newCombinedPI.topocentric['tropical']['latitude'] = \
+                currCombinedPI.topocentric['tropical']['latitude'] = \
                     p.topocentric['tropical']['latitude'] - \
                     currCombinedPI.topocentric['tropical']['latitude']
-                newCombinedPI.topocentric['tropical']['distance'] = \
+                currCombinedPI.topocentric['tropical']['distance'] = \
                     p.topocentric['tropical']['distance'] - \
                     currCombinedPI.topocentric['tropical']['distance']
-                newCombinedPI.topocentric['tropical']['longitude_speed'] = \
+                currCombinedPI.topocentric['tropical']['longitude_speed'] = \
                     p.topocentric['tropical']['longitude_speed'] - \
                     currCombinedPI.topocentric['tropical']['longitude_speed']
-                newCombinedPI.topocentric['tropical']['latitude_speed'] = \
+                currCombinedPI.topocentric['tropical']['latitude_speed'] = \
                     p.topocentric['tropical']['latitude_speed'] - \
                     currCombinedPI.topocentric['tropical']['latitude_speed']
-                newCombinedPI.topocentric['tropical']['distance_speed'] = \
+                currCombinedPI.topocentric['tropical']['distance_speed'] = \
                     p.topocentric['tropical']['distance_speed'] - \
                     currCombinedPI.topocentric['tropical']['distance_speed']
-                newCombinedPI.topocentric['tropical']['rectascension'] = \
+                currCombinedPI.topocentric['tropical']['rectascension'] = \
                     p.topocentric['tropical']['rectascension'] - \
                     currCombinedPI.topocentric['tropical']['rectascension']
-                newCombinedPI.topocentric['tropical']['declination'] = \
+                currCombinedPI.topocentric['tropical']['declination'] = \
                     p.topocentric['tropical']['declination'] - \
                     currCombinedPI.topocentric['tropical']['declination']
-                newCombinedPI.topocentric['tropical']['distance'] = \
+                currCombinedPI.topocentric['tropical']['distance'] = \
                     p.topocentric['tropical']['distance'] - \
                     currCombinedPI.topocentric['tropical']['distance']
-                newCombinedPI.topocentric['tropical']['rectascension_speed'] = \
+                currCombinedPI.topocentric['tropical']['rectascension_speed'] = \
                     p.topocentric['tropical']['rectascension_speed'] - \
                     currCombinedPI.topocentric['tropical']['rectascension_speed']
-                newCombinedPI.topocentric['tropical']['declination_speed'] = \
+                currCombinedPI.topocentric['tropical']['declination_speed'] = \
                     p.topocentric['tropical']['declination_speed'] - \
                     currCombinedPI.topocentric['tropical']['declination_speed']
-                newCombinedPI.topocentric['tropical']['distance_speed'] = \
+                currCombinedPI.topocentric['tropical']['distance_speed'] = \
                     p.topocentric['tropical']['distance_speed'] - \
                     currCombinedPI.topocentric['tropical']['distance_speed']
-                newCombinedPI.topocentric['tropical']['X'] = \
+                currCombinedPI.topocentric['tropical']['X'] = \
                     p.topocentric['tropical']['X'] - \
                     currCombinedPI.topocentric['tropical']['X']
-                newCombinedPI.topocentric['tropical']['Y'] = \
+                currCombinedPI.topocentric['tropical']['Y'] = \
                     p.topocentric['tropical']['Y'] - \
                     currCombinedPI.topocentric['tropical']['Y']
-                newCombinedPI.topocentric['tropical']['Z'] = \
+                currCombinedPI.topocentric['tropical']['Z'] = \
                     p.topocentric['tropical']['Z'] - \
                     currCombinedPI.topocentric['tropical']['Z']
-                newCombinedPI.topocentric['tropical']['dX'] = \
+                currCombinedPI.topocentric['tropical']['dX'] = \
                     p.topocentric['tropical']['dX'] - \
                     currCombinedPI.topocentric['tropical']['dX']
-                newCombinedPI.topocentric['tropical']['dY'] = \
+                currCombinedPI.topocentric['tropical']['dY'] = \
                     p.topocentric['tropical']['dY'] - \
                     currCombinedPI.topocentric['tropical']['dY']
-                newCombinedPI.topocentric['tropical']['dZ'] = \
+                currCombinedPI.topocentric['tropical']['dZ'] = \
                     p.topocentric['tropical']['dZ'] - \
                     currCombinedPI.topocentric['tropical']['dZ']
 
-                newCombinedPI.topocentric['sidereal']['longitude'] = \
+                currCombinedPI.topocentric['sidereal']['longitude'] = \
                     p.topocentric['sidereal']['longitude'] - \
                     currCombinedPI.topocentric['sidereal']['longitude']
-                newCombinedPI.topocentric['sidereal']['latitude'] = \
+                currCombinedPI.topocentric['sidereal']['latitude'] = \
                     p.topocentric['sidereal']['latitude'] - \
                     currCombinedPI.topocentric['sidereal']['latitude']
-                newCombinedPI.topocentric['sidereal']['distance'] = \
+                currCombinedPI.topocentric['sidereal']['distance'] = \
                     p.topocentric['sidereal']['distance'] - \
                     currCombinedPI.topocentric['sidereal']['distance']
-                newCombinedPI.topocentric['sidereal']['longitude_speed'] = \
+                currCombinedPI.topocentric['sidereal']['longitude_speed'] = \
                     p.topocentric['sidereal']['longitude_speed'] - \
                     currCombinedPI.topocentric['sidereal']['longitude_speed']
-                newCombinedPI.topocentric['sidereal']['latitude_speed'] = \
+                currCombinedPI.topocentric['sidereal']['latitude_speed'] = \
                     p.topocentric['sidereal']['latitude_speed'] - \
                     currCombinedPI.topocentric['sidereal']['latitude_speed']
-                newCombinedPI.topocentric['sidereal']['distance_speed'] = \
+                currCombinedPI.topocentric['sidereal']['distance_speed'] = \
                     p.topocentric['sidereal']['distance_speed'] - \
                     currCombinedPI.topocentric['sidereal']['distance_speed']
-                newCombinedPI.topocentric['sidereal']['rectascension'] = \
+                currCombinedPI.topocentric['sidereal']['rectascension'] = \
                     p.topocentric['sidereal']['rectascension'] - \
                     currCombinedPI.topocentric['sidereal']['rectascension']
-                newCombinedPI.topocentric['sidereal']['declination'] = \
+                currCombinedPI.topocentric['sidereal']['declination'] = \
                     p.topocentric['sidereal']['declination'] - \
                     currCombinedPI.topocentric['sidereal']['declination']
-                newCombinedPI.topocentric['sidereal']['distance'] = \
+                currCombinedPI.topocentric['sidereal']['distance'] = \
                     p.topocentric['sidereal']['distance'] - \
                     currCombinedPI.topocentric['sidereal']['distance']
-                newCombinedPI.topocentric['sidereal']['rectascension_speed'] = \
+                currCombinedPI.topocentric['sidereal']['rectascension_speed'] = \
                     p.topocentric['sidereal']['rectascension_speed'] - \
                     currCombinedPI.topocentric['sidereal']['rectascension_speed']
-                newCombinedPI.topocentric['sidereal']['declination_speed'] = \
+                currCombinedPI.topocentric['sidereal']['declination_speed'] = \
                     p.topocentric['sidereal']['declination_speed'] - \
                     currCombinedPI.topocentric['sidereal']['declination_speed']
-                newCombinedPI.topocentric['sidereal']['distance_speed'] = \
+                currCombinedPI.topocentric['sidereal']['distance_speed'] = \
                     p.topocentric['sidereal']['distance_speed'] - \
                     currCombinedPI.topocentric['sidereal']['distance_speed']
-                newCombinedPI.topocentric['sidereal']['X'] = \
+                currCombinedPI.topocentric['sidereal']['X'] = \
                     p.topocentric['sidereal']['X'] - \
                     currCombinedPI.topocentric['sidereal']['X']
-                newCombinedPI.topocentric['sidereal']['Y'] = \
+                currCombinedPI.topocentric['sidereal']['Y'] = \
                     p.topocentric['sidereal']['Y'] - \
                     currCombinedPI.topocentric['sidereal']['Y']
-                newCombinedPI.topocentric['sidereal']['Z'] = \
+                currCombinedPI.topocentric['sidereal']['Z'] = \
                     p.topocentric['sidereal']['Z'] - \
                     currCombinedPI.topocentric['sidereal']['Z']
-                newCombinedPI.topocentric['sidereal']['dX'] = \
+                currCombinedPI.topocentric['sidereal']['dX'] = \
                     p.topocentric['sidereal']['dX'] - \
                     currCombinedPI.topocentric['sidereal']['dX']
-                newCombinedPI.topocentric['sidereal']['dY'] = \
+                currCombinedPI.topocentric['sidereal']['dY'] = \
                     p.topocentric['sidereal']['dY'] - \
                     currCombinedPI.topocentric['sidereal']['dY']
-                newCombinedPI.topocentric['sidereal']['dZ'] = \
+                currCombinedPI.topocentric['sidereal']['dZ'] = \
                     p.topocentric['sidereal']['dZ'] - \
                     currCombinedPI.topocentric['sidereal']['dZ']
 
-                newCombinedPI.heliocentric['tropical']['longitude'] = \
+                currCombinedPI.heliocentric['tropical']['longitude'] = \
                     p.heliocentric['tropical']['longitude'] - \
                     currCombinedPI.heliocentric['tropical']['longitude']
-                newCombinedPI.heliocentric['tropical']['latitude'] = \
+                currCombinedPI.heliocentric['tropical']['latitude'] = \
                     p.heliocentric['tropical']['latitude'] - \
                     currCombinedPI.heliocentric['tropical']['latitude']
-                newCombinedPI.heliocentric['tropical']['distance'] = \
+                currCombinedPI.heliocentric['tropical']['distance'] = \
                     p.heliocentric['tropical']['distance'] - \
                     currCombinedPI.heliocentric['tropical']['distance']
-                newCombinedPI.heliocentric['tropical']['longitude_speed'] = \
+                currCombinedPI.heliocentric['tropical']['longitude_speed'] = \
                     p.heliocentric['tropical']['longitude_speed'] - \
                     currCombinedPI.heliocentric['tropical']['longitude_speed']
-                newCombinedPI.heliocentric['tropical']['latitude_speed'] = \
+                currCombinedPI.heliocentric['tropical']['latitude_speed'] = \
                     p.heliocentric['tropical']['latitude_speed'] - \
                     currCombinedPI.heliocentric['tropical']['latitude_speed']
-                newCombinedPI.heliocentric['tropical']['distance_speed'] = \
+                currCombinedPI.heliocentric['tropical']['distance_speed'] = \
                     p.heliocentric['tropical']['distance_speed'] - \
                     currCombinedPI.heliocentric['tropical']['distance_speed']
-                newCombinedPI.heliocentric['tropical']['rectascension'] = \
+                currCombinedPI.heliocentric['tropical']['rectascension'] = \
                     p.heliocentric['tropical']['rectascension'] - \
                     currCombinedPI.heliocentric['tropical']['rectascension']
-                newCombinedPI.heliocentric['tropical']['declination'] = \
+                currCombinedPI.heliocentric['tropical']['declination'] = \
                     p.heliocentric['tropical']['declination'] - \
                     currCombinedPI.heliocentric['tropical']['declination']
-                newCombinedPI.heliocentric['tropical']['distance'] = \
+                currCombinedPI.heliocentric['tropical']['distance'] = \
                     p.heliocentric['tropical']['distance'] - \
                     currCombinedPI.heliocentric['tropical']['distance']
-                newCombinedPI.heliocentric['tropical']['rectascension_speed'] = \
+                currCombinedPI.heliocentric['tropical']['rectascension_speed'] = \
                     p.heliocentric['tropical']['rectascension_speed'] - \
                     currCombinedPI.heliocentric['tropical']['rectascension_speed']
-                newCombinedPI.heliocentric['tropical']['declination_speed'] = \
+                currCombinedPI.heliocentric['tropical']['declination_speed'] = \
                     p.heliocentric['tropical']['declination_speed'] - \
                     currCombinedPI.heliocentric['tropical']['declination_speed']
-                newCombinedPI.heliocentric['tropical']['distance_speed'] = \
+                currCombinedPI.heliocentric['tropical']['distance_speed'] = \
                     p.heliocentric['tropical']['distance_speed'] - \
                     currCombinedPI.heliocentric['tropical']['distance_speed']
-                newCombinedPI.heliocentric['tropical']['X'] = \
+                currCombinedPI.heliocentric['tropical']['X'] = \
                     p.heliocentric['tropical']['X'] - \
                     currCombinedPI.heliocentric['tropical']['X']
-                newCombinedPI.heliocentric['tropical']['Y'] = \
+                currCombinedPI.heliocentric['tropical']['Y'] = \
                     p.heliocentric['tropical']['Y'] - \
                     currCombinedPI.heliocentric['tropical']['Y']
-                newCombinedPI.heliocentric['tropical']['Z'] = \
+                currCombinedPI.heliocentric['tropical']['Z'] = \
                     p.heliocentric['tropical']['Z'] - \
                     currCombinedPI.heliocentric['tropical']['Z']
-                newCombinedPI.heliocentric['tropical']['dX'] = \
+                currCombinedPI.heliocentric['tropical']['dX'] = \
                     p.heliocentric['tropical']['dX'] - \
                     currCombinedPI.heliocentric['tropical']['dX']
-                newCombinedPI.heliocentric['tropical']['dY'] = \
+                currCombinedPI.heliocentric['tropical']['dY'] = \
                     p.heliocentric['tropical']['dY'] - \
                     currCombinedPI.heliocentric['tropical']['dY']
-                newCombinedPI.heliocentric['tropical']['dZ'] = \
+                currCombinedPI.heliocentric['tropical']['dZ'] = \
                     p.heliocentric['tropical']['dZ'] - \
                     currCombinedPI.heliocentric['tropical']['dZ']
 
-                newCombinedPI.heliocentric['sidereal']['longitude'] = \
+                currCombinedPI.heliocentric['sidereal']['longitude'] = \
                     p.heliocentric['sidereal']['longitude'] - \
                     currCombinedPI.heliocentric['sidereal']['longitude']
-                newCombinedPI.heliocentric['sidereal']['latitude'] = \
+                currCombinedPI.heliocentric['sidereal']['latitude'] = \
                     p.heliocentric['sidereal']['latitude'] - \
                     currCombinedPI.heliocentric['sidereal']['latitude']
-                newCombinedPI.heliocentric['sidereal']['distance'] = \
+                currCombinedPI.heliocentric['sidereal']['distance'] = \
                     p.heliocentric['sidereal']['distance'] - \
                     currCombinedPI.heliocentric['sidereal']['distance']
-                newCombinedPI.heliocentric['sidereal']['longitude_speed'] = \
+                currCombinedPI.heliocentric['sidereal']['longitude_speed'] = \
                     p.heliocentric['sidereal']['longitude_speed'] - \
                     currCombinedPI.heliocentric['sidereal']['longitude_speed']
-                newCombinedPI.heliocentric['sidereal']['latitude_speed'] = \
+                currCombinedPI.heliocentric['sidereal']['latitude_speed'] = \
                     p.heliocentric['sidereal']['latitude_speed'] - \
                     currCombinedPI.heliocentric['sidereal']['latitude_speed']
-                newCombinedPI.heliocentric['sidereal']['distance_speed'] = \
+                currCombinedPI.heliocentric['sidereal']['distance_speed'] = \
                     p.heliocentric['sidereal']['distance_speed'] - \
                     currCombinedPI.heliocentric['sidereal']['distance_speed']
-                newCombinedPI.heliocentric['sidereal']['rectascension'] = \
+                currCombinedPI.heliocentric['sidereal']['rectascension'] = \
                     p.heliocentric['sidereal']['rectascension'] - \
                     currCombinedPI.heliocentric['sidereal']['rectascension']
-                newCombinedPI.heliocentric['sidereal']['declination'] = \
+                currCombinedPI.heliocentric['sidereal']['declination'] = \
                     p.heliocentric['sidereal']['declination'] - \
                     currCombinedPI.heliocentric['sidereal']['declination']
-                newCombinedPI.heliocentric['sidereal']['distance'] = \
+                currCombinedPI.heliocentric['sidereal']['distance'] = \
                     p.heliocentric['sidereal']['distance'] - \
                     currCombinedPI.heliocentric['sidereal']['distance']
-                newCombinedPI.heliocentric['sidereal']['rectascension_speed'] = \
+                currCombinedPI.heliocentric['sidereal']['rectascension_speed'] = \
                     p.heliocentric['sidereal']['rectascension_speed'] - \
                     currCombinedPI.heliocentric['sidereal']['rectascension_speed']
-                newCombinedPI.heliocentric['sidereal']['declination_speed'] = \
+                currCombinedPI.heliocentric['sidereal']['declination_speed'] = \
                     p.heliocentric['sidereal']['declination_speed'] - \
                     currCombinedPI.heliocentric['sidereal']['declination_speed']
-                newCombinedPI.heliocentric['sidereal']['distance_speed'] = \
+                currCombinedPI.heliocentric['sidereal']['distance_speed'] = \
                     p.heliocentric['sidereal']['distance_speed'] - \
                     currCombinedPI.heliocentric['sidereal']['distance_speed']
-                newCombinedPI.heliocentric['sidereal']['X'] = \
+                currCombinedPI.heliocentric['sidereal']['X'] = \
                     p.heliocentric['sidereal']['X'] - \
                     currCombinedPI.heliocentric['sidereal']['X']
-                newCombinedPI.heliocentric['sidereal']['Y'] = \
+                currCombinedPI.heliocentric['sidereal']['Y'] = \
                     p.heliocentric['sidereal']['Y'] - \
                     currCombinedPI.heliocentric['sidereal']['Y']
-                newCombinedPI.heliocentric['sidereal']['Z'] = \
+                currCombinedPI.heliocentric['sidereal']['Z'] = \
                     p.heliocentric['sidereal']['Z'] - \
                     currCombinedPI.heliocentric['sidereal']['Z']
-                newCombinedPI.heliocentric['sidereal']['dX'] = \
+                currCombinedPI.heliocentric['sidereal']['dX'] = \
                     p.heliocentric['sidereal']['dX'] - \
                     currCombinedPI.heliocentric['sidereal']['dX']
-                newCombinedPI.heliocentric['sidereal']['dY'] = \
+                currCombinedPI.heliocentric['sidereal']['dY'] = \
                     p.heliocentric['sidereal']['dY'] - \
                     currCombinedPI.heliocentric['sidereal']['dY']
-                newCombinedPI.heliocentric['sidereal']['dZ'] = \
+                currCombinedPI.heliocentric['sidereal']['dZ'] = \
                     p.heliocentric['sidereal']['dZ'] - \
                     currCombinedPI.heliocentric['sidereal']['dZ']
 
@@ -1774,31 +1888,28 @@ class Ephemeris:
                 # Normalize the all the longitude values that resulted
                 # from the combining.  All longitude values will
                 # always be in the range [0, 360).
-                newCombinedPI.geocentric['tropical']['longitude'] = \
+                currCombinedPI.geocentric['tropical']['longitude'] = \
                     Ephemeris.__toNormalizedAngle(\
-                    newCombinedPI.geocentric['tropical']['longitude'])
-                newCombinedPI.geocentric['sidereal']['longitude'] = \
+                    currCombinedPI.geocentric['tropical']['longitude'])
+                currCombinedPI.geocentric['sidereal']['longitude'] = \
                     Ephemeris.__toNormalizedAngle(\
-                    newCombinedPI.geocentric['sidereal']['longitude'])
+                    currCombinedPI.geocentric['sidereal']['longitude'])
                 
-                newCombinedPI.topocentric['tropical']['longitude'] = \
+                currCombinedPI.topocentric['tropical']['longitude'] = \
                     Ephemeris.__toNormalizedAngle(\
-                    newCombinedPI.topocentric['tropical']['longitude'])
-                newCombinedPI.topocentric['sidereal']['longitude'] = \
+                    currCombinedPI.topocentric['tropical']['longitude'])
+                currCombinedPI.topocentric['sidereal']['longitude'] = \
                     Ephemeris.__toNormalizedAngle(\
-                    newCombinedPI.topocentric['sidereal']['longitude'])
+                    currCombinedPI.topocentric['sidereal']['longitude'])
                 
-                newCombinedPI.heliocentric['tropical']['longitude'] = \
+                currCombinedPI.heliocentric['tropical']['longitude'] = \
                     Ephemeris.__toNormalizedAngle(\
-                    newCombinedPI.heliocentric['tropical']['longitude'])
-                newCombinedPI.heliocentric['sidereal']['longitude'] = \
+                    currCombinedPI.heliocentric['tropical']['longitude'])
+                currCombinedPI.heliocentric['sidereal']['longitude'] = \
                     Ephemeris.__toNormalizedAngle(\
-                    newCombinedPI.heliocentric['sidereal']['longitude'])
+                    currCombinedPI.heliocentric['sidereal']['longitude'])
                 
                 
-                # Set the new combined PlanetaryInfo as the current one.
-                currCombinedPI = newCombinedPI
-
             # Decrement i for the next iteration.
             i = i - 1
 
@@ -3311,6 +3422,10 @@ class Ephemeris:
                 return Ephemeris.getAvgJuSaUrNePlanetaryInfo(dt)
             elif planetName == "AvgJuSa":
                 return Ephemeris.getAvgJuSaPlanetaryInfo(dt)
+            elif planetName == "AsSu":
+                return Ephemeris.getAsSuPlanetaryInfo(dt)
+            elif planetName == "AsMo":
+                return Ephemeris.getAsMoPlanetaryInfo(dt)
             elif planetName == "MoSu":
                 return Ephemeris.getMoSuPlanetaryInfo(dt)
             elif planetName == "MeVe":
@@ -5246,6 +5361,62 @@ class Ephemeris:
         return rv
     
     @staticmethod
+    def getAsSuPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Ascendant - Sun) at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+        
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+            
+        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
+        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
+        
+        planetaryInfos = []
+        planetaryInfos.append(ascendantPI)
+        planetaryInfos.append(sunPI)
+        
+        planetName = "AsSu"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+        
+        return rv
+
+    @staticmethod
+    def getAsMoPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Ascendant - Moon) at the given timestamp.
+        
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which 
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+        
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+            
+        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
+        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
+        
+        planetaryInfos = []
+        planetaryInfos.append(ascendantPI)
+        planetaryInfos.append(moonPI)
+        
+        planetName = "AsMo"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+        
+        return rv
+
+    @staticmethod
     def getMoSuPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Moon - Sun) at the given timestamp.
@@ -5861,7 +6032,42 @@ class Ephemeris:
         
         return rv
 
+##############################################################################
 
+def testTimezoneSpeed():
+    """This test will test the speed of creating a timezone via pytz.timezone().
+    If it is slow, that means pytz needs to be decompressed (see more info
+    below) If it is fast, then we're fine.
+     
+    Description:
+      The first call to pytz.timezone() is very slow, up to about 8 seconds.
+      Subsequent calls are fast.
+     
+      Reason: pytz gets its timezone settings from within the egg and the
+      first call to timezone has to check that all the timezone files exist,
+      the first call could be slow depending on how the os has to find those
+      files.
+     
+    Solution is to uncompress it via pip:
+
+         pip unzip pytz
+    
+    Source: 
+      http://stackoverflow.com/questions/20500910/first-call-to-pytz-timezone-is-slow-in-virtualenv
+    """
+
+    print("Running " + inspect.stack()[0][3] + "()")
+
+    import time
+    
+    for i in range(5):
+        startTime = time.time()
+        eastern = pytz.timezone('US/Eastern')
+        endTime = time.time()
+        print("  Execution {}: pytz.timezone() took: {} sec".\
+              format(i, endTime - startTime))
+
+    
 def testGetPlanetaryInfos():
     print("Running " + inspect.stack()[0][3] + "()")
 
@@ -5960,6 +6166,12 @@ def testGetPlanetaryInfos():
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
     p = Ephemeris.getAvgJuSaPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getAsSuPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getAsMoPlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
     p = Ephemeris.getMoSuPlanetaryInfo(now)
@@ -9331,10 +9543,16 @@ def testMinMaxPlanetDeclination():
               format(p.name, minDeclination))
 
 
+##############################################################################
+
 # For debugging the Ephemeris class during development.  
 if __name__=="__main__":
+    # For timing the calculations.
+    import time
+
     # Exercising the PlanetaryInfo and Ephemeris classes.
     print("------------------------")
+    
 
     # Initialize Logging for the Ephemeris class (required).
     LOG_CONFIG_FILE = os.path.join(sys.path[0], "../conf/logging.conf")
@@ -9360,10 +9578,13 @@ if __name__=="__main__":
     #Ephemeris.setGeographicPosition(lon, lat, -68)
     Ephemeris.setGeographicPosition(lon, lat)
     
+    startTime = time.time()
+
     # Different tests that can be run:
+    testTimezoneSpeed()
     #testGetPlanetaryInfos()
     #testHouseCusps()
-    testAscmc()
+    #testAscmc()
     #testPlanetTopicalLongitude()
     #testDatetimeJulianPrecisionLoss()
 
@@ -9372,6 +9593,9 @@ if __name__=="__main__":
     #testMinMaxPlanetLatitude()
     #testMinMaxPlanetDeclination()
     
+    endTime = time.time()
+    print("Calculations took: {} sec".format(endTime - startTime))
+
     # Close the Ephemeris so it can do necessary cleanups.
     Ephemeris.closeEphemeris()
 

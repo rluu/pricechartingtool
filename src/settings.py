@@ -2061,6 +2061,80 @@ class SettingsKeys():
 
 
 
+    # QSettings key for the planet glyph unicode of the AsSu.
+    planetAsSuGlyphUnicodeKey = \
+        "ui/astrology/AsSuGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the AsSu.
+    planetAsSuGlyphUnicodeDefValue = "AsSu"
+
+    # QSettings key for the planet glyph font size of the AsSu.
+    planetAsSuGlyphFontSizeKey = \
+        "ui/astrology/AsSuGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the AsSu.
+    planetAsSuGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the AsSu.
+    planetAsSuAbbreviationKey = \
+        "ui/astrology/AsSuAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the AsSu.
+    planetAsSuAbbreviationDefValue = "AsSu"
+
+    # QSettings key for the foreground color of the AsSu.
+    planetAsSuForegroundColorKey = \
+        "ui/astrology/AsSuForegroundColor"
+
+    # QSettings default value for the foreground color of the AsSu.
+    planetAsSuForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the AsSu.
+    planetAsSuBackgroundColorKey = \
+        "ui/astrology/AsSuBackgroundColor"
+
+    # QSettings default value for the background color of the AsSu.
+    planetAsSuBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the AsMo.
+    planetAsMoGlyphUnicodeKey = \
+        "ui/astrology/AsMoGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the AsMo.
+    planetAsMoGlyphUnicodeDefValue = "AsMo"
+
+    # QSettings key for the planet glyph font size of the AsMo.
+    planetAsMoGlyphFontSizeKey = \
+        "ui/astrology/AsMoGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the AsMo.
+    planetAsMoGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the AsMo.
+    planetAsMoAbbreviationKey = \
+        "ui/astrology/AsMoAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the AsMo.
+    planetAsMoAbbreviationDefValue = "AsMo"
+
+    # QSettings key for the foreground color of the AsMo.
+    planetAsMoForegroundColorKey = \
+        "ui/astrology/AsMoForegroundColor"
+
+    # QSettings default value for the foreground color of the AsMo.
+    planetAsMoForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the AsMo.
+    planetAsMoBackgroundColorKey = \
+        "ui/astrology/AsMoBackgroundColor"
+
+    # QSettings default value for the background color of the AsMo.
+    planetAsMoBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
     # QSettings key for the planet glyph unicode of the MoSu.
     planetMoSuGlyphUnicodeKey = \
         "ui/astrology/MoSuGlyphUnicode"
@@ -4171,6 +4245,22 @@ class SettingsKeys():
     planetAvgJuSaCalculationsEnabledDefValue = \
         False
 
+    # QSettings key for enabled astrologychart calculations for AsSu.
+    planetAsSuCalculationsEnabledKey = \
+        "ui/astrology/AsSuCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for AsSu.
+    planetAsSuCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for AsMo.
+    planetAsMoCalculationsEnabledKey = \
+        "ui/astrology/AsMoCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for AsMo.
+    planetAsMoCalculationsEnabledDefValue = \
+        False
+
     # QSettings key for enabled astrologychart calculations for MoSu.
     planetMoSuCalculationsEnabledKey = \
         "ui/astrology/MoSuCalculationsEnabled"
@@ -4773,6 +4863,22 @@ class SettingsKeys():
     planetAvgJuSaEnabledForPlanetaryInfoTableDefValue = \
         True
     
+    # QSettings key for the display flag in PlanetaryInfoTable for AsSu.
+    planetAsSuEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/AsSuEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for AsSu.
+    planetAsSuEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
+    # QSettings key for the display flag in PlanetaryInfoTable for AsMo.
+    planetAsMoEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/AsMoEnabledForPlanetaryInfoTable"
+    
+    # QSettings default value for the display flag in PlanetaryInfoTable for AsMo.
+    planetAsMoEnabledForPlanetaryInfoTableDefValue = \
+        False
+    
     # QSettings key for the display flag in PlanetaryInfoTable for MoSu.
     planetMoSuEnabledForPlanetaryInfoTableKey = \
         "ui/astrology/MoSuEnabledForPlanetaryInfoTable"
@@ -5373,6 +5479,22 @@ class SettingsKeys():
     
     # QSettings default value for the display flag in Declination for AvgJuSa.
     planetAvgJuSaEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for AsSu.
+    planetAsSuEnabledForDeclinationKey = \
+        "ui/astrology/AsSuEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for AsSu.
+    planetAsSuEnabledForDeclinationDefValue = \
+        False
+    
+    # QSettings key for the display flag in Declination for AsMo.
+    planetAsMoEnabledForDeclinationKey = \
+        "ui/astrology/AsMoEnabledForDeclination"
+    
+    # QSettings default value for the display flag in Declination for AsMo.
+    planetAsMoEnabledForDeclinationDefValue = \
         False
     
     # QSettings key for the display flag in Declination for MoSu.
@@ -5977,6 +6099,22 @@ class SettingsKeys():
     planetAvgJuSaEnabledForLatitudeDefValue = \
         False
     
+    # QSettings key for the display flag in Latitude for AsSu.
+    planetAsSuEnabledForLatitudeKey = \
+        "ui/astrology/AsSuEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for AsSu.
+    planetAsSuEnabledForLatitudeDefValue = \
+        False
+    
+    # QSettings key for the display flag in Latitude for AsMo.
+    planetAsMoEnabledForLatitudeKey = \
+        "ui/astrology/AsMoEnabledForLatitude"
+    
+    # QSettings default value for the display flag in Latitude for AsMo.
+    planetAsMoEnabledForLatitudeDefValue = \
+        False
+    
     # QSettings key for the display flag in Latitude for MoSu.
     planetMoSuEnabledForLatitudeKey = \
         "ui/astrology/MoSuEnabledForLatitude"
@@ -6578,6 +6716,22 @@ class SettingsKeys():
     # QSettings default value for the display flag in GeoSidRadixChart for AvgJuSa.
     planetAvgJuSaEnabledForGeoSidRadixChartDefValue = \
         True
+    
+    # QSettings key for the display flag in GeoSidRadixChart for AsSu.
+    planetAsSuEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/AsSuEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for AsSu.
+    planetAsSuEnabledForGeoSidRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoSidRadixChart for AsMo.
+    planetAsMoEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/AsMoEnabledForGeoSidRadixChart"
+    
+    # QSettings default value for the display flag in GeoSidRadixChart for AsMo.
+    planetAsMoEnabledForGeoSidRadixChartDefValue = \
+        False
     
     # QSettings key for the display flag in GeoSidRadixChart for MoSu.
     planetMoSuEnabledForGeoSidRadixChartKey = \
@@ -7181,6 +7335,22 @@ class SettingsKeys():
     planetAvgJuSaEnabledForGeoTropRadixChartDefValue = \
         True
     
+    # QSettings key for the display flag in GeoTropRadixChart for AsSu.
+    planetAsSuEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/AsSuEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for AsSu.
+    planetAsSuEnabledForGeoTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in GeoTropRadixChart for AsMo.
+    planetAsMoEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/AsMoEnabledForGeoTropRadixChart"
+    
+    # QSettings default value for the display flag in GeoTropRadixChart for AsMo.
+    planetAsMoEnabledForGeoTropRadixChartDefValue = \
+        False
+    
     # QSettings key for the display flag in GeoTropRadixChart for MoSu.
     planetMoSuEnabledForGeoTropRadixChartKey = \
         "ui/astrology/MoSuEnabledForGeoTropRadixChart"
@@ -7782,6 +7952,22 @@ class SettingsKeys():
     # QSettings default value for the display flag in HelioTropRadixChart for AvgJuSa.
     planetAvgJuSaEnabledForHelioTropRadixChartDefValue = \
         True
+    
+    # QSettings key for the display flag in HelioTropRadixChart for AsSu.
+    planetAsSuEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/AsSuEnabledForHelioTropRadixChart"
+    
+    # QSettings default value for the display flag in HelioTropRadixChart for AsSu.
+    planetAsSuEnabledForHelioTropRadixChartDefValue = \
+        False
+    
+    # QSettings key for the display flag in HelioTropRadixChart for AsMo.
+    planetAsMoEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/AsMoEnabledForHelioTropRadixChart"
+    
+    # QSettings default value for the display flag in HelioTropRadixChart for AsMo.
+    planetAsMoEnabledForHelioTropRadixChartDefValue = \
+        False
     
     # QSettings key for the display flag in HelioTropRadixChart for MoSu.
     planetMoSuEnabledForHelioTropRadixChartKey = \

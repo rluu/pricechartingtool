@@ -1,16 +1,100 @@
-
+##############################################################################
 
 Outstanding things to work on going forward:
+
+TODOs for cycle hunter features:
+
+  - Verify PCDs of older versions work fine.
+  - Backup PCDs before merging with PCT.
+  - Merge.
+  
+  - Alorithm or computation is slow for LookbackMultiples.  
+    Consider profiling, or improving design, or using cloud computing.
+    (or all of the above).
+
+      - Make QSettings settings in AppPreferences for whether to run
+        locally or via Amazon?  Or maybe just a flag in my software.
+	Settings options would be:
+	  - Run as multiple processes on local machine.
+	  - Run as distrubted processes on remote machines.
+	    - hostname, port, and authkey.
+
+	- Handle use cases, such as 'ConnectionRefusedError', 'EOFError', etc.
+	
+      - Segment out the code so that it can run both as multiple processes
+        and also asa distributed cloud processing method (with manager,
+        workers, and taskers).
+
+  - If I am going to utilize cloud computing, I would need to set up a
+    deployment process, or at least document whatever it would be.
+
+      - Try out Starcluster.
+
+      - Create an instance-store AMI.
+
+      - Need scripts to start instances, deploy my code (maybe it already lives on the image), then launch the server manager script on a node, and worker script on all the other nodes.
+
+  - Consider setting up the use of virtualenv with cyclehunter.
+
+      - Get README.txt from my EC2 instance.
+  
+##############################################################################
+
+
+##############################################################################
+
+Notes algorithm for lookback multiple:
+
+1) Clear all LookbackMultiplePriceBarGraphicsItems (these contain the references to the LookbackMultiplePriceBars, which garbage collect them as needed).  These should be removed from the graphics scene.  
+
+2) Get viewport of the PCD.  
+3) From the viewport, get the start and end timestamps visable in teh viewport, via converting to scene coordinates, and then converting to timestamps.  
+
+Now we have for the current period:
+  - start timestamp
+  - end timestamp
+
+4) For the start timestamp:
+   - Get the lookback timestamps (could be 1 or 3 timestamps, depending on retrograde movements).
+   - Get the EARLIEST of the timestamps.
+   - Get the historic pricebar that occurs BEFORE this lookback timestamp.
+
+This is the start historic pricebar (inclusive).
+
+5) For the end timestamp:
+   - Get the lookback timestamps (could be 1 or 3 timestamps, depending on retrograde movements).
+   - Get the LATEST of the timestamps.
+   - Get the historic pricebar that occurs AFTER this lookback timestamp.
+
+This is the end historic pricebar (inclusive).
+
+6) Get list of pricebars in the time between (inclusive) the start historic pricebar and the end historic pricebar.  
+
+7) For each pricebar in the list:
+   - Get pricebar timestamp
+   - Get the lookforward timestamps (could be 1 or 3 timestamps, depending on retrograde movements).
+
+     For each lookforward timestamp: 
+      - Create LookbackMultiplePriceBar.
+      - Create LookbackMultiplePriceBarGraphicsItem.
+
+8) Collect all the LookbackMultiplePriceBarGraphicsItem / LookbackMultiplePriceBar objects.  These are stored for further processing, and also if the user clicks apply/redraw again, all these objects will need to be removed from the scene.  
+
+9) From the viewport of the PCD, determine max and min prices of what is displayed.
+
+10) From all the LookbackMultiplePriceBarGraphicsItem / LookbackMultiplePriceBar objects, determine the max and min prices of these.
+
+ - Determine offset, and scaling factors.  Then apply it to the LookbackMultiplePriceBarGraphicsItem / LookbackMultiplePriceBar objects.
+
+##############################################################################
+
+
+##############################################################################
 
 TODO:  
 
   - PriceChartDocumentScripts changes:
 
-    - Add longitude traversal amounts of a certain planet.  Can
-      specify parameter for whether it is geocentric, heliocentric,
-      etc., and also sidereal/tropical.  Also start time is a
-      parameter, and traversal degree increment amount is a parameter too.
-      
     - Plot line segments for elongation-degree-distances-between-two-planets.
       
     - Plot line segments that represent difference in longitude between planet X
@@ -121,17 +205,7 @@ TODO:
                seen from Earth: Approx. 354.37 days.
 	       
 
-         - Later: Measurement of all the planetary (heliocentric) 
-                     synodic cycles.
-         - Later: Measurement of all the planetary (geocentric) cycles.
-
-  - Dasa measurement tools:
-      - Should I add an option to modify dasa lifespan (i.e. timerange)?
-
-  - Add the vedic month (what nakshatra the full moon is in) on the
-    astro charts.
-
-  - Add panchanga fields and the rulers onto the astro charts.
+- Add panchanga fields and the rulers onto the astro charts.
 
   - Add a right-click option to all the items to copy the following
     (as separate options, and as applicable) to the copy-and-paste
@@ -140,15 +214,6 @@ TODO:
         - Just the price as a string
         - Just the timestamp as a string
         - Both the price and timestamp, as a string of two lines.
-
-  - Add square root price modal scale.  (vertical bar) This is high
-    and low price square rooted, and the musical scale from that, and
-    then squared again to get the price.
-
-  - Add square root time modal scale.  (horizontal bar) This is
-    earlier timestamp square rooted, to the later timestamp square
-    rooted. and the musical scale is created from that, and then
-    squared again to get the timestamp.
 
   - Other time intervals that I may want to explore and check out
     (from Jyotish knowledge):
@@ -209,8 +274,6 @@ TODO:
     to a test component?
 
   Indicators:
-  - Need to implement indicator for static octaves (in time).
-
   - Need to implement indicator (moving lines) for dynamic Octive (interval) ratio measurements as the planets move.
   - Need to implement indicator (moving) lines for aspect strength 
     (shad bala and ashtakavarga).
@@ -332,6 +395,14 @@ DONE
 DONE    Calculations need for measurements to be checked and validated to
 DONE    be fully correct before depending on them.
 DONE
+
+
+DONE    - Add longitude traversal amounts of a certain planet.  Can
+DONE      specify parameter for whether it is geocentric, heliocentric,
+DONE      etc., and also sidereal/tropical.  Also start time is a
+DONE      parameter, and traversal degree increment amount is a parameter too.
+      
+
 WILL_NOT_IMPLEMENT  - Fix MOF, COE, etc. to be calculated properly.
 WILL_NOT_IMPLEMENT
 WILL_NOT_IMPLEMENT  - Add to ephemeris, functions to get HoraLagna, GhatiLagna,
@@ -339,3 +410,100 @@ WILL_NOT_IMPLEMENT    MeanSouthNode, TrueSouthNode.
 WILL_NOT_IMPLEMENT    Then fix the TODO's for HoraLagna,
 WILL_NOT_IMPLEMENT    GhatiLagna, MeanSouthNode, TrueSouthNode.
 
+
+WILL_NOT_IMPLEMENT  - LookbackMultiple datetime table.  
+WILL_NOT_IMPLEMENT         (perhaps not implement this?  Is this needed?)
+WILL_NOT_IMPLEMENT - This would display a set datetime (either set manually via
+WILL_NOT_IMPLEMENT   context menu, or via using the current mouse location being
+WILL_NOT_IMPLEMENT   tracked) and also the datetimes for the 
+WILL_NOT_IMPLEMENT   LookbackMultiples that are enabled.  See my paper docs.
+WILL_NOT_IMPLEMENT  - Menu items (QActions, perhaps icons for these too):
+WILL_NOT_IMPLEMENT     - Lookback multiple
+WILL_NOT_IMPLEMENT       - Enable LookbackMultiple datetime table.
+WILL_NOT_IMPLEMENT       - Enable LookbackMultiple datetime table mouse tracking
+
+
+DONE      - Edit list of lookback multiples.
+DONE         - Sets dirty flag of the PCD if the edit dialog is accepted 
+DONE           (i.e. any mods accepted).
+DONE      - Enable LookbackMultiple panel.
+
+DONE  - LookbackMultiplePriceBar
+DONE    - Reference to the closest historic PriceBar
+DONE    - Reference to the LookbackMultiple.
+
+DONE  - LookbackMultiplePriceBarGraphicsItem
+DONE    - Reference to the underlying LookbackMultiplePriceBar.
+DONE    - Right-click context menu can trigger the edit dialog of 
+DONE      the underlying LookbackMultiplePriceBar.
+
+DONE  - Add fields to LookbackMultiple:
+DONE    - longitudeTypeTropicalFlag or tropicalLongitudeFlag
+DONE    - longitudeTypeSiderealFlag or siderealLongitudeFlag
+DONE
+DONE    - Update edit widgets/dialogs, etc., and uses of them.
+DONE    - Update tests of widgets.
+
+
+DONE  - LookbackMultiplePriceBar edit and dialog widgets.
+DONE    - List of LookbackMultiples.
+DONE      - Displays enable checkbox. (checking will set dirty flag of the PCD).
+DONE      - Displays short name of the lookback multiple. 
+
+DONE  - LookbackMultiple panel widget:
+DONE    - Apply/Redraw button.  
+DONE      --> Applies the enabled lookback multiples to the pricebars that 
+DONE          are visible in the QGraphicsView.
+DONE             - Removes any existing LookbackMultiplePriceBarGraphicsItems 
+DONE               in the scene.
+DONE             - Creates LookbackMultiplePriceBars
+DONE             - Creates LookbackMultiplePriceBarGraphicsItems
+DONE                 - Has reference to the underlying LookbackMultiplePriceBar.
+DONE                 - These need to have some kind of scaling algorithm 
+DONE                   applied relative to the QGraphicsView before 
+DONE                   being placed in the scene.  
+DONE                   When to apply this scaling algorithm?  
+DONE                   I guess it would need to be after the creation of all 
+DONE                   of them, because I need min and max prices of 
+DONE                   this list of pricebars.
+
+DONE  - Add LookbackMultiplePriceBarGraphicsItem snapping 
+DONE    to mouse for the following tools:
+DONE         - Line Segment 1
+DONE         - Line Segment 2
+DONE         - PriceTimeInfo
+DONE
+DONE  - Vertical Line drawing tool.
+DONE  - Horizontal Line drawing tool.
+DONE
+DONE  - For ReadOnlyPointerTool and PointerTool:
+DONE    - shortcut key: V activates vertical dotted line.
+DONE    - shortcut key: H activates horizontal dotted line.
+DONE
+DONE  - Implement a G.AsSu planet:  Ascendant - Sun.  
+DONE  - Implement a G.AsMo planet:  Ascendant - Moon.  
+DONE
+
+DONE         - Later: Measurement of all the planetary (heliocentric) 
+DONE                     synodic cycles.
+DONE         - Later: Measurement of all the planetary (geocentric) cycles.
+DONE
+DONE  - Dasa measurement tools:
+DONE      - Should I add an option to modify dasa lifespan (i.e. timerange)?
+DONE
+DONE  - Add the vedic month (what nakshatra the full moon is in) on the
+DONE    astro charts.
+DONE
+
+
+DONE  - Need to implement indicator for static octaves (in time).
+DONE
+
+WILL_NOT_DO  - Add square root price modal scale.  (vertical bar) This is high
+WILL_NOT_DO    and low price square rooted, and the musical scale from that, and
+WILL_NOT_DO    then squared again to get the price.
+
+WILL_NOT_DO  - Add square root time modal scale.  (horizontal bar) This is
+WILL_NOT_DO    earlier timestamp square rooted, to the later timestamp square
+WILL_NOT_DO    rooted. and the musical scale is created from that, and then
+WILL_NOT_DO    squared again to get the timestamp.

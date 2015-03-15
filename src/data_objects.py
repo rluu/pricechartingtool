@@ -30,145 +30,16 @@ from PyQt4.QtCore import QSettings
 # For datetime.datetime to str conversion.
 from ephemeris import Ephemeris
 
+# For generic utility helper methods.
+from util import Util
+
 # For QSettings keys.
 from settings import SettingsKeys
 
-class Util:
+
+class ObjectUtils:
     """Contains some generic static functions that may be helpful."""
 
-    @staticmethod
-    def monthNumberToAbbrev(monthNumber):
-        """Converts the given month number to a 3-letter abbreviation
-        for the month.  The monthNumber is 1-based, so 1 will convert
-        to 'Jan'.
-
-        Arguments:
-        monthNumber - int for the month number, where 1 represents January.
-
-        Returns:
-        str value holding the month abbreviation (e.g. 'Jan').  If the
-                  input is invalid, then None is returned.
-        
-        """
-
-        rv = None
-
-        if monthNumber == 1:
-            rv = "Jan"
-        elif monthNumber == 2:
-            rv = "Feb"
-        elif monthNumber == 3:
-            rv = "Mar"
-        elif monthNumber == 4:
-            rv = "Apr"
-        elif monthNumber == 5:
-            rv = "May"
-        elif monthNumber == 6:
-            rv = "Jun"
-        elif monthNumber == 7:
-            rv = "Jul"
-        elif monthNumber == 8:
-            rv = "Aug"
-        elif monthNumber == 9:
-            rv = "Sep"
-        elif monthNumber == 10:
-            rv = "Oct"
-        elif monthNumber == 11:
-            rv = "Nov"
-        elif monthNumber == 12:
-            rv = "Dec"
-        else:
-            rv = None
-
-        return rv
-            
-    @staticmethod
-    def monthAbbrevToNumber(monthAbbrev):
-        """Converts the given month 3-letter abbreviation to the month
-        number.  The monthNumber is 1-based, so 'Jan' will convert to 1.
-
-        Arguments:
-        monthAbbrev - str holding the abbreviation of the month.
-
-        Returns:
-        int value holding the month number.  The number is 1-based,
-        ie. 1 maps to January.  input is invalid, then None is
-        returned.
-        """
-
-        rv = None
-
-        ma = monthAbbrev.lower()
-
-        if ma == "jan":
-            rv = 1
-        elif ma == "feb":
-            rv = 2
-        elif ma == "mar":
-            rv = 3
-        elif ma == "apr":
-            rv = 4
-        elif ma == "may":
-            rv = 5
-        elif ma == "jun":
-            rv = 6
-        elif ma == "jul":
-            rv = 7
-        elif ma == "aug":
-            rv = 8
-        elif ma == "sep":
-            rv = 9
-        elif ma == "oct":
-            rv = 10
-        elif ma == "nov":
-            rv = 11
-        elif ma == "dec":
-            rv = 12
-        else:
-            rv = None
-
-        return rv
-            
-    @staticmethod
-    def fuzzyIsEqual(f1, f2, maxDiff=0.00000001):
-        """Fuzzy test for floating point values being equal.
-        
-        Arguments:
-        f1 - float value to test against variable f2.
-        f2 - float value to test against variable f1.
-        maxDiff - float value for the maximum difference before
-                  f1 and f2 are not considered equal.
-
-        Returns:
-        bool value - True if the values are within maxDiff
-                     from each other, False otherwise.
-        """
-
-        if abs(f1 - f2) <= maxDiff:
-            return True
-        else:
-            return False
-    
-    @staticmethod
-    def toNormalizedAngle(angleDeg):
-        """Normalizes the given angle to a value in the range [0, 360).
-
-        Arguments:
-        angleDeg - float value in degrees of an angle to normalize.
-
-        Returns:
-        float value holding the equivalent angle, but in the range [0, 360).
-        """
-
-        a = float(angleDeg)
-        
-        while a < 0.0:
-            a += 360.0
-        while a >= 360.0:
-            a -= 360.0
-
-        return a
-    
     @staticmethod
     def qColorToStr(qcolor):
         """Returns a string formatting of a QColor object."""
@@ -215,7 +86,7 @@ class Util:
                 # Do special handling for QColor objects and lists.
                 if isinstance(attrObj, QColor):
                     rv += "{}={}, ".\
-                          format(attr, Util.qColorToStr(attrObj))
+                          format(attr, ObjectUtils.qColorToStr(attrObj))
                 elif isinstance(attrObj, list):
                     rv += "{}=[".format(attr)
                     for item in attrObj:
@@ -232,6 +103,7 @@ class Util:
 
         return rv
         
+
 class BirthInfo:
     """Contains data related to the birth of an entity or person.
     See the documentation for the '__init__()' function to see what
@@ -577,7 +449,7 @@ class BirthInfo:
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -634,7 +506,7 @@ class PriceBar:
 
 
     def __init__(self, timestamp, open=None, high=None, low=None, close=None, 
-            oi=None, vol=None, tags=[]):
+            oi=None, vol=None, tags=list()):
         """Initializes the PriceBar object.  
 
         Arguments are as follows:
@@ -743,7 +615,7 @@ class PriceBar:
     def toString(self):
         """Returns the string representation of the PriceBar data"""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -763,6 +635,9 @@ class PriceBar:
 
         if leftObj.classVersion != rightObj.classVersion:
             self.log.debug("classVersion differs.")
+            rv = False
+        if leftObj.timestamp != rightObj.timestamp:
+            self.log.debug("timestamp differs.")
             rv = False
         if leftObj.open != rightObj.open:
             self.log.debug("open differs.")
@@ -1342,7 +1217,7 @@ class Ratio:
     def toString(self):
         """Returns the string representation of the data."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -3164,7 +3039,7 @@ class MusicalRatio(Ratio):
     def toString(self):
         """Returns the string representation of the data."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -3198,6 +3073,824 @@ class MusicalRatio(Ratio):
 
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + MusicalRatio.__name__ +
+                       " object of version {}".format(self.classVersion))
+
+
+class LookbackMultiple:
+    """Contains data and parameters for the amount of time to look
+    back when drawing or comparing past PriceBar data to current
+    present PriceBar data.
+    """
+
+    def __init__(self,
+                 name="",
+                 description="",
+                 lookbackMultiple=1.0,
+                 baseUnit=1.0,
+                 baseUnitTypeDegreesFlag=False,
+                 baseUnitTypeRevolutionsFlag=True,
+                 color=QColor(Qt.blue),
+                 enabled=False,
+                 planetName="Sun",
+                 geocentricFlag=True,
+                 heliocentricFlag=False,
+                 tropicalFlag=True,
+                 siderealFlag=False
+                 ):
+        """Initializes the member variables to the values specified as
+        arguments.
+
+        The lookback period of time is determined by multiplying,
+        depending on whether the baseUnit is in degrees or in
+        revolutions:
+        
+            lookbackMultiple * baseUnit * 1.0
+            lookbackMultiple * baseUnit * 360.0
+
+        Arguments:
+        
+        name     - str value for the name of the LookbackMultiple.
+                   This is the display name used in the UI.
+    
+        description - str value for the description of the LookbackMultiple.
+
+        lookbackMultiple - float value for the multiple to look back.
+        
+        baseUnit - float value for the base unit to look back.
+        
+        baseUnitTypeDegreesFlag - boolean for indicating that the
+                                  baseUnit is in degrees.  If this
+                                  value if True, then
+                                  baseUnitTypeRevolutionsFlag must be
+                                  False.  If this value is False, then
+                                  baseUnitTypeRevolutionsFlag must be
+                                  True.
+        
+        baseUnitTypeRevolutionsFlag - boolean for indicating that the
+                                      baseUnit is in revolutions.  If
+                                      this value is True, then
+                                      baseUnitTypeDegreesFlag must be
+                                      False.  If this value is False,
+                                      then baseUnitTypeDegreesFlag
+                                      must be True.
+
+        color - QColor object holding the color that will be used to
+                draw the PriceBars of the past history.
+
+        enabled - boolean for whether this LookbackMultiple is enabled
+                  or disabled.  An enabled LookbackMultiple is drawn.
+        
+        planetName - str value holding a valid planet name (from
+                     Ephemeris.py) to use for the looking back in time.
+        
+        geocentricFlag - boolean flag indicating that the lookback is
+                         to be done with geocentric planet
+                         measurements.  If this value is True, then
+                         heliocentricFlag must be False.  If this
+                         value is False, then heliocentricFlag must be
+                         True.
+        
+        heliocentricFlag - boolean flag indicating that the lookback
+                         is to be done with heliocentric planet
+                         measurements.  If this value is True, then
+                         geocentricFlag must be False.  If this value
+                         is False, then geocentricFlag must be True.
+
+        tropicalFlag - boolean flag that indicates that the measurements 
+                       are using the tropical zodiac.  If this value 
+                       is True then siderealFlag must be False.  
+                       If this value is False, then siderealFlag must be True.
+
+        siderealFlag - boolean flag that indicates that the measurements 
+                       are using sidereal zodiac.  If this value
+                       is True then tropicalFlag must be False.
+                       If this value is False then tropicalFlag must be True.
+        """
+
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = logging.getLogger("data_objects.LookbackMultiple")
+
+        # Validate input.
+
+        if baseUnitTypeDegreesFlag == None or \
+           baseUnitTypeRevolutionsFlag == None or \
+           baseUnitTypeDegreesFlag == baseUnitTypeRevolutionsFlag:
+            self.log.error("Invalid parameters.  " +
+                           "Base Planet for the LookbackMulitple must be " +
+                           "either geocentric or heliocentric.")
+            self.log.error("baseUnitTypeDegreesFlag == {}".
+                           format(baseUnitTypeDegreesFlag))
+            self.log.error("baseUnitTypeRevolutionsFlag == {}".
+                           format(baseUnitTypeRevolutionsFlag))
+            return
+            
+        if geocentricFlag == None or heliocentricFlag == None or \
+               geocentricFlag == heliocentricFlag:
+            self.log.error("Invalid parameters.  " +
+                           "Planet for the LookbackMulitple must be " +
+                           "either geocentric or heliocentric.")
+            self.log.error("geocentricFlag == {}".format(geocentricFlag))
+            self.log.error("heliocentricFlag == {}".format(heliocentricFlag))
+            return
+        
+        if planetName == "" or \
+                planetName not in Ephemeris.getSupportedPlanetNamesList():
+
+            self.log.error("Invalid planet name given: '{}'".format(planetName))
+            return
+
+        if tropicalFlag == None or siderealFlag == None or \
+            tropicalFlag == siderealFlag:
+
+            self.log.error("Invalid parameters.  " +
+                           "zodiac type for the longitude " + 
+                           "measurements must be " +
+                           "either tropical or sidereal.")
+            self.log.error("tropicalFlag == {}".format(tropicalFlag))
+            self.log.error("siderealFlag == {}".format(siderealFlag))
+            return
+
+        # Display name.  (str)
+        self.name = name
+
+        # Description.  (str)
+        self.description = description
+
+        # Multiple.  (float)
+        self.lookbackMultiple = lookbackMultiple
+
+        # Base unit that gets multipled to the lookback multiple.
+        self.baseUnit = baseUnit
+        
+        # Flag that indicates the base unit is in units degrees.
+        self.baseUnitTypeDegreesFlag = baseUnitTypeDegreesFlag
+        
+        # Flag that indicates the base unit is in units revolutions.
+        self.baseUnitTypeRevolutionsFlag = baseUnitTypeRevolutionsFlag
+        
+        # Color to draw the past history.  (QColor)
+        self.color = color
+
+        # Enabled flag.  (boolean)
+        self.enabled = enabled
+
+        # Planet name of the planet to use for looking back.  (str)
+        self.planetName = planetName
+
+        # Flag that indicates to use geocentric planet measurements. (boolean)
+        self.geocentricFlag = geocentricFlag
+
+        # Flag that indicates to use heliocentric planet measurements. (boolean)
+        self.heliocentricFlag = heliocentricFlag
+
+        # Flag that indicates to use the tropical zodiac for longitude
+        # measurements. (boolean)
+        self.tropicalFlag = tropicalFlag
+
+        # Flag that indicates to use the sidereal zodiac for longitude
+        # measurements. (boolean)
+        self.siderealFlag = siderealFlag
+
+
+    def getName(self):
+        """Returns the display name of the LookbackMultiple."""
+        
+        return self.name
+
+    def setName(self, name):
+        """Sets the display name of the LookbackMultiple.
+
+        Arguments:
+        name - str value represneting the name of the LookbackMultiple."
+        """
+
+        self.name = name
+
+    def getDescription(self):
+        """Returns the description of the LookbackMultiple."""
+        
+        return self.description
+
+    def setDescription(self, description):
+        """Sets the description of the LookbackMultiple.
+
+        Arguments:
+        description - str value representing the description of the 
+                      LookbackMultiple.
+        """
+
+        self.description = description
+
+    def getLookbackMultiple(self):
+        """Returns the multiple of time to look backwards in time."""
+
+        return self.lookbackMultiple
+
+    def setLookbackMultiple(self, lookbackMultiple):
+        """Sets the multiple of time to look backwards in time.
+
+        Arguments:
+        lookbackMultiple - float value representing the multiple of
+                           time to look backwards.
+        """
+
+        self.lookbackMultiple = lookbackMultiple
+
+    def getBaseUnit(self):
+        """Returns the base unit multiple to look back in time."""
+
+        return self.baseUnit
+    
+    def setBaseUnit(self, baseUnit):
+        """Sets the base unit multiple to look back in time.
+
+        Arguments:
+        baseUnit - float value for the base unit to look back.
+        """
+
+        self.baseUnit = baseUnit
+
+    def getBaseUnitTypeDegreesFlag(self):
+        """Returns the boolean flag that indicates whether or not the
+        baseUnit is in degrees.
+        """
+
+        return self.baseUnitTypeDegreesFlag
+
+    def setBaseUnitTypeDegreesFlag(self, baseUnitTypeDegreesFlag):
+        """Sets the boolean flag that indicates whether or not the
+        baseUnit is in degrees.
+
+        Note: Setting this flag will automatically set the
+        baseUnitTypeRevolutionsFlag to the opposite of this value.
+
+        Arguments:
+        baseUnitTypeDegreesFlag - boolean value for indicating that the
+                                  baseUnit is in degrees.  
+        """
+
+        self.baseUnitTypeDegreesFlag = baseUnitTypeDegreesFlag
+        self.baseUnitTypeRevolutionsFlag = not baseUnitTypeDegreesFlag
+
+    def getBaseUnitTypeRevolutionsFlag(self):
+        """Returns the boolean flag that indicates whether or not the
+        baseUnit is in revolutions.
+        """
+
+        return self.baseUnitTypeRevolutionsFlag
+
+    def setBaseUnitTypeRevolutionsFlag(self, baseUnitTypeRevolutionsFlag):
+        """Sets the boolean flag that indicates whether or not the
+        baseUnit is in revolutions.
+
+        Note: Setting this flag will automatically set the
+        baseUnitTypeDegreesFlag to the opposite of this value.
+
+        Arguments:
+        baseUnitTypeRevolutionsFlag - boolean value for indicating that the
+                                  baseUnit is in revolutions.  
+        """
+
+        self.baseUnitTypeRevolutionsFlag = baseUnitTypeRevolutionsFlag
+        self.baseUnitTypeDegreesFlag = not baseUnitTypeRevolutionsFlag
+
+
+    def getColor(self):
+        """Returns the color of the PriceBars for the lookback multiple, as
+        a QColor object.
+        """
+
+        return self.color
+        
+    def setColor(self, color):
+        """Sets the color of the PriceBars for the lookback multiple.
+
+        Arguments:
+        color - QColor object holding the color that will be used to
+                draw the PriceBars of the past history.
+        """
+
+        self.color = color
+
+    def getEnabled(self):
+        """Returns the boolean flag for whether this LookbackMultiple
+        is enabled or disabled.  An enabled LookbackMultiple is
+        drawn.
+        """
+
+        return self.enabled
+
+    def setEnabled(self, enabled):
+        """Sets the flag for whether this LookbackMultiple
+        is enabled or disabled.  An enabled LookbackMultiple is
+        drawn.
+
+        Arguments:
+        enabled - boolean for whether this LookbackMultiple is enabled
+                  or disabled.  An enabled LookbackMultiple is drawn.
+        """
+
+        self.enabled = enabled
+
+    def getPlanetName(self):
+        """Returns the name of the planet (from the list in
+        Ephemeris.py) to use for the lookback multiple.
+        """
+
+        return self.planetName
+
+    def setPlanetName(self, planetName):
+        """Sets the name of the planet (from the list in
+        Ephemeris.py) to use for the lookback multiple.
+
+        Arguments:
+        planetName - str value holding a valid planet name (from
+                     Ephemeris.py) to use for the looking back in time.
+        """
+
+        self.planetName = planetName
+        
+    def getGeocentricFlag(self):
+        """Returns the boolean flag indicating that the lookback is to
+        be done with geocentric planet measurements.
+        """
+
+        return self.geocentricFlag
+
+    def setGeocentricFlag(self, geocentricFlag):
+        """Sets the boolean flag indicating that the lookback is to
+        be done with geocentric planet measurements.
+        
+        Note: Setting this flag will automatically set the
+        heliocentricFlag to the opposite of this value.
+        """
+
+        self.geocentricFlag = geocentricFlag
+        self.heliocentricFlag = not geocentricFlag
+
+    def getHeliocentricFlag(self):
+        """Returns the boolean flag indicating that the lookback is to
+        be done with heliocentric planet measurements.
+        """
+
+        return self.heliocentricFlag
+
+    def setHeliocentricFlag(self, heliocentricFlag):
+        """Sets the boolean flag indicating that the lookback is to
+        be done with heliocentric planet measurements.
+        
+        Note: Setting this flag will automatically set the
+        geocentricFlag to the opposite of this value.
+        """
+
+        self.heliocentricFlag = heliocentricFlag
+        self.geocentricFlag = not heliocentricFlag
+        
+    def getTropicalFlag(self):
+        """Returns the boolean flag that indicates that the tropical
+        zodiac should be used for longitude measurements.
+        """
+
+        return self.tropicalFlag
+
+    def setTropicalFlag(self, tropicalFlag):
+        """Sets the boolean flag that indicates that the tropical
+        zodiac should be used for longitude measurements.
+
+        Note: Setting this flag will automatically set the
+        siderealFlag to the opposite of this value.
+        """
+
+        self.tropicalFlag = tropicalFlag
+        self.siderealFlag = not tropicalFlag
+
+    def getSiderealFlag(self):
+        """Returns the boolean flag that indicates that the sidereal
+        zodiac should be used for longitude measurements.
+        """
+
+        return self.siderealFlag
+
+    def setSiderealFlag(self, siderealFlag):
+        """Sets the boolean flag that indicates that the sidereal
+        zodiac should be used for longitude measurements.
+
+        Note: Setting this flag will automatically set the
+        tropicalFlag to the opposite of this value.
+        """
+
+        self.siderealFlag = siderealFlag
+        self.tropicalFlag = not siderealFlag
+
+    def toShortString(self):
+        """Returns a short str representation of only some of the member
+        variables of this object.
+
+        The returned string is in the format of:
+        
+            MyName (G.Mars Trop. 3 x 1 rev.)
+            MyName (G.MoSu Trop. 7 x 360 deg.)
+            MyName (H.Venus Sid. 1.618 x 360 deg.)
+        """
+
+        nameStr = self.name
+
+        centricityTypeStr = ""
+        if self.geocentricFlag == True:
+            centricityTypeStr = "G."
+        if self.heliocentricFlag == True:
+            centricityTypeStr = "H."
+            
+        planetNameStr = self.planetName
+        lookbackMultipleStr = "{}".format(self.lookbackMultiple)
+        
+        longitudeTypeStr = ""
+        if self.tropicalFlag == True:
+            longitudeTypeStr = "Trop."
+        if self.siderealFlag == True:
+            longitudeTypeStr = "Sid."
+            
+        baseUnitStr = "{}".format(self.baseUnit)
+
+        baseUnitTypeStr = ""
+        if self.baseUnitTypeDegreesFlag == True:
+            baseUnitTypeStr = "deg."
+        if self.baseUnitTypeRevolutionsFlag == True:
+            baseUnitTypeStr = "rev."
+
+        # Return value.
+        rv = "{} ({}{} {} {} x {} {})".\
+            format(nameStr, 
+                   centricityTypeStr, 
+                   planetNameStr, 
+                   longitudeTypeStr,
+                   lookbackMultipleStr, 
+                   baseUnitStr, 
+                   baseUnitTypeStr)
+        
+        return rv
+
+
+    def toString(self):
+        """Returns the string representation of most of the attributes in this
+        LookbackMultiple object.
+        """
+        
+        rv = ObjectUtils.objToString(self)
+
+        return rv
+
+    def __eq__(self, other):
+        """Returns True if the two LookbackMultiples are equal."""
+        
+        rv = True
+        
+        leftObj = self
+        rightObj = other
+        
+        if rightObj == None:
+            return False
+        
+        self.log.debug("leftObj: {}".format(leftObj.toString()))
+        self.log.debug("rightObj: {}".format(rightObj.toString()))
+
+        if leftObj.classVersion != rightObj.classVersion:
+            self.log.debug("classVersion differs.")
+            rv = False
+        if leftObj.name != rightObj.name:
+            self.log.debug("name differs.")
+            rv = False
+        if leftObj.description != rightObj.description:
+            self.log.debug("description differs.")
+            rv = False
+        if leftObj.lookbackMultiple != rightObj.lookbackMultiple:
+            self.log.debug("lookbackMultiple differs.")
+            rv = False
+        if leftObj.baseUnit != rightObj.baseUnit:
+            self.log.debug("baseUnit differs.")
+            rv = False
+        if leftObj.baseUnitTypeDegreesFlag != rightObj.baseUnitTypeDegreesFlag:
+            self.log.debug("baseUnitTypeDegreesFlag differs.")
+            rv = False
+        if leftObj.baseUnitTypeRevolutionsFlag != \
+                rightObj.baseUnitTypeRevolutionsFlag:
+            self.log.debug("baseUnitTypeRevolutionsFlag differs.")
+            rv = False
+        if leftObj.color != rightObj.color:
+            self.log.debug("color differs.")
+            rv = False
+        if leftObj.enabled != rightObj.enabled:
+            self.log.debug("enabled differs.")
+            rv = False
+        if leftObj.planetName != rightObj.planetName:
+            self.log.debug("planetName differs.")
+            rv = False
+        if leftObj.geocentricFlag != rightObj.geocentricFlag:
+            self.log.debug("geocentricFlag differs.")
+            rv = False
+        if leftObj.heliocentricFlag != rightObj.heliocentricFlag:
+            self.log.debug("heliocentricFlag differs.")
+            rv = False
+        if leftObj.tropicalFlag != rightObj.tropicalFlag:
+            self.log.debug("tropicalFlag differs.")
+            rv = False
+        if leftObj.siderealFlag != rightObj.siderealFlag:
+            self.log.debug("siderealFlag differs.")
+            rv = False
+
+        self.log.debug("__eq__() returning: {}".format(rv))
+        
+        return rv
+
+    def __ne__(self, other):
+        """Returns True if the LookbackMultiples are not equal.
+        Returns False otherwise."""
+
+        return not self.__eq__(other)
+    
+    def __str__(self):
+        """Returns the string representation of most of the attributes in this
+        LookbackMultiple object.
+        """
+
+        return self.toString()
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = logging.getLogger("data_objects.LookbackMultiple")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " + LookbackMultiple.__name__ +
+                       " object of version {}".format(self.classVersion))
+
+
+class LookbackMultiplePriceBar:
+    """Contains price information for a historic period of time,
+    projected onto the current time period.
+    
+    The this class has the same information provided as member
+    variables, and methods as the regular PriceBar class, but it is not
+    a subclass of a PriceBar.  
+
+    TODO:  improve documentation and commenting here for LookbackMultiplePriceBar.
+
+    LookbackMultiplePriceBar can include the following information: 
+
+    - timestamp of the current period of time.
+    - timestamp of the historic period of time.  
+    (this is extracted from the PriceBar)
+    - PriceBar object for the price information of a historical time period.
+    - LookbackMultiple object for this LookbackMultiplePriceBar
+    """
+    
+    def __init__(self, lookbackMultiple, historicPriceBar):
+        """Initializes the PriceBar object.  
+
+# currentPriceBar - this is calculated based on the arguments given.  
+
+        Arguments are as follows: 
+TODO:  Think about what variables and information would be needed in this class. 
+        lookbackMultiple - LookbackMultiple that is associated with this LookbackMultiplePriceBar.
+        priceBar - PriceBar object that is the closest 
+        """
+
+        self.log = logging.getLogger("data_objects.LookbackMultiple")
+
+        # Class version stored for pickling and unpickling.
+        self.classVersion = 1
+
+        # Verify that neither of the inputs are None.
+        
+
+        self.lookbackMultiple = lookbackMultiple
+        self.historicPriceBar = historicPriceBar
+
+        
+        # Member variables that hold information about this particular
+        # LookbackMultiplePriceBar's information.  
+        # 
+        # The data of member variables are basically the historic PriceBar, but
+        # projected into the future by the LookbackMultiple's time period.  The
+        # price data here is not meaningful, because it is the historic
+        # PriceBar's information, but with scaling applied for charting
+        # purposes, and it is only meaningful relative to other
+        # LookbackMultiplePriceBar next to this one.
+        self.timestamp = None
+        self.open = None
+        self.high = None
+        self.low = None
+        self.close = None
+        self.oi = None
+        self.vol = None
+        self.tags = []
+
+        
+    def midPrice(self):
+        """Returns the average of the high and low.  I.e., ((high+low)/2.0)
+        If high is None or low is None, then None is returned.
+        """
+
+        if self.high == None or self.low == None:
+            return None
+        else:
+            return (self.high + self.low) / 2.0
+
+    def addTag(self, tagToAdd):
+        """Adds a given tag string to the tags for this 
+        LookbackMultiplePriceBar."""
+
+        # Strip any leading or trailing whitespace
+        tagToAdd = tagToAdd.strip()
+
+        # The tag added must be non-empty and must not already exist in the
+        # list.
+        if tagToAdd != "" and tagToAdd not in self.tags:
+            self.tags.append(tagToAdd)
+
+    def hasTag(self, tagToCheck):
+        """Returns True if the given tagToCheck is in the list of tags."""
+
+        if tagToCheck in self.tags:
+            return True
+        else:
+            return False
+
+    def clearTags(self):
+        """Clears all the tags associated with this LookbackMultiplePriceBar."""
+
+        self.tags = []
+
+    def removeTag(self, tagToRemove):
+        """Removes a given tag string from the tags in this
+        LookbackMultiplePriceBar.
+        """
+
+        while tagToRemove in self.tags:
+            self.tags.remove(tagToRemove)
+
+
+    def hasHigherHighThan(self, anotherLookbackMultiplePriceBar):
+        """Returns True if this LookbackMultiplePriceBar has a higher
+        high price than LookbackMultiplePicebar
+        'anotherLookbackMultiplePriceBar'
+        """
+
+        if self.high == None:
+            return False
+        elif anotherLookbackMultiplePriceBar.high == None:
+            return True
+        else:
+            if self.high > anotherLookbackMultiplePriceBar.high:
+                return True
+            else:
+                return False
+
+    def hasLowerLowThan(self, anotherLookbackMultiplePriceBar):
+        """Returns True if this LookbackMultiplePriceBar has a lower low
+        price than LookbackMultpile 'anotherLookbackMultiplePriceBar'
+        """
+
+        if self.low == None:
+            return False
+        elif anotherLookbackMultiplePriceBar.low == None:
+            return True
+        else:
+            if self.low < anotherLookbackMultiplePriceBar.low:
+                return True
+            else:
+                return False
+
+
+    def toString(self):
+        """Returns the string representation of the
+        LookbackMultiplePriceBar data.
+        """
+
+        rv = ObjectUtils.objToString(self)
+        
+        return rv
+
+    def __eq__(self, other):
+        """Returns True if the two LookbackMultiplePriceBars are equal."""
+        
+        rv = True
+
+        leftObj = self
+        rightObj = other
+
+        if rightObj == None:
+            return False
+        
+        self.log.debug("leftObj: {}".format(leftObj.toString()))
+        self.log.debug("rightObj: {}".format(rightObj.toString()))
+
+        if leftObj.classVersion != rightObj.classVersion:
+            self.log.debug("classVersion differs.")
+            rv = False
+        if leftObj.lookbackMultiple != rightObj.lookbackMultiple:
+            self.log.debug("lookbackMultiple differs.")
+            rv = False
+        if leftObj.historicPriceBar != rightObj.historicPriceBar:
+            self.log.debug("historicPriceBar differs.")
+            rv = False
+        if leftObj.timestamp != rightObj.timestamp:
+            self.log.debug("timestamp differs.")
+            rv = False
+        if leftObj.open != rightObj.open:
+            self.log.debug("open differs.")
+            rv = False
+        if leftObj.high != rightObj.high:
+            self.log.debug("high differs.")
+            rv = False
+        if leftObj.low != rightObj.low:
+            self.log.debug("low differs.")
+            rv = False
+        if leftObj.close != rightObj.close:
+            self.log.debug("close differs.")
+            rv = False
+        if leftObj.oi != rightObj.oi:
+            self.log.debug("oi differs.")
+            rv = False
+        if leftObj.vol != rightObj.vol:
+            self.log.debug("vol differs.")
+            rv = False
+            
+        if len(leftObj.tags) != len(rightObj.tags):
+            self.log.debug("len(tags) differs.")
+            rv = False
+        else:
+            for i in range(len(leftObj.tags)):
+                if leftObj.tags[i] != rightObj.tags[i]:
+                    self.log.debug("tags differs.")
+                    rv = False
+                    break
+
+        self.log.debug("__eq__() returning: {}".format(rv))
+        
+        return rv
+
+    def __ne__(self, other):
+        """Returns True if the LookbackMultiplePriceBars are not equal.
+        Returns False otherwise.
+        """
+
+        return not self.__eq__(other)
+    
+    def __str__(self):
+        """Returns the string representation of the
+        LookbackMultiplePriceBar data.
+        """
+
+        return self.toString()
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = logging.getLogger("data_objects.LookbackMultiplePriceBar")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " + LookbackMultiplePriceBar.__name__ +
                        " object of version {}".format(self.classVersion))
 
 
@@ -3298,7 +3991,7 @@ class PriceBarChartArtifact:
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -3363,7 +4056,7 @@ class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -4330,7 +5023,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -4686,7 +5379,7 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -5040,7 +5733,7 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -5085,7 +5778,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 5
+        self.classVersion = 6
 
         # Create the logger.
         self.log = \
@@ -5446,6 +6139,16 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         self.planetAvgJuSaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
+        
+        # Flag for measurement of planet AsSu enabled.
+        self.planetAsSuEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
+        
+        # Flag for measurement of planet AsMo enabled.
+        self.planetAsMoEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
         
         # Flag for measurement of planet MoSu enabled.
         self.planetMoSuEnabledFlag = \
@@ -7058,6 +7761,50 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
 
         return self.planetAvgJuSaEnabledFlag
 
+    def setPlanetAsSuEnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.planetAsSuEnabledFlag = flag
+        
+    def getPlanetAsSuEnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.planetAsSuEnabledFlag
+
+    def setPlanetAsMoEnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.planetAsMoEnabledFlag = flag
+        
+    def getPlanetAsMoEnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.planetAsMoEnabledFlag
+
     def setPlanetMoSuEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7550,7 +8297,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -7579,7 +8326,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
             "data_objects.PriceBarChartPlanetLongitudeMovementMeasurementArtifact")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 5:
+        if self.classVersion < 6:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartPlanetLongitudeMovementMeasurementArtifact (version {}).  ".\
                           format(self.classVersion))
@@ -8654,6 +9401,47 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
                 
+            if self.classVersion == 5:
+                # Version 6 adds the following member variables:
+                #
+                # self.planetAsSuEnabledFlag
+                # self.planetAsMoEnabledFlag
+                #
+    
+                # Handle variables that were added in this version.
+                try:
+                    # See if the variable is set.
+                    self.planetAsSuEnabledFlag
+                    self.planetAsMoEnabledFlag
+    
+                    # If it got here, then the field is already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have this field.")
+                except AttributeError:
+                    # Variables were not set.  Set them to the default
+                    # values.
+                    
+                    self.planetAsSuEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
+                    
+                    self.planetAsMoEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
+                    
+                    self.log.debug("Added field " + \
+                                   "'self.planetAsSuEnabledFlag', " + \
+                                   "'self.planetAsMoEnabledFlag', " + \
+                                   "to the loaded object.")
+                                   
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 6
+                                  
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
                 
         # Log that we set the state of this object.
         self.log.debug("Set state of a " +
@@ -8813,7 +9601,7 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -9192,7 +9980,7 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
     
@@ -9467,7 +10255,7 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -9747,7 +10535,7 @@ class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -10027,7 +10815,7 @@ class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -10324,7 +11112,7 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -10559,7 +11347,7 @@ class PriceBarChartLineSegmentArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -10591,6 +11379,232 @@ class PriceBarChartLineSegmentArtifact(PriceBarChartArtifact):
         # Log that we set the state of this object.
         self.log.debug("Set state of a " +
                        PriceBarChartLineSegmentArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
+class PriceBarChartVerticalLineSegmentArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates a vertical line segment on
+    the graphics scene.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartVerticalLineSegmentArtifact")
+
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "VerticalLineSegment_" + str(self.uuid)
+
+        # Start and end points of the artifact.
+        self.startPointF = QPointF()
+        self.endPointF = QPointF()
+
+        # lineSegmentGraphicsItemColor (QColor).
+        self.color = \
+            PriceBarChartSettings.\
+                defaultVerticalLineSegmentGraphicsItemColor
+
+    def setStartPointF(self, startPointF):
+        """Stores the starting point of the VerticalLineSegmentArtifact.
+        Arguments:
+
+        startPointF - QPointF for the starting point of the artifact.
+        """
+        
+        self.startPointF = startPointF
+        
+    def getStartPointF(self):
+        """Returns the starting point of the VerticalLineSegmentArtifact."""
+        
+        return self.startPointF
+        
+    def setEndPointF(self, endPointF):
+        """Stores the ending point of the VerticalLineSegmentArtifact.
+        Arguments:
+
+        endPointF - QPointF for the ending point of the artifact.
+        """
+        
+        self.endPointF = endPointF
+        
+    def getEndPointF(self):
+        """Returns the ending point of the VerticalLineSegmentArtifact."""
+        
+        return self.endPointF
+
+    def setColor(self, color):
+        """Sets the bar color.
+        
+        Arguments:
+        color - QColor object for the bar color.
+        """
+        
+        self.color = color
+
+    def getColor(self):
+        """Gets the bar color as a QColor object."""
+        
+        return self.color
+
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = ObjectUtils.objToString(self)
+        
+        return rv
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartVerticalLineSegmentArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartVerticalLineSegmentArtifact.__name__ +
+                       " object of version {}".format(self.classVersion))
+
+class PriceBarChartHorizontalLineSegmentArtifact(PriceBarChartArtifact):
+    """PriceBarChartArtifact that indicates a horizontal line segment on
+    the graphics scene.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        
+        # Set the version of this class (used for pickling and unpickling
+        # different versions of this class).
+        self.classVersion = 1
+
+        # Create the logger.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartHorizontalLineSegmentArtifact")
+
+        # Update the internal name so it is the artifact type plus the uuid.
+        self.internalName = "HorizontalLineSegment_" + str(self.uuid)
+
+        # Start and end points of the artifact.
+        self.startPointF = QPointF()
+        self.endPointF = QPointF()
+
+        # lineSegmentGraphicsItemColor (QColor).
+        self.color = \
+            PriceBarChartSettings.\
+                defaultHorizontalLineSegmentGraphicsItemColor
+
+    def setStartPointF(self, startPointF):
+        """Stores the starting point of the HorizontalLineSegmentArtifact.
+        Arguments:
+
+        startPointF - QPointF for the starting point of the artifact.
+        """
+        
+        self.startPointF = startPointF
+        
+    def getStartPointF(self):
+        """Returns the starting point of the HorizontalLineSegmentArtifact."""
+        
+        return self.startPointF
+        
+    def setEndPointF(self, endPointF):
+        """Stores the ending point of the HorizontalLineSegmentArtifact.
+        Arguments:
+
+        endPointF - QPointF for the ending point of the artifact.
+        """
+        
+        self.endPointF = endPointF
+        
+    def getEndPointF(self):
+        """Returns the ending point of the HorizontalLineSegmentArtifact."""
+        
+        return self.endPointF
+
+    def setColor(self, color):
+        """Sets the bar color.
+        
+        Arguments:
+        color - QColor object for the bar color.
+        """
+        
+        self.color = color
+
+    def getColor(self):
+        """Gets the bar color as a QColor object."""
+        
+        return self.color
+
+    def __str__(self):
+        """Returns the string representation of this object."""
+
+        return self.toString()
+
+    def toString(self):
+        """Returns the string representation of this object."""
+
+        rv = ObjectUtils.objToString(self)
+        
+        return rv
+
+    def __getstate__(self):
+        """Returns the object's state for pickling purposes."""
+
+        # Copy the object's state from self.__dict__ which contains
+        # all our instance attributes. Always use the dict.copy()
+        # method to avoid modifying the original state.
+        state = self.__dict__.copy()
+
+        # Remove items we don't want to pickle.
+        del state['log']
+
+        return state
+
+
+    def __setstate__(self, state):
+        """Restores the object's state for unpickling purposes."""
+
+        # Restore instance attributes.
+        self.__dict__.update(state)
+
+        # Re-open the logger because it was not pickled.
+        self.log = \
+            logging.\
+            getLogger("data_objects.PriceBarChartHorizontalLineSegmentArtifact")
+
+        # Log that we set the state of this object.
+        self.log.debug("Set state of a " +
+                       PriceBarChartHorizontalLineSegmentArtifact.__name__ +
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
@@ -11279,7 +12293,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -11966,7 +12980,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -12652,7 +13666,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -13008,7 +14022,7 @@ class PriceBarChartVimsottariDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -13364,7 +14378,7 @@ class PriceBarChartAshtottariDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -13720,7 +14734,7 @@ class PriceBarChartYoginiDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -14076,7 +15090,7 @@ class PriceBarChartDwisaptatiSamaDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -14432,7 +15446,7 @@ class PriceBarChartShattrimsaSamaDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -14788,7 +15802,7 @@ class PriceBarChartDwadasottariDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -15144,7 +16158,7 @@ class PriceBarChartChaturaseetiSamaDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -15500,7 +16514,7 @@ class PriceBarChartSataabdikaDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -15856,7 +16870,7 @@ class PriceBarChartShodasottariDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -16212,7 +17226,7 @@ class PriceBarChartPanchottariDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -16568,7 +17582,7 @@ class PriceBarChartShashtihayaniDasaArtifact(PriceBarChartArtifact):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -16734,7 +17748,7 @@ class PriceBarChartScaling:
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
     
@@ -16781,7 +17795,7 @@ class PriceChartDocumentData:
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 1
+        self.classVersion = 2
 
         # Description label.
         self.description = ""
@@ -16789,6 +17803,10 @@ class PriceChartDocumentData:
         # List of PriceBar objects, sorted by timestamp.
         self.priceBars = []
         
+        # List of LookbackMultiple objects.
+        self.lookbackMultiples = \
+            PriceChartDocumentData.createDefaultLookbackMultiples()
+
         # List of PriceBarChartArtifact objects.
         self.priceBarChartArtifacts = []
 
@@ -16800,7 +17818,6 @@ class PriceChartDocumentData:
 
         # List of the class names of SpreadsheetCalcFormulas utilized.
         self.settingsSpreadsheetCalcFormulas = []
-        
 
         # Settings information for the PriceBarChartWidget.
         self.priceBarChartSettings = PriceBarChartSettings()
@@ -16830,6 +17847,17 @@ class PriceChartDocumentData:
 
         # Notes that are added by the user in the the GUI.
         self.userNotes = ""
+
+        
+    @staticmethod
+    def createDefaultLookbackMultiples():
+        """Returns a list of LookbackMultiple objects that can be used as 
+        a default initial set.
+        """
+
+        # TODO: add code here for createDefaultLookbackMultiples().
+        
+        return []
 
     def setDescription(self, description):
         """Sets the description of this trading entity."""
@@ -16977,22 +18005,19 @@ class PriceChartDocumentData:
                     format(self.description) + \
                 "numPriceBars={}, ".\
                     format(len(self.priceBars)) + \
+                "numLookbackMultiples={}, ".\
+                    format(len(self.lookbackMultiples)) + \
                 "numArtifacts={}, ".\
                     format(len(self.priceBarChartArtifacts)) + \
-                "artifacts={}, ".\
-                    format(artifactStrings) + \
+                "artifacts=[OMITTED], " + \
                 "firstPriceBarTimestamp={}, ".\
                     format(firstPriceBarTimestamp) + \
                 "lastPriceBarTimestamp={}, ".\
                     format(lastPriceBarTimestamp) + \
-                "settingsSpreadsheetTagColors={}, ".\
-                    format(self.settingsSpreadsheetTagColors) + \
-                "settingsSpreadsheetCalcFormulas={}, ".\
-                    format(self.settingsSpreadsheetCalcFormulas) + \
-                "priceBarChartSettings={}, ".\
-                    format(self.priceBarChartSettings.toString()) + \
-                "priceBarSpreadsheetSettings={}, ".\
-                    format(self.priceBarSpreadsheetSettings.toString()) + \
+                "settingsSpreadsheetTagColors=[OMITTED], " + \
+                "settingsSpreadsheetCalcFormulas=[OMITTED], " + \
+                "priceBarChartSettings=[OMITTED], " + \
+                "priceBarSpreadsheetSettings=[OMITTED], " + \
                 "locationTimezone={}, ".\
                     format(self.locationTimezone) + \
                 "priceBarsFileFilename={}, ".\
@@ -17034,6 +18059,45 @@ class PriceChartDocumentData:
         # Re-open the logger because it was not pickled.
         self.log = logging.getLogger("data_objects.PriceChartDocumentData")
 
+        # Update the object to the most current version if it is not current.
+        if self.classVersion < 2:
+            self.log.info("Detected an old class version of " + \
+                          "PriceChartDocumentData (version {}).  ".\
+                          format(self.classVersion))
+            
+            if self.classVersion == 1:
+                # Version 2 added the following member variables:
+                #
+                # self.lookbackMultiples
+                #
+                
+                try:
+                    # See if the variable is set.
+                    self.lookbackMultiples
+                    
+                    # If it got here, then the field is already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have this field.")
+                    
+                except AttributeError:
+                    # Variable was not set.  Set it to the default
+                    # initial values.
+                    self.lookbackMultiples = \
+                        PriceChartDocumentData.createDefaultLookbackMultiples()
+
+                    self.log.debug("Added field " + \
+                                   "'lookbackMultiples' " + \
+                                   "to the loaded PriceChartDocumentData.")
+                    
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 2
+        
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + PriceChartDocumentData.__name__ +
                        " object of version {}".format(self.classVersion))
@@ -17051,6 +18115,18 @@ class PriceBarChartSettings:
 
     # Default width of the right extension (closing price) of a price bar.
     defaultPriceBarGraphicsItemRightExtensionWidth = 0.5
+
+    # Default pen width for a non-highlighted 
+    # LookbackMultiplePriceBarGraphicsItem.
+    defaultLookbackMultiplePriceBarGraphicsItemPenWidth = 0.0
+
+    # Default width of the left extension (opening price) of a 
+    # LookbackMultiplePriceBarGraphicsItem.
+    defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth = 0.5
+
+    # Default width of the right extension (closing price) of a 
+    # LookbackMultiplePriceBarGraphicsItem.
+    defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth = 0.5
 
     # Default value for the BarCountGraphicsItem bar height (float).
     defaultBarCountGraphicsItemBarHeight = 4.0
@@ -17586,6 +18662,14 @@ class PriceBarChartSettings:
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag = False
         
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetAsSuEnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag = False
+        
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetAsMoEnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag = False
+        
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMoSuEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag = False
         
@@ -17940,6 +19024,18 @@ class PriceBarChartSettings:
     # angleTextFlag (bool).
     defaultLineSegmentGraphicsItemAngleTextFlag = False
     
+    # Default color for the bar of a VerticalLineSegmentGraphicsItem (QColor).
+    defaultVerticalLineSegmentGraphicsItemColor = QColor(Qt.gray)
+
+    # Default value for the VerticalLineSegmentGraphicsItem bar width (float).
+    defaultVerticalLineSegmentGraphicsItemBarWidth = 3.3
+
+    # Default color for the bar of a HorizontalLineSegmentGraphicsItem (QColor).
+    defaultHorizontalLineSegmentGraphicsItemColor = QColor(Qt.gray)
+
+    # Default value for the HorizontalLineSegmentGraphicsItem bar width (float).
+    defaultHorizontalLineSegmentGraphicsItemBarWidth = 3.3
+
     # Default musical ratios enabled in a
     # OctaveFanGraphicsItem (list of MusicalRatio)
     defaultOctaveFanGraphicsItemMusicalRatios = \
@@ -18349,7 +19445,7 @@ class PriceBarChartSettings:
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 10
+        self.classVersion = 13
 
         # List of scalings used in the PriceBarChartGraphicsView.  
         # This is list of PriceBarChartScaling objects.
@@ -18365,17 +19461,34 @@ class PriceBarChartSettings:
         self.priceBarGraphicsItemPenWidth = \
             PriceBarChartSettings.defaultPriceBarGraphicsItemPenWidth 
 
-        # Width of the left extension drawn that represents the open price.
-        # This is a float value.
+        # Width of the left extension drawn that represents the open price of a
+        # PriceBar.  This is a float value.
         self.priceBarGraphicsItemLeftExtensionWidth = \
             PriceBarChartSettings.\
                 defaultPriceBarGraphicsItemLeftExtensionWidth 
 
-        # Width of the right extension drawn that represents the close price.
-        # This is a float value.
+        # Width of the right extension drawn that represents the close price of
+        # a PriceBar.  This is a float value.
         self.priceBarGraphicsItemRightExtensionWidth = \
             PriceBarChartSettings.\
                 defaultPriceBarGraphicsItemRightExtensionWidth 
+
+        # Pen width for LookbackMultiplePriceBars.
+        # This is a float value.
+        self.lookbackMultiplePriceBarGraphicsItemPenWidth = \
+            PriceBarChartSettings.defaultLookbackMultiplePriceBarGraphicsItemPenWidth 
+
+        # Width of the left extension drawn that represents the open price of a
+        # LookbackMultiplePriceBar.  This is a float value.
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth = \
+            PriceBarChartSettings.\
+                defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth 
+
+        # Width of the right extension drawn that represents the close price of
+        # a LookbackMultiplePriceBar.  This is a float value.
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidth = \
+            PriceBarChartSettings.\
+                defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth 
 
         # BarCountGraphicsItem bar height (float).
         self.barCountGraphicsItemBarHeight = \
@@ -19130,6 +20243,18 @@ class PriceBarChartSettings:
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
         
         # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetAsSuEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
+        
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetAsMoEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
+        
+        # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMoSuEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag = \
             PriceBarChartSettings.\
@@ -19663,6 +20788,26 @@ class PriceBarChartSettings:
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemAngleTextFlag
 
+        # VerticalLineSegmentGraphicsItem bar color (QColor).
+        self.verticalLineSegmentGraphicsItemColor = \
+            PriceBarChartSettings.\
+            defaultVerticalLineSegmentGraphicsItemColor
+
+        # VerticalLineSegment1GraphicsItem bar width (float).
+        self.verticalLineSegmentGraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+            defaultVerticalLineSegmentGraphicsItemBarWidth
+
+        # HorizontalLineSegmentGraphicsItem bar color (QColor).
+        self.horizontalLineSegmentGraphicsItemColor = \
+            PriceBarChartSettings.\
+            defaultHorizontalLineSegmentGraphicsItemColor
+
+        # HorizontalLineSegment1GraphicsItem bar width (float).
+        self.horizontalLineSegmentGraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+            defaultHorizontalLineSegmentGraphicsItemBarWidth
+
         # OctaveFanGraphicsItem musical ratios (list of MusicalRatio).
         self.octaveFanGraphicsItemMusicalRatios = \
             PriceBarChartSettings.\
@@ -20142,7 +21287,7 @@ class PriceBarChartSettings:
         self.log = logging.getLogger("data_objects.PriceBarChartSettings")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 10:
+        if self.classVersion < 13:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartSettings (version {}).  ".\
                           format(self.classVersion))
@@ -21638,6 +22783,169 @@ class PriceBarChartSettings:
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
                 
+            if self.classVersion == 10:
+                # Version 11 added the following member variables:
+                #
+                # self.lookbackMultiplePriceBarGraphicsItemPenWidth
+                # self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth
+                # self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidth
+                
+                try:
+                    # See if the variables are set.
+                    self.lookbackMultiplePriceBarGraphicsItemPenWidth
+                    self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth
+                    self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidth
+
+                    # If it got here, then the fields are already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have these fields.")
+
+                except AttributeError:
+                    # Variable was not set.  Set it to the default
+                    # PriceBarChartSettings value.
+
+                    # Pen width for LookbackMultiplePriceBars.
+                    # This is a float value.
+                    self.lookbackMultiplePriceBarGraphicsItemPenWidth = \
+                        PriceBarChartSettings.defaultLookbackMultiplePriceBarGraphicsItemPenWidth 
+
+                    # Width of the left extension drawn that represents the
+                    # open price of a LookbackMultiplePriceBar.  This is a
+                    # float value.
+                    self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth = \
+                        PriceBarChartSettings.\
+                        defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth 
+
+                    # Width of the right extension drawn that represents the
+                    # close price of a LookbackMultiplePriceBar.  This is a
+                    # float value.
+                    self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidth = \
+                        PriceBarChartSettings.\
+                        defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth 
+
+                    self.log.debug(\
+                                   "Added field " + \
+                        "'lookbackMultiplePriceBarGraphicsItemPenWidth', " + \
+                        "'lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth', " + \
+                        "'lookbackMultiplePriceBarGraphicsItemRightExtensionWidth', " + \
+                        "to the loaded PriceBarChartSettings.")
+                    
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 11
+        
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
+            if self.classVersion == 11:
+                # Version 12 added the following member variables:
+                #
+                # self.verticalLineSegmentGraphicsItemColor
+                # self.verticalLineSegmentGraphicsItemBarWidth
+                # self.horizontalLineSegmentGraphicsItemColor
+                # self.horizontalLineSegmentGraphicsItemBarWidth
+                
+                try:
+                    # See if the variables are set.
+                    self.verticalLineSegmentGraphicsItemColor
+                    self.verticalLineSegmentGraphicsItemBarWidth
+                    self.horizontalLineSegmentGraphicsItemColor
+                    self.horizontalLineSegmentGraphicsItemBarWidth
+
+                    # If it got here, then the fields are already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have these fields.")
+
+                except AttributeError:
+                    # Variable was not set.  Set it to the default
+                    # PriceBarChartSettings value.
+
+                    # VerticalLineSegmentGraphicsItem bar color (QColor).
+                    self.verticalLineSegmentGraphicsItemColor = \
+                        PriceBarChartSettings.\
+                        defaultVerticalLineSegmentGraphicsItemColor
+
+                    # VerticalLineSegment1GraphicsItem bar width (float).
+                    self.verticalLineSegmentGraphicsItemBarWidth = \
+                        PriceBarChartSettings.\
+                        defaultVerticalLineSegmentGraphicsItemBarWidth
+
+                    # HorizontalLineSegmentGraphicsItem bar color (QColor).
+                    self.horizontalLineSegmentGraphicsItemColor = \
+                        PriceBarChartSettings.\
+                        defaultHorizontalLineSegmentGraphicsItemColor
+
+                    # HorizontalLineSegment1GraphicsItem bar width (float).
+                    self.horizontalLineSegmentGraphicsItemBarWidth = \
+                        PriceBarChartSettings.\
+                        defaultHorizontalLineSegmentGraphicsItemBarWidth
+
+                    self.log.debug(\
+                                   "Added field " + \
+                        "'verticalLineSegmentGraphicsItemColor', " + \
+                        "'verticalLineSegmentGraphicsItemBarWidth', " + \
+                        "'horizontalLineSegmentGraphicsItemColor', " + \
+                        "'horizontalLineSegmentGraphicsItemBarWidth', " + \
+                        "to the loaded PriceBarChartSettings.")
+                    
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 12
+        
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
+            if self.classVersion == 12:
+                # Version 13 added the following member variables:
+                #
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
+                #
+
+                try:
+                    # See if the variables are set.
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
+                
+                    # If it got here, then the fields are already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have these fields.")
+
+                except AttributeError:
+                    # Variable was not set.  Set it to the default
+                    # PriceBarChartSettings value.
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetAsSuEnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
+                    
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetAsMoEnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
+                    
+                    self.log.debug(\
+                        "Added field " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag', " + \
+                        "to the loaded PriceBarChartSettings.")
+                    
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 13
+        
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+                
 
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + PriceBarChartSettings.__name__ +
@@ -21646,7 +22954,7 @@ class PriceBarChartSettings:
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
 
@@ -21706,7 +23014,7 @@ class PriceBarSpreadsheetSettings:
     def toString(self):
         """Prints the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         
         return rv
     

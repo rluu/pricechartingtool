@@ -88,7 +88,7 @@ class SwingFileData(object):
     def toString(self):
         """Returns the string representation of this object."""
 
-        rv = Util.objToString(self)
+        rv = ObjectUtils.objToString(self)
         return rv
         
     def __str__(self):

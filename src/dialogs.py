@@ -30,6 +30,8 @@ import resources
 from data_objects import PriceBar
 from data_objects import BirthInfo
 from data_objects import PriceBarChartScaling
+from data_objects import LookbackMultiple
+from data_objects import LookbackMultiplePriceBar
 from data_objects import PriceBarChartSettings
 
 # For geocoding.
@@ -266,7 +268,8 @@ class PriceChartDocumentDescriptionWizardPage(QWizardPage):
         self.setSubTitle(" ")
 
         # Create the contents.
-        self.descriptionLabel= QLabel("&Description of the trading entity (optional):")
+        self.descriptionLabel= \
+            QLabel("&Description of the trading entity (optional):")
         self.descriptionLineEdit = QLineEdit()
         self.descriptionLabel.setBuddy(self.descriptionLineEdit)
 
@@ -2082,6 +2085,22 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetAvgJuSaCalculationsEnabledLabel,
                    self.planetAvgJuSaCalculationsEnabledCheckBox)
 
+        self.planetAsSuCalculationsEnabledLabel = \
+            QLabel("AsSu enabled:")
+        self.planetAsSuCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetAsSuCalculationsEnabledLabel,
+                   self.planetAsSuCalculationsEnabledCheckBox)
+
+        self.planetAsMoCalculationsEnabledLabel = \
+            QLabel("AsMo enabled:")
+        self.planetAsMoCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetAsMoCalculationsEnabledLabel,
+                   self.planetAsMoCalculationsEnabledCheckBox)
+
         self.planetMoSuCalculationsEnabledLabel = \
             QLabel("MoSu enabled:")
         self.planetMoSuCalculationsEnabledCheckBox = \
@@ -2755,6 +2774,22 @@ class AppPreferencesEditWidget(QWidget):
         planetEnabledForPlanetaryInfoTableMidLeftFormLayout.\
             addRow(self.planetAvgJuSaEnabledForPlanetaryInfoTableLabel,
                    self.planetAvgJuSaEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetAsSuEnabledForPlanetaryInfoTableLabel = \
+            QLabel("AsSu enabled:")
+        self.planetAsSuEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetAsSuEnabledForPlanetaryInfoTableLabel,
+                   self.planetAsSuEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetAsMoEnabledForPlanetaryInfoTableLabel = \
+            QLabel("AsMo enabled:")
+        self.planetAsMoEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetAsMoEnabledForPlanetaryInfoTableLabel,
+                   self.planetAsMoEnabledForPlanetaryInfoTableCheckBox)
 
         self.planetMoSuEnabledForPlanetaryInfoTableLabel = \
             QLabel("MoSu enabled:")
@@ -3430,6 +3465,22 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetAvgJuSaEnabledForDeclinationLabel,
                    self.planetAvgJuSaEnabledForDeclinationCheckBox)
 
+        self.planetAsSuEnabledForDeclinationLabel = \
+            QLabel("AsSu enabled:")
+        self.planetAsSuEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetAsSuEnabledForDeclinationLabel,
+                   self.planetAsSuEnabledForDeclinationCheckBox)
+
+        self.planetAsMoEnabledForDeclinationLabel = \
+            QLabel("AsMo enabled:")
+        self.planetAsMoEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetAsMoEnabledForDeclinationLabel,
+                   self.planetAsMoEnabledForDeclinationCheckBox)
+
         self.planetMoSuEnabledForDeclinationLabel = \
             QLabel("MoSu enabled:")
         self.planetMoSuEnabledForDeclinationCheckBox = \
@@ -4103,6 +4154,22 @@ class AppPreferencesEditWidget(QWidget):
         planetEnabledForLatitudeMidLeftFormLayout.\
             addRow(self.planetAvgJuSaEnabledForLatitudeLabel,
                    self.planetAvgJuSaEnabledForLatitudeCheckBox)
+
+        self.planetAsSuEnabledForLatitudeLabel = \
+            QLabel("AsSu enabled:")
+        self.planetAsSuEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetAsSuEnabledForLatitudeLabel,
+                   self.planetAsSuEnabledForLatitudeCheckBox)
+
+        self.planetAsMoEnabledForLatitudeLabel = \
+            QLabel("AsMo enabled:")
+        self.planetAsMoEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetAsMoEnabledForLatitudeLabel,
+                   self.planetAsMoEnabledForLatitudeCheckBox)
 
         self.planetMoSuEnabledForLatitudeLabel = \
             QLabel("MoSu enabled:")
@@ -4778,6 +4845,22 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetAvgJuSaEnabledForGeoSidRadixChartLabel,
                    self.planetAvgJuSaEnabledForGeoSidRadixChartCheckBox)
 
+        self.planetAsSuEnabledForGeoSidRadixChartLabel = \
+            QLabel("AsSu enabled:")
+        self.planetAsSuEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetAsSuEnabledForGeoSidRadixChartLabel,
+                   self.planetAsSuEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetAsMoEnabledForGeoSidRadixChartLabel = \
+            QLabel("AsMo enabled:")
+        self.planetAsMoEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetAsMoEnabledForGeoSidRadixChartLabel,
+                   self.planetAsMoEnabledForGeoSidRadixChartCheckBox)
+
         self.planetMoSuEnabledForGeoSidRadixChartLabel = \
             QLabel("MoSu enabled:")
         self.planetMoSuEnabledForGeoSidRadixChartCheckBox = \
@@ -5452,6 +5535,22 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetAvgJuSaEnabledForGeoTropRadixChartLabel,
                    self.planetAvgJuSaEnabledForGeoTropRadixChartCheckBox)
 
+        self.planetAsSuEnabledForGeoTropRadixChartLabel = \
+            QLabel("AsSu enabled:")
+        self.planetAsSuEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsSuEnabledForGeoTropRadixChartLabel,
+                   self.planetAsSuEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetAsMoEnabledForGeoTropRadixChartLabel = \
+            QLabel("AsMo enabled:")
+        self.planetAsMoEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsMoEnabledForGeoTropRadixChartLabel,
+                   self.planetAsMoEnabledForGeoTropRadixChartCheckBox)
+
         self.planetMoSuEnabledForGeoTropRadixChartLabel = \
             QLabel("MoSu enabled:")
         self.planetMoSuEnabledForGeoTropRadixChartCheckBox = \
@@ -6125,6 +6224,22 @@ class AppPreferencesEditWidget(QWidget):
         planetEnabledForHelioTropRadixChartMidLeftFormLayout.\
             addRow(self.planetAvgJuSaEnabledForHelioTropRadixChartLabel,
                    self.planetAvgJuSaEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetAsSuEnabledForHelioTropRadixChartLabel = \
+            QLabel("AsSu enabled:")
+        self.planetAsSuEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsSuEnabledForHelioTropRadixChartLabel,
+                   self.planetAsSuEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetAsMoEnabledForHelioTropRadixChartLabel = \
+            QLabel("AsMo enabled:")
+        self.planetAsMoEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsMoEnabledForHelioTropRadixChartLabel,
+                   self.planetAsMoEnabledForHelioTropRadixChartCheckBox)
 
         self.planetMoSuEnabledForHelioTropRadixChartLabel = \
             QLabel("MoSu enabled:")
@@ -7517,6 +7632,86 @@ class AppPreferencesEditWidget(QWidget):
         formLayout.\
             addRow(self.planetAvgJuSaBackgroundColorLabel,
                    self.planetAvgJuSaBackgroundColorEditButton)
+
+        # AsSu
+        self.planetAsSuGlyphUnicodeLabel = \
+            QLabel("AsSu unicode glyph:")
+        self.planetAsSuGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsSuGlyphUnicodeLabel,
+                   self.planetAsSuGlyphUnicodeLineEdit)
+        self.planetAsSuGlyphFontSizeLabel = \
+            QLabel("AsSu glyph font size:")
+        self.planetAsSuGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetAsSuGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetAsSuGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetAsSuGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetAsSuGlyphFontSizeLabel,
+                   self.planetAsSuGlyphFontSizeSpinBox)
+        self.planetAsSuAbbreviationLabel = \
+            QLabel("AsSu abbreviation:")
+        self.planetAsSuAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsSuAbbreviationLabel,
+                   self.planetAsSuAbbreviationLineEdit)
+        self.planetAsSuForegroundColorLabel = \
+            QLabel("AsSu foreground color:")
+        self.planetAsSuForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsSuForegroundColorLabel,
+                   self.planetAsSuForegroundColorEditButton)
+        self.planetAsSuBackgroundColorLabel = \
+            QLabel("AsSu background color:")
+        self.planetAsSuBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsSuBackgroundColorLabel,
+                   self.planetAsSuBackgroundColorEditButton)
+
+        # AsMo
+        self.planetAsMoGlyphUnicodeLabel = \
+            QLabel("AsMo unicode glyph:")
+        self.planetAsMoGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsMoGlyphUnicodeLabel,
+                   self.planetAsMoGlyphUnicodeLineEdit)
+        self.planetAsMoGlyphFontSizeLabel = \
+            QLabel("AsMo glyph font size:")
+        self.planetAsMoGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetAsMoGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetAsMoGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetAsMoGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetAsMoGlyphFontSizeLabel,
+                   self.planetAsMoGlyphFontSizeSpinBox)
+        self.planetAsMoAbbreviationLabel = \
+            QLabel("AsMo abbreviation:")
+        self.planetAsMoAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsMoAbbreviationLabel,
+                   self.planetAsMoAbbreviationLineEdit)
+        self.planetAsMoForegroundColorLabel = \
+            QLabel("AsMo foreground color:")
+        self.planetAsMoForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsMoForegroundColorLabel,
+                   self.planetAsMoForegroundColorEditButton)
+        self.planetAsMoBackgroundColorLabel = \
+            QLabel("AsMo background color:")
+        self.planetAsMoBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsMoBackgroundColorLabel,
+                   self.planetAsMoBackgroundColorEditButton)
 
         # MoSu
         self.planetMoSuGlyphUnicodeLabel = \
@@ -11045,6 +11240,24 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAvgJuSaCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
         
+        key = SettingsKeys.planetAsSuCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSuCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsSuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSuCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
+        key = SettingsKeys.planetAsMoCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMoCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMoCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMoCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+        
         key = SettingsKeys.planetMoSuCalculationsEnabledKey
         value = settings.value(key, \
             SettingsKeys.planetMoSuCalculationsEnabledDefValue,
@@ -11733,6 +11946,24 @@ class AppPreferencesEditWidget(QWidget):
             self.planetAvgJuSaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetAvgJuSaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsSuEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSuEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsMoEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMoEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMoEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMoEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMoSuEnabledForPlanetaryInfoTableKey
         value = settings.value(key, \
@@ -12423,6 +12654,24 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAvgJuSaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetAsSuEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSuEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsSuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSuEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsMoEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMoEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMoEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMoEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetMoSuEnabledForDeclinationKey
         value = settings.value(key, \
             SettingsKeys.planetMoSuEnabledForDeclinationDefValue,
@@ -13111,6 +13360,24 @@ class AppPreferencesEditWidget(QWidget):
             self.planetAvgJuSaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetAvgJuSaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsSuEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSuEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsSuEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSuEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsMoEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMoEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMoEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMoEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMoSuEnabledForLatitudeKey
         value = settings.value(key, \
@@ -13801,6 +14068,24 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAvgJuSaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetAsSuEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSuEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsMoEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMoEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMoEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMoEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetMoSuEnabledForGeoSidRadixChartKey
         value = settings.value(key, \
             SettingsKeys.planetMoSuEnabledForGeoSidRadixChartDefValue,
@@ -14490,6 +14775,24 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAvgJuSaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetAsSuEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSuEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsMoEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMoEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMoEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMoEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetMoSuEnabledForGeoTropRadixChartKey
         value = settings.value(key, \
             SettingsKeys.planetMoSuEnabledForGeoTropRadixChartDefValue,
@@ -15178,6 +15481,24 @@ class AppPreferencesEditWidget(QWidget):
             self.planetAvgJuSaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetAvgJuSaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsSuEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSuEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsMoEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMoEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMoEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMoEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMoSuEnabledForHelioTropRadixChartKey
         value = settings.value(key, \
@@ -16432,6 +16753,78 @@ class AppPreferencesEditWidget(QWidget):
             SettingsKeys.planetAvgJuSaBackgroundColorDefValue,
             type=QColor)
         self.planetAvgJuSaBackgroundColorEditButton.\
+            setColor(value)
+
+        # AsSu
+        key = SettingsKeys.planetAsSuGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSuGlyphUnicodeDefValue,
+            type=str)
+        self.planetAsSuGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsSuGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSuGlyphFontSizeDefValue,
+            type=float)
+        self.planetAsSuGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetAsSuAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSuAbbreviationDefValue,
+            type=str)
+        self.planetAsSuAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsSuForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSuForegroundColorDefValue,
+            type=QColor)
+        self.planetAsSuForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetAsSuBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSuBackgroundColorDefValue,
+            type=QColor)
+        self.planetAsSuBackgroundColorEditButton.\
+            setColor(value)
+
+        # AsMo
+        key = SettingsKeys.planetAsMoGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMoGlyphUnicodeDefValue,
+            type=str)
+        self.planetAsMoGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsMoGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMoGlyphFontSizeDefValue,
+            type=float)
+        self.planetAsMoGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetAsMoAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMoAbbreviationDefValue,
+            type=str)
+        self.planetAsMoAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsMoForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMoForegroundColorDefValue,
+            type=QColor)
+        self.planetAsMoForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetAsMoBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMoBackgroundColorDefValue,
+            type=QColor)
+        self.planetAsMoBackgroundColorEditButton.\
             setColor(value)
 
         # MoSu
@@ -19693,6 +20086,32 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
         
+        key = SettingsKeys.planetAsSuCalculationsEnabledKey
+        newValue = \
+            self.planetAsSuCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetAsMoCalculationsEnabledKey
+        newValue = \
+            self.planetAsMoCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
         key = SettingsKeys.planetMoSuCalculationsEnabledKey
         newValue = \
             self.planetMoSuCalculationsEnabledCheckBox.\
@@ -20675,6 +21094,32 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetAvgJuSaEnabledForPlanetaryInfoTableKey
         newValue = \
             self.planetAvgJuSaEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+            
+        key = SettingsKeys.planetAsSuEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetAsSuEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+            
+        key = SettingsKeys.planetAsMoEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetAsMoEnabledForPlanetaryInfoTableCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -21677,6 +22122,32 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
         
+        key = SettingsKeys.planetAsSuEnabledForDeclinationKey
+        newValue = \
+            self.planetAsSuEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetAsMoEnabledForDeclinationKey
+        newValue = \
+            self.planetAsMoEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
         key = SettingsKeys.planetMoSuEnabledForDeclinationKey
         newValue = \
             self.planetMoSuEnabledForDeclinationCheckBox.\
@@ -22659,6 +23130,32 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetAvgJuSaEnabledForLatitudeKey
         newValue = \
             self.planetAvgJuSaEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetAsSuEnabledForLatitudeKey
+        newValue = \
+            self.planetAsSuEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetAsMoEnabledForLatitudeKey
+        newValue = \
+            self.planetAsMoEnabledForLatitudeCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -23661,6 +24158,32 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetAsSuEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetAsSuEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMoEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetAsMoEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetMoSuEnabledForGeoSidRadixChartKey
         newValue = \
             self.planetMoSuEnabledForGeoSidRadixChartCheckBox.\
@@ -24653,6 +25176,32 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetAsSuEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetAsSuEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMoEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetAsMoEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetMoSuEnabledForGeoTropRadixChartKey
         newValue = \
             self.planetMoSuEnabledForGeoTropRadixChartCheckBox.\
@@ -25635,6 +26184,32 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetAvgJuSaEnabledForHelioTropRadixChartKey
         newValue = \
             self.planetAvgJuSaEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetAsSuEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetAsSuEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+        
+        key = SettingsKeys.planetAsMoEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetAsMoEnabledForHelioTropRadixChartCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -27419,6 +27994,108 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetAvgJuSaBackgroundColorKey
         newValue = \
             self.planetAvgJuSaBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # AsSu
+        key = SettingsKeys.planetAsSuGlyphUnicodeKey
+        newValue = \
+            self.planetAsSuGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsSuGlyphFontSizeKey
+        newValue = \
+            self.planetAsSuGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsSuAbbreviationKey
+        newValue = \
+            self.planetAsSuAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsSuForegroundColorKey
+        newValue = \
+            self.planetAsSuForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsSuBackgroundColorKey
+        newValue = \
+            self.planetAsSuBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # AsMo
+        key = SettingsKeys.planetAsMoGlyphUnicodeKey
+        newValue = \
+            self.planetAsMoGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMoGlyphFontSizeKey
+        newValue = \
+            self.planetAsMoGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMoAbbreviationKey
+        newValue = \
+            self.planetAsMoAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMoForegroundColorKey
+        newValue = \
+            self.planetAsMoForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMoBackgroundColorKey
+        newValue = \
+            self.planetAsMoBackgroundColorEditButton.getColor()
         if settings.contains(key):
             oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
@@ -31321,6 +31998,18 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAvgJuSaCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetAsSuCalculationsEnabledDefValue)
+        if value == True:
+            self.planetAsSuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSuCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsMoCalculationsEnabledDefValue)
+        if value == True:
+            self.planetAsMoCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMoCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetMoSuCalculationsEnabledDefValue)
         if value == True:
             self.planetMoSuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
@@ -31779,6 +32468,18 @@ class AppPreferencesEditWidget(QWidget):
             self.planetAvgJuSaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetAvgJuSaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsSuEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetAsSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsMoEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetAsMoEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMoEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMoSuEnabledForPlanetaryInfoTableDefValue)
         if value == True:
@@ -32239,6 +32940,18 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAvgJuSaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetAsSuEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetAsSuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSuEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsMoEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetAsMoEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMoEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetMoSuEnabledForDeclinationDefValue)
         if value == True:
             self.planetMoSuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
@@ -32697,6 +33410,18 @@ class AppPreferencesEditWidget(QWidget):
             self.planetAvgJuSaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetAvgJuSaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsSuEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetAsSuEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSuEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsMoEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetAsMoEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMoEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMoSuEnabledForLatitudeDefValue)
         if value == True:
@@ -33157,6 +33882,18 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAvgJuSaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetAsSuEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetAsSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsMoEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetAsMoEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMoEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetMoSuEnabledForGeoSidRadixChartDefValue)
         if value == True:
             self.planetMoSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
@@ -33616,6 +34353,18 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAvgJuSaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetAsSuEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetAsSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsMoEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetAsMoEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMoEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetMoSuEnabledForGeoTropRadixChartDefValue)
         if value == True:
             self.planetMoSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
@@ -34074,6 +34823,18 @@ class AppPreferencesEditWidget(QWidget):
             self.planetAvgJuSaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetAvgJuSaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsSuEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetAsSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsMoEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetAsMoEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMoEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMoSuEnabledForHelioTropRadixChartDefValue)
         if value == True:
@@ -34562,6 +35323,30 @@ class AppPreferencesEditWidget(QWidget):
             setColor(SettingsKeys.planetAvgJuSaForegroundColorDefValue)
         self.planetAvgJuSaBackgroundColorEditButton.\
             setColor(SettingsKeys.planetAvgJuSaBackgroundColorDefValue)
+
+        # AsSu
+        self.planetAsSuGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetAsSuGlyphUnicodeDefValue)
+        self.planetAsSuGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetAsSuGlyphFontSizeDefValue)
+        self.planetAsSuAbbreviationLineEdit.\
+            setText(SettingsKeys.planetAsSuAbbreviationDefValue)
+        self.planetAsSuForegroundColorEditButton.\
+            setColor(SettingsKeys.planetAsSuForegroundColorDefValue)
+        self.planetAsSuBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetAsSuBackgroundColorDefValue)
+
+        # AsMo
+        self.planetAsMoGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetAsMoGlyphUnicodeDefValue)
+        self.planetAsMoGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetAsMoGlyphFontSizeDefValue)
+        self.planetAsMoAbbreviationLineEdit.\
+            setText(SettingsKeys.planetAsMoAbbreviationDefValue)
+        self.planetAsMoForegroundColorEditButton.\
+            setColor(SettingsKeys.planetAsMoForegroundColorDefValue)
+        self.planetAsMoBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetAsMoBackgroundColorDefValue)
 
         # MoSu
         self.planetMoSuGlyphUnicodeLineEdit.\
@@ -37161,6 +37946,13 @@ class BirthInfoEditDialog(QDialog):
 
 class PriceBarChartScalingEditWidget(QWidget):
     """QWidget for editing the scaling used in a PriceBarChart.
+
+    Note: 
+    Clicking on the Okay button will save and modify the original
+    PriceBarChartScaling passed into the constructor.
+
+    Clicking on the Cancel button will cause no changes to occur to 
+    the original PriceBarChartScaling.  
     """
 
     # Signal emitted when the Okay button is clicked and 
@@ -37344,6 +38136,13 @@ class PriceBarChartScalingEditWidget(QWidget):
 
 class PriceBarChartScalingEditDialog(QDialog):
     """QDialog for editing a PriceBarChartScaling object's class members.
+
+    Note: 
+    Clicking on the Okay button will save and modify the original
+    PriceBarChartScaling passed into the constructor.
+
+    Clicking on the Cancel button will cause no changes to occur to 
+    the original PriceBarChartScaling.  
     """
 
     def __init__(self, priceBarChartScaling, parent=None):
@@ -37386,6 +38185,14 @@ class PriceBarChartScalingEditDialog(QDialog):
 
 class PriceBarChartScalingsListEditWidget(QWidget):
     """QWidget for editing the list of scalings used in a PriceBarChart.
+
+    Note: No matter if the dialog is accepted or rejected, any additions
+    or removals of PriceBarChartScalings from the list do not change the
+    original that is passed into the constructor.  Similarly for the
+    priceBarChartScalingsIndex passed into the constructor.  You have to call
+    getPriceBarChartScalings() or getPriceBarChartScalingsIndex() in
+    order to get the new values (which will have any modifications,
+    regardless of accepted or rejected).
     """
 
     # Signal emitted when the Okay button is clicked and 
@@ -37405,11 +38212,13 @@ class PriceBarChartScalingsListEditWidget(QWidget):
 
         priceBarChartScalings - List of PriceBarChartScaling objects.
                                 This is the list of scalings we are editing.
+                                A deep copy is made of this for editing.
 
         priceBarChartScalingsIndex - int value holding the index of the
                                      currently selected scaling.  
                                      This value is an index into the
                                      priceBarChartScalings list.
+                                     A deep copy is made of this for editing.
         parent - QWidget parent
         """
 
@@ -37419,11 +38228,13 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         self.log = logging.\
             getLogger("dialogs.PriceBarChartScalingsListEditWidget")
 
-        # Save off the list of PriceBarChartScalings.
-        self.priceBarChartScalings = list(priceBarChartScalings)
+        # Internally stored copy of the list of PriceBarChartScaling objects.
+        # The value for this will be set later by calling loadScalings().
+        self.priceBarChartScalings = []
 
-        # Save off the index of the currently selected scaling.
-        self.priceBarChartScalingsIndex = priceBarChartScalingsIndex
+        # Internally stored copy of the index of the currently selected scaling.
+        # The value for this will be set later by calling loadScalings().
+        self.priceBarChartScalingsIndex = -1
 
         self.scalingsListGroupBox = \
             QGroupBox("List of PriceBarChart scalings:")
@@ -37447,6 +38258,7 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         self.selectedScalingDescriptionLabel = QLabel("Description:")
         self.selectedScalingDescriptionTextEdit = QTextEdit()
         self.selectedScalingDescriptionTextEdit.setAcceptRichText(False)
+        self.selectedScalingDescriptionTextEdit.setTabChangesFocus(True)
         self.selectedScalingDescriptionTextEdit.setEnabled(False)
         self.selectedScalingDescriptionTextEdit.setTextColor(Qt.black)
         self.selectedScalingDescriptionTextEdit.setMaximumHeight(80)
@@ -37517,6 +38329,7 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         self.currentScalingDescriptionLabel = QLabel("Description:")
         self.currentScalingDescriptionTextEdit = QTextEdit()
         self.currentScalingDescriptionTextEdit.setAcceptRichText(False)
+        self.currentScalingDescriptionTextEdit.setTabChangesFocus(True)
         self.currentScalingDescriptionTextEdit.setEnabled(False)
         self.currentScalingDescriptionTextEdit.setTextColor(Qt.black)
         self.currentScalingDescriptionTextEdit.setMaximumHeight(80)
@@ -37649,10 +38462,9 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         self.okayButton.clicked.connect(self._handleOkayButtonClicked)
         self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
 
-        # Now that all the widgets are created, load the values from the
-        # settings.
-        self.loadScalings(self.priceBarChartScalings,
-                          self.priceBarChartScalingsIndex)
+        # Now that all the widgets are created, load the values.
+        self.loadScalings(priceBarChartScalings,
+                          priceBarChartScalingsIndex)
 
     def loadScalings(self, 
                      priceBarChartScalings,
@@ -37663,18 +38475,22 @@ class PriceBarChartScalingsListEditWidget(QWidget):
 
         priceBarChartScalings - List of PriceBarChartScaling objects.
                                 This is the list of scalings we are editing.
+                                A deep copy is made of this for editing.
 
         priceBarChartScalingsIndex - int value holding the index of the
                                      currently selected scaling.  
                                      This value is an index into the
                                      priceBarChartScalings list.
+                                     A deep copy is made of this for editing.
         """
 
         self.log.debug("Entered loadScalings()")
 
-        # Save off the values.
-        self.priceBarChartScalings = list(priceBarChartScalings)
-        self.priceBarChartScalingsIndex = priceBarChartScalingsIndex
+        # Save off the values (deep copy).
+        self.priceBarChartScalings = \
+            copy.deepcopy(priceBarChartScalings)
+        self.priceBarChartScalingsIndex = \
+            copy.deepcopy(priceBarChartScalingsIndex)
 
         # Populate the QListWidget with the scalings.
         self.listWidget.clear()
@@ -37818,6 +38634,9 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         dialog = PriceBarChartScalingEditDialog(scaling)
 
         if dialog.exec_() == QDialog.Accepted:
+            # Obtain the PriceBarChartScaling object that was accepted.
+            scaling = dialog.getPriceBarChartScaling()
+
             # Add the scaling object to the list.
             self.priceBarChartScalings.append(scaling)
 
@@ -37965,6 +38784,10 @@ class PriceBarChartScalingsListEditWidget(QWidget):
         dialog = PriceBarChartScalingEditDialog(scaling)
 
         if dialog.exec_() == QDialog.Accepted:
+            # Obtain the PriceBarChartScaling object that was accepted.
+            scaling = dialog.getPriceBarChartScaling()
+
+            # Save the new PriceBarChartScaling.
             self.priceBarChartScalings[row] = scaling
 
             # Get the QListWidgetItem so we can update the text of it.
@@ -38112,6 +38935,14 @@ class PriceBarChartScalingsListEditWidget(QWidget):
 class PriceBarChartScalingsListEditDialog(QDialog):
     """QDialog for editing a list of PriceBarChartScaling objects and the
     current scaling to use in the PriceBarChart.
+
+    Note: No matter if the dialog is accepted or rejected, any additions
+    or removals of PriceBarChartScalings from the list do not change the
+    original that is passed into the constructor.  Similarly for the
+    priceBarChartScalingsIndex passed into the constructor.  You have to call
+    getPriceBarChartScalings() or getPriceBarChartScalingsIndex() in
+    order to get the new values (which will have any modifications,
+    regardless of accepted or rejected).
     """
 
     def __init__(self, 
@@ -38125,11 +38956,13 @@ class PriceBarChartScalingsListEditDialog(QDialog):
 
         priceBarChartScalings - List of PriceBarChartScaling objects.
                                 This is the list of scalings we are editing.
+                                A deep copy is made of this for editing.
 
         priceBarChartScalingsIndex - int value holding the index of the
                                      currently selected scaling.  
                                      This value is an index into the
                                      priceBarChartScalings list.
+                                     A deep copy is made of this for editing.
         """
 
         super().__init__(parent)
@@ -38175,6 +39008,1003 @@ class PriceBarChartScalingsListEditDialog(QDialog):
                 getPriceBarChartScalingsIndex()
 
 
+class LookbackMultipleEditWidget(QWidget):
+    """QWidget for editing a LookbackMultiple.
+
+    Note: 
+    Clicking on the Okay button will save and modify the original
+    LookbackMultiple passed into the constructor.
+
+    Clicking on the Cancel button will cause no changes to occur to 
+    the original LookbackMultiple.  
+    """
+
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self, lookbackMultiple, parent=None):
+        super().__init__(parent)
+
+        # Logger object.
+        self.log = logging.\
+            getLogger("dialogs.LookbackMultipleEditWidget")
+
+        # Save off the LookbackMultiple object.
+        self.lookbackMultiple = lookbackMultiple
+
+        # QGroupBox to hold the edit widgets and form.
+        self.groupBox = \
+            QGroupBox("LookbackMultiple:")
+
+        # Name.
+        self.nameLabel = QLabel("Name:")
+        self.nameLineEdit = QLineEdit()
+
+        # Description.
+        self.descriptionLabel = QLabel("Description:")
+        self.descriptionTextEdit = QTextEdit()
+        self.descriptionTextEdit.setAcceptRichText(False)
+        self.descriptionTextEdit.setTabChangesFocus(True)
+        self.descriptionTextEdit.setTextColor(Qt.black)
+        self.descriptionTextEdit.setMaximumHeight(80)
+
+        # lookbackMultiple (float).
+        self.lookbackMultipleLabel = QLabel("Lookback multiple:")
+        self.lookbackMultipleSpinBox = QDoubleSpinBox()
+        self.lookbackMultipleSpinBox.setDecimals(6)
+        self.lookbackMultipleSpinBox.setMinimum(0.000001)
+        self.lookbackMultipleSpinBox.setMaximum(100000.0)
+        self.lookbackMultipleSpinBox.setValue(1)
+
+        # baseUnit (float).
+        self.baseUnitLabel = QLabel("Base unit:")
+        self.baseUnitSpinBox = QDoubleSpinBox()
+        self.baseUnitSpinBox.setDecimals(6)
+        self.baseUnitSpinBox.setMinimum(0.000001)
+        self.baseUnitSpinBox.setMaximum(100000.0)
+        self.baseUnitSpinBox.setValue(1)
+
+        # baseUnitTypeDegreesFlag (bool).
+        # baseUnitTypeRevolutionsFlag (bool).
+        self.baseUnitTypeLabel = QLabel("Base unit type:")
+        self.baseUnitTypeComboBox = QComboBox()
+        self.baseUnitTypeComboBox.addItem("Degrees")
+        self.baseUnitTypeComboBox.addItem("Revolutions")
+        self.baseUnitTypeComboBox.setCurrentIndex(0)
+
+        # color (QColor).
+        self.colorLabel = QLabel("Color:")
+        self.colorEditButton = ColorEditPushButton()
+
+        # enabled (bool)
+        self.enabledLabel = QLabel("Enabled:")
+        self.enabledCheckBox = QCheckBox()
+
+        # planetName (str) 
+        #
+        # We will only support a limited number of the planets for the
+        # LookbackMultiple, just because the length of the list will be
+        # too unwieldly in the dropdown selection.
+        self.supportedPlanetNames = [
+            "Sun",
+            "Moon",
+            "Mercury",
+            "Venus",
+            "Earth",
+            "Mars",
+            "Jupiter",
+            "Saturn",
+            "Uranus",
+            "Neptune",
+            "Pluto",
+            "Chiron",
+            "MeanNorthNode",
+            "TrueNorthNode",
+            "Ascendant",
+            "MC",
+            "AsSu",
+            "AsMo",
+            "MoSu",
+            "MeVe",
+            "MeEa",
+            "MeMa",
+            "MeJu",
+            "MeSa",
+            "MeUr",
+            "VeEa",
+            "VeMa",
+            "VeJu",
+            "VeSa",
+            "VeUr",
+            "EaMa",
+            "EaJu",
+            "EaSa",
+            "EaUr",
+            "MaJu",
+            "MaSa",
+            "MaUr",
+            "JuSa",
+            "JuUr",
+            "SaUr",
+            ]
+        self.planetNameLabel = QLabel("Planet name:")
+        self.planetNameComboBox = QComboBox()
+        self.planetNameComboBox.addItems(self.supportedPlanetNames)
+        self.planetNameComboBox.setCurrentIndex(0)
+        
+        # geocentricFlag (bool).
+        # heliocentricFlag (bool).
+        self.centricityTypeLabel = QLabel("Centricity type:")
+        self.centricityTypeComboBox = QComboBox()
+        self.centricityTypeComboBox.addItem("Geocentric")
+        self.centricityTypeComboBox.addItem("Heliocentric")
+        self.centricityTypeComboBox.setCurrentIndex(0)
+        
+        # tropicalFlag (bool).
+        # siderealFlag (bool).
+        self.longitudeTypeLabel = QLabel("Longitude type:")
+        self.longitudeTypeComboBox = QComboBox()
+        self.longitudeTypeComboBox.addItem("Tropical")
+        self.longitudeTypeComboBox.addItem("Sidereal")
+        self.longitudeTypeComboBox.setCurrentIndex(0)
+        
+        # Form layout.
+        self.formLayout = QFormLayout()
+        self.formLayout.setLabelAlignment(Qt.AlignLeft)
+        self.formLayout.addRow(self.nameLabel, self.nameLineEdit)
+        self.formLayout.addRow(self.descriptionLabel, 
+                               self.descriptionTextEdit)
+        self.formLayout.addRow(self.lookbackMultipleLabel, 
+                               self.lookbackMultipleSpinBox)
+        self.formLayout.addRow(self.baseUnitLabel, 
+                               self.baseUnitSpinBox)
+        self.formLayout.addRow(self.baseUnitTypeLabel, 
+                               self.baseUnitTypeComboBox)
+        self.formLayout.addRow(self.colorLabel,
+                               self.colorEditButton)
+        self.formLayout.addRow(self.enabledLabel,
+                               self.enabledCheckBox)
+        self.formLayout.addRow(self.planetNameLabel,
+                               self.planetNameComboBox)
+        self.formLayout.addRow(self.centricityTypeLabel,
+                               self.centricityTypeComboBox)
+        self.formLayout.addRow(self.longitudeTypeLabel,
+                               self.longitudeTypeComboBox)
+        
+        self.groupBox.setLayout(self.formLayout)
+
+        # Buttons at bottom.
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addWidget(self.groupBox) 
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+
+        # Now that all the widgets are created, load the values from the
+        # settings.
+        self.loadLookbackMultiple(self.lookbackMultiple)
+
+        # Connect signals and slots.
+
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+    def loadLookbackMultiple(self, lookbackMultiple):
+        """Loads the widgets with values from the given
+        LookbackMultiple object.
+        """
+
+        self.log.debug("Entered loadLookbackMultiple()")
+
+        # Check inputs.
+        if lookbackMultiple == None:
+            self.log.error("Invalid parameter to loadLookbackMultiple().  " + \
+                           "lookbackMultiple can't be None.")
+            self.log.debug("Exiting loadLookbackMultiple()")
+            return
+        else:
+            self.lookbackMultiple = lookbackMultiple
+            
+        self.nameLineEdit.setText(self.lookbackMultiple.getName())
+        self.descriptionTextEdit.\
+            setPlainText(self.lookbackMultiple.getDescription())
+        self.lookbackMultipleSpinBox.\
+            setValue(self.lookbackMultiple.getLookbackMultiple())
+        self.baseUnitSpinBox.\
+            setValue(self.lookbackMultiple.getBaseUnit())
+        if self.lookbackMultiple.getBaseUnitTypeDegreesFlag() == True:
+            self.baseUnitTypeComboBox.setCurrentIndex(\
+                self.baseUnitTypeComboBox.findText("Degrees"))
+        if self.lookbackMultiple.getBaseUnitTypeRevolutionsFlag() == True:
+            self.baseUnitTypeComboBox.setCurrentIndex(\
+                self.baseUnitTypeComboBox.findText("Revolutions"))
+        self.colorEditButton.\
+            setColor(self.lookbackMultiple.getColor())
+        self.enabledCheckBox.\
+            setChecked(self.lookbackMultiple.getEnabled())
+
+        planetName = self.lookbackMultiple.getPlanetName()
+        if planetName not in self.supportedPlanetNames:
+            errMsg = "Planet name '{}' may be valid, but it is not a planet name supported by this edit widget.".format(planetName)
+            self.log.error(errMsg)
+            parent = self
+            QMessageBox.warning(parent, "Load Error", errMsg)
+        else:
+            self.planetNameComboBox.setCurrentIndex(\
+                self.planetNameComboBox.findText(planetName))
+
+        if self.lookbackMultiple.getGeocentricFlag() == True:
+            self.centricityTypeComboBox.setCurrentIndex(\
+                self.centricityTypeComboBox.findText("Geocentric"))
+        if self.lookbackMultiple.getHeliocentricFlag() == True:
+            self.centricityTypeComboBox.setCurrentIndex(\
+                self.centricityTypeComboBox.findText("Heliocentric"))
+
+        if self.lookbackMultiple.getTropicalFlag() == True:
+            self.longitudeTypeComboBox.setCurrentIndex(\
+                self.longitudeTypeComboBox.findText("Tropical"))
+        if self.lookbackMultiple.getSiderealFlag() == True:
+            self.longitudeTypeComboBox.setCurrentIndex(\
+                self.longitudeTypeComboBox.findText("Sidereal"))
+
+        self.log.debug("Exiting loadLookbackMultiple()")
+        
+    def saveLookbackMultiple(self):
+        """Saves the values in the widgets to the 
+        LookbackMultiple object passed in this class's constructor.
+        """
+    
+        self.log.debug("Entered saveLookbackMultiple()")
+
+        self.lookbackMultiple.setName(self.nameLineEdit.text())
+        self.lookbackMultiple.setDescription(\
+            self.descriptionTextEdit.toPlainText())
+        self.lookbackMultiple.setLookbackMultiple(\
+            self.lookbackMultipleSpinBox.value())
+        self.lookbackMultiple.setBaseUnit(self.baseUnitSpinBox.value())
+
+        if self.baseUnitTypeComboBox.currentText() == "Degrees":
+            self.lookbackMultiple.setBaseUnitTypeDegreesFlag(True)
+            self.lookbackMultiple.setBaseUnitTypeRevolutionsFlag(False)
+        elif self.baseUnitTypeComboBox.currentText() == "Revolutions":
+            self.lookbackMultiple.setBaseUnitTypeDegreesFlag(False)
+            self.lookbackMultiple.setBaseUnitTypeRevolutionsFlag(True)
+
+        self.lookbackMultiple.setColor(self.colorEditButton.getColor())
+
+        if self.enabledCheckBox.checkState() == Qt.Checked:
+            self.lookbackMultiple.setEnabled(True)
+        else:
+            self.lookbackMultiple.setEnabled(False)
+
+        self.lookbackMultiple.setPlanetName(\
+            self.planetNameComboBox.currentText())
+
+        if self.centricityTypeComboBox.currentText() == "Geocentric":
+            self.lookbackMultiple.setGeocentricFlag(True)
+            self.lookbackMultiple.setHeliocentricFlag(False)
+
+        if self.centricityTypeComboBox.currentText() == "Heliocentric":
+            self.lookbackMultiple.setGeocentricFlag(False)
+            self.lookbackMultiple.setHeliocentricFlag(True)
+
+        if self.longitudeTypeComboBox.currentText() == "Tropical":
+            self.lookbackMultiple.setTropicalFlag(True)
+            self.lookbackMultiple.setSiderealFlag(False)
+
+        if self.longitudeTypeComboBox.currentText() == "Sidereal":
+            self.lookbackMultiple.setTropicalFlag(False)
+            self.lookbackMultiple.setSiderealFlag(True)
+
+        self.log.debug("Exiting saveLookbackMultiple()")
+
+    def getLookbackMultiple(self):
+        """Returns the internally stored LookbackMultiple object.
+        This may or may not represent what is in the widgets, depending on
+        whether or not saveLookbackMultiple has been called.
+        """
+
+        return self.lookbackMultiple
+
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        self.saveLookbackMultiple()
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
+
+class LookbackMultipleEditDialog(QDialog):
+    """QDialog for editing a LookbackMultiple object.
+
+    Note: 
+    Clicking on the Okay button will save and modify the original
+    LookbackMultiple passed into the constructor.
+
+    Clicking on the Cancel button will cause no changes to occur to 
+    the original LookbackMultiple.  
+    """
+
+    def __init__(self, lookbackMultiple, parent=None):
+        """Initializes the dialog and internal widget with the current
+        LookbackMultiple object."""
+
+        super().__init__(parent)
+
+        # Logger object.
+        self.log = logging.\
+            getLogger("dialogs.LookbackMultipleEditDialog")
+
+        self.setWindowTitle("LookbackMultiple")
+
+        # Save a reference to the LookbackMultiple object.
+        self.lookbackMultiple = lookbackMultiple
+
+        # Create the contents.
+        self.lookbackMultipleEditWidget = \
+            LookbackMultipleEditWidget(self.lookbackMultiple)
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.lookbackMultipleEditWidget)
+        self.setLayout(layout)
+
+        self.lookbackMultipleEditWidget.okayButtonClicked.\
+            connect(self.accept)
+        self.lookbackMultipleEditWidget.cancelButtonClicked.\
+            connect(self.reject)
+
+    def getLookbackMultiple(self):
+        """Returns the internally stored LookbackMultiple object."""
+
+        lookbackMultiple = \
+            self.lookbackMultipleEditWidget.getLookbackMultiple()
+        
+        return lookbackMultiple
+
+
+class LookbackMultipleListEditWidget(QWidget):
+    """QWidget for editing the list of LookbackMultiple objects.
+
+    Note: No matter if the dialog is accepted or rejected, any additions
+    or removals of LookbackMultiples from the list do not change the
+    original that is passed into the constructor.  You have to call
+    dialog.getLookbackMultiples() in order to get the new list (which
+    will have any modifications, regardless of accepted or rejected).
+    """
+
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self, 
+                 lookbackMultiples=[], 
+                 parent=None):
+        """Initializes the edit widget with the given values.
+
+        Arguments:
+
+        lookbackMultiples - List of LookbackMultiple objects to edit.
+                            A deep copy is made of this for editing.
+        parent - QWidget parent
+        """
+
+        super().__init__(parent)
+
+        # Logger object.
+        self.log = logging.\
+            getLogger("dialogs.LookbackMultipleListEditWidget")
+
+        # Internally stored copy of the list of LookbackMultiple objects.
+        # The value for this will be set later by calling 
+        # loadLookbackMultiples().
+        self.lookbackMultiples = []
+
+        self.lookbackMultiplesListGroupBox = \
+            QGroupBox("List of LookbackMultiples:")
+
+        self.listWidget = QListWidget()
+        self.listWidget.setSelectionMode(QAbstractItemView.SingleSelection)
+
+        # Layout to hold the list widget.
+        self.listWidgetLayout = QVBoxLayout()
+        self.listWidgetLayout.addWidget(self.listWidget)
+
+        self.lookbackMultiplesListGroupBox.setLayout(self.listWidgetLayout)
+        
+        # GroupBox holding the selected LookbackMultiple.
+        self.selectedLookbackMultipleGroupBox = \
+            QGroupBox("Selected LookbackMultiple:")
+
+        # Widgets for displaying the selected LookbackMultiple.
+        self.selectedLookbackMultipleNameLabel = QLabel("Name:")
+        self.selectedLookbackMultipleNameValueLabel = QLabel()
+        
+        self.selectedLookbackMultipleDescriptionLabel = QLabel("Description:")
+        self.selectedLookbackMultipleDescriptionTextEdit = QTextEdit()
+        self.selectedLookbackMultipleDescriptionTextEdit.setAcceptRichText(False)
+        self.selectedLookbackMultipleDescriptionTextEdit.setTabChangesFocus(True)
+        self.selectedLookbackMultipleDescriptionTextEdit.setEnabled(False)
+        self.selectedLookbackMultipleDescriptionTextEdit.setTextColor(Qt.black)
+        self.selectedLookbackMultipleDescriptionTextEdit.setMaximumHeight(80)
+
+        self.selectedLookbackMultipleLabel = QLabel("Lookback multiple:")
+        self.selectedLookbackMultipleValueLabel = QLabel()
+        
+        self.selectedLookbackMultipleBaseUnitLabel = QLabel("Base unit:")
+        self.selectedLookbackMultipleBaseUnitValueLabel = QLabel()
+        
+        self.selectedLookbackMultipleBaseUnitTypeLabel = QLabel("Base unit type:")
+        self.selectedLookbackMultipleBaseUnitTypeValueLabel = QLabel()
+
+        self.selectedLookbackMultipleColorLabel = QLabel("Color:")
+        self.selectedLookbackMultipleColorLabelLabel = ColorLabel()
+        
+        self.selectedLookbackMultipleEnabledLabel = QLabel("Enabled:")
+        self.selectedLookbackMultipleEnabledCheckBox = QCheckBox()
+        self.selectedLookbackMultipleEnabledCheckBox.setEnabled(False)
+        
+        self.selectedLookbackMultiplePlanetNameLabel = QLabel("Planet name:")
+        self.selectedLookbackMultiplePlanetNameValueLabel = QLabel()
+
+        self.selectedLookbackMultipleCentricityTypeLabel = QLabel("Centricity type:")
+        self.selectedLookbackMultipleCentricityTypeValueLabel = QLabel()
+
+        self.selectedLookbackMultipleLongitudeTypeLabel = QLabel("Longitude type:")
+        self.selectedLookbackMultipleLongitudeTypeValueLabel = QLabel()
+
+        # Grid layout.  
+        self.selectedLookbackMultipleGridLayout = QGridLayout()
+
+        # Row.
+        r = 0
+
+        # Alignment.
+        al = Qt.AlignLeft
+
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleNameLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleNameValueLabel, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleDescriptionLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleDescriptionTextEdit, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleValueLabel, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleBaseUnitLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleBaseUnitValueLabel, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleBaseUnitTypeLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleBaseUnitTypeValueLabel, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleColorLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleColorLabelLabel, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleEnabledLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleEnabledCheckBox, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultiplePlanetNameLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultiplePlanetNameValueLabel, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleCentricityTypeLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleCentricityTypeValueLabel, r, 1, al)
+        r += 1
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleLongitudeTypeLabel, r, 0, al)
+        self.selectedLookbackMultipleGridLayout.\
+            addWidget(self.selectedLookbackMultipleLongitudeTypeValueLabel, r, 1, al)
+        r += 1
+
+        self.selectedLookbackMultipleGroupBox.\
+            setLayout(self.selectedLookbackMultipleGridLayout)
+
+        # Buttons for doing actions like adding, removing, and editing a
+        # LookbackMultiple, etc.
+
+        self.addLookbackMultipleButton = \
+            QPushButton("&Add LookbackMultiple")
+        self.removeLookbackMultipleButton = \
+            QPushButton("&Remove LookbackMultiple")
+        self.editLookbackMultipleButton = \
+            QPushButton("&Edit LookbackMultiple")
+        self.moveSelectedLookbackMultipleUpButton = \
+            QPushButton("Move LookbackMultiple &up")
+        self.moveSelectedLookbackMultipleDownButton = \
+            QPushButton("Move LookbackMultiple &down")
+
+        self.buttonsOnRightLayout = QVBoxLayout()
+        self.buttonsOnRightLayout.addWidget(self.addLookbackMultipleButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.addWidget(self.removeLookbackMultipleButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.addWidget(self.editLookbackMultipleButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.\
+            addWidget(self.moveSelectedLookbackMultipleUpButton)
+        self.buttonsOnRightLayout.addSpacing(5)
+        self.buttonsOnRightLayout.\
+            addWidget(self.moveSelectedLookbackMultipleDownButton)
+        self.buttonsOnRightLayout.addStretch()
+
+        self.centerAreaLayout = QVBoxLayout()
+        self.centerAreaLayout.addWidget(self.selectedLookbackMultipleGroupBox)
+
+        self.mainWidgetsLayout = QHBoxLayout()
+        self.mainWidgetsLayout.addWidget(self.lookbackMultiplesListGroupBox)
+        self.mainWidgetsLayout.addLayout(self.centerAreaLayout)
+        self.mainWidgetsLayout.addLayout(self.buttonsOnRightLayout)
+
+        # Buttons at bottom.
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addLayout(self.mainWidgetsLayout) 
+        self.mainLayout.addSpacing(10)
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+
+        # Connect signals and slots.
+        self.listWidget.itemSelectionChanged.\
+            connect(self._handleLookbackMultipleSelected)
+        self.listWidget.itemDoubleClicked.\
+            connect(self._handleEditLookbackMultipleButtonClicked)
+        self.addLookbackMultipleButton.clicked.\
+            connect(self._handleAddLookbackMultipleButtonClicked)
+        self.removeLookbackMultipleButton.clicked.\
+            connect(self._handleRemoveLookbackMultipleButtonClicked)
+        self.editLookbackMultipleButton.clicked.\
+            connect(self._handleEditLookbackMultipleButtonClicked)
+        self.moveSelectedLookbackMultipleUpButton.clicked.\
+            connect(self._handleMoveLookbackMultipleUpButtonClicked)
+        self.moveSelectedLookbackMultipleDownButton.clicked.\
+            connect(self._handleMoveLookbackMultipleDownButtonClicked)
+
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+        # Now that all the widgets are created, load the values from the
+        # settings.
+        self.loadLookbackMultiples(lookbackMultiples)
+
+    def loadLookbackMultiples(self, lookbackMultiples):
+        """Loads the widgets with values from the given arguments.
+
+        Arguments:
+
+        lookbackMultiples - List of LookbackMultiple objects we are editing.
+                            A deep copy is made of this for editing.
+        """
+
+        self.log.debug("Entered loadLookbackMultiples()")
+
+        # Save off the values (deep copy).
+        self.lookbackMultiples = copy.deepcopy(lookbackMultiples)
+
+        # Populate the QListWidget with the LookbackMultiples.
+        self.listWidget.clear()
+        for lookbackMultiple in self.lookbackMultiples:
+            self._appendLookbackMultipleAsListWidgetItem(lookbackMultiple, 
+                                                         False)
+        
+        # Clear the widgets that display information about the 
+        # selected LookbackMultiple.  These widgets will be set again shortly.
+        self._clearSelectedLookbackMultipleWidgets()
+
+        # Select the first item in the list by default.
+        index = 0
+        if index >= 0 and index < len(self.lookbackMultiples):
+            # Valid index value.
+
+            # Set the current index's LookbackMultiple as also the one that is
+            # selected in the list.
+            self.listWidget.setCurrentRow(index)
+
+            # This is the selected LookbackMultiple.
+            selectedLookbackMultiple = self.lookbackMultiples[index]
+
+            # Populate the widgets that display the selected LookbackMultiple.
+            self._populateSelectedLookbackMultipleWidgets(\
+                selectedLookbackMultiple)
+
+        self.log.debug("Exiting loadLookbackMultiples()")
+        
+    def saveLookbackMultiples(self):
+        """Ensures the values in the widgets are saved to their underlying
+        variables, such that subsequent calls to
+        getLookbackMultiples() will return valid values for what has changed.
+        """
+    
+        self.log.debug("Entered saveLookbackMultiple()")
+
+        # Actually, we directly change the underlying member variable
+        # whenever it is modified, so no internal changes are required
+        # here.
+
+        self.log.debug("Exiting saveLookbackMultiple()")
+
+    def getLookbackMultiples(self):
+        """Returns the internally stored list of
+        PriceBarChartLookbackMultiple objects.  This may or may not
+        represent what is in the widgets, depending on whether or not
+        saveLookbackMultiples has been called recently.
+        """
+
+        return self.lookbackMultiples
+
+    def _clearSelectedLookbackMultipleWidgets(self):
+        """Clears widgets that display the information about the
+        currently selected LookbackMultiple.
+        """
+
+        self.selectedLookbackMultipleNameValueLabel.setText("")
+        self.selectedLookbackMultipleDescriptionTextEdit.setPlainText("")
+        self.selectedLookbackMultipleValueLabel.setText("")
+        self.selectedLookbackMultipleBaseUnitValueLabel.setText("")
+        self.selectedLookbackMultipleBaseUnitTypeValueLabel.setText("")
+        self.selectedLookbackMultipleColorLabelLabel.setColor(QColor())
+        self.selectedLookbackMultipleEnabledCheckBox.setCheckState(Qt.Unchecked)
+        self.selectedLookbackMultiplePlanetNameValueLabel.setText("")
+        self.selectedLookbackMultipleCentricityTypeValueLabel.setText("")
+        self.selectedLookbackMultipleLongitudeTypeValueLabel.setText("")
+
+    def _populateSelectedLookbackMultipleWidgets(self, lookbackMultiple):
+        """Populates the widgets that display the currently 
+        selected LookbackMultiple.
+
+        Arguments:
+        lookbackMultiple - LookbackMultiple object to use to populate 
+                           the widgets with.
+        """
+        
+        # Populate the widgets for the selected LookbackMultiple.
+        self.selectedLookbackMultipleNameValueLabel.\
+            setText(lookbackMultiple.getName())
+        self.selectedLookbackMultipleDescriptionTextEdit.\
+            setPlainText(lookbackMultiple.getDescription())
+        self.selectedLookbackMultipleValueLabel.\
+            setText("{}".format(\
+                lookbackMultiple.getLookbackMultiple()))
+        self.selectedLookbackMultipleBaseUnitValueLabel.\
+            setText("{}".format(lookbackMultiple.getBaseUnit()))
+
+        self.selectedLookbackMultipleBaseUnitTypeValueLabel.setText("")
+        if lookbackMultiple.getBaseUnitTypeDegreesFlag() == True:
+            self.selectedLookbackMultipleBaseUnitTypeValueLabel.\
+                setText("Degrees")
+        if lookbackMultiple.getBaseUnitTypeRevolutionsFlag() == True:
+            self.selectedLookbackMultipleBaseUnitTypeValueLabel.\
+                setText("Revolutions")
+            
+        self.selectedLookbackMultipleColorLabelLabel.\
+            setColor(lookbackMultiple.getColor())
+
+        value = lookbackMultiple.getEnabled()
+        if value == True:
+            self.selectedLookbackMultipleEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.selectedLookbackMultipleEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+                        
+        self.selectedLookbackMultiplePlanetNameValueLabel.\
+            setText(lookbackMultiple.getPlanetName())
+
+        self.selectedLookbackMultipleCentricityTypeValueLabel.setText("")
+        if lookbackMultiple.getGeocentricFlag() == True:
+            self.selectedLookbackMultipleCentricityTypeValueLabel.\
+                setText("Geocentric")
+        if lookbackMultiple.getHeliocentricFlag() == True:
+            self.selectedLookbackMultipleCentricityTypeValueLabel.\
+                setText("Heliocentric")
+
+        self.selectedLookbackMultipleLongitudeTypeValueLabel.setText("")
+        if lookbackMultiple.getTropicalFlag() == True:
+            self.selectedLookbackMultipleLongitudeTypeValueLabel.\
+                setText("Tropical")
+        if lookbackMultiple.getSiderealFlag() == True:
+            self.selectedLookbackMultipleLongitudeTypeValueLabel.\
+                setText("Sidereal")
+
+    def _appendLookbackMultipleAsListWidgetItem(self, 
+                                       lookbackMultiple, 
+                                       selectItem=True):
+        """Appends the given LookbackMultiple object to the
+        QListWidget as a QListWidgetItem.
+
+        Arguments:
+        
+        lookbackMultiple - LookbackMultiple object who's information 
+                           will be appended to the self.listWidget QListWidget.
+                           This function does not modify self.lookbackMultiples
+                           list, so if that is intended, the caller needs 
+                           to do that themselves manually.
+
+        selectItem - bool flag that indicates whether the item should be
+                     selected after being created and appended to the list.
+        """
+
+        listWidgetItem = QListWidgetItem()
+        
+        lookbackMultipleStr = lookbackMultiple.toShortString()
+
+        listWidgetItem.setText(lookbackMultipleStr)
+
+        self.listWidget.addItem(listWidgetItem)
+        
+        if selectItem == True:
+            self.listWidget.setCurrentRow(self.listWidget.count() - 1)
+
+    def _handleLookbackMultipleSelected(self):
+        """Called when a LookbackMultiple is selected in the QListWidget.
+        This will update the QLabels to tell the user the properties of
+        what is selected.
+        """
+
+        # Find which item is selected.
+        index = self.listWidget.currentRow()
+        if index >= 0 and index < len(self.lookbackMultiples):
+            # Valid index value.
+
+            # Set the current index's LookbackMultiple as also the one that is
+            # selected in the list.
+            self.listWidget.setCurrentRow(index)
+
+            # This is the selected LookbackMultiple.
+            selectedLookbackMultiple = self.lookbackMultiples[index]
+
+            # Populate the widgets that display the selected LookbackMultiple.
+            self._populateSelectedLookbackMultipleWidgets(\
+                selectedLookbackMultiple)
+
+    def _handleAddLookbackMultipleButtonClicked(self):
+        """Called when the 'Add LookbackMultiple' button is clicked."""
+
+        # Create a new LookbackMultiple object for editing.
+        lookbackMultiple = LookbackMultiple()
+        
+        # Create a dialog and allow the user to edit it.
+        dialog = LookbackMultipleEditDialog(lookbackMultiple)
+
+        if dialog.exec_() == QDialog.Accepted:
+            # Obtain the LookbackMultiple object that was accepted.
+            lookbackMultiple = dialog.getLookbackMultiple()
+
+            # Add the LookbackMultiple object to the list.
+            self.lookbackMultiples.append(lookbackMultiple)
+
+            # Append and select the LookbackMultiple object in the QListWidget.
+            self._appendLookbackMultipleAsListWidgetItem(lookbackMultiple, True)
+
+    def _handleRemoveLookbackMultipleButtonClicked(self):
+        """Called when the 'Remove LookbackMultiple' button is clicked."""
+
+        # Get the selected row.
+        row = self.listWidget.currentRow()
+
+        if row >= 0 and row < self.listWidget.count():
+            # It is a valid row.
+
+            # First remove the item from the QListWidget.
+            self.listWidget.takeItem(row)
+
+            # If there is another item after that one in the list, then
+            # select that one as the current, otherwise select the index
+            # before.
+            if self.listWidget.item(row) != None:
+                # There an item after this one, so set that one as the
+                # current.
+                self.listWidget.setCurrentRow(row)
+            else:
+                # The one we just removed was the last item in the
+                # list.  Select the one before it if it exists,
+                # otherwise, clear out the display fields.
+                if row != 0:
+                    self.listWidget.setCurrentRow(row - 1)
+                else:
+                    self._clearSelectedLookbackMultipleWidgets()
+
+            # Do some book-keeping to remove that LookbackMultiple from the
+            # internal list as well.
+            self.lookbackMultiples.pop(row)
+
+    def _handleEditLookbackMultipleButtonClicked(self):
+        """Called when the 'Edit LookbackMultiple' button is clicked."""
+
+        # Get the selected row.
+        row = self.listWidget.currentRow()
+
+        # Get the LookbackMultiple object for editing.
+        lookbackMultiple = self.lookbackMultiples[row]
+        
+        # Create a dialog and allow the user to edit it.
+        dialog = LookbackMultipleEditDialog(lookbackMultiple)
+
+        if dialog.exec_() == QDialog.Accepted:
+            # Obtain the LookbackMultiple object that was accepted.
+            lookbackMultiple = dialog.getLookbackMultiple()
+
+            # Save the new LookbackMultiple.
+            self.lookbackMultiples[row] = lookbackMultiple
+
+            # Get the QListWidgetItem so we can update the text of it.
+            listWidgetItem = self.listWidget.item(row)
+            
+            lookbackMultipleStr = lookbackMultiple.toShortString()
+
+            listWidgetItem.setText(lookbackMultipleStr)
+
+            # Update the widgets for this selection.
+            self._handleLookbackMultipleSelected()
+
+    def _handleMoveLookbackMultipleUpButtonClicked(self):
+        """Called when the 'Move LookbackMultiple up' button is clicked."""
+
+        # Get the selected row.
+        row = self.listWidget.currentRow()
+
+        # Proceed only if the selected LookbackMultiple is not the 
+        # top entry in the QListWidget.
+        if row > 0:
+            # It is not the top row yet, so we can do a swap to move it
+            # higher.
+
+            currItem = self.listWidget.takeItem(row)
+            self.listWidget.insertItem(row - 1, currItem)
+
+            # Swap the LookbackMultiples in the list.
+            lookbackMultipleA = self.lookbackMultiples[row]
+            lookbackMultipleB = self.lookbackMultiples[row - 1]
+            self.lookbackMultiples[row] = lookbackMultipleB
+            self.lookbackMultiples[row - 1] = lookbackMultipleA
+
+            # Set the selected row as the same underlying LookbackMultiple.
+            self.listWidget.setCurrentRow(row - 1)
+
+    def _handleMoveLookbackMultipleDownButtonClicked(self):
+        """Called when the 'Move LookbackMultiple down' button is clicked."""
+
+        # Get the selected row.
+        row = self.listWidget.currentRow()
+
+        # Proceed only if the selected LookbackMultiple is not the 
+        # bottom entry in the QListWidget.
+        if row < (self.listWidget.count() - 1) and row >= 0:
+            # It is not the bottom row yet, so we can do a swap to move it
+            # lower.
+
+            currItem = self.listWidget.takeItem(row)
+            self.listWidget.insertItem(row + 1, currItem)
+
+            # Swap the LookbackMultiples in the list.
+            lookbackMultipleA = self.lookbackMultiples[row]
+            lookbackMultipleB = self.lookbackMultiples[row + 1]
+            self.lookbackMultiples[row] = lookbackMultipleB
+            self.lookbackMultiples[row + 1] = lookbackMultipleA
+
+            # Update the currentLookbackMultiple if required.
+            if self.lookbackMultiplesIndex == row:
+                self.lookbackMultiplesIndex += 1
+            elif self.lookbackMultiplesIndex == row + 1:
+                self.lookbackMultiplesIndex -= 1
+                
+            # Set the selected row as the same underlying LookbackMultiple.
+            self.listWidget.setCurrentRow(row + 1)
+
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        self.saveLookbackMultiples()
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
+
+class LookbackMultipleListEditDialog(QDialog):
+    """QDialog for editing a list of LookbackMultiple objects.
+
+    Note: No matter if the dialog is accepted or rejected, any additions
+    or removals of LookbackMultiples from the list do not change the
+    original that is passed into the constructor.  You have to call
+    dialog.getLookbackMultiples() in order to get the new list (which
+    will have any modifications, regardless of accepted or rejected).
+    """
+
+    def __init__(self, 
+                 lookbackMultiples=[],
+                 parent=None):
+        """Initializes the dialog and internal widgets with the given
+        values.
+        
+        Arguments:
+
+        lookbackMultiples - List of LookbackMultiple objects we are editing.
+                            A deep copy is made of this for editing.
+        parent - QWidget parent
+        """
+
+        super().__init__(parent)
+
+        # Logger object.
+        self.log = logging.\
+            getLogger("dialogs.LookbackMultipleListEditDialog")
+
+        self.setWindowTitle("LookbackMultiples")
+
+        # Create the contents.
+        self.lookbackMultipleListEditWidget = \
+            LookbackMultipleListEditWidget(list(lookbackMultiples))
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.lookbackMultipleListEditWidget)
+        self.setLayout(layout)
+
+        self.lookbackMultipleListEditWidget.okayButtonClicked.\
+            connect(self.accept)
+        self.lookbackMultipleListEditWidget.cancelButtonClicked.\
+            connect(self.reject)
+
+    def getLookbackMultiples(self):
+        """Returns the internally stored list of LookbackMultiple
+        objects.  This is only meaningful if the user has accepted the
+        dialog.
+        """
+
+        return self.lookbackMultipleListEditWidget.\
+                getLookbackMultiples()
+
+
 class PriceBarChartSettingsEditWidget(QWidget):
     """QWidget for editing a PriceBarChartSettings object's class members.
     """
@@ -38204,6 +40034,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # PriceBarGraphicsItem.
         self.priceBarGraphicsItemGroupBox = \
             self._buildPriceBarGraphicsItemGroupBox()
+
+        # QGroupBox to hold the edit widgets and form for
+        # LookbackMultiplePriceBarGraphicsItem.
+        self.lookbackMultiplePriceBarGraphicsItemGroupBox = \
+            self._buildLookbackMultiplePriceBarGraphicsItemGroupBox()
 
         # QGroupBox to hold the edit widgets and form for BarCountGraphicsItem.
         self.barCountGraphicsItemGroupBox = \
@@ -38271,6 +40106,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # LineSegment2GraphicsItem.
         self.lineSegment2GraphicsItemGroupBox = \
             self._buildLineSegment2GraphicsItemGroupBox()
+
+        # QGroupBox to hold the edit widgets and form for
+        # VerticalLineSegmentGraphicsItem.
+        self.verticalLineSegmentGraphicsItemGroupBox = \
+            self._buildVerticalLineSegmentGraphicsItemGroupBox()
+
+        # QGroupBox to hold the edit widgets and form for
+        # HorizontalLineSegmentGraphicsItem.
+        self.horizontalLineSegmentGraphicsItemGroupBox = \
+            self._buildHorizontalLineSegmentGraphicsItemGroupBox()
 
         # QGroupBox to hold the edit widgets and form for
         # OctaveFanGraphicsItem.
@@ -38352,6 +40197,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
             "")
 
         self.tabWidget.addTab(\
+            self.lookbackMultiplePriceBarGraphicsItemGroupBox,
+            QIcon(),  # TODO:  add icon path here.
+            "")
+
+        self.tabWidget.addTab(\
             self.barCountGraphicsItemGroupBox,
             QIcon(":/images/rluu/barCount.png"),
             "")
@@ -38424,6 +40274,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.tabWidget.addTab(\
             self.lineSegment2GraphicsItemGroupBox,
             QIcon(":/images/rluu/lineSegment.png"),
+            "")
+
+        self.tabWidget.addTab(\
+            self.verticalLineSegmentGraphicsItemGroupBox,
+            QIcon(), # TODO: add icon for VerticalLineSegment.
+            "")
+
+        self.tabWidget.addTab(\
+            self.horizontalLineSegmentGraphicsItemGroupBox,
+            QIcon(), # TODO: add icon for HorizontalLineSegment.
             "")
 
         self.tabWidget.addTab(\
@@ -38573,6 +40433,15 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(self._handlePriceBarLeftExtensionWidthResetButtonClicked)
         self.priceBarGraphicsItemRightExtensionWidthResetButton.clicked.\
             connect(self._handlePriceBarRightExtensionWidthResetButtonClicked)
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthResetButton.\
+            clicked.connect(\
+            self._handleLookbackMultiplePriceBarPenWidthResetButtonClicked)
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthResetButton.\
+            clicked.connect(\
+            self._handleLookbackMultiplePriceBarLeftExtensionWidthResetButtonClicked)
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthResetButton.\
+            clicked.connect(\
+            self._handleLookbackMultiplePriceBarRightExtensionWidthResetButtonClicked)
         self.barCountGraphicsItemBarHeightResetButton.clicked.\
             connect(self._handleBarCountGraphicsItemBarHeightResetButtonClicked)
         self.barCountGraphicsItemFontSizeResetButton.clicked.\
@@ -38937,6 +40806,20 @@ class PriceBarChartSettingsEditWidget(QWidget):
             connect(\
             self._handleLineSegment2GraphicsItemAngleTextFlagResetButton)
         
+        self.verticalLineSegmentGraphicsItemBarWidthResetButton.clicked.\
+            connect(\
+            self._handleVerticalLineSegmentGraphicsItemBarWidthResetButtonClicked)
+        self.verticalLineSegmentGraphicsItemColorResetButton.clicked.\
+            connect(\
+            self._handleVerticalLineSegmentGraphicsItemColorResetButtonClicked)
+
+        self.horizontalLineSegmentGraphicsItemBarWidthResetButton.clicked.\
+            connect(\
+            self._handleHorizontalLineSegmentGraphicsItemBarWidthResetButtonClicked)
+        self.horizontalLineSegmentGraphicsItemColorResetButton.clicked.\
+            connect(\
+            self._handleHorizontalLineSegmentGraphicsItemColorResetButtonClicked)
+
         self.octaveFanGraphicsItemBarHeightResetButton.clicked.\
             connect(\
             self._handleOctaveFanGraphicsItemBarHeightResetButtonClicked)
@@ -39282,6 +41165,92 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceBarGraphicsItemGroupBox.setLayout(layout)
 
         return self.priceBarGraphicsItemGroupBox
+
+    def _buildLookbackMultiplePriceBarGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a LookbackMultiplePriceBarGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.lookbackMultiplePriceBarGraphicsItemGroupBox = \
+            QGroupBox("LookbackMultiplePriceBarGraphicsItem settings:")
+
+        # lookbackMultiplePriceBarGraphicsItemPenWidth (float).
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthLabel = \
+            QLabel("LookbackMultiplePriceBarGraphicsItem pen width:")
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthSpinBox = QDoubleSpinBox()
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthSpinBox.setDecimals(4)
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthSpinBox.setMinimum(0.0)
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthSpinBox.setMaximum(1000.0)
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthResetButton = \
+            QPushButton("Reset to default")
+
+        # lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth (float).
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthLabel = \
+            QLabel("LookbackMultiplePriceBarGraphicsItem left extension width:")
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthSpinBox = QDoubleSpinBox()
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthSpinBox.setDecimals(4)
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthSpinBox.setMinimum(0.0)
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthSpinBox.setMaximum(1000.0)
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthResetButton = \
+            QPushButton("Reset to default")
+
+        # lookbackMultiplePriceBarGraphicsItemRightExtensionWidth (float).
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthLabel = \
+            QLabel("LookbackMultiplePriceBarGraphicsItem right extension width:")
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthSpinBox = QDoubleSpinBox()
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthSpinBox.setDecimals(4)
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthSpinBox.setMinimum(0.0)
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthSpinBox.setMaximum(1000.0)
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthResetButton = \
+            QPushButton("Reset to default")
+
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(self.lookbackMultiplePriceBarGraphicsItemPenWidthLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.lookbackMultiplePriceBarGraphicsItemPenWidthSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(self.lookbackMultiplePriceBarGraphicsItemPenWidthResetButton, 
+                      r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthResetButton, 
+                      r, 2, ar)
+        r += 1
+        gridLayout.\
+            addWidget(self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthLabel, 
+                      r, 0, al)
+        gridLayout.\
+            addWidget(self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthSpinBox, 
+                      r, 1, ar)
+        gridLayout.addWidget\
+            (self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthResetButton, 
+             r, 2, ar)
+        r += 1
+
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.lookbackMultiplePriceBarGraphicsItemGroupBox.setLayout(layout)
+
+        return self.lookbackMultiplePriceBarGraphicsItemGroupBox
 
     def _buildBarCountGraphicsItemGroupBox(self):
         """Builds the groupbox containing info to edit the
@@ -41533,6 +43502,18 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlagCheckBox.\
             setCheckState(Qt.Unchecked)
     
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlagCheckBox = \
+            QCheckBox("Planet AsSu enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlagCheckBox = \
+            QCheckBox("Planet AsMo enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+    
         # planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlagCheckBox = \
             QCheckBox("Planet MoSu enabled")
@@ -41787,6 +43768,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # Layout on the mid right side.
         midRightLayout = QVBoxLayout()
         
+        midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlagCheckBox)
+        midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlagCheckBox)
         midRightLayout.addWidget(\
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlagCheckBox)
         midRightLayout.addWidget(\
@@ -43820,6 +45805,148 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.lineSegment2GraphicsItemGroupBox.setLayout(layout)
         
         return self.lineSegment2GraphicsItemGroupBox
+    
+    def _buildVerticalLineSegmentGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a VerticalLineSegmentGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.verticalLineSegmentGraphicsItemGroupBox = \
+            QGroupBox("VerticalLineSegmentGraphicsItem settings:")
+
+        # verticalLineSegmentGraphicsItemBarWidth (float).
+        self.verticalLineSegmentGraphicsItemBarWidthLabel = \
+            QLabel("VerticalLineSegmentGraphicsItem bar width: ")
+        self.verticalLineSegmentGraphicsItemBarWidthSpinBox = QDoubleSpinBox()
+        self.verticalLineSegmentGraphicsItemBarWidthSpinBox.setDecimals(4)
+        self.verticalLineSegmentGraphicsItemBarWidthSpinBox.setMinimum(0.0)
+        self.verticalLineSegmentGraphicsItemBarWidthSpinBox.setMaximum(1000.0)
+        self.verticalLineSegmentGraphicsItemBarWidthResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # verticalLineSegmentGraphicsItemColor (QColor)
+        self.verticalLineSegmentGraphicsItemColorLabel = \
+            QLabel("VerticalLineSegmentGraphicsItem default color:")
+        self.verticalLineSegmentGraphicsItemColorEditButton = \
+            ColorEditPushButton()
+        self.verticalLineSegmentGraphicsItemColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(\
+            self.verticalLineSegmentGraphicsItemBarWidthLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.verticalLineSegmentGraphicsItemBarWidthSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.verticalLineSegmentGraphicsItemBarWidthResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.verticalLineSegmentGraphicsItemColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.verticalLineSegmentGraphicsItemColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.verticalLineSegmentGraphicsItemColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.verticalLineSegmentGraphicsItemGroupBox.setLayout(layout)
+        
+        return self.verticalLineSegmentGraphicsItemGroupBox
+    
+    def _buildHorizontalLineSegmentGraphicsItemGroupBox(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a HorizontalLineSegmentGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.horizontalLineSegmentGraphicsItemGroupBox = \
+            QGroupBox("HorizontalLineSegmentGraphicsItem settings:")
+
+        # horizontalLineSegmentGraphicsItemBarWidth (float).
+        self.horizontalLineSegmentGraphicsItemBarWidthLabel = \
+            QLabel("HorizontalLineSegmentGraphicsItem bar width: ")
+        self.horizontalLineSegmentGraphicsItemBarWidthSpinBox = QDoubleSpinBox()
+        self.horizontalLineSegmentGraphicsItemBarWidthSpinBox.setDecimals(4)
+        self.horizontalLineSegmentGraphicsItemBarWidthSpinBox.setMinimum(0.0)
+        self.horizontalLineSegmentGraphicsItemBarWidthSpinBox.setMaximum(1000.0)
+        self.horizontalLineSegmentGraphicsItemBarWidthResetButton = \
+            QPushButton("Reset to default")
+                                             
+        # horizontalLineSegmentGraphicsItemColor (QColor)
+        self.horizontalLineSegmentGraphicsItemColorLabel = \
+            QLabel("HorizontalLineSegmentGraphicsItem default color:")
+        self.horizontalLineSegmentGraphicsItemColorEditButton = \
+            ColorEditPushButton()
+        self.horizontalLineSegmentGraphicsItemColorResetButton = \
+            QPushButton("Reset to default")
+        
+        # Grid layout.
+        gridLayout = QGridLayout()
+        r = 0
+        al = Qt.AlignLeft
+        ar = Qt.AlignRight
+
+        gridLayout.\
+            addWidget(\
+            self.horizontalLineSegmentGraphicsItemBarWidthLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(self.horizontalLineSegmentGraphicsItemBarWidthSpinBox, 
+                      r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.horizontalLineSegmentGraphicsItemBarWidthResetButton, 
+            r, 2, ar)
+
+        r += 1
+        gridLayout.\
+            addWidget(\
+            self.horizontalLineSegmentGraphicsItemColorLabel, 
+            r, 0, al)
+        gridLayout.\
+            addWidget(\
+            self.horizontalLineSegmentGraphicsItemColorEditButton, 
+            r, 1, ar)
+        gridLayout.\
+            addWidget(\
+            self.horizontalLineSegmentGraphicsItemColorResetButton, 
+            r, 2, ar)
+
+        r += 1
+        
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.horizontalLineSegmentGraphicsItemGroupBox.setLayout(layout)
+        
+        return self.horizontalLineSegmentGraphicsItemGroupBox
     
     def _buildOctaveFanGraphicsItemGroupBox(self):
         """Builds the groupbox containing info to edit the
@@ -46489,6 +48616,20 @@ class PriceBarChartSettingsEditWidget(QWidget):
             setValue(self.priceBarChartSettings.\
                         priceBarGraphicsItemRightExtensionWidth)
 
+        # lookbackMultiplePriceBarGraphicsItemPenWidth (float).
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthSpinBox.\
+            setValue(self.priceBarChartSettings.lookbackMultiplePriceBarGraphicsItemPenWidth)
+
+        # lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth (float).
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth)
+
+        # lookbackMultiplePriceBarGraphicsItemRightExtensionWidth (float).
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                        lookbackMultiplePriceBarGraphicsItemRightExtensionWidth)
+
         # barCountGraphicsItemBarHeight (float).
         self.barCountGraphicsItemBarHeightSpinBox.\
             setValue(self.priceBarChartSettings.\
@@ -47714,6 +49855,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
         
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag == True:
+            
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+        
         # planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag (bool).
         if self.priceBarChartSettings.\
            planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag == True:
@@ -48510,6 +50671,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.lineSegment2GraphicsItemAngleTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # verticalLineSegmentGraphicsItemBarWidth (float).
+        self.verticalLineSegmentGraphicsItemBarWidthSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                     verticalLineSegmentGraphicsItemBarWidth)
+
+        # verticalLineSegmentGraphicsItemColor (QColor).
+        self.verticalLineSegmentGraphicsItemColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     verticalLineSegmentGraphicsItemColor)
+
+        # horizontalLineSegmentGraphicsItemBarWidth (float).
+        self.horizontalLineSegmentGraphicsItemBarWidthSpinBox.\
+            setValue(self.priceBarChartSettings.\
+                     horizontalLineSegmentGraphicsItemBarWidth)
+
+        # horizontalLineSegmentGraphicsItemColor (QColor).
+        self.horizontalLineSegmentGraphicsItemColorEditButton.\
+            setColor(self.priceBarChartSettings.\
+                     horizontalLineSegmentGraphicsItemColor)
+
         # octaveFanGraphicsItemBarHeight (float).
         self.octaveFanGraphicsItemBarHeightSpinBox.\
             setValue(self.priceBarChartSettings.\
@@ -49090,6 +51271,18 @@ class PriceBarChartSettingsEditWidget(QWidget):
         # priceBarGraphicsItemRightExtensionWidth (float).
         self.priceBarChartSettings.priceBarGraphicsItemRightExtensionWidth = \
             float(self.priceBarGraphicsItemRightExtensionWidthSpinBox.value())
+
+        # lookbackMultiplePriceBarGraphicsItemPenWidth (float).
+        self.priceBarChartSettings.lookbackMultiplePriceBarGraphicsItemPenWidth = \
+            float(self.lookbackMultiplePriceBarGraphicsItemPenWidthSpinBox.value())
+
+        # lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth (float).
+        self.priceBarChartSettings.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth = \
+            float(self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthSpinBox.value())
+       
+        # lookbackMultiplePriceBarGraphicsItemRightExtensionWidth (float).
+        self.priceBarChartSettings.lookbackMultiplePriceBarGraphicsItemRightExtensionWidth = \
+            float(self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthSpinBox.value())
 
         # barCountGraphicsItemBarHeight (float).
         self.priceBarChartSettings.barCountGraphicsItemBarHeight = \
@@ -50285,6 +52478,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag = False
 
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag = False
+
         # planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlagCheckBox.\
            checkState() == Qt.Checked:
@@ -51044,6 +53257,22 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 lineSegment2GraphicsItemAngleTextFlag = False
 
+        # verticalLineSegmentGraphicsItemBarWidth (float).
+        self.priceBarChartSettings.verticalLineSegmentGraphicsItemBarWidth = \
+            float(self.verticalLineSegmentGraphicsItemBarWidthSpinBox.value())
+
+        # verticalLineSegmentGraphicsItemColor (QColor).
+        self.priceBarChartSettings.verticalLineSegmentGraphicsItemColor = \
+            self.verticalLineSegmentGraphicsItemColorEditButton.getColor()
+
+        # horizontalLineSegmentGraphicsItemBarWidth (float).
+        self.priceBarChartSettings.horizontalLineSegmentGraphicsItemBarWidth = \
+            float(self.horizontalLineSegmentGraphicsItemBarWidthSpinBox.value())
+
+        # horizontalLineSegmentGraphicsItemColor (QColor).
+        self.priceBarChartSettings.horizontalLineSegmentGraphicsItemColor = \
+            self.horizontalLineSegmentGraphicsItemColorEditButton.getColor()
+
         # octaveFanGraphicsItemBarHeight (float).
         self.priceBarChartSettings.octaveFanGraphicsItemBarHeight = \
             float(self.octaveFanGraphicsItemBarHeightSpinBox.value())
@@ -51516,6 +53745,15 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.log.debug("Exiting saveValuesToSettings()")
 
 
+    def getPriceBarChartSettings(self):
+        """Returns the internally stored PriceBarChartSettings.  
+
+        This object has modifications if the user clicked Okay, and
+        remains unchanged if the user clicked Cancel.
+        """
+
+        return self.priceBarChartSettings
+
     def _handleTimeMeasurementGraphicsItemDefaultFontModifyButtonClicked(self):
         """Called when the
         self.timeMeasurementGraphicsItemDefaultFontModifyButton button is
@@ -51721,6 +53959,36 @@ class PriceBarChartSettingsEditWidget(QWidget):
         value = PriceBarChartSettings.\
                     defaultPriceBarGraphicsItemRightExtensionWidth
         self.priceBarGraphicsItemRightExtensionWidthSpinBox.setValue(value)
+
+    def _handleLookbackMultiplePriceBarPenWidthResetButtonClicked(self):
+        """Called when the penWidthResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarChartSettings.\
+                defaultLookbackMultiplePriceBarGraphicsItemPenWidth
+        self.lookbackMultiplePriceBarGraphicsItemPenWidthSpinBox.\
+            setValue(value)
+
+    def _handleLookbackMultiplePriceBarLeftExtensionWidthResetButtonClicked(self):
+        """Called when the leftExtensionWidthResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarChartSettings.\
+                defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth
+        self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidthSpinBox.\
+            setValue(value)
+
+    def _handleLookbackMultiplePriceBarRightExtensionWidthResetButtonClicked(self):
+        """Called when the rightExtensionWidthResetButton is clicked.
+        Resets the widget value to the default value.
+        """
+
+        value = PriceBarChartSettings.\
+                    defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth
+        self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidthSpinBox.\
+            setValue(value)
 
     def _handleBarCountGraphicsItemBarHeightResetButtonClicked(self):
         """Called when the barCountGraphicsItemBarHeightResetButton
@@ -53596,6 +55864,54 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.lineSegment2GraphicsItemAngleTextFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
             
+    def _handleVerticalLineSegmentGraphicsItemBarWidthResetButtonClicked(self):
+        """Called when the verticalLineSegmentGraphicsItemBarWidthResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+            defaultVerticalLineSegmentGraphicsItemBarWidth
+
+        self.verticalLineSegmentGraphicsItemBarWidthSpinBox.setValue(value)
+
+    def _handleVerticalLineSegmentGraphicsItemColorResetButtonClicked(self):
+        """Called when the
+        verticalLineSegmentGraphicsItemColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+            defaultVerticalLineSegmentGraphicsItemColor
+
+        self.verticalLineSegmentGraphicsItemColorEditButton.\
+            setColor(value)
+
+    def _handleHorizontalLineSegmentGraphicsItemBarWidthResetButtonClicked(self):
+        """Called when the horizontalLineSegmentGraphicsItemBarWidthResetButton
+        is clicked.  Resets the widget value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+            defaultHorizontalLineSegmentGraphicsItemBarWidth
+
+        self.horizontalLineSegmentGraphicsItemBarWidthSpinBox.setValue(value)
+
+    def _handleHorizontalLineSegmentGraphicsItemColorResetButtonClicked(self):
+        """Called when the
+        horizontalLineSegmentGraphicsItemColorResetButton is clicked.
+        Resets the internal value to the default value.
+        """
+
+        value = \
+            PriceBarChartSettings.\
+            defaultHorizontalLineSegmentGraphicsItemColor
+
+        self.horizontalLineSegmentGraphicsItemColorEditButton.\
+            setColor(value)
+
     def _octaveFanGraphicsItemReloadMusicalRatiosGrid(self,
                                                            musicalRatios):
         """Clears and recreates the
@@ -56814,6 +59130,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self._handleLineSegment2GraphicsItemTiltedTextFlagResetButton()
         self._handleLineSegment2GraphicsItemAngleTextFlagResetButton()
 
+        self._handleVerticalLineSegmentGraphicsItemBarWidthResetButtonClicked()
+        self._handleVerticalLineSegmentGraphicsItemColorResetButtonClicked()
+
+        self._handleHorizontalLineSegmentGraphicsItemBarWidthResetButtonClicked()
+        self._handleHorizontalLineSegmentGraphicsItemColorResetButtonClicked()
+
         self._handleOctaveFanGraphicsItemBarHeightResetButtonClicked()
         self._handleOctaveFanGraphicsItemColorResetButtonClicked()
         self._handleOctaveFanGraphicsItemTextColorResetButtonClicked()
@@ -56944,12 +59266,9 @@ class PriceBarChartSettingsEditDialog(QDialog):
 
         self.setWindowTitle("PriceBarChart Settings")
 
-        # Save a reference to the PriceBarChartSettings object.
-        self.priceBarChartSettings = priceBarChartSettings
-
         # Create the contents.
         self.priceBarChartSettingsEditWidget = \
-            PriceBarChartSettingsEditWidget(self.priceBarChartSettings)
+            PriceBarChartSettingsEditWidget(priceBarChartSettings)
 
         # Setup the layout.
         layout = QVBoxLayout()
@@ -56960,6 +59279,15 @@ class PriceBarChartSettingsEditDialog(QDialog):
             connect(self.accept)
         self.priceBarChartSettingsEditWidget.cancelButtonClicked.\
             connect(self.reject)
+
+    def getPriceBarChartSettings(self):
+        """Returns the internally stored PriceBarChartSettings.  
+
+        This object has modifications if the user clicked Okay, and
+        remains unchanged if the user clicked Cancel.
+        """
+
+        return self.priceBarChartSettingsEditWidget.getPriceBarChartSettings()
 
 class PriceChartDocumentDataEditWidget(QWidget):
     """QWidget for editing some of the member objects in a
@@ -57002,6 +59330,7 @@ class PriceChartDocumentDataEditWidget(QWidget):
         self.userNotesLabel = QLabel("&User notes:")
         self.userNotesTextEdit = QTextEdit()
         self.userNotesTextEdit.setAcceptRichText(False)
+        self.userNotesTextEdit.setTabChangesFocus(True)
         self.userNotesLabel.setBuddy(self.userNotesTextEdit)
 
         # Source data file which we got the PriceBar data from.
@@ -57102,6 +59431,14 @@ class PriceChartDocumentDataEditWidget(QWidget):
         
         self.log.debug("Exiting saveValues()")
 
+    def getPriceChartDocumentData(self):
+        """Returns the internally stored PriceChartDocumentData.  
+
+        This object has modifications if the user clicked Okay, and
+        remains unchanged if the user clicked Cancel.
+        """
+
+        return self.priceChartDocumentData
 
     def _handleOkayButtonClicked(self):
         """Called when the okay button is clicked."""
@@ -57137,12 +59474,9 @@ class PriceChartDocumentDataEditDialog(QDialog):
 
         self.setWindowTitle("Edit PriceChartDocument Data")
 
-        # Save a reference to the PriceChartDocumentData object.
-        self.priceChartDocumentData = priceChartDocumentData
-
         # Create the contents.
         self.priceChartDocumentDataEditWidget = \
-            PriceChartDocumentDataEditWidget(self.priceChartDocumentData)
+            PriceChartDocumentDataEditWidget(priceChartDocumentData)
 
         # Setup the layout.
         layout = QVBoxLayout()
@@ -57153,6 +59487,15 @@ class PriceChartDocumentDataEditDialog(QDialog):
             connect(self.accept)
         self.priceChartDocumentDataEditWidget.cancelButtonClicked.\
             connect(self.reject)
+
+    def getPriceChartDocumentData(self):
+        """Returns the internally stored PriceChartDocumentData.  
+
+        This object has modifications if the user clicked Okay, and
+        remains unchanged if the user clicked Cancel.
+        """
+
+        return self.priceChartDocumentDataEditWidget.getPriceChartDocumentData()
 
 
 class TimestampEditWidget(QWidget):
@@ -57640,7 +59983,7 @@ class TimestampEditDialog(QDialog):
 
         # Logger object for this class.
         self.log = logging.\
-            getLogger("widgets.TimestampEditDialog")
+            getLogger("dialogs.TimestampEditDialog")
 
         self.setWindowTitle("Timestamp")
 
@@ -57705,7 +60048,7 @@ class PriceBarTagEditWidget(QWidget):
 
         # Logger object for this class.
         self.log = logging.\
-            getLogger("widgets.PriceBarTagEditWidget")
+            getLogger("dialogs.PriceBarTagEditWidget")
 
         # Save off the list of tags.
         self.tags = list(tags)
@@ -58010,7 +60353,7 @@ class PriceBarTagEditDialog(QDialog):
 
         # Logger object for this class.
         self.log = logging.\
-            getLogger("widget.PriceBarTagEditDialog")
+            getLogger("dialogs.PriceBarTagEditDialog")
 
         self.setWindowTitle("PriceBar Tags")
 
@@ -58056,9 +60399,9 @@ class PriceBarEditWidget(QWidget):
 
         # Logger object for this class.
         self.log = logging.\
-            getLogger("widgets.PriceBarEditWidget")
+            getLogger("dialogs.PriceBarEditWidget")
 
-        # Save off the PriceBarChartScaling object.
+        # Save off the PriceBar object.
         self.priceBar = priceBar
 
         # Read-Only flag.
@@ -58374,7 +60717,7 @@ class PriceBarEditDialog(QDialog):
 
         # Logger object for this class.
         self.log = logging.\
-            getLogger("widgets.PriceBarEditDialog")
+            getLogger("dialogs.PriceBarEditDialog")
 
         self.setWindowTitle("PriceBar")
 
@@ -58463,7 +60806,7 @@ class PriceBarsCompareDialog(QDialog):
 
         # Logger object for this class.
         self.log = logging.\
-            getLogger("widgets.PriceBarsCompareDialog")
+            getLogger("dialogs.PriceBarsCompareDialog")
         
         self.setWindowTitle("PriceBars Comparison")
 
@@ -58706,6 +61049,674 @@ class PriceBarsCompareDialog(QDialog):
         """
 
         self.accept()
+
+
+class LookbackMultiplePriceBarEditWidget(QWidget):
+    """QWidget for editing the a LookbackMultiplePriceBar.
+    With this widget, the fields can all be edited except for the
+    LookbackMultiple and historic PriceBar associated with this
+    LookbackMultiplePriceBar.
+
+    Note: The LookbackMultiplePriceBar passed into the constructor or
+    the loadLookbackMultiplePriceBar() is only modified if the user
+    clicks on the Okay button or if the saveLookbackMultiplePriceBar()
+    method is called.  It is recommended that the user use the method
+    getLookbackMultiplePriceBar() to obtain then modified/updated
+    LookbackMultiplePriceBar.
+    """
+
+    # Signal emitted when the Okay button is clicked and 
+    # validation succeeded.
+    okayButtonClicked = QtCore.pyqtSignal()
+
+    # Signal emitted when the Cancel button is clicked.
+    cancelButtonClicked = QtCore.pyqtSignal()
+
+    def __init__(self, lookbackMultiplePriceBar, parent=None):
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.LookbackMultiplePriceBarEditWidget")
+
+        # Save off the LookbackMultiplePriceBar object.
+        self.lookbackMultiplePriceBar = lookbackMultiplePriceBar
+
+        # Read-Only flag.
+        self.readOnlyFlag = False
+
+        # LookbackMultiplePriceBar tags, stored in this variable instead of an
+        # edit widget.  Upon loading a new LookbackMultiplePriceBar, this
+        # variable is set.
+        self.tags = []
+        
+        # Build QWidgets that go into the QTabWidget.
+        #
+        # These each have edit widgets within them, 
+        # for displaying/editing their respective types.
+        self.lookbackMultiplePriceBarWidget = \
+            self._buildLookbackMultiplePriceBarWidget()
+        self.historicPriceBarEditWidget = \
+            self._buildHistoricPriceBarEditWidget()
+        self.lookbackMultipleWidget = \
+            self._buildLookbackMultipleWidget()
+            
+        # Create a QTabWidget to stack all the edit widgets.
+        self.tabWidget = QTabWidget()
+        self.tabWidget.addTab(self.lookbackMultiplePriceBarWidget, 
+                              "LookbackMultiplePriceBar")
+        self.tabWidget.addTab(self.historicPriceBarEditWidget, 
+                              "Historic PriceBar")
+        self.tabWidget.addTab(self.lookbackMultipleWidget, 
+                              "LookbackMultiple")
+
+        # Buttons at bottom.
+        self.okayButton = QPushButton("&Okay")
+        self.cancelButton = QPushButton("&Cancel")
+        self.buttonsAtBottomLayout = QHBoxLayout()
+        self.buttonsAtBottomLayout.addStretch()
+        self.buttonsAtBottomLayout.addWidget(self.okayButton)
+        self.buttonsAtBottomLayout.addWidget(self.cancelButton)
+
+        # Put all layouts/groupboxes together into the widget.
+        self.mainLayout = QVBoxLayout()
+        self.mainLayout.addWidget(self.tabWidget) 
+        self.mainLayout.addLayout(self.buttonsAtBottomLayout) 
+
+        self.setLayout(self.mainLayout)
+
+        # Now that all the widgets are created, load the values from the
+        # settings.
+        self.loadLookbackMultiplePriceBar(self.lookbackMultiplePriceBar)
+
+        # Connect signals and slots.
+        self.tagsListEditButton.clicked.\
+            connect(self._handleTagsListEditButtonClicked)
+        
+        # Connect okay and cancel buttons.
+        self.okayButton.clicked.connect(self._handleOkayButtonClicked)
+        self.cancelButton.clicked.connect(self._handleCancelButtonClicked)
+
+    def _buildLookbackMultiplePriceBarWidget(self):
+        """Builds the QWidget that holds edit widgets for all the
+        member variables of a LookbackMultiplePriceBar, except for the
+        historic PriceBar and LookbackMultiple.
+
+        Returns QWidget.
+        """
+        
+        # Timestamp.
+        self.timestampEditWidget = TimestampEditWidget()
+        self.timestampEditWidget.okayButton.setVisible(False)
+        self.timestampEditWidget.cancelButton.setVisible(False)
+
+        # Open price.
+        self.openPriceLabel = QLabel("Open Price:")
+        self.openPriceSpinBox = QDoubleSpinBox()
+        self.openPriceSpinBox.setDecimals(4)
+        self.openPriceSpinBox.setMinimum(0.0)
+        self.openPriceSpinBox.setMaximum(999999999.0)
+
+        # High price.
+        self.highPriceLabel = QLabel("High Price:")
+        self.highPriceSpinBox = QDoubleSpinBox()
+        self.highPriceSpinBox.setDecimals(4)
+        self.highPriceSpinBox.setMinimum(0.0)
+        self.highPriceSpinBox.setMaximum(999999999.0)
+
+        # Low price.
+        self.lowPriceLabel = QLabel("Low Price:")
+        self.lowPriceSpinBox = QDoubleSpinBox()
+        self.lowPriceSpinBox.setDecimals(4)
+        self.lowPriceSpinBox.setMinimum(0.0)
+        self.lowPriceSpinBox.setMaximum(999999999.0)
+
+        # Close price.
+        self.closePriceLabel = QLabel("Close Price:")
+        self.closePriceSpinBox = QDoubleSpinBox()
+        self.closePriceSpinBox.setDecimals(4)
+        self.closePriceSpinBox.setMinimum(0.0)
+        self.closePriceSpinBox.setMaximum(999999999.0)
+
+        # Open interest.
+        self.openInterestLabel = QLabel("Open Interest:")
+        self.openInterestSpinBox = QDoubleSpinBox()
+        self.openInterestSpinBox.setDecimals(4)
+        self.openInterestSpinBox.setMinimum(0.0)
+        self.openInterestSpinBox.setMaximum(999999999.0)
+
+        # Volume.
+        self.volumeLabel = QLabel("Volume:")
+        self.volumeSpinBox = QDoubleSpinBox()
+        self.volumeSpinBox.setDecimals(4)
+        self.volumeSpinBox.setMinimum(0.0)
+        self.volumeSpinBox.setMaximum(999999999.0)
+
+        # Tags.
+        self.tagsListWidget = QListWidget()
+        self.tagsListWidget.clear()
+        self.tagsListWidget.setSelectionMode(QAbstractItemView.SingleSelection)
+
+        # Layout and groupbox to hold the tags list widget.
+        self.listWidgetLayout = QVBoxLayout()
+        self.listWidgetLayout.addWidget(self.tagsListWidget)
+        self.tagsListGroupBox = QGroupBox("Tags:")
+        self.tagsListGroupBox.setLayout(self.listWidgetLayout)
+        self.tagsListEditButton = QPushButton("Edit Tags")
+
+        # Set widgets in the layouts.
+        self.timestampLayout = QVBoxLayout()
+        self.timestampLayout.addWidget(self.timestampEditWidget)
+
+        self.formLayout = QFormLayout()
+        self.formLayout.setLabelAlignment(Qt.AlignLeft)
+        self.formLayout.addRow(self.openPriceLabel, 
+                               self.openPriceSpinBox)
+        self.formLayout.addRow(self.highPriceLabel, 
+                               self.highPriceSpinBox)
+        self.formLayout.addRow(self.lowPriceLabel, 
+                               self.lowPriceSpinBox)
+        self.formLayout.addRow(self.closePriceLabel, 
+                               self.closePriceSpinBox)
+        self.formLayout.addRow(self.openInterestLabel, 
+                               self.openInterestSpinBox)
+        self.formLayout.addRow(self.volumeLabel, 
+                               self.volumeSpinBox)
+
+        self.tagsFormLayout = QFormLayout()
+        self.tagsFormLayout.setLabelAlignment(Qt.AlignLeft)
+        self.tagsFormLayout.addRow(self.tagsListGroupBox, 
+                                   self.tagsListEditButton)
+
+        self.priceActionGroupBox = QGroupBox("Price Action:")
+        self.priceActionGroupBox.setLayout(self.formLayout)
+
+        self.editWidgetsLayout = QVBoxLayout()
+        self.editWidgetsLayout.addLayout(self.timestampLayout)
+        self.editWidgetsLayout.addWidget(self.priceActionGroupBox)
+        self.editWidgetsLayout.addLayout(self.tagsFormLayout)
+        
+        widget = QWidget()
+        widget.setLayout(self.editWidgetsLayout)
+
+        return widget
+        
+
+    def _buildHistoricPriceBarEditWidget(self):
+        """Builds the QWidget that holds edit widgets for historic PriceBar
+
+        related to this LookbackMultiplePriceBar.
+
+        Returned QWidget is: self.historicPriceBarEditWidget
+        """
+        
+        # Dummy PriceBar, with default initial data.  
+        #
+        # This is just so we can pass a PriceBar to a PriceBarEditWidget's
+        # constructor.  We manually load the actual PriceBar into the widgets
+        # later.
+        pb = PriceBar(datetime.datetime.now(pytz.utc),
+                      open=0, high=0, low=0, close=0, oi=0, vol=0, tags=[])
+
+        self.historicPriceBarEditWidget = PriceBarEditWidget(pb)
+        self.historicPriceBarEditWidget.groupBox.setTitle("Historic PriceBar:")
+        self.historicPriceBarEditWidget.okayButton.setVisible(False)
+        self.historicPriceBarEditWidget.cancelButton.setVisible(False)
+        self.historicPriceBarEditWidget.setReadOnly(True)
+        
+        return self.historicPriceBarEditWidget
+
+    def _buildLookbackMultipleWidget(self):
+        """Builds the QWidget that holds edit widgets for LookbackMultiple
+        related to this LookbackMultiplePriceBar.
+
+        Returns QWidget.
+        """
+        
+        # Widgets for displaying the selected LookbackMultiple.
+        self.lookbackMultipleNameLabel = QLabel("Name:")
+        self.lookbackMultipleNameValueLabel = QLabel()
+        
+        self.lookbackMultipleDescriptionLabel = QLabel("Description:")
+        self.lookbackMultipleDescriptionTextEdit = QTextEdit()
+        self.lookbackMultipleDescriptionTextEdit.setAcceptRichText(False)
+        self.lookbackMultipleDescriptionTextEdit.setTabChangesFocus(True)
+        self.lookbackMultipleDescriptionTextEdit.setEnabled(False)
+        self.lookbackMultipleDescriptionTextEdit.setTextColor(Qt.black)
+        self.lookbackMultipleDescriptionTextEdit.setMaximumHeight(80)
+
+        self.lookbackMultipleLabel = QLabel("Lookback multiple:")
+        self.lookbackMultipleValueLabel = QLabel()
+        
+        self.lookbackMultipleBaseUnitLabel = QLabel("Base unit:")
+        self.lookbackMultipleBaseUnitValueLabel = QLabel()
+        
+        self.lookbackMultipleBaseUnitTypeLabel = QLabel("Base unit type:")
+        self.lookbackMultipleBaseUnitTypeValueLabel = QLabel()
+
+        self.lookbackMultipleColorLabel = QLabel("Color:")
+        self.lookbackMultipleColorLabelLabel = ColorLabel()
+        
+        self.lookbackMultipleEnabledLabel = QLabel("Enabled:")
+        self.lookbackMultipleEnabledCheckBox = QCheckBox()
+        self.lookbackMultipleEnabledCheckBox.setEnabled(False)
+        
+        self.lookbackMultiplePlanetNameLabel = QLabel("Planet name:")
+        self.lookbackMultiplePlanetNameValueLabel = QLabel()
+
+        self.lookbackMultipleCentricityTypeLabel = QLabel("Centricity type:")
+        self.lookbackMultipleCentricityTypeValueLabel = QLabel()
+
+        self.lookbackMultipleLongitudeTypeLabel = QLabel("Longitude type:")
+        self.lookbackMultipleLongitudeTypeValueLabel = QLabel()
+
+        # Grid layout.  
+        self.lookbackMultipleGridLayout = QGridLayout()
+
+        # Row.
+        r = 0
+
+        # Alignment.
+        al = Qt.AlignLeft
+
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleNameLabel, r, 0, al)
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleNameValueLabel, r, 1, al)
+        r += 1
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleDescriptionLabel, r, 0, al)
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleDescriptionTextEdit, r, 1, al)
+        r += 1
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleLabel, r, 0, al)
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleValueLabel, r, 1, al)
+        r += 1
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleBaseUnitLabel, r, 0, al)
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleBaseUnitValueLabel, r, 1, al)
+        r += 1
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleBaseUnitTypeLabel, r, 0, al)
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleBaseUnitTypeValueLabel, r, 1, al)
+        r += 1
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleColorLabel, r, 0, al)
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleColorLabelLabel, r, 1, al)
+        r += 1
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleEnabledLabel, r, 0, al)
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleEnabledCheckBox, r, 1, al)
+        r += 1
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultiplePlanetNameLabel, r, 0, al)
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultiplePlanetNameValueLabel, r, 1, al)
+        r += 1
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleCentricityTypeLabel, r, 0, al)
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleCentricityTypeValueLabel, r, 1, al)
+        r += 1
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleLongitudeTypeLabel, r, 0, al)
+        self.lookbackMultipleGridLayout.\
+            addWidget(self.lookbackMultipleLongitudeTypeValueLabel, r, 1, al)
+        r += 1
+
+        lookbackMultipleLayout = QVBoxLayout()
+        lookbackMultipleLayout.addLayout(self.lookbackMultipleGridLayout)
+        lookbackMultipleLayout.addStretch()
+
+        widget = QWidget()
+        widget.setLayout(lookbackMultipleLayout)
+
+        return widget
+
+    def _populateLookbackMultipleWidgets(self, lookbackMultiple):
+        """Populate the LookbackMultiple widgets with the given
+        LookbackMultiple.
+
+        Arguments:
+        lookbackMultiple - LookbackMultiple object to use to populate 
+                           the widgets with.
+        """
+
+        # Populate the widgets for the selected LookbackMultiple.
+        self.lookbackMultipleNameValueLabel.\
+            setText(lookbackMultiple.getName())
+        self.lookbackMultipleDescriptionTextEdit.\
+            setPlainText(lookbackMultiple.getDescription())
+        self.lookbackMultipleValueLabel.\
+            setText("{}".format(\
+                lookbackMultiple.getLookbackMultiple()))
+        self.lookbackMultipleBaseUnitValueLabel.\
+            setText("{}".format(lookbackMultiple.getBaseUnit()))
+
+        self.lookbackMultipleBaseUnitTypeValueLabel.setText("")
+        if lookbackMultiple.getBaseUnitTypeDegreesFlag() == True:
+            self.lookbackMultipleBaseUnitTypeValueLabel.\
+                setText("Degrees")
+        if lookbackMultiple.getBaseUnitTypeRevolutionsFlag() == True:
+            self.lookbackMultipleBaseUnitTypeValueLabel.\
+                setText("Revolutions")
+            
+        self.lookbackMultipleColorLabelLabel.\
+            setColor(lookbackMultiple.getColor())
+
+        value = lookbackMultiple.getEnabled()
+        if value == True:
+            self.lookbackMultipleEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.lookbackMultipleEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+                        
+        self.lookbackMultiplePlanetNameValueLabel.\
+            setText(lookbackMultiple.getPlanetName())
+
+        self.lookbackMultipleCentricityTypeValueLabel.setText("")
+        if lookbackMultiple.getGeocentricFlag() == True:
+            self.lookbackMultipleCentricityTypeValueLabel.\
+                setText("Geocentric")
+        if lookbackMultiple.getHeliocentricFlag() == True:
+            self.lookbackMultipleCentricityTypeValueLabel.\
+                setText("Heliocentric")
+
+        self.lookbackMultipleLongitudeTypeValueLabel.setText("")
+        if lookbackMultiple.getTropicalFlag() == True:
+            self.lookbackMultipleLongitudeTypeValueLabel.\
+                setText("Tropical")
+        if lookbackMultiple.getSiderealFlag() == True:
+            self.lookbackMultipleLongitudeTypeValueLabel.\
+                setText("Sidereal")
+
+
+    def setReadOnly(self, readOnlyFlag):
+        """Sets the flag that indicates that this widget is in
+        read-only mode.  The effect of this is that the user cannot
+        edit any of the fields in the LookbackMultiplePriceBar.
+        """
+        
+        self.readOnlyFlag = readOnlyFlag
+
+        # Set the internal widgets as readonly or not depending on this flag.
+        self.timestampEditWidget.setReadOnly(self.readOnlyFlag)
+        self.openPriceSpinBox.setEnabled(not self.readOnlyFlag)
+        self.highPriceSpinBox.setEnabled(not self.readOnlyFlag)
+        self.lowPriceSpinBox.setEnabled(not self.readOnlyFlag)
+        self.closePriceSpinBox.setEnabled(not self.readOnlyFlag)
+        self.openInterestSpinBox.setEnabled(not self.readOnlyFlag)
+        self.volumeSpinBox.setEnabled(not self.readOnlyFlag)
+        self.tagsListEditButton.setEnabled(not self.readOnlyFlag)
+
+        # Don't allow the Okay button to be pressed for saving.
+        self.okayButton.setEnabled(not self.readOnlyFlag)
+        
+    def getReadOnly(self, readOnlyFlag):
+        """Returns the flag that indicates that this widget is in
+        read-only mode.  If the returned value is True, then it means
+        the user cannot edit any of the fields in the LookbackMultiplePriceBar.
+        """
+        
+        return self.readOnlyFlag
+
+    def loadLookbackMultiplePriceBar(self, lookbackMultiplePriceBar):
+        """Loads the widgets with values from the given
+        LookbackMultiplePriceBar object.
+        """
+
+        self.log.debug("Entered loadLookbackMultiplePriceBar()")
+
+        # Check inputs.
+        if lookbackMultiplePriceBar == None:
+            self.log.error("Invalid parameter to " + \
+                           "loadLookbackMultiplePriceBar().  " + \
+                           "lookbackMultiplePriceBar can't be None.")
+            self.log.debug("Exiting lookbackMultiplePriceBar()")
+            return
+        else:
+            self.lookbackMultiplePriceBar = lookbackMultiplePriceBar 
+
+        self.timestampEditWidget.\
+            loadTimestamp(self.lookbackMultiplePriceBar.timestamp)
+        self.openPriceSpinBox.setValue(self.lookbackMultiplePriceBar.open)
+        self.highPriceSpinBox.setValue(self.lookbackMultiplePriceBar.high)
+        self.lowPriceSpinBox.setValue(self.lookbackMultiplePriceBar.low)
+        self.closePriceSpinBox.setValue(self.lookbackMultiplePriceBar.close)
+        self.openInterestSpinBox.setValue(self.lookbackMultiplePriceBar.oi)
+        self.volumeSpinBox.setValue(self.lookbackMultiplePriceBar.vol)
+
+        self.tags = list(self.lookbackMultiplePriceBar.tags)
+        
+        # Populate the tagsListWidget with the str objects in
+        # self.lookbackMultiplePriceBar.tags.
+        self.tagsListWidget.clear();
+        for tag in self.tags:
+            listWidgetItem = QListWidgetItem()
+            listWidgetItem.setText(tag)
+            self.tagsListWidget.addItem(listWidgetItem)
+        if self.tagsListWidget.count() > 0:
+            self.tagsListWidget.setCurrentRow(0)
+        
+        # Populate the historic PriceBar edit widgets.
+        # These widgets are all read-only.
+        self.historicPriceBarEditWidget.\
+            loadPriceBar(lookbackMultiplePriceBar.historicPriceBar)
+
+        # Populate the LookbackMultiple edit widgets.
+        # These widgets are all read-only.
+        self._populateLookbackMultipleWidgets(\
+             lookbackMultiplePriceBar.lookbackMultiple)
+
+        self.log.debug("Exiting loadLookbackMultiplePriceBar()")
+        
+    def saveLookbackMultiplePriceBar(self):
+        """Saves the values in the widgets to the 
+        LookbackMultiplePriceBar object passed in this class's constructor.
+        """
+    
+        self.log.debug("Entered saveLookbackMultiplePriceBar()")
+        
+        self.lookbackMultiplePriceBar.timestamp = \
+            self.timestampEditWidget.getTimestamp()
+        self.lookbackMultiplePriceBar.open = self.openPriceSpinBox.value()
+        self.lookbackMultiplePriceBar.high = self.highPriceSpinBox.value()
+        self.lookbackMultiplePriceBar.low = self.lowPriceSpinBox.value()
+        self.lookbackMultiplePriceBar.close = self.closePriceSpinBox.value()
+        self.lookbackMultiplePriceBar.oi = self.openInterestSpinBox.value()
+        self.lookbackMultiplePriceBar.vol = self.volumeSpinBox.value()
+        self.lookbackMultiplePriceBar.tags = self.tags
+
+        self.log.debug("Exiting saveLookbackMultiplePriceBar()")
+
+    def getLookbackMultiplePriceBar(self):
+        """Returns the internally stored LookbackMultiplePriceBar object.
+        This may or may not represent what is in the widgets, depending on
+        whether or not saveLookbackMultiplePriceBar() has been called.
+        """
+
+        return self.lookbackMultiplePriceBar
+
+    def setOkayCancelButtonsVisible(self, visibleFlag):
+        """Hides or shows the Okay and Cancel buttons depending on the
+        value of visibleFlag.
+
+        Arguments:
+        
+        visibleFlag - bool value for whether or not to show the Okay
+        and Cancel buttons.  If True, then the buttons are visible.
+        If False, then the buttons are hidden.  The buttons are
+        visible by default.
+        """
+
+        self.okayButton.setVisible(visibleFlag)
+        self.cancelButton.setVisible(visibleFlag)
+
+    def getOkayCancelButtonsVisible(self):
+        """Returns whether or not the Okay and Cancel buttons are visible.
+
+        Returns:
+        bool value for whether or not the okay and cancel buttons are visible.
+        """
+
+        if self.okayButton.isVisible() and self.cancelButton.isVisible():
+            return True
+        else:
+            return False
+
+    def _handleTagsListEditButtonClicked(self):
+        """Called when the 'Edit Tags' button is clicked.
+        Opens up a dialog for editing the list of tags.
+        """
+
+        dialog = PriceBarTagEditDialog(self.tags, self)
+        
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # Set to self.tags, the values from the QDialog.
+            self.tags = dialog.getTags()
+
+            # Clear the list of tags displayed, reset them with the
+            # new values.
+            self.tagsListWidget.clear();
+            for tag in self.tags:
+                listWidgetItem = QListWidgetItem()
+                listWidgetItem.setText(tag)
+                self.tagsListWidget.addItem(listWidgetItem)
+            if self.tagsListWidget.count() > 0:
+                self.tagsListWidget.setCurrentRow(0)
+        
+        
+    def _handleOkayButtonClicked(self):
+        """Called when the okay button is clicked."""
+
+        # Only save if the readOnlyFlag is False.
+        if self.readOnlyFlag == False:
+            self.timestampEditWidget.saveTimestamp()
+            self.saveLookbackMultiplePriceBar()
+
+        self.okayButtonClicked.emit()
+
+    def _handleCancelButtonClicked(self):
+        """Called when the cancel button is clicked."""
+
+        self.cancelButtonClicked.emit()
+
+
+class LookbackMultiplePriceBarEditDialog(QDialog):
+    """QDialog for editing the a LookbackMultiplePriceBar.
+    With this widget, the fields can all be edited except for the
+    LookbackMultiple and historic PriceBar associated with this
+    LookbackMultiplePriceBar.
+
+    Note: The LookbackMultiplePriceBar passed into the constructor or
+    the loadLookbackMultiplePriceBar() is only modified if the user
+    clicks on the Okay button or if the saveLookbackMultiplePriceBar()
+    method is called.  It is recommended that the user use the method
+    getLookbackMultiplePriceBar() to obtain then modified/updated
+    LookbackMultiplePriceBar.
+    """
+
+    def __init__(self, lookbackMultiplePriceBar, readOnly=False, parent=None):
+        """Initializes the internal widgets to hold the
+        LookbackMultiplePriceBar in the lookbackMultiplePriceBar variable.
+
+        Arguments:
+        
+        lookbackMultiplePriceBar - LookbackMultiplePriceBar object to edit 
+                                   or view in the dialog.
+        
+        readOnly - bool value for whether or not the user is allowed
+                   to edit the fields in the given LookbackMultiplePriceBar.  
+                   If the value is True, then the buttons and widgets allow
+                   for modification.  If the value is False, then the
+                   fields are viewable only.
+        """
+        
+        super().__init__(parent)
+
+        # Logger object for this class.
+        self.log = logging.\
+            getLogger("dialogs.LookbackMultiplePriceBarEditDialog")
+
+        self.setWindowTitle("LookbackMultiplePriceBar")
+
+        # Save a reference to the LookbackMultiplePriceBar.
+        self.lookbackMultiplePriceBar = lookbackMultiplePriceBar
+
+        # Save the readOnly preference.
+        self.readOnly = readOnly
+        
+        # Create the contents.
+        self.editWidget = \
+            LookbackMultiplePriceBarEditWidget(self.lookbackMultiplePriceBar)
+        self.editWidget.setReadOnly(self.readOnly)
+
+        # Setup the layout.
+        layout = QVBoxLayout()
+        layout.addWidget(self.editWidget)
+        self.setLayout(layout)
+
+        self.editWidget.okayButtonClicked.connect(self.accept)
+        self.editWidget.cancelButtonClicked.connect(self.reject)
+
+    def getLookbackMultiplePriceBar(self):
+        """Returns the internally stored timestamp.
+
+        Returns:
+        LookbackMultiplePriceBar holding the edited LookbackMultiplePriceBar.  
+        If the widget is in ReadOnly mode, or the user clicked 
+        the Cancel button, then the LookbackMultiplePriceBar is unchanged.
+        """
+
+        self.lookbackMultiplePriceBar = \
+            self.editWidget.getLookbackMultiplePriceBar()
+        
+        return self.lookbackMultiplePriceBar
+
+    def loadLookbackMultiplePriceBar(self, lookbackMultiplePriceBar):
+        """Loads the widgets with values from the given
+        LookbackMultiplePriceBar object.
+
+        Arguments:
+        lookbackMultiplePriceBar - LookbackMultiplePriceBar object to load 
+                                   into the widgets.
+        """
+
+        self.lookbackMultiplePriceBar = lookbackMultiplePriceBar
+        self.editWidget.\
+            loadLookbackMultiplePriceBar(self.lookbackMultiplePriceBar)
+        
+    def setReadOnly(self, readOnly):
+        """Sets the readOnly flag to the value given in 'readOnly'.
+
+        Arguments:
+        readOnly - bool value.  If True, then the widgets are made to
+        be unmodifiable.  If False, then the widgets can be changed
+        and the lookbackMultiplePriceBar can be modified.
+        """
+        
+        self.readOnly = readOnly
+        self.editWidget.setReadOnly(self.readOnly)
+
+    def getReadOnly(self):
+        """Returns the current setting of the readOnly flag.
+
+        Returns:
+        bool value representing whether or not the 
+        LookbackMultiplePriceBar can be modified.
+        """
+
+        return self.readOnly
+
         
 ##############################################################################
     
@@ -58797,7 +61808,7 @@ def testPriceBarChartScalingsListEditDialog():
 
     if returnVal == QDialog.Accepted:
         print("Accepted!");
-
+        print("Saving the dialog's values/mods back to the original variable.")
         scalings = dialog.getPriceBarChartScalings()
         index = dialog.getPriceBarChartScalingsIndex()
     else:
@@ -58808,6 +61819,121 @@ def testPriceBarChartScalingsListEditDialog():
         print("Scaling is: " + scalings[i].toString())
     print("Index of 'current' is: {}".format(index))
     
+def testLookbackMultipleEditDialog():
+    print("Running " + inspect.stack()[0][3] + "()")
+    
+    lm = LookbackMultiple(name="49ers",
+                          description="MyDescription",
+                          lookbackMultiple=1.0,
+                          baseUnit=49.0,
+                          baseUnitTypeDegreesFlag=False,
+                          baseUnitTypeRevolutionsFlag=True,
+                          color=QColor(Qt.gray),
+                          enabled=False,
+                          planetName="Ascendant",
+                          geocentricFlag=True,
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
+
+    print("LookbackMultiple before: {}".format(lm))
+    
+    dialog = LookbackMultipleEditDialog(lm)
+    
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted.")
+        print("Saving the dialog's values/mods back to the original variable.")
+        lm = dialog.getLookbackMultiple()
+    else:
+        print("Rejected.")
+
+    print("LookbackMultiple  after: {}".format(lm))
+
+
+def testLookbackMultipleListEditDialog():
+    print("Running " + inspect.stack()[0][3] + "()")
+    
+    lm1 = LookbackMultiple(name="49ers",
+                          description="MyDescription1",
+                          lookbackMultiple=1.0,
+                          baseUnit=49.0,
+                          baseUnitTypeDegreesFlag=False,
+                          baseUnitTypeRevolutionsFlag=True,
+                          color=QColor(Qt.gray),
+                          enabled=False,
+                          planetName="Ascendant",
+                          geocentricFlag=True,
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
+
+    lm2 = LookbackMultiple(name="40 deg Earth",
+                          description="MyDescription2",
+                          lookbackMultiple=1.0,
+                          baseUnit=40.0,
+                          baseUnitTypeDegreesFlag=True,
+                          baseUnitTypeRevolutionsFlag=False,
+                          color=QColor(Qt.red),
+                          enabled=True,
+                          planetName="Earth",
+                          geocentricFlag=False,
+                          heliocentricFlag=True,
+                          tropicalFlag=True,
+                          siderealFlag=False)
+
+    lm3 = LookbackMultiple(name="360 deg Moon",
+                          description="MyDescription3",
+                          lookbackMultiple=1.0,
+                          baseUnit=360.0,
+                          baseUnitTypeDegreesFlag=True,
+                          baseUnitTypeRevolutionsFlag=False,
+                          color=QColor(Qt.blue),
+                          enabled=True,
+                          planetName="Moon",
+                          geocentricFlag=True,
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
+
+    lm4 = LookbackMultiple(name="360 deg G.MoSu",
+                          description="MyDescription4",
+                          lookbackMultiple=1.0,
+                          baseUnit=360.0,
+                          baseUnitTypeDegreesFlag=True,
+                          baseUnitTypeRevolutionsFlag=False,
+                          color=QColor(Qt.black),
+                          enabled=True,
+                          planetName="MoSu",
+                          geocentricFlag=True,
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
+
+    lookbackMultiples = [lm1, lm2, lm3, lm4]
+
+    print("LookbackMultiple before: len(lookbackMultiples)={}".\
+          format(len(lookbackMultiples)))
+    for i in range(len(lookbackMultiples)):
+        lm = lookbackMultiples[i]
+        print("LookbackMultiple before: lookbackMultiples[{}]={}".format(i, lm))
+
+    dialog = LookbackMultipleListEditDialog(lookbackMultiples)
+    
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted.")
+        print("Saving the dialog's values/mods back to the original variable.")
+        lookbackMultiples = dialog.getLookbackMultiples()
+    else:
+        print("Rejected.")
+
+    print("LookbackMultiple  after: len(lookbackMultiples)={}".\
+          format(len(lookbackMultiples)))
+    for i in range(len(lookbackMultiples)):
+        lm = lookbackMultiples[i]
+        print("LookbackMultiple  after: lookbackMultiples[{}]={}".format(i, lm))
+
 def testTimestampEditDialog():
     print("Running " + inspect.stack()[0][3] + "()")
 
@@ -58824,10 +61950,10 @@ def testTimestampEditDialog():
         print("Accepted.")
     else:
         print("Rejected.")
-    print("Timestamp after: {}".format(Ephemeris.datetimeToStr(dt)))
+    print("Timestamp  after: {}".format(Ephemeris.datetimeToStr(dt)))
 
     dt = dialog.getTimestamp()
-    print("Timestamp new: {}".format(Ephemeris.datetimeToStr(dt)))
+    print("Timestamp    new: {}".format(Ephemeris.datetimeToStr(dt)))
         
 def testPriceBarTagEditDialog():
     print("Running " + inspect.stack()[0][3] + "()")
@@ -58841,11 +61967,11 @@ def testPriceBarTagEditDialog():
     if rv == QDialog.Accepted:
         print("Accepted")
         tags = dialog.getTags()
-        print("Tags after: {}".format(tags))
+        print("Tags  after: {}".format(tags))
     else:
         print("Rejected")
         tags = dialog.getTags()
-        print("Tags after: {}".format(tags))
+        print("Tags  after: {}".format(tags))
 
 def testPriceBarEditDialog():
     print("Running " + inspect.stack()[0][3] + "()")
@@ -58870,12 +61996,12 @@ def testPriceBarEditDialog():
     rv = dialog.exec_()
     if rv == QDialog.Accepted:
         print("Accepted")
+        print("Saving the dialog's values/mods back to the original variable.")
+        pb1 = dialog.getPriceBar()
     else:
         print("Rejected")
 
-    print("PriceBar: {}".format(pb1.toString()))
-    pb1 = dialog.getPriceBar()
-    print("PriceBar after mods: {}".format(pb1.toString()))
+    print("PriceBar  after: {}".format(pb1.toString()))
     
     priceBars = []
     priceBars.append(pb1)
@@ -58935,6 +62061,55 @@ def testPriceBarsCompareDialog():
         print("Rejected")
     
 
+def testLookbackMultiplePriceBarEditDialog():
+    print("Running " + inspect.stack()[0][3] + "()")
+
+    lm = LookbackMultiple(name="49ers",
+                          description="MyDescription",
+                          lookbackMultiple=1.0,
+                          baseUnit=49.0,
+                          baseUnitTypeDegreesFlag=False,
+                          baseUnitTypeRevolutionsFlag=True,
+                          color=QColor(Qt.gray),
+                          enabled=False,
+                          planetName="Ascendant",
+                          geocentricFlag=True,
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
+
+    historicPriceBarTags = ["HH", "L", "LLLL", "HappyTag"]
+    historicPriceBarTimestamp = \
+      datetime.datetime.now(pytz.utc) - datetime.timedelta(days=49)
+    historicPriceBar = PriceBar(historicPriceBarTimestamp,
+                   5, 9, 1, 5, 100, 200, historicPriceBarTags)
+    
+    lmpb = LookbackMultiplePriceBar(lm, historicPriceBar)
+    lmpb.timestamp = datetime.datetime.now(pytz.utc)
+    lmpb.open = historicPriceBar.open
+    lmpb.high = historicPriceBar.high
+    lmpb.low = historicPriceBar.low
+    lmpb.close = historicPriceBar.close
+    lmpb.oi = historicPriceBar.oi
+    lmpb.vol = historicPriceBar.vol
+    lmpb.tags = copy.deepcopy(historicPriceBar.tags)
+
+    print("LookbackMultiplePriceBar before: {}".format(lmpb))
+    
+    dialog = LookbackMultiplePriceBarEditDialog(lmpb)
+    
+    rv = dialog.exec_()
+    if rv == QDialog.Accepted:
+        print("Accepted")
+        print("Saving the dialog's values/mods back to the original variable.")
+        lmpb = dialog.getLookbackMultiplePriceBar()
+    else:
+        print("Rejected")
+    
+    print("LookbackMultiplePriceBar  after: {}".format(lmpb))
+
+    
+
 ##############################################################################
         
 # For debugging the module during development.  
@@ -58942,6 +62117,10 @@ if __name__=="__main__":
     # For inspect.stack().
     import inspect
     
+    # For logging and for exiting.
+    import os
+    import sys
+
     # Initialize the Ephemeris (required).
     Ephemeris.initialize()
 
@@ -58962,21 +62141,23 @@ if __name__=="__main__":
     #testPriceChartDocumentLocationTimezoneWizardPage()
     #testLocationTimezoneEditWidget()
     #testBirthInfoEditWidget()
-    testBirthInfoEditDialog()
+    #testBirthInfoEditDialog()
     #testPriceChartDocumentWizard()
     #testPriceBarChartScalingsListEditDialog()
+    #testLookbackMultipleEditDialog()
+    #testLookbackMultipleListEditDialog()
     #testTimestampEditDialog()
     #testPriceBarTagEditDialog()
     #testPriceBarEditDialog()
     #testPriceBarsCompareDialog()
-
+    #testLookbackMultiplePriceBarEditDialog()
+    
     # Exit the app when all windows are closed.
     app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
     app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))
 
     # Quit.
     print("Exiting.")
-    import sys
     sys.exit()
 
 

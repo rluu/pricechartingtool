@@ -280,11 +280,17 @@ Octave Fan Tool:
   - Key_G: Rotate the modal scale down.
   - Key_R: Reverse the direction of the modal scale.
 
+Drawing vertical or horizontal dotted lines at the 
+mouse position (works in all tool modes):
+
+  - Key_V: Toggle vertical dotted line drawing on/off.
+  - Key_H: Toggle horizontal dotted line drawing on/off.
+
 Snap key bindings are:
   - Key_Q: Turn snap mode on.
   - Key_W: Turn snap mode off.
 
-Snap key bindings are supported for the following tools:
+Snap key bindings to PriceBars are supported for the following tools:
   - BarCountTool
   - TimeMeasurementTool
   - PriceMeasurementTool
@@ -295,7 +301,10 @@ Snap key bindings are supported for the following tools:
   - TimeRetracementTool
   - PriceRetracementTool
   - PriceTimeVectorTool
-  - LineSegmentTool
+  - LineSegment1Tool
+  - LineSegment2Tool
+  - VerticalLineSegmentTool
+  - HorizontalLineSegmentTool
   - OctaveFanTool
   - FibFanTool
   - GannFanTool
@@ -311,6 +320,14 @@ Snap key bindings are supported for the following tools:
   - PanchottariDasaTool
   - ShashtihayaniDasaTool
   
+Note: For these tools below, the snap will work with 
+both PriceBars and LookbackMultiplePriceBars:
+
+  - PriceTimeInfoTool
+  - LineSegment1Tool
+  - LineSegment2Tool
+  - VerticalLineSegmentTool
+
 ##############################################################################
 
 Note: 
@@ -354,6 +371,26 @@ pricechartingtool
   |- src:  Holds the Python source code.
   |
   |- tps:  Holds third party software packages.
+
+##############################################################################
+
+Slow startup time notes:
+
+Description:
+  The first call to pytz.timezone() is very slow, up to about 8 seconds.
+  Subsequent calls are fast.
+ 
+  Reason: pytz gets its timezone settings from within the egg and the
+  first call to timezone has to check that all the timezone files exist,
+  the first call could be slow depending on how the os has to find those
+  files.
+ 
+Solution is to uncompress it via pip:
+
+     pip unzip pytz
+
+Source: 
+  http://stackoverflow.com/questions/20500910/first-call-to-pytz-timezone-is-slow-in-virtualenv
 
 ##############################################################################
 

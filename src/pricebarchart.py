@@ -40,10 +40,23 @@ from settings import SettingsKeys
 # For constants used.
 from astrologychart import AstrologyUtils
 
+# For conversions from julian day to datetime.datetime and vice versa.
+from ephemeris import Ephemeris
+
+# For getting datetimes forward and backward in time, 
+# to support LookbackMultiple.
+from lookbackmultiple_parallel import LookbackMultipleParallel
+
+# For generic utility helper methods.
+from util import Util
+
+
 # For PriceBars and artifacts in the chart.
 from data_objects import BirthInfo
 from data_objects import PriceBar
 from data_objects import MusicalRatio
+from data_objects import LookbackMultiple
+from data_objects import LookbackMultiplePriceBar
 from data_objects import PriceBarChartBarCountArtifact
 from data_objects import PriceBarChartTimeMeasurementArtifact
 from data_objects import PriceBarChartTimeModalScaleArtifact
@@ -56,6 +69,8 @@ from data_objects import PriceBarChartTimeRetracementArtifact
 from data_objects import PriceBarChartPriceRetracementArtifact
 from data_objects import PriceBarChartPriceTimeVectorArtifact
 from data_objects import PriceBarChartLineSegmentArtifact
+from data_objects import PriceBarChartVerticalLineSegmentArtifact
+from data_objects import PriceBarChartHorizontalLineSegmentArtifact
 from data_objects import PriceBarChartOctaveFanArtifact
 from data_objects import PriceBarChartFibFanArtifact
 from data_objects import PriceBarChartGannFanArtifact
@@ -72,10 +87,9 @@ from data_objects import PriceBarChartPanchottariDasaArtifact
 from data_objects import PriceBarChartShashtihayaniDasaArtifact
 from data_objects import PriceBarChartScaling
 from data_objects import PriceBarChartSettings
-from data_objects import Util
 
-# For conversions from julian day to datetime.datetime and vice versa.
-from ephemeris import Ephemeris
+# Edit dialogs.
+from dialogs import LookbackMultiplePriceBarEditDialog
 
 # For edit dialogs for modifying the PriceBarChartArtifact objects of
 # various PriceBarChartArtifactGraphicsItems.
@@ -91,6 +105,8 @@ from pricebarchart_dialogs import PriceBarChartTimeRetracementArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartPriceRetracementArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartPriceTimeVectorArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartLineSegmentArtifactEditDialog
+from pricebarchart_dialogs import PriceBarChartVerticalLineSegmentArtifactEditDialog
+from pricebarchart_dialogs import PriceBarChartHorizontalLineSegmentArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartOctaveFanArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartFibFanArtifactEditDialog
 from pricebarchart_dialogs import PriceBarChartGannFanArtifactEditDialog
@@ -682,6 +698,566 @@ class PriceBarGraphicsItem(QGraphicsItem):
         # The GraphicsItem's scene X position represents the time.
         self.scene().openAstrolog(self.scenePos().x())
         
+
+class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
+    """QGraphicsItem that visualizes a LookbackMultiplePriceBar object.
+
+    There exists two kinds of standard LookbackMultiplePriceBar drawings:
+      - Candle
+      - Bar with open and close
+
+    This draws the second one.  It is displayed as a bar with open and
+    close ticks on the left and right side.  The bar is drawn in the
+    color that is specified in the underlying LookbackMultiplePriceBar's
+    LookbackMultiple color.
+    """
+    
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+
+        # Logger
+        self.log = logging.getLogger("pricebarchart.LookbackMultiplePriceBarGraphicsItem")
+        self.log.debug("Entered __init__().")
+
+        # Pen width for LookbackMultiplePriceBars.
+        self.penWidth = \
+            PriceBarChartSettings.\
+            defaultLookbackMultiplePriceBarGraphicsItemPenWidth
+
+        # Width of the left extension drawn that represents the open price.
+        self.leftExtensionWidth = \
+            PriceBarChartSettings.\
+            defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth 
+
+        # Width of the right extension drawn that represents the close price.
+        self.rightExtensionWidth = \
+            PriceBarChartSettings.\
+            defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth 
+
+
+        # Internally stored LookbackMultiplePriceBar.
+        self.lookbackMultiplePriceBar = None
+
+        # Pen which is used to do the painting.
+        self.pen = QPen()
+        self.pen.setColor(QColor(Qt.black))
+        self.pen.setWidthF(self.penWidth)
+
+        # Read the QSettings preferences for the various parameters of
+        # this price bar.
+        self.loadSettingsFromAppPreferences()
+
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        LookbackMultiplePriceBarGraphicsItem from the given 
+        PriceBarChartSettings object.
+        """
+
+        # lookbackMultiplePriceBarGraphicsItemPenWidth (float).
+        self.penWidth = \
+            priceBarChartSettings.\
+            lookbackMultiplePriceBarGraphicsItemPenWidth
+
+        # lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth (float).
+        self.leftExtensionWidth = \
+            priceBarChartSettings.\
+            lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth
+
+        # lookbackMultiplePriceBarGraphicsItemRightExtensionWidth (float).
+        self.rightExtensionWidth = \
+            priceBarChartSettings.\
+            lookbackMultiplePriceBarGraphicsItemRightExtensionWidth
+
+
+        # Update the pen.
+        self.pen.setWidthF(self.penWidth)
+
+        # Schedule an update.
+        self.prepareGeometryChange()
+
+
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        GraphicsItem from the QSettings object. 
+        """
+
+        # No settings.
+        pass
+    
+    def setLookbackMultiplePriceBar(self, lookbackMultiplePriceBar):
+        """Sets the internally used LookbackMultiplePriceBar.  
+        """
+
+        self.log.debug("Entered setLookbackMultiplePriceBar().  " + \
+                       "lookbackMultiplePriceBar={}".\
+                       format(lookbackMultiplePriceBar.toString()))
+
+        self.lookbackMultiplePriceBar = lookbackMultiplePriceBar
+
+        # Set the color of the LookbackMultiplePriceBarGraphicsItem.
+        color = self.lookbackMultiplePriceBar.lookbackMultiple.getColor()
+        self.setLookbackMultiplePriceBarColor(color)
+
+        # Schedule an update to redraw the QGraphicsItem.
+        self.prepareGeometryChange()
+
+        self.log.debug("Leaving setLookbackMultiplePriceBar().")
+
+    def getLookbackMultiplePriceBar(self):
+        """Returns the internally stored LookbackMultiplePriceBar.
+        If no LookbackMultiplePriceBar was previously stored in
+        this LookbackMultiplePriceBarGraphicsItem, then None is returned.
+        """
+
+        return self.lookbackMultiplePriceBar
+    
+    def setLookbackMultiplePriceBarColor(self, color):
+        """Sets the color of the price bar."""
+
+        self.log.debug("Entered setLookbackMultiplePriceBarColor().")
+
+        if self.pen.color() != color:
+            self.log.debug("Updating pen color.")
+            self.pen.setColor(color)
+            self.update()
+
+        self.log.debug("Leaving setLookbackMultiplePriceBarColor().")
+
+    def getLookbackMultiplePriceBarOpenScenePoint(self):
+        """Returns the scene coordinates of the open point of this
+        LookbackMultiplePriceBar.
+
+        Returns: QPointF in scene coordinates of where the open of this
+        pricebar is.
+        """
+
+        openPrice = 0.0
+        high = 0.0
+        low = 0.0
+
+        if self.lookbackMultiplePriceBar != None:
+            openPrice = self.lookbackMultiplePriceBar.open
+            high = self.lookbackMultiplePriceBar.high
+            low = self.lookbackMultiplePriceBar.low
+
+        priceMidpoint = (high + low) * 0.5
+
+        x = 0.0
+        yOpen = -1.0 * (openPrice - priceMidpoint)
+        yHigh = -1.0 * (high - priceMidpoint)
+        yLow = -1.0 * (low - priceMidpoint)
+
+        # Return value.
+        rv = self.mapToScene(QPointF(x, yOpen))
+
+        return rv
+
+
+    def getLookbackMultiplePriceBarHighScenePoint(self):
+        """Returns the scene coordinates of the high point of this
+        LookbackMultiplePriceBar.
+
+        Returns: QPointF in scene coordinates of where the high of this
+        pricebar is.
+        """
+
+        high = 0.0
+        low = 0.0
+
+        if self.lookbackMultiplePriceBar != None:
+            high = self.lookbackMultiplePriceBar.high
+            low = self.lookbackMultiplePriceBar.low
+
+        priceMidpoint = (high + low) * 0.5
+
+        x = 0.0
+        yHigh = -1.0 * (high - priceMidpoint)
+        yLow = -1.0 * (low - priceMidpoint)
+
+        # Return value.
+        rv = self.mapToScene(QPointF(x, yHigh))
+
+        return rv
+
+
+    def getLookbackMultiplePriceBarLowScenePoint(self):
+        """Returns the scene coordinates of the low point of this
+        LookbackMultiplePriceBar.
+
+        Returns: QPointF in scene coordinates of where the high of this
+        pricebar is.
+        """
+
+        high = 0.0
+        low = 0.0
+
+        if self.lookbackMultiplePriceBar != None:
+            high = self.lookbackMultiplePriceBar.high
+            low = self.lookbackMultiplePriceBar.low
+
+        priceMidpoint = (high + low) * 0.5
+
+        x = 0.0
+        yHigh = -1.0 * (high - priceMidpoint)
+        yLow = -1.0 * (low - priceMidpoint)
+
+        # Return value.
+        rv = self.mapToScene(QPointF(x, yLow))
+
+        return rv
+
+    def getLookbackMultiplePriceBarCloseScenePoint(self):
+        """Returns the scene coordinates of the close point of this
+        LookbackMultiplePriceBar.
+
+        Returns: QPointF in scene coordinates of where the close of this
+        pricebar is.
+        """
+
+        close = 0.0
+        high = 0.0
+        low = 0.0
+
+        if self.lookbackMultiplePriceBar != None:
+            close = self.lookbackMultiplePriceBar.close
+            high = self.lookbackMultiplePriceBar.high
+            low = self.lookbackMultiplePriceBar.low
+
+        priceMidpoint = (high + low) * 0.5
+
+        x = 0.0
+        yClose = -1.0 * (close - priceMidpoint)
+        yHigh = -1.0 * (high - priceMidpoint)
+        yLow = -1.0 * (low - priceMidpoint)
+
+        # Return value.
+        rv = self.mapToScene(QPointF(x, yClose))
+
+        return rv
+
+
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinates (0, 0) is the center of the widget.  
+        # The QRectF returned should be related to this point as the
+        # center.
+
+        halfPenWidth = self.penWidth * 0.5
+
+        openPrice = 0.0
+        highPrice = 0.0
+        lowPrice = 0.0
+        closePrice = 0.0
+
+        if self.lookbackMultiplePriceBar != None:
+            openPrice = self.lookbackMultiplePriceBar.open
+            highPrice = self.lookbackMultiplePriceBar.high
+            lowPrice = self.lookbackMultiplePriceBar.low
+            closePrice = self.lookbackMultiplePriceBar.close
+
+        # For X we have:
+        #     leftExtensionWidth units for the left extension (open price)
+        #     rightExtensionWidth units for the right extension (close price)
+        #     halfPenWidth on the left side
+        #     halfPenWidth on the right side
+
+        # For Y we have:
+        #     halfPenWidth for the bottom side.
+        #     priceRange units
+        #     halfPenWidth for the top side
+
+        priceRange = abs(highPrice - lowPrice)
+
+        x = -1.0 * (self.leftExtensionWidth + halfPenWidth)
+        y = -1.0 * ((priceRange * 0.5) + halfPenWidth)
+
+        height = halfPenWidth + priceRange + halfPenWidth
+
+        width = \
+                halfPenWidth + \
+                self.leftExtensionWidth + \
+                self.rightExtensionWidth + \
+                halfPenWidth
+
+        return QRectF(x, y, width, height)
+
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that self.pen is set
+        to what we want for the drawing style.
+        """
+
+        if painter.pen() != self.pen:
+            painter.setPen(self.pen)
+
+        openPrice = 0.0
+        highPrice = 0.0
+        lowPrice = 0.0
+        closePrice = 0.0
+
+        if self.lookbackMultiplePriceBar != None:
+            openPrice = self.lookbackMultiplePriceBar.open
+            highPrice = self.lookbackMultiplePriceBar.high
+            lowPrice = self.lookbackMultiplePriceBar.low
+            closePrice = self.lookbackMultiplePriceBar.close
+
+        priceRange = abs(highPrice - lowPrice)
+        priceMidpoint = (highPrice + lowPrice) * 0.5
+
+        halfPriceRange = priceRange * 0.5
+
+        # Draw the stem.
+        x1 = 0.0
+        y1 = 1.0 * halfPriceRange
+        x2 = 0.0
+        y2 = -1.0 * halfPriceRange
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        # Draw the left extension (open price).
+        x1 = 0.0
+        y1 = -1.0 * (openPrice - priceMidpoint)
+        x2 = -1.0 * self.leftExtensionWidth
+        y2 = y1
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        # Draw the right extension (close price).
+        x1 = 0.0
+        y1 = -1.0 * (closePrice - priceMidpoint)
+        x2 = 1.0 * self.rightExtensionWidth
+        y2 = y1
+        painter.drawLine(QLineF(x1, y1, x2, y2))
+
+        # Draw the bounding rect if the item is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.pen.widthF() * 0.5;
+            
+            penWidth = 0.0
+
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+
+            boundingRect = self.boundingRect()
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawRect(boundingRect)
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawRect(boundingRect)
+
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this LookbackMultiplePriceBarGraphicsItem.
+        Actions that are triggered from this menu run various methods in
+        the LookbackMultiplePriceBarGraphicsItem to handle the desired
+        functionality.
+
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+        readonly actions.
+        """
+
+        # Set the menu title.
+        if self.lookbackMultiplePriceBar != None:
+            datetimeObj = self.lookbackMultiplePriceBar.timestamp
+            timestampStr = Ephemeris.datetimeToDayStr(datetimeObj)
+            menu.setTitle("LookbackMultiplePriceBar_" + timestampStr)
+        else:
+            menu.setTitle("LookbackMultiplePriceBar_" + "Unknown")
+        
+        # These are the QActions that are in the menu.
+        parent = menu
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
+        removeAction = QAction("&Remove", parent)
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
+        setAstro1Action = QAction("Set timestamp on Astro Chart &1", parent)
+        setAstro2Action = QAction("Set timestamp on Astro Chart &2", parent)
+        setAstro3Action = QAction("Set timestamp on Astro Chart &3", parent)
+        openJHoraAction = QAction("Open JHor&a with timestamp", parent)
+        openAstrologAction = QAction("Open As&trolog with timestamp", parent)
+        
+        selectAction.triggered.\
+            connect(self._handleSelectAction)
+        unselectAction.triggered.\
+            connect(self._handleUnselectAction)
+        removeAction.triggered.\
+            connect(self._handleRemoveAction)
+        infoAction.triggered.\
+            connect(self._handleInfoAction)
+        editAction.triggered.\
+            connect(self._handleEditAction)
+        setAstro1Action.triggered.\
+            connect(self._handleSetAstro1Action)
+        setAstro2Action.triggered.\
+            connect(self._handleSetAstro2Action)
+        setAstro3Action.triggered.\
+            connect(self._handleSetAstro3Action)
+        openJHoraAction.triggered.\
+            connect(self._handleOpenJHoraAction)
+        openAstrologAction.triggered.\
+            connect(self._handleOpenAstrologAction)
+                    
+        # Enable or disable actions.
+        selectAction.setEnabled(True)
+        unselectAction.setEnabled(True)
+        removeAction.setEnabled(False)
+        infoAction.setEnabled(True)
+        editAction.setEnabled(not readOnlyMode)
+        setAstro1Action.setEnabled(True)
+        setAstro2Action.setEnabled(True)
+        setAstro3Action.setEnabled(True)
+        openJHoraAction.setEnabled(True)
+        openAstrologAction.setEnabled(True)
+
+        # Add the QActions to the menu.
+        menu.addAction(selectAction)
+        menu.addAction(unselectAction)
+        menu.addSeparator()
+        menu.addAction(removeAction)
+        menu.addSeparator()
+        menu.addAction(infoAction)
+        menu.addAction(editAction)
+        menu.addSeparator()
+        menu.addAction(setAstro1Action)
+        menu.addAction(setAstro2Action)
+        menu.addAction(setAstro3Action)
+        menu.addAction(openJHoraAction)
+        menu.addAction(openAstrologAction)
+        
+        return menu
+
+    def _handleSelectAction(self):
+        """Causes the QGraphicsItem to become selected."""
+
+        self.setSelected(True)
+
+    def _handleUnselectAction(self):
+        """Causes the QGraphicsItem to become unselected."""
+
+        self.setSelected(False)
+
+    def _handleRemoveAction(self):
+        """Causes the QGraphicsItem to be removed from the scene."""
+
+        scene = self.scene()
+        if scene != None:
+            scene.removeItem(self)
+            scene.priceBarChartChanged.emit()
+
+    def _handleInfoAction(self):
+        """Causes a dialog to be executed to show information about
+        the QGraphicsItem.
+        """
+
+        lmpb = self.getLookbackMultiplePriceBar()
+        
+        dialog = LookbackMultiplePriceBarEditDialog(\
+            lookbackMultiplePriceBar=lmpb, 
+            readOnly=True)
+
+        # Run the dialog.  We don't care about what is returned
+        # because the dialog is read-only.
+        rv = dialog.exec_()
+        
+    def _handleEditAction(self):
+        """Causes a dialog to be executed to edit information about
+        the QGraphicsItem.
+        """
+
+        lmpb = self.getLookbackMultiplePriceBar()
+        
+        dialog = LookbackMultiplePriceBarEditDialog(\
+            lookbackMultiplePriceBar=lmpb, 
+            readOnly=False)
+
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # Set the item with the new values.
+
+            self.setLookbackMultiplePriceBar(\
+                dialog.getLookbackMultiplePriceBar())
+
+            # X location based on the timestamp.
+            x = self.scene().datetimeToSceneXPos(\
+                self.lookbackMultiplePriceBar.timestamp)
+
+            # Y location based on the mid price (average of high and low).
+            y = self.scene().priceToSceneYPos(\
+                self.lookbackMultiplePriceBar.midPrice())
+
+            # Set the position, in parent coordinates.
+            self.setPos(QPointF(x, y))
+
+            # Flag that a redraw of this QGraphicsItem is required.
+            self.prepareGeometryChange()
+            
+            # Emit that the LookbackMultiplePriceBarChart has changed so that
+            # the dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        else:
+            # The user canceled so don't change anything.
+            pass
+        
+    def _handleSetAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of this LookbackMultiplePriceBarGraphicsItem.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().setAstroChart1(self.scenePos().x())
+        
+    def _handleSetAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of this LookbackMultiplePriceBarGraphicsItem.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().setAstroChart2(self.scenePos().x())
+        
+    def _handleSetAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of this LookbackMultiplePriceBarGraphicsItem.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().setAstroChart3(self.scenePos().x())
+
+    def _handleOpenJHoraAction(self):
+        """Causes the timestamp of this
+        LookbackMultiplePriceBarGraphicsItem to be opened in JHora.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().openJHora(self.scenePos().x())
+        
+    def _handleOpenAstrologAction(self):
+        """Causes the timestamp of this
+        LookbackMultiplePriceBarGraphicsItem to be opened in
+        Astrolog.
+        """
+
+        # The GraphicsItem's scene X position represents the time.
+        self.scene().openAstrolog(self.scenePos().x())
+        
+
+
 class PriceBarChartArtifactGraphicsItem(QGraphicsItem):
     """QGraphicsItem that has members to indicate and set the
     readOnly mode.
@@ -1974,6 +2550,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # object was modified.  Set the artifact to this
             # PriceBarChartArtifactGraphicsItem, which will cause it to be
             # reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
@@ -4062,6 +4639,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # object was modified.  Set the artifact to this
             # PriceBarChartArtifactGraphicsItem, which will cause it to be
             # reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
@@ -7321,6 +7899,12 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag == True:
             self.planetNamesEnabled.append("AvgJuSa")
         if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag == True:
+            self.planetNamesEnabled.append("AsSu")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag == True:
+            self.planetNamesEnabled.append("AsMo")
+        if PriceBarChartSettings.\
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag == True:
             self.planetNamesEnabled.append("MoSu")
         if PriceBarChartSettings.\
@@ -7728,6 +8312,12 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag == True:
             self.planetNamesEnabled.append("AvgJuSa")
         if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag == True:
+            self.planetNamesEnabled.append("AsSu")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag == True:
+            self.planetNamesEnabled.append("AsMo")
+        if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag == True:
             self.planetNamesEnabled.append("MoSu")
         if priceBarChartSettings.\
@@ -8030,11 +8620,6 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         
         # Update the planetLongitudeMovementMeasurement label position.
         
-        # TODO: determine if I need to do anything here to account for
-        # the text rotation angle.  (my guess is not, since
-        # boundingRect() called below should handle everything fine,
-        # but I need to verify)
-
         # Changes in x and y.
         deltaX = self.endPointF.x() - self.startPointF.x()
         deltaY = self.endPointF.y() - self.startPointF.y()
@@ -8265,7 +8850,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                 if Ephemeris.isHouseCuspPlanetName(planetName) or \
                        Ephemeris.isAscmcPlanetName(planetName):
                     
-                    stepSizeTd = datetime.timedelta(hours=1)
+                    stepSizeTd = datetime.timedelta(hours=4)
                     
                 elif planetName == "Jupiter" or \
                      planetName == "Saturn" or \
@@ -8277,8 +8862,8 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                 
                 if self.log.isEnabledFor(logging.DEBUG) == True:
                     self.log.debug("Stepping through from {} to {} ...".\
-                                   format(Ephemeris.datetimeToStr(startTimestamp),
-                                          Ephemeris.datetimeToStr(endTimestamp)))
+                        format(Ephemeris.datetimeToStr(startTimestamp),
+                               Ephemeris.datetimeToStr(endTimestamp)))
                 
                 # Current datetime as we step through all the
                 # timestamps between the start and end timestamp.
@@ -9294,6 +9879,10 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.planetNamesEnabled.append("AvgJuSaUrNe")
         if self.artifact.getPlanetAvgJuSaEnabledFlag():
             self.planetNamesEnabled.append("AvgJuSa")
+        if self.artifact.getPlanetAsSuEnabledFlag():
+            self.planetNamesEnabled.append("AsSu")
+        if self.artifact.getPlanetAsMoEnabledFlag():
+            self.planetNamesEnabled.append("AsMo")
         if self.artifact.getPlanetMoSuEnabledFlag():
             self.planetNamesEnabled.append("MoSu")
         if self.artifact.getPlanetMeVeEnabledFlag():
@@ -9505,6 +10094,10 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             "AvgJuSaUrNe" in self.planetNamesEnabled)
         self.artifact.setPlanetAvgJuSaEnabledFlag(\
             "AvgJuSa" in self.planetNamesEnabled)
+        self.artifact.setPlanetAsSuEnabledFlag(\
+            "AsSu" in self.planetNamesEnabled)
+        self.artifact.setPlanetAsMoEnabledFlag(\
+            "AsMo" in self.planetNamesEnabled)
         self.artifact.setPlanetMoSuEnabledFlag(\
             "MoSu" in self.planetNamesEnabled)
         self.artifact.setPlanetMeVeEnabledFlag(\
@@ -9973,6 +10566,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             # object was modified.  Set the artifact to this
             # PriceBarChartArtifactGraphicsItem, which will cause it to be
             # reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
@@ -12075,6 +12669,7 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # object was modified.  Set the artifact to this
             # PriceBarChartArtifactGraphicsItem, which will cause it to be
             # reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
@@ -13321,6 +13916,7 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # object was modified.  Set the artifact to this
             # PriceBarChartArtifactGraphicsItem, which will cause it to be
             # reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
@@ -14605,6 +15201,7 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # object was modified.  Set the artifact to this
             # PriceBarChartArtifactGraphicsItem, which will cause it to be
             # reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
@@ -15170,7 +15767,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     newPos = self.origStartPointF + delta
                     self.setPos(newPos)
             
-                    # Update calculation/text for the retracement.
+                    # Update calculation/text.
                     self.recalculatePriceTimeVector()
         
             super().mouseReleaseEvent(event)
@@ -15809,6 +16406,7 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # object was modified.  Set the artifact to this
             # PriceBarChartArtifactGraphicsItem, which will cause it to be
             # reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
@@ -16384,7 +16982,7 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     newPos = self.origStartPointF + delta
                     self.setPos(newPos)
             
-                    # Update calculation/text for the retracement.
+                    # Update calculation/text.
                     self.recalculateLineSegment()
         
             super().mouseReleaseEvent(event)
@@ -16525,8 +17123,8 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
 
     def setStartPointF(self, pointF):
-        """Sets the starting point of the bar count.  The value passed in
-        is the mouse location in scene coordinates.  
+        """Sets the starting point of the LineSegmentGraphicsItem.  
+        The value passed in is the mouse location in scene coordinates.  
         """
 
         newValue = QPointF(pointF.x(), pointF.y())
@@ -16545,8 +17143,8 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self._updateTextItemPositions()
             
     def setEndPointF(self, pointF):
-        """Sets the ending point of the bar count.  The value passed in
-        is the mouse location in scene coordinates.  
+        """Sets the ending point of the LineSegmentGraphicsItem.  
+        The value passed in is the mouse location in scene coordinates.
         """
 
         newValue = QPointF(pointF.x(), pointF.y())
@@ -17017,6 +17615,7 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # object was modified.  Set the artifact to this
             # PriceBarChartArtifactGraphicsItem, which will cause it to be
             # reloaded in the scene.
+            artifact = dialog.getArtifact()
             self.setArtifact(artifact)
 
             # Flag that a redraw of this QGraphicsItem is required.
@@ -17234,6 +17833,1986 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def _handleOpenEndInAstrologAction(self):
         """Causes the the timestamp of the end the
         LineSegmentGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
+        
+
+class VerticalLineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
+    """QGraphicsItem that visualizes a line segment in the GraphicsView.
+    """
+    
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+
+        # Logger
+        self.log = logging.getLogger(\
+            "pricebarchart.VerticalLineSegmentGraphicsItem")
+        
+        self.log.debug("Entered __init__().")
+
+        # Constant value for the multiple amount to extend the start
+        # or end points.  This feature shows up as an option in the
+        # right-click context menu option.
+        self.extendMultiple = 1.6
+        
+        ############################################################
+        # Set default values for preferences/settings.
+        
+        # Width of the vertical bar drawn.
+        self.lineSegmentGraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+                defaultVerticalLineSegmentGraphicsItemBarWidth 
+ 
+        # Color of the item.
+        self.lineSegmentGraphicsItemColor = \
+            PriceBarChartSettings.\
+                defaultVerticalLineSegmentGraphicsItemColor
+
+        ############################################################
+
+        # Internal storage object, used for loading/saving (serialization).
+        self.artifact = PriceBarChartVerticalLineSegmentArtifact()
+
+        # Read the QSettings preferences for the various parameters of
+        # this price bar.
+        self.loadSettingsFromAppPreferences()
+        
+        # Pen which is used to do the painting of the bar ruler.
+        self.lineSegmentPenWidth = 0.0
+        self.lineSegmentPen = QPen()
+        self.lineSegmentPen.\
+            setColor(self.lineSegmentGraphicsItemColor)
+        self.lineSegmentPen.\
+            setWidthF(self.lineSegmentPenWidth)
+        
+        # Starting point, in scene coordinates.
+        self.startPointF = QPointF(0, 0)
+
+        # Ending point, in scene coordinates.
+        self.endPointF = QPointF(0, 0)
+
+        # Flags that indicate that the user is dragging either the start
+        # or end point of the QGraphicsItem.
+        self.draggingStartPointFlag = False
+        self.draggingEndPointFlag = False
+        
+        # Working variables for clicking and draging.
+        self.clickScenePointF = None
+        self.origStartPointF = None
+
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the given PriceBarChartSettings object.
+
+        Parameters:
+        
+        priceBarChartSettings - PriceBarChartSettings object from which
+                                to pull settings information from.
+        """
+
+        self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
+        
+        # Width of the horizontal bar drawn.
+        self.lineSegmentGraphicsItemBarWidth = \
+            priceBarChartSettings.\
+            verticalLineSegmentGraphicsItemBarWidth 
+     
+        # Color of the item.
+        self.lineSegmentGraphicsItemColor = \
+            priceBarChartSettings.\
+            verticalLineSegmentGraphicsItemColor
+    
+        ####################################################################
+
+        # Set the new color of the pen for drawing the bar.
+        self.lineSegmentPen.\
+            setColor(self.lineSegmentGraphicsItemColor)
+
+        # Schedule an update.
+        self.prepareGeometryChange()
+
+        self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
+        
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        GraphicsItem from the QSettings object. 
+        """
+
+        # No settings.
+        
+    def setPos(self, pos):
+        """Overwrites the QGraphicsItem setPos() function.
+
+        Here we use the new position to re-set the self.startPointF and
+        self.endPointF.
+
+        Arguments:
+        pos - QPointF holding the new position.
+        """
+        self.log.debug("Entered setPos()")
+        
+        super().setPos(pos)
+
+        newScenePos = pos
+
+        posDelta = newScenePos - self.startPointF
+
+        # Update the start and end points accordingly. 
+        self.startPointF = self.startPointF + posDelta
+        self.endPointF = self.endPointF + posDelta
+
+        if self.scene() != None:
+            self.recalculateVerticalLineSegment()
+            self.prepareGeometryChange()
+
+        self.log.debug("Exiting setPos()")
+        
+    def mousePressEvent(self, event):
+        """Overwrites the QGraphicsItem mousePressEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        self.log.debug("Entered mousePressEvent()")
+        
+        # If the item is in read-only mode, simply call the parent
+        # implementation of this function.
+        if self.getReadOnlyFlag() == True:
+            super().mousePressEvent(event)
+        else:
+            # If the mouse press is within 1/5th of the bar length to the
+            # beginning or end points, then the user is trying to adjust
+            # the starting or ending points of the bar counter ruler.
+            scenePosY = event.scenePos().y()
+            self.log.debug("DEBUG: scenePosY={}".format(scenePosY))
+            
+            startingPointY = self.startPointF.y()
+            self.log.debug("DEBUG: startingPointY={}".format(startingPointY))
+            endingPointY = self.endPointF.y()
+            self.log.debug("DEBUG: endingPointY={}".format(endingPointY))
+            
+            diff = endingPointY - startingPointY
+            self.log.debug("DEBUG: diff={}".format(diff))
+
+            startThresholdY = startingPointY + (diff * (1.0 / 5))
+            endThresholdY = endingPointY - (diff * (1.0 / 5))
+
+            self.log.debug("DEBUG: startThresholdY={}".format(startThresholdY))
+            self.log.debug("DEBUG: endThresholdY={}".format(endThresholdY))
+
+
+            scenePosX = event.scenePos().x()
+            self.log.debug("DEBUG: scenePosX={}".format(scenePosX))
+            
+            startingPointX = self.startPointF.x()
+            self.log.debug("DEBUG: startingPointX={}".format(startingPointX))
+            endingPointX = self.endPointF.x()
+            self.log.debug("DEBUG: endingPointX={}".format(endingPointX))
+            
+            diff = endingPointX - startingPointX
+            self.log.debug("DEBUG: diff={}".format(diff))
+
+            startThresholdX = startingPointX + (diff * (1.0 / 5))
+            endThresholdX = endingPointX - (diff * (1.0 / 5))
+
+            self.log.debug("DEBUG: startThresholdX={}".format(startThresholdX))
+            self.log.debug("DEBUG: endThresholdX={}".format(endThresholdX))
+
+
+            if startingPointY <= scenePosY <= startThresholdY or \
+                   startingPointY >= scenePosY >= startThresholdY or \
+                   startingPointX <= scenePosX <= startThresholdX or \
+                   startingPointX >= scenePosX >= startThresholdX:
+                
+                self.draggingStartPointFlag = True
+                self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                               format(self.draggingStartPointFlag))
+                
+            elif endingPointY <= scenePosY <= endThresholdY or \
+                     endingPointY >= scenePosY >= endThresholdY or \
+                     endingPointX <= scenePosX <= endThresholdX or \
+                     endingPointX >= scenePosX >= endThresholdX:
+                
+                self.draggingEndPointFlag = True
+                self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                               format(self.draggingEndPointFlag))
+            else:
+                # The mouse has clicked the middle part of the
+                # QGraphicsItem, so pass the event to the parent, because
+                # the user wants to either select or drag-move the
+                # position of the QGraphicsItem.
+                self.log.debug("DEBUG:  Middle part clicked.  " + \
+                               "Passing to super().")
+
+                # Save the click position, so that if it is a drag, we
+                # can have something to reference from for setting the
+                # start and end positions when the user finally
+                # releases the mouse button.
+                self.clickScenePointF = event.scenePos()
+                self.origStartPointF = QPointF(self.startPointF)
+                
+                super().mousePressEvent(event)
+
+        self.log.debug("Leaving mousePressEvent()")
+        
+    def mouseMoveEvent(self, event):
+        """Overwrites the QGraphicsItem mouseMoveEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        if event.buttons() & Qt.LeftButton:
+            if self.getReadOnlyFlag() == False:
+                if self.draggingStartPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                                   format(self.draggingStartPointFlag))
+                    # Maintain constraint for being vertical.
+                    x = self.startPointF.x()
+                    self.setStartPointF(QPointF(x,
+                                                event.scenePos().y()))
+                    self.prepareGeometryChange()
+                elif self.draggingEndPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                                   format(self.draggingEndPointFlag))
+                    # Maintain constraint for being vertical.
+                    x = self.endPointF.x()
+                    self.setEndPointF(QPointF(x,
+                                              event.scenePos().y()))
+                    self.prepareGeometryChange()
+                else:
+                    # This means that the user is dragging the whole
+                    # ruler.
+
+                    # Do the move.
+                    super().mouseMoveEvent(event)
+
+                    # For some reason, setPos() is not getting called
+                    # until after the user releases the mouse button
+                    # after dragging.  So here we will calculate the
+                    # change ourselves and call setPos ourselves so
+                    # that the item is drawn correctly.
+                    delta = event.scenePos() - self.clickScenePointF
+                    if delta.x() != 0.0 and delta.y() != 0.0:
+                        newPos = self.origStartPointF + delta
+                        self.setPos(newPos)
+                    
+                    # Calculate Update calculation/text for the
+                    # retracement.
+                    self.recalculateVerticalLineSegment()
+
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartChanged.emit()
+            else:
+                super().mouseMoveEvent(event)
+        else:
+            super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        """Overwrites the QGraphicsItem mouseReleaseEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+        
+        self.log.debug("Entered mouseReleaseEvent()")
+
+        if self.draggingStartPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " + \
+                           "startPoint.")
+            
+            self.draggingStartPointFlag = False
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        elif self.draggingEndPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " +
+                           "endPoint.")
+            
+            self.draggingEndPointFlag = False
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        else:
+            self.log.debug("mouseReleaseEvent() when NOT previously " + \
+                           "dragging an end.")
+
+            if self.getReadOnlyFlag() == False:
+                # Update the start and end positions.
+                self.log.debug("DEBUG: scenePos: x={}, y={}".
+                               format(event.scenePos().x(),
+                                      event.scenePos().y()))
+
+                # Calculate the difference between where the user released
+                # the button and where the user first clicked the item.
+                delta = event.scenePos() - self.clickScenePointF
+
+                self.log.debug("DEBUG: delta: x={}, y={}".
+                               format(delta.x(), delta.y()))
+
+                # If the delta is not zero, then update the start and
+                # end points by calling setPos() on the new calculated
+                # position.
+                if delta.x() != 0.0 and delta.y() != 0.0:
+                    newPos = self.origStartPointF + delta
+                    self.setPos(newPos)
+            
+                    # Update calculation/text.
+                    self.recalculateVerticalLineSegment()
+        
+            super().mouseReleaseEvent(event)
+
+        self.log.debug("Exiting mouseReleaseEvent()")
+
+    def setReadOnlyFlag(self, flag):
+        """Overwrites the PriceBarChartArtifactGraphicsItem setReadOnlyFlag()
+        function.
+        """
+
+        # Call the parent's function so that the flag gets set.
+        super().setReadOnlyFlag(flag)
+
+        # Make sure the drag flags are disabled.
+        if flag == True:
+            self.draggingStartPointFlag = False
+            self.draggingEndPointFlag = False
+
+    def refreshItem(self):
+        """Refreshes the item by recalculating and updating the text
+        position/rotation.
+        """
+
+        self.recalculateVerticalLineSegment()
+        
+    def setStartPointF(self, pointF):
+        """Sets the starting point of the
+        VerticalLineSegmentGraphicsItem.  The value passed in is the
+        mouse location in scene coordinates.
+        """
+
+        newValue = QPointF(pointF.x(), pointF.y())
+
+        if self.startPointF != newValue: 
+            self.startPointF = newValue
+
+            self.setPos(self.startPointF)
+
+            if self.scene() != None:
+                self.recalculateVerticalLineSegment()
+                self.prepareGeometryChange()
+                
+    def setEndPointF(self, pointF):
+        """Sets the ending point of the
+        VerticalLineSegmentGraphicsItem.  The value passed in is the
+        mouse location in scene coordinates.
+        """
+
+        newValue = QPointF(pointF.x(), pointF.y())
+
+        if self.endPointF != newValue:
+            self.endPointF = newValue
+
+            if self.scene() != None:
+                self.recalculateVerticalLineSegment()
+                self.prepareGeometryChange()
+
+    def normalizeStartAndEnd(self):
+        """Does not do anything since normalization is not applicable
+        to this graphics item.
+        """
+
+        # Do don't anything.
+        pass
+
+    def recalculateVerticalLineSegment(self):
+        """Recalculates the lineSegment.
+        """
+
+        self.prepareGeometryChange()
+        
+    def setArtifact(self, artifact):
+        """Loads a given PriceBarChartVerticalLineSegmentArtifact object's data
+        into this QGraphicsItem.
+
+        Arguments:
+        artifact - PriceBarChartVerticalLineSegmentArtifact object 
+                   with information about this QGraphicsItem.
+        """
+        
+        self.log.debug("Entering setArtifact()")
+
+        if isinstance(artifact, PriceBarChartVerticalLineSegmentArtifact):
+            self.artifact = artifact
+        else:
+            raise TypeError("Expected artifact type: " + \
+                            "PriceBarChartVerticalLineSegmentArtifact")
+
+        # Extract and set the internals according to the info 
+        # in this artifact object.
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
+
+        self.lineSegmentPen.setColor(self.artifact.getColor())
+        
+        #############
+
+        self.recalculateVerticalLineSegment()
+
+        self.log.debug("Exiting setArtifact()")
+
+    def getArtifact(self):
+        """Returns a PriceBarChartVerticalLineSegmentArtifact for this
+        QGraphicsItem so that it may be pickled.
+        """
+        
+        self.log.debug("Entered getArtifact()")
+        
+        # Update the internal self.priceBarChartVerticalLineSegmentArtifact 
+        # to be current, then return it.
+
+        self.artifact.setPos(self.pos())
+        self.artifact.setStartPointF(self.startPointF)
+        self.artifact.setEndPointF(self.endPointF)
+
+        self.artifact.setColor(self.lineSegmentPen.color())
+        
+        self.log.debug("Exiting getArtifact()")
+        
+        return self.artifact
+
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinate (0, 0) in local coordinates is the startPointF.
+        # If the user created the widget with the startPointF to the
+        # right of the endPointF, then the startPointF will have a
+        # higher X value than endPointF.
+
+        # The QRectF returned is relative to this (0, 0) point.
+
+        rv = self.shape().boundingRect()
+
+        return rv
+
+    def shape(self):
+        """Overwrites the QGraphicsItem.shape() function to return a
+        more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
+        """
+
+        # Calculate the points that would be the selection box area
+        # around the line.
+
+        # Start and end points in local coordinates.
+        localStartPointF = self.mapFromScene(self.startPointF)
+        localEndPointF = self.mapFromScene(self.endPointF)
+
+        # Utilize scaling from the scene if it is available.
+        scaling = PriceBarChartScaling()
+        if self.scene() != None:
+            scaling = self.scene().getScaling()
+            
+        viewScaledStartPoint = \
+            QPointF(self.startPointF.x() * scaling.getViewScalingX(),
+                    self.startPointF.y() * scaling.getViewScalingY())
+        viewScaledEndPoint = \
+            QPointF(self.endPointF.x() * scaling.getViewScalingX(),
+                    self.endPointF.y() * scaling.getViewScalingY())
+
+        # Here we are calculating the angle of the text and the line
+        # as the user would see it.  Actual angle is different if we
+        # are calculating it from a scene perspective.
+        angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
+        angleRad = math.radians(angleDeg)
+        
+        shiftX = math.sin(angleRad) * \
+                     (0.5 * self.lineSegmentGraphicsItemBarWidth) / \
+                     scaling.getViewScalingX()
+        
+        shiftY = math.cos(angleRad) * \
+                     (0.5 * self.lineSegmentGraphicsItemBarWidth) / \
+                     scaling.getViewScalingY()
+
+        # Create new points.
+        p1 = \
+            QPointF(localStartPointF.x() - shiftX,
+                    localStartPointF.y() - shiftY)
+        p2 = \
+            QPointF(localStartPointF.x() + shiftX,
+                    localStartPointF.y() + shiftY)
+        p3 = \
+            QPointF(localEndPointF.x() - shiftX,
+                    localEndPointF.y() - shiftY)
+        p4 = \
+            QPointF(localEndPointF.x() + shiftX,
+                    localEndPointF.y() + shiftY)
+
+        points = [p2, p1, p3, p4, p2]
+        polygon = QPolygonF(points)
+
+        painterPath = QPainterPath()
+        painterPath.addPolygon(polygon)
+
+        return painterPath
+        
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that self.lineSegmentPen is set
+        to what we want for the drawing style.
+        """
+
+        self.log.debug("VerticalLineSegmentGraphicsItem.paint()")
+        
+        if painter.pen() != self.lineSegmentPen:
+            painter.setPen(self.lineSegmentPen)
+        
+        # Draw the line.
+        localStartPointF = self.mapFromScene(self.startPointF)
+        localEndPointF = self.mapFromScene(self.endPointF)
+        painter.drawLine(QLineF(localStartPointF, localEndPointF))
+        
+        # Draw the shape if the item is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.lineSegmentPen.widthF() * 0.5;
+            penWidth = 0.0
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this VerticalLineSegmentGraphicsItem.  Actions that
+        are triggered from this menu run various methods in the
+        VerticalLineSegmentGraphicsItem to handle the desired functionality.
+        
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+                       readonly actions.
+        """
+
+        menu.setTitle(self.artifact.getInternalName())
+        
+        # These are the QActions that are in the menu.
+        parent = menu
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
+        removeAction = QAction("&Remove", parent)
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
+        extendEndPointAction = \
+            QAction("E&xtend end point to {}-fold".\
+                    format(self.extendMultiple), parent)
+        shortenEndPointAction = \
+            QAction("Shor&ten end point to {}-fold".\
+                    format(1.0 / self.extendMultiple), parent)
+        extendStartPointAction = \
+            QAction("Exte&nd start point to {}-fold".\
+                    format(self.extendMultiple), parent)
+        shortenStartPointAction = \
+            QAction("S&horten start point to {}-fold".\
+                    format(1.0 / self.extendMultiple), parent)
+        
+        setStartOnAstro1Action = \
+            QAction("Set start timestamp on Astro Chart &1", parent)
+        setStartOnAstro2Action = \
+            QAction("Set start timestamp on Astro Chart &2", parent)
+        setStartOnAstro3Action = \
+            QAction("Set start timestamp on Astro Chart &3", parent)
+        openStartInJHoraAction = \
+            QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
+        setEndOnAstro1Action = \
+            QAction("Set end timestamp on Astro Chart 1", parent)
+        setEndOnAstro2Action = \
+            QAction("Set end timestamp on Astro Chart 2", parent)
+        setEndOnAstro3Action = \
+            QAction("Set end timestamp on Astro Chart 3", parent)
+        openEndInJHoraAction = \
+            QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
+        
+        selectAction.triggered.\
+            connect(self._handleSelectAction)
+        unselectAction.triggered.\
+            connect(self._handleUnselectAction)
+        removeAction.triggered.\
+            connect(self._handleRemoveAction)
+        infoAction.triggered.\
+            connect(self._handleInfoAction)
+        editAction.triggered.\
+            connect(self._handleEditAction)
+        extendEndPointAction.triggered.\
+            connect(self._handleExtendEndPointAction)
+        shortenEndPointAction.triggered.\
+            connect(self._handleShortenEndPointAction)
+        extendStartPointAction.triggered.\
+            connect(self._handleExtendStartPointAction)
+        shortenStartPointAction.triggered.\
+            connect(self._handleShortenStartPointAction)
+        setStartOnAstro1Action.triggered.\
+            connect(self._handleSetStartOnAstro1Action)
+        setStartOnAstro2Action.triggered.\
+            connect(self._handleSetStartOnAstro2Action)
+        setStartOnAstro3Action.triggered.\
+            connect(self._handleSetStartOnAstro3Action)
+        openStartInJHoraAction.triggered.\
+            connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
+        setEndOnAstro1Action.triggered.\
+            connect(self._handleSetEndOnAstro1Action)
+        setEndOnAstro2Action.triggered.\
+            connect(self._handleSetEndOnAstro2Action)
+        setEndOnAstro3Action.triggered.\
+            connect(self._handleSetEndOnAstro3Action)
+        openEndInJHoraAction.triggered.\
+            connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
+        
+        # Enable or disable actions.
+        selectAction.setEnabled(True)
+        unselectAction.setEnabled(True)
+        removeAction.setEnabled(not readOnlyMode)
+        infoAction.setEnabled(True)
+        editAction.setEnabled(not readOnlyMode)
+        extendEndPointAction.setEnabled(not readOnlyMode)
+        shortenEndPointAction.setEnabled(not readOnlyMode)
+        extendStartPointAction.setEnabled(not readOnlyMode)
+        shortenStartPointAction.setEnabled(not readOnlyMode)
+        setStartOnAstro1Action.setEnabled(True)
+        setStartOnAstro2Action.setEnabled(True)
+        setStartOnAstro3Action.setEnabled(True)
+        openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
+        setEndOnAstro1Action.setEnabled(True)
+        setEndOnAstro2Action.setEnabled(True)
+        setEndOnAstro3Action.setEnabled(True)
+        openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
+
+        # Add the QActions to the menu.
+        menu.addAction(selectAction)
+        menu.addAction(unselectAction)
+        menu.addSeparator()
+        menu.addAction(removeAction)
+        menu.addSeparator()
+        menu.addAction(infoAction)
+        menu.addAction(editAction)
+        menu.addSeparator()
+        menu.addAction(extendEndPointAction)
+        menu.addAction(shortenEndPointAction)
+        menu.addAction(extendStartPointAction)
+        menu.addAction(shortenStartPointAction)
+        menu.addSeparator()
+        menu.addAction(setStartOnAstro1Action)
+        menu.addAction(setStartOnAstro2Action)
+        menu.addAction(setStartOnAstro3Action)
+        menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
+        menu.addSeparator()
+        menu.addAction(setEndOnAstro1Action)
+        menu.addAction(setEndOnAstro2Action)
+        menu.addAction(setEndOnAstro3Action)
+        menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
+
+    def _handleSelectAction(self):
+        """Causes the QGraphicsItem to become selected."""
+
+        self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
+
+    def _handleUnselectAction(self):
+        """Causes the QGraphicsItem to become unselected."""
+
+        self.setSelected(False)
+
+    def _handleRemoveAction(self):
+        """Causes the QGraphicsItem to be removed from the scene."""
+        
+        scene = self.scene()
+        if scene != None:
+            scene.removeItem(self)
+
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+        
+    def _handleInfoAction(self):
+        """Causes a dialog to be executed to show information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartVerticalLineSegmentArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=True)
+        
+        # Run the dialog.  We don't care about what is returned
+        # because the dialog is read-only.
+        rv = dialog.exec_()
+        
+    def _handleEditAction(self):
+        """Causes a dialog to be executed to edit information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartVerticalLineSegmentArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=False)
+        
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # If the dialog is accepted then the underlying artifact
+            # object was modified.  Set the artifact to this
+            # PriceBarChartArtifactGraphicsItem, which will cause it to be
+            # reloaded in the scene.
+            artifact = dialog.getArtifact()
+            self.setArtifact(artifact)
+
+            # Flag that a redraw of this QGraphicsItem is required.
+            self.prepareGeometryChange()
+
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        else:
+            # The user canceled so don't change anything.
+            pass
+        
+    def _handleExtendEndPointAction(self):
+        """Updates the QGraphicsItem so that the end point is
+        (self.extendMultiple) fold of the current distance away from start
+        point.  The artifact is edited too to correspond with this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        deltaY = self.endPointF.y() - self.startPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * self.extendMultiple
+        offsetY = deltaY * self.extendMultiple
+
+        # Calculate new end point X and Y values.
+        newEndPointX = self.startPointF.x() + offsetX
+        newEndPointY = self.startPointF.y() + offsetY
+
+        # Update the QGraphicsItem manually.
+        newEndPointF = QPointF(newEndPointX, newEndPointY)
+        self.setEndPointF(newEndPointF)
+        
+        # Update the artifact.
+        self.artifact.setEndPointF(newEndPointF)
+        
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+        
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleShortenEndPointAction(self):
+        """Updates the QGraphicsItem so that the end point is
+        (1.0 / self.extendMultiple) fold of the current distance away from
+        start point.  The artifact is edited too to correspond with
+        this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        deltaY = self.endPointF.y() - self.startPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * (1.0 / self.extendMultiple)
+        offsetY = deltaY * (1.0 / self.extendMultiple)
+
+        # Calculate new end point X and Y values.
+        newEndPointX = self.startPointF.x() + offsetX
+        newEndPointY = self.startPointF.y() + offsetY
+
+        # Update the QGraphicsItem manually.
+        newEndPointF = QPointF(newEndPointX, newEndPointY)
+        self.setEndPointF(newEndPointF)
+        
+        # Update the artifact.
+        self.artifact.setEndPointF(newEndPointF)
+        
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+        
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleExtendStartPointAction(self):
+        """Updates the QGraphicsItem so that the start point is
+        (self.extendMultiple) fold of the current distance away from
+        end point.  The artifact is edited too to correspond with this
+        change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        deltaY = self.endPointF.y() - self.startPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * self.extendMultiple
+        offsetY = deltaY * self.extendMultiple
+
+        # Calculate new start point X and Y values.
+        newStartPointX = self.endPointF.x() - offsetX
+        newStartPointY = self.endPointF.y() - offsetY
+
+        # Update the QGraphicsItem manually.
+        newStartPointF = QPointF(newStartPointX, newStartPointY)
+        
+        # Call the parent version for setPos(), not the self version
+        # because the self version moves both the start and end
+        # points.  We want to keep the end point the same.
+        super().setPos(newStartPointF)
+        self.startPointF = newStartPointF
+        
+        # Update the artifact.
+        self.artifact.setPos(self.startPointF)
+        self.artifact.setStartPointF(self.startPointF)
+
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleShortenStartPointAction(self):
+        """Updates the QGraphicsItem so that the start point is
+        (1.0 / self.extendMultiple) fold of the current distance away
+        from end point.  The artifact is edited too to correspond with
+        this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        deltaY = self.endPointF.y() - self.startPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * (1.0 / self.extendMultiple)
+        offsetY = deltaY * (1.0 / self.extendMultiple)
+
+        # Calculate new start point X and Y values.
+        newStartPointX = self.endPointF.x() - offsetX
+        newStartPointY = self.endPointF.y() - offsetY
+
+        # Update the QGraphicsItem manually.
+        newStartPointF = QPointF(newStartPointX, newStartPointY)
+        
+        # Call the parent version for setPos(), not the self version
+        # because the self version moves both the start and end
+        # points.  We want to keep the end point the same.
+        super().setPos(newStartPointF)
+        self.startPointF = newStartPointF
+        
+        # Update the artifact.
+        self.artifact.setPos(self.startPointF)
+        self.artifact.setStartPointF(self.startPointF)
+
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleSetStartOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the start the VerticalLineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.startPointF.x())
+        
+    def _handleSetStartOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the start the VerticalLineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.startPointF.x())
+        
+    def _handleSetStartOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the start the VerticalLineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.startPointF.x())
+        
+    def _handleOpenStartInJHoraAction(self):
+        """Causes the the timestamp of the start the
+        VerticalLineSegmentGraphicsItem to be opened in JHora.
+        """
+
+        self.scene().openJHora(self.startPointF.x())
+        
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        VerticalLineSegmentGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
+    def _handleSetEndOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the end the VerticalLineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.endPointF.x())
+
+    def _handleSetEndOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the end the VerticalLineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.endPointF.x())
+
+    def _handleSetEndOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the end the VerticalLineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.endPointF.x())
+
+    def _handleOpenEndInJHoraAction(self):
+        """Causes the the timestamp of the end the
+        VerticalLineSegmentGraphicsItem to be opened in JHora.
+        """
+
+        self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        VerticalLineSegmentGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.endPointF.x())
+        
+
+class HorizontalLineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
+    """QGraphicsItem that visualizes a line segment in the GraphicsView.
+    """
+    
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+
+        # Logger
+        self.log = logging.getLogger(\
+            "pricebarchart.HorizontalLineSegmentGraphicsItem")
+        
+        self.log.debug("Entered __init__().")
+
+        # Constant value for the multiple amount to extend the start
+        # or end points.  This feature shows up as an option in the
+        # right-click context menu option.
+        self.extendMultiple = 1.6
+        
+        ############################################################
+        # Set default values for preferences/settings.
+        
+        # Width of the horizontal bar drawn.
+        self.lineSegmentGraphicsItemBarWidth = \
+            PriceBarChartSettings.\
+                defaultHorizontalLineSegmentGraphicsItemBarWidth 
+ 
+        # Color of the item.
+        self.lineSegmentGraphicsItemColor = \
+            PriceBarChartSettings.\
+                defaultHorizontalLineSegmentGraphicsItemColor
+
+        ############################################################
+
+        # Internal storage object, used for loading/saving (serialization).
+        self.artifact = PriceBarChartHorizontalLineSegmentArtifact()
+
+        # Read the QSettings preferences for the various parameters of
+        # this price bar.
+        self.loadSettingsFromAppPreferences()
+        
+        # Pen which is used to do the painting of the bar ruler.
+        self.lineSegmentPenWidth = 0.0
+        self.lineSegmentPen = QPen()
+        self.lineSegmentPen.\
+            setColor(self.lineSegmentGraphicsItemColor)
+        self.lineSegmentPen.\
+            setWidthF(self.lineSegmentPenWidth)
+        
+        # Starting point, in scene coordinates.
+        self.startPointF = QPointF(0, 0)
+
+        # Ending point, in scene coordinates.
+        self.endPointF = QPointF(0, 0)
+
+        # Flags that indicate that the user is dragging either the start
+        # or end point of the QGraphicsItem.
+        self.draggingStartPointFlag = False
+        self.draggingEndPointFlag = False
+        
+        # Working variables for clicking and draging.
+        self.clickScenePointF = None
+        self.origStartPointF = None
+
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the given PriceBarChartSettings object.
+
+        Parameters:
+        
+        priceBarChartSettings - PriceBarChartSettings object from which
+                                to pull settings information from.
+        """
+
+        self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
+        
+        # Width of the horizontal bar drawn.
+        self.lineSegmentGraphicsItemBarWidth = \
+            priceBarChartSettings.\
+            horizontalLineSegmentGraphicsItemBarWidth 
+     
+        # Color of the item.
+        self.lineSegmentGraphicsItemColor = \
+            priceBarChartSettings.\
+            horizontalLineSegmentGraphicsItemColor
+    
+        ####################################################################
+
+        # Set the new color of the pen for drawing the bar.
+        self.lineSegmentPen.\
+            setColor(self.lineSegmentGraphicsItemColor)
+
+        # Schedule an update.
+        self.prepareGeometryChange()
+
+        self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
+        
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        GraphicsItem from the QSettings object. 
+        """
+
+        # No settings.
+        
+    def setPos(self, pos):
+        """Overwrites the QGraphicsItem setPos() function.
+
+        Here we use the new position to re-set the self.startPointF and
+        self.endPointF.
+
+        Arguments:
+        pos - QPointF holding the new position.
+        """
+        self.log.debug("Entered setPos()")
+        
+        super().setPos(pos)
+
+        newScenePos = pos
+
+        posDelta = newScenePos - self.startPointF
+
+        # Update the start and end points accordingly. 
+        self.startPointF = self.startPointF + posDelta
+        self.endPointF = self.endPointF + posDelta
+
+        if self.scene() != None:
+            self.recalculateHorizontalLineSegment()
+            self.prepareGeometryChange()
+
+        self.log.debug("Exiting setPos()")
+        
+    def mousePressEvent(self, event):
+        """Overwrites the QGraphicsItem mousePressEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        self.log.debug("Entered mousePressEvent()")
+        
+        # If the item is in read-only mode, simply call the parent
+        # implementation of this function.
+        if self.getReadOnlyFlag() == True:
+            super().mousePressEvent(event)
+        else:
+            # If the mouse press is within 1/5th of the bar length to the
+            # beginning or end points, then the user is trying to adjust
+            # the starting or ending points of the bar counter ruler.
+            scenePosY = event.scenePos().y()
+            self.log.debug("DEBUG: scenePosY={}".format(scenePosY))
+            
+            startingPointY = self.startPointF.y()
+            self.log.debug("DEBUG: startingPointY={}".format(startingPointY))
+            endingPointY = self.endPointF.y()
+            self.log.debug("DEBUG: endingPointY={}".format(endingPointY))
+            
+            diff = endingPointY - startingPointY
+            self.log.debug("DEBUG: diff={}".format(diff))
+
+            startThresholdY = startingPointY + (diff * (1.0 / 5))
+            endThresholdY = endingPointY - (diff * (1.0 / 5))
+
+            self.log.debug("DEBUG: startThresholdY={}".format(startThresholdY))
+            self.log.debug("DEBUG: endThresholdY={}".format(endThresholdY))
+
+
+            scenePosX = event.scenePos().x()
+            self.log.debug("DEBUG: scenePosX={}".format(scenePosX))
+            
+            startingPointX = self.startPointF.x()
+            self.log.debug("DEBUG: startingPointX={}".format(startingPointX))
+            endingPointX = self.endPointF.x()
+            self.log.debug("DEBUG: endingPointX={}".format(endingPointX))
+            
+            diff = endingPointX - startingPointX
+            self.log.debug("DEBUG: diff={}".format(diff))
+
+            startThresholdX = startingPointX + (diff * (1.0 / 5))
+            endThresholdX = endingPointX - (diff * (1.0 / 5))
+
+            self.log.debug("DEBUG: startThresholdX={}".format(startThresholdX))
+            self.log.debug("DEBUG: endThresholdX={}".format(endThresholdX))
+
+
+            if startingPointY <= scenePosY <= startThresholdY or \
+                   startingPointY >= scenePosY >= startThresholdY or \
+                   startingPointX <= scenePosX <= startThresholdX or \
+                   startingPointX >= scenePosX >= startThresholdX:
+                
+                self.draggingStartPointFlag = True
+                self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                               format(self.draggingStartPointFlag))
+                
+            elif endingPointY <= scenePosY <= endThresholdY or \
+                     endingPointY >= scenePosY >= endThresholdY or \
+                     endingPointX <= scenePosX <= endThresholdX or \
+                     endingPointX >= scenePosX >= endThresholdX:
+                
+                self.draggingEndPointFlag = True
+                self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                               format(self.draggingEndPointFlag))
+            else:
+                # The mouse has clicked the middle part of the
+                # QGraphicsItem, so pass the event to the parent, because
+                # the user wants to either select or drag-move the
+                # position of the QGraphicsItem.
+                self.log.debug("DEBUG:  Middle part clicked.  " + \
+                               "Passing to super().")
+
+                # Save the click position, so that if it is a drag, we
+                # can have something to reference from for setting the
+                # start and end positions when the user finally
+                # releases the mouse button.
+                self.clickScenePointF = event.scenePos()
+                self.origStartPointF = QPointF(self.startPointF)
+                
+                super().mousePressEvent(event)
+
+        self.log.debug("Leaving mousePressEvent()")
+        
+    def mouseMoveEvent(self, event):
+        """Overwrites the QGraphicsItem mouseMoveEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        if event.buttons() & Qt.LeftButton:
+            if self.getReadOnlyFlag() == False:
+                if self.draggingStartPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingStartPointFlag={}".
+                                   format(self.draggingStartPointFlag))
+                    # Maintain constraint for being horizontal.
+                    y = self.startPointF.y()
+                    self.setStartPointF(QPointF(event.scenePos().x(),
+                                                y))
+                    self.prepareGeometryChange()
+                elif self.draggingEndPointFlag == True:
+                    self.log.debug("DEBUG: self.draggingEndPointFlag={}".
+                                   format(self.draggingEndPointFlag))
+                    # Maintain constraint for being horizontal.
+                    y = self.endPointF.y()
+                    self.setEndPointF(QPointF(event.scenePos().x(),
+                                              y))
+                    self.prepareGeometryChange()
+                else:
+                    # This means that the user is dragging the whole
+                    # ruler.
+
+                    # Do the move.
+                    super().mouseMoveEvent(event)
+
+                    # For some reason, setPos() is not getting called
+                    # until after the user releases the mouse button
+                    # after dragging.  So here we will calculate the
+                    # change ourselves and call setPos ourselves so
+                    # that the item is drawn correctly.
+                    delta = event.scenePos() - self.clickScenePointF
+                    if delta.x() != 0.0 and delta.y() != 0.0:
+                        newPos = self.origStartPointF + delta
+                        self.setPos(newPos)
+                    
+                    # Calculate Update calculation/text for the
+                    # retracement.
+                    self.recalculateHorizontalLineSegment()
+
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartChanged.emit()
+            else:
+                super().mouseMoveEvent(event)
+        else:
+            super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        """Overwrites the QGraphicsItem mouseReleaseEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+        
+        self.log.debug("Entered mouseReleaseEvent()")
+
+        if self.draggingStartPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " + \
+                           "startPoint.")
+            
+            self.draggingStartPointFlag = False
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        elif self.draggingEndPointFlag == True:
+            self.log.debug("mouseReleaseEvent() when previously dragging " +
+                           "endPoint.")
+            
+            self.draggingEndPointFlag = False
+
+            self.prepareGeometryChange()
+            
+            self.scene().priceBarChartChanged.emit()
+            
+        else:
+            self.log.debug("mouseReleaseEvent() when NOT previously " + \
+                           "dragging an end.")
+
+            if self.getReadOnlyFlag() == False:
+                # Update the start and end positions.
+                self.log.debug("DEBUG: scenePos: x={}, y={}".
+                               format(event.scenePos().x(),
+                                      event.scenePos().y()))
+
+                # Calculate the difference between where the user released
+                # the button and where the user first clicked the item.
+                delta = event.scenePos() - self.clickScenePointF
+
+                self.log.debug("DEBUG: delta: x={}, y={}".
+                               format(delta.x(), delta.y()))
+
+                # If the delta is not zero, then update the start and
+                # end points by calling setPos() on the new calculated
+                # position.
+                if delta.x() != 0.0 and delta.y() != 0.0:
+                    newPos = self.origStartPointF + delta
+                    self.setPos(newPos)
+            
+                    # Update calculation/text.
+                    self.recalculateHorizontalLineSegment()
+        
+            super().mouseReleaseEvent(event)
+
+        self.log.debug("Exiting mouseReleaseEvent()")
+
+    def setReadOnlyFlag(self, flag):
+        """Overwrites the PriceBarChartArtifactGraphicsItem setReadOnlyFlag()
+        function.
+        """
+
+        # Call the parent's function so that the flag gets set.
+        super().setReadOnlyFlag(flag)
+
+        # Make sure the drag flags are disabled.
+        if flag == True:
+            self.draggingStartPointFlag = False
+            self.draggingEndPointFlag = False
+
+    def refreshItem(self):
+        """Refreshes the item by recalculating and updating the text
+        position/rotation.
+        """
+
+        self.recalculateHorizontalLineSegment()
+        
+    def setStartPointF(self, pointF):
+        """Sets the starting point of the
+        HorizontalLineSegmentGraphicsItem.  The value passed in is the
+        mouse location in scene coordinates.
+        """
+
+        newValue = QPointF(pointF.x(), pointF.y())
+
+        if self.startPointF != newValue: 
+            self.startPointF = newValue
+
+            self.setPos(self.startPointF)
+
+            if self.scene() != None:
+                self.recalculateHorizontalLineSegment()
+                self.prepareGeometryChange()
+                
+    def setEndPointF(self, pointF):
+        """Sets the ending point of the
+        HorizontalLineSegmentGraphicsItem.  The value passed in is the
+        mouse location in scene coordinates.
+        """
+
+        newValue = QPointF(pointF.x(), pointF.y())
+
+        if self.endPointF != newValue:
+            self.endPointF = newValue
+
+            if self.scene() != None:
+                self.recalculateHorizontalLineSegment()
+                self.prepareGeometryChange()
+
+    def normalizeStartAndEnd(self):
+        """Does not do anything since normalization is not applicable
+        to this graphics item.
+        """
+
+        # Do don't anything.
+        pass
+
+    def recalculateHorizontalLineSegment(self):
+        """Recalculates the lineSegment.
+        """
+
+        self.prepareGeometryChange()
+        
+    def setArtifact(self, artifact):
+        """Loads a given PriceBarChartHorizontalLineSegmentArtifact object's data
+        into this QGraphicsItem.
+
+        Arguments:
+        artifact - PriceBarChartHorizontalLineSegmentArtifact object 
+                   with information about this QGraphicsItem.
+        """
+        
+        self.log.debug("Entering setArtifact()")
+
+        if isinstance(artifact, PriceBarChartHorizontalLineSegmentArtifact):
+            self.artifact = artifact
+        else:
+            raise TypeError("Expected artifact type: " + \
+                            "PriceBarChartHorizontalLineSegmentArtifact")
+
+        # Extract and set the internals according to the info 
+        # in this artifact object.
+
+        # Grab the points from the artifact so that the values don't
+        # change while we set them in this item.
+        startPointF = self.artifact.getStartPointF()
+        endPointF = self.artifact.getEndPointF()
+        self.setPos(startPointF)
+        self.setStartPointF(startPointF)
+        self.setEndPointF(endPointF)
+
+        self.lineSegmentPen.setColor(self.artifact.getColor())
+        
+        #############
+
+        self.recalculateHorizontalLineSegment()
+
+        self.log.debug("Exiting setArtifact()")
+
+    def getArtifact(self):
+        """Returns a PriceBarChartHorizontalLineSegmentArtifact for this
+        QGraphicsItem so that it may be pickled.
+        """
+        
+        self.log.debug("Entered getArtifact()")
+        
+        # Update the internal self.priceBarChartHorizontalLineSegmentArtifact 
+        # to be current, then return it.
+
+        self.artifact.setPos(self.pos())
+        self.artifact.setStartPointF(self.startPointF)
+        self.artifact.setEndPointF(self.endPointF)
+
+        self.artifact.setColor(self.lineSegmentPen.color())
+        
+        self.log.debug("Exiting getArtifact()")
+        
+        return self.artifact
+
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinate (0, 0) in local coordinates is the startPointF.
+        # If the user created the widget with the startPointF to the
+        # right of the endPointF, then the startPointF will have a
+        # higher X value than endPointF.
+
+        # The QRectF returned is relative to this (0, 0) point.
+
+        rv = self.shape().boundingRect()
+
+        return rv
+
+    def shape(self):
+        """Overwrites the QGraphicsItem.shape() function to return a
+        more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
+        """
+
+        # Calculate the points that would be the selection box area
+        # around the line.
+
+        # Start and end points in local coordinates.
+        localStartPointF = self.mapFromScene(self.startPointF)
+        localEndPointF = self.mapFromScene(self.endPointF)
+
+        # Utilize scaling from the scene if it is available.
+        scaling = PriceBarChartScaling()
+        if self.scene() != None:
+            scaling = self.scene().getScaling()
+            
+        viewScaledStartPoint = \
+            QPointF(self.startPointF.x() * scaling.getViewScalingX(),
+                    self.startPointF.y() * scaling.getViewScalingY())
+        viewScaledEndPoint = \
+            QPointF(self.endPointF.x() * scaling.getViewScalingX(),
+                    self.endPointF.y() * scaling.getViewScalingY())
+
+        # Here we are calculating the angle of the text and the line
+        # as the user would see it.  Actual angle is different if we
+        # are calculating it from a scene perspective.
+        angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
+        angleRad = math.radians(angleDeg)
+        
+        shiftX = math.sin(angleRad) * \
+                     (0.5 * self.lineSegmentGraphicsItemBarWidth) / \
+                     scaling.getViewScalingX()
+        
+        shiftY = math.cos(angleRad) * \
+                     (0.5 * self.lineSegmentGraphicsItemBarWidth) / \
+                     scaling.getViewScalingY()
+
+        # Create new points.
+        p1 = \
+            QPointF(localStartPointF.x() - shiftX,
+                    localStartPointF.y() - shiftY)
+        p2 = \
+            QPointF(localStartPointF.x() + shiftX,
+                    localStartPointF.y() + shiftY)
+        p3 = \
+            QPointF(localEndPointF.x() - shiftX,
+                    localEndPointF.y() - shiftY)
+        p4 = \
+            QPointF(localEndPointF.x() + shiftX,
+                    localEndPointF.y() + shiftY)
+
+        points = [p2, p1, p3, p4, p2]
+        polygon = QPolygonF(points)
+
+        painterPath = QPainterPath()
+        painterPath.addPolygon(polygon)
+
+        return painterPath
+        
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that self.lineSegmentPen is set
+        to what we want for the drawing style.
+        """
+
+        self.log.debug("HorizontalLineSegmentGraphicsItem.paint()")
+        
+        if painter.pen() != self.lineSegmentPen:
+            painter.setPen(self.lineSegmentPen)
+        
+        # Draw the line.
+        localStartPointF = self.mapFromScene(self.startPointF)
+        localEndPointF = self.mapFromScene(self.endPointF)
+        painter.drawLine(QLineF(localStartPointF, localEndPointF))
+        
+        # Draw the shape if the item is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.lineSegmentPen.widthF() * 0.5;
+            penWidth = 0.0
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this HorizontalLineSegmentGraphicsItem.  Actions that
+        are triggered from this menu run various methods in the
+        HorizontalLineSegmentGraphicsItem to handle the desired functionality.
+        
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+                       readonly actions.
+        """
+
+        menu.setTitle(self.artifact.getInternalName())
+        
+        # These are the QActions that are in the menu.
+        parent = menu
+        selectAction = QAction("&Select", parent)
+        unselectAction = QAction("&Unselect", parent)
+        removeAction = QAction("&Remove", parent)
+        infoAction = QAction("&Info", parent)
+        editAction = QAction("&Edit", parent)
+        extendEndPointAction = \
+            QAction("E&xtend end point to {}-fold".\
+                    format(self.extendMultiple), parent)
+        shortenEndPointAction = \
+            QAction("Shor&ten end point to {}-fold".\
+                    format(1.0 / self.extendMultiple), parent)
+        extendStartPointAction = \
+            QAction("Exte&nd start point to {}-fold".\
+                    format(self.extendMultiple), parent)
+        shortenStartPointAction = \
+            QAction("S&horten start point to {}-fold".\
+                    format(1.0 / self.extendMultiple), parent)
+        
+        setStartOnAstro1Action = \
+            QAction("Set start timestamp on Astro Chart &1", parent)
+        setStartOnAstro2Action = \
+            QAction("Set start timestamp on Astro Chart &2", parent)
+        setStartOnAstro3Action = \
+            QAction("Set start timestamp on Astro Chart &3", parent)
+        openStartInJHoraAction = \
+            QAction("Open JHor&a with start timestamp", parent)
+        openStartInAstrologAction = \
+            QAction("Open As&trolog with start timestamp", parent)
+        setEndOnAstro1Action = \
+            QAction("Set end timestamp on Astro Chart 1", parent)
+        setEndOnAstro2Action = \
+            QAction("Set end timestamp on Astro Chart 2", parent)
+        setEndOnAstro3Action = \
+            QAction("Set end timestamp on Astro Chart 3", parent)
+        openEndInJHoraAction = \
+            QAction("Open JHora with end timestamp", parent)
+        openEndInAstrologAction = \
+            QAction("Open Astrolog with end timestamp", parent)
+        
+        selectAction.triggered.\
+            connect(self._handleSelectAction)
+        unselectAction.triggered.\
+            connect(self._handleUnselectAction)
+        removeAction.triggered.\
+            connect(self._handleRemoveAction)
+        infoAction.triggered.\
+            connect(self._handleInfoAction)
+        editAction.triggered.\
+            connect(self._handleEditAction)
+        extendEndPointAction.triggered.\
+            connect(self._handleExtendEndPointAction)
+        shortenEndPointAction.triggered.\
+            connect(self._handleShortenEndPointAction)
+        extendStartPointAction.triggered.\
+            connect(self._handleExtendStartPointAction)
+        shortenStartPointAction.triggered.\
+            connect(self._handleShortenStartPointAction)
+        setStartOnAstro1Action.triggered.\
+            connect(self._handleSetStartOnAstro1Action)
+        setStartOnAstro2Action.triggered.\
+            connect(self._handleSetStartOnAstro2Action)
+        setStartOnAstro3Action.triggered.\
+            connect(self._handleSetStartOnAstro3Action)
+        openStartInJHoraAction.triggered.\
+            connect(self._handleOpenStartInJHoraAction)
+        openStartInAstrologAction.triggered.\
+            connect(self._handleOpenStartInAstrologAction)
+        setEndOnAstro1Action.triggered.\
+            connect(self._handleSetEndOnAstro1Action)
+        setEndOnAstro2Action.triggered.\
+            connect(self._handleSetEndOnAstro2Action)
+        setEndOnAstro3Action.triggered.\
+            connect(self._handleSetEndOnAstro3Action)
+        openEndInJHoraAction.triggered.\
+            connect(self._handleOpenEndInJHoraAction)
+        openEndInAstrologAction.triggered.\
+            connect(self._handleOpenEndInAstrologAction)
+        
+        # Enable or disable actions.
+        selectAction.setEnabled(True)
+        unselectAction.setEnabled(True)
+        removeAction.setEnabled(not readOnlyMode)
+        infoAction.setEnabled(True)
+        editAction.setEnabled(not readOnlyMode)
+        extendEndPointAction.setEnabled(not readOnlyMode)
+        shortenEndPointAction.setEnabled(not readOnlyMode)
+        extendStartPointAction.setEnabled(not readOnlyMode)
+        shortenStartPointAction.setEnabled(not readOnlyMode)
+        setStartOnAstro1Action.setEnabled(True)
+        setStartOnAstro2Action.setEnabled(True)
+        setStartOnAstro3Action.setEnabled(True)
+        openStartInJHoraAction.setEnabled(True)
+        openStartInAstrologAction.setEnabled(True)
+        setEndOnAstro1Action.setEnabled(True)
+        setEndOnAstro2Action.setEnabled(True)
+        setEndOnAstro3Action.setEnabled(True)
+        openEndInJHoraAction.setEnabled(True)
+        openEndInAstrologAction.setEnabled(True)
+
+        # Add the QActions to the menu.
+        menu.addAction(selectAction)
+        menu.addAction(unselectAction)
+        menu.addSeparator()
+        menu.addAction(removeAction)
+        menu.addSeparator()
+        menu.addAction(infoAction)
+        menu.addAction(editAction)
+        menu.addSeparator()
+        menu.addAction(extendEndPointAction)
+        menu.addAction(shortenEndPointAction)
+        menu.addAction(extendStartPointAction)
+        menu.addAction(shortenStartPointAction)
+        menu.addSeparator()
+        menu.addAction(setStartOnAstro1Action)
+        menu.addAction(setStartOnAstro2Action)
+        menu.addAction(setStartOnAstro3Action)
+        menu.addAction(openStartInJHoraAction)
+        menu.addAction(openStartInAstrologAction)
+        menu.addSeparator()
+        menu.addAction(setEndOnAstro1Action)
+        menu.addAction(setEndOnAstro2Action)
+        menu.addAction(setEndOnAstro3Action)
+        menu.addAction(openEndInJHoraAction)
+        menu.addAction(openEndInAstrologAction)
+
+    def _handleSelectAction(self):
+        """Causes the QGraphicsItem to become selected."""
+
+        self.setSelected(True)
+        self.maybePrintTagsToStatusBar()
+
+    def _handleUnselectAction(self):
+        """Causes the QGraphicsItem to become unselected."""
+
+        self.setSelected(False)
+
+    def _handleRemoveAction(self):
+        """Causes the QGraphicsItem to be removed from the scene."""
+        
+        scene = self.scene()
+        if scene != None:
+            scene.removeItem(self)
+
+            # Emit signal to show that an item is removed.
+            # This sets the dirty flag.
+            scene.priceBarChartArtifactGraphicsItemRemoved.emit(self)
+        
+    def _handleInfoAction(self):
+        """Causes a dialog to be executed to show information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartHorizontalLineSegmentArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=True)
+        
+        # Run the dialog.  We don't care about what is returned
+        # because the dialog is read-only.
+        rv = dialog.exec_()
+        
+    def _handleEditAction(self):
+        """Causes a dialog to be executed to edit information about
+        the QGraphicsItem.
+        """
+
+        artifact = self.getArtifact()
+        dialog = PriceBarChartHorizontalLineSegmentArtifactEditDialog(artifact,
+                                                         self.scene(),
+                                                         readOnlyFlag=False)
+        
+        rv = dialog.exec_()
+        
+        if rv == QDialog.Accepted:
+            # If the dialog is accepted then the underlying artifact
+            # object was modified.  Set the artifact to this
+            # PriceBarChartArtifactGraphicsItem, which will cause it to be
+            # reloaded in the scene.
+            artifact = dialog.getArtifact()
+            self.setArtifact(artifact)
+
+            # Flag that a redraw of this QGraphicsItem is required.
+            self.prepareGeometryChange()
+
+            # Emit that the PriceBarChart has changed so that the
+            # dirty flag can be set.
+            self.scene().priceBarChartChanged.emit()
+        else:
+            # The user canceled so don't change anything.
+            pass
+        
+    def _handleExtendEndPointAction(self):
+        """Updates the QGraphicsItem so that the end point is
+        (self.extendMultiple) fold of the current distance away from start
+        point.  The artifact is edited too to correspond with this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        deltaY = self.endPointF.y() - self.startPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * self.extendMultiple
+        offsetY = deltaY * self.extendMultiple
+
+        # Calculate new end point X and Y values.
+        newEndPointX = self.startPointF.x() + offsetX
+        newEndPointY = self.startPointF.y() + offsetY
+
+        # Update the QGraphicsItem manually.
+        newEndPointF = QPointF(newEndPointX, newEndPointY)
+        self.setEndPointF(newEndPointF)
+        
+        # Update the artifact.
+        self.artifact.setEndPointF(newEndPointF)
+        
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+        
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleShortenEndPointAction(self):
+        """Updates the QGraphicsItem so that the end point is
+        (1.0 / self.extendMultiple) fold of the current distance away from
+        start point.  The artifact is edited too to correspond with
+        this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        deltaY = self.endPointF.y() - self.startPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * (1.0 / self.extendMultiple)
+        offsetY = deltaY * (1.0 / self.extendMultiple)
+
+        # Calculate new end point X and Y values.
+        newEndPointX = self.startPointF.x() + offsetX
+        newEndPointY = self.startPointF.y() + offsetY
+
+        # Update the QGraphicsItem manually.
+        newEndPointF = QPointF(newEndPointX, newEndPointY)
+        self.setEndPointF(newEndPointF)
+        
+        # Update the artifact.
+        self.artifact.setEndPointF(newEndPointF)
+        
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+        
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleExtendStartPointAction(self):
+        """Updates the QGraphicsItem so that the start point is
+        (self.extendMultiple) fold of the current distance away from
+        end point.  The artifact is edited too to correspond with this
+        change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        deltaY = self.endPointF.y() - self.startPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * self.extendMultiple
+        offsetY = deltaY * self.extendMultiple
+
+        # Calculate new start point X and Y values.
+        newStartPointX = self.endPointF.x() - offsetX
+        newStartPointY = self.endPointF.y() - offsetY
+
+        # Update the QGraphicsItem manually.
+        newStartPointF = QPointF(newStartPointX, newStartPointY)
+        
+        # Call the parent version for setPos(), not the self version
+        # because the self version moves both the start and end
+        # points.  We want to keep the end point the same.
+        super().setPos(newStartPointF)
+        self.startPointF = newStartPointF
+        
+        # Update the artifact.
+        self.artifact.setPos(self.startPointF)
+        self.artifact.setStartPointF(self.startPointF)
+
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleShortenStartPointAction(self):
+        """Updates the QGraphicsItem so that the start point is
+        (1.0 / self.extendMultiple) fold of the current distance away
+        from end point.  The artifact is edited too to correspond with
+        this change.
+        """
+
+        # Get the X and Y deltas between the start and end points.
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        deltaY = self.endPointF.y() - self.startPointF.y()
+
+        # Calculate the new offsets from the end point.
+        offsetX = deltaX * (1.0 / self.extendMultiple)
+        offsetY = deltaY * (1.0 / self.extendMultiple)
+
+        # Calculate new start point X and Y values.
+        newStartPointX = self.endPointF.x() - offsetX
+        newStartPointY = self.endPointF.y() - offsetY
+
+        # Update the QGraphicsItem manually.
+        newStartPointF = QPointF(newStartPointX, newStartPointY)
+        
+        # Call the parent version for setPos(), not the self version
+        # because the self version moves both the start and end
+        # points.  We want to keep the end point the same.
+        super().setPos(newStartPointF)
+        self.startPointF = newStartPointF
+        
+        # Update the artifact.
+        self.artifact.setPos(self.startPointF)
+        self.artifact.setStartPointF(self.startPointF)
+
+        # Refresh the item so that the textItem and drawing can be updated.
+        self.refreshItem()
+
+        # Emit that the chart has changed.
+        self.scene().priceBarChartChanged.emit()
+        
+    def _handleSetStartOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the start the HorizontalLineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.startPointF.x())
+        
+    def _handleSetStartOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the start the HorizontalLineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.startPointF.x())
+        
+    def _handleSetStartOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the start the HorizontalLineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.startPointF.x())
+        
+    def _handleOpenStartInJHoraAction(self):
+        """Causes the the timestamp of the start the
+        HorizontalLineSegmentGraphicsItem to be opened in JHora.
+        """
+
+        self.scene().openJHora(self.startPointF.x())
+        
+    def _handleOpenStartInAstrologAction(self):
+        """Causes the the timestamp of the start the
+        HorizontalLineSegmentGraphicsItem to be opened in Astrolog.
+        """
+
+        self.scene().openAstrolog(self.startPointF.x())
+        
+    def _handleSetEndOnAstro1Action(self):
+        """Causes the astro chart 1 to be set with the timestamp
+        of the end the HorizontalLineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart1(self.endPointF.x())
+
+    def _handleSetEndOnAstro2Action(self):
+        """Causes the astro chart 2 to be set with the timestamp
+        of the end the HorizontalLineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart2(self.endPointF.x())
+
+    def _handleSetEndOnAstro3Action(self):
+        """Causes the astro chart 3 to be set with the timestamp
+        of the end the HorizontalLineSegmentGraphicsItem.
+        """
+
+        self.scene().setAstroChart3(self.endPointF.x())
+
+    def _handleOpenEndInJHoraAction(self):
+        """Causes the the timestamp of the end the
+        HorizontalLineSegmentGraphicsItem to be opened in JHora.
+        """
+
+        self.scene().openJHora(self.endPointF.x())
+        
+    def _handleOpenEndInAstrologAction(self):
+        """Causes the the timestamp of the end the
+        HorizontalLineSegmentGraphicsItem to be opened in Astrolog.
         """
 
         self.scene().openAstrolog(self.endPointF.x())
@@ -38210,6 +40789,313 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         self.scene().openAstrolog(self.endPointF.x())
         
+
+class TransientDashedLineSegmentGraphicsItem(QGraphicsItem):
+    """QGraphicsItem that visualizes a dashed line segment in
+    the GraphicsView.  This QGraphicsItem does not have any artifact
+    backing it.
+    """
+    
+    def __init__(self, parent=None, scene=None):
+        super().__init__(parent, scene)
+
+        # Logger
+        self.log = logging.getLogger(\
+            "pricebarchart.TransientDashedLineSegmentGraphicsItem")
+        
+        self.log.debug("Entered __init__().")
+
+        # Width of the line segment, for bounding rect calculation purposes.
+        self.lineSegmentGraphicsItemBarWidth = 1
+ 
+        # Color of the item.
+        self.lineSegmentGraphicsItemColor = QColor(Qt.gray)
+
+        # Read the QSettings preferences for the various parameters of
+        # this price bar.
+        self.loadSettingsFromAppPreferences()
+        
+        # Pen which is used to do the painting of the bar ruler.
+        self.lineSegmentPenWidth = 0.0
+        self.lineSegmentPen = QPen()
+        self.lineSegmentPen.\
+            setColor(self.lineSegmentGraphicsItemColor)
+        self.lineSegmentPen.\
+            setWidthF(self.lineSegmentPenWidth)
+        self.lineSegmentPen.setStyle(Qt.DashLine)
+        
+        # Starting point, in scene coordinates.
+        self.startPointF = QPointF(0, 0)
+
+        # Ending point, in scene coordinates.
+        self.endPointF = QPointF(0, 0)
+
+    def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
+        """Reads some of the parameters/settings of this
+        PriceBarGraphicsItem from the given PriceBarChartSettings object.
+
+        Parameters:
+        
+        priceBarChartSettings - PriceBarChartSettings object from which
+                                to pull settings information from.
+        """
+
+        self.log.debug("Entered loadSettingsFromPriceBarChartSettings()")
+        
+        # No settings.
+
+        self.log.debug("Exiting loadSettingsFromPriceBarChartSettings()")
+        
+    def loadSettingsFromAppPreferences(self):
+        """Reads some of the parameters/settings of this
+        GraphicsItem from the QSettings object. 
+        """
+
+        # No settings.
+        
+    def setPos(self, pos):
+        """Overwrites the QGraphicsItem setPos() function.
+
+        Here we use the new position to re-set the self.startPointF and
+        self.endPointF.
+
+        Arguments:
+        pos - QPointF holding the new position.
+        """
+        self.log.debug("Entered setPos()")
+        
+        super().setPos(pos)
+
+        newScenePos = pos
+
+        posDelta = newScenePos - self.startPointF
+
+        # Update the start and end points accordingly. 
+        self.startPointF = self.startPointF + posDelta
+        self.endPointF = self.endPointF + posDelta
+
+        if self.scene() != None:
+            self.recalculateLineSegment()
+            self.prepareGeometryChange()
+
+        self.log.debug("Exiting setPos()")
+        
+    def mousePressEvent(self, event):
+        """Overwrites the QGraphicsItem mousePressEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        super().mousePressEvent(event)
+        
+    def mouseMoveEvent(self, event):
+        """Overwrites the QGraphicsItem mouseMoveEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+
+        super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        """Overwrites the QGraphicsItem mouseReleaseEvent() function.
+
+        Arguments:
+        event - QGraphicsSceneMouseEvent that triggered this call.
+        """
+        
+        super().mouseReleaseEvent(event)
+
+    def refreshItem(self):
+        """Refreshes the item by recalculating and updating the text
+        position/rotation.
+        """
+
+        self.recalculateLineSegment()
+        
+        self._updateTextItemPositions()
+        
+    def setStartPointF(self, pointF):
+        """Sets the starting point of the bar count.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        newValue = QPointF(pointF.x(), pointF.y())
+
+        if self.startPointF != newValue: 
+            self.startPointF = newValue
+
+            self.setPos(self.startPointF)
+
+            if self.scene() != None:
+                self.recalculateLineSegment()
+                self.prepareGeometryChange()
+                
+    def setEndPointF(self, pointF):
+        """Sets the ending point of the bar count.  The value passed in
+        is the mouse location in scene coordinates.  
+        """
+
+        newValue = QPointF(pointF.x(), pointF.y())
+
+        if self.endPointF != newValue:
+            self.endPointF = newValue
+
+            if self.scene() != None:
+                self.recalculateLineSegment()
+                self.prepareGeometryChange()
+
+    def normalizeStartAndEnd(self):
+        """Does not do anything since normalization is not applicable
+        to this graphics item.
+        """
+
+        # Do don't anything.
+        pass
+
+    def recalculateLineSegment(self):
+        """Recalculates the lineSegment.
+        """
+
+        self.prepareGeometryChange()
+        
+    def boundingRect(self):
+        """Returns the bounding rectangle for this graphicsitem."""
+
+        # Coordinate (0, 0) in local coordinates is the startPointF.
+        # If the user created the widget with the startPointF to the
+        # right of the endPointF, then the startPointF will have a
+        # higher X value than endPointF.
+
+        # The QRectF returned is relative to this (0, 0) point.
+
+        rv = self.shape().boundingRect()
+
+        return rv
+
+    def shape(self):
+        """Overwrites the QGraphicsItem.shape() function to return a
+        more accurate shape for collision detection, hit tests, etc.
+
+        Returns:
+        QPainterPath object holding the shape of this QGraphicsItem.
+        """
+
+        # Calculate the points that would be the selection box area
+        # around the line.
+
+        # Start and end points in local coordinates.
+        localStartPointF = self.mapFromScene(self.startPointF)
+        localEndPointF = self.mapFromScene(self.endPointF)
+
+        # Utilize scaling from the scene if it is available.
+        scaling = PriceBarChartScaling()
+        if self.scene() != None:
+            scaling = self.scene().getScaling()
+            
+        viewScaledStartPoint = \
+            QPointF(self.startPointF.x() * scaling.getViewScalingX(),
+                    self.startPointF.y() * scaling.getViewScalingY())
+        viewScaledEndPoint = \
+            QPointF(self.endPointF.x() * scaling.getViewScalingX(),
+                    self.endPointF.y() * scaling.getViewScalingY())
+
+        # Here we are calculating the angle of the text and the line
+        # as the user would see it.  Actual angle is different if we
+        # are calculating it from a scene perspective.
+        angleDeg = QLineF(viewScaledStartPoint, viewScaledEndPoint).angle()
+        angleRad = math.radians(angleDeg)
+        
+        shiftX = math.sin(angleRad) * \
+                     (0.5 * self.lineSegmentGraphicsItemBarWidth) / \
+                     scaling.getViewScalingX()
+        
+        shiftY = math.cos(angleRad) * \
+                     (0.5 * self.lineSegmentGraphicsItemBarWidth) / \
+                     scaling.getViewScalingY()
+
+        # Create new points.
+        p1 = \
+            QPointF(localStartPointF.x() - shiftX,
+                    localStartPointF.y() - shiftY)
+        p2 = \
+            QPointF(localStartPointF.x() + shiftX,
+                    localStartPointF.y() + shiftY)
+        p3 = \
+            QPointF(localEndPointF.x() - shiftX,
+                    localEndPointF.y() - shiftY)
+        p4 = \
+            QPointF(localEndPointF.x() + shiftX,
+                    localEndPointF.y() + shiftY)
+
+        points = [p2, p1, p3, p4, p2]
+        polygon = QPolygonF(points)
+
+        painterPath = QPainterPath()
+        painterPath.addPolygon(polygon)
+
+        return painterPath
+        
+    def paint(self, painter, option, widget):
+        """Paints this QGraphicsItem.  Assumes that self.lineSegmentPen is set
+        to what we want for the drawing style.
+        """
+
+        self.log.debug("LineSegmentGraphicsItem.paint()")
+        
+        if painter.pen() != self.lineSegmentPen:
+            painter.setPen(self.lineSegmentPen)
+        
+        # Draw the line.
+        localStartPointF = self.mapFromScene(self.startPointF)
+        localEndPointF = self.mapFromScene(self.endPointF)
+        painter.drawLine(QLineF(localStartPointF, localEndPointF))
+        
+        # Draw the shape if the item is selected.
+        if option.state & QStyle.State_Selected:
+            pad = self.lineSegmentPen.widthF() * 0.5;
+            penWidth = 0.0
+            fgcolor = option.palette.windowText().color()
+            
+            # Ensure good contrast against fgcolor.
+            r = 255
+            g = 255
+            b = 255
+            if fgcolor.red() > 127:
+                r = 0
+            if fgcolor.green() > 127:
+                g = 0
+            if fgcolor.blue() > 127:
+                b = 0
+            
+            bgcolor = QColor(r, g, b)
+            
+            painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+            
+            painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.shape())
+
+    def appendActionsToContextMenu(self, menu, readOnlyMode=False):
+        """Modifies the given QMenu object to update the title and add
+        actions relevant to this TransientDashedLineSegmentGraphicsItem.
+        Actions that are triggered from this menu run various methods in
+        the TransientDashedLineSegmentGraphicsItem to handle the desired
+        functionality.
+        
+        Arguments:
+        menu - QMenu object to modify.
+        readOnlyMode - bool value that indicates the actions are to be
+        readonly actions.
+        """
+
+        # Do nothing.  
+        pass
+
+
 class PriceBarChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays
     the PriceBar information along with other indicators and analysis
@@ -38225,6 +41111,7 @@ class PriceBarChartWidget(QWidget):
     # It does NOT include:
     #   - User selecting a pricebar
     #   - User opening a wheel astrology chart from a pricebar
+    #   - Creation/Modification/Deletion of a LookbackMultiplePriceBar.
     #
     priceBarChartChanged = QtCore.pyqtSignal()
 
@@ -38283,7 +41170,9 @@ class PriceBarChartWidget(QWidget):
                 "PanchottariDasaTool"      : 28,
                 "ShashtihayaniDasaTool"    : 29,
                 "PlanetLongitudeMovementMeasurementTool"    : 30,
-                "LineSegment2Tool"         : 31
+                "LineSegment2Tool"         : 31,
+                "VerticalLineSegmentTool"  : 32,
+                "HorizontalLineSegmentTool": 33,
                 }
 
 
@@ -38668,31 +41557,6 @@ class PriceBarChartWidget(QWidget):
         self.updateSelectedPriceBarLabels(None)
         self.graphicsScene.clearCachedPriceBars()
 
-    def getPriceBarChartArtifacts(self):
-        """Returns the list of PriceBarChartArtifacts that have been used
-        to draw the the artifacts in the QGraphicsScene.
-        """
-
-        self.log.debug("Entered getPriceBarChartArtifacts()")
-        
-        # List of PriceBarChartArtifact objects returned.
-        artifacts = []
-        
-        # Go through all the QGraphicsItems and for each artifact type,
-        # extract the PriceBarChartArtifact.
-        graphicsItems = self.graphicsScene.items()
-        
-        for item in graphicsItems:
-            if isinstance(item, PriceBarChartArtifactGraphicsItem):
-                artifacts.append(item.getArtifact())
-
-        self.log.debug("Number of artifacts being returned is: {}".\
-                       format(len(artifacts)))
-        
-        self.log.debug("Exiting getPriceBarChartArtifacts()")
-        
-        return artifacts
-
     def loadPriceBarChartArtifacts(self, priceBarChartArtifacts):
         """Loads the given list of PriceBarChartArtifact objects
         into this widget as QGraphicsItems.
@@ -38957,6 +41821,46 @@ class PriceBarChartWidget(QWidget):
                 self.log.debug("Loading artifact: " + artifact.toString())
                 
                 newItem = LineSegmentGraphicsItem()
+                newItem.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+                newItem.setArtifact(artifact)
+                
+                # Add the item.
+                self.graphicsScene.addItem(newItem)
+                
+                # Make sure the proper flags are set for the mode we're in.
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
+                
+                # Need to refresh the item (recalculate) since it
+                # wasn't in the QGraphicsScene until now.
+                newItem.refreshItem()
+
+                addedItemFlag = True
+
+            elif isinstance(artifact, PriceBarChartVerticalLineSegmentArtifact):
+                self.log.debug("Loading artifact: " + artifact.toString())
+                
+                newItem = VerticalLineSegmentGraphicsItem()
+                newItem.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+                newItem.setArtifact(artifact)
+                
+                # Add the item.
+                self.graphicsScene.addItem(newItem)
+                
+                # Make sure the proper flags are set for the mode we're in.
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(newItem)
+                
+                # Need to refresh the item (recalculate) since it
+                # wasn't in the QGraphicsScene until now.
+                newItem.refreshItem()
+
+                addedItemFlag = True
+
+            elif isinstance(artifact, PriceBarChartHorizontalLineSegmentArtifact):
+                self.log.debug("Loading artifact: " + artifact.toString())
+                
+                newItem = HorizontalLineSegmentGraphicsItem()
                 newItem.loadSettingsFromPriceBarChartSettings(\
                     self.priceBarChartSettings)
                 newItem.setArtifact(artifact)
@@ -39286,17 +42190,31 @@ class PriceBarChartWidget(QWidget):
 
 
 
-    def addPriceBarChartArtifact(self, priceBarChartArtifact):
-        """Adds the given PriceBarChartArtifact objects 
-        into this widget as QGraphicsItems."""
+    def getPriceBarChartArtifacts(self):
+        """Returns the list of PriceBarChartArtifacts that have been used
+        to draw the the artifacts in the QGraphicsScene.
+        """
 
-        # List of one element.
-        artifacts = [priceBarChartArtifact]
-
-        # Load it via a list.  If it is added, then it will emit
-        # the self.priceBarChartChanged signal for us.
-        self.loadPriceBarChartArtifacts(artifacts)
+        self.log.debug("Entered getPriceBarChartArtifacts()")
         
+        # List of PriceBarChartArtifact objects returned.
+        artifacts = []
+        
+        # Go through all the QGraphicsItems and for each artifact type,
+        # extract the PriceBarChartArtifact.
+        graphicsItems = self.graphicsScene.items()
+        
+        for item in graphicsItems:
+            if isinstance(item, PriceBarChartArtifactGraphicsItem):
+                artifacts.append(item.getArtifact())
+
+        self.log.debug("Number of artifacts being returned is: {}".\
+                       format(len(artifacts)))
+        
+        self.log.debug("Exiting getPriceBarChartArtifacts()")
+        
+        return artifacts
+
     def clearAllPriceBarChartArtifacts(self):
         """Clears all the PriceBarChartArtifact objects from the 
         QGraphicsScene."""
@@ -39323,7 +42241,368 @@ class PriceBarChartWidget(QWidget):
             self.graphicsScene.priceBarChartChanged.emit()
             
         self.log.debug("Exiting clearAllPriceBarChartArtifacts()")
+
+    def drawLookbackMultiplePriceBars(self, lookbackMultiples):
+        """Causes the drawing of LookbackMultiplePriceBarGraphicsItems
+
+        These are only drawn for the currently visible area of the 
+        QGraphicsScene.
+
+        Note: This drawing does not cause a priceBarChartChanged signal
+        to be emitted.  That is because LookbackMultiplePriceBars are
+        transient and are not persisted.  They get redrawn frequently, 
+        and where they are drawn are highly dependent on the user's current 
+        view.
+        """
         
+        self.log.debug("Entered drawLookbackMultiplePriceBars()")
+
+        # Maximum error for calculation of LookbackMultiple results.
+        maxErrorTd = datetime.timedelta(minutes=60)
+        
+        
+        # Set the birth location in the Ephemeris.
+        #
+        # This is required before making Ephemeris calculations for
+        # LookbackMultiple.
+        birthInfo = self.graphicsScene.getBirthInfo()
+        Ephemeris.setGeographicPosition(birthInfo.longitudeDegrees,
+                                        birthInfo.latitudeDegrees,
+                                        birthInfo.elevation)
+
+        # Get area of the QGraphicsScene that is visible in the 
+        # QGraphicsView, as a QRect.
+        viewportRect = QRect(0, 0, 
+                             self.graphicsView.viewport().width(), 
+                             self.graphicsView.viewport().height());
+        visibleSceneRectF = \
+            self.graphicsView.mapToScene(viewportRect).boundingRect()
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("visibleSceneRect is: x={}, y={}, w={}, h={}".\
+                           format(visibleSceneRectF.x(), 
+                                  visibleSceneRectF.y(), 
+                                  visibleSceneRectF.width(), 
+                                  visibleSceneRectF.height()))
+
+        # Convert the scene rectangle coordinates to dates and prices.
+        earliestViewDt = \
+            self.graphicsScene.sceneXPosToDatetime(visibleSceneRectF.x())
+        latestViewDt = \
+            self.graphicsScene.sceneXPosToDatetime(visibleSceneRectF.x() + \
+                                                   visibleSceneRectF.width())
+        highestViewPrice = \
+            self.graphicsScene.sceneYPosToPrice(visibleSceneRectF.y())
+        lowestViewPrice = \
+            self.graphicsScene.sceneYPosToPrice(visibleSceneRectF.y() + \
+                                                visibleSceneRectF.height())
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("earliestViewDt == {}".\
+                           format(Ephemeris.datetimeToDayStr(earliestViewDt)))
+            self.log.debug("latestViewDt   == {}".\
+                           format(Ephemeris.datetimeToDayStr(latestViewDt)))
+            self.log.debug("highestViewPrice == {}".format(highestViewPrice))
+            self.log.debug("lowestViewPrice  == {}".format(lowestViewPrice))
+
+        for lookbackMultiple in lookbackMultiples:
+
+            # Don't process disabled LookbackMultiples.
+            if lookbackMultiple.getEnabled() == False:
+                continue
+            else:
+                if self.log.isEnabledFor(logging.DEBUG) == True:
+                    self.log.debug("Processing LookbackMultiple: {}".\
+                                   format(lookbackMultiple.toString()))
+
+            # Extract needed information from the LookbackMultiple.
+            planetName = lookbackMultiple.getPlanetName()
+
+            centricityType = ""
+            if lookbackMultiple.getGeocentricFlag() == True:
+                centricityType = "geocentric"
+            if lookbackMultiple.getHeliocentricFlag() == True:
+                centricityType = "heliocentric"
+
+            longitudeType = ""
+            if lookbackMultiple.getTropicalFlag() == True:
+                longitudeType = "tropical"
+            if lookbackMultiple.getSiderealFlag() == True:
+                longitudeType = "sidereal"
+
+            desiredDeltaDegrees = 0
+            if lookbackMultiple.getBaseUnitTypeDegreesFlag() == True:
+                desiredDeltaDegrees = \
+                    lookbackMultiple.getLookbackMultiple() * \
+                    lookbackMultiple.getBaseUnit()
+            if lookbackMultiple.getBaseUnitTypeRevolutionsFlag() == True:
+                desiredDeltaDegrees = \
+                    lookbackMultiple.getLookbackMultiple() * \
+                    lookbackMultiple.getBaseUnit() * \
+                    360
+            
+            # Look backwards in time to get the start and end datetimes for
+            # obtaining the time range of historic PriceBars.
+            self.log.debug("Looking backwards in time ...")
+            
+            argsTupleList = []
+
+            startLookbackArgs = (\
+                    planetName, 
+                    centricityType, 
+                    longitudeType, 
+                    earliestViewDt, 
+                    desiredDeltaDegrees * -1, 
+                    maxErrorTd, 
+                    birthInfo.longitudeDegrees,
+                    birthInfo.latitudeDegrees,
+                    birthInfo.elevation)
+
+            argsTupleList.append(startLookbackArgs)
+
+            endLookbackArgs = (\
+                    planetName, 
+                    centricityType, 
+                    longitudeType, 
+                    latestViewDt, 
+                    desiredDeltaDegrees * -1, 
+                    maxErrorTd, 
+                    birthInfo.longitudeDegrees,
+                    birthInfo.latitudeDegrees,
+                    birthInfo.elevation)
+
+            argsTupleList.append(endLookbackArgs)
+
+            # Compute results in parallel.
+            resultsList = \
+                LookbackMultipleParallel.\
+                getDatetimesOfLongitudeDeltaDegreesInPastParallel(argsTupleList)
+    
+            startLookbackDts = resultsList[0]
+            endLookbackDts = resultsList[1]
+            
+            if self.log.isEnabledFor(logging.DEBUG) == True:
+                self.log.debug("len(startLookbackDts) == {}".\
+                               format(len(startLookbackDts)))
+                for i in range(len(startLookbackDts)):
+                    dt = startLookbackDts[i]
+                    self.log.debug("startLookbackDts[{}] == {}".format(i, dt))
+    
+                self.log.debug("len(endLookbackDts) == {}".\
+                               format(len(endLookbackDts)))
+                for i in range(len(endLookbackDts)):
+                    dt = endLookbackDts[i]
+                    self.log.debug("endLookbackDts[{}] == {}".format(i, dt))
+
+            # Put the datetimes together into one list, then sort, and get the
+            # earliest and latest datetimes.  We need to do this because if the
+            # QGraphicsView is very zoomed in, and the planet is going
+            # retrograde, then the startLookbackDts may actually come after the
+            # endLookbackDts.  By doing this, we ensure that we get the largest
+            # possible set of PriceBars for the historic time period compared
+            # related to this current period.
+            startAndEndPriceBarSearchDts = startLookbackDts + endLookbackDts
+            startAndEndPriceBarSearchDts.sort()
+
+            startPriceBarSearchDt = startAndEndPriceBarSearchDts[0]
+            endPriceBarSearchDt = startAndEndPriceBarSearchDts[-1]
+
+            if self.log.isEnabledFor(logging.DEBUG) == True:
+                self.log.debug("startPriceBarSearchDt == {}".\
+                    format(Ephemeris.datetimeToDayStr(startPriceBarSearchDt)))
+                self.log.debug("endPriceBarSearchDt == {}".\
+                    format(Ephemeris.datetimeToDayStr(endPriceBarSearchDt)))
+
+            # Get the PriceBars in time between startPriceBarSearchDt and
+            # endPriceBarSearchDt.  Store these in list 'pbs'.
+            pbs = []
+
+            graphicsItems = self.graphicsScene.items()
+            for item in graphicsItems:
+                if isinstance(item, PriceBarGraphicsItem):
+                    pb = item.getPriceBar()
+                    dt = pb.timestamp
+                    if startPriceBarSearchDt <= dt <= endPriceBarSearchDt:
+                        # Found a PriceBar within our historic time range.
+                        pbs.append(pb)
+
+                        if self.log.isEnabledFor(logging.DEBUG) == True:
+                            debugStr = "Found a pricebar within " + \
+                                "our historic time range: {}".\
+                                format(Ephemeris.datetimeToDayStr(dt))
+                            self.log.debug(debugStr)
+    
+
+            # Working variables that will be used later for scaling the
+            # LookbackMultiplePriceBars to fit within the visible portion of
+            # the QGraphicsView.
+            highestPriceBarPrice = None
+            lowestPriceBarPrice = None
+            
+            for pb in pbs:
+                if highestPriceBarPrice == None:
+                    highestPriceBarPrice = pb.high
+                elif pb.high > highestPriceBarPrice:
+                    highestPriceBarPrice = pb.high
+
+                if lowestPriceBarPrice == None:
+                    lowestPriceBarPrice = pb.low
+                elif pb.low < lowestPriceBarPrice:
+                    lowestPriceBarPrice = pb.low
+
+            if self.log.isEnabledFor(logging.DEBUG) == True:
+                self.log.debug("highestPriceBarPrice == {}".\
+                               format(highestPriceBarPrice))
+                self.log.debug("lowestPriceBarPrice == {}".\
+                               format(lowestPriceBarPrice))
+            
+            # Calculate LookbackMultiple datetimes for each PriceBar's
+            # timestamp.
+
+            # Assemble arguments for each method invocation to get datetimes.
+            argsTupleList = []
+            for pb in pbs:
+                referenceDt = pb.timestamp
+                
+                args = (\
+                    planetName, 
+                    centricityType, 
+                    longitudeType, 
+                    referenceDt, 
+                    desiredDeltaDegrees, 
+                    maxErrorTd, 
+                    birthInfo.longitudeDegrees,
+                    birthInfo.latitudeDegrees,
+                    birthInfo.elevation)
+
+                argsTupleList.append(args)
+            
+            if self.log.isEnabledFor(logging.INFO) == True:
+                infoMsg = \
+                    "Calculating LookbackMultiple datetimes " + \
+                    "in the future for {} historic PriceBars ".\
+                    format(len(pbs)) + \
+                    "(startDt={}, endDt={}) ...".\
+                    format(Ephemeris.datetimeToDayStr(startPriceBarSearchDt),
+                           Ephemeris.datetimeToDayStr(endPriceBarSearchDt))
+                self.log.info(infoMsg)
+            
+            # Compute results in parallel.
+            resultsList = \
+                LookbackMultipleParallel.\
+                getDatetimesOfLongitudeDeltaDegreesInFutureParallel(\
+                    argsTupleList)
+    
+            if self.log.isEnabledFor(logging.INFO) == True:
+                self.log.info("Calculation of LookbackMultiples complete.")
+            
+            # Create the LookbackMultiplePriceBars for these historic
+            # PriceBars and store them in a list.
+            lmpbs = []
+            for i in range(len(pbs)):
+                
+                # Current PriceBar and it's LookbackMultiple datetimes 
+                # in the future.
+                pb = pbs[i]
+                resultDts = resultsList[i]
+                
+                # Create the LookbackMultiplePriceBar for each timestamp.
+                # The prices used in the LookbackMultiplePriceBars are 
+                # the underlying PriceBar's values scaled.
+                for dt in resultDts:
+                    lmpb = LookbackMultiplePriceBar(lookbackMultiple, pb)
+                    lmpb.timestamp = dt
+                    lmpb.open = \
+                        self._scaleLookbackMultiplePriceBarPrice(\
+                            highestViewPrice,
+                            lowestViewPrice,
+                            highestPriceBarPrice,
+                            lowestPriceBarPrice,
+                            priceBarPriceToScale=pb.open)
+                    lmpb.high = \
+                        self._scaleLookbackMultiplePriceBarPrice(\
+                            highestViewPrice,
+                            lowestViewPrice,
+                            highestPriceBarPrice,
+                            lowestPriceBarPrice,
+                            priceBarPriceToScale=pb.high)
+                    lmpb.low = \
+                        self._scaleLookbackMultiplePriceBarPrice(\
+                            highestViewPrice,
+                            lowestViewPrice,
+                            highestPriceBarPrice,
+                            lowestPriceBarPrice,
+                            priceBarPriceToScale=pb.low)
+                    lmpb.close = \
+                        self._scaleLookbackMultiplePriceBarPrice(\
+                            highestViewPrice,
+                            lowestViewPrice,
+                            highestPriceBarPrice,
+                            lowestPriceBarPrice,
+                            priceBarPriceToScale=pb.close)
+                    lmpb.oi = pb.oi
+                    lmpb.vol = pb.vol
+                    lmpb.tags = copy.deepcopy(pb.tags)
+
+                    # Append to our list of LookbackMultiplePriceBars.
+                    lmpbs.append(lmpb)
+
+            # Create and draw the LookbackMultiplePriceBarGraphicsItems for
+            # each of the LookbackMultiplePriceBars.
+            for lmpb in lmpbs:
+                # Create the QGraphicsItem.
+                item = LookbackMultiplePriceBarGraphicsItem()
+                item.loadSettingsFromPriceBarChartSettings(\
+                    self.priceBarChartSettings)
+                item.setLookbackMultiplePriceBar(lmpb)
+
+                # Add the item.
+                self.graphicsScene.addItem(item)
+
+                # Make sure the proper flags are set for the mode we're in.
+                self.graphicsView.setGraphicsItemFlagsPerCurrToolMode(item)
+    
+                # X location based on the timestamp.
+                x = self.graphicsScene.datetimeToSceneXPos(lmpb.timestamp)
+    
+                # Y location based on the mid price (average of high and low).
+                y = self.graphicsScene.priceToSceneYPos(lmpb.midPrice())
+    
+                # Set the position, in parent coordinates.
+                item.setPos(QPointF(x, y))
+        
+        
+        self.log.debug("Exiting drawLookbackMultiplePriceBars()")
+        
+    def clearAllLookbackMultiplePriceBars(self):
+        """Causes the removal of all LookbackMultiplePriceBarGraphicsItems.
+        
+        Note: This clearing does not cause a priceBarChartChanged signal
+        to be emitted.  That is because LookbackMultiplePriceBars are
+        transient and are not persisted.  They get redrawn frequently, 
+        and where they are drawn are highly dependent on the user's current 
+        view.
+        """
+
+        self.log.debug("Entered clearAllLookbackMultiplePriceBars()")
+        
+        # Go through all the QGraphicsItems and remove the artifact items.
+        graphicsItems = self.graphicsScene.items()
+
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+
+                debugStr = \
+                    "Removing LookbackMultiplePriceBarGraphicsItem for " + \
+                    "LookbackMultiplePriceBar: " + \
+                    item.getLookbackMultiplePriceBar().toString()
+                self.log.debug(debugStr)
+                               
+                if item.scene() != None:
+                    self.graphicsScene.removeItem(item)
+                
+        self.log.debug("Exiting clearAllLookbackMultiplePriceBars()")
+
     def applyPriceBarChartSettings(self, priceBarChartSettings):
         """Applies the settings in the given PriceBarChartSettings object.
         """
@@ -39471,6 +42750,16 @@ class PriceBarChartWidget(QWidget):
                                "LineSegmentGraphicsItem.")
                 # Redo calculations in case the scaling changed.
                 item.recalculateLineSegment()
+            elif isinstance(item, VerticalLineSegmentGraphicsItem):
+                self.log.debug("Not applying settings to " +
+                               "VerticalLineSegmentGraphicsItem.")
+                # Redo calculations in case the scaling changed.
+                item.recalculateVerticalLineSegment()
+            elif isinstance(item, HorizontalLineSegmentGraphicsItem):
+                self.log.debug("Not applying settings to " +
+                               "HorizontalLineSegmentGraphicsItem.")
+                # Redo calculations in case the scaling changed.
+                item.recalculateHorizontalLineSegment()
             elif isinstance(item, OctaveFanGraphicsItem):
                 self.log.debug("Not applying settings to " +
                                "OctaveFanGraphicsItem.")
@@ -39606,7 +42895,6 @@ class PriceBarChartWidget(QWidget):
             self.graphicsView.toBarCountToolMode()
 
         self.log.debug("Exiting toBarCountToolMode()")
-
 
     def toTimeMeasurementToolMode(self):
         """Changes the tool mode to be the TimeMeasurementTool."""
@@ -39761,6 +43049,34 @@ class PriceBarChartWidget(QWidget):
             self.graphicsView.toLineSegment2ToolMode()
 
         self.log.debug("Exiting toLineSegment2ToolMode()")
+
+    def toVerticalLineSegmentToolMode(self):
+        """Changes the tool mode to be the VerticalLineSegmentTool."""
+
+        self.log.debug("Entered toVerticalLineSegmentToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+               PriceBarChartWidget.ToolMode['VerticalLineSegmentTool']:
+            
+            self.toolMode = PriceBarChartWidget.ToolMode['VerticalLineSegmentTool']
+            self.graphicsView.toVerticalLineSegmentToolMode()
+
+        self.log.debug("Exiting toVerticalLineSegmentToolMode()")
+
+    def toHorizontalLineSegmentToolMode(self):
+        """Changes the tool mode to be the HorizontalLineSegmentTool."""
+
+        self.log.debug("Entered toHorizontalLineSegmentToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+               PriceBarChartWidget.ToolMode['HorizontalLineSegmentTool']:
+            
+            self.toolMode = PriceBarChartWidget.ToolMode['HorizontalLineSegmentTool']
+            self.graphicsView.toHorizontalLineSegmentToolMode()
+
+        self.log.debug("Exiting toHorizontalLineSegmentToolMode()")
 
     def toOctaveFanToolMode(self):
         """Changes the tool mode to be the OctaveFanTool."""
@@ -40013,7 +43329,86 @@ class PriceBarChartWidget(QWidget):
         else:
             self.updateSelectedPriceBarLabels(None)
             
-        
+
+    def _scaleLookbackMultiplePriceBarPrice(self, 
+                                            highestViewPrice,
+                                            lowestViewPrice,
+                                            highestPriceBarPrice,
+                                            lowestPriceBarPrice,
+                                            priceBarPriceToScale):
+
+        """Helper function for LookbackMultiple to calculate a scaled
+        price value.
+
+        The price value to scale is the 'priceBarPriceToScale' value,
+        and this method will return a new price that is that value
+        scaled according to the QGraphicsView's price range.
+
+        This method helps us by allowing us to place 
+        LookbackMultiplePriceBars/LookbackMultiplePriceBarGraphicsItems 
+        into the QGraphicsScene at locations that will fit nicely 
+        within the visible portion of the QGraphicsView.
+
+        Arguments:
+        highestViewPrice - float value holding the highest price 
+                           that is visible within the QGraphicsView.
+
+        lowestViewPrice - float value holding the lowest price 
+                          that is visible within the QGraphicsView.
+
+        highestPriceBarPrice - float value holding the highest price within
+                               all the pricebars in the set that is 
+                               being analyzed.
+
+        lowestPriceBarPrice - float value holding the lowest price within
+                              all the pricebars in the set that is 
+                              being analyzed.
+
+        priceBarPriceToScale - float value that contains the 
+                               price before scaling.  This value is 
+                               converted to a new price via scaling.
+        """
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("Entered _scaleLookbackMultiplePriceBarPrice()")
+    
+            self.log.debug("highestViewPrice == {}".format(highestViewPrice))
+            self.log.debug("lowestViewPrice  == {}".format(lowestViewPrice))
+            self.log.debug("highestPriceBarPrice == {}".\
+                           format(highestPriceBarPrice))
+            self.log.debug("lowestPriceBarPrice == {}".\
+                           format(lowestPriceBarPrice))
+            self.log.debug("priceBarPriceToScale == {}".\
+                           format(priceBarPriceToScale))
+
+
+        viewPriceRange = highestViewPrice - lowestViewPrice
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("viewPriceRange  == {}".\
+                           format(viewPriceRange))
+
+        priceBarPriceRange = highestPriceBarPrice - lowestPriceBarPrice
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("priceBarPriceRange == {}".\
+                           format(priceBarPriceRange))
+            
+        ratioOfPriceRange = \
+            (priceBarPriceToScale - lowestPriceBarPrice) / priceBarPriceRange
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("ratioOfPriceRange == {}".format(ratioOfPriceRange))
+
+        newViewPrice = (ratioOfPriceRange * viewPriceRange) + lowestViewPrice
+
+        if self.log.isEnabledFor(logging.DEBUG) == True:
+            self.log.debug("newViewPrice == {}".format(newViewPrice))
+            self.log.debug("Exiting _scaleLookbackMultiplePriceBarPrice()")
+
+        return newViewPrice
+
+
 class PriceBarChartGraphicsScene(QGraphicsScene):
     """QGraphicsScene holding all the pricebars and artifacts.
     We inherit QGraphicsScene to allow for future feature additions.
@@ -40982,6 +44377,106 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         return lowestPriceBar
 
+    def getEarliestLookbackMultiplePriceBar(self):
+        """Goes through all the LookbackMultiplePriceBars, 
+        looking at the one that has the earliest timestamp.  
+        This LookbackMultiplePriceBar is returned.
+        
+        Returns:
+        LookbackMultiplePriceBar - LookbackMultiplePriceBar object that has the 
+                                   earliest timestamp.
+        """
+
+        earliestLookbackMultiplePriceBar = None
+        
+        graphicsItems = self.items()
+
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                lmpb = item.getLookbackMultiplePriceBar()
+
+                if earliestLookbackMultiplePriceBar == None:
+                    earliestLookbackMultiplePriceBar = lmpb
+                elif lmpb.timestamp < earliestLookbackMultiplePriceBar.timestamp:
+                    earliestLookbackMultiplePriceBar = lmpb
+
+        return earliestLookbackMultiplePriceBar
+
+    def getLatestLookbackMultiplePriceBar(self):
+        """Goes through all the LookbackMultiplePriceBars, 
+        looking at the one that has the latest timestamp.  
+        This LookbackMultiplePriceBar is returned.
+        
+        Returns:
+        LookbackMultiplePriceBar - LookbackMultiplePriceBar object that has the 
+                                   latest timestamp.
+        """
+
+        latestLookbackMultiplePriceBar = None
+        
+        graphicsItems = self.items()
+
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                lmpb = item.getLookbackMultiplePriceBar()
+
+                if latestLookbackMultiplePriceBar == None:
+                    latestLookbackMultiplePriceBar = lmpb
+                elif lmpb.timestamp > latestLookbackMultiplePriceBar.timestamp:
+                    latestLookbackMultiplePriceBar = lmpb
+
+        return latestLookbackMultiplePriceBar
+
+    def getHighestLookbackMultiplePriceBar(self):
+        """Goes through all the LookbackMultiplePriceBars, looking at
+        the one that has the highest high price.  This
+        LookbackMultiplePriceBar is returned.
+        
+        Returns:
+        LookbackMultiplePriceBar - LookbackMultiplePriceBar object containing the 
+                                   highest high price.
+        """
+
+        highestLookbackMultiplePriceBar = None
+        
+        graphicsItems = self.items()
+
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                lmpb = item.getLookbackMultiplePriceBar()
+
+                if highestLookbackMultiplePriceBar == None:
+                    highestLookbackMultiplePriceBar = lmpb
+                elif lmpb.hasHigherHighThan(highestLookbackMultiplePriceBar):
+                    highestLookbackMultiplePriceBar = lmpb
+                    
+        return highestLookbackMultiplePriceBar
+
+    def getLowestLookbackMultiplePriceBar(self):
+        """Goes through all the LookbackMultiplePriceBars, looking at
+        the one that has the lowest low price.  This
+        LookbackMultiplePriceBar is returned.
+        
+        Returns:
+        LookbackMultiplePriceBar - LookbackMultiplePriceBar object containing the 
+                                   lowest low price.
+        """
+
+        lowestLookbackMultiplePriceBar = None
+        
+        graphicsItems = self.items()
+
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                lmpb = item.getLookbackMultiplePriceBar()
+
+                if lowestLookbackMultiplePriceBar == None:
+                    lowestLookbackMultiplePriceBar = lmpb
+                elif lmpb.hasLowerLowThan(lowestLookbackMultiplePriceBar):
+                    lowestLookbackMultiplePriceBar = lmpb
+                    
+        return lowestLookbackMultiplePriceBar
+
     def getClosestPriceBarOHLCPoint(self, pointF):
         """Goes through all the PriceBars, looking at the QPointF of
         the open, high, low, and close of each bar (in price and
@@ -41391,6 +44886,687 @@ class PriceBarChartGraphicsScene(QGraphicsScene):
 
         return closestPriceBarY
 
+    def getClosestLookbackMultiplePriceBarOHLCPoint(self, pointF):
+        """Goes through all the LookbackMultiplePriceBars, looking at the 
+        QPointF of the open, high, low, and close of each bar (in price and
+        time), and tests it to locate the point out of all the bars
+        that is the closest to 'pointF'.
+
+        WARNING: This may not do what you expect to do!  The reason is
+        because our current scaling for time (x coordinate) is 1 unit
+        of x per day.  Our price scaling (y coordinate) is 1 unit of
+        price per y.  This means the 'qgraphicsview' scaling of x and
+        y (in appearance) is misleading when compared to actual
+        coordinates.  So the algorithm works correctly, but may not
+        produce expected results due to a huge skew in scaling.  If
+        this is not what you want, then consider using
+        getClosestLookbackMultiplePriceBarOHLCViewPoint().
+        
+        Returns:
+        QPointF - Point that is a scene pos of a open, high, low,
+                  or close of a LookbackMultiplePriceBar, where it is the closest
+                  to the given 'pointF'.
+        """
+
+        self.log.debug("Entered getClosestLookbackMultiplePriceBarOHLCPoint()")
+        
+        # QPointF for the closest point.
+        closestPoint = None
+
+        # Smallest length of line from pointF to desired point.
+        smallestLength = None
+        
+        # LookbackMultiplePriceBarGraphicsItem that is the closest.
+        closestLookbackMultiplePriceBarGraphicsItem = None
+        
+        # Allocate lines ahead of time so we don't have
+        # to create and destroy a whole bunch of them in the loop.
+        lineToOpen = QLineF()
+        lineToHigh = QLineF()
+        lineToLow = QLineF()
+        lineToClose = QLineF()
+
+        graphicsItems = self.items()
+
+        self.log.debug("PointF is: ({}, {})".format(pointF.x(), pointF.y()))
+                       
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                # Get the points of the open, high, low, and close of
+                # this LookbackMultiplePriceBarGraphicsItem.
+                openPointF = item.getLookbackMultiplePriceBarOpenScenePoint()
+                highPointF = item.getLookbackMultiplePriceBarHighScenePoint()
+                lowPointF = item.getLookbackMultiplePriceBarLowScenePoint()
+                closePointF = item.getLookbackMultiplePriceBarCloseScenePoint()
+
+                #self.log.debug("openPointF is: ({}, {})".
+                #               format(openPointF.x(), openPointF.y()))
+                #self.log.debug("highPointF is: ({}, {})".
+                #               format(highPointF.x(), highPointF.y()))
+                #self.log.debug("lowPointF is: ({}, {})".
+                #               format(lowPointF.x(), lowPointF.y()))
+                #self.log.debug("closePointF is: ({}, {})".
+                #               format(closePointF.x(), closePointF.y()))
+
+                # Create lines so we can get the lengths between the points.
+                lineToOpen.setPoints(pointF, openPointF)
+                lineToHigh.setPoints(pointF, highPointF)
+                lineToLow.setPoints(pointF, lowPointF)
+                lineToClose.setPoints(pointF, closePointF)
+
+                lineToOpenLength = lineToOpen.length()
+                lineToHighLength = lineToHigh.length()
+                lineToLowLength = lineToLow.length()
+                lineToCloseLength = lineToClose.length()
+                
+                #self.log.debug("lineToOpenLength is: {}".\
+                #               format(lineToOpenLength))
+                #self.log.debug("lineToHighLength is: {}".\
+                #               format(lineToHighLength))
+                #self.log.debug("lineToLowLength is: {}".\
+                #               format(lineToLowLength))
+                #self.log.debug("lineToCloseLength is: {}".\
+                #               format(lineToCloseLength))
+
+                # Set the initial smallestLength as the first point if
+                # it is not set already.
+                if smallestLength == None:
+                    closestPoint = openPointF
+                    smallestLength = lineToOpen.length()
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+
+                # Test the open, high, low, and close points to see if
+                # they are now the closest to pointF.
+                if lineToOpenLength < smallestLength:
+                    closestPoint = openPointF
+                    smallestLength = lineToOpenLength
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+                    #self.log.debug("New closest point is now: " +
+                    #               "({}, {})".format(closestPoint.x(),
+                    #                                 closestPoint.y()))
+
+                if lineToHighLength < smallestLength:
+                    closestPoint = highPointF
+                    smallestLength = lineToHighLength
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+                    #self.log.debug("New closest point is now: " +
+                    #               "({}, {})".format(closestPoint.x(),
+                    #                                 closestPoint.y()))
+
+                if lineToLowLength < smallestLength:
+                    closestPoint = lowPointF
+                    smallestLength = lineToLowLength
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+                    #self.log.debug("New closest point is now: " +
+                    #               "({}, {})".format(closestPoint.x(),
+                    #                                 closestPoint.y()))
+
+                if lineToCloseLength < smallestLength:
+                    closestPoint = closePointF
+                    smallestLength = lineToCloseLength
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+                    #self.log.debug("New closest point is now: " +
+                    #               "({}, {})".format(closestPoint.x(),
+                    #                                 closestPoint.y()))
+                    
+        if closestPoint == None:
+            # If the closestPoint is still None, then that means there are 
+            # no LookbackMultiplePriceBars.  
+            # In this case, use pointF as the closestPoint.
+            closestPoint = pointF
+
+            self.log.debug("There are no LookbackMultiplePriceBars, " + \
+                           "so useing pointF as the closest point.")
+        else:
+            self.log.debug("Closest point is: ({}, {})".format(closestPoint.x(),
+                                                               closestPoint.y()))
+
+        self.log.debug("Exiting getClosestLookbackMultiplePriceBarOHLCPoint()")
+        
+        return closestPoint
+
+    def getClosestLookbackMultiplePriceBarOHLCViewPoint(self, pointF):
+        """Goes through all the LookbackMultiplePriceBars, looking at the QPointF of
+        the open, high, low, and close of each pricebar (in price and
+        time), and tests it to locate the point out of all the bars
+        that is the closest to 'pointF' in the GraphicsView.  This
+        utilizes the graphics view scaling to see what is closest.  
+
+        Arguments:
+        pointF - QPointF object that is a point in scene
+        coordinates.  This point is used as a reference point to
+        calculate distances to the open, high, low, and close points
+        of the price bars.
+        
+        Returns:
+        QPointF - Point in scene coordinates of the closest pricebar's
+        open, high, low, or close (in price and time), when computed
+        using scaled view coordinates.
+        """
+        
+        self.log.debug("Entered getClosestLookbackMultiplePriceBarOHLCViewPoint()")
+        
+        # QPointF for the closest point.
+        closestPoint = None
+
+        # Smallest length of line from pointF to desired point.
+        smallestLength = None
+        
+        # LookbackMultiplePriceBarGraphicsItem that is the closest.
+        closestLookbackMultiplePriceBarGraphicsItem = None
+
+        # Scaling object to use.
+        scaling = self.scaling
+        
+        self.log.debug("PointF is: ({}, {})".format(pointF.x(), pointF.y()))
+
+        viewScaledPointF = QPointF(pointF.x() * scaling.getViewScalingX(),
+                                   pointF.y() * scaling.getViewScalingY())
+        
+        self.log.debug("View-scaled PointF is: ({}, {})".\
+                       format(viewScaledPointF.x(), viewScaledPointF.y()))
+
+        # Allocate the points and lines ahead of time so we don't have
+        # to create and destroy a whole bunch of them in the loop.
+        viewScaledOpenPointF = QPointF()
+        viewScaledHighPointF = QPointF()
+        viewScaledLowPointF = QPointF()
+        viewScaledClosePointF = QPointF()
+        lineToOpen = QLineF()
+        lineToHigh = QLineF()
+        lineToLow = QLineF()
+        lineToClose = QLineF()
+
+        graphicsItems = self.items()
+
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                # Get the points of the open, high, low, and close of
+                # this LookbackMultiplePriceBarGraphicsItem.
+                openPointF = item.getLookbackMultiplePriceBarOpenScenePoint()
+                highPointF = item.getLookbackMultiplePriceBarHighScenePoint()
+                lowPointF = item.getLookbackMultiplePriceBarLowScenePoint()
+                closePointF = item.getLookbackMultiplePriceBarCloseScenePoint()
+
+                #self.log.debug("openPointF is: ({}, {})".
+                #               format(openPointF.x(), openPointF.y()))
+                #self.log.debug("highPointF is: ({}, {})".
+                #               format(highPointF.x(), highPointF.y()))
+                #self.log.debug("lowPointF is: ({}, {})".
+                #               format(lowPointF.x(), lowPointF.y()))
+                #self.log.debug("closePointF is: ({}, {})".
+                #               format(closePointF.x(), closePointF.y()))
+
+                viewScaledOpenPointF.\
+                    setX(openPointF.x() * scaling.getViewScalingX())
+                viewScaledOpenPointF.\
+                    setY(openPointF.y() * scaling.getViewScalingY())
+                
+                viewScaledHighPointF.\
+                    setX(highPointF.x() * scaling.getViewScalingX())
+                viewScaledHighPointF.\
+                    setY(highPointF.y() * scaling.getViewScalingY())
+                
+                viewScaledLowPointF.\
+                    setX(lowPointF.x() * scaling.getViewScalingX())
+                viewScaledLowPointF.\
+                    setY(lowPointF.y() * scaling.getViewScalingY())
+                
+                viewScaledClosePointF.\
+                    setX(closePointF.x() * scaling.getViewScalingX())
+                viewScaledClosePointF.\
+                    setY(closePointF.y() * scaling.getViewScalingY())
+
+                #self.log.debug("viewScaledOpenPointF is: ({}, {})".
+                #               format(viewScaledOpenPointF.x(),
+                #                      viewScaledOpenPointF.y()))
+                #self.log.debug("viewScaledHighPointF is: ({}, {})".
+                #               format(viewScaledHighPointF.x(),
+                #                      viewScaledHighPointF.y()))
+                #self.log.debug("viewScaledLowPointF is: ({}, {})".
+                #               format(viewScaledLowPointF.x(),
+                #                      viewScaledLowPointF.y()))
+                #self.log.debug("viewScaledClosePointF is: ({}, {})".
+                #               format(viewScaledClosePointF.x(),
+                #                      viewScaledClosePointF.y()))
+
+                # Create lines so we can get the lengths between the points.
+                lineToOpen.setPoints(viewScaledPointF, viewScaledOpenPointF)
+                lineToHigh.setPoints(viewScaledPointF, viewScaledHighPointF)
+                lineToLow.setPoints(viewScaledPointF, viewScaledLowPointF)
+                lineToClose.setPoints(viewScaledPointF, viewScaledClosePointF)
+
+                lineToOpenLength = lineToOpen.length()
+                lineToHighLength = lineToHigh.length()
+                lineToLowLength = lineToLow.length()
+                lineToCloseLength = lineToClose.length()
+                
+                #self.log.debug("lineToOpenLength is: {}".\
+                #               format(lineToOpenLength))
+                #self.log.debug("lineToHighLength is: {}".\
+                #               format(lineToHighLength))
+                #self.log.debug("lineToLowLength is: {}".\
+                #               format(lineToLowLength))
+                #self.log.debug("lineToCloseLength is: {}".\
+                #               format(lineToCloseLength))
+
+                # Set the initial smallestLength as the first point if
+                # it is not set already.
+                if smallestLength == None:
+                    # Here we are keeping the scene coordinate, not the
+                    # view-scaled one.
+                    closestPoint = openPointF
+                    smallestLength = lineToOpen.length()
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+
+                # Test the open, high, low, and close points to see if
+                # they are now the closest to pointF.
+                if lineToOpenLength < smallestLength:
+                    # Here we are keeping the scene coordinate, not the
+                    # view-scaled one.
+                    closestPoint = openPointF
+                    smallestLength = lineToOpenLength
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+                    #self.log.debug("New closest point is now: ({}, {})".\
+                    #               format(closestPoint.x(),
+                    #                      closestPoint.y()))
+
+                if lineToHighLength < smallestLength:
+                    # Here we are keeping the scene coordinate, not the
+                    # view-scaled one.
+                    closestPoint = highPointF
+                    smallestLength = lineToHighLength
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+                    #self.log.debug("New closest point is now: ({}, {})".\
+                    #               format(closestPoint.x(),
+                    #                      closestPoint.y()))
+
+                if lineToLowLength < smallestLength:
+                    # Here we are keeping the scene coordinate, not the
+                    # view-scaled one.
+                    closestPoint = lowPointF
+                    smallestLength = lineToLowLength
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+                    #self.log.debug("New closest point is now: ({}, {})".\
+                    #               format(closestPoint.x(),
+                    #                      closestPoint.y()))
+
+                if lineToCloseLength < smallestLength:
+                    # Here we are keeping the scene coordinate, not the
+                    # view-scaled one.
+                    closestPoint = closePointF
+                    smallestLength = lineToCloseLength
+                    closestLookbackMultiplePriceBarGraphicsItem = item
+                    #self.log.debug("New closest point is now: ({}, {})".\
+                    #               format(closestPoint.x(),
+                    #                      closestPoint.y()))
+                    
+
+        if closestPoint == None:
+            # If the closestPoint is still None, then that means there are 
+            # no LookbackMultiplePriceBars.  
+            # In this case, use pointF as the closestPoint.
+            closestPoint = pointF
+
+            self.log.debug("There are no LookbackMultiplePriceBars, " + \
+                           "so useing pointF as the closest point.")
+        else:    
+            self.log.debug("Closest point is: ({}, {})".\
+                           format(closestPoint.x(), closestPoint.y()))
+
+        self.log.debug("Exiting getClosestLookbackMultiplePriceBarOHLCViewPoint()")
+        
+        return closestPoint
+        
+        
+    def getClosestLookbackMultiplePriceBarX(self, pointF):
+        """Gets the X position value of the closest LookbackMultiplePriceBar (on the X
+        axis) to the given QPointF position.
+
+        Arguments:
+        pointF - QPointF to do the lookup on.
+
+        Returns:
+        float value for the X value.  If there are no LookbackMultiplePriceBars, then it
+        returns the X given in the input pointF.
+        """
+
+        # Get all the QGraphicsItems.
+        graphicsItems = self.items()
+
+        closestLookbackMultiplePriceBarX = None
+        currClosestDistance = None
+
+        # Go through the LookbackMultiplePriceBarGraphicsItems and find the closest one in
+        # X coordinates.
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+
+                x = item.getLookbackMultiplePriceBarHighScenePoint().x()
+                distance = abs(pointF.x() - x)
+
+                if closestLookbackMultiplePriceBarX == None:
+                    closestLookbackMultiplePriceBarX = x
+                    currClosestDistance = distance
+                elif (currClosestDistance != None) and \
+                        (distance < currClosestDistance):
+
+                    closestLookbackMultiplePriceBarX = x
+                    currClosestDistance = distance
+                    
+        if closestLookbackMultiplePriceBarX == None:
+            closestLookbackMultiplePriceBarX = pointF.x()
+
+        return closestLookbackMultiplePriceBarX
+
+    def getClosestLookbackMultiplePriceBarOHLCY(self, pointF):
+        """Gets the Y position value of the closest open, high, low,
+        or close price on all the LookbackMultiplePriceBars (on the Y axis) to the
+        given QPointF position.
+
+        Arguments:
+        pointF - QPointF to do the lookup on.
+
+        Returns:
+        float value for the Y value.  If there are no LookbackMultiplePriceBars, then it
+        returns the Y given in the input pointF.
+        """
+
+        # Get all the QGraphicsItems.
+        graphicsItems = self.items()
+
+        closestLookbackMultiplePriceBarY = None
+        currClosestDistance = None
+
+        # Go through the LookbackMultiplePriceBarGraphicsItems and find the closest one in
+        # Y coordinates.
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+
+                # High price's Y.
+                y = item.getLookbackMultiplePriceBarHighScenePoint().y()
+                distance = abs(pointF.y() - y)
+                
+                if closestLookbackMultiplePriceBarY == None:
+                    closestLookbackMultiplePriceBarY = y
+                    currClosestDistance = distance
+                elif (currClosestDistance != None) and \
+                        (distance < currClosestDistance):
+
+                    closestLookbackMultiplePriceBarY = y
+                    currClosestDistance = distance
+
+                # Low price's Y.
+                y = item.getLookbackMultiplePriceBarLowScenePoint().y()
+                distance = abs(pointF.y() - y)
+
+                if closestLookbackMultiplePriceBarY == None:
+                    closestLookbackMultiplePriceBarY = y
+                    currClosestDistance = distance
+                elif (currClosestDistance != None) and \
+                        (distance < currClosestDistance):
+
+                    closestLookbackMultiplePriceBarY = y
+                    currClosestDistance = distance
+                    
+        if closestLookbackMultiplePriceBarY == None:
+            closestLookbackMultiplePriceBarY = pointF.y()
+
+        return closestLookbackMultiplePriceBarY
+
+    def getClosestPriceBarAndLookbackMultiplePriceBarOHLCPoint(self, pointF):
+        """Goes through all the PriceBars and LookbackMultiplePriceBars, 
+        looking at the QPointF of the open, high, low, and close of 
+        each bar (in price and time), and tests it to locate 
+        the point out of all the bars that is the closest to 'pointF'.
+
+        WARNING: This may not do what you expect to do!  The reason is
+        because our current scaling for time (x coordinate) is 1 unit
+        of x per day.  Our price scaling (y coordinate) is 1 unit of
+        price per y.  This means the 'qgraphicsview' scaling of x and
+        y (in appearance) is misleading when compared to actual
+        coordinates.  So the algorithm works correctly, but may not
+        produce expected results due to a huge skew in scaling.  If
+        this is not what you want, then consider using
+        getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint().
+        
+        Returns:
+        QPointF - Point that is a scene pos of a open, high, low,
+                  or close of a PriceBar or a LookbackMultiplePriceBar, 
+                  where it is the closest to the given 'pointF'.
+        """
+
+        self.log.debug("Entered getClosestPriceBarAndLookbackMultiplePriceBarOHLCPoint()")
+
+        # Returned QPointF object.
+        rv = None
+
+        # Get the point for PriceBars and the point for LookbackMultiplePriceBars.
+        closestPriceBarPointF = \
+            self.getClosestPriceBarOHLCPoint(pointF)
+        closestLookbackMultiplePriceBarPointF = \
+            self.getClosestLookbackMultiplePriceBarOHLCPoint(pointF)
+
+        # Special case:
+        # 
+        # If there are no LookbackMultiplePriceBars, then 
+        # getClosestLookbackMultiplePriceBarOHLCPoint would 
+        # return the pointF, which is 
+        # not what we want.  Handle that here.
+        if self.getNumLookbackMultiplePriceBarGraphicsItems() == 0:
+            rv = closestPriceBarPointF
+        else:
+            # Compare the lengths of each closest one and 
+            # return the point that is closest.
+            lengthToPriceBarPointF = \
+                QLineF(pointF, closestPriceBarPointF).length()
+            lengthToLookbackMultiplePriceBarPointF = \
+                QLineF(pointF, closestLookbackMultiplePriceBarPointF).length()
+            
+            if lengthToPriceBarPointF <= lengthToLookbackMultiplePriceBarPointF:
+                rv = closestPriceBarPointF
+            else:
+                rv = closestLookbackMultiplePriceBarPointF
+
+        self.log.debug("Exiting getClosestPriceBarAndLookbackMultiplePriceBarOHLCPoint()")
+        
+        return rv
+    
+    def getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint(self, pointF):
+        """Goes through all the PriceBars and LookbackMultiplePriceBars,
+        looking at the QPointF of the open, high, low, and close of each
+        bar (in price and time), and tests it to locate the point out of
+        all the bars that is the closest to 'pointF' in the
+        GraphicsView.  This utilizes the graphics view scaling to see
+        what is closest.
+
+        Arguments:
+        pointF - QPointF object that is a point in scene
+        coordinates.  This point is used as a reference point to
+        calculate distances to the open, high, low, and close points
+        of the bars.
+        
+        Returns:
+        QPointF - Point in scene coordinates of the closest 
+        PriceBar or LookbackMultiplePriceBars
+        open, high, low, or close (in price and time), when computed
+        using scaled view coordinates.
+        """
+        
+        self.log.debug("Entered getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint()")
+
+        # Returned QPointF object.
+        rv = None
+
+        # Scaling object to use.
+        scaling = self.scaling
+        
+        self.log.debug("PointF is: ({}, {})".format(pointF.x(), pointF.y()))
+
+        viewScaledPointF = QPointF(pointF.x() * scaling.getViewScalingX(),
+                                   pointF.y() * scaling.getViewScalingY())
+        
+        self.log.debug("View-scaled PointF is: ({}, {})".\
+                       format(viewScaledPointF.x(), viewScaledPointF.y()))
+
+        # Get the point for PriceBars and the point for LookbackMultiplePriceBars.
+        closestPriceBarPointF = \
+            self.getClosestPriceBarOHLCViewPoint(pointF)
+        closestLookbackMultiplePriceBarPointF = \
+            self.getClosestLookbackMultiplePriceBarOHLCViewPoint(pointF)
+            
+        closestPriceBarViewScaledPointF = QPointF()
+        closestPriceBarViewScaledPointF.\
+            setX(closestPriceBarPointF.x() * \
+                 scaling.getViewScalingX())
+        closestPriceBarViewScaledPointF.\
+            setY(closestPriceBarPointF.y() * \
+                 scaling.getViewScalingY())
+
+        closestLookbackMultiplePriceBarViewScaledPointF = QPointF()
+        closestLookbackMultiplePriceBarViewScaledPointF.\
+            setX(closestLookbackMultiplePriceBarPointF.x() * \
+                 scaling.getViewScalingX())
+        closestLookbackMultiplePriceBarViewScaledPointF.\
+            setY(closestLookbackMultiplePriceBarPointF.y() * \
+                 scaling.getViewScalingY())
+
+        # Special case:
+        # 
+        # If there are no LookbackMultiplePriceBars, then 
+        # getClosestLookbackMultiplePriceBarOHLCViewPoint 
+        # would return the pointF, 
+        # which is not what we want.  Handle that here.
+        if self.getNumLookbackMultiplePriceBarGraphicsItems() == 0:
+            rv = closestPriceBarPointF
+        else:
+            # Compare the lengths of each closest one and 
+            # return the point that is closest.
+            lengthToPriceBarPointF = \
+                QLineF(viewScaledPointF, 
+                       closestPriceBarViewScaledPointF).length()
+            lengthToLookbackMultiplePriceBarPointF = \
+                QLineF(viewScaledPointF, 
+                       closestLookbackMultiplePriceBarViewScaledPointF).length()
+            
+            if lengthToPriceBarPointF <= lengthToLookbackMultiplePriceBarPointF:
+                rv = closestPriceBarPointF
+            else:
+                rv = closestLookbackMultiplePriceBarPointF
+
+        self.log.debug("Exiting getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint()")
+        
+        return rv
+
+
+    def getClosestPriceBarAndLookbackMultiplePriceBarX(self, pointF):
+        """Goes through all the PriceBar and LookbackMultiplePriceBar
+        and gets the X position value of the closest PriceBar or
+        LookbackMultiplePriceBar (on the X axis) to the given QPointF
+        position.
+
+        Arguments:
+        pointF - QPointF to do the lookup on.
+
+        Returns:
+        float value for the X value.  If there are no 
+        PriceBars or LookbackMultiplePriceBars, then it
+        returns the X given in the input pointF.
+        """
+
+        # Get the closest X for PriceBars and LookbackMultiplePriceBars, 
+        # separately.
+        closestPriceBarX = \
+            self.getClosestPriceBarX(pointF)
+        closestLookbackMultiplePriceBarX = \
+            self.getClosestLookbackMultiplePriceBarX(pointF)
+
+        # Special case:
+        # 
+        # If there are no LookbackMultiplePriceBars, then 
+        # getClosestLookbackMultiplePriceBarX() would 
+        # return the pointF's x, which is not what we want.  
+        # Handle that here.
+        if self.getNumLookbackMultiplePriceBarGraphicsItems() == 0:
+            rv = closestPriceBarX
+        else:
+            # Get the distances of each to compare.
+            closestPriceBarDistanceX = \
+                abs(pointF.x() - closestPriceBarX)
+            closestLookbackMultiplePriceBarDistanceX = \
+                abs(pointF.x() - closestLookbackMultiplePriceBarX)
+            
+            if closestPriceBarDistanceX <= \
+                closestLookbackMultiplePriceBarDistanceX:
+                
+                rv = closestPriceBarX
+
+            else:
+                rv = closestLookbackMultiplePriceBarX
+
+        return rv
+
+    def getClosestPriceBarAndLookbackMultiplePriceBarOHLCY(self, pointF):
+        """Goes through all the PriceBar and LookbackMultiplePriceBar
+        and gets the Y position value of the closest PriceBar or
+        LookbackMultiplePriceBar (on the Y axis) to the given QPointF
+        position.
+
+        Arguments:
+        pointF - QPointF to do the lookup on.
+
+        Returns:
+        float value for the Y value.  If there are no 
+        PriceBars or LookbackMultiplePriceBars, then it
+        returns the Y given in the input pointF.
+        """
+
+        # Get the closest Y for PriceBars and LookbackMultiplePriceBars, 
+        # separately.
+        closestPriceBarY = \
+            self.getClosestPriceBarOHLCY(pointF)
+        closestLookbackMultiplePriceBarY = \
+            self.getClosestLookbackMultiplePriceBarOHLCY(pointF)
+
+        # Special case:
+        # 
+        # If there are no LookbackMultiplePriceBars, then 
+        # getClosestLookbackMultiplePriceBarOHLCY() would 
+        # return the pointF's y, which is not what we want.  
+        # Handle that here.
+        if self.getNumLookbackMultiplePriceBarGraphicsItems() == 0:
+            rv = closestPriceBarY
+        else:
+            # Get the distances of each to compare.
+            closestPriceBarDistanceY = \
+                abs(pointF.y() - closestPriceBarY)
+            closestLookbackMultiplePriceBarDistanceY = \
+                abs(pointF.y() - closestLookbackMultiplePriceBarY)
+            
+            if closestPriceBarDistanceY <= \
+                closestLookbackMultiplePriceBarDistanceY:
+                
+                rv = closestPriceBarY
+
+            else:
+                rv = closestLookbackMultiplePriceBarY
+
+        return rv
+
+    def getNumLookbackMultiplePriceBarGraphicsItems(self):
+        """Returns the number of LookbackMultiplePriceBarGraphicsItems 
+        in the scene.
+        """
+        
+        count = 0
+
+        graphicsItems = self.items()
+        for item in graphicsItems:
+            if isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                count += 1
+        
+        return count
+
     def setAstroChart1(self, x):
         """Emits the astroChart1Update signal so that an external
         astrology chart can be plotted with a timestamp.
@@ -41524,7 +45700,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 "PanchottariDasaTool"      : 28,
                 "ShashtihayaniDasaTool"    : 29,
                 "PlanetLongitudeMovementMeasurementTool"      : 30,
-                "LineSegment2Tool"          : 31
+                "LineSegment2Tool"         : 31,
+                "VerticalLineSegmentTool"  : 32,
+                "HorizontalLineSegmentTool": 33,
                 }
 
     # Signal emitted when the mouse moves within the QGraphicsView.
@@ -41562,6 +45740,20 @@ class PriceBarChartGraphicsView(QGraphicsView):
         self.clickOnePointF = None
         self.clickTwoPointF = None
         self.clickThreePointF = None
+
+        # Variable used for storing the last mouse position, in scene
+        # coordinates (QPointF).
+        self.lastMousePosScene = None
+
+        # Boolean flag indicating that either vertical or horizontal dashed
+        # lines should be drawn where the mouse cursor is currently at.
+        self.verticalDashedLineEnabled = False
+        self.horizontalDashedLineEnabled = False
+        
+        # Variable used for storing the vertical and horizontal dashed lines 
+        # drawn when in in any tool mode.
+        self.verticalDashedLineGraphicsItem = None
+        self.horizontalDashedLineGraphicsItem = None
 
         # Variable used for storing the new BarCountGraphicsItem,
         # as it is modified in BarCountToolMode.
@@ -41614,6 +45806,14 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # Variable used for storing the new LineSegmentGraphicsItem,
         # as it is modified in LineSegment2ToolMode.
         self.lineSegment2GraphicsItem = None
+
+        # Variable used for storing the new VerticalLineSegmentGraphicsItem,
+        # as it is modified in VerticalLineSegmentToolMode.
+        self.verticalLineSegmentGraphicsItem = None
+
+        # Variable used for storing the new HorizontalLineSegmentGraphicsItem,
+        # as it is modified in HorizontalLineSegmentToolMode.
+        self.horizontalLineSegmentGraphicsItem = None
 
         # Variable used for storing the new OctaveFanGraphicsItem,
         # as it is modified in OctaveFanToolMode.
@@ -41671,8 +45871,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         # as it is modified in ShashtihayaniDasaToolMode.
         self.shashtihayaniDasaGraphicsItem = None
 
-        # Variable used for storing that snapping to the closest bar
-        # high or low is enabled.
+        # Variable used for storing that snapping to the closest pricebar
+        # time or price is enabled.
         #
         # Used in:
         #   - BarCountTool
@@ -41687,6 +45887,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         #   - PriceTimeVectorTool
         #   - LineSegment1Tool
         #   - LineSegment2Tool
+        #   - VerticalLineSegmentTool
+        #   - HorizontalLineSegmentTool
         #   - OctaveFanTool
         #   - FibFanTool
         #   - GannFanTool
@@ -41701,6 +45903,14 @@ class PriceBarChartGraphicsView(QGraphicsView):
         #   - ShodasottariDasaTool
         #   - PanchottariDasaTool
         #   - ShashtihayaniDasaTool
+        #
+        # Note: For these tools below, the snap will work with 
+        # both PriceBars and LookbackMultiplePriceBars:
+        #
+        #   - PriceTimeInfoTool
+        #   - LineSegment1Tool
+        #   - LineSegment2Tool
+        #   - VerticalLineSegmentTool
         #
         self.snapEnabledFlag = True
 
@@ -41760,7 +45970,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         if self.toolMode == \
                PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 flags = QGraphicsItem.GraphicsItemFlags(QGraphicsItem.
                                                         ItemIsSelectable)
                 item.setFlags(flags)
@@ -41773,7 +45984,11 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PointerTool']:
              
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                item.setReadOnlyFlag(False)
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(False)
@@ -41786,7 +46001,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['HandTool']:
              
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41795,7 +46011,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ZoomInTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41804,7 +46021,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ZoomOutTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41813,7 +46031,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['BarCountTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41822,7 +46041,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TimeMeasurementTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41831,7 +46051,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TimeModalScaleTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41840,7 +46061,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceModalScaleTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41849,7 +46071,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PlanetLongitudeMovementMeasurementTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41858,7 +46081,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TextTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41867,7 +46091,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceTimeInfoTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41876,7 +46101,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceMeasurementTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41885,7 +46111,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['TimeRetracementTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41894,7 +46121,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceRetracementTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41903,7 +46131,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PriceTimeVectorTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41912,7 +46141,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['LineSegment1Tool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41921,7 +46151,28 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['LineSegment2Tool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['VerticalLineSegmentTool']:
+
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+            elif isinstance(item, PriceBarChartArtifactGraphicsItem):
+                item.setReadOnlyFlag(True)
+                item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['HorizontalLineSegmentTool']:
+
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41930,7 +46181,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['OctaveFanTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41939,7 +46191,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['FibFanTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41948,7 +46201,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['GannFanTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41957,7 +46211,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['VimsottariDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41966,7 +46221,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['AshtottariDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41975,7 +46231,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['YoginiDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41984,7 +46241,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['DwisaptatiSamaDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -41993,7 +46251,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ShattrimsaSamaDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42002,7 +46261,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['DwadasottariDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42011,7 +46271,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ChaturaseetiSamaDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42020,7 +46281,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['SataabdikaDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42029,7 +46291,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ShodasottariDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42038,7 +46301,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['PanchottariDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42047,7 +46311,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ShashtihayaniDasaTool']:
 
-            if isinstance(item, PriceBarGraphicsItem):
+            if isinstance(item, PriceBarGraphicsItem) or \
+               isinstance(item, LookbackMultiplePriceBarGraphicsItem):
                 item.setFlags(QGraphicsItem.GraphicsItemFlags(0))
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 item.setReadOnlyFlag(True)
@@ -42060,6 +46325,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         This has the following effects on QGraphicsItem flags:
           - All PriceBarGraphicsItems are selectable.
           - All PriceBarGraphicsItems are not movable.
+          - All LookbackMultiplePriceBarGraphicsItem are selectable.
+          - All LookbackMultiplePriceBarGraphicsItem are not movable.
           - All PriceBarChartArtifactGraphicsItem are selectable.
           - All PriceBarChartArtifactGraphicsItem are not movable.
         """
@@ -42092,6 +46359,8 @@ class PriceBarChartGraphicsView(QGraphicsView):
         This has the following effects on QGraphicsItem flags:
           - All PriceBarGraphicsItems are not selectable.
           - All PriceBarGraphicsItems are not movable.
+          - All LookbackMultiplePriceBarGraphicsItem are not selectable.
+          - All LookbackMultiplePriceBarGraphicsItem are not movable.
           - All PriceBarChartArtifactGraphicsItem are selectable.
           - All PriceBarChartArtifactGraphicsItem are movable.
         """
@@ -42577,6 +46846,66 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
         self.log.debug("Exiting toLineSegment2ToolMode()")
 
+    def toVerticalLineSegmentToolMode(self):
+        """Changes the tool mode to be the VerticalLineSegmentTool."""
+
+        self.log.debug("Entered toVerticalLineSegmentToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+                PriceBarChartGraphicsView.ToolMode['VerticalLineSegmentTool']:
+
+            self.toolMode = \
+                PriceBarChartGraphicsView.ToolMode['VerticalLineSegmentTool']
+
+            self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.NoDrag)
+
+            # Clear out internal working variables.
+            self.clickOnePointF = None
+            self.clickTwoPointF = None
+            self.verticalLineSegmentGraphicsItem = None
+
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
+                items = scene.items()
+                for item in items:
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
+        self.log.debug("Exiting toVerticalLineSegmentToolMode()")
+
+    def toHorizontalLineSegmentToolMode(self):
+        """Changes the tool mode to be the HorizontalLineSegmentTool."""
+
+        self.log.debug("Entered toHorizontalLineSegmentToolMode()")
+
+        # Only do something if it is not currently in this mode.
+        if self.toolMode != \
+                PriceBarChartGraphicsView.ToolMode['HorizontalLineSegmentTool']:
+
+            self.toolMode = \
+                PriceBarChartGraphicsView.ToolMode['HorizontalLineSegmentTool']
+
+            self.setCursor(QCursor(Qt.ArrowCursor))
+            self.setDragMode(QGraphicsView.NoDrag)
+
+            # Clear out internal working variables.
+            self.clickOnePointF = None
+            self.clickTwoPointF = None
+            self.horizontalLineSegmentGraphicsItem = None
+
+            scene = self.scene()
+            if scene != None:
+                scene.clearSelection()
+
+                items = scene.items()
+                for item in items:
+                    self.setGraphicsItemFlagsPerCurrToolMode(item)
+                    
+        self.log.debug("Exiting toHorizontalLineSegmentToolMode()")
+
     def toOctaveFanToolMode(self):
         """Changes the tool mode to be the OctaveFanTool."""
 
@@ -43045,6 +47374,22 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 item.appendActionsToContextMenu(submenu,
                                                 readOnlyMode=readOnlyFlag)
 
+            elif isinstance(item, LookbackMultiplePriceBarGraphicsItem):
+                debugLogStr += \
+                    "LookbackMultiplePriceBarGraphicsItem with " + \
+                    "LookbackMultiplePriceBar: " + \
+                    item.getLookbackMultiplePriceBar().toString() + ". "
+                
+                numContextSubMenuItems += 1
+
+                # Add the menu for this item.  We create the menu this
+                # way so that 'submenu' is owned by 'menu'.
+                submenu = menu.addMenu("")
+                
+                # Append actions and update the submenu title.
+                item.appendActionsToContextMenu(submenu,
+                                                readOnlyMode=readOnlyFlag)
+
             elif isinstance(item, PriceBarChartArtifactGraphicsItem):
                 debugLogStr += \
                     "PriceBarChartArtifactGraphicsItem with " + \
@@ -43060,7 +47405,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 item.appendActionsToContextMenu(submenu,
                                                 readOnlyMode=readOnlyFlag)
             else:
-                self.log.debug("Non-PriceBar and Non-artifact item.")
+                self.log.debug("Non-PriceBar, " + \
+                               "Non-LookbackMultiplePriceBar " + \
+                               "and Non-artifact item.")
 
 
         self.log.debug("{} items under scene clickPosF({}, {}): {}".\
@@ -43233,6 +47580,206 @@ class PriceBarChartGraphicsView(QGraphicsView):
         """
 
         self.log.debug("Entered keyPressEvent()")
+
+        # Handle key functionality relevant to all tool modes.
+        if self.toolMode in PriceBarChartGraphicsView.ToolMode.values():
+
+            if qkeyevent.key() == Qt.Key_V:
+                self.log.debug("V key was pressed.")
+
+                # Invert the flag that indicates that a 
+                # dashed vertical line should be drawn where the 
+                # mouse cursor is.
+                self.verticalDashedLineEnabled = \
+                    not self.verticalDashedLineEnabled
+
+                self.log.debug("self.verticalDashedLineEnabled is now {}".\
+                               format(self.verticalDashedLineEnabled))
+
+                if self.verticalDashedLineEnabled == False:
+
+                    # Drawing the vertical dashed line is no longer enabled, so
+                    # remove the vertical dashed line item.
+
+                    self.statusMessageUpdate.emit("Vertical dashed line disabled.")
+
+                    if self.verticalDashedLineGraphicsItem != None and \
+                            self.verticalDashedLineGraphicsItem.scene() != None:
+
+                        self.log.debug("Removing item.")
+                        self.scene().removeItem(self.verticalDashedLineGraphicsItem)
+
+                    self.verticalDashedLineGraphicsItem = None
+
+                    # No need to emit any signals that an item is removed
+                    # because this item is transient and has no backing
+                    # artifact object.
+
+                elif self.verticalDashedLineEnabled == True:
+
+                    # Vertical dashed line is enabled, so create/update it.
+
+                    self.statusMessageUpdate.emit("Vertical dashed line enabled.")
+
+                    if self.verticalDashedLineGraphicsItem == None:
+
+                        self.log.debug("Adding item.")
+
+                        # Create the vertical dashed line.
+                        self.verticalDashedLineGraphicsItem = \
+                            TransientDashedLineSegmentGraphicsItem()
+                        self.verticalDashedLineGraphicsItem.\
+                            loadSettingsFromPriceBarChartSettings(\
+                                self.priceBarChartSettings)
+    
+                        self.scene().addItem(self.verticalDashedLineGraphicsItem)
+    
+                        self.verticalDashedLineGraphicsItem.\
+                            setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+                    # Gather information for setting the line's location 
+                    # and start/end points.
+
+                    # Get the lowest and highest prices among both PriceBars and 
+                    # LookbackMultiplePriceBars.
+                    lowestPrice = self.scene().getLowestPriceBar().low
+                    highestPrice = self.scene().getHighestPriceBar().high
+    
+                    lowestLookbackMultiplePriceBar = \
+                        self.scene().getLowestLookbackMultiplePriceBar()
+                    if lowestLookbackMultiplePriceBar != None:
+                        lmpbLowestPrice = lowestLookbackMultiplePriceBar.low
+                        if lmpbLowestPrice < lowestPrice:
+                            lowestPrice = lmpbLowestPrice
+    
+                    highestLookbackMultiplePriceBar = \
+                        self.scene().getHighestLookbackMultiplePriceBar()
+                    if highestLookbackMultiplePriceBar != None:
+                        lmpbHighestPrice = highestLookbackMultiplePriceBar.high
+                        if lmpbHighestPrice > highestPrice:
+                            highestPrice = lmpbHighestPrice
+    
+                    lowY = self.scene().priceToSceneYPos(lowestPrice)
+                    highY = self.scene().priceToSceneYPos(highestPrice)
+
+                    posX = None
+                    if self.lastMousePosScene != None:
+                        posX = self.lastMousePosScene.x()
+                    else:
+                        # No last mouse position, so just use the X position 
+                        # of an arbitrary PriceBar in the scene.
+                        dt = self.scene().getHighestPriceBar().timestamp
+                        posX = self.scene().datetimeToSceneXPos(dt)
+
+                    lowPointF = QPointF(posX, lowY)
+                    highPointF = QPointF(posX, highY)
+    
+                    # Set the position and start/end points.
+                    self.verticalDashedLineGraphicsItem.setPos(lowPointF)
+                    self.verticalDashedLineGraphicsItem.setStartPointF(lowPointF)
+                    self.verticalDashedLineGraphicsItem.setEndPointF(highPointF)
+
+                    # No need to emit any signals that an item is changed
+                    # because this item is transient and has no backing
+                    # artifact object.
+
+            elif qkeyevent.key() == Qt.Key_H:
+                self.log.debug("H key was pressed.")
+
+                # Invert the flag that indicates that a 
+                # dashed horizontal line should be drawn where the 
+                # mouse cursor is.
+                self.horizontalDashedLineEnabled = \
+                    not self.horizontalDashedLineEnabled
+
+                if self.horizontalDashedLineEnabled == False:
+
+                    # Drawing the horizontal dashed line is no longer enabled, so
+                    # remove the horizontal dashed line item.
+
+                    self.statusMessageUpdate.emit("Horizontal dashed line disabled.")
+
+                    if self.horizontalDashedLineGraphicsItem != None and \
+                            self.horizontalDashedLineGraphicsItem.scene() != None:
+
+                        self.log.debug("Removing item.")
+                        self.scene().removeItem(self.horizontalDashedLineGraphicsItem)
+
+                    self.horizontalDashedLineGraphicsItem = None
+
+                    # No need to emit any signals that an item is removed
+                    # because this item is transient and has no backing
+                    # artifact object.
+
+                elif self.horizontalDashedLineEnabled == True:
+
+                    # Horizontal dashed line is enabled, so create/update it.
+
+                    self.statusMessageUpdate.emit("Horizontal dashed line enabled.")
+
+                    if self.horizontalDashedLineGraphicsItem == None:
+                        # Create the horizontal dashed line.
+                        self.horizontalDashedLineGraphicsItem = \
+                            TransientDashedLineSegmentGraphicsItem()
+                        self.horizontalDashedLineGraphicsItem.\
+                            loadSettingsFromPriceBarChartSettings(\
+                                self.priceBarChartSettings)
+    
+                        self.scene().addItem(self.horizontalDashedLineGraphicsItem)
+    
+                        self.horizontalDashedLineGraphicsItem.\
+                            setFlags(QGraphicsItem.GraphicsItemFlags(0))
+
+                    # Gather information for setting the line's location 
+                    # and start/end points.
+                    
+                    # Get the earliest and latest timestamps among both PriceBars 
+                    # and LookbackMultiplePriceBars.
+                    earliestDt = self.scene().getEarliestPriceBar().timestamp
+                    latestDt = self.scene().getLatestPriceBar().timestamp
+    
+                    earliestLookbackMultiplePriceBar = \
+                        self.scene().getEarliestLookbackMultiplePriceBar()
+                    if earliestLookbackMultiplePriceBar != None:
+                        lmpbEarliestDt = \
+                            earliestLookbackMultiplePriceBar.timestamp
+                        if lmpbEarliestDt < earliestDt:
+                            earliestDt = lmpbEarliestDt
+    
+                    latestLookbackMultiplePriceBar = \
+                        self.scene().getLatestLookbackMultiplePriceBar()
+                    if latestLookbackMultiplePriceBar != None:
+                        lmpbLatestDt = \
+                            latestLookbackMultiplePriceBar.timestamp
+                        if lmpbLatestDt > latestDt:
+                            latestDt = lmpbLatestDt
+    
+                    earliestX = self.scene().datetimeToSceneXPos(earliestDt)
+                    latestX = self.scene().datetimeToSceneXPos(latestDt)
+    
+                    posY = None
+                    if self.lastMousePosScene != None:
+                        posY = self.lastMousePosScene.y()
+                    else:
+                        # No last mouse position, so just use the Y position 
+                        # of an arbitrary PriceBar in the scene.
+                        highPrice = self.scene().getLatestPriceBar().high
+                        posY = self.scene().priceToSceneYPos(highPrice)
+    
+                    earliestPointF = QPointF(earliestX, posY)
+                    latestPointF = QPointF(latestX, posY)
+
+                    # Set the position and start/end points.
+                    self.horizontalDashedLineGraphicsItem.setPos(earliestPointF)
+                    self.horizontalDashedLineGraphicsItem.setStartPointF(earliestPointF)
+                    self.horizontalDashedLineGraphicsItem.setEndPointF(latestPointF)
+    
+                    # No need to emit any signals that an item is changed
+                    # because this item is transient and has no backing
+                    # artifact object.
+
+
+        # Handle key functionality relevant to each particular tool mode.
 
         if self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
@@ -43812,6 +48359,62 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
                 self.lineSegment2GraphicsItem = None
+            elif qkeyevent.key() == Qt.Key_Q:
+                # Turn on snap functionality.
+                self.snapEnabledFlag = True
+                self.log.debug("Snap mode enabled.")
+                self.statusMessageUpdate.emit("Snap mode enabled")
+            elif qkeyevent.key() == Qt.Key_W:
+                # Turn off snap functionality.
+                self.snapEnabledFlag = False
+                self.log.debug("Snap mode disabled.")
+                self.statusMessageUpdate.emit("Snap mode disabled")
+            else:
+                super().keyPressEvent(qkeyevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['VerticalLineSegmentTool']:
+
+            if qkeyevent.key() == Qt.Key_Escape:
+                # Escape key causes any currently edited item to
+                # be removed and cleared out.  Temporary variables used
+                # are cleared out too.
+                if self.verticalLineSegmentGraphicsItem != None:
+                    if self.verticalLineSegmentGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.verticalLineSegmentGraphicsItem)
+
+                self.clickOnePointF = None
+                self.clickTwoPointF = None
+                self.verticalLineSegmentGraphicsItem = None
+            elif qkeyevent.key() == Qt.Key_Q:
+                # Turn on snap functionality.
+                self.snapEnabledFlag = True
+                self.log.debug("Snap mode enabled.")
+                self.statusMessageUpdate.emit("Snap mode enabled")
+            elif qkeyevent.key() == Qt.Key_W:
+                # Turn off snap functionality.
+                self.snapEnabledFlag = False
+                self.log.debug("Snap mode disabled.")
+                self.statusMessageUpdate.emit("Snap mode disabled")
+            else:
+                super().keyPressEvent(qkeyevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['HorizontalLineSegmentTool']:
+
+            if qkeyevent.key() == Qt.Key_Escape:
+                # Escape key causes any currently edited item to
+                # be removed and cleared out.  Temporary variables used
+                # are cleared out too.
+                if self.horizontalLineSegmentGraphicsItem != None:
+                    if self.horizontalLineSegmentGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.horizontalLineSegmentGraphicsItem)
+
+                self.clickOnePointF = None
+                self.clickTwoPointF = None
+                self.horizontalLineSegmentGraphicsItem = None
             elif qkeyevent.key() == Qt.Key_Q:
                 # Turn on snap functionality.
                 self.snapEnabledFlag = True
@@ -44453,7 +49056,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    "barCountGraphicsItem != None.")
                     
                     # Right-click during setting the BarCountGraphicsItem
-                    # causes the currently edited bar count item to be
+                    # causes the currently edited item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
                     if self.barCountGraphicsItem.scene() != None:
@@ -44606,7 +49209,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    "timeMeasurementGraphicsItem != None.")
                     
                     # Right-click during setting the TimeMeasurementGraphicsItem
-                    # causes the currently edited bar count item to be
+                    # causes the currently edited item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
                     if self.timeMeasurementGraphicsItem.scene() != None:
@@ -44759,7 +49362,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    "timeModalScaleGraphicsItem != None.")
                     
                     # Right-click during setting the TimeModalScaleGraphicsItem
-                    # causes the currently edited bar count item to be
+                    # causes the currently edited item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
                     if self.timeModalScaleGraphicsItem.scene() != None:
@@ -44913,7 +49516,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    "priceModalScaleGraphicsItem != None.")
                     
                     # Right-click during setting the PriceModalScaleGraphicsItem
-                    # causes the currently edited bar count item to be
+                    # causes the currently edited item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
                     if self.priceModalScaleGraphicsItem.scene() != None:
@@ -45065,8 +49668,9 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    "clickTwoPointF == None and " +
                                    "planetLongitudeMovementMeasurementGraphicsItem != None.")
                     
-                    # Right-click during setting the PlanetLongitudeMovementMeasurementGraphicsItem
-                    # causes the currently edited bar count item to be
+                    # Right-click during setting the 
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # causes the currently edited item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
                     if self.planetLongitudeMovementMeasurementGraphicsItem.scene() != None:
@@ -45186,23 +49790,24 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # If snap is enabled, then find the closest high, low,
                     # open or close QPointF to the place clicked.
                     infoPointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # PriceBar or LookbackMultiplePriceBar price 
+                    # to the place clicked.
                     if self.snapEnabledFlag == True:
                         self.log.debug("Snap is enabled, so snapping to " +
-                                       "closest pricebar X.")
+                                       "closest PriceBar or " + \
+                                       "LookbackMultiplePriceBar X and Y.")
                         
-                        # Find if there is a point closer to this
-                        # infoPointF related to a PriceBarGraphicsItem.
-                        barPoint = \
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        closestPoint = \
                             self.scene().\
-                            getClosestPriceBarOHLCViewPoint(infoPointF)
-
-                        # If a point was found, then use it as the info point.
-                        if barPoint != None:
-                            infoPointF = barPoint
+                            getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint(infoPointF)
+                        infoPointF = closestPoint
                             
-                            # Set this also as the first click point,
-                            # as if the user clicked perfectly.
-                            self.clickOnePointF = infoPointF
+                        # Set this also as the first click point,
+                        # as if the user clicked perfectly.
+                        self.clickOnePointF = infoPointF
 
                     # Get and modify the artifact.
                     artifact = self.priceTimeInfoGraphicsItem.getArtifact()
@@ -45425,7 +50030,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     # Right-click during setting the
                     # PriceMeasurementGraphicsItem causes the
-                    # currently edited bar count item to be removed
+                    # currently edited item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
                     if self.priceMeasurementGraphicsItem.scene() != None:
@@ -45578,7 +50183,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    "timeRetracementGraphicsItem != None.")
                     
                     # Right-click during setting the TimeRetracementGraphicsItem
-                    # causes the currently edited bar count item to be
+                    # causes the currently edited item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
                     if self.timeRetracementGraphicsItem.scene() != None:
@@ -45733,7 +50338,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     # Right-click during setting the
                     # PriceRetracementGraphicsItem causes the
-                    # currently edited bar count item to be removed
+                    # currently edited item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
                     if self.priceRetracementGraphicsItem.scene() != None:
@@ -45882,7 +50487,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     # Right-click during setting the
                     # PriceTimeVectorGraphicsItem causes the
-                    # currently edited bar count item to be removed
+                    # currently edited item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
                     if self.priceTimeVectorGraphicsItem.scene() != None:
@@ -45923,15 +50528,17 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.clickOnePointF = self.mapToScene(qmouseevent.pos())
 
                     # If snap is enabled, then find the closest
-                    # pricebar price to the place clicked.
+                    # PriceBar or LookbackMultiplePriceBar price 
+                    # to the place clicked.
                     if self.snapEnabledFlag == True:
                         self.log.debug("Snap is enabled, so snapping to " +
-                                       "closest pricebar X and Y.")
+                                       "closest PriceBar or " + \
+                                       "LookbackMultiplePriceBar X and Y.")
                         
                         infoPointF = self.mapToScene(qmouseevent.pos())
                         closestPoint = \
                             self.scene().\
-                            getClosestPriceBarOHLCViewPoint(infoPointF)
+                            getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint(infoPointF)
 
                         # Use these X and Y values.
                         self.clickOnePointF.setX(closestPoint.x())
@@ -45970,15 +50577,17 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
 
                     # If snap is enabled, then find the closest
-                    # pricebar price to the place clicked.
+                    # PriceBar or LookbackMultiplePriceBar price 
+                    # to the place clicked.
                     if self.snapEnabledFlag == True:
                         self.log.debug("Snap is enabled, so snapping to " +
-                                       "closest pricebar X and Y.")
+                                       "closest PriceBar or " + \
+                                       "LookbackMultiplePriceBar X and Y.")
                         
                         infoPointF = self.mapToScene(qmouseevent.pos())
                         closestPoint = \
                             self.scene().\
-                            getClosestPriceBarOHLCViewPoint(infoPointF)
+                            getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint(infoPointF)
 
                         # Use these X and Y values.
                         self.clickTwoPointF.setX(closestPoint.x())
@@ -46032,7 +50641,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     # Right-click during setting the
                     # LineSegment1GraphicsItem causes the
-                    # currently edited bar count item to be removed
+                    # currently edited item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
                     if self.lineSegment1GraphicsItem.scene() != None:
@@ -46073,15 +50682,17 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.clickOnePointF = self.mapToScene(qmouseevent.pos())
 
                     # If snap is enabled, then find the closest
-                    # pricebar price to the place clicked.
+                    # PriceBar or LookbackMultiplePriceBar price 
+                    # to the place clicked.
                     if self.snapEnabledFlag == True:
                         self.log.debug("Snap is enabled, so snapping to " +
-                                       "closest pricebar X and Y.")
+                                       "closest PriceBar or " + \
+                                       "LookbackMultiplePriceBar X and Y.")
                         
                         infoPointF = self.mapToScene(qmouseevent.pos())
                         closestPoint = \
                             self.scene().\
-                            getClosestPriceBarOHLCViewPoint(infoPointF)
+                            getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint(infoPointF)
 
                         # Use these X and Y values.
                         self.clickOnePointF.setX(closestPoint.x())
@@ -46120,15 +50731,17 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
 
                     # If snap is enabled, then find the closest
-                    # pricebar price to the place clicked.
+                    # PriceBar or LookbackMultiplePriceBar price 
+                    # to the place clicked.
                     if self.snapEnabledFlag == True:
                         self.log.debug("Snap is enabled, so snapping to " +
-                                       "closest pricebar X and Y.")
+                                       "closest PriceBar or " + \
+                                       "LookbackMultiplePriceBar X and Y.")
                         
                         infoPointF = self.mapToScene(qmouseevent.pos())
                         closestPoint = \
                             self.scene().\
-                            getClosestPriceBarOHLCViewPoint(infoPointF)
+                            getClosestPriceBarAndLookbackMultiplePriceBarOHLCViewPoint(infoPointF)
 
                         # Use these X and Y values.
                         self.clickTwoPointF.setX(closestPoint.x())
@@ -46182,7 +50795,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     # Right-click during setting the
                     # LineSegment2GraphicsItem causes the
-                    # currently edited bar count item to be removed
+                    # currently edited item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
                     if self.lineSegment2GraphicsItem.scene() != None:
@@ -46200,6 +50813,289 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.log.debug("clickOnePointF == None, and " +
                                    "clickTwoPointF == None and " +
                                    "lineSegment2GraphicsItem == None.")
+                    
+                    # Open a context menu at this location, in readonly mode.
+                    clickPosF = self.mapToScene(qmouseevent.pos())
+                    menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                    menu.exec_(qmouseevent.globalPos())
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['VerticalLineSegmentTool']:
+            
+            self.log.debug("Current toolMode is: VerticalLineSegmentTool")
+
+            if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
+                
+                if self.clickOnePointF == None:
+                    self.log.debug("clickOnePointF == None")
+                
+                    self.clickOnePointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # PriceBar or LookbackMultiplePriceBar timestamp
+                    # to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest PriceBar or " + \
+                                       "LookbackMultiplePriceBar X.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        closestPointX = \
+                            self.scene().\
+                            getClosestPriceBarAndLookbackMultiplePriceBarX(infoPointF)
+
+                        # Use these X and Y values.
+                        self.clickOnePointF.setX(closestPointX)
+                        self.clickOnePointF.setY(infoPointF.y())
+                    
+                    # Create the VerticalLineSegmentGraphicsItem and
+                    # initialize it to the mouse location.
+                    self.verticalLineSegmentGraphicsItem = \
+                        VerticalLineSegmentGraphicsItem()
+                    self.verticalLineSegmentGraphicsItem.\
+                        loadSettingsFromPriceBarChartSettings(\
+                            self.priceBarChartSettings)
+        
+                    self.verticalLineSegmentGraphicsItem.\
+                        setPos(self.clickOnePointF)
+                    self.verticalLineSegmentGraphicsItem.\
+                        setStartPointF(self.clickOnePointF)
+                    self.verticalLineSegmentGraphicsItem.\
+                        setEndPointF(self.clickOnePointF)
+                    self.scene().addItem(self.verticalLineSegmentGraphicsItem)
+                    
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.verticalLineSegmentGraphicsItem)
+
+                elif self.clickOnePointF != None and \
+                    self.clickTwoPointF == None and \
+                    self.verticalLineSegmentGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "verticalLineSegmentGraphicsItem != None.")
+                    
+                    # Set the end point of the VerticalLineSegmentGraphicsItem.
+                    self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
+
+                    # Use these X and Y values.
+                    # 
+                    # We use the first click's x value to ensure that this remains 
+                    # a vertical line, per the VerticalLineSegmentGraphicsItem.
+                    self.clickTwoPointF.setX(self.clickOnePointF.x())
+                    self.clickTwoPointF.setY(self.clickTwoPointF.y())
+                    
+                    self.verticalLineSegmentGraphicsItem.\
+                        setEndPointF(self.clickTwoPointF)
+                    self.verticalLineSegmentGraphicsItem.normalizeStartAndEnd()
+        
+                    # Call getArtifact() so that the item's artifact
+                    # object gets updated and set.
+                    self.verticalLineSegmentGraphicsItem.getArtifact()
+                                                
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartArtifactGraphicsItemAdded.\
+                        emit(self.verticalLineSegmentGraphicsItem)
+                    
+                    sceneBoundingRect = \
+                        self.verticalLineSegmentGraphicsItem.sceneBoundingRect()
+                    
+                    self.log.debug("verticalLineSegmentGraphicsItem " +
+                                   "officially added.  " +
+                                   "Its sceneBoundingRect is: {}.  ".\
+                                   format(sceneBoundingRect) +
+                                   "Its x range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.left(),
+                                          sceneBoundingRect.right()) +
+                                   "Its y range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.top(),
+                                          sceneBoundingRect.bottom()))
+                    
+                    # Clear out working variables.
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.verticalLineSegmentGraphicsItem = None
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
+            elif qmouseevent.button() & Qt.RightButton:
+                
+                self.log.debug("Qt.RightButton")
+                
+                if self.clickOnePointF != None and \
+                   self.clickTwoPointF == None and \
+                   self.verticalLineSegmentGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "verticalLineSegmentGraphicsItem != None.")
+                    
+                    # Right-click during setting the
+                    # VerticalLineSegmentGraphicsItem causes the
+                    # currently edited item to be removed
+                    # and cleared out.  Temporary variables used are
+                    # cleared out too.
+                    if self.verticalLineSegmentGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.verticalLineSegmentGraphicsItem)
+
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.verticalLineSegmentGraphicsItem = None
+                    
+                elif self.clickOnePointF == None and \
+                     self.clickTwoPointF == None and \
+                     self.verticalLineSegmentGraphicsItem == None:
+                    
+                    self.log.debug("clickOnePointF == None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "verticalLineSegmentGraphicsItem == None.")
+                    
+                    # Open a context menu at this location, in readonly mode.
+                    clickPosF = self.mapToScene(qmouseevent.pos())
+                    menu = self.createContextMenu(clickPosF, readOnlyFlag=True)
+                    menu.exec_(qmouseevent.globalPos())
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['HorizontalLineSegmentTool']:
+            
+            self.log.debug("Current toolMode is: HorizontalLineSegmentTool")
+
+            if qmouseevent.button() & Qt.LeftButton:
+                self.log.debug("Qt.LeftButton")
+                
+                if self.clickOnePointF == None:
+                    self.log.debug("clickOnePointF == None")
+                
+                    self.clickOnePointF = self.mapToScene(qmouseevent.pos())
+
+                    # If snap is enabled, then find the closest
+                    # pricebar price to the place clicked.
+                    if self.snapEnabledFlag == True:
+                        self.log.debug("Snap is enabled, so snapping to " +
+                                       "closest pricebar Y.")
+                        
+                        infoPointF = self.mapToScene(qmouseevent.pos())
+                        closestPriceBarY = \
+                            self.scene().getClosestPriceBarOHLCY(infoPointF)
+
+                        # Use these X and Y values.
+                        self.clickOnePointF.setX(infoPointF.x())
+                        self.clickOnePointF.setY(closestPriceBarY)
+                    
+                    # Create the HorizontalLineSegmentGraphicsItem and
+                    # initialize it to the mouse location.
+                    self.horizontalLineSegmentGraphicsItem = \
+                        HorizontalLineSegmentGraphicsItem()
+                    self.horizontalLineSegmentGraphicsItem.\
+                        loadSettingsFromPriceBarChartSettings(\
+                            self.priceBarChartSettings)
+        
+                    self.horizontalLineSegmentGraphicsItem.\
+                        setPos(self.clickOnePointF)
+                    self.horizontalLineSegmentGraphicsItem.\
+                        setStartPointF(self.clickOnePointF)
+                    self.horizontalLineSegmentGraphicsItem.\
+                        setEndPointF(self.clickOnePointF)
+                    self.scene().addItem(self.horizontalLineSegmentGraphicsItem)
+                    
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.horizontalLineSegmentGraphicsItem)
+
+                elif self.clickOnePointF != None and \
+                    self.clickTwoPointF == None and \
+                    self.horizontalLineSegmentGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "horizontalLineSegmentGraphicsItem != None.")
+                    
+                    # Set the end point of the HorizontalLineSegmentGraphicsItem.
+                    self.clickTwoPointF = self.mapToScene(qmouseevent.pos())
+
+                    # Use these X and Y values.
+                    # 
+                    # We use the first click's y value to ensure that this remains 
+                    # a horizontal line, per the HorizontalLineSegmentGraphicsItem.
+                    self.clickTwoPointF.setX(self.clickTwoPointF.x())
+                    self.clickTwoPointF.setY(self.clickOnePointF.y())
+                    
+                    self.horizontalLineSegmentGraphicsItem.\
+                        setEndPointF(self.clickTwoPointF)
+                    self.horizontalLineSegmentGraphicsItem.normalizeStartAndEnd()
+        
+                    # Call getArtifact() so that the item's artifact
+                    # object gets updated and set.
+                    self.horizontalLineSegmentGraphicsItem.getArtifact()
+                                                
+                    # Emit that the PriceBarChart has changed.
+                    self.scene().priceBarChartArtifactGraphicsItemAdded.\
+                        emit(self.horizontalLineSegmentGraphicsItem)
+                    
+                    sceneBoundingRect = \
+                        self.horizontalLineSegmentGraphicsItem.sceneBoundingRect()
+                    
+                    self.log.debug("horizontalLineSegmentGraphicsItem " +
+                                   "officially added.  " +
+                                   "Its sceneBoundingRect is: {}.  ".\
+                                   format(sceneBoundingRect) +
+                                   "Its x range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.left(),
+                                          sceneBoundingRect.right()) +
+                                   "Its y range is: {} to {}.  ".\
+                                   format(sceneBoundingRect.top(),
+                                          sceneBoundingRect.bottom()))
+                    
+                    # Clear out working variables.
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.horizontalLineSegmentGraphicsItem = None
+                    
+                else:
+                    self.log.warn("Unexpected state reached.")
+                    
+            elif qmouseevent.button() & Qt.RightButton:
+                
+                self.log.debug("Qt.RightButton")
+                
+                if self.clickOnePointF != None and \
+                   self.clickTwoPointF == None and \
+                   self.horizontalLineSegmentGraphicsItem != None:
+
+                    self.log.debug("clickOnePointF != None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "horizontalLineSegmentGraphicsItem != None.")
+                    
+                    # Right-click during setting the
+                    # HorizontalLineSegmentGraphicsItem causes the
+                    # currently edited item to be removed
+                    # and cleared out.  Temporary variables used are
+                    # cleared out too.
+                    if self.horizontalLineSegmentGraphicsItem.scene() != None:
+                        self.scene().\
+                            removeItem(self.horizontalLineSegmentGraphicsItem)
+
+                    self.clickOnePointF = None
+                    self.clickTwoPointF = None
+                    self.horizontalLineSegmentGraphicsItem = None
+                    
+                elif self.clickOnePointF == None and \
+                     self.clickTwoPointF == None and \
+                     self.horizontalLineSegmentGraphicsItem == None:
+                    
+                    self.log.debug("clickOnePointF == None, and " +
+                                   "clickTwoPointF == None and " +
+                                   "horizontalLineSegmentGraphicsItem == None.")
                     
                     # Open a context menu at this location, in readonly mode.
                     clickPosF = self.mapToScene(qmouseevent.pos())
@@ -46442,7 +51338,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    "octaveFanGraphicsItem != None.")
                     
                     # Right-click during setting the OctaveFanGraphicsItem
-                    # causes the currently edited bar count item to be
+                    # causes the currently edited item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
                     if self.octaveFanGraphicsItem.scene() != None:
@@ -46705,7 +51601,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    "fibFanGraphicsItem != None.")
                     
                     # Right-click during setting the FibFanGraphicsItem
-                    # causes the currently edited bar count item to be
+                    # causes the currently edited item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
                     if self.fibFanGraphicsItem.scene() != None:
@@ -46968,7 +51864,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    "gannFanGraphicsItem != None.")
                     
                     # Right-click during setting the GannFanGraphicsItem
-                    # causes the currently edited bar count item to be
+                    # causes the currently edited item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
                     if self.gannFanGraphicsItem.scene() != None:
@@ -47125,7 +52021,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    "vimsottariDasaGraphicsItem != None.")
                     
                     # Right-click during setting the VimsottariDasaGraphicsItem
-                    # causes the currently edited bar count item to be
+                    # causes the currently edited item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
                     if self.vimsottariDasaGraphicsItem.scene() != None:
@@ -47279,7 +52175,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    "ashtottariDasaGraphicsItem != None.")
                     
                     # Right-click during setting the AshtottariDasaGraphicsItem
-                    # causes the currently edited bar count item to be
+                    # causes the currently edited item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
                     if self.ashtottariDasaGraphicsItem.scene() != None:
@@ -47433,7 +52329,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    "yoginiDasaGraphicsItem != None.")
                     
                     # Right-click during setting the YoginiDasaGraphicsItem
-                    # causes the currently edited bar count item to be
+                    # causes the currently edited item to be
                     # removed and cleared out.  Temporary variables used
                     # are cleared out too.
                     if self.yoginiDasaGraphicsItem.scene() != None:
@@ -47588,7 +52484,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     # Right-click during setting the
                     # DwisaptatiSamaDasaGraphicsItem causes the
-                    # currently edited bar count item to be removed
+                    # currently edited item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
                     if self.dwisaptatiSamaDasaGraphicsItem.scene() != None:
@@ -47743,7 +52639,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     # Right-click during setting the
                     # ShattrimsaSamaDasaGraphicsItem causes the
-                    # currently edited bar count item to be removed
+                    # currently edited item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
                     if self.shattrimsaSamaDasaGraphicsItem.scene() != None:
@@ -47898,7 +52794,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     # Right-click during setting the
                     # DwadasottariDasaGraphicsItem causes the
-                    # currently edited bar count item to be removed
+                    # currently edited item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
                     if self.dwadasottariDasaGraphicsItem.scene() != None:
@@ -48053,7 +52949,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     # Right-click during setting the
                     # ChaturaseetiSamaDasaGraphicsItem causes the
-                    # currently edited bar count item to be removed
+                    # currently edited item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
                     if self.chaturaseetiSamaDasaGraphicsItem.scene() != None:
@@ -48208,7 +53104,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     # Right-click during setting the
                     # SataabdikaDasaGraphicsItem causes the
-                    # currently edited bar count item to be removed
+                    # currently edited item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
                     if self.sataabdikaDasaGraphicsItem.scene() != None:
@@ -48363,7 +53259,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     # Right-click during setting the
                     # ShodasottariDasaGraphicsItem causes the
-                    # currently edited bar count item to be removed
+                    # currently edited item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
                     if self.shodasottariDasaGraphicsItem.scene() != None:
@@ -48518,7 +53414,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     # Right-click during setting the
                     # PanchottariDasaGraphicsItem causes the
-                    # currently edited bar count item to be removed
+                    # currently edited item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
                     if self.panchottariDasaGraphicsItem.scene() != None:
@@ -48673,7 +53569,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     
                     # Right-click during setting the
                     # ShashtihayaniDasaGraphicsItem causes the
-                    # currently edited bar count item to be removed
+                    # currently edited item to be removed
                     # and cleared out.  Temporary variables used are
                     # cleared out too.
                     if self.shashtihayaniDasaGraphicsItem.scene() != None:
@@ -48833,6 +53729,18 @@ class PriceBarChartGraphicsView(QGraphicsView):
             super().mouseReleaseEvent(qmouseevent)
 
         elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['VerticalLineSegmentTool']:
+
+            self.log.debug("Current toolMode is: VerticalLineSegmentTool")
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['HorizontalLineSegmentTool']:
+
+            self.log.debug("Current toolMode is: HorizontalLineSegmentTool")
+            super().mouseReleaseEvent(qmouseevent)
+
+        elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['OctaveFanTool']:
 
             self.log.debug("Current toolMode is: OctaveFanTool")
@@ -48929,9 +53837,104 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
         # Emit the current mouse location in scene coordinates.
         posScene = self.mapToScene(qmouseevent.pos())
+        self.lastMousePosScene = posScene
         self.mouseLocationUpdate.emit(posScene.x(), posScene.y())
 
-        
+        # Handle key functionality relevant to all tool modes.
+        if self.toolMode in PriceBarChartGraphicsView.ToolMode.values():
+            
+            if self.verticalDashedLineEnabled == True and \
+                    self.verticalDashedLineGraphicsItem != None:
+
+                # Gather information for setting the line's location 
+                # and start/end points.
+                
+                # Get the lowest and highest prices among both PriceBars and 
+                # LookbackMultiplePriceBars.
+                lowestPrice = self.scene().getLowestPriceBar().low
+                highestPrice = self.scene().getHighestPriceBar().high
+
+                lowestLookbackMultiplePriceBar = \
+                    self.scene().getLowestLookbackMultiplePriceBar()
+                if lowestLookbackMultiplePriceBar != None:
+                    lmpbLowestPrice = lowestLookbackMultiplePriceBar.low
+                    if lmpbLowestPrice < lowestPrice:
+                        lowestPrice = lmpbLowestPrice
+
+                highestLookbackMultiplePriceBar = \
+                    self.scene().getHighestLookbackMultiplePriceBar()
+                if highestLookbackMultiplePriceBar != None:
+                    lmpbHighestPrice = highestLookbackMultiplePriceBar.high
+                    if lmpbHighestPrice > highestPrice:
+                        highestPrice = lmpbHighestPrice
+
+                lowY = self.scene().priceToSceneYPos(lowestPrice)
+                highY = self.scene().priceToSceneYPos(highestPrice)
+
+                posX = None
+                if self.lastMousePosScene != None:
+                    posX = self.lastMousePosScene.x()
+                else:
+                    # No last mouse position, so just use the X position 
+                    # of an arbitrary PriceBar in the scene.
+                    dt = self.scene().getHighestPriceBar().timestamp
+                    posX = self.scene().datetimeToSceneXPos(dt)
+
+                lowPointF = QPointF(posX, lowY)
+                highPointF = QPointF(posX, highY)
+    
+                # Set the position and start/end points.
+                self.verticalDashedLineGraphicsItem.setPos(lowPointF)
+                self.verticalDashedLineGraphicsItem.setStartPointF(lowPointF)
+                self.verticalDashedLineGraphicsItem.setEndPointF(highPointF)
+
+            if self.horizontalDashedLineEnabled == True and \
+                    self.horizontalDashedLineGraphicsItem != None:
+
+                # Gather information for setting the line's location 
+                # and start/end points.
+                
+                # Get the earliest and latest timestamps among both PriceBars 
+                # and LookbackMultiplePriceBars.
+                earliestDt = self.scene().getEarliestPriceBar().timestamp
+                latestDt = self.scene().getLatestPriceBar().timestamp
+
+                earliestLookbackMultiplePriceBar = \
+                    self.scene().getEarliestLookbackMultiplePriceBar()
+                if earliestLookbackMultiplePriceBar != None:
+                    lmpbEarliestDt = \
+                        earliestLookbackMultiplePriceBar.timestamp
+                    if lmpbEarliestDt < earliestDt:
+                        earliestDt = lmpbEarliestDt
+
+                latestLookbackMultiplePriceBar = \
+                    self.scene().getLatestLookbackMultiplePriceBar()
+                if latestLookbackMultiplePriceBar != None:
+                    lmpbLatestDt = \
+                        latestLookbackMultiplePriceBar.timestamp
+                    if lmpbLatestDt > latestDt:
+                        latestDt = lmpbLatestDt
+
+                earliestX = self.scene().datetimeToSceneXPos(earliestDt)
+                latestX = self.scene().datetimeToSceneXPos(latestDt)
+
+                posY = None
+                if self.lastMousePosScene != None:
+                    posY = self.lastMousePosScene.y()
+                else:
+                    # No last mouse position, so just use the Y position 
+                    # of an arbitrary PriceBar in the scene.
+                    highPrice = self.scene().getLatestPriceBar().high
+                    posY = self.scene().priceToSceneYPos(highPrice)
+
+                earliestPointF = QPointF(earliestX, posY)
+                latestPointF = QPointF(latestX, posY)
+
+                # Set the position and start/end points.
+                self.horizontalDashedLineGraphicsItem.setPos(earliestPointF)
+                self.horizontalDashedLineGraphicsItem.setStartPointF(earliestPointF)
+                self.horizontalDashedLineGraphicsItem.setEndPointF(latestPointF)
+
         if self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['ReadOnlyPointerTool']:
 
@@ -49135,6 +54138,42 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 # Update the end point of the current
                 # LineSegment2GraphicsItem.
                 self.lineSegment2GraphicsItem.setEndPointF(pos)
+            else:
+                super().mouseMoveEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['VerticalLineSegmentTool']:
+
+            if self.clickOnePointF != None and \
+                self.verticalLineSegmentGraphicsItem != None:
+
+                pos = self.mapToScene(qmouseevent.pos())
+
+                # Use the first click's x value to ensure that the endpoint is 
+                # a vertical line segment per VerticalLineSegmentGraphicsItem.
+                endPointF = QPointF(self.clickOnePointF.x(), pos.y())
+
+                # Update the end point of the current
+                # VerticalLineSegmentGraphicsItem.
+                self.verticalLineSegmentGraphicsItem.setEndPointF(endPointF)
+            else:
+                super().mouseMoveEvent(qmouseevent)
+
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['HorizontalLineSegmentTool']:
+
+            if self.clickOnePointF != None and \
+                self.horizontalLineSegmentGraphicsItem != None:
+
+                pos = self.mapToScene(qmouseevent.pos())
+
+                # Use the first click's y value to ensure that the endpoint is 
+                # a horizontal line segment per HorizontalLineSegmentGraphicsItem.
+                endPointF = QPointF(pos.x(), self.clickOnePointF.y())
+
+                # Update the end point of the current
+                # HorizontalLineSegmentGraphicsItem.
+                self.horizontalLineSegmentGraphicsItem.setEndPointF(endPointF)
             else:
                 super().mouseMoveEvent(qmouseevent)
 
@@ -49568,6 +54607,12 @@ class PriceBarChartGraphicsView(QGraphicsView):
             self.setCursor(QCursor(Qt.ArrowCursor))
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['LineSegment2Tool']:
+            self.setCursor(QCursor(Qt.ArrowCursor))
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['VerticalLineSegmentTool']:
+            self.setCursor(QCursor(Qt.ArrowCursor))
+        elif self.toolMode == \
+                PriceBarChartGraphicsView.ToolMode['HorizontalLineSegmentTool']:
             self.setCursor(QCursor(Qt.ArrowCursor))
         elif self.toolMode == \
                 PriceBarChartGraphicsView.ToolMode['OctaveFanTool']:

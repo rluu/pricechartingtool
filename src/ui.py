@@ -41,6 +41,7 @@ from pricebarchart import *
 from pricebarspreadsheet import *
 from astrologychart import AstrologyChartWidget
 from astrologychart import PlanetaryInfoTableWidget
+from lookbackmultiple_ui import LookbackMultiplePanelWidget
 
 class MainWindow(QMainWindow):
     """The QMainWindow class that is a multiple document interface (MDI)."""
@@ -235,6 +236,15 @@ class MainWindow(QMainWindow):
         self.editPriceBarChartScalingAction.triggered.\
             connect(self._editPriceBarChartScaling)
         
+        # Create the editLookbackMultiplesAction.
+        icon = QIcon() # TODO: add an icon here for editLookbackMultiplesAction.
+        self.editLookbackMultiplesAction = \
+            QAction(icon, "Edit Lookback Multiples", self)
+        self.editLookbackMultiplesAction.\
+            setStatusTip("Edit Lookback Multiples")
+        self.editLookbackMultiplesAction.triggered.\
+            connect(self._editLookbackMultiples)
+
 
         ####################
         # Create actions for the Astro Menu.
@@ -365,6 +375,18 @@ class MainWindow(QMainWindow):
             connect(self._handleClearAstroChart3Action)
         
         ####################
+        # Create actions for the LookbackMultiple Menu.
+
+        # Create the enableAndShowLookbackMultiplePanelAction.
+        self.enableAndShowLookbackMultiplePanelAction = \
+            QAction(icon, "Enable LookbackMultiple Panel", self)
+        self.enableAndShowLookbackMultiplePanelAction.\
+            setStatusTip("Enable LookbackMultiple Panel")
+        self.enableAndShowLookbackMultiplePanelAction.setCheckable(True)
+        self.enableAndShowLookbackMultiplePanelAction.triggered.\
+            connect(self._handleEnableAndShowLookbackMultiplePanelAction)
+        
+        ####################
         # Create actions for the Tools Menu.
         
         # Create the ReadOnlyPointerToolAction.
@@ -488,6 +510,22 @@ class MainWindow(QMainWindow):
             QAction(icon, "Line Segment 2 Tool", self)
         self.lineSegment2ToolAction.setStatusTip("Line Segment 2 Tool")
         self.lineSegment2ToolAction.setCheckable(True)
+
+        # Create the VerticalLineSegmentToolAction
+        icon = QIcon() # TODO: add icon for VerticalLineSegmentToolAction.
+        self.verticalLineSegmentToolAction = \
+            QAction(icon, "Vertical Line Segment Tool", self)
+        self.verticalLineSegmentToolAction.\
+            setStatusTip("Vertical Line Segment Tool")
+        self.verticalLineSegmentToolAction.setCheckable(True)
+
+        # Create the HorizontalLineSegmentToolAction
+        icon = QIcon() # TODO: add icon for HorizontalLineSegmentToolAction.
+        self.horizontalLineSegmentToolAction = \
+            QAction(icon, "Horizontal Line Segment Tool", self)
+        self.horizontalLineSegmentToolAction.\
+            setStatusTip("Horizontal Line Segment Tool")
+        self.horizontalLineSegmentToolAction.setCheckable(True)
 
         # Create the OctaveFanToolAction
         icon = QIcon(":/images/rluu/octaveFan.png")
@@ -621,6 +659,8 @@ class MainWindow(QMainWindow):
         self.toolActionGroup.addAction(self.priceTimeVectorToolAction)
         self.toolActionGroup.addAction(self.lineSegment1ToolAction)
         self.toolActionGroup.addAction(self.lineSegment2ToolAction)
+        self.toolActionGroup.addAction(self.verticalLineSegmentToolAction)
+        self.toolActionGroup.addAction(self.horizontalLineSegmentToolAction)
         self.toolActionGroup.addAction(self.octaveFanToolAction)
         self.toolActionGroup.addAction(self.fibFanToolAction)
         self.toolActionGroup.addAction(self.gannFanToolAction)
@@ -743,6 +783,7 @@ class MainWindow(QMainWindow):
         self.editMenu.addAction(self.editPriceChartDocumentDataAction)
         self.editMenu.addAction(self.editPriceBarChartSettingsAction)
         self.editMenu.addAction(self.editPriceBarChartScalingAction)
+        self.editMenu.addAction(self.editLookbackMultiplesAction)
 
         # Create the Astro menu.
         self.astroMenu = self.menuBar().addMenu("&Astro")
@@ -773,6 +814,11 @@ class MainWindow(QMainWindow):
         self.astroMenu.addAction(self.clearAstroChart2Action)
         self.astroMenu.addAction(self.clearAstroChart3Action)
         
+        # Create the LookbackMultiple menu.
+        self.lookbackMultipleMenu = self.menuBar().addMenu("&Lookback Multiple")
+        self.lookbackMultipleMenu.\
+            addAction(self.enableAndShowLookbackMultiplePanelAction)
+
         # Create the Tools menu
         self.toolsMenu = self.menuBar().addMenu("&Tools")
         self.toolsMenu.addAction(self.readOnlyPointerToolAction)
@@ -794,6 +840,8 @@ class MainWindow(QMainWindow):
         self.toolsMenu.addAction(self.priceTimeVectorToolAction)
         self.toolsMenu.addAction(self.lineSegment1ToolAction)
         self.toolsMenu.addAction(self.lineSegment2ToolAction)
+        self.toolsMenu.addAction(self.verticalLineSegmentToolAction)
+        self.toolsMenu.addAction(self.horizontalLineSegmentToolAction)
         self.toolsMenu.addAction(self.octaveFanToolAction)
         self.toolsMenu.addAction(self.fibFanToolAction)
         self.toolsMenu.addAction(self.gannFanToolAction)
@@ -852,6 +900,7 @@ class MainWindow(QMainWindow):
         self.editToolBar.addAction(self.editPriceChartDocumentDataAction)
         self.editToolBar.addAction(self.editPriceBarChartSettingsAction)
         self.editToolBar.addAction(self.editPriceBarChartScalingAction)
+        self.editToolBar.addAction(self.editLookbackMultiplesAction)
 
         # Create the Tools toolbar.
         self.toolsToolBar = self.addToolBar("Tools")
@@ -879,6 +928,8 @@ class MainWindow(QMainWindow):
             self.toolsToolBar.addAction(self.priceTimeVectorToolAction)
         self.toolsToolBar.addAction(self.lineSegment1ToolAction)
         self.toolsToolBar.addAction(self.lineSegment2ToolAction)
+        self.toolsToolBar.addAction(self.verticalLineSegmentToolAction)
+        self.toolsToolBar.addAction(self.horizontalLineSegmentToolAction)
         self.toolsToolBar.addAction(self.octaveFanToolAction)
         self.toolsToolBar.addAction(self.fibFanToolAction)
         self.toolsToolBar.addAction(self.gannFanToolAction)
@@ -936,6 +987,7 @@ class MainWindow(QMainWindow):
         self.editPriceChartDocumentDataAction.setEnabled(isActive)
         self.editPriceBarChartSettingsAction.setEnabled(isActive)
         self.editPriceBarChartScalingAction.setEnabled(isActive)
+        self.editLookbackMultiplesAction.setEnabled(isActive)
 
         self.enableAndShowAstrologyChartAction.setEnabled(isActive)
         self.enableAndShowPlanetaryInfoTableAction.setEnabled(isActive)
@@ -958,6 +1010,8 @@ class MainWindow(QMainWindow):
         self.clearAstroChart2Action.setEnabled(isActive)
         self.clearAstroChart3Action.setEnabled(isActive)
 
+        self.enableAndShowLookbackMultiplePanelAction.setEnabled(isActive)
+
         self.readOnlyPointerToolAction.setEnabled(isActive)
         self.pointerToolAction.setEnabled(isActive)
         self.handToolAction.setEnabled(isActive)
@@ -976,6 +1030,8 @@ class MainWindow(QMainWindow):
         self.priceTimeVectorToolAction.setEnabled(isActive)
         self.lineSegment1ToolAction.setEnabled(isActive)
         self.lineSegment2ToolAction.setEnabled(isActive)
+        self.verticalLineSegmentToolAction.setEnabled(isActive)
+        self.horizontalLineSegmentToolAction.setEnabled(isActive)
         self.octaveFanToolAction.setEnabled(isActive)
         self.fibFanToolAction.setEnabled(isActive)
         self.gannFanToolAction.setEnabled(isActive)
@@ -1021,6 +1077,12 @@ class MainWindow(QMainWindow):
             flag = self.trackMouseToAstroChart3Action.isChecked()
             priceChartDocument.setTrackMouseToAstroChart3(flag)
         
+        # Depending on whether or not the LookbackMultiplePanelWidget
+        # is enabled or not, then set it to be visible or not, respectively.
+        if isActive:
+            flag = self.enableAndShowLookbackMultiplePanelAction.isChecked()
+            priceChartDocument.setEnableAndShowLookbackMultiplePanel(flag)
+
         # Depending on what ToolMode QAction is checked,
         # set the priceChartDocument to be in that mode.
         if isActive:
@@ -1061,6 +1123,10 @@ class MainWindow(QMainWindow):
                 priceChartDocument.toLineSegment1ToolMode()
             elif self.lineSegment2ToolAction.isChecked():
                 priceChartDocument.toLineSegment2ToolMode()
+            elif self.verticalLineSegmentToolAction.isChecked():
+                priceChartDocument.toVerticalLineSegmentToolMode()
+            elif self.horizontalLineSegmentToolAction.isChecked():
+                priceChartDocument.toHorizontalLineSegmentToolMode()
             elif self.octaveFanToolAction.isChecked():
                 priceChartDocument.toOctaveFanToolMode()
             elif self.fibFanToolAction.isChecked():
@@ -3334,6 +3400,8 @@ class MainWindow(QMainWindow):
             if dialog.exec_() == QDialog.Accepted:
                 self.log.debug("PriceChartDocumentDataEditDialog accepted.")
 
+                priceChartDocumentData = dialog.getPriceChartDocumentData()
+
                 # Reload the entire PriceChartDocument.
                 priceChartDocument.\
                     setPriceChartDocumentData(priceChartDocumentData)
@@ -3377,6 +3445,8 @@ class MainWindow(QMainWindow):
 
             if dialog.exec_() == QDialog.Accepted:
                 self.log.debug("PriceBarChartSettingsEditDialog accepted.")
+
+                priceBarChartSettings = dialog.getPriceBarChartSettings()
 
                 # Apply the settings changes to the PriceChartDocument.
                 # This should trigger a redraw of everything in the chart.
@@ -3462,6 +3532,28 @@ class MainWindow(QMainWindow):
                            "other unsupported subwindow was selected.")
 
         self.log.debug("Exiting _editPriceBarChartScaling()")
+
+    def _editLookbackMultiples(self):
+        """Handles editing the list of LookbackMultiple objects
+        associated with the current active PriceChartDocument in the in
+        the UI.
+        """
+
+        self.log.debug("Entered _editLookbackMultiples()")
+
+        # Get current active PriceChartDocument.
+        priceChartDocument = self.getActivePriceChartDocument()
+
+        if priceChartDocument != None:
+            # Invoke the PriceChartDocument method to handle the edit.
+            priceChartDocument.editLookbackMultiples()
+        else:
+            self.log.error("Tried to edit the LookbackMultiples list " + \
+                           "when either no " + \
+                           "PriceChartDocument is selected, or some " + \
+                           "other unsupported subwindow was selected.")
+        
+        self.log.debug("Exiting _editLookbackMultiples()")
 
     def _handleEnableAndShowAstrologyChartAction(self):
         """Slot function that is called when the user triggers the
@@ -3763,6 +3855,22 @@ class MainWindow(QMainWindow):
 
         pcd.clearAstroChart3()
 
+    def _handleEnableAndShowLookbackMultiplePanelAction(self):
+        """Slot function that is called when the user triggers the
+        QAction 'self.enableAndShowLookbackMultiplePanelAction'.
+        """
+
+        # This LookbackMultiple action only makes sense to be triggered if there
+        # is a PriceChartDocument open and active.  Check to make sure
+        # that is true.
+        pcd = self.getActivePriceChartDocument()
+        if pcd == None:
+            return
+
+        flag = self.enableAndShowLookbackMultiplePanelAction.isChecked()
+        
+        pcd.setEnableAndShowLookbackMultiplePanel(flag)
+
     def _toolsActionTriggered(self, qaction):
         """Slot function that is called when a Tools menu QAction is
         selected/activated.  This changes the Tools mode to whatever the
@@ -3849,6 +3957,14 @@ class MainWindow(QMainWindow):
             self.log.debug("lineSegment2ToolAction triggered.")
             self.mostRecentGraphicsItemToolModeAction = qaction
             pcd.toLineSegment2ToolMode()
+        elif qaction == self.verticalLineSegmentToolAction:
+            self.log.debug("verticalLineSegmentToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
+            pcd.toVerticalLineSegmentToolMode()
+        elif qaction == self.horizontalLineSegmentToolAction:
+            self.log.debug("horizontalLineSegmentToolAction triggered.")
+            self.mostRecentGraphicsItemToolModeAction = qaction
+            pcd.toHorizontalLineSegmentToolMode()
         elif qaction == self.octaveFanToolAction:
             self.log.debug("octaveFanToolAction triggered.")
             self.mostRecentGraphicsItemToolModeAction = qaction
@@ -3994,6 +4110,12 @@ Octave Fan Tool:
   - Key_G: Rotate the modal scale down.
   - Key_R: Reverse the direction of the modal scale.
 
+Drawing vertical or horizontal dotted lines at the 
+mouse position (works in all tool modes):
+
+  - Key_V: Toggle vertical dotted line drawing on/off.
+  - Key_H: Toggle horizontal dotted line drawing on/off.
+
 Snap key bindings are:
   - Key_Q: Turn snap mode on.
   - Key_W: Turn snap mode off.
@@ -4004,12 +4126,15 @@ Snap key bindings are supported for the following tools:
   - PriceMeasurementTool
   - TimeModalScaleTool
   - PriceModalScaleTool
+  - PlanetLongitudeMovementMeasurementToolMode
   - PriceTimeInfoTool
   - TimeRetracementTool
   - PriceRetracementTool
   - PriceTimeVectorTool
   - LineSegment1Tool
   - LineSegment2Tool
+  - VerticalLineSegmentTool
+  - HorizontalLineSegmentTool
   - OctaveFanTool
   - FibFanTool
   - GannFanTool
@@ -4404,6 +4529,9 @@ class PriceChartDocument(QMdiSubWindow):
         # Therefore, all we need to retrieve is the pricebarchart
         # artifacts and the settings objects.
 
+        self.priceChartDocumentData.lookbackMultiples = \
+            self.widgets.getLookbackMultiples()
+
         self.priceChartDocumentData.priceBarChartArtifacts = \
             self.widgets.getPriceBarChartArtifacts()
 
@@ -4434,6 +4562,7 @@ class PriceChartDocument(QMdiSubWindow):
         # Clear all the old data.
         self.widgets.clearAllPriceBars()
         self.widgets.clearAllPriceBarChartArtifacts()
+        self.widgets.clearAllLookbackMultiplePriceBars()
 
         # Set the description text.
         self.widgets.\
@@ -4448,6 +4577,10 @@ class PriceChartDocument(QMdiSubWindow):
         # Load pricebars.
         priceBars = self.priceChartDocumentData.priceBars
         self.widgets.loadPriceBars(priceBars)
+
+        # Load LookbackMultiple objects.
+        lookbackMultiples = self.priceChartDocumentData.lookbackMultiples
+        self.widgets.loadLookbackMultiples(lookbackMultiples)
 
         # Apply the settings objects.
         priceBarChartSettings = \
@@ -4488,8 +4621,8 @@ class PriceChartDocument(QMdiSubWindow):
         self.priceChartDocumentData.priceBarChartSettings = \
             priceBarChartSettings
 
-        self.widgets.applyPriceBarChartSettings\
-                (self.priceChartDocumentData.priceBarChartSettings)
+        self.widgets.applyPriceBarChartSettings(\
+            self.priceChartDocumentData.priceBarChartSettings)
 
     def applyPriceBarSpreadsheetSettings(self, priceBarSpreadsheetSettings):
         """Applies the given PriceBarSpreadsheetSettings to the underlying
@@ -4502,8 +4635,8 @@ class PriceChartDocument(QMdiSubWindow):
         self.priceChartDocumentData.priceBarSpreadsheetSettings = \
             priceBarSpreadsheetSettings
 
-        self.widgets.applyPriceBarSpreadsheetSettings\
-                (self.priceChartDocumentData.priceBarSpreadsheetSettings)
+        self.widgets.applyPriceBarSpreadsheetSettings(\
+            self.priceChartDocumentData.priceBarSpreadsheetSettings)
 
     def getBirthInfo(self):
         """Returns the internal BirthInfo object from the internal
@@ -4713,6 +4846,8 @@ class PriceChartDocument(QMdiSubWindow):
                         priceChartDocumentData.toString()
 
                     self.log.debug(debugMsg)
+
+                self.log.debug("Setting dirty flag to False...")
 
                 # Filename shouldn't have changed, so there's no need to
                 # set it again.
@@ -5130,6 +5265,16 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.toLineSegment2ToolMode()
 
+    def toVerticalLineSegmentToolMode(self):
+        """Changes the tool mode to be the VerticalLineSegmentTool."""
+
+        self.widgets.toVerticalLineSegmentToolMode()
+
+    def toHorizontalLineSegmentToolMode(self):
+        """Changes the tool mode to be the HorizontalLineSegmentTool."""
+
+        self.widgets.toHorizontalLineSegmentToolMode()
+
     def toOctaveFanToolMode(self):
         """Changes the tool mode to be the OctaveFanTool."""
 
@@ -5337,8 +5482,62 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.widgets.clearAstroChart3()
         
+    def editLookbackMultiples(self):
+        """Opens up a LookbackMultipleListEditDialog to edit
+        the list of LookbackMultiple objects associated with this
+        PriceChartDocument.
+        
+        If the dialog is accepted, the changes are applied and the dirty
+        flag is set.  If the dialog is rejected, then no changes will
+        happen.
+        """
+        self.log.debug("Entered editLookbackMultiples()")
+
+        # Get the list of LookbackMultiple objects. 
+        lookbackMultiples = \
+            self.priceChartDocumentData.lookbackMultiples
+
+        # Create a dialog to edit the PriceBarChart's list of
+        # LookbackMultiple objects.
+        dialog = LookbackMultipleListEditDialog(lookbackMultiples)
+
+        if dialog.exec_() == QDialog.Accepted:
+            self.log.debug("LookbackMultipleListEditDialog " + \
+                           "accepted.")
+
+            # Get the new values from the dialog.
+            lookbackMultiples = dialog.getLookbackMultiples()
+
+            # Set lookbackMultiples into the PriceChartDocument.
+            self.priceChartDocumentData.lookbackMultiples = \
+                lookbackMultiples
+
+            # Set the dirty flag because the object has now changed.
+            self.setDirtyFlag(True)
+
+            # Notify the widgets that the LookbackMultiples have changed.  
+            # This will cause the necessary refreshes/updates in the 
+            # widgets and the charts.
+            self.widgets.handleLookbackMultiplesChanged(lookbackMultiples)
+        else:
+            self.log.debug("LookbackMultipleListEditDialog " + \
+                           "rejected.  Doing nothing more.")
+
+        self.log.debug("Exiting _editLookbackMultiples()")
+
+    def setEnableAndShowLookbackMultiplePanel(self, flag):
+        """Enables and shows the LookbackMultiplePanel.
+
+        Arguments:
+        
+        flag - True if the link is to be enabled and widget shown,
+               False if the link is to be disabled and widget hidden.
+        """
+
+        self.widgets.setEnableAndShowLookbackMultiplePanel(flag)
+        
     def _handlePriceChartDocumentWidgetChanged(self):
-        """Slot for when the PriceBarDocumentWidget emits a signal to say
+        """Slot for when the PriceChartDocumentWidget emits a signal to say
         that the widget(s) changed.  This means the document should be
         marked as dirty.
         """
@@ -5406,7 +5605,11 @@ class PriceChartDocumentWidget(QWidget):
         self.trackMouseToAstroChart2Enabled = False
         self.trackMouseToAstroChart3Enabled = False
         
+        # Flag for showing the LookbackMultiplePanelWidget.
+        self.lookbackMultiplePanelWidgetEnabled = False
+        
         # Create the internal widgets displayed.
+        self.lookbackMultiplePanelWidget = LookbackMultiplePanelWidget()
         self.priceBarChartWidget = PriceBarChartWidget()
         self.priceBarSpreadsheetWidget = PriceBarSpreadsheetWidget()
         self.astrologyChartWidget = AstrologyChartWidget()
@@ -5418,6 +5621,10 @@ class PriceChartDocumentWidget(QWidget):
         self.astrologyChartWidget.setVisible(False)
         self.planetaryInfoTableWidget.setVisible(False)
 
+        # Set the LookbackMultiplePanel to not being visible initially.
+        # The user can enable it if he or she wants to use it.
+        self.lookbackMultiplePanelWidget.setVisible(False)
+
         # Set the birth info.
         self.setBirthInfo(self.birthInfo)
 
@@ -5428,11 +5635,28 @@ class PriceChartDocumentWidget(QWidget):
         vsplitter.addWidget(self.astrologyChartWidget)
         vsplitter.addWidget(self.planetaryInfoTableWidget)
         #vsplitter.addWidget(self.priceBarSpreadsheetWidget)
-        
+
         hsplitter = QSplitter(self)
         hsplitter.setOrientation(Qt.Horizontal)
+        hsplitter.addWidget(self.lookbackMultiplePanelWidget)
         hsplitter.addWidget(self.priceBarChartWidget)
         hsplitter.addWidget(vsplitter)
+        
+        # Set stretch factors for the splitter so that the widgets are a 
+        # sensible default size.
+        # 
+        # Strangely, the setStretchFactor() method doesn't quite work as I
+        # expect.  I think it is only accepting the first call to
+        # setStretchFactor(), but I'm not sure.  Therefore, what I have below
+        # seems to work for what I care most about at the moment, and that is
+        # having the LookbackMultiplePanelWidget have a sensible default width
+        # with the splitter.  I don't set sizeHints with the
+        # LookbackMultiplePanelWidget because what they are set to by default
+        # are already pretty good.
+        # 
+        #hsplitter.setStretchFactor(0, 1)
+        hsplitter.setStretchFactor(1, 2)
+        #hsplitter.setStretchFactor(2, 5)
 
         # Setup the layout.
         vlayout = QVBoxLayout()
@@ -5441,6 +5665,11 @@ class PriceChartDocumentWidget(QWidget):
         self.setLayout(vlayout)
 
         # Connect signals and slots.
+        self.lookbackMultiplePanelWidget.lookbackMultiplesModified.\
+            connect(self.handleLookbackMultiplesChanged)
+        self.lookbackMultiplePanelWidget.\
+            applyRedrawLookbackMultiplesButtonClicked.\
+            connect(self.applyRedrawLookbackMultiples)
         self.priceBarChartWidget.priceBarChartChanged.\
             connect(self._handleWidgetChanged)
         self.priceBarChartWidget.statusMessageUpdate.\
@@ -5490,30 +5719,6 @@ class PriceChartDocumentWidget(QWidget):
 
         self.priceBarChartWidget.setTimezone(timezone)
 
-    def clearAllPriceBars(self):
-        """Clears all PriceBars from all the internal widgets.
-        This is called if a full reload is desired.
-        After this call, one can then call loadPriceBars(priceBars) 
-        with all the pricebars to be loaded.
-        """
-
-        self.log.debug("Entered clearAllPriceBars()")
-
-        # PriceBars in the PriceBarChart.
-        self.priceBarChartWidget.clearAllPriceBars()
-
-        # PriceBars in the PriceBarSpreadsheet.
-        self.priceBarSpreadsheetWidget.clearAllPriceBars()
-
-        self.log.debug("Leaving clearAllPriceBars()")
-        
-    def clearAllPriceBarChartArtifacts(self):
-        """Clears all the PriceBarChartArtifact objects from the 
-        PriceBarChartWidget."""
-
-        self.priceBarChartWidget.clearAllPriceBarChartArtifacts()
-
-
     def loadPriceBars(self, priceBars):
         """Loads the price bars into the widgets.
         
@@ -5534,6 +5739,23 @@ class PriceChartDocumentWidget(QWidget):
         self.log.debug("Leaving loadPriceBars({} pricebars)".\
                        format(len(priceBars)))
 
+    def clearAllPriceBars(self):
+        """Clears all PriceBars from all the internal widgets.
+        This is called if a full reload is desired.
+        After this call, one can then call loadPriceBars(priceBars) 
+        with all the pricebars to be loaded.
+        """
+
+        self.log.debug("Entered clearAllPriceBars()")
+
+        # PriceBars in the PriceBarChart.
+        self.priceBarChartWidget.clearAllPriceBars()
+
+        # PriceBars in the PriceBarSpreadsheet.
+        self.priceBarSpreadsheetWidget.clearAllPriceBars()
+
+        self.log.debug("Leaving clearAllPriceBars()")
+        
     def loadPriceBarChartArtifacts(self, priceBarChartArtifacts):
         """Loads the PriceBarChart artifacts.
 
@@ -5551,6 +5773,75 @@ class PriceChartDocumentWidget(QWidget):
         self.log.debug("Leaving loadPriceBarChartArtifacts({} artifacts)".\
                        format(len(priceBarChartArtifacts)))
 
+    def clearAllPriceBarChartArtifacts(self):
+        """Clears all the PriceBarChartArtifact objects from the 
+        PriceBarChartWidget."""
+
+        self.priceBarChartWidget.clearAllPriceBarChartArtifacts()
+
+
+    def loadLookbackMultiples(self, lookbackMultiples):
+        """Loads a list of LookbackMultiple objects.
+        These are only loaded into the LookbackMultiplePanelWidget.
+        They are not redrawn in the PriceBarChartWidget.
+        
+        Arguments:
+        lookbackMultiples - list of LookbackMultiple objects to be loaded,
+        """
+        
+        self.log.debug("Entered loadLookbackMultiples({} LookbackMultiples)".\
+                       format(len(lookbackMultiples)))
+
+        self.lookbackMultiplePanelWidget.\
+            setLookbackMultiples(lookbackMultiples)
+    
+        self.log.debug("Exiting loadLookbackMultiples({} LookbackMultiples)".\
+                       format(len(lookbackMultiples)))
+
+    def getLookbackMultiples(self):
+        """ Returns the list of LookbackMultiple objects that are used 
+        in this widget.
+        """
+        
+        return self.lookbackMultiplePanelWidget.getLookbackMultiples()
+    
+    def applyRedrawLookbackMultiples(self):
+        """Causes a removal of all
+        LookbackMultiplePriceBarGraphicsItems, and then a drawing of all
+        new LookbackMultiplePriceBarGraphicsItems.
+        """
+        
+        self.log.debug("Entered applyRedrawLookbackMultiples()")
+
+        self.clearAllLookbackMultiplePriceBars()
+        self.drawLookbackMultiplePriceBars()
+
+        self.log.debug("Exiting applyRedrawLookbackMultiples()")
+
+    def drawLookbackMultiplePriceBars(self):
+        """Causes the drawing of LookbackMultiplePriceBarGraphicsItems
+        These are only drawn for the currently visible area of the 
+        QGraphicsScene.
+        """
+        
+        self.log.debug("Entered drawLookbackMultiplePriceBars()")
+        
+        lookbackMultiples = \
+            self.lookbackMultiplePanelWidget.getLookbackMultiples()
+        self.priceBarChartWidget.\
+            drawLookbackMultiplePriceBars(lookbackMultiples)
+        
+        self.log.debug("Exiting drawLookbackMultiplePriceBars()")
+
+    def clearAllLookbackMultiplePriceBars(self):
+        """Causes the removal of all LookbackMultiplePriceBarGraphicsItems."""
+
+        self.log.debug("Entered clearAllLookbackMultiplePriceBars()")
+        
+        self.priceBarChartWidget.clearAllLookbackMultiplePriceBars()
+
+        self.log.debug("Exiting clearAllLookbackMultiplePriceBars()")
+
     def applyPriceBarChartSettings(self, priceBarChartSettings):
         """Applies the given PriceBarChartSettings object to the
         internal PriceBarChartWidget.  
@@ -5561,8 +5852,8 @@ class PriceChartDocumentWidget(QWidget):
 
         self.log.debug("Entered applyPriceBarChartSettings()")
 
-        self.log.debug("Applying the following settings: {}".\
-                       format(priceBarChartSettings.toString()))
+        #self.log.debug("Applying the following settings: {}".\
+        #               format(priceBarChartSettings.toString()))
         
         self.priceBarChartWidget.\
             applyPriceBarChartSettings(priceBarChartSettings)
@@ -5690,6 +5981,16 @@ class PriceChartDocumentWidget(QWidget):
         """Changes the tool mode to be the LineSegment2Tool."""
 
         self.priceBarChartWidget.toLineSegment2ToolMode()
+
+    def toVerticalLineSegmentToolMode(self):
+        """Changes the tool mode to be the VerticalLineSegmentTool."""
+
+        self.priceBarChartWidget.toVerticalLineSegmentToolMode()
+
+    def toHorizontalLineSegmentToolMode(self):
+        """Changes the tool mode to be the HorizontalLineSegmentTool."""
+
+        self.priceBarChartWidget.toHorizontalLineSegmentToolMode()
 
     def toOctaveFanToolMode(self):
         """Changes the tool mode to be the OctaveFanTool."""
@@ -6035,7 +6336,50 @@ class PriceChartDocumentWidget(QWidget):
 
         # Pass the command onto the parent MainWindow to handle.
         self.astrologLaunch.emit(dt, self.birthInfo)
+
+
+    def setEnableAndShowLookbackMultiplePanel(self, flag):
+        """Enables and shows the LookbackMultiplePanel.
+
+        Arguments:
         
+        flag - True if the link is to be enabled and widget shown,
+               False if the link is to be disabled and widget hidden.
+        """
+        
+        if self.lookbackMultiplePanelWidgetEnabled != flag:
+            self.lookbackMultiplePanelWidget.setVisible(flag)
+            self.lookbackMultiplePanelWidgetEnabled = flag
+            
+    def handleLookbackMultiplesChanged(self, lookbackMultiples):
+        """Handles what needs to happen when the list of
+        LookbackMultiple objects has changed or has been modified/updated.
+
+        This method causes the following things to happen:
+        - LookbackMultiplePanel is refreshed.
+        - PriceBarChartGraphicsScene removes all 
+          LookbackMultiplePriceBarGraphicsItems.
+
+            Note: LookbackMultiplePriceBarGraphicsItems should NOT be redrawn.
+            The reason is because we don't want edits coming from 
+            LookbackMultiplePanel to cause a redraw, 
+            unless the user explicitly asks for it via the button.
+
+        - Signal priceChartDocumentWidgetChanged is emitted.
+
+        Arguments:
+        lookbackMultiples - list of updated new LookbackMultiple objects.
+        """
+    
+        self.log.debug("Entered handleLookbackMultiplesChanged()")
+
+        self.lookbackMultiplePanelWidget.\
+            setLookbackMultiples(lookbackMultiples)
+        self.clearAllLookbackMultiplePriceBars()
+        self.priceChartDocumentWidgetChanged.emit()
+
+        self.log.debug("Exiting handleLookbackMultiplesChanged()")
+    
     def _handleCurrentTimestampChanged(self, dt):
         """Handles when the current mouse cursor datetime changes.
         This just calls certain astrology widgets to update their
