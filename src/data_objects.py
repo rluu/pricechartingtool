@@ -17853,11 +17853,103 @@ class PriceChartDocumentData:
     def createDefaultLookbackMultiples():
         """Returns a list of LookbackMultiple objects that can be used as 
         a default initial set.
+        
+        Some default colors are here:
+        file:///usr/share/doc/packages/libqt4/html/qt.html#GlobalColor-enum        
         """
 
-        # TODO: add code here for createDefaultLookbackMultiples().
+        rv = []
+
+        geoPlanets = ["Sun", "Moon", "MoSu", "AsSu", "AsMo"]
+        geoPlanetsColors = \
+          [
+           QColor(255, 102, 0), # Orange.
+           QColor(Qt.blue),
+           QColor(Qt.darkYellow),
+           QColor(Qt.cyan),
+           QColor(Qt.darkCyan),
+           
+          ]
         
-        return []
+        helioPlanets = \
+          [
+          "Mercury", 
+          "Venus",
+          "Mars",
+          "Jupiter",
+          "Saturn"
+          ]
+        helioPlanetsColors = \
+          [
+          QColor(Qt.green),
+          QColor(Qt.magenta),
+          QColor(Qt.darkRed),
+          QColor(Qt.red),
+          QColor(Qt.darkBlue),
+          ]
+
+        revolutionsList = []
+        for i in range(1, 73):
+            revolutionsList.append(i)
+        revolutionsList.append(84)
+        revolutionsList.append(90)
+        revolutionsList.append(100)
+        revolutionsList.append(110)
+        revolutionsList.append(112)
+        revolutionsList.append(119)
+        revolutionsList.append(120)
+        revolutionsList.append(123)
+        revolutionsList.append(130)
+        revolutionsList.append(144)
+        revolutionsList.append(152)
+        revolutionsList.append(153)
+
+        for i in range(len(geoPlanets)):
+            planetName = geoPlanets[i]
+            color = geoPlanetsColors[i]
+            
+            for revolution in revolutionsList:
+
+                lm = LookbackMultiple(name="",
+                                      description="",
+                                      lookbackMultiple=revolution,
+                                      baseUnit=1.0,
+                                      baseUnitTypeDegreesFlag=False,
+                                      baseUnitTypeRevolutionsFlag=True,
+                                      color=color,
+                                      enabled=False,
+                                      planetName=planetName,
+                                      geocentricFlag=True,
+                                      heliocentricFlag=False,
+                                      tropicalFlag=True,
+                                      siderealFlag=False)
+                
+                rv.append(lm) 
+
+        for i in range(len(helioPlanets)):
+            planetName = helioPlanets[i]
+            color = helioPlanetsColors[i]
+            
+            for revolution in revolutionsList:
+
+                lm = LookbackMultiple(name="",
+                                      description="",
+                                      lookbackMultiple=revolution,
+                                      baseUnit=1.0,
+                                      baseUnitTypeDegreesFlag=False,
+                                      baseUnitTypeRevolutionsFlag=True,
+                                      color=color,
+                                      enabled=False,
+                                      planetName=planetName,
+                                      geocentricFlag=True,
+                                      heliocentricFlag=False,
+                                      tropicalFlag=True,
+                                      siderealFlag=False)
+                
+                rv.append(lm) 
+
+        
+        return rv
 
     def setDescription(self, description):
         """Sets the description of this trading entity."""

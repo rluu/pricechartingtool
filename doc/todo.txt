@@ -4,10 +4,6 @@ Outstanding things to work on going forward:
 
 TODOs for cycle hunter features:
 
-  - Verify PCDs of older versions work fine.
-  - Backup PCDs before merging with PCT.
-  - Merge.
-  
   - Alorithm or computation is slow for LookbackMultiples.  
     Consider profiling, or improving design, or using cloud computing.
     (or all of the above).
@@ -19,7 +15,7 @@ TODOs for cycle hunter features:
 	  - Run as distrubted processes on remote machines.
 	    - hostname, port, and authkey.
 
-	- Handle use cases, such as 'ConnectionRefusedError', 'EOFError', etc.
+	- Handle use cases, such as 'ConnectionRefusedError' (popup dialog notification for the user), 'EOFError' (expected on shutdown of server manager, but if unexpected, then the user should be notified), etc.
 	
       - Segment out the code so that it can run both as multiple processes
         and also asa distributed cloud processing method (with manager,
@@ -34,10 +30,6 @@ TODOs for cycle hunter features:
 
       - Need scripts to start instances, deploy my code (maybe it already lives on the image), then launch the server manager script on a node, and worker script on all the other nodes.
 
-  - Consider setting up the use of virtualenv with cyclehunter.
-
-      - Get README.txt from my EC2 instance.
-  
 ##############################################################################
 
 
@@ -507,3 +499,16 @@ WILL_NOT_DO  - Add square root time modal scale.  (horizontal bar) This is
 WILL_NOT_DO    earlier timestamp square rooted, to the later timestamp square
 WILL_NOT_DO    rooted. and the musical scale is created from that, and then
 WILL_NOT_DO    squared again to get the timestamp.
+
+DONE  - Verify PCDs of older versions work fine.
+DONE  - Backup PCDs before merging with PCT.
+DONE  - Merge.
+  
+DONE  - Fill in the TODO in the code for creating the default LookbackMultiples
+DONE    in PCD version upgrades, and also new PCD charts.
+DONE
+
+DONE  - Consider setting up the use of virtualenv with cyclehunter.
+DONE
+DONE      - Get README.txt from my EC2 instance.
+  
