@@ -8,7 +8,7 @@ distributed.
 
 
 ##############################################################################
-# To run LookbackMultiple calculations distributed.
+# To run LookbackMultiple calculations distributed:
 ##############################################################################
 
 
