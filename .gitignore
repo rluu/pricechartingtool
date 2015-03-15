@@ -20,6 +20,10 @@ src/*.pyc
 # pricechartingtool/resources/generateResourceSourceFile.sh
 src/resources.py
 
+# Ignore some generated CSV files and spreadsheets.
+misc/EphemerisGeneration/cycleHuntingGeneric/*.csv
+misc/EphemerisGeneration/cycleOfRepetition/*.csv
+misc/EphemerisGeneration/cycleOfRepetition/*.ods
 
 # Don't ignore this file.
 !.gitignore

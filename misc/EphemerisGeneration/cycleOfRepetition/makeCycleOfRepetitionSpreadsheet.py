@@ -71,8 +71,8 @@ import logging
 #
 #
 # Directory: cycleHuntingGeneric:
-#ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
-ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/master_2p_ephemeris_nyc_noon.csv"
+#ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/master/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
+ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/master/misc/EphemerisGeneration/cycleHuntingGeneric/master_2p_ephemeris_nyc_noon.csv"
 #
 # Directory: TTTA/ephemeris_studies:
 #ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/master_3p_ephemeris_nyc_noon.csv"
@@ -148,7 +148,7 @@ ephemerisInputFileLongitudeColumn = 113 # 113 corresponds to column "DJ", G.Moon
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/ABX/ABX.txt"
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/AXP/AXP.txt"
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/C/C.txt"
-marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/GG/GG.txt"
+#marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/GG/GG.txt"
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/IBM/IBM.txt"
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/INTC/INTC.txt"
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/JCP/JCP.txt"
@@ -173,6 +173,10 @@ marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/priceba
 # July Wheat.
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/futures/W/W_N_GannStyle_TradingCharts.txt"
 #marketDataInputFilename = "/home/rluu/download/trading/data/futuresData_TradingCharts/EODFutures/Wheat/July/Wheat_CBOT_Pit_And_Electronic_combined/Wheat_July_CBOT_Pit_And_Electronic_combined_1970_to_2014.txt"
+
+# Gold - June contract (GC_M).
+#marketDataInputFilename = "/home/rluu/programming/pricechartingtool/master/data/pricebars/futures/GC/GCM.txt"
+
 
 # Column number for the timestamp.  The timestamp in this column is
 # expected to be in the format "MM/DD/YYYY".
@@ -282,7 +286,7 @@ startingLongitude = 360  # Good starting longitude for all planets.
 #numDegreesElapsedForRepeat = 360 * 23 # For G.Moon.
 #numDegreesElapsedForRepeat = 360 * 29 # For G.Moon.
 #numDegreesElapsedForRepeat = 360 * 34 # For G.Moon.
-numDegreesElapsedForRepeat = 360 * 44 # For G.Moon.
+#numDegreesElapsedForRepeat = 360 * 44 # For G.Moon.
 #numDegreesElapsedForRepeat = 360 * 22 # For G.Moon.
 #numDegreesElapsedForRepeat = 360 * 49 # For G.Moon.
 #numDegreesElapsedForRepeat = 360 * 69 # For G.Moon.
@@ -362,6 +366,7 @@ numDegreesElapsedForRepeat = 360 * 44 # For G.Moon.
 #numDegreesElapsedForRepeat = 288 # For H.Venus/H.Earth
 #numDegreesElapsedForRepeat = 420 # For H.Mercury
 #numDegreesElapsedForRepeat = 49 # For H.Earth
+numDegreesElapsedForRepeat = 60 # For G.Mars
 
 # Ouptut CSV file.  
 #outputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/CountingWheelsFrom_19060609/H.Mars_180_deg_repeats.csv"
@@ -493,6 +498,11 @@ numDegreesElapsedForRepeat = 360 * 44 # For G.Moon.
 #outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Venus_H.Mars_960_deg_or_2.666_circle_repeats_July_Wheat_1969_to_2016.csv"
 #outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Jupiter_233_deg_repeats_July_Wheat.csv"
 
+
+# Gold - June contract (GC_M).
+outputFilename = "/home/rluu/programming/pricechartingtool/master/misc/EphemerisGeneration/cycleOfRepetition/G.Mars_60_deg_repeats_June_Gold_GC_M.csv"
+
+
 # TDW
 #
 #outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/H.Venus_H.Earth_1800_deg_or_5_circle_repeats_TDW_1969_to_2016.csv"
@@ -588,7 +598,7 @@ numDegreesElapsedForRepeat = 360 * 44 # For G.Moon.
 
 # Goldcorp stock.  Symbol: GG
 #outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/GG_G.Sun_sheet_of_3600_deg.csv"
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/GG_G.Moon_sheet_of_44_rev.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleOfRepetition/GG_G.Moon_sheet_of_44_rev.csv"
 
 
 # For logging.

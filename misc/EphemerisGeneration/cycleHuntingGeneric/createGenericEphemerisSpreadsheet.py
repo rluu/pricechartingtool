@@ -75,18 +75,18 @@ hourOfDay = 12
 minuteOfHour = 0
 
 
-#startDt = datetime.datetime(year=1969, month=1, day=1,
-#                            hour=hourOfDay, minute=minuteOfHour,
-#                            tzinfo=timezone)
+startDt = datetime.datetime(year=1969, month=1, day=1,
+                            hour=hourOfDay, minute=minuteOfHour,
+                            tzinfo=timezone)
 #startDt = datetime.datetime(year=1894, month=1, day=1,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
 #startDt = datetime.datetime(year=2016, month=12, day=1,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
-startDt = datetime.datetime(year=1928, month=1, day=1,
-                            hour=hourOfDay, minute=minuteOfHour,
-                            tzinfo=timezone)
+#startDt = datetime.datetime(year=1928, month=1, day=1,
+#                            hour=hourOfDay, minute=minuteOfHour,
+#                            tzinfo=timezone)
 
 
 endDt   = datetime.datetime(year=2018, month=12, day=31,
@@ -104,7 +104,7 @@ endDt   = datetime.datetime(year=2018, month=12, day=31,
 
 
 # Destination output CSV file.
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/cycleHuntingGeneric/generic_daily_ephemeris_nyc_noon.csv"
+outputFilename = "/home/rluu/programming/pricechartingtool/master/misc/EphemerisGeneration/cycleHuntingGeneric/generic_daily_ephemeris_nyc_noon.csv"
 
 
 # Planet names to do calculations for.
