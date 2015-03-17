@@ -91,6 +91,47 @@ class LookbackMultipleParallel:
     
     @staticmethod
     def getDatetimesOfLongitudeDeltaDegreesInFutureParallel(listOfTuples):
+        """
+        Arguments:
+        listOfTuples - List of tuple objects.  Each tuple has the following within it:
+            
+            planetName - str holding the name of the planet to do the
+                         calculations for.
+            centricityType - str value holding either "geocentric",
+                             "topocentric", or "heliocentric".
+            longitudeType - str value holding either "tropical" or "sidereal".
+            referenceDt - datetime.datetime object for the reference time.
+                          The planet longitude at this moment is taken as
+                          the zero-point.  Increments or decrements in time 
+                          are started from this moment in time.
+            desiredDeltaDegrees - float value for the number of longitude degrees
+                            elapsed from the longitude at 'referenceDt'.
+            maxErrorTd - datetime.timedelta object holding the maximum
+                         time difference between the exact planetary
+                         combination timestamp, and the one calculated.
+                         This would define the accuracy of the
+                         calculations.  
+            locationLongitudeDegrees - float value holding the
+                          location longitude in degrees.  
+                          West longitudes are negative,
+                          East longitudes are positive.
+                          Value should be in the range of -180 to 180.
+            locationLatitudeDegrees - float value holding the
+                          location latitude in degrees.
+                          North latitudes are positive, 
+                          South latitudes are negative.  
+                          Value should be in the range of -90 to 90.
+            locationElevationMeters - float value holding the
+                          altitude in meters.
+            
+        Returns:
+        List of list of datetime.datetime objects.
+        Each list within the list corresponds to the
+        respective tuple within listOfTuples
+        The datetime.datetime objects are the timestamps
+        where the planet is at the elapsed number of
+        degrees away from the longitude at 'referenceDt'.
+        """
 
         listOfResults = \
             LookbackMultipleParallel.pool.map(
@@ -100,7 +141,48 @@ class LookbackMultipleParallel:
 
     @staticmethod
     def getDatetimesOfLongitudeDeltaDegreesInPastParallel(listOfTuples):
-
+        """
+        Arguments:
+        listOfTuples - List of tuple objects.  Each tuple has the following within it:
+            
+            planetName - str holding the name of the planet to do the
+                         calculations for.
+            centricityType - str value holding either "geocentric",
+                             "topocentric", or "heliocentric".
+            longitudeType - str value holding either "tropical" or "sidereal".
+            referenceDt - datetime.datetime object for the reference time.
+                          The planet longitude at this moment is taken as
+                          the zero-point.  Increments or decrements in time 
+                          are started from this moment in time.
+            desiredDeltaDegrees - float value for the number of longitude degrees
+                            elapsed from the longitude at 'referenceDt'.
+            maxErrorTd - datetime.timedelta object holding the maximum
+                         time difference between the exact planetary
+                         combination timestamp, and the one calculated.
+                         This would define the accuracy of the
+                         calculations.  
+            locationLongitudeDegrees - float value holding the
+                          location longitude in degrees.  
+                          West longitudes are negative,
+                          East longitudes are positive.
+                          Value should be in the range of -180 to 180.
+            locationLatitudeDegrees - float value holding the
+                          location latitude in degrees.
+                          North latitudes are positive, 
+                          South latitudes are negative.  
+                          Value should be in the range of -90 to 90.
+            locationElevationMeters - float value holding the
+                          altitude in meters.
+            
+        Returns:
+        List of list of datetime.datetime objects.
+        Each list within the list corresponds to the
+        respective tuple within listOfTuples
+        The datetime.datetime objects are the timestamps
+        where the planet is at the elapsed number of
+        degrees away from the longitude at 'referenceDt'.
+        """
+        
         listOfResults = \
             LookbackMultipleParallel.pool.map(\
                 getDatetimesOfLongitudeDeltaDegreesInPast, listOfTuples)

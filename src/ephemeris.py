@@ -453,7 +453,7 @@ class Ephemeris:
                           East longitudes are positive.
                           Value should be in the range of -180 to 180.
         geoLatitudeDeg  - Latitude in degrees.  North latitudes are positive, 
-                          south latitudes are negative.  
+                          South latitudes are negative.  
                           Value should be in the range of -90 to 90.
         altitudeMeters  - Altitude in meters.
         """

@@ -42373,11 +42373,11 @@ class PriceBarChartWidget(QWidget):
 
             argsTupleList.append(endLookbackArgs)
 
-            # Compute results in parallel.
+            # Compute results.
             resultsList = \
-                LookbackMultipleParallel.\
-                getDatetimesOfLongitudeDeltaDegreesInPastParallel(argsTupleList)
-    
+                self._getLookbackMultipleDatetimesOfLongitudeDeltaDegreesInPast(\
+                    argsTupleList)
+            
             startLookbackDts = resultsList[0]
             endLookbackDts = resultsList[1]
             
@@ -42487,10 +42487,9 @@ class PriceBarChartWidget(QWidget):
                            Ephemeris.datetimeToDayStr(endPriceBarSearchDt))
                 self.log.info(infoMsg)
             
-            # Compute results in parallel.
+            # Compute results.
             resultsList = \
-                LookbackMultipleParallel.\
-                getDatetimesOfLongitudeDeltaDegreesInFutureParallel(\
+                self._getLookbackMultipleDatetimesOfLongitudeDeltaDegreesInFuture(\
                     argsTupleList)
     
             if self.log.isEnabledFor(logging.INFO) == True:
@@ -42573,7 +42572,315 @@ class PriceBarChartWidget(QWidget):
         
         
         self.log.debug("Exiting drawLookbackMultiplePriceBars()")
+
+
+    def _getLookbackMultipleDatetimesOfLongitudeDeltaDegreesInFuture(self, argsTupleList):
+        """Makes LookbackMultiple calculations into the future by
+        one of the following methods, depending on what is
+        configured in QSettings (set via AppPreferencesEditDialog).
+
+        The possible calculation model/methods are:
+          - Local serial calculations.
+          - Local parallel calculations (multiple processes).
+          - Remote parallel calculations (multiple processes, distributed).
+            
+        Arguments:
+        argsTupleList - List of tuple objects.  Each tuple has the following within it:
+            
+            planetName - str holding the name of the planet to do the
+                         calculations for.
+            centricityType - str value holding either "geocentric",
+                             "topocentric", or "heliocentric".
+            longitudeType - str value holding either "tropical" or "sidereal".
+            referenceDt - datetime.datetime object for the reference time.
+                          The planet longitude at this moment is taken as
+                          the zero-point.  Increments or decrements in time 
+                          are started from this moment in time.
+            desiredDeltaDegrees - float value for the number of longitude degrees
+                            elapsed from the longitude at 'referenceDt'.
+            maxErrorTd - datetime.timedelta object holding the maximum
+                         time difference between the exact planetary
+                         combination timestamp, and the one calculated.
+                         This would define the accuracy of the
+                         calculations.  
+            locationLongitudeDegrees - float value holding the
+                          location longitude in degrees.  
+                          West longitudes are negative,
+                          East longitudes are positive.
+                          Value should be in the range of -180 to 180.
+            locationLatitudeDegrees - float value holding the
+                          location latitude in degrees.
+                          North latitudes are positive, 
+                          South latitudes are negative.  
+                          Value should be in the range of -90 to 90.
+            locationElevationMeters - float value holding the
+                          altitude in meters.
+            
+        Returns:
+        List of list of datetime.datetime objects.
+        Each list within the list corresponds to the
+        respective tuple within argsTupleList
+        The datetime.datetime objects are the timestamps
+        where the planet is at the elapsed number of
+        degrees away from the longitude at 'referenceDt'.
+        """
         
+        self.log.debug("Entered _getLookbackMultipleDatetimesOfLongitudeDeltaDegreesInFuture()")
+
+        # Return value.
+        rv = []
+
+        # Obtain the QSettings value for the LookbackMultiple
+        # calculation model/architecture to use.
+        settings = QSettings()
+        key = SettingsKeys.lookbackMultipleCalcModelKey
+        value = settings.value(key, \
+            SettingsKeys.lookbackMultipleCalcModelDefValue,
+            type=str)
+        
+        if value == str(LookbackMultipleCalcModel.local_serial):
+            self.log.debug("Doing LookbackMultiple calculations local serial.")
+            
+            for argsTuple in argsTupleList:
+                
+                # Extract variable values from the tuple.
+                planetName = argsTuple[0]
+                centricityType = argsTuple[1]
+                longitudeType = argsTuple[2]
+                referenceDt = argsTuple[3]
+                desiredDeltaDegrees = argsTuple[4]
+                maxErrorTd = argsTuple[5]
+                locationLongitudeDegrees = argsTuple[6]
+                locationLatitudeDegrees = argsTuple[7]
+                locationElevationMeters = argsTuple[8]
+
+                # Initialize ephemeris.
+                LookbackMultipleUtils.initializeEphemeris(\
+                    locationLongitudeDegrees, 
+                    locationLatitudeDegrees,
+                    locationElevationMeters)
+                
+                # Do LookbackMultiple calculations.
+                dts = \
+                    LookbackMultipleUtils.\
+                    getDatetimesOfLongitudeDeltaDegreesInFuture(\
+                        planetName,
+                        centricityType,
+                        longitudeType,
+                        referenceDt,
+                        desiredDeltaDegrees,
+                        maxErrorTd)
+
+                rv.append(dts)
+                
+        elif value == str(LookbackMultipleCalcModel.local_parallel):
+            self.log.debug("Doing LookbackMultiple calculations local parallel.")
+
+            # Run calculations in parallel, locally.
+            rv = \
+               LookbackMultipleParallel.\
+               getDatetimesOfLongitudeDeltaDegreesInFutureParallel(\
+                   argsTupleList)
+            
+        elif value == str(LookbackMultipleCalcModel.remote_parallel):
+            self.log.debug("Doing LookbackMultiple calculations local remote.")
+
+            # Get QSettings values for what server to connect to, for
+            # submitting tasks and retrieving results.
+
+            # Server address (str).
+            # Either a hostname or an IP address.
+            key = SettingsKeys.lookbackMultipleCalcRemoteServerAddressKey
+            value = settings.value(key, \
+                SettingsKeys.lookbackMultipleCalcRemoteServerAddressDefValue,
+                type=str)
+            serverAddress = value
+
+            # Server port number (int).
+            key = SettingsKeys.lookbackMultipleCalcRemoteServerPortKey
+            value = settings.value(key, \
+                SettingsKeys.lookbackMultipleCalcRemoteServerPortDefValue,
+                type=int)
+            serverPort = value
+            
+            # Server auth key (bytes).
+            key = SettingsKeys.lookbackMultipleCalcRemoteServerAuthKeyKey
+            value = settings.value(key, \
+                SettingsKeys.lookbackMultipleCalcRemoteServerAuthKeyDefValue,
+                type=str)
+            serverAuthKey = value.encode("utf-8")
+            
+            
+            # TODO: add code here.
+            
+        else:
+            errorMsg = "QSettings had an unknown or unsupported " + \
+                       "LookbackMultiple calculation model/architecture.  " + \
+                       "The calculation was aborted."
+            self.log.error(errMsg)
+            QMessageBox.warning(self, "LookbackMultiple",
+                                errorMsg,
+                                QMessageBox.Ok,
+                                QMessageBox.NoButton);
+
+
+        self.log.debug("Exiting _getLookbackMultipleDatetimesOfLongitudeDeltaDegreesInFuture()")
+        return rv
+
+
+    def _getLookbackMultipleDatetimesOfLongitudeDeltaDegreesInPast(self, argsTupleList):
+        """Makes LookbackMultiple calculations into the past by
+        one of the following methods, depending on what is
+        configured in QSettings (set via AppPreferencesEditDialog).
+
+        The possible calculation model/methods are:
+          - Local serial calculations.
+          - Local parallel calculations (multiple processes).
+          - Remote parallel calculations (multiple processes, distributed).
+            
+        Arguments:
+        argsTupleList - List of tuple objects.  Each tuple has the following within it:
+            
+            planetName - str holding the name of the planet to do the
+                         calculations for.
+            centricityType - str value holding either "geocentric",
+                             "topocentric", or "heliocentric".
+            longitudeType - str value holding either "tropical" or "sidereal".
+            referenceDt - datetime.datetime object for the reference time.
+                          The planet longitude at this moment is taken as
+                          the zero-point.  Increments or decrements in time 
+                          are started from this moment in time.
+            desiredDeltaDegrees - float value for the number of longitude degrees
+                            elapsed from the longitude at 'referenceDt'.
+            maxErrorTd - datetime.timedelta object holding the maximum
+                         time difference between the exact planetary
+                         combination timestamp, and the one calculated.
+                         This would define the accuracy of the
+                         calculations.  
+            locationLongitudeDegrees - float value holding the
+                          location longitude in degrees.  
+                          West longitudes are negative,
+                          East longitudes are positive.
+                          Value should be in the range of -180 to 180.
+            locationLatitudeDegrees - float value holding the
+                          location latitude in degrees.
+                          North latitudes are positive, 
+                          South latitudes are negative.  
+                          Value should be in the range of -90 to 90.
+            locationElevationMeters - float value holding the
+                          altitude in meters.
+            
+        Returns:
+        List of list of datetime.datetime objects.
+        Each list within the list corresponds to the
+        respective tuple within argsTupleList
+        The datetime.datetime objects are the timestamps
+        where the planet is at the elapsed number of
+        degrees away from the longitude at 'referenceDt'.
+        """
+
+        self.log.debug("Entered _getLookbackMultipleDatetimesOfLongitudeDeltaDegreesInPast()")
+
+        # Return value.
+        rv = []
+
+        # Obtain the QSettings value for the LookbackMultiple
+        # calculation model/architecture to use.
+        settings = QSettings()
+        key = SettingsKeys.lookbackMultipleCalcModelKey
+        value = settings.value(key, \
+            SettingsKeys.lookbackMultipleCalcModelDefValue,
+            type=str)
+        
+        if value == str(LookbackMultipleCalcModel.local_serial):
+            self.log.debug("Doing LookbackMultiple calculations local serial.")
+            
+            for argsTuple in argsTupleList:
+                
+                # Extract variable values from the tuple.
+                planetName = argsTuple[0]
+                centricityType = argsTuple[1]
+                longitudeType = argsTuple[2]
+                referenceDt = argsTuple[3]
+                desiredDeltaDegrees = argsTuple[4]
+                maxErrorTd = argsTuple[5]
+                locationLongitudeDegrees = argsTuple[6]
+                locationLatitudeDegrees = argsTuple[7]
+                locationElevationMeters = argsTuple[8]
+
+                # Initialize ephemeris.
+                LookbackMultipleUtils.initializeEphemeris(\
+                    locationLongitudeDegrees, 
+                    locationLatitudeDegrees,
+                    locationElevationMeters)
+                
+                # Do LookbackMultiple calculations.
+                dts = \
+                    LookbackMultipleUtils.\
+                    getDatetimesOfLongitudeDeltaDegreesInPast(\
+                        planetName,
+                        centricityType,
+                        longitudeType,
+                        referenceDt,
+                        desiredDeltaDegrees,
+                        maxErrorTd)
+
+                rv.append(dts)
+                
+        elif value == str(LookbackMultipleCalcModel.local_parallel):
+            self.log.debug("Doing LookbackMultiple calculations local parallel.")
+
+            # Run calculations in parallel, locally.
+            rv = \
+               LookbackMultipleParallel.\
+               getDatetimesOfLongitudeDeltaDegreesInPastParallel(\
+                   argsTupleList)
+            
+        elif value == str(LookbackMultipleCalcModel.remote_parallel):
+            self.log.debug("Doing LookbackMultiple calculations local remote.")
+
+            # Get QSettings values for what server to connect to, for
+            # submitting tasks and retrieving results.
+
+            # Server address (str).
+            # Either a hostname or an IP address.
+            key = SettingsKeys.lookbackMultipleCalcRemoteServerAddressKey
+            value = settings.value(key, \
+                SettingsKeys.lookbackMultipleCalcRemoteServerAddressDefValue,
+                type=str)
+            serverAddress = value
+
+            # Server port number (int).
+            key = SettingsKeys.lookbackMultipleCalcRemoteServerPortKey
+            value = settings.value(key, \
+                SettingsKeys.lookbackMultipleCalcRemoteServerPortDefValue,
+                type=int)
+            serverPort = value
+            
+            # Server auth key (bytes).
+            key = SettingsKeys.lookbackMultipleCalcRemoteServerAuthKeyKey
+            value = settings.value(key, \
+                SettingsKeys.lookbackMultipleCalcRemoteServerAuthKeyDefValue,
+                type=str)
+            serverAuthKey = value.encode("utf-8")
+            
+            
+            # TODO: add code here.
+            
+        else:
+            errorMsg = "QSettings had an unknown or unsupported " + \
+                       "LookbackMultiple calculation model/architecture.  " + \
+                       "The calculation was aborted."
+            self.log.error(errMsg)
+            QMessageBox.warning(self, "LookbackMultiple",
+                                errorMsg,
+                                QMessageBox.Ok,
+                                QMessageBox.NoButton);
+
+
+        self.log.debug("Exiting _getLookbackMultipleDatetimesOfLongitudeDeltaDegreesInPast()")
+        return rv
+
     def clearAllLookbackMultiplePriceBars(self):
         """Causes the removal of all LookbackMultiplePriceBarGraphicsItems.
         

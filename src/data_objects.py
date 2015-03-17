@@ -11,6 +11,8 @@ import uuid
 # For inspect.stack().
 import inspect
 
+from enum import Enum
+
 # For timestamps and timezone information.
 import datetime
 import pytz
@@ -3892,6 +3894,16 @@ TODO:  Think about what variables and information would be needed in this class.
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + LookbackMultiplePriceBar.__name__ +
                        " object of version {}".format(self.classVersion))
+
+
+class LookbackMultipleCalcModel(Enum):
+    """Enum that holds various possibilities for the
+    architecture/model to use for doing LookbackMultiple calculations.
+    """
+
+    local_serial = 1
+    local_parallel = 2
+    remote_parallel = 3
 
 
 class PriceBarChartArtifact:

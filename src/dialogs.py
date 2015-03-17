@@ -32,6 +32,7 @@ from data_objects import BirthInfo
 from data_objects import PriceBarChartScaling
 from data_objects import LookbackMultiple
 from data_objects import LookbackMultiplePriceBar
+from data_objects import LookbackMultipleCalcModel
 from data_objects import PriceBarChartSettings
 
 # For geocoding.
@@ -1400,6 +1401,8 @@ class AppPreferencesEditWidget(QWidget):
         # Build QWidgets that go into the QTabWidget.
         self.priceBarChartSettingsGroupBox =  \
             self._buildPriceBarChartSettingsWidget()
+        self.lookbackMultipleSettingsGroupBox =  \
+            self._buildLookbackMultipleSettingsWidget()
         self.planetCalculationsSettingsGroupBox = \
             self._buildPlanetCalculationsSettingsWidget()
         self.planetEnabledForPlanetaryInfoTableSettingsGroupBox = \
@@ -1427,6 +1430,8 @@ class AppPreferencesEditWidget(QWidget):
         self.tabWidget = QTabWidget()
         self.tabWidget.addTab(self.priceBarChartSettingsGroupBox,
                               "PriceBarChart")
+        self.tabWidget.addTab(self.lookbackMultipleSettingsGroupBox,
+                              "LookbackMultiple")
         self.tabWidget.addTab(self.planetCalculationsSettingsGroupBox,
                               "Planets Enabled")
         self.tabWidget.addTab(self.planetEnabledForPlanetaryInfoTableSettingsGroupBox,
@@ -1483,6 +1488,8 @@ class AppPreferencesEditWidget(QWidget):
         # Button at bottom to reset to defaults.
         self.priceBarResetAllToDefaultButton.clicked.\
             connect(self._handlePriceBarResetAllToDefaultButtonClicked)
+        self.lookbackMultipleResetAllToDefaultButton.clicked.\
+            connect(self._handleLookbackMultipleResetAllToDefaultButtonClicked)
         self.planetCalculationsResetAllToDefaultButton.clicked.\
             connect(self._handlePlanetCalculationsResetAllToDefaultButtonClicked)
         self.planetEnabledForPlanetaryInfoTableResetAllToDefaultButton.clicked.\
@@ -1631,6 +1638,106 @@ class AppPreferencesEditWidget(QWidget):
         self.priceBarChartSettingsGroupBox.setLayout(vlayout)
 
         return self.priceBarChartSettingsGroupBox
+
+    def _buildLookbackMultipleSettingsWidget(self):
+        """Builds a QWidget for editing the settings of the
+        LookbackMultiple calculation model and parameters.
+        
+        Returned widget is self.lookbackMultipleSettingsGroupBox
+        """
+        
+        # LookbackMultiple
+        self.lookbackMultipleSettingsGroupBox = \
+            QGroupBox("LookbackMultiple settings:")
+
+        # LookbackMultiple calculation model.
+        self.lookbackMultipleCalcModelGroupBox = \
+            QGroupBox("Architecture or model used for calculations:")
+
+        self.lookbackMultipleLocalSerialRadioButton = \
+            QRadioButton("Local / Serial")
+        self.lookbackMultipleLocalParallelRadioButton = \
+            QRadioButton("Local / Parallel")
+        self.lookbackMultipleRemoteParallelRadioButton = \
+            QRadioButton("Remote / Parallel")
+
+        # LookbackMultiple remote parallel settings.
+        self.lookbackMultipleRemoteParallelGroupBox = \
+            QGroupBox("Remote / Parallel server settings:")
+
+        self.lookbackMultipleRemoteParallelSettingsLabel = \
+            QLabel("Below are the settings to connect to a " + \
+                   "remote multiprocessing Manager server, as " + \
+                   "started by the 'lookbackmultiple_server.py' " + \
+                   "script.  Please see that script for " + \
+                   "details on how to get the remote parallel setup " + \
+                   "running.  This UI connects the server as " + \
+                   "the client tasker, to submit " + \
+                   "LookbackMultiple work tasks.")
+        self.lookbackMultipleRemoteParallelSettingsLabel.setWordWrap(True)
+        
+        # Remote parallel: server address (str).
+        # This can be a hostname or an IP address.
+        self.lookbackMultipleServerAddressLabel = QLabel("Server address: ")
+        self.lookbackMultipleServerAddressLineEdit = QLineEdit()
+
+        # Remote parallel: server port (int).
+        self.lookbackMultipleServerPortLabel = QLabel("Server port: ")
+        self.lookbackMultipleServerPortSpinBox = QSpinBox()
+        self.lookbackMultipleServerPortSpinBox.setMinimum(1)
+        self.lookbackMultipleServerPortSpinBox.setMaximum(65535)
+        
+        # Remote parallel: server auth key (str).
+        # This is a str that will be converted to binary bytes.
+        self.lookbackMultipleServerAuthKeyLabel = QLabel("Server auth key (password): ")
+        self.lookbackMultipleServerAuthKeyLineEdit = QLineEdit()
+
+        # Button for resetting all the above edit widgets.
+        self.lookbackMultipleResetAllToDefaultButton = \
+            QPushButton("Reset all the above to original default values")
+
+        # Create the layouts.
+        radioButtonsLayout = QVBoxLayout()
+        radioButtonsLayout.\
+            addWidget(self.lookbackMultipleLocalSerialRadioButton)
+        radioButtonsLayout.\
+            addWidget(self.lookbackMultipleLocalParallelRadioButton)
+        radioButtonsLayout.\
+            addWidget(self.lookbackMultipleRemoteParallelRadioButton)
+        self.lookbackMultipleCalcModelGroupBox.\
+            setLayout(radioButtonsLayout)
+        
+        formLayout = QFormLayout()
+        formLayout.addRow(self.lookbackMultipleServerAddressLabel,
+                          self.lookbackMultipleServerAddressLineEdit)
+        formLayout.addRow(self.lookbackMultipleServerPortLabel,
+                          self.lookbackMultipleServerPortSpinBox)
+        formLayout.addRow(self.lookbackMultipleServerAuthKeyLabel,
+                          self.lookbackMultipleServerAuthKeyLineEdit)
+        
+        remoteParallelSettingsLayout = QVBoxLayout()
+        remoteParallelSettingsLayout.\
+            addWidget(self.lookbackMultipleRemoteParallelSettingsLabel)
+        remoteParallelSettingsLayout.\
+            addLayout(formLayout)
+
+        self.lookbackMultipleRemoteParallelGroupBox.\
+            setLayout(remoteParallelSettingsLayout)
+
+        hlayout = QHBoxLayout()
+        hlayout.addWidget(self.lookbackMultipleResetAllToDefaultButton)
+        hlayout.addStretch()
+        
+        mainLayout = QVBoxLayout()
+        mainLayout.addWidget(self.lookbackMultipleCalcModelGroupBox)
+        mainLayout.addWidget(self.lookbackMultipleRemoteParallelGroupBox)
+        mainLayout.addStretch()
+        mainLayout.addLayout(hlayout)
+        
+        self.lookbackMultipleSettingsGroupBox.\
+            setLayout(mainLayout)
+
+        return self.lookbackMultipleSettingsGroupBox
 
     def _buildPlanetCalculationsSettingsWidget(self):
         """Builds a QWidget for editing the settings of what Planets
@@ -10652,6 +10759,7 @@ class AppPreferencesEditWidget(QWidget):
         self.log.debug("Entered loadValuesFromSettings()")
 
         self._priceBarLoadValuesFromSettings()
+        self._lookbackMultipleLoadValuesFromSettings()
         self._planetCalculationsLoadValuesFromSettings()
         self._planetEnabledForPlanetaryInfoTableLoadValuesFromSettings()
         self._planetEnabledForDeclinationLoadValuesFromSettings()
@@ -10679,6 +10787,7 @@ class AppPreferencesEditWidget(QWidget):
         self.log.debug("Entered saveValuesToSettings()")
 
         self._priceBarSaveValuesToSettings()
+        self._lookbackMultipleSaveValuesToSettings()
         self._planetCalculationsSaveValuesToSettings()
         self._planetEnabledForPlanetaryInfoTableSaveValuesToSettings()
         self._planetEnabledForDeclinationSaveValuesToSettings()
@@ -10741,6 +10850,63 @@ class AppPreferencesEditWidget(QWidget):
             type=QColor)
         self.barCountGraphicsItemTextColorEditButton.setColor(value)
 
+
+    def _lookbackMultipleLoadValuesFromSettings(self):
+        """Loads the widgets with values from the QSettings object.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously.
+        This is so that the QSettings constructor can be called without 
+        any parameters specified.
+        """
+
+        settings = QSettings()
+
+        # LookbackMultiple calculation model.
+        key = SettingsKeys.lookbackMultipleCalcModelKey
+        value = settings.value(key, \
+            SettingsKeys.lookbackMultipleCalcModelDefValue,
+            type=str)
+        if value == str(LookbackMultipleCalcModel.local_serial):
+            self.lookbackMultipleLocalSerialRadioButton.setChecked(True)
+        elif value == str(LookbackMultipleCalcModel.local_parallel):
+            self.lookbackMultipleLocalParallelRadioButton.setChecked(True)
+        elif value == str(LookbackMultipleCalcModel.remote_parallel):
+            self.lookbackMultipleRemoteParallelRadioButton.setChecked(True)
+        else:
+            self.log.error(\
+                "Unknown or unsupported LookbackMultiple calculation model.")
+            self.lookbackMultipleLocalParallelRadioButton.setChecked(True)
+            
+        # LookbackMultiple remote parallel settings.
+
+        # Remote parallel: server address (str).
+        # This can be a hostname or an IP address.
+        key = SettingsKeys.lookbackMultipleCalcRemoteServerAddressKey
+        value = settings.value(key, \
+            SettingsKeys.lookbackMultipleCalcRemoteServerAddressDefValue,
+            type=str)
+        self.lookbackMultipleServerAddressLineEdit.\
+            setText(value)
+        
+        # Remote parallel: server port (int).
+        key = SettingsKeys.lookbackMultipleCalcRemoteServerPortKey
+        value = settings.value(key, \
+            SettingsKeys.lookbackMultipleCalcRemoteServerPortDefValue,
+            type=int)
+        self.lookbackMultipleServerPortSpinBox.\
+            setValue(value)
+
+        # Remote parallel: server auth key (str).
+        # This is a str that will be converted to binary bytes.
+        key = SettingsKeys.lookbackMultipleCalcRemoteServerAuthKeyKey
+        value = settings.value(key, \
+            SettingsKeys.lookbackMultipleCalcRemoteServerAuthKeyDefValue,
+            type=str)
+        self.lookbackMultipleServerAuthKeyLineEdit.\
+            setText(value)
+        
     def _planetCalculationsLoadValuesFromSettings(self):
         """Loads the widgets with values from the QSettings object.
 
@@ -19370,6 +19536,76 @@ class AppPreferencesEditWidget(QWidget):
 
         # Explicitly sync.
         settings.sync()
+        
+    def _lookbackMultipleSaveValuesToSettings(self):
+        """Loads the widgets with values from the QSettings object.
+
+        This method uses QSettings and assumes that the
+        calls to QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called previously.
+        This is so that the QSettings constructor can be called without 
+        any parameters specified.
+        """
+
+        settings = QSettings()
+
+        # LookbackMultiple calculation model.
+        key = SettingsKeys.lookbackMultipleCalcModelKey
+        newValue = ""
+        if self.lookbackMultipleLocalSerialRadioButton.isChecked() == True:
+            newValue = str(LookbackMultipleCalcModel.local_serial)
+        elif self.lookbackMultipleLocalParallelRadioButton.isChecked() == True:
+            newValue = str(LookbackMultipleCalcModel.local_parallel)
+        elif self.lookbackMultipleRemoteParallelRadioButton.isChecked() == True:
+            newValue = str(LookbackMultipleCalcModel.remote_parallel)
+        else:
+            self.log.error(\
+                "None of the expected radio buttons were checked for " + \
+                "the LookbackMultiple calculation model !")
+            newValue = SettingsKeys.lookbackMultipleCalcModelDefValue
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+            
+        # LookbackMultiple remote parallel settings.
+
+        # Remote parallel: server address (str).
+        # This can be a hostname or an IP address.
+        key = SettingsKeys.lookbackMultipleCalcRemoteServerAddressKey
+        newValue = \
+            self.lookbackMultipleServerAddressLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+        
+        # Remote parallel: server port (int).
+        key = SettingsKeys.lookbackMultipleCalcRemoteServerPortKey
+        newValue = \
+            self.lookbackMultipleServerPortSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=int)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # Remote parallel: server auth key (str).
+        # This is a str that will be converted to binary bytes.
+        key = SettingsKeys.lookbackMultipleCalcRemoteServerAuthKeyKey
+        value = \
+            self.lookbackMultipleServerAuthKeyLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
         
     def _planetCalculationsSaveValuesToSettings(self):
         """Saves the values in the widgets to the QSettings object.
@@ -31666,6 +31902,42 @@ class AppPreferencesEditWidget(QWidget):
         self._handleLowerPriceBarColorResetButtonClicked()
         self._handleBarCountGraphicsItemColorResetButtonClicked()
         self._handleBarCountGraphicsItemTextColorResetButtonClicked()
+
+
+    def _handleLookbackMultipleResetAllToDefaultButtonClicked(self):
+        """Called when the lookbackMultipleResetAllToDefaultButton is
+        clicked.  Resets the all the widget values in this widget tab
+        to the default values.
+        """
+        
+        # LookbackMultiple calculation model.
+        value = str(SettingsKeys.lookbackMultipleCalcModelDefValue)
+        if value == str(LookbackMultipleCalcModel.local_serial):
+            self.lookbackMultipleLocalSerialRadioButton.setChecked(True)
+        elif value == str(LookbackMultipleCalcModel.local_parallel):
+            self.lookbackMultipleLocalParallelRadioButton.setChecked(True)
+        elif value == str(LookbackMultipleCalcModel.remote_parallel):
+            self.lookbackMultipleRemoteParallelRadioButton.setChecked(True)
+        else:
+            self.log.error(\
+                "Unknown or unsupported LookbackMultiple calculation model.")
+            self.lookbackMultipleLocalParallelRadioButton.setChecked(True)
+        
+        # LookbackMultiple remote parallel settings.
+        
+        # Remote parallel: server address (str).
+        # This can be a hostname or an IP address.
+        self.lookbackMultipleServerAddressLineEdit.setText(\
+            SettingsKeys.lookbackMultipleCalcRemoteServerAddressDefValue)
+        
+        # Remote parallel: server port (int).
+        self.lookbackMultipleServerPortSpinBox.setValue(\
+            SettingsKeys.lookbackMultipleCalcRemoteServerPortDefValue)
+        
+        # Remote parallel: server auth key (str).
+        # This is a str that will be converted to binary bytes.
+        self.lookbackMultipleServerAuthKeyLineEdit.setText(\
+            SettingsKeys.lookbackMultipleCalcRemoteServerAuthKeyDefValue)
 
     def _handlePlanetCalculationsResetAllToDefaultButtonClicked(self):
         """Called when the planetCalculationsResetAllToDefaultButton is
@@ -62134,6 +62406,10 @@ if __name__=="__main__":
     # Create the Qt application.
     app = QApplication(sys.argv)
 
+    # Exit the app when all windows are closed.
+    app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
+    app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))
+
     # Various tests to run:
 
     #testPriceChartDocumentLoadDataFileWizardPage()
@@ -62151,11 +62427,8 @@ if __name__=="__main__":
     #testPriceBarEditDialog()
     #testPriceBarsCompareDialog()
     #testLookbackMultiplePriceBarEditDialog()
-    
-    # Exit the app when all windows are closed.
-    app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
-    app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))
 
+    
     # Quit.
     print("Exiting.")
     sys.exit()

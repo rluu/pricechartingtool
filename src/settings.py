@@ -34,6 +34,43 @@ class SettingsKeys():
     # QSettings default value for the lowerPriceBarColor (QColor object).
     lowerPriceBarColorSettingsDefValue = QColor(128, 0, 0, 255)
 
+    # QSettings key for the computation model of LookbackMultiples
+    # (LookbackMultipleCalcModel Enum, expressed as a str).
+    lookbackMultipleCalcModelKey = \
+        "lookbackmultiple/calcModel"
+    
+    # QSettings default value for the computation model of LookbackMultiples
+    # (LookbackMultipleCalcModel Enum, expressed as a str).
+    lookbackMultipleCalcModelDefValue = \
+        "LookbackMultipleCalcModel.local_parallel"
+    
+    # QSettings key for the server address used for LookbackMultiple
+    # calculation, running parallel distributed.
+    lookbackMultipleCalcRemoteServerAddressKey = \
+        "lookbackmultiple/serverAddress"
+    
+    # QSettings default value for the server address used for
+    # LookbackMultiple calculation, running parallel distributed.
+    lookbackMultipleCalcRemoteServerAddressDefValue = "localhost"
+    
+    # QSettings key for the server port used for LookbackMultiple
+    # calculation, running parallel distributed.
+    lookbackMultipleCalcRemoteServerPortKey = \
+        "lookbackmultiple/serverPort"
+    
+    # QSettings default value for the server port used for
+    # LookbackMultiple calculation, running parallel distributed.
+    lookbackMultipleCalcRemoteServerPortDefValue = 1940
+    
+    # QSettings key for the server auth key used for LookbackMultiple
+    # calculation, running parallel distributed.
+    lookbackMultipleCalcRemoteServerAuthKeyKey = \
+        "lookbackmultiple/serverAuthKey"
+    
+    # QSettings default value for the server auth key used for
+    # LookbackMultiple calculation, running parallel distributed.
+    lookbackMultipleCalcRemoteServerAuthKeyDefValue = "password"
+    
     # QSettings key for the BarCountGraphicsItem color (QColor object).
     barCountGraphicsItemColorSettingsKey = \
         "ui/pricebarchart/barCountGraphicsItemColor"
