@@ -1718,8 +1718,8 @@ class AppPreferencesEditWidget(QWidget):
         remoteParallelSettingsLayout = QVBoxLayout()
         remoteParallelSettingsLayout.\
             addWidget(self.lookbackMultipleRemoteParallelSettingsLabel)
-        remoteParallelSettingsLayout.\
-            addLayout(formLayout)
+        remoteParallelSettingsLayout.addSpacing(10)
+        remoteParallelSettingsLayout.addLayout(formLayout)
 
         self.lookbackMultipleRemoteParallelGroupBox.\
             setLayout(remoteParallelSettingsLayout)
@@ -19598,7 +19598,7 @@ class AppPreferencesEditWidget(QWidget):
         # Remote parallel: server auth key (str).
         # This is a str that will be converted to binary bytes.
         key = SettingsKeys.lookbackMultipleCalcRemoteServerAuthKeyKey
-        value = \
+        newValue = \
             self.lookbackMultipleServerAuthKeyLineEdit.text()
         if settings.contains(key):
             oldValue = settings.value(key, type=str)

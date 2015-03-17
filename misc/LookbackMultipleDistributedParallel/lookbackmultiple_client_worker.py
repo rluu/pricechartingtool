@@ -188,16 +188,21 @@ def runClientWorker():
                     desiredDeltaDegrees,
                     maxErrorTd)
                 
+            log.debug("len(resultDts) == {}".format(len(resultDts)))
+
             result = (argsTuple, resultDts)
                 
             resultQueue.put(result)
                 
             taskQueue.task_done()
 
+            log.debug("Task done.")
+
         elif methodToRun == "getDatetimesOfLongitudeDeltaDegreesInPast":
+
             resultDts = \
                 LookbackMultipleUtils.\
-                getDatetimesOfLongitudeDeltaDegreesInFuture(\
+                getDatetimesOfLongitudeDeltaDegreesInPast(\
                     planetName, 
                     centricityType,
                     longitudeType,
@@ -205,11 +210,15 @@ def runClientWorker():
                     desiredDeltaDegrees,
                     maxErrorTd)
 
+            log.debug("len(resultDts) == {}".format(len(resultDts)))
+
             result = (argsTuple, resultDts)
                 
             resultQueue.put(result)
             
             taskQueue.task_done()
+
+            log.debug("Task done.")
 
 ##############################################################################
 

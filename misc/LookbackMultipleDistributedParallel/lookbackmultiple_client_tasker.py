@@ -200,11 +200,12 @@ def speedTestDistributedParallel(taskQueue, resultQueue):
                       format(argsTuple))
             taskQueue.put(argsTuple)
 
-        log.info("Submitting of {} tasks completed.".\
+        log.info("Submitting {} tasks completed.".\
                   format(len(argsTupleList)))
             
         # Block, waiting for all the tasks to complete.
         log.info("Waiting for all tasks to complete ...")
+
         taskQueue.join()
 
         #log.debug("Tasks completed.  Now analyzing results ...")
@@ -249,11 +250,15 @@ def speedTestDistributedParallel(taskQueue, resultQueue):
                 "centricityType == {}".format(centricityType) + endl + \
                 "longitudeType == {}".format(longitudeType) + endl + \
                 "referenceDt == {}".format(referenceDt) + endl + \
-                "desiredDeltaDegrees == {}".format(desiredDeltaDegrees) + endl + \
+                "desiredDeltaDegrees == {}".\
+                format(desiredDeltaDegrees) + endl + \
                 "maxErrorTd == {}".format(maxErrorTd) + endl + \
-                "locationLongitudeDegrees == {}".format(locationLongitudeDegrees) + endl + \
-                "locationLatitudeDegrees == {}".format(locationLatitudeDegrees) + endl + \
-                "locationElevationMeters == {}".format(locationElevationMeters)
+                "locationLongitudeDegrees == {}".\
+                format(locationLongitudeDegrees) + endl + \
+                "locationLatitudeDegrees == {}".\
+                format(locationLatitudeDegrees) + endl + \
+                "locationElevationMeters == {}".\
+                format(locationElevationMeters)
 
 
 
@@ -264,6 +269,7 @@ def speedTestDistributedParallel(taskQueue, resultQueue):
                 dt = resultDts[i]
                 log.debug("  resultDts[{}] == {}".format(i, dt))
 
+            # Notify that the consumption of this result is complete.
             resultQueue.task_done()
 
             resultCount += 1

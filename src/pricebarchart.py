@@ -22,9 +22,17 @@ import types
 # For calculating square roots and other calculations.
 import math
 
+# For timing how long LookbackMultiple calculations take.
+import time
+
 # For timestamps and timezone information.
 import datetime
 import pytz
+
+# For multiprocessing features with LookbackMultiple calculations.
+from multiprocessing.managers import BaseManager
+from multiprocessing import JoinableQueue
+from multiprocessing.context import AuthenticationError
 
 # For PyQt UI classes.
 from PyQt4 import QtCore
@@ -57,6 +65,7 @@ from data_objects import PriceBar
 from data_objects import MusicalRatio
 from data_objects import LookbackMultiple
 from data_objects import LookbackMultiplePriceBar
+from data_objects import LookbackMultipleCalcModel
 from data_objects import PriceBarChartBarCountArtifact
 from data_objects import PriceBarChartTimeMeasurementArtifact
 from data_objects import PriceBarChartTimeModalScaleArtifact
@@ -42378,6 +42387,12 @@ class PriceBarChartWidget(QWidget):
                 self._getLookbackMultipleDatetimesOfLongitudeDeltaDegreesInPast(\
                     argsTupleList)
             
+            if len(resultsList) == 0:
+                # No results were returned.  This means an error happened
+                # during calculation that was already logged.  Return without
+                # drawing any LookbackMultiplePriceBars.
+                return
+                
             startLookbackDts = resultsList[0]
             endLookbackDts = resultsList[1]
             
@@ -42492,9 +42507,12 @@ class PriceBarChartWidget(QWidget):
                 self._getLookbackMultipleDatetimesOfLongitudeDeltaDegreesInFuture(\
                     argsTupleList)
     
-            if self.log.isEnabledFor(logging.INFO) == True:
-                self.log.info("Calculation of LookbackMultiples complete.")
-            
+            if len(resultsList) == 0:
+                # No results were returned.  This means an error happened
+                # during calculation that was already logged.  Return without
+                # drawing any LookbackMultiplePriceBars.
+                return
+                
             # Create the LookbackMultiplePriceBars for these historic
             # PriceBars and store them in a list.
             lmpbs = []
@@ -42585,7 +42603,8 @@ class PriceBarChartWidget(QWidget):
           - Remote parallel calculations (multiple processes, distributed).
             
         Arguments:
-        argsTupleList - List of tuple objects.  Each tuple has the following within it:
+        argsTupleList - List of tuple objects.  
+                        Each tuple has the following within it:
             
             planetName - str holding the name of the planet to do the
                          calculations for.
@@ -42596,8 +42615,9 @@ class PriceBarChartWidget(QWidget):
                           The planet longitude at this moment is taken as
                           the zero-point.  Increments or decrements in time 
                           are started from this moment in time.
-            desiredDeltaDegrees - float value for the number of longitude degrees
-                            elapsed from the longitude at 'referenceDt'.
+            desiredDeltaDegrees - float value for the number of 
+                            longitude degrees elapsed from the 
+                            longitude at 'referenceDt'.
             maxErrorTd - datetime.timedelta object holding the maximum
                          time difference between the exact planetary
                          combination timestamp, and the one calculated.
@@ -42630,6 +42650,9 @@ class PriceBarChartWidget(QWidget):
         # Return value.
         rv = []
 
+        # Set the start time for timing how long the computations take.
+        startTime = time.time()
+ 
         # Obtain the QSettings value for the LookbackMultiple
         # calculation model/architecture to use.
         settings = QSettings()
@@ -42639,7 +42662,8 @@ class PriceBarChartWidget(QWidget):
             type=str)
         
         if value == str(LookbackMultipleCalcModel.local_serial):
-            self.log.debug("Doing LookbackMultiple calculations local serial.")
+            self.log.debug(\
+                "Doing LookbackMultiple calculations local serial.")
             
             for argsTuple in argsTupleList:
                 
@@ -42674,7 +42698,8 @@ class PriceBarChartWidget(QWidget):
                 rv.append(dts)
                 
         elif value == str(LookbackMultipleCalcModel.local_parallel):
-            self.log.debug("Doing LookbackMultiple calculations local parallel.")
+            self.log.debug(\
+                "Doing LookbackMultiple calculations local parallel.")
 
             # Run calculations in parallel, locally.
             rv = \
@@ -42683,36 +42708,15 @@ class PriceBarChartWidget(QWidget):
                    argsTupleList)
             
         elif value == str(LookbackMultipleCalcModel.remote_parallel):
-            self.log.debug("Doing LookbackMultiple calculations local remote.")
+            self.log.debug(\
+                "Doing LookbackMultiple calculations remote parallel.")
 
-            # Get QSettings values for what server to connect to, for
-            # submitting tasks and retrieving results.
+            # Run calculations in parallel, remotely.
+            methodName = "getDatetimesOfLongitudeDeltaDegreesInFuture"
 
-            # Server address (str).
-            # Either a hostname or an IP address.
-            key = SettingsKeys.lookbackMultipleCalcRemoteServerAddressKey
-            value = settings.value(key, \
-                SettingsKeys.lookbackMultipleCalcRemoteServerAddressDefValue,
-                type=str)
-            serverAddress = value
+            rv = self._runLookbackMultipleCalculationsRemoteParallel(\
+                methodName, argsTupleList)
 
-            # Server port number (int).
-            key = SettingsKeys.lookbackMultipleCalcRemoteServerPortKey
-            value = settings.value(key, \
-                SettingsKeys.lookbackMultipleCalcRemoteServerPortDefValue,
-                type=int)
-            serverPort = value
-            
-            # Server auth key (bytes).
-            key = SettingsKeys.lookbackMultipleCalcRemoteServerAuthKeyKey
-            value = settings.value(key, \
-                SettingsKeys.lookbackMultipleCalcRemoteServerAuthKeyDefValue,
-                type=str)
-            serverAuthKey = value.encode("utf-8")
-            
-            
-            # TODO: add code here.
-            
         else:
             errorMsg = "QSettings had an unknown or unsupported " + \
                        "LookbackMultiple calculation model/architecture.  " + \
@@ -42723,6 +42727,11 @@ class PriceBarChartWidget(QWidget):
                                 QMessageBox.Ok,
                                 QMessageBox.NoButton);
 
+        # Set the end time for timing how long the computations take.
+        endTime = time.time()
+
+        self.log.info("Calculations for {} took: {} sec".\
+                      format(value, endTime - startTime))
 
         self.log.debug("Exiting _getLookbackMultipleDatetimesOfLongitudeDeltaDegreesInFuture()")
         return rv
@@ -42739,7 +42748,8 @@ class PriceBarChartWidget(QWidget):
           - Remote parallel calculations (multiple processes, distributed).
             
         Arguments:
-        argsTupleList - List of tuple objects.  Each tuple has the following within it:
+        argsTupleList - List of tuple objects.  
+                        Each tuple has the following within it:
             
             planetName - str holding the name of the planet to do the
                          calculations for.
@@ -42750,8 +42760,9 @@ class PriceBarChartWidget(QWidget):
                           The planet longitude at this moment is taken as
                           the zero-point.  Increments or decrements in time 
                           are started from this moment in time.
-            desiredDeltaDegrees - float value for the number of longitude degrees
-                            elapsed from the longitude at 'referenceDt'.
+            desiredDeltaDegrees - float value for the number of 
+                            longitude degrees elapsed from the 
+                            longitude at 'referenceDt'.
             maxErrorTd - datetime.timedelta object holding the maximum
                          time difference between the exact planetary
                          combination timestamp, and the one calculated.
@@ -42784,6 +42795,9 @@ class PriceBarChartWidget(QWidget):
         # Return value.
         rv = []
 
+        # Set the start time for timing how long the computations take.
+        startTime = time.time()
+ 
         # Obtain the QSettings value for the LookbackMultiple
         # calculation model/architecture to use.
         settings = QSettings()
@@ -42793,7 +42807,8 @@ class PriceBarChartWidget(QWidget):
             type=str)
         
         if value == str(LookbackMultipleCalcModel.local_serial):
-            self.log.debug("Doing LookbackMultiple calculations local serial.")
+            self.log.debug(\
+                "Doing LookbackMultiple calculations local serial.")
             
             for argsTuple in argsTupleList:
                 
@@ -42828,7 +42843,8 @@ class PriceBarChartWidget(QWidget):
                 rv.append(dts)
                 
         elif value == str(LookbackMultipleCalcModel.local_parallel):
-            self.log.debug("Doing LookbackMultiple calculations local parallel.")
+            self.log.debug(\
+                "Doing LookbackMultiple calculations local parallel.")
 
             # Run calculations in parallel, locally.
             rv = \
@@ -42837,36 +42853,15 @@ class PriceBarChartWidget(QWidget):
                    argsTupleList)
             
         elif value == str(LookbackMultipleCalcModel.remote_parallel):
-            self.log.debug("Doing LookbackMultiple calculations local remote.")
+            self.log.debug(\
+                "Doing LookbackMultiple calculations remote parallel.")
 
-            # Get QSettings values for what server to connect to, for
-            # submitting tasks and retrieving results.
+            # Run calculations in parallel, remotely.
+            methodName = "getDatetimesOfLongitudeDeltaDegreesInPast"
 
-            # Server address (str).
-            # Either a hostname or an IP address.
-            key = SettingsKeys.lookbackMultipleCalcRemoteServerAddressKey
-            value = settings.value(key, \
-                SettingsKeys.lookbackMultipleCalcRemoteServerAddressDefValue,
-                type=str)
-            serverAddress = value
+            rv = self._runLookbackMultipleCalculationsRemoteParallel(\
+                methodName, argsTupleList)
 
-            # Server port number (int).
-            key = SettingsKeys.lookbackMultipleCalcRemoteServerPortKey
-            value = settings.value(key, \
-                SettingsKeys.lookbackMultipleCalcRemoteServerPortDefValue,
-                type=int)
-            serverPort = value
-            
-            # Server auth key (bytes).
-            key = SettingsKeys.lookbackMultipleCalcRemoteServerAuthKeyKey
-            value = settings.value(key, \
-                SettingsKeys.lookbackMultipleCalcRemoteServerAuthKeyDefValue,
-                type=str)
-            serverAuthKey = value.encode("utf-8")
-            
-            
-            # TODO: add code here.
-            
         else:
             errorMsg = "QSettings had an unknown or unsupported " + \
                        "LookbackMultiple calculation model/architecture.  " + \
@@ -42878,8 +42873,285 @@ class PriceBarChartWidget(QWidget):
                                 QMessageBox.NoButton);
 
 
+        # Set the end time for timing how long the computations take.
+        endTime = time.time()
+
+        self.log.info("Calculations for {} took: {} sec".\
+                      format(value, endTime - startTime))
+
         self.log.debug("Exiting _getLookbackMultipleDatetimesOfLongitudeDeltaDegreesInPast()")
         return rv
+
+    def _runLookbackMultipleCalculationsRemoteParallel(self, 
+                                                       methodName, 
+                                                       argsTupleList):
+        """
+        Arguments:
+        methodName   - str holding one of the following:
+                       getDatetimesOfLongitudeDeltaDegreesInFuture
+                       getDatetimesOfLongitudeDeltaDegreesInPast
+        listOfTuples - List of tuple objects.  Each tuple has 
+                       the following within it:
+            
+            planetName - str holding the name of the planet to do the
+                         calculations for.
+            centricityType - str value holding either "geocentric",
+                             "topocentric", or "heliocentric".
+            longitudeType - str value holding either "tropical" or "sidereal".
+            referenceDt - datetime.datetime object for the reference time.
+                          The planet longitude at this moment is taken as
+                          the zero-point.  Increments or decrements in time 
+                          are started from this moment in time.
+            desiredDeltaDegrees - float value for the number of 
+                            longitude degrees elapsed from the 
+                            longitude at 'referenceDt'.
+            maxErrorTd - datetime.timedelta object holding the maximum
+                         time difference between the exact planetary
+                         combination timestamp, and the one calculated.
+                         This would define the accuracy of the
+                         calculations.  
+            locationLongitudeDegrees - float value holding the
+                          location longitude in degrees.  
+                          West longitudes are negative,
+                          East longitudes are positive.
+                          Value should be in the range of -180 to 180.
+            locationLatitudeDegrees - float value holding the
+                          location latitude in degrees.
+                          North latitudes are positive, 
+                          South latitudes are negative.  
+                          Value should be in the range of -90 to 90.
+            locationElevationMeters - float value holding the
+                          altitude in meters.
+            
+        Returns:
+        List of list of datetime.datetime objects.
+        Each list within the list corresponds to the
+        respective tuple within listOfTuples
+        The datetime.datetime objects are the timestamps
+        where the planet is at the elapsed number of
+        degrees away from the longitude at 'referenceDt'.
+        """
+
+        if methodName != "getDatetimesOfLongitudeDeltaDegreesInFuture" and \
+                methodName != "getDatetimesOfLongitudeDeltaDegreesInPast":
+            
+            errStr = "Invalid 'methodName' argument given to do " + \
+                "remote parallel LookbackMultiple processing: {}".\
+                format(methodName)
+            self.log.error(errStr)
+            raise ValueError(errStr)
+        
+        # Get QSettings values for what server to connect to, for
+        # submitting tasks and retrieving results.
+        settings = QSettings()
+
+        # Server address (str).
+        # Either a hostname or an IP address.
+        key = SettingsKeys.lookbackMultipleCalcRemoteServerAddressKey
+        value = settings.value(key, \
+            SettingsKeys.lookbackMultipleCalcRemoteServerAddressDefValue,
+            type=str)
+        serverAddress = value
+
+        # Server port number (int).
+        key = SettingsKeys.lookbackMultipleCalcRemoteServerPortKey
+        value = settings.value(key, \
+            SettingsKeys.lookbackMultipleCalcRemoteServerPortDefValue,
+            type=int)
+        serverPort = value
+            
+        # Server auth key (bytes).
+        key = SettingsKeys.lookbackMultipleCalcRemoteServerAuthKeyKey
+        value = settings.value(key, \
+            SettingsKeys.lookbackMultipleCalcRemoteServerAuthKeyDefValue,
+            type=str)
+        serverAuthKey = value.encode("utf-8")
+           
+        class QueueManager(BaseManager):
+            pass
+            
+        QueueManager.register("getTaskQueue", 
+                              callable=lambda: taskQueue)
+        QueueManager.register("getResultQueue", 
+                              callable=lambda: resultQueue)
+    
+        manager = QueueManager(address=(serverAddress, serverPort), 
+                               authkey=serverAuthKey)
+
+        self.log.debug("LookbackMultiple client tasker connecting " + \
+                       "to server {} port {} ...".\
+                       format(serverAddress, serverPort))
+        try:
+            manager.connect()
+        except ConnectionRefusedError as e:
+            endl = os.linesep
+            errorStr = "Caught ConnectionRefusedError while " + \
+                "trying to connect to " + \
+                "LookbackMultiple server {} port {}.  Aborting calculations.".\
+                format(serverAddress, serverPort, e) + \
+                "  e == {}".format(e)
+            self.log.error(errorStr)
+            QMessageBox.warning(self, 
+                                "Connection Refused Error",
+                                errorStr,
+                                QMessageBox.Ok,
+                                QMessageBox.NoButton);
+            rv = []
+            return rv
+        except AuthenticationError as e:
+            endl = os.linesep
+            errorStr = "Caught AuthenticationError while " + \
+                "trying to connect to " + \
+                "LookbackMultiple server {} port {}.  ".\
+                format(serverAddress, serverPort) + \
+                "Please verify your authkey/password!  " + \
+                "Aborting calculations.  e == {}".format(e)
+            self.log.error(errorStr)
+            QMessageBox.warning(self, 
+                                "Authentication Error",
+                                errorStr,
+                                QMessageBox.Ok,
+                                QMessageBox.NoButton);
+            rv = []
+            return rv
+                           
+        self.log.debug("LookbackMultiple client tasker connected.")
+        
+        taskQueue = manager.getTaskQueue()
+        resultQueue = manager.getResultQueue()
+
+        # The remote parallel distributed method takes a list of tuples with
+        # different arguments/parameters.  This list holds the reformatted
+        # parameters.
+        newArgsTupleList = []
+
+        for i in range(len(argsTupleList)):
+            argsTuple = argsTupleList[i]
+                            
+            # Extract variable values from the tuple.
+            planetName = argsTuple[0]
+            centricityType = argsTuple[1]
+            longitudeType = argsTuple[2]
+            referenceDt = argsTuple[3]
+            desiredDeltaDegrees = argsTuple[4]
+            maxErrorTd = argsTuple[5]
+            locationLongitudeDegrees = argsTuple[6]
+            locationLatitudeDegrees = argsTuple[7]
+            locationElevationMeters = argsTuple[8]
+            
+            # Variables not in the original tuple.
+            methodToRun = methodName
+            taskId = i
+
+            # Assemble a new tuple for sending to the remote server.
+            newArgsTuple = (\
+                methodToRun,
+                taskId,
+                planetName, 
+                centricityType, 
+                longitudeType, 
+                referenceDt, 
+                desiredDeltaDegrees, 
+                maxErrorTd, 
+                locationLongitudeDegrees, 
+                locationLatitudeDegrees, 
+                locationElevationMeters)
+            
+            newArgsTupleList.append(newArgsTuple)
+            
+        # Submit tasks.
+        self.log.info("Submitting {} tasks ...".format(len(newArgsTupleList)))
+        for argsTuple in newArgsTupleList:
+            taskQueue.put(argsTuple)
+        self.log.info("Submitting {} tasks completed.".\
+                  format(len(newArgsTupleList)))
+            
+        # Block, waiting for all the tasks to complete.
+        self.log.info("Waiting for all tasks to complete ...")
+
+        taskQueue.join()
+
+        self.log.info("Tasks completed.  Now analyzing results ...")
+        
+        # Initialize the results list that will be returned.  
+        #
+        # The results extracted out of the resultQueue is not guaranteed to be
+        # in the same order as the corresponding tasks submitted to the
+        # taskQueue.  This is the results after we have put them in the correct
+        # order.
+        resultsList = [None] * len(newArgsTupleList)
+
+        resultCount = 0
+        while resultCount < len(newArgsTupleList):
+
+            # Get a result.
+            (argsTuple, resultDts) = resultQueue.get()
+             
+            argIndex = 0
+            methodToRun = argsTuple[argIndex]
+            argIndex += 1
+            taskId = argsTuple[argIndex]
+            argIndex += 1
+            planetName = argsTuple[argIndex]
+            argIndex += 1
+            centricityType = argsTuple[argIndex]
+            argIndex += 1
+            longitudeType = argsTuple[argIndex]
+            argIndex += 1
+            referenceDt = argsTuple[argIndex]
+            argIndex += 1
+            desiredDeltaDegrees = argsTuple[argIndex]
+            argIndex += 1
+            maxErrorTd = argsTuple[argIndex]
+            argIndex += 1
+            locationLongitudeDegrees = argsTuple[argIndex]
+            argIndex += 1
+            locationLatitudeDegrees = argsTuple[argIndex]
+            argIndex += 1
+            locationElevationMeters = argsTuple[argIndex]
+            argIndex += 1
+            
+
+            # Place the resultDts in the correct place.
+            resultsList[taskId] = resultDts
+
+            # Debug output.
+            if self.log.isEnabledFor(logging.DEBUG) == True:
+                endl = os.linesep
+                argsTupleStr = \
+                    "methodToRun == {}".format(methodToRun) + endl + \
+                    "taskId == {}".format(taskId) + endl + \
+                    "planetName == {}".format(planetName) + endl + \
+                    "centricityType == {}".format(centricityType) + endl + \
+                    "longitudeType == {}".format(longitudeType) + endl + \
+                    "referenceDt == {}".format(referenceDt) + endl + \
+                    "desiredDeltaDegrees == {}".\
+                    format(desiredDeltaDegrees) + endl + \
+                    "maxErrorTd == {}".format(maxErrorTd) + endl + \
+                    "locationLongitudeDegrees == {}".\
+                    format(locationLongitudeDegrees) + endl + \
+                    "locationLatitudeDegrees == {}".\
+                    format(locationLatitudeDegrees) + endl + \
+                    "locationElevationMeters == {}".\
+                    format(locationElevationMeters)
+    
+                self.log.debug("Obtained result: " + \
+                          "argsTuple == {}, ".format(argsTuple) + 
+                          "len(resultDts) == {}".format(len(resultDts)))
+                for i in range(len(resultDts)):
+                    dt = resultDts[i]
+                    self.log.debug("  resultDts[{}] == {}".format(i, dt))
+
+            # Notify that the consumption of this result is complete.
+            resultQueue.task_done()
+
+            resultCount += 1
+            if self.log.isEnabledFor(logging.DEBUG) == True:
+                self.log.debug("We have consumed {} total results now.".\
+                          format(resultCount))
+    
+        self.log.info("Done consuming all tasks submitted.") 
+        return resultsList
 
     def clearAllLookbackMultiplePriceBars(self):
         """Causes the removal of all LookbackMultiplePriceBarGraphicsItems.
@@ -43676,7 +43948,14 @@ class PriceBarChartWidget(QWidget):
                                converted to a new price via scaling.
         """
 
+        debugLogEnabled = False
         if self.log.isEnabledFor(logging.DEBUG) == True:
+            debugLogEnabled = True
+
+        # Override the debugLogEnabled flag.
+        debugLogEnabled = False
+
+        if debugLogEnabled == True:
             self.log.debug("Entered _scaleLookbackMultiplePriceBarPrice()")
     
             self.log.debug("highestViewPrice == {}".format(highestViewPrice))
@@ -43691,25 +43970,25 @@ class PriceBarChartWidget(QWidget):
 
         viewPriceRange = highestViewPrice - lowestViewPrice
 
-        if self.log.isEnabledFor(logging.DEBUG) == True:
+        if debugLogEnabled == True:
             self.log.debug("viewPriceRange  == {}".\
                            format(viewPriceRange))
 
         priceBarPriceRange = highestPriceBarPrice - lowestPriceBarPrice
 
-        if self.log.isEnabledFor(logging.DEBUG) == True:
+        if debugLogEnabled == True:
             self.log.debug("priceBarPriceRange == {}".\
                            format(priceBarPriceRange))
             
         ratioOfPriceRange = \
             (priceBarPriceToScale - lowestPriceBarPrice) / priceBarPriceRange
 
-        if self.log.isEnabledFor(logging.DEBUG) == True:
+        if debugLogEnabled == True:
             self.log.debug("ratioOfPriceRange == {}".format(ratioOfPriceRange))
 
         newViewPrice = (ratioOfPriceRange * viewPriceRange) + lowestViewPrice
 
-        if self.log.isEnabledFor(logging.DEBUG) == True:
+        if debugLogEnabled == True:
             self.log.debug("newViewPrice == {}".format(newViewPrice))
             self.log.debug("Exiting _scaleLookbackMultiplePriceBarPrice()")
 

@@ -93,7 +93,8 @@ class LookbackMultipleParallel:
     def getDatetimesOfLongitudeDeltaDegreesInFutureParallel(listOfTuples):
         """
         Arguments:
-        listOfTuples - List of tuple objects.  Each tuple has the following within it:
+        listOfTuples - List of tuple objects.  Each tuple has 
+                       the following within it:
             
             planetName - str holding the name of the planet to do the
                          calculations for.
@@ -104,8 +105,9 @@ class LookbackMultipleParallel:
                           The planet longitude at this moment is taken as
                           the zero-point.  Increments or decrements in time 
                           are started from this moment in time.
-            desiredDeltaDegrees - float value for the number of longitude degrees
-                            elapsed from the longitude at 'referenceDt'.
+            desiredDeltaDegrees - float value for the number of 
+                            longitude degrees elapsed from the 
+                            longitude at 'referenceDt'.
             maxErrorTd - datetime.timedelta object holding the maximum
                          time difference between the exact planetary
                          combination timestamp, and the one calculated.
@@ -143,7 +145,8 @@ class LookbackMultipleParallel:
     def getDatetimesOfLongitudeDeltaDegreesInPastParallel(listOfTuples):
         """
         Arguments:
-        listOfTuples - List of tuple objects.  Each tuple has the following within it:
+        listOfTuples - List of tuple objects.  Each tuple has 
+                       the following within it:
             
             planetName - str holding the name of the planet to do the
                          calculations for.
@@ -154,8 +157,9 @@ class LookbackMultipleParallel:
                           The planet longitude at this moment is taken as
                           the zero-point.  Increments or decrements in time 
                           are started from this moment in time.
-            desiredDeltaDegrees - float value for the number of longitude degrees
-                            elapsed from the longitude at 'referenceDt'.
+            desiredDeltaDegrees - float value for the number of 
+                            longitude degrees elapsed from the 
+                            longitude at 'referenceDt'.
             maxErrorTd - datetime.timedelta object holding the maximum
                          time difference between the exact planetary
                          combination timestamp, and the one calculated.
