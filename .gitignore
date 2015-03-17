@@ -10,6 +10,10 @@ logs/*
 # logs directory remains in Git.
 !logs/.gitignore
 
+# Ignore some generated CSV files and spreadsheets.
+misc/EphemerisGeneration/cycleHuntingGeneric/*.csv
+misc/EphemerisGeneration/cycleOfRepetition/*.csv
+misc/EphemerisGeneration/cycleOfRepetition/*.ods
 
 # Ignore certain directories/files in the src directory.
 src/__pycache__
@@ -20,10 +24,16 @@ src/*.pyc
 # pricechartingtool/resources/generateResourceSourceFile.sh
 src/resources.py
 
-# Ignore some generated CSV files and spreadsheets.
-misc/EphemerisGeneration/cycleHuntingGeneric/*.csv
-misc/EphemerisGeneration/cycleOfRepetition/*.csv
-misc/EphemerisGeneration/cycleOfRepetition/*.ods
+# Ignore tps extracted tarball directories.
+tps/pyqt/4.11.3/PyQt-mac-gpl-4.11.3/*
+tps/pyqt/4.11.3/PyQt-win-gpl-4.11.3/*
+tps/pyqt/4.11.3/PyQt-win-x11-4.11.3/*
+tps/pyqt/4.11.3/sip-4.16.5/*
+tps/pyswisseph/pyswisseph-1.77.00-0/*
+tps/pytz/pytz-2014.9/*
+
+# Ignore the virtualenv directory name I typically use.
+venv/*
 
 # Don't ignore this file.
 !.gitignore
