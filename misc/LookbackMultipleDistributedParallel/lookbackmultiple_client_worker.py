@@ -62,16 +62,18 @@ from lookbackmultiple_calc import LookbackMultipleUtils
 # Version string.
 VERSION = "0.1"
 
-# Server address.  
+# Server address (str).
+# Either a hostname or an IP address.
 # This value is obtained via command-line parameter.
 serverAddress = ""
 
-# Server port number.
+# Server port number (int).
 # This value is obtained via command-line parameter.
 serverPort = None
 
-# Server auth key.
-# This value is obtained via command-line parameter.
+# Server auth key (bytes).
+# This value is obtained via command-line parameter,
+# by converting from str to bytes.
 serverAuthKey = b""
 
 
