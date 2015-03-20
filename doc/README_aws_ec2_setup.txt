@@ -28,13 +28,10 @@ mkdir download
 cd download
 wget https://www.python.org/ftp/python/3.4.3/Python-3.4.3.tgz
 tar -xzvf Python-3.4.3.tgz
+./configure
 make
 # By doing sudo make install, Python 3 would get installed as 'python' which is not what we want.  We want it to be installed to a binary such as 'python3.4'.  make altinstall gives us that capability.
 sudo make altinstall
-
-# Symlink python3 and pip.
-cd /usr/local/bin
-sudo ln -s python3.4 python3
 
 # Install virtualenv.
 sudo /usr/local/bin/pip3.4 install virtualenv

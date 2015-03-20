@@ -17872,7 +17872,18 @@ class PriceChartDocumentData:
 
         rv = []
 
-        geoPlanets = ["Sun", "Moon", "MoSu", "AsSu", "AsMo"]
+        geoPlanets = [
+            "Sun", 
+            "Moon", 
+            "MoSu", 
+            "AsSu", 
+            "AsMo",
+            "Mercury", 
+            "Venus",
+            "Mars",
+            "Jupiter",
+            "Saturn"
+            ]
         geoPlanetsColors = \
           [
            QColor(255, 102, 0), # Orange.
@@ -17880,13 +17891,18 @@ class PriceChartDocumentData:
            QColor(Qt.darkYellow),
            QColor(Qt.cyan),
            QColor(Qt.darkCyan),
-           
+           QColor(Qt.green),
+           QColor(Qt.magenta),
+           QColor(Qt.darkRed),
+           QColor(Qt.red),
+           QColor(Qt.darkBlue),
           ]
         
         helioPlanets = \
           [
           "Mercury", 
           "Venus",
+          "Earth",
           "Mars",
           "Jupiter",
           "Saturn"
@@ -17895,6 +17911,7 @@ class PriceChartDocumentData:
           [
           QColor(Qt.green),
           QColor(Qt.magenta),
+          QColor(255, 102, 0), # Orange.
           QColor(Qt.darkRed),
           QColor(Qt.red),
           QColor(Qt.darkBlue),
@@ -17953,8 +17970,8 @@ class PriceChartDocumentData:
                                       color=color,
                                       enabled=False,
                                       planetName=planetName,
-                                      geocentricFlag=True,
-                                      heliocentricFlag=False,
+                                      geocentricFlag=False,
+                                      heliocentricFlag=True,
                                       tropicalFlag=True,
                                       siderealFlag=False)
                 
