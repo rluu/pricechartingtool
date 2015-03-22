@@ -257,6 +257,17 @@ Steps to run the software:
 
 ##############################################################################
 
+Steps to setup LookbackMultiple remote distributed calculations 
+(for cycle hunting features) utilizing Amazon Web Services (AWS) and
+other computers.
+
+1) Follow steps in the README.txt file in the AWS_EC2 directory.
+
+less misc/AWS_EC2/README.txt
+
+
+##############################################################################
+
 Shortcut keys (also listed in the Help menu):
 
 Tool Modes:
