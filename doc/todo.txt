@@ -3,24 +3,7 @@
 Outstanding things to work on going forward:
 
 TODOs for cycle hunter features:
-
-  - Alorithm or computation is slow for LookbackMultiples.  
-    Consider profiling, or improving design, or using cloud computing.
-    (or all of the above).
-
-      - Make QSettings settings in AppPreferences for whether to run
-        locally or via Amazon?  Or maybe just a flag in my software.
-	Settings options would be:
-	  - Run as multiple processes on local machine.
-	  - Run as distrubted processes on remote machines.
-	    - hostname, port, and authkey.
-
-	- Handle use cases, such as 'ConnectionRefusedError' (popup dialog notification for the user), 'EOFError' (expected on shutdown of server manager, but if unexpected, then the user should be notified), etc.
-	
-      - Segment out the code so that it can run both as multiple processes
-        and also asa distributed cloud processing method (with manager,
-        workers, and taskers).
-
+  
   - If I am going to utilize cloud computing, I would need to set up a
     deployment process, or at least document whatever it would be.
 
@@ -516,3 +499,23 @@ DONE  - Consider setting up the use of virtualenv with cyclehunter.
 DONE
 DONE      - Get README.txt from my EC2 instance.
   
+DONE  - Alorithm or computation is slow for LookbackMultiples.  
+DONE    Consider profiling, or improving design, or using cloud computing.
+DONE    (or all of the above).
+DONE
+DONE      - Make QSettings settings in AppPreferences for whether to run
+DONE        locally or via Amazon?  Or maybe just a flag in my software.
+DONE	Settings options would be:
+DONE	  - Run as multiple processes on local machine.
+DONE	  - Run as distrubted processes on remote machines.
+DONE	    - hostname, port, and authkey.
+DONE
+DONE	- Handle use cases, such as 'ConnectionRefusedError' (popup dialog notification for the user), 'EOFError' (expected on shutdown of server manager, but if unexpected, then the user should be notified), etc.  auth error also.
+DONE	
+DONE      - Segment out the code so that it can run both as multiple processes
+DONE        and also asa distributed cloud processing method (with manager,
+DONE        workers, and taskers).
+
+DONE  - Update version of PCT to 2.0
+DONE  - Update README and other docs to reflect change to Python 3.4 dependency.
+DONE    (for Enum, and new pickle version).

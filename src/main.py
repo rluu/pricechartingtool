@@ -28,8 +28,8 @@ import resources
 
 ##############################################################################
 
-__version__ = "1.0.0"
-__date__ = "Wed Nov  5 05:45:16 EST 2014"
+__version__ = "2.0.0"
+__date__ = "Wed Mar 18 17:49:18 EDT 2015"
 
 
 # Application Name

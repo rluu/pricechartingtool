@@ -36,7 +36,7 @@ Requirements:
 
 Dependencies to build/run this project are:
 
-  - Python 3.1
+  - Python 3.4
   - Qt 4.7.4
   - PyQt 4.11.3           [Included in tps directory]
   - pyswisseph 1.77       [Included in tps directory]
