@@ -4,8 +4,8 @@
 # according to the parameters given in the variables below.
 ##############################################################################
 
-AMI_ID="ami-2691bd4e"
-INSTANCE_COUNT="3"
+AMI_ID="ami-5cb18534"
+INSTANCE_COUNT="10"
 INSTANCE_TYPE="t2.micro"
 KEY_NAME="mykeypair"
 SECURITY_GROUPS="ssh_only"
