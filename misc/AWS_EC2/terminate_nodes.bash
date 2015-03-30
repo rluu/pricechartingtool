@@ -1,15 +1,12 @@
 #!/bin/bash
 ##############################################################################
-# Terminates all the AWS EC2 instances running the image given in the
-# 'AMI_ID' global variable below.
+# Terminates all the AWS EC2 instances running the AMI image given in the
+# 'AMI_ID' variable below.
 ##############################################################################
 
-# Global Variables
 AMI_ID="ami-2691bd4e"
 
 ##############################################################################
-
-
 
 # Get a list of all the instance IDs.
 INSTANCE_IDS=`aws ec2 describe-instances  --filters "Name=image-id,Values=${AMI_ID}" | grep InstanceId | cut -d":" -f2 | cut -d"\"" -f2`
@@ -23,3 +20,5 @@ for instance_id in ${INSTANCE_IDS}; do
   aws ec2 terminate-instances --instance-ids "${instance_id}"
 
 done
+
+##############################################################################

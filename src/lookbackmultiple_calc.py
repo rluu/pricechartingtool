@@ -298,7 +298,6 @@ class LookbackMultipleUtils:
 
                             # Update the prev values.
                             prevDt = t1
-                            prevDiff = testDiff
 
                         currErrorTd = Util.absTd(t2 - t1)
 
@@ -311,7 +310,6 @@ class LookbackMultipleUtils:
 
                     # Calculate the total number of degrees of distance currently.
                     currDeltaDegrees = (numFullCircles * 360.0) + currDiff
-                    prevDeltaDegrees = ((numFullCircles - 1) * 360.0) + prevDiff
                 
                 elif prevDiff < 120 and currDiff > 240:
                     if LookbackMultipleUtils.log.isEnabledFor(logging.DEBUG) == True:
@@ -352,7 +350,6 @@ class LookbackMultipleUtils:
 
                             # Update the prev values.
                             prevDt = t1
-                            prevDiff = testDiff
                         else:
                             t2 = testDt
                             
@@ -371,7 +368,6 @@ class LookbackMultipleUtils:
 
                     # Calculate the total number of degrees of distance currently.
                     currDeltaDegrees = (numFullCircles * 360.0) + currDiff
-                    prevDeltaDegrees = ((numFullCircles + 1) * 360.0) + prevDiff
 
                 else:
                     # Planet reference longitude not crossed.
@@ -379,14 +375,14 @@ class LookbackMultipleUtils:
                     # Calculate the total number of degrees of distance currently.
                     currDeltaDegrees = (numFullCircles * 360.0) + currDiff
                 
-                    # If prevDeltaDegrees is not set, then that means this is the first
-                    # time in this section of code.  Initialize the prevDeltaDegrees.
-                    if prevDeltaDegrees == None:
-                        # Two steps of stepSizeTd never goes more than 360 degrees,
-                        # so we can safely use the prevDiff as the
-                        # previous delta, without having to worry if we need to
-                        # account for multiple full circle revolutions in between.
-                        prevDeltaDegrees = prevDiff
+                # If prevDeltaDegrees is not set, then that means this is the first
+                # time in this section of code.  Initialize the prevDeltaDegrees.
+                if prevDeltaDegrees == None:
+                    # Two steps of stepSizeTd never goes more than 360 degrees,
+                    # so we can safely use the prevDiff as the
+                    # previous delta, without having to worry if we need to
+                    # account for multiple full circle revolutions in between.
+                    prevDeltaDegrees = prevDiff
                 
                 
                 if LookbackMultipleUtils.log.isEnabledFor(logging.DEBUG) == True:
@@ -396,17 +392,7 @@ class LookbackMultipleUtils:
                     LookbackMultipleUtils.log.debug("prevDeltaDegrees == {}".format(prevDeltaDegrees))
                     LookbackMultipleUtils.log.debug("desiredDeltaDegrees == {}".format(desiredDeltaDegrees))
                 
-                # Test base case to test if the planet will never reach the
-                # 'desiredDeltaDegrees' relative to the reference
-                # 'planetReferenceLongitude' longitude.
-                if currDeltaDegrees - desiredDeltaDegrees > 120:
-                        
-                    LookbackMultipleUtils.log.debug("Realizing we won't ever reach " + \
-                                                    "'desiredDeltaDegrees' if we continue, " + \
-                                                    "so setting done = True.")
-                    done = True
-
-                elif prevDeltaDegrees < desiredDeltaDegrees and \
+                if prevDeltaDegrees < desiredDeltaDegrees and \
                       currDeltaDegrees > desiredDeltaDegrees:
                     # We pased the number of degrees past that we were
                     # looking for.  Now we have to calculate the exact
@@ -568,7 +554,17 @@ class LookbackMultipleUtils:
                         # Set the done flag, which will stop us from looking
                         # for more timestamps.
                         done = True
-                    
+
+                # Test base case to test if the planet will never reach the
+                # 'desiredDeltaDegrees' relative to the reference
+                # 'planetReferenceLongitude' longitude.
+                if currDeltaDegrees - desiredDeltaDegrees > 120:
+                        
+                    LookbackMultipleUtils.log.debug("Realizing we won't ever reach " + \
+                                                    "'desiredDeltaDegrees' if we continue, " + \
+                                                    "so setting done = True.")
+                    done = True
+
             # Prepare for the next iteration.
             steps.append(steps[-1] + stepSizeTd)
             longitudesP1.append(None)
@@ -808,7 +804,6 @@ class LookbackMultipleUtils:
 
                             # Update the prev values.
                             prevDt = t1
-                            prevDiff = testDiff
 
                         currErrorTd = Util.absTd(t2 - t1)
 
@@ -821,7 +816,6 @@ class LookbackMultipleUtils:
 
                     # Calculate the total number of degrees of distance currently.
                     currDeltaDegrees = (numFullCircles * 360.0) + currDiff
-                    prevDeltaDegrees = ((numFullCircles - 1) * 360.0) + prevDiff
                 
                 elif prevDiff < 120 and currDiff > 240:
                     if LookbackMultipleUtils.log.isEnabledFor(logging.DEBUG) == True:
@@ -862,7 +856,6 @@ class LookbackMultipleUtils:
 
                             # Update the prev values.
                             prevDt = t1
-                            prevDiff = testDiff
                         else:
                             t2 = testDt
                             
@@ -881,7 +874,6 @@ class LookbackMultipleUtils:
 
                     # Calculate the total number of degrees of distance currently.
                     currDeltaDegrees = (numFullCircles * 360.0) + currDiff
-                    prevDeltaDegrees = ((numFullCircles + 1) * 360.0) + prevDiff
 
                 else:
                     # Planet reference longitude not crossed.
@@ -889,14 +881,14 @@ class LookbackMultipleUtils:
                     # Calculate the total number of degrees of distance currently.
                     currDeltaDegrees = (numFullCircles * 360.0) + currDiff
                 
-                    # If prevDeltaDegrees is not set, then that means this is the first
-                    # time in this section of code.  Initialize the prevDeltaDegrees.
-                    if prevDeltaDegrees == None:
-                        # Two steps of stepSizeTd never goes more than 360 degrees,
-                        # so we can safely use the prevDiff as the
-                        # previous delta, without having to worry if we need to
-                        # account for multiple full circle revolutions in between.
-                        prevDeltaDegrees = prevDiff
+                # If prevDeltaDegrees is not set, then that means this is the first
+                # time in this section of code.  Initialize the prevDeltaDegrees.
+                if prevDeltaDegrees == None:
+                    # Two steps of stepSizeTd never goes more than 360 degrees,
+                    # so we can safely use the prevDiff as the
+                    # previous delta, without having to worry if we need to
+                    # account for multiple full circle revolutions in between.
+                    prevDeltaDegrees = prevDiff
                 
                 
                 if LookbackMultipleUtils.log.isEnabledFor(logging.DEBUG) == True:
@@ -906,17 +898,7 @@ class LookbackMultipleUtils:
                     LookbackMultipleUtils.log.debug("prevDeltaDegrees == {}".format(prevDeltaDegrees))
                     LookbackMultipleUtils.log.debug("desiredDeltaDegrees == {}".format(desiredDeltaDegrees))
                 
-                # Test base case to test if the planet will never reach the
-                # 'desiredDeltaDegrees' relative to the reference
-                # 'planetReferenceLongitude' longitude.
-                if currDeltaDegrees - desiredDeltaDegrees < -120:
-                        
-                    LookbackMultipleUtils.log.debug("Realizing we won't ever reach " + \
-                                                    "'desiredDeltaDegrees' if we continue, " + \
-                                                    "so setting done = True.")
-                    done = True
-
-                elif prevDeltaDegrees < desiredDeltaDegrees and \
+                if prevDeltaDegrees < desiredDeltaDegrees and \
                       currDeltaDegrees > desiredDeltaDegrees:
                     # We pased the number of degrees past that we were
                     # looking for.  Now we have to calculate the exact
@@ -1079,6 +1061,16 @@ class LookbackMultipleUtils:
                         # for more timestamps.
                         done = True
                     
+                # Test base case to test if the planet will never reach the
+                # 'desiredDeltaDegrees' relative to the reference
+                # 'planetReferenceLongitude' longitude.
+                if currDeltaDegrees - desiredDeltaDegrees < -120:
+                        
+                    LookbackMultipleUtils.log.debug("Realizing we won't ever reach " + \
+                                                    "'desiredDeltaDegrees' if we continue, " + \
+                                                    "so setting done = True.")
+                    done = True
+                
             # Prepare for the next iteration.
             steps.append(steps[-1] + stepSizeTd)
             longitudesP1.append(None)

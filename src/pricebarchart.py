@@ -54,6 +54,7 @@ from ephemeris import Ephemeris
 # For getting datetimes forward and backward in time, 
 # to support LookbackMultiple.
 from lookbackmultiple_parallel import LookbackMultipleParallel
+from lookbackmultiple_calc import LookbackMultipleUtils
 
 # For generic utility helper methods.
 from util import Util

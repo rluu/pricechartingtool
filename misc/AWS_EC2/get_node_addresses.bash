@@ -1,7 +1,8 @@
 #!/bin/bash
 ##############################################################################
-# Prints out a list of public DNS names of the AWS EC2 instances running
-# the image given in the 'AMI_ID' global variable below.
+# Prints out a list of public DNS names, one per line, of the AWS EC2
+# instances running the image given in the 'AMI_ID' global variable
+# below.  If no EC2 instances are running, nothing will be printed.
 ##############################################################################
 
 # Global Variables

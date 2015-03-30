@@ -1,4 +1,6 @@
-# Steps taken to get my software up and running on a Amazon Linux image.
+##############################################################################
+# Steps taken to get my software up and running on a new Amazon Linux AMI image.
+##############################################################################
 
 # Connect to the EC2 instance.
 ssh -i aws_mykeypair.pem ec2-user@ec2-52-0-155-248.compute-1.amazonaws.com
@@ -63,7 +65,7 @@ cd pytz-2014.9
 python3 setup.py install
 
 # Extract the pytz egg so that pytz.timezone() runs faster 
-# (otherwise the first usage takes several seconds!).
+# (otherwise the first usage each time you run it takes several seconds!).
 pip unzip pytz
 
 # Install pyswisseph
@@ -77,3 +79,4 @@ cd ~/programming/pricechartingtool/master/src
 python3 ephemeris.py
 python3 lookbackmultiple_calc.py
 
+##############################################################################
