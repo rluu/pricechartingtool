@@ -56,7 +56,7 @@ log.setLevel(logLevel)
 #startDt = datetime.datetime(year=2009, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-startDt = datetime.datetime(year=1970, month=1, day=1,
+startDt = datetime.datetime(year=1959, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
 
@@ -66,7 +66,7 @@ startDt = datetime.datetime(year=1970, month=1, day=1,
 #endDt   = datetime.datetime(year=2012, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-endDt   = datetime.datetime(year=2015, month=1, day=1,
+endDt   = datetime.datetime(year=2017, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
 #endDt   = datetime.datetime(year=2020, month=1, day=1,
@@ -103,6 +103,30 @@ def processPCDD(pcdd, tag):
     
     # Return value.
     rv = 0
+
+    stepSizeTd = datetime.timedelta(days=3)
+    #highPrice = 800.0
+    #highPrice = 600.0
+    #lowPrice = 600.0
+    #lowPrice = 300.0
+
+    if True:
+        degreeValue = 0
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Moon", "geocentric", "tropical",
+            "Sun", "geocentric", "tropical",
+            degreeValue, color=QColor(Qt.blue))
+    
+    if True:
+        degreeValue = 180
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Moon", "geocentric", "tropical",
+            "Sun", "geocentric", "tropical",
+            degreeValue, color=QColor(Qt.red))
 
     # Works with a high percentage.
     #success = PlanetaryCombinationsLibrary.\
@@ -357,7 +381,7 @@ def processPCDD(pcdd, tag):
             "Sun", "geocentric", "tropical",
             degreeValue, color=QColor(Qt.red))
     
-    if True:
+    if False:
         degreeValue = 0
         success = PlanetaryCombinationsLibrary.\
             addLongitudeAspectVerticalLines(\
@@ -366,7 +390,7 @@ def processPCDD(pcdd, tag):
             "Sun", "geocentric", "tropical",
             degreeValue, color=None)
     
-    if True:
+    if False:
         degreeValue = 0
         success = PlanetaryCombinationsLibrary.\
             addLongitudeAspectVerticalLines(\

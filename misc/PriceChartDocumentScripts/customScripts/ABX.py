@@ -84,7 +84,7 @@ def processPCDD(pcdd, tag):
     #lowPrice = 600.0
     #lowPrice = 300.0
 
-    if False:
+    if True:
         degreeValue = 0
         success = PlanetaryCombinationsLibrary.\
             addLongitudeAspectVerticalLines(\
@@ -93,7 +93,7 @@ def processPCDD(pcdd, tag):
             "Sun", "geocentric", "tropical",
             degreeValue, color=QColor(Qt.blue))
     
-    if False:
+    if True:
         degreeValue = 180
         success = PlanetaryCombinationsLibrary.\
             addLongitudeAspectVerticalLines(\
@@ -103,7 +103,7 @@ def processPCDD(pcdd, tag):
             degreeValue, color=QColor(Qt.red))
 
     # G.Mercury 30 degree increments from 15 Libra 04'.
-    if True:
+    if False:
         # For obtaining a color for a given planet.
         from astrologychart import AstrologyUtils
         col = AstrologyUtils.getForegroundColorForPlanetName("Mercury")
@@ -134,7 +134,7 @@ def processPCDD(pcdd, tag):
             "Mercury", color=QColor(Qt.blue))
 
     # G.Mars 9 degree increments from 88 degrees.
-    if True:
+    if False:
         # For obtaining a color for a given planet.
         from astrologychart import AstrologyUtils
         col = AstrologyUtils.getForegroundColorForPlanetName("Mars")

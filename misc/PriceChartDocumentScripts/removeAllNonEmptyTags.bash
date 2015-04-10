@@ -12,9 +12,13 @@
 # Variables
 ##############################################################################
 
-# Top-level directory of pricechartingtool.
-ROOTDIR=/home/rluu/programming/pricechartingtool
+# Directory where this script resides.
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd -P "$( dirname "$SOURCE" )" && pwd )"
 
+# Top-level directory of pricechartingtool.
+ROOTDIR=${DIR}/../..
+
+#echo "ROOTDIR is: ${ROOTDIR}"
 
 # PriceChartDocument file to operate on.
 #PCDFILE=$ROOTDIR/data/PriceChartDocumentFiles/Wheat_Weekly_PriceData_1969_to_2008_and_TFC_2008_to_Current_Merged.pcd
