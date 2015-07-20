@@ -40470,7 +40470,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.tabWidget.addTab(\
             self.lookbackMultiplePriceBarGraphicsItemGroupBox,
-            QIcon(),  # TODO:  add icon path here.
+            QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/edit-undo.png"),
             "")
 
         self.tabWidget.addTab(\
@@ -40550,12 +40550,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.tabWidget.addTab(\
             self.verticalLineSegmentGraphicsItemGroupBox,
-            QIcon(), # TODO: add icon for VerticalLineSegment.
+            QIcon(":/images/rluu/verticalLineSegment.png"),
             "")
 
         self.tabWidget.addTab(\
             self.horizontalLineSegmentGraphicsItemGroupBox,
-            QIcon(), # TODO: add icon for HorizontalLineSegment.
+            QIcon(":/images/rluu/horizontalLineSegment.png"),
             "")
 
         self.tabWidget.addTab(\

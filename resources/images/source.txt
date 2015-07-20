@@ -109,6 +109,7 @@ rluu/gannFan.png
 rluu/gearGreen.png       (Modified an image from Tango Icon Library)
 rluu/handClosed.png
 rluu/handOpen.png
+rluu/horizontalLineSegment.png
 rluu/lineSegment.png
 rluu/logo_ryan_d1.png
 rluu/octaveFan.png
@@ -130,6 +131,7 @@ rluu/timeMeasurement.png
 rluu/timeModalScale.png
 rluu/timeRetracement.png
 rluu/triangleRuler.png   (Modified an image from Tango Icon Library)
+rluu/verticalLineSegment.png
 rluu/vimsottariDasa.png
 rluu/yoginiDasa.png
 rluu/zoomIn.png

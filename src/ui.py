@@ -237,7 +237,7 @@ class MainWindow(QMainWindow):
             connect(self._editPriceBarChartScaling)
         
         # Create the editLookbackMultiplesAction.
-        icon = QIcon() # TODO: add an icon here for editLookbackMultiplesAction.
+        icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/edit-undo.png")
         self.editLookbackMultiplesAction = \
             QAction(icon, "Edit Lookback Multiples", self)
         self.editLookbackMultiplesAction.\
@@ -512,7 +512,7 @@ class MainWindow(QMainWindow):
         self.lineSegment2ToolAction.setCheckable(True)
 
         # Create the VerticalLineSegmentToolAction
-        icon = QIcon() # TODO: add icon for VerticalLineSegmentToolAction.
+        icon = QIcon(":/images/rluu/verticalLineSegment.png")
         self.verticalLineSegmentToolAction = \
             QAction(icon, "Vertical Line Segment Tool", self)
         self.verticalLineSegmentToolAction.\
@@ -520,7 +520,7 @@ class MainWindow(QMainWindow):
         self.verticalLineSegmentToolAction.setCheckable(True)
 
         # Create the HorizontalLineSegmentToolAction
-        icon = QIcon() # TODO: add icon for HorizontalLineSegmentToolAction.
+        icon = QIcon(":/images/rluu/horizontalLineSegment.png")
         self.horizontalLineSegmentToolAction = \
             QAction(icon, "Horizontal Line Segment Tool", self)
         self.horizontalLineSegmentToolAction.\

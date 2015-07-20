@@ -24,6 +24,7 @@
     <file>images/rluu/gearGreen.png</file>
     <file>images/rluu/handClosed.png</file>
     <file>images/rluu/handOpen.png</file>
+    <file>images/rluu/horizontalLineSegment.png</file>
     <file>images/rluu/lineSegment.png</file>
     <file>images/rluu/logo_ryan_d1.png</file>
     <file>images/rluu/octaveFan.png</file>
@@ -44,6 +45,7 @@
     <file>images/rluu/timeModalScale.png</file>
     <file>images/rluu/timeRetracement.png</file>
     <file>images/rluu/triangleRuler.png</file>
+    <file>images/rluu/verticalLineSegment.png</file>
     <file>images/rluu/vimsottariDasa.png</file>
     <file>images/rluu/yoginiDasa.png</file>
     <file>images/rluu/zoomIn.png</file>
@@ -57,6 +59,7 @@
     <file>images/tango-icon-theme-0.8.90/32x32/actions/document-print-preview.png</file>
     <file>images/tango-icon-theme-0.8.90/32x32/actions/document-save-as.png</file>
     <file>images/tango-icon-theme-0.8.90/32x32/actions/document-save.png</file>
+    <file>images/tango-icon-theme-0.8.90/32x32/actions/edit-undo.png</file>
     <file>images/tango-icon-theme-0.8.90/32x32/actions/system-log-out.png</file>
     <file>images/tango-icon-theme-0.8.90/32x32/actions/view-refresh.png</file>
     <file>images/tango-icon-theme-0.8.90/32x32/apps/internet-web-browser.png</file>
