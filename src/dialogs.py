@@ -40325,13 +40325,17 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         # QGroupBox to hold the edit widgets and form for
         # TimeModalScaleGraphicsItem.
-        self.timeModalScaleGraphicsItemGroupBox = \
-            self._buildTimeModalScaleGraphicsItemGroupBox()
+        self.timeModalScaleGraphicsItemGroupBox1 = \
+            self._buildTimeModalScaleGraphicsItemGroupBox1()
+        self.timeModalScaleGraphicsItemGroupBox2 = \
+            self._buildTimeModalScaleGraphicsItemGroupBox2()
 
         # QGroupBox to hold the edit widgets and form for
         # PriceModalScaleGraphicsItem.
-        self.priceModalScaleGraphicsItemGroupBox = \
-            self._buildPriceModalScaleGraphicsItemGroupBox()
+        self.priceModalScaleGraphicsItemGroupBox1 = \
+            self._buildPriceModalScaleGraphicsItemGroupBox1()
+        self.priceModalScaleGraphicsItemGroupBox2 = \
+            self._buildPriceModalScaleGraphicsItemGroupBox2()
 
         # QGroupBox to hold the edit widgets and form for
         # PlanetLongitudeMovementMeasurementGraphicsItem.
@@ -40391,8 +40395,10 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         # QGroupBox to hold the edit widgets and form for
         # OctaveFanGraphicsItem.
-        self.octaveFanGraphicsItemGroupBox = \
-            self._buildOctaveFanGraphicsItemGroupBox()
+        self.octaveFanGraphicsItemGroupBox1 = \
+            self._buildOctaveFanGraphicsItemGroupBox1()
+        self.octaveFanGraphicsItemGroupBox2 = \
+            self._buildOctaveFanGraphicsItemGroupBox2()
 
         # QGroupBox to hold the edit widgets and form for
         # FibFanGraphicsItem.
@@ -40489,14 +40495,24 @@ class PriceBarChartSettingsEditWidget(QWidget):
             "(2)")
 
         self.tabWidget.addTab(\
-            self.timeModalScaleGraphicsItemGroupBox,
+            self.timeModalScaleGraphicsItemGroupBox1,
             QIcon(":/images/rluu/timeModalScale.png"),
-            "")
+            "(1)")
 
         self.tabWidget.addTab(\
-            self.priceModalScaleGraphicsItemGroupBox,
+            self.timeModalScaleGraphicsItemGroupBox2,
+            QIcon(":/images/rluu/timeModalScale.png"),
+            "(2)")
+
+        self.tabWidget.addTab(\
+            self.priceModalScaleGraphicsItemGroupBox1,
             QIcon(":/images/rluu/priceModalScale.png"),
-            "")
+            "(1)")
+
+        self.tabWidget.addTab(\
+            self.priceModalScaleGraphicsItemGroupBox2,
+            QIcon(":/images/rluu/priceModalScale.png"),
+            "(2)")
 
         self.tabWidget.addTab(\
             self.planetLongitudeMovementMeasurementGraphicsItemGroupBox1,
@@ -40559,9 +40575,14 @@ class PriceBarChartSettingsEditWidget(QWidget):
             "")
 
         self.tabWidget.addTab(\
-            self.octaveFanGraphicsItemGroupBox,
+            self.octaveFanGraphicsItemGroupBox1,
             QIcon(":/images/rluu/octaveFan.png"),
-            "")
+            "(1)")
+
+        self.tabWidget.addTab(\
+            self.octaveFanGraphicsItemGroupBox2,
+            QIcon(":/images/rluu/octaveFan.png"),
+            "(2)")
 
         self.tabWidget.addTab(\
             self.fibFanGraphicsItemGroupBox,
@@ -42639,7 +42660,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         return self.timeMeasurementGraphicsItemGroupBox2
     
-    def _buildTimeModalScaleGraphicsItemGroupBox(self):
+    def _buildTimeModalScaleGraphicsItemGroupBox1(self):
         """Builds the groupbox containing info to edit the
         PriceBarChartSettings related to a TimeModalScaleGraphicsItem.
 
@@ -42647,8 +42668,8 @@ class PriceBarChartSettingsEditWidget(QWidget):
         QGroupBox obj containing all the created widgets.
         """
 
-        self.timeModalScaleGraphicsItemGroupBox = \
-            QGroupBox("TimeModalScaleGraphicsItem settings:")
+        self.timeModalScaleGraphicsItemGroupBox1 = \
+            QGroupBox("TimeModalScaleGraphicsItem settings (page 1):")
 
         # timeModalScaleGraphicsItemColor (QColor).
         self.timeModalScaleGraphicsItemColorLabel = \
@@ -42805,6 +42826,25 @@ class PriceBarChartSettingsEditWidget(QWidget):
         r += 1
 
 
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.timeModalScaleGraphicsItemGroupBox1.setLayout(layout)
+
+        return self.timeModalScaleGraphicsItemGroupBox1
+
+    def _buildTimeModalScaleGraphicsItemGroupBox2(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a TimeModalScaleGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.timeModalScaleGraphicsItemGroupBox2 = \
+            QGroupBox("TimeModalScaleGraphicsItem settings (page 2):")
+
         self.timeModalScaleGraphicsItemRotateDownButton = \
             QPushButton("Rotate Down")
         self.timeModalScaleGraphicsItemRotateUpButton = \
@@ -42842,13 +42882,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.timeModalScaleGraphicsItemCheckBoxes = []
         
         layout = QVBoxLayout()
-        layout.addLayout(gridLayout)
         layout.addLayout(rotateButtonsLayout)
         layout.addLayout(\
             self.timeModalScaleGraphicsItemMusicalRatiosGridLayout)
         layout.addStretch()
         
-        self.timeModalScaleGraphicsItemGroupBox.setLayout(layout)
+        self.timeModalScaleGraphicsItemGroupBox2.setLayout(layout)
 
         # Connect signals and slots.
         self.timeModalScaleGraphicsItemRotateDownButton.clicked.connect(\
@@ -42864,10 +42903,9 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.\
             _handleTimeModalScaleGraphicsItemMusicalRatiosResetButtonClicked)
 
-        
-        return self.timeModalScaleGraphicsItemGroupBox
+        return self.timeModalScaleGraphicsItemGroupBox2
 
-    def _buildPriceModalScaleGraphicsItemGroupBox(self):
+    def _buildPriceModalScaleGraphicsItemGroupBox1(self):
         """Builds the groupbox containing info to edit the
         PriceBarChartSettings related to a PriceModalScaleGraphicsItem.
 
@@ -42875,8 +42913,8 @@ class PriceBarChartSettingsEditWidget(QWidget):
         QGroupBox obj containing all the created widgets.
         """
 
-        self.priceModalScaleGraphicsItemGroupBox = \
-            QGroupBox("PriceModalScaleGraphicsItem settings:")
+        self.priceModalScaleGraphicsItemGroupBox1 = \
+            QGroupBox("PriceModalScaleGraphicsItem settings (page 1):")
 
         # priceModalScaleGraphicsItemColor (QColor).
         self.priceModalScaleGraphicsItemColorLabel = \
@@ -43033,6 +43071,25 @@ class PriceBarChartSettingsEditWidget(QWidget):
         r += 1
 
 
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.priceModalScaleGraphicsItemGroupBox1.setLayout(layout)
+
+        return self.priceModalScaleGraphicsItemGroupBox1
+
+    def _buildPriceModalScaleGraphicsItemGroupBox2(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a PriceModalScaleGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.priceModalScaleGraphicsItemGroupBox2 = \
+            QGroupBox("PriceModalScaleGraphicsItem settings (page 2):")
+
         self.priceModalScaleGraphicsItemRotateDownButton = \
             QPushButton("Rotate Down")
         self.priceModalScaleGraphicsItemRotateUpButton = \
@@ -43070,13 +43127,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.priceModalScaleGraphicsItemCheckBoxes = []
         
         layout = QVBoxLayout()
-        layout.addLayout(gridLayout)
         layout.addLayout(rotateButtonsLayout)
         layout.addLayout(\
             self.priceModalScaleGraphicsItemMusicalRatiosGridLayout)
         layout.addStretch()
         
-        self.priceModalScaleGraphicsItemGroupBox.setLayout(layout)
+        self.priceModalScaleGraphicsItemGroupBox2.setLayout(layout)
 
         # Connect signals and slots.
         self.priceModalScaleGraphicsItemRotateDownButton.clicked.connect(\
@@ -43093,7 +43149,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
             _handlePriceModalScaleGraphicsItemMusicalRatiosResetButtonClicked)
 
         
-        return self.priceModalScaleGraphicsItemGroupBox
+        return self.priceModalScaleGraphicsItemGroupBox2
 
     def _buildPlanetLongitudeMovementMeasurementGraphicsItemGroupBox1(self):
         """Builds the groupbox containing info to edit the
@@ -46220,7 +46276,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
         
         return self.horizontalLineSegmentGraphicsItemGroupBox
     
-    def _buildOctaveFanGraphicsItemGroupBox(self):
+    def _buildOctaveFanGraphicsItemGroupBox1(self):
         """Builds the groupbox containing info to edit the
         PriceBarChartSettings related to a OctaveFanGraphicsItem.
 
@@ -46228,8 +46284,8 @@ class PriceBarChartSettingsEditWidget(QWidget):
         QGroupBox obj containing all the created widgets.
         """
 
-        self.octaveFanGraphicsItemGroupBox = \
-            QGroupBox("OctaveFanGraphicsItem settings:")
+        self.octaveFanGraphicsItemGroupBox1 = \
+            QGroupBox("OctaveFanGraphicsItem settings (page 1):")
 
         # PriceBarChart octaveFanGraphicsItemBarHeight (float).
         self.octaveFanGraphicsItemBarHeightLabel = \
@@ -46360,6 +46416,25 @@ class PriceBarChartSettingsEditWidget(QWidget):
         r += 1
 
 
+        layout = QVBoxLayout()
+        layout.addLayout(gridLayout)
+        layout.addStretch()
+        
+        self.octaveFanGraphicsItemGroupBox1.setLayout(layout)
+
+        return self.octaveFanGraphicsItemGroupBox1
+
+    def _buildOctaveFanGraphicsItemGroupBox2(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a OctaveFanGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.octaveFanGraphicsItemGroupBox2 = \
+            QGroupBox("OctaveFanGraphicsItem settings (page 2):")
+
         self.octaveFanGraphicsItemRotateDownButton = \
             QPushButton("Rotate Down")
         self.octaveFanGraphicsItemRotateUpButton = \
@@ -46397,13 +46472,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.octaveFanGraphicsItemCheckBoxes = []
         
         layout = QVBoxLayout()
-        layout.addLayout(gridLayout)
         layout.addLayout(rotateButtonsLayout)
         layout.addLayout(\
             self.octaveFanGraphicsItemMusicalRatiosGridLayout)
         layout.addStretch()
         
-        self.octaveFanGraphicsItemGroupBox.setLayout(layout)
+        self.octaveFanGraphicsItemGroupBox2.setLayout(layout)
 
         # Connect signals and slots.
         self.octaveFanGraphicsItemRotateDownButton.clicked.connect(\
@@ -46419,8 +46493,7 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.\
             _handleOctaveFanGraphicsItemMusicalRatiosResetButtonClicked)
 
-        
-        return self.octaveFanGraphicsItemGroupBox
+        return self.octaveFanGraphicsItemGroupBox2
 
     def _buildFibFanGraphicsItemGroupBox(self):
         """Builds the groupbox containing info to edit the
