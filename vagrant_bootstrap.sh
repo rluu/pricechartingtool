@@ -12,7 +12,8 @@ scriptDirectory=`dirname "$0"`
 
 # Shared directory with the virtual machine's host operating system,
 # which is mapped to the project's top-level directory.
-export PROJECT_HOME=/vagrant
+#export PROJECT_HOME=/vagrant
+export PROJECT_HOME=${scriptDirectory}
 
 ##############################################################################
 # Install operating system packages.
@@ -25,8 +26,14 @@ sudo apt-get install -y zip
 sudo apt-get install -y unzip
 sudo apt-get install -y python3-pip
 sudo apt-get install -y qt5-default
-sudo apt-get install -y python3-pyqt5
-#sudo apt-get install -y pyqt5-dev-tools
+
+# Commented out because this will install to python3's site-packages,
+# not python3.4's site-packages.  Instead we will compile pyqt5 from
+# source.
+#sudo apt-get install -y python3-pyqt5
+
+# Install pyqt5 dev tools.  This will give us pyrcc5.
+sudo apt-get install -y pyqt5-dev-tools
 
 # Install virtualenv and use that instead of using pyvenv,
 # because there is a bug with pyvenv on ubuntu/trusty64,
@@ -40,8 +47,12 @@ sudo pip3 install virtualenv
 cd $PROJECT_HOME
 
 # Create the virtual environment for Python 3.
-virtualenv --system-site-packages --always-copy venv
+if [ -d "venv" ]; then
+    rm -rf venv
+fi
+virtualenv venv
 
+# Activate the virtual environment.
 source ./venv/bin/activate
 
 ########################################
@@ -80,19 +91,10 @@ make
 make install
 
 ########################################
-# Initialize resource files.
+# Initialize PriceChartingTool resource files.
 
 cd $PROJECT_HOME/resources
 ./generateResourceSourceFile.sh
 cd $PROJECT_HOME
 
 ########################################
-
-# Optionally, run 'qtconfig' and set the look and GUI style to whatever
-# is desired.
-# 
-# The recommended style is "Plastique" because that style will allow
-# the PriceBarChartSettings dialog to fit within the vertical size of a
-# Macbook Pro 15 inch laptop screen. 
-
-##############################################################################

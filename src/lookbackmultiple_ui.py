@@ -24,8 +24,9 @@ from dialogs import LookbackMultipleEditDialog
 
 
 class LookbackMultiplePanelWidget(QWidget):
-    """Widget holding the QTableView that displays the PriceBar 
-    information along with other metrics analysis information.
+    """Widget holding the QTableView that displays the list of
+    LookbackMultiples, along with checkboxes to enable or disable
+    them.
     """
 
     # Signal emitted when the LookbackMultiples are modified by the user,
@@ -64,7 +65,7 @@ class LookbackMultiplePanelWidget(QWidget):
         column = 0
         self.tableWidget.setHorizontalHeaderItem(column, 
                                                  self.tableWidgetHeaderItem)
-        self.tableWidget.horizontalHeader().setResizeMode(QHeaderView.Stretch)
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
         # Setup the layout.
         layout = QVBoxLayout()

@@ -1,6 +1,95 @@
 ##############################################################################
 
 ##############################################################################
+List of tasks to do for porting PriceChartingTool from qt4 to qt5.
+##############################################################################
+
+QPen now has a default width of 1 instead of 0.
+
+DONE:
+rluu_20150721: In most places, I set it to zero.  I don't set it if I am pulling the pen from other widget's internal pen, just to change the color of it and set it back, therefore, I should be okay here.  
+
+##############################################################################
+
+
+QApplication::commitData and QApplication::saveState virtual methods that were used for session management are removed. Connect to the QApplication::commitDataRequest and QApplication::saveStateRequest signals instead. Use QApplication::isSavingSession() if the QWidget::closeEvent if your window needs to know whether it is being called during shutdown.
+
+
+DONE:
+rluu_20150721: I do use saveState... but for QMainWindow.  THis should be fine.
+
+##############################################################################
+
+Changes to QHeaderView
+
+The following functions are deprecated:
+
+    void setMovable(bool movable) - Use QHeaderView::setSectionsMovable() instead.
+    bool isMovable() const - Use QHeaderView::sectionsMovable() instead.
+    void setClickable(bool clickable) - Use QHeaderView::setSectionsClickable() instead.
+    bool isClickable() const - Use QHeaderView::sectionsClickable() instead.
+    void setResizeMode(int logicalindex, ResizeMode mode) - Use QHeaderView::setSectionResizeMode() instead.
+    ResizeMode resizeMode(int logicalindex) const - Use QHeaderView::sectionResizeMode() instead.
+
+DONE
+
+##############################################################################
+
+Changes to QColorDialog
+
+    QColorDialog::customColor() now returns a QColor value instead of QRgb.
+    QColorDialog::setCustomColor() and QColorDialog::setStandardColor() now need a QColor value as their second parameter instead of QRgb.
+
+
+DONE
+
+##############################################################################
+
+QGraphicsItem and its derived classes can no longer pass a QGraphicsScene to the item's constructor. Construct the item without a scene and call QGraphicsScene::addItem() to add the item to the scene.
+
+
+rluu_20150721: This one will take a while to do.
+
+
+##############################################################################
+
+QMotifStyle, QPlastiqueStyle, QCleanlooksStyle, and QCDEStyle are replaced with a new fusion style. If your application depends on any of these removed styles, you can either use the qtstyleplugins project to get these styles or update your application to use the new fusion style. For more details about this change, see https://blog.qt.io/blog/2012/10/30/cleaning-up-styles-in-qt5-and-adding-fusion/.
+The following QStyle implementations have been made internal:
+
+    QFusionStyle
+    QGtkStyle
+    QMacStyle
+    QWindowsCEStyle
+    QWindowsMobileStyle
+    QWindowsStyle
+    QWindowsVistaStyle
+    QWindowsXPStyle
+
+Instead of creating instances or inheriting these classes directly, use:
+
+    QStyleFactory for creating instances of specific styles.
+    QProxyStyle for customizing existing style implementations.
+    QCommonStyle as a base for implementing full custom styles.
+
+
+rluu_20150721: I will hold off on this one for now.  I'll need to play around with the UI to see if the style is satisfactory to me.  
+
+##############################################################################
+
+Need to update README.txt:
+  - dependencies
+  - version numbers
+  - build/setup instructions:
+     - non vagrant setup.
+     - vagrant setup.
+     
+Need to update version information
+  - in source code (readmes, python source files, etc.)
+  - on website.
+  
+Need to update website with build/setup information for this new version.
+
+##############################################################################
 
 TODO:  
 
