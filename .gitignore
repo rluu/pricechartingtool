@@ -29,6 +29,8 @@ misc/PriceChartDocumentScripts/customScripts/__pycache__
 src/resources.py
 
 # Ignore tps extracted tarball directories.
+tps/pyqt/5.5/PyQt-gpl-5.5/*
+tps/pyqt/5.5/sip-4.16.9/*
 tps/pyqt/4.11.3/PyQt-mac-gpl-4.11.3/*
 tps/pyqt/4.11.3/PyQt-win-gpl-4.11.3/*
 tps/pyqt/4.11.3/PyQt-x11-gpl-4.11.3/*
@@ -41,6 +43,9 @@ venv
 venv/*
 venv_linux
 venv_mac
+
+# Ignore the Vagrant hidden directory.
+.vagrant
 
 # Ignore MacOS filesystem artifacts.
 .DS_Store
