@@ -37,8 +37,8 @@ Requirements:
 Dependencies to build/run this project are:
 
   - Python 3.4
-  - Qt 4.7.4
-  - PyQt 4.11.3           [Included in tps directory]
+  - Qt5
+  - PyQt5
   - pyswisseph 1.77       [Included in tps directory]
       (Uses Swiss Ephemeris version 1.77.00, which was released Jan. 26, 2010)
   - pytz 2014.9           [Included in tps directory]
