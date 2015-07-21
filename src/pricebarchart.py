@@ -35,9 +35,10 @@ from multiprocessing import JoinableQueue
 from multiprocessing.context import AuthenticationError
 
 # For PyQt UI classes.
-from PyQt4 import QtCore
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5 import QtCore
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 
 # Import image resources.
 import resources

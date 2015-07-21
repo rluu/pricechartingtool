@@ -41,9 +41,10 @@ import multiprocessing
 import logging
 
 # For PyQt UI classes.
-from PyQt4 import QtCore
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5 import QtCore
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 
 # Do initialization of Qt stuff for usage of Qt objects.  This stuff
 # was originally at the bottom of this script near the rest of main

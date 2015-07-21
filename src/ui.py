@@ -21,9 +21,10 @@ import subprocess
 import datetime
 import pytz
 
-from PyQt4 import QtCore
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5 import QtCore
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 
 # For icon images, etc.
 import resources

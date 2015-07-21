@@ -15,9 +15,10 @@ import logging
 import logging.config
 
 # For PyQt UI classes.
-import PyQt4.QtCore as QtCore
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+import PyQt5.QtCore as QtCore
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 
 # For timezone lookup.
 import datetime

@@ -18,16 +18,16 @@ import datetime
 import pytz
 
 # For pickling PyQt types.
-from PyQt4.QtGui import QTransform
-from PyQt4.QtGui import QFont
-from PyQt4.QtGui import QColor
-from PyQt4.QtCore import Qt
-from PyQt4.QtCore import QPointF
-from PyQt4.QtCore import QLineF
-from PyQt4.QtCore import QRectF
+from PyQt5.QtGui import QTransform
+from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QColor
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QPointF
+from PyQt5.QtCore import QLineF
+from PyQt5.QtCore import QRectF
 
 # For getting QSettings values.
-from PyQt4.QtCore import QSettings
+from PyQt5.QtCore import QSettings
 
 # For datetime.datetime to str conversion.
 from ephemeris import Ephemeris
