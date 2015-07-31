@@ -2147,8 +2147,8 @@ class AstrologyUtils:
 class RadixChartAspectGraphicsItem(QGraphicsItem):
     """QGraphicsItem that represents an aspect on a Radix Chart."""
 
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
     
         # Logger
         self.log = \
@@ -2885,8 +2885,8 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
 class RadixChartGraphicsItem(QGraphicsItem):
     """QGraphicsItem that is the circle astrology chart."""
 
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
     def getRadiusForWheelNumber(self, wheelNumber):
         """Virtual function.  Subclasses must overwrite and implement.
@@ -2933,8 +2933,8 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
     - Number for the Navamsa Rasi.
     """
 
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
         
         # Logger
         self.log = \
@@ -3116,7 +3116,8 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         
         # Remove all previously used aspects.
         for aspect in aspects:
-            self.scene().removeItem(aspect)
+            if self.scene() != None:
+                self.scene().removeItem(aspect)
         aspects = []
         
         # Check for aspects with planets in all combinations.
@@ -3447,8 +3448,7 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
                  degree=0.0,
                  velocity=0.0,
                  wheelNumber=1,
-                 parent=None,
-                 scene=None):
+                 parent=None):
         """Initializes the object with the given arguments.
 
         Arguments:
@@ -3471,10 +3471,9 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
                       The first wheel (circle) is wheel number 1.
         parent - RadixChartGraphicsItem that is the parent for this
                  QGraphicsItem.
-        scene - QGraphicsScene object to draw this QGraphicsItem on.
         """
     
-        super().__init__(parent, scene)
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -3900,8 +3899,8 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
     planets' declination.
     """
 
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -4103,8 +4102,7 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
                  degree=0.0,
                  velocity=0.0,
                  planetGroupNumber=1,
-                 parent=None,
-                 scene=None):
+                 parent=None):
         """Initializes the object with the given arguments.
 
         Arguments:
@@ -4129,10 +4127,9 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
                             The first group is at number 1.
         parent - DeclinationChartGraphicsItem that is the parent for this
                  QGraphicsItem.
-        scene - QGraphicsScene object to draw this QGraphicsItem on.
         """
         
-        super().__init__(parent, scene)
+        super().__init__(parent)
         
         # Logger
         self.log = \
@@ -4424,8 +4421,8 @@ class LatitudeChartGraphicsItem(QGraphicsItem):
     planets' latitude.
     """
 
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -4627,8 +4624,7 @@ class PlanetLatitudeGraphicsItem(QGraphicsItem):
                  degree=0.0,
                  velocity=0.0,
                  planetGroupNumber=1,
-                 parent=None,
-                 scene=None):
+                 parent=None):
         """Initializes the object with the given arguments.
 
         Arguments:
@@ -4653,10 +4649,9 @@ class PlanetLatitudeGraphicsItem(QGraphicsItem):
                             The first group is at number 1.
         parent - LatitudeChartGraphicsItem that is the parent for this
                  QGraphicsItem.
-        scene - QGraphicsScene object to draw this QGraphicsItem on.
         """
         
-        super().__init__(parent, scene)
+        super().__init__(parent)
         
         # Logger
         self.log = \
@@ -4949,7 +4944,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
     planets' longitude speed.
     """
 
-    def __init__(self, maxSpeed=None, minSpeed=None, parent=None, scene=None):
+    def __init__(self, maxSpeed=None, minSpeed=None, parent=None):
         """Initializes the LongitudeSpeedChartGraphicsItem with the
         given max and minimum speeds.
 
@@ -4960,7 +4955,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
                    degrees per day.
         """
         
-        super().__init__(parent, scene)
+        super().__init__(parent)
         
         # Logger
         self.log = \
@@ -5311,8 +5306,7 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
                  planetForegroundColor,
                  planetBackgroundColor,
                  speed = 0.0,
-                 parent=None,
-                 scene=None):
+                 parent=None):
         """Initializes the object with the given arguments.
 
         Arguments:
@@ -5328,10 +5322,9 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
                 that the planet is retrograde (if applicable).
         parent - LongitudeSpeedChartGraphicsItem that is the parent for this
                  QGraphicsItem.
-        scene - QGraphicsScene object to draw this QGraphicsItem on.
         """
         
-        super().__init__(parent, scene)
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -6856,7 +6849,7 @@ class PlanetaryInfoTableGraphicsItem(QGraphicsProxyWidget):
     within a graphics scene and also scale (grow or shrink) it as needed.
     """
 
-    def __init__(self, planetaryInfos=[], parent=None, scene=None):
+    def __init__(self, planetaryInfos=[], parent=None):
         """Creates and initializes the table with the given list of
         PlanetaryInfo objects.
         
@@ -6866,7 +6859,6 @@ class PlanetaryInfoTableGraphicsItem(QGraphicsProxyWidget):
                          information about the various planets that will
                          be displayed in the internal QTableWidget.
         parent - Parent QGraphicsItem for this object.
-        scene - QGraphicsScene object to draw this object on.
         """                 
 
         super().__init__(parent)

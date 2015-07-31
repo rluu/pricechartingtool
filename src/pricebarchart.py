@@ -150,13 +150,13 @@ class PriceBarGraphicsItem(QGraphicsItem):
     red otherwise.
     """
     
-    def __init__(self, parent=None, scene=None):
+    def __init__(self, parent=None):
 
         # Logger
         self.log = logging.getLogger("pricebarchart.PriceBarGraphicsItem")
         self.log.debug("Entered __init__().")
 
-        super().__init__(parent, scene)
+        super().__init__(parent)
 
         # Pen width for PriceBars.
         self.penWidth = \
@@ -723,8 +723,8 @@ class LookbackMultiplePriceBarGraphicsItem(QGraphicsItem):
     LookbackMultiple color.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = logging.getLogger("pricebarchart.LookbackMultiplePriceBarGraphicsItem")
@@ -1274,8 +1274,8 @@ class PriceBarChartArtifactGraphicsItem(QGraphicsItem):
     readOnly mode.
     """
 
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
         
         # Logger
         self.log = \
@@ -1376,8 +1376,8 @@ class PriceBarChartArtifactGraphicsItem(QGraphicsItem):
 class TextGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a PriceBarChartTextArtifact."""
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
         
         # Internal storage object, used for loading/saving (serialization).
         self.artifact = PriceBarChartTextArtifact()
@@ -1756,8 +1756,8 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
     and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = logging.getLogger("pricebarchart.BarCountGraphicsItem")
@@ -2655,8 +2655,8 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -4736,8 +4736,8 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 class VerticalTickGraphicsItem(QGraphicsItem):
     """QGraphicsItem that draws a vertical tick line. """
 
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
         
         # Logger
         self.log = logging.getLogger("pricebarchart.VerticalTickGraphicsItem")
@@ -4808,8 +4808,8 @@ class VerticalTickGraphicsItem(QGraphicsItem):
 class HorizontalTickGraphicsItem(QGraphicsItem):
     """QGraphicsItem that draws a horizontal tick line. """
 
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
         
         # Logger
         self.log = logging.getLogger("pricebarchart.HorizontalTickGraphicsItem")
@@ -4887,8 +4887,8 @@ class TimeModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -6318,8 +6318,8 @@ class PriceModalScaleGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
 
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -7652,8 +7652,8 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
     points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -10663,8 +10663,8 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
 class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a PriceBarChartPriceTimeInfoArtifact."""
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
         
         # Internal storage object, used for loading/saving (serialization).
         self.artifact = PriceBarChartPriceTimeInfoArtifact()
@@ -11514,8 +11514,8 @@ class PriceMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     center point of the start point of the ruler.
     """
 
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -12739,8 +12739,8 @@ class TimeRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = logging.getLogger(\
@@ -14021,8 +14021,8 @@ class PriceRetracementGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = logging.getLogger(\
@@ -15306,8 +15306,8 @@ class PriceTimeVectorGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = logging.getLogger(\
@@ -16505,8 +16505,8 @@ class LineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a line segment in the GraphicsView.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = logging.getLogger(\
@@ -17853,8 +17853,8 @@ class VerticalLineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a line segment in the GraphicsView.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = logging.getLogger(\
@@ -18843,8 +18843,8 @@ class HorizontalLineSegmentGraphicsItem(PriceBarChartArtifactGraphicsItem):
     """QGraphicsItem that visualizes a line segment in the GraphicsView.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = logging.getLogger(\
@@ -19836,8 +19836,8 @@ class OctaveFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
     origin point.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -21853,8 +21853,8 @@ class FibFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
     origin point.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -23729,8 +23729,8 @@ class GannFanGraphicsItem(PriceBarChartArtifactGraphicsItem):
     origin point.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -25616,8 +25616,8 @@ class VimsottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -27033,8 +27033,8 @@ class AshtottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -28411,8 +28411,8 @@ class YoginiDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -29789,8 +29789,8 @@ class DwisaptatiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -31166,8 +31166,8 @@ class ShattrimsaSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -32543,8 +32543,8 @@ class DwadasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -33920,8 +33920,8 @@ class ChaturaseetiSamaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -35297,8 +35297,8 @@ class SataabdikaDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -36674,8 +36674,8 @@ class ShodasottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -38056,8 +38056,8 @@ class PanchottariDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -39433,8 +39433,8 @@ class ShashtihayaniDasaGraphicsItem(PriceBarChartArtifactGraphicsItem):
     the position and points can be consistently set.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = \
@@ -40807,8 +40807,8 @@ class TransientDashedLineSegmentGraphicsItem(QGraphicsItem):
     backing it.
     """
     
-    def __init__(self, parent=None, scene=None):
-        super().__init__(parent, scene)
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         # Logger
         self.log = logging.getLogger(\
@@ -47932,9 +47932,11 @@ class PriceBarChartGraphicsView(QGraphicsView):
         scene = self.scene()
 
         # See if the user has right clicked on a QGraphicsItem.
-        items = scene.items(clickPosF,
-                            Qt.ContainsItemBoundingRect,
-                            Qt.AscendingOrder)
+        items = []
+        if scene != None:
+            items = scene.items(clickPosF,
+                                Qt.ContainsItemBoundingRect,
+                                Qt.AscendingOrder)
 
         # Here count the number of items at this position that
         # we care about for creating a context menu for.
@@ -48088,40 +48090,55 @@ class PriceBarChartGraphicsView(QGraphicsView):
         astro chart.
         """
 
+        scene = self.scene()
+        
         # The scene X position represents the time.
-        self.scene().setAstroChart1(clickPosF.x())
+        if scene != None:
+            scene.setAstroChart1(clickPosF.x())
         
     def _handleSetAstro2Action(self, clickPosF):
         """Handles when the user triggers a QAction for setting the
         astro chart.
         """
 
+        scene = self.scene()
+        
         # The scene X position represents the time.
-        self.scene().setAstroChart2(clickPosF.x())
+        if scene != None:
+            scene.setAstroChart2(clickPosF.x())
         
     def _handleSetAstro3Action(self, clickPosF):
         """Handles when the user triggers a QAction for setting the
         astro chart.
         """
 
+        scene = self.scene()
+        
         # The scene X position represents the time.
-        self.scene().setAstroChart3(clickPosF.x())
+        if scene != None:
+            scene.setAstroChart3(clickPosF.x())
         
     def _handleOpenJHoraAction(self, clickPosF):
         """Causes the timestamp of this GraphicsItem to be opened in
         JHora.
         """
 
+        scene = self.scene()
+        
         # The GraphicsItem's scene X position represents the time.
-        self.scene().openJHora(clickPosF.x())
+        if scene != None:
+            scene.openJHora(clickPosF.x())
         
     def _handleOpenAstrologAction(self, clickPosF):
         """Causes the timestamp of this GraphicsItem to be opened in
         Astrolog.
         """
 
+        scene = self.scene()
+        
         # The GraphicsItem's scene X position represents the time.
-        self.scene().openAstrolog(clickPosF.x())
+        if scene != None:
+            scene.openAstrolog(clickPosF.x())
         
     def wheelEvent(self, qwheelevent):
         """Triggered when the mouse wheel is scrolled."""
