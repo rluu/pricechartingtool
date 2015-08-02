@@ -43,9 +43,10 @@ from optparse import OptionParser
 import logging
 
 # For PyQt UI classes.
-from PyQt4 import QtCore
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5 import QtCore
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 
 # Include some PriceChartingTool modules.
 # This assumes that the relative directory from this script is: ../../src

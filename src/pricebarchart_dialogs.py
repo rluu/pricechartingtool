@@ -14,9 +14,10 @@ import datetime
 import pytz
 
 # For PyQt UI classes.
-from PyQt4 import QtCore
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5 import QtCore
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 
 # For PriceBars and artifacts in the chart.
 from data_objects import BirthInfo
@@ -25094,8 +25095,8 @@ if __name__=="__main__":
     #testPriceBarChartShashtihayaniDasaArtifactEditDialog()
     
     # Exit the app when all windows are closed.
-    app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
-    app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))
+    app.lastWindowClosed.connect(logging.shutdown)
+    app.lastWindowClosed.connect(app.quit)
 
     # Quit.
     print("Exiting.")

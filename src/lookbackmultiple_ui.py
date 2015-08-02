@@ -7,9 +7,10 @@ import logging
 import os
 
 # For PyQt UI classes.
-from PyQt4 import QtCore
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5 import QtCore
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 
 # Import image resources.
 import resources
@@ -23,8 +24,9 @@ from dialogs import LookbackMultipleEditDialog
 
 
 class LookbackMultiplePanelWidget(QWidget):
-    """Widget holding the QTableView that displays the PriceBar 
-    information along with other metrics analysis information.
+    """Widget holding the QTableView that displays the list of
+    LookbackMultiples, along with checkboxes to enable or disable
+    them.
     """
 
     # Signal emitted when the LookbackMultiples are modified by the user,
@@ -63,7 +65,7 @@ class LookbackMultiplePanelWidget(QWidget):
         column = 0
         self.tableWidget.setHorizontalHeaderItem(column, 
                                                  self.tableWidgetHeaderItem)
-        self.tableWidget.horizontalHeader().setResizeMode(QHeaderView.Stretch)
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
         # Setup the layout.
         layout = QVBoxLayout()
@@ -447,8 +449,8 @@ if __name__=="__main__":
     testLookbackMultiplePanelWidgetEmpty()
 
     # Exit the app when all windows are closed.
-    app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
-    app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))
+    app.lastWindowClosed.connect(logging.shutdown)
+    app.lastWindowClosed.connect(app.quit)
 
     #app.exec_()
 

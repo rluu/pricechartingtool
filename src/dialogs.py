@@ -15,9 +15,10 @@ import logging
 import logging.config
 
 # For PyQt UI classes.
-import PyQt4.QtCore as QtCore
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+import PyQt5.QtCore as QtCore
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 
 # For timezone lookup.
 import datetime
@@ -62480,8 +62481,8 @@ if __name__=="__main__":
     app = QApplication(sys.argv)
 
     # Exit the app when all windows are closed.
-    app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
-    app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))
+    app.lastWindowClosed.connect(logging.shutdown)
+    app.lastWindowClosed.connect(app.quit)
 
     # Various tests to run:
 

@@ -13,9 +13,10 @@ import logging.handlers
 import logging.config
 
 # Import PyQt classes.
-from PyQt4 import QtCore
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5 import QtCore
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 
 # Import from this project.
 from ui import MainWindow
@@ -28,8 +29,8 @@ import resources
 
 ##############################################################################
 
-__version__ = "2.0.0"
-__date__ = "Wed Mar 18 17:49:18 EDT 2015"
+__version__ = "2.1.0"
+__date__ = "Sun Aug  2 16:11:35 EDT 2015"
 
 
 # Application Name

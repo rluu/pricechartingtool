@@ -70,7 +70,7 @@ Vagrant.configure(2) do |config|
   # SHELL
 
   # Proivision for pricechartingtool.
-  config.vm.provision :shell, path: "vagrant_bootstrap.sh"
+  config.vm.provision :shell, path: "provision/vagrant_bootstrap.sh"
   
   # Enable SSH X11 forwarding.
   config.ssh.forward_x11 = true

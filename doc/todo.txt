@@ -1,6 +1,63 @@
 ##############################################################################
 
 ##############################################################################
+List of tasks to do for porting PriceChartingTool from qt4 to qt5.
+
+From:
+http://pyqt.sourceforge.net/Docs/PyQt5/pyqt4_differences.html
+
+##############################################################################
+
+Also, I don't know why it gives me a libGL error:
+
+(venv)vagrant@vagrant-ubuntu-trusty-64:/vagrant/src$ ./main.py 
+libGL error: failed to load driver: swrast
+
+
+What is causing this?   This needs investigation.  
+
+
+##############################################################################
+
+QMotifStyle, QPlastiqueStyle, QCleanlooksStyle, and QCDEStyle are replaced with a new fusion style. If your application depends on any of these removed styles, you can either use the qtstyleplugins project to get these styles or update your application to use the new fusion style. For more details about this change, see https://blog.qt.io/blog/2012/10/30/cleaning-up-styles-in-qt5-and-adding-fusion/.
+The following QStyle implementations have been made internal:
+
+    QFusionStyle
+    QGtkStyle
+    QMacStyle
+    QWindowsCEStyle
+    QWindowsMobileStyle
+    QWindowsStyle
+    QWindowsVistaStyle
+    QWindowsXPStyle
+
+Instead of creating instances or inheriting these classes directly, use:
+
+    QStyleFactory for creating instances of specific styles.
+    QProxyStyle for customizing existing style implementations.
+    QCommonStyle as a base for implementing full custom styles.
+
+
+rluu_20150721: I will hold off on this one for now.  I'll need to play around with the UI to see if the style is satisfactory to me.  
+
+rluu_20150802: The UI looks fine (although there are some weird focus issues when running it through the Vagrant VM with the UI X-forwarded through SSH).
+
+##############################################################################
+
+Need to update README.txt:
+  - dependencies (DONE)
+  - version numbers (DONE)
+  - build/setup instructions: (DONE)
+     - non vagrant setup. (DONE)
+     - vagrant setup.  (DONE)
+     
+Need to update version information
+  - in source code (readmes, python source files, etc.) (DONE)
+  - on website. 
+  
+Need to update website with build/setup information for this new version.
+
+##############################################################################
 
 TODO:  
 
@@ -461,3 +518,121 @@ DONE
 DONE          http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-instance-store.html
 DONE
 DONE      - Need scripts to start instances, deploy my code (maybe it already lives on the image?), then launch the server manager script on a node that has security/firewall permissions set, and worker script on all the other nodes.
+
+##############################################################################
+
+QPen now has a default width of 1 instead of 0.
+
+DONE:
+rluu_20150721: In most places, I set it to zero.  I don't set it if I am pulling the pen from other widget's internal pen, just to change the color of it and set it back, therefore, I should be okay here.  
+
+##############################################################################
+
+
+QApplication::commitData and QApplication::saveState virtual methods that were used for session management are removed. Connect to the QApplication::commitDataRequest and QApplication::saveStateRequest signals instead. Use QApplication::isSavingSession() if the QWidget::closeEvent if your window needs to know whether it is being called during shutdown.
+
+
+DONE:
+rluu_20150721: I do use saveState... but for QMainWindow.  THis should be fine.
+
+##############################################################################
+
+Changes to QHeaderView
+
+The following functions are deprecated:
+
+    void setMovable(bool movable) - Use QHeaderView::setSectionsMovable() instead.
+    bool isMovable() const - Use QHeaderView::sectionsMovable() instead.
+    void setClickable(bool clickable) - Use QHeaderView::setSectionsClickable() instead.
+    bool isClickable() const - Use QHeaderView::sectionsClickable() instead.
+    void setResizeMode(int logicalindex, ResizeMode mode) - Use QHeaderView::setSectionResizeMode() instead.
+    ResizeMode resizeMode(int logicalindex) const - Use QHeaderView::sectionResizeMode() instead.
+
+DONE
+
+##############################################################################
+
+Changes to QColorDialog
+
+    QColorDialog::customColor() now returns a QColor value instead of QRgb.
+    QColorDialog::setCustomColor() and QColorDialog::setStandardColor() now need a QColor value as their second parameter instead of QRgb.
+
+
+DONE
+
+##############################################################################
+QGraphicsItem and its derived classes can no longer pass a QGraphicsScene to the item's constructor. Construct the item without a scene and call QGraphicsScene::addItem() to add the item to the scene.
+
+
+rluu_20150721: This one will take a while to do.
+
+rluu_20150731: Done.
+
+##############################################################################
+
+##############################################################################
+
+
+QFileDialog
+
+The getOpenFileNameAndFilter(), getOpenFileNamesAndFilter() and getSaveFileNameAndFilter() methods of PyQt4’s QFileDialog have now been renamed getOpenFileName(), getOpenFileNames() and getSaveFileName() respectively in PyQt5. PyQt4’s implementations of getOpenFileName(), getOpenFileNames() and getSaveFileName() are not supported in PyQt5.
+
+
+Places to fix, because it segfaults when you pick no files and click cancel:
+src/dialogs.py:614:        """Opens a QFileDialog for selecting a file.  If a file is selected, (no fix required)
+src/dialogs.py:621:        dialog = QFileDialog() (no fix required)
+src/dialogs.py:634:        dialog.setFileMode(QFileDialog.ExistingFile) (no fix required)
+src/ui.py:1450:            QFileDialog.\   # Open file. (fixed)
+src/ui.py:4908:        filename = QFileDialog.\  # Save-as. (fixed)
+
+##############################################################################
+
+Opening .pcd files that were created/saved with PyQt4 (older python maybe?), crashes the interpreter.  It is unknown why this happens, so some investigation is needed.
+
+(venv)vagrant@vagrant-ubuntu-trusty-64:/vagrant/src$ ./main.py 
+libGL error: failed to load driver: swrast
+Traceback (most recent call last):
+  File "/vagrant/src/ui.py", line 1525, in _openChart
+    unpicklePriceChartDocumentDataFromFile(filename)
+  File "/vagrant/src/ui.py", line 4461, in unpicklePriceChartDocumentDataFromFile
+    priceChartDocumentData = pickle.load(fh)
+ImportError: No module named 'PyQt4'
+Aborted (core dumped)
+(venv)vagrant@vagrant-ubuntu-trusty-64:/vagrant/src$ ls
+
+
+rluu_20150801: Won't fix.
+
+##############################################################################
+
+
+##############################################################################
+
+
+Old-style Signals and Slots
+
+PyQt4’s old-style signals and slots are not supported. Therefore the following are not implemented in PyQt5:
+
+    QObject.connect()
+    QObject.emit()
+    SIGNAL()
+    SLOT()
+
+All methods that had arguments that are usually the results of calls to SIGNAL() or SLOT() are no longer supported. There will always be an equivalent that takes a bound signal or callable respectively.
+
+In addition the following methods have differences:
+
+    disconnect() takes no arguments and disconnects all connections to the QObject instance.
+
+New-style Signals and Slots
+
+Qt implements signals with an optional argument as two separate signals, one with the argument and one without it. PyQt4 exposed both of these allowing you to connect to each of them. However, when emitting the signal, you had to use the signal appropriate to the number of arguments being emitted.
+
+PyQt5 exposes only the signal where all arguments are specified. However it allows any optional arguments to be omitted when emitting the signal.
+
+Unlike PyQt4, PyQt5 supports the definition of properties, signals and slots in classes not sub-classed from QObject (i.e. in mixins).
+
+
+DONE
+
+##############################################################################

@@ -8,9 +8,10 @@ import logging
 import logging.config
 
 # For PyQt widgets.
-from PyQt4 import QtCore
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5 import QtCore
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 
 
 class ColorIcon(QIcon):
@@ -266,8 +267,8 @@ if __name__=="__main__":
     testColorEditPushButton()
 
     # Exit the app when all windows are closed.
-    app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
-    app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))
+    app.lastWindowClosed.connect(logging.shutdown)
+    app.lastWindowClosed.connect(app.quit)
 
     #app.exec_()
 

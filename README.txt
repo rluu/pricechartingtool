@@ -14,10 +14,10 @@ Project history:
 Google code project creation:
          2010-05-30 01:26:51 -0400 (Sun, 30 May 2010)
 
-Google code Subversion repository initial import:   
+Google code Subversion repository initial import:
          2010-05-30 01:49:38 -0400 (Sun, 30 May 2010)
 
-Codesion Subversion repository initial import: 
+Codesion Subversion repository initial import:
          2010-06-16 01:40:06 -0400 (Wed, 16 Jun 2010)
 
 GitHub repository migration:
@@ -37,22 +37,11 @@ Requirements:
 Dependencies to build/run this project are:
 
   - Python 3.4
-  - Qt 4.7.4
-  - PyQt 4.11.3           [Included in tps directory]
+  - Qt5
+  - PyQt5
   - pyswisseph 1.77       [Included in tps directory]
       (Uses Swiss Ephemeris version 1.77.00, which was released Jan. 26, 2010)
   - pytz 2014.9           [Included in tps directory]
-
-##############################################################################
-
-Notes for building on the Linux platform: 
-
-  If compiling Qt from source on Linux, make sure to include the
-  following tags or else the subsequent PyQt compile will fail when
-  trying to find phonon header files:
-
-     [rluu@vapor qt-src-dir]$ ./configure -phonon -phonon-backend
-
 
 ##############################################################################
 
@@ -75,7 +64,259 @@ Notes for running on the Windows platform:
 
 ##############################################################################
 
-Notes for building on the Windows platform:
+Steps to run the software:
+
+These steps below assume the dependencies have been installed already.
+
+1) Go to the project directory.
+
+    [rluu@localhost pricechartingtool]$ pwd
+    /home/rluu/programming/pricechartingtool
+
+2) Go to the resources subdirectory.
+
+    [rluu@localhost pricechartingtool]$ cd resources/
+
+3) (Re-)generate the resource source file.
+
+    [rluu@localhost resources]$ ./generateResourceSourceFile.sh
+    pyrcc5 -o ./../src/resources.py ./resources.qrc
+
+4) Change directory to the src directory.
+
+    [rluu@localhost resources]$ cd ../src/
+
+5) Run the executable.
+
+    [rluu@localhost src]$ ./main.py
+
+##############################################################################
+
+Steps to run the software with a Vagrant Virtualbox virtual machine.
+These steps below assume that you have a command-line available and
+that you have an X server running on the host machine.
+
+1) Download and install VirtualBox for your operating system.
+
+    https://www.virtualbox.org/
+    https://www.virtualbox.org/wiki/Downloads
+
+2) Download and install Vagrant.
+
+    https://www.vagrantup.com/
+    https://www.vagrantup.com/downloads.html
+
+3) Go to the project directory.
+
+    [rluu@localhost pricechartingtool]$ pwd
+    /home/rluu/programming/pricechartingtool
+
+4) Run 'vagrant up' to start up the virtual machine.
+   This will download a Linux virtual machine and start it,
+   and install the dependencies required to run PriceChartingTool.
+
+    vagrant up
+
+5) Remote shell into the virtual machine.
+
+    vagrant ssh
+
+6) Run the PriceChartinTool software.
+
+    cd /vagrant
+    source venv/bin/activate
+    cd src
+    ./main.py
+    
+##############################################################################
+
+Steps to setup LookbackMultiple remote distributed calculations 
+(for cycle hunting features) utilizing Amazon Web Services (AWS) and
+other computers.
+
+1) Follow steps in the README.txt file in the AWS_EC2 directory.
+
+less misc/AWS_EC2/README.txt
+
+##############################################################################
+
+Shortcut keys (also listed in the Help menu):
+
+Tool Modes:
+  - Key_F1: ReadOnlyPointerToolAction
+  - Key_F2: PointerToolAction
+  - Key_F3: HandToolAction
+  - Key_F4: Trigger the last used tool mode (that is not one of the above).
+
+Time Modal Scale Tool:
+  - Key_S: Rotate the modal scale left.
+  - Key_G: Rotate the modal scale right.
+  - Key_R: Reverse the direction of the modal scale.
+
+Price Modal Scale Tool:
+  - Key_S: Rotate the modal scale down.
+  - Key_G: Rotate the modal scale up.
+  - Key_R: Reverse the direction of the modal scale.
+
+Octave Fan Tool:
+  - Key_S: Rotate the modal scale up.
+  - Key_G: Rotate the modal scale down.
+  - Key_R: Reverse the direction of the modal scale.
+
+Drawing vertical or horizontal dotted lines at the 
+mouse position (works in all tool modes):
+
+  - Key_V: Toggle vertical dotted line drawing on/off.
+  - Key_H: Toggle horizontal dotted line drawing on/off.
+
+Snap key bindings are:
+  - Key_Q: Turn snap mode on.
+  - Key_W: Turn snap mode off.
+
+Snap key bindings to PriceBars are supported for the following tools:
+  - BarCountTool
+  - TimeMeasurementTool
+  - PriceMeasurementTool
+  - TimeModalScaleTool
+  - PriceModalScaleTool
+  - PlanetLongitudeMovementMeasurementToolMode
+  - PriceTimeInfoTool
+  - TimeRetracementTool
+  - PriceRetracementTool
+  - PriceTimeVectorTool
+  - LineSegment1Tool
+  - LineSegment2Tool
+  - VerticalLineSegmentTool
+  - HorizontalLineSegmentTool
+  - OctaveFanTool
+  - FibFanTool
+  - GannFanTool
+  - VimsottariDasaTool
+  - AshtottariDasaTool
+  - YoginiDasaTool
+  - DwisaptatiSamaDasaTool
+  - ShattrimsaSamaDasaTool
+  - DwadasottariDasaTool
+  - ChaturaseetiSamaDasaTool
+  - SataabdikaDasaTool
+  - ShodasottariDasaTool
+  - PanchottariDasaTool
+  - ShashtihayaniDasaTool
+  
+Note: For these tools below, the snap will work with 
+both PriceBars and LookbackMultiplePriceBars:
+
+  - PriceTimeInfoTool
+  - LineSegment1Tool
+  - LineSegment2Tool
+  - VerticalLineSegmentTool
+
+##############################################################################
+
+Note: 
+
+Temporary JHora .jhd files that are created will be placed in directory:
+
+   For Linux:
+     ~/.wine/drive_c/PriceChartingTool/data/
+
+   For Mac OS X:
+     ~/.wine/drive_c/PriceChartingTool/data/
+
+   For Microsoft Windows:
+     C:\PriceChartingTool\data\
+
+The files in the above paths will be removed at startup if the file is
+older than 180 days.
+
+##############################################################################
+
+Project top-level file and directory contents:
+
+
+pricechartingtool (files)
+  |
+  |- README.txt:  This file that you are reading.
+  |
+  |- Vagrantfile: Vagrant configuration file.
+
+
+pricechartingtool (directories)
+  |
+  |- conf: Holds configuration information.
+  | 
+  |- data: Holds any data-related files such as:
+  |
+  |          Ephemeris data to be used with the Swiss Ephemeris.
+  |          Market price data files (CSV files).
+  |          PriceChartDocument files created by this application (.pcd files).
+  |
+  |- doc:  Holds some documentation.
+  |
+  |- logs: Holds log files.
+  |
+  |- misc: Miscellaneous scripts and utilities.  
+  |        Some of these interact with saved files from the application.  
+  |        Some are merely CSV file generators and data formatting scripts.  
+  | 
+  |- provision:  Holds Vagrant files for provisioning a Vagrant virtual machine.
+  |
+  |- resources:  Holds image files that are processed into a resource .py file.
+  |              See file resources/images/source.txt for more details on the
+  |              images used.
+  |
+  |- src:  Holds the Python source code.
+  |
+  |- tps:  Holds third party software packages.
+  |
+  |- venv: Generated directory containing 'virtualenv' Python files.
+
+##############################################################################
+
+Slow startup time notes:
+
+Description:
+  The first call to pytz.timezone() is very slow, up to about 8 seconds.
+  Subsequent calls are fast.
+ 
+  Reason: pytz gets its timezone settings from within the egg and the
+  first call to timezone has to check that all the timezone files exist,
+  the first call could be slow depending on how the os has to find those
+  files.
+ 
+Solution is to uncompress it via pip:
+
+    cd ./pricechartingtool/venv/lib/python3.4/site-packages
+    pip unzip pytz
+
+Source: 
+  http://stackoverflow.com/questions/20500910/first-call-to-pytz-timezone-is-slow-in-virtualenv
+
+
+Note:
+  When runnning 'pip unzip', the current version of pip says that
+  the unzip feature of 'pip' will be going away in the future.
+  These egg files are in actually just zip files, so if this feature
+  is not available in your version of pip, you can also run:
+  
+    unzip pytz-2014.9-py3.4.egg
+
+##############################################################################
+
+
+Notes for building on the Linux platform (relevant for PyQt4 only): 
+
+  If compiling Qt from source on Linux, make sure to include the
+  following tags or else the subsequent PyQt compile will fail when
+  trying to find phonon header files:
+
+     [rluu@vapor qt-src-dir]$ ./configure -phonon -phonon-backend
+
+
+##############################################################################
+
+Notes for building on the Windows platform (relevant for PyQt4;
+                                            unconfirmed for PyQt5):
 
   Note that these steps include the compiling of Qt and PyQt.  When I
   went through these steps, it worked on Windows 7, except whenever I
@@ -221,188 +462,14 @@ Steps for building on the Windows platform:
 
 ##############################################################################
 
-General info about compiling PyQt with MinGW:
+General info about compiling PyQt with MinGW (relevant for PyQt4;
+                                              unconfirmed for PyQt5):
 
   If compiling SIP or PyQt on Windows platform using MinGW, use the following 
   configure command so that the environment can be detected correctly: 
 
      python configure.py -p win32-g++
   
-##############################################################################
-
-Steps to run the software:
-
-
-1) Go to the project directory.
-
-    [rluu@localhost pricechartingtool]$ pwd
-    /home/rluu/programming/pricechartingtool
-
-2) Go to the resources subdirectory.
-
-    [rluu@localhost pricechartingtool]$ cd resources/
-
-3) (Re-)generate the resource source file.
-
-    [rluu@localhost resources]$ ./generateResourceSourceFile.sh
-    pyrcc4 -py3 -o ./../src/resources.py ./resources.qrc
-
-4) Change directory to the src directory.
-
-    [rluu@localhost resources]$ cd ../src/
-
-5) Run the executable.
-
-    [rluu@localhost src]$ ./main.py
-
-##############################################################################
-
-Steps to setup LookbackMultiple remote distributed calculations 
-(for cycle hunting features) utilizing Amazon Web Services (AWS) and
-other computers.
-
-1) Follow steps in the README.txt file in the AWS_EC2 directory.
-
-less misc/AWS_EC2/README.txt
-
-
-##############################################################################
-
-Shortcut keys (also listed in the Help menu):
-
-Tool Modes:
-  - Key_F1: ReadOnlyPointerToolAction
-  - Key_F2: PointerToolAction
-  - Key_F3: HandToolAction
-  - Key_F4: Trigger the last used tool mode (that is not one of the above).
-
-Time Modal Scale Tool:
-  - Key_S: Rotate the modal scale left.
-  - Key_G: Rotate the modal scale right.
-  - Key_R: Reverse the direction of the modal scale.
-
-Price Modal Scale Tool:
-  - Key_S: Rotate the modal scale down.
-  - Key_G: Rotate the modal scale up.
-  - Key_R: Reverse the direction of the modal scale.
-
-Octave Fan Tool:
-  - Key_S: Rotate the modal scale up.
-  - Key_G: Rotate the modal scale down.
-  - Key_R: Reverse the direction of the modal scale.
-
-Drawing vertical or horizontal dotted lines at the 
-mouse position (works in all tool modes):
-
-  - Key_V: Toggle vertical dotted line drawing on/off.
-  - Key_H: Toggle horizontal dotted line drawing on/off.
-
-Snap key bindings are:
-  - Key_Q: Turn snap mode on.
-  - Key_W: Turn snap mode off.
-
-Snap key bindings to PriceBars are supported for the following tools:
-  - BarCountTool
-  - TimeMeasurementTool
-  - PriceMeasurementTool
-  - TimeModalScaleTool
-  - PriceModalScaleTool
-  - PlanetLongitudeMovementMeasurementToolMode
-  - PriceTimeInfoTool
-  - TimeRetracementTool
-  - PriceRetracementTool
-  - PriceTimeVectorTool
-  - LineSegment1Tool
-  - LineSegment2Tool
-  - VerticalLineSegmentTool
-  - HorizontalLineSegmentTool
-  - OctaveFanTool
-  - FibFanTool
-  - GannFanTool
-  - VimsottariDasaTool
-  - AshtottariDasaTool
-  - YoginiDasaTool
-  - DwisaptatiSamaDasaTool
-  - ShattrimsaSamaDasaTool
-  - DwadasottariDasaTool
-  - ChaturaseetiSamaDasaTool
-  - SataabdikaDasaTool
-  - ShodasottariDasaTool
-  - PanchottariDasaTool
-  - ShashtihayaniDasaTool
-  
-Note: For these tools below, the snap will work with 
-both PriceBars and LookbackMultiplePriceBars:
-
-  - PriceTimeInfoTool
-  - LineSegment1Tool
-  - LineSegment2Tool
-  - VerticalLineSegmentTool
-
-##############################################################################
-
-Note: 
-
-Temporary JHora .jhd files that are created will be placed in directory:
-
-   For Linux:
-     ~/.wine/drive_c/PriceChartingTool/data/
-
-   For Mac OS X:
-     ~/.wine/drive_c/PriceChartingTool/data/
-
-   For Microsoft Windows:
-     C:\PriceChartingTool\data\
-
-The files in the above paths will be removed at startup if the file is
-older than 180 days.
-
-##############################################################################
-
-Directory contents:
-
-pricechartingtool
-  |
-  |- conf: Holds configuration information.
-  | 
-  |- data: Holds emphemeris data to be used with the Swiss Ephemeris.
-  |
-  |- doc:  Holds some documentation.
-  |
-  |- logs: Holds log files.
-  |
-  |- misc: Miscellaneous scripts and utilities.  
-  |        Some of these interact with saved files from the application.  
-  |        Some are merely CSV file generators and data formatting scripts.  
-  | 
-  |- resources:  Holds image files that are processed into a resource .py file.
-  |              See file resources/images/source.txt for more details on the
-  |              images used.
-  |
-  |- src:  Holds the Python source code.
-  |
-  |- tps:  Holds third party software packages.
-
-##############################################################################
-
-Slow startup time notes:
-
-Description:
-  The first call to pytz.timezone() is very slow, up to about 8 seconds.
-  Subsequent calls are fast.
- 
-  Reason: pytz gets its timezone settings from within the egg and the
-  first call to timezone has to check that all the timezone files exist,
-  the first call could be slow depending on how the os has to find those
-  files.
- 
-Solution is to uncompress it via pip:
-
-     pip unzip pytz
-
-Source: 
-  http://stackoverflow.com/questions/20500910/first-call-to-pytz-timezone-is-slow-in-virtualenv
-
 ##############################################################################
 
 Notes to the user of this application:
