@@ -7,13 +7,9 @@
 ##############################################################################
 # Variables.
 
-# Get the directory where this script is running.
-scriptDirectory=`dirname "$0"`
-
 # Shared directory with the virtual machine's host operating system,
 # which is mapped to the project's top-level directory.
-#export PROJECT_HOME=/vagrant
-export PROJECT_HOME=${scriptDirectory}
+export PROJECT_HOME=/vagrant
 
 ##############################################################################
 # Install operating system packages.
