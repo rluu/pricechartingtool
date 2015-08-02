@@ -40,18 +40,20 @@ Instead of creating instances or inheriting these classes directly, use:
 
 rluu_20150721: I will hold off on this one for now.  I'll need to play around with the UI to see if the style is satisfactory to me.  
 
+rluu_20150802: The UI looks fine (although there are some weird focus issues when running it through the Vagrant VM with the UI X-forwarded through SSH).
+
 ##############################################################################
 
 Need to update README.txt:
-  - dependencies
-  - version numbers
-  - build/setup instructions:
-     - non vagrant setup.
-     - vagrant setup.
+  - dependencies (DONE)
+  - version numbers (DONE)
+  - build/setup instructions: (DONE)
+     - non vagrant setup. (DONE)
+     - vagrant setup.  (DONE)
      
 Need to update version information
-  - in source code (readmes, python source files, etc.)
-  - on website.
+  - in source code (readmes, python source files, etc.) (DONE)
+  - on website. 
   
 Need to update website with build/setup information for this new version.
 
