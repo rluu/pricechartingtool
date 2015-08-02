@@ -48021,11 +48021,37 @@ class PriceBarChartGraphicsView(QGraphicsView):
         openJHoraAction = QAction("Open JHora with timestamp", parent)
         openAstrologAction = QAction("Open Astrolog with timestamp", parent)
 
-        # Define a method to add to each instance.
+        # Store in the actions, the scene position as a QPointF.
+        setAstro1Action.setData(clickPosF)
+        setAstro2Action.setData(clickPosF)
+        setAstro3Action.setData(clickPosF)
+        openJHoraAction.setData(clickPosF)
+        openAstrologAction.setData(clickPosF)
+        
+        # Define a new signal for each of these actions, that takes a
+        # QPointF argument.
+        setAstro1Action.actionTriggeredQPointF = \
+            QtCore.pyqtSignal(QPointF, name="actionTriggeredQPointF")
+        setAstro2Action.actionTriggeredQPointF = \
+            QtCore.pyqtSignal(QPointF, name="actionTriggeredQPointF")
+        setAstro3Action.actionTriggeredQPointF = \
+            QtCore.pyqtSignal(QPointF, name="actionTriggeredQPointF")
+        openJHoraAction.actionTriggeredQPointF = \
+            QtCore.pyqtSignal(QPointF, name="actionTriggeredQPointF")
+        openAstrologAction.actionTriggeredQPointF = \
+            QtCore.pyqtSignal(QPointF, name="actionTriggeredQPointF")
+        
+        # Define a method to add to each instance of these QAction
+        # that we have instantiated.
         def handleActionTriggered(self):
-            self.emit(QtCore.SIGNAL("actionTriggered(QPointF)"), self.data())
+            """Arguments:
+                 self - The reference to the QAction instance that has
+                        this method bound to its instance.
+            """
 
-        # Add the method to the instances of the actions.
+            self.actionTriggeredQPointF.emit(self.data())
+            
+        # Add the method to the QAction instances.
         setAstro1Action.handleActionTriggered = \
             types.MethodType(handleActionTriggered,
                              setAstro1Action)
@@ -48041,13 +48067,6 @@ class PriceBarChartGraphicsView(QGraphicsView):
         openAstrologAction.handleActionTriggered = \
             types.MethodType(handleActionTriggered,
                              openAstrologAction)
-        
-        # Store in the actions, the scene position as a QPointF.
-        setAstro1Action.setData(clickPosF)
-        setAstro2Action.setData(clickPosF)
-        setAstro3Action.setData(clickPosF)
-        openJHoraAction.setData(clickPosF)
-        openAstrologAction.setData(clickPosF)
 
         # Connect the triggered signal to the signal we appended
         # to the instances.
@@ -48061,28 +48080,24 @@ class PriceBarChartGraphicsView(QGraphicsView):
             connect(openJHoraAction.handleActionTriggered)
         openAstrologAction.triggered.\
             connect(openAstrologAction.handleActionTriggered)
-        
-        QtCore.QObject.connect(setAstro1Action,
-                               QtCore.SIGNAL("actionTriggered(QPointF)"),
-                               self._handleSetAstro1Action)
-        QtCore.QObject.connect(setAstro2Action,
-                               QtCore.SIGNAL("actionTriggered(QPointF)"),
-                               self._handleSetAstro2Action)
-        QtCore.QObject.connect(setAstro3Action,
-                               QtCore.SIGNAL("actionTriggered(QPointF)"),
-                               self._handleSetAstro3Action)
-        QtCore.QObject.connect(openJHoraAction,
-                               QtCore.SIGNAL("actionTriggered(QPointF)"),
-                               self._handleOpenJHoraAction)
-        QtCore.QObject.connect(openAstrologAction,
-                               QtCore.SIGNAL("actionTriggered(QPointF)"),
-                               self._handleOpenAstrologAction)
 
+        setAstro1Action.actionTriggeredQPointF[QPointF].\
+            connect(self._handleSetAstro1Action)
+        setAstro2Action.actionTriggeredQPointF[QPointF].\
+            connect(self._handleSetAstro2Action)
+        setAstro3Action.actionTriggeredQPointF[QPointF].\
+            connect(self._handleSetAstro3Action)
+        openJHoraAction.actionTriggeredQPointF[QPointF].\
+            connect(self._handleOpenJHoraAction)
+        openAstrologAction.actionTriggeredQPointF[QPointF].\
+            connect(self._handleOpenAstrologAction)
+        
         menu.addAction(setAstro1Action)
         menu.addAction(setAstro2Action)
         menu.addAction(setAstro3Action)
         menu.addAction(openJHoraAction)
         menu.addAction(openAstrologAction)
+        
         return menu
     
     def _handleSetAstro1Action(self, clickPosF):

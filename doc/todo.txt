@@ -8,22 +8,6 @@ http://pyqt.sourceforge.net/Docs/PyQt5/pyqt4_differences.html
 
 ##############################################################################
 
-Opening .pcd files that were created/saved with PyQt4 (older python maybe?), crashes the interpreter.  It is unknown why this happens, so some investigation is needed.
-
-(venv)vagrant@vagrant-ubuntu-trusty-64:/vagrant/src$ ./main.py 
-libGL error: failed to load driver: swrast
-Traceback (most recent call last):
-  File "/vagrant/src/ui.py", line 1525, in _openChart
-    unpicklePriceChartDocumentDataFromFile(filename)
-  File "/vagrant/src/ui.py", line 4461, in unpicklePriceChartDocumentDataFromFile
-    priceChartDocumentData = pickle.load(fh)
-ImportError: No module named 'PyQt4'
-Aborted (core dumped)
-(venv)vagrant@vagrant-ubuntu-trusty-64:/vagrant/src$ ls
-
-
-##############################################################################
-
 Also, I don't know why it gives me a libGL error:
 
 (venv)vagrant@vagrant-ubuntu-trusty-64:/vagrant/src$ ./main.py 
@@ -624,5 +608,23 @@ src/dialogs.py:621:        dialog = QFileDialog() (no fix required)
 src/dialogs.py:634:        dialog.setFileMode(QFileDialog.ExistingFile) (no fix required)
 src/ui.py:1450:            QFileDialog.\   # Open file. (fixed)
 src/ui.py:4908:        filename = QFileDialog.\  # Save-as. (fixed)
+
+##############################################################################
+
+Opening .pcd files that were created/saved with PyQt4 (older python maybe?), crashes the interpreter.  It is unknown why this happens, so some investigation is needed.
+
+(venv)vagrant@vagrant-ubuntu-trusty-64:/vagrant/src$ ./main.py 
+libGL error: failed to load driver: swrast
+Traceback (most recent call last):
+  File "/vagrant/src/ui.py", line 1525, in _openChart
+    unpicklePriceChartDocumentDataFromFile(filename)
+  File "/vagrant/src/ui.py", line 4461, in unpicklePriceChartDocumentDataFromFile
+    priceChartDocumentData = pickle.load(fh)
+ImportError: No module named 'PyQt4'
+Aborted (core dumped)
+(venv)vagrant@vagrant-ubuntu-trusty-64:/vagrant/src$ ls
+
+
+rluu_20150801: Won't fix.
 
 ##############################################################################
