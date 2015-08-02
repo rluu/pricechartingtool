@@ -48021,35 +48021,51 @@ class PriceBarChartGraphicsView(QGraphicsView):
         openJHoraAction = QAction("Open JHora with timestamp", parent)
         openAstrologAction = QAction("Open Astrolog with timestamp", parent)
 
-        # Store in the actions, the scene position as a QPointF.
-        setAstro1Action.setData(clickPosF)
-        setAstro2Action.setData(clickPosF)
-        setAstro3Action.setData(clickPosF)
-        openJHoraAction.setData(clickPosF)
-        openAstrologAction.setData(clickPosF)
         
-        # Define a new signal for each of these actions, that takes a
-        # QPointF argument.
-        setAstro1Action.actionTriggeredQPointF = \
-            QtCore.pyqtSignal(QPointF, name="actionTriggeredQPointF")
-        setAstro2Action.actionTriggeredQPointF = \
-            QtCore.pyqtSignal(QPointF, name="actionTriggeredQPointF")
-        setAstro3Action.actionTriggeredQPointF = \
-            QtCore.pyqtSignal(QPointF, name="actionTriggeredQPointF")
-        openJHoraAction.actionTriggeredQPointF = \
-            QtCore.pyqtSignal(QPointF, name="actionTriggeredQPointF")
-        openAstrologAction.actionTriggeredQPointF = \
-            QtCore.pyqtSignal(QPointF, name="actionTriggeredQPointF")
-        
+        # Store in each of the actions, a tuple containing:
+        #   - The method to invoke within the slot that gets run.
+        #   - The argument to the method that will get invoked within
+        #     the slot that gets run.
+        setAstro1Action.setData((self._handleSetAstro1Action, clickPosF))
+        setAstro2Action.setData((self._handleSetAstro2Action, clickPosF))
+        setAstro3Action.setData((self._handleSetAstro3Action, clickPosF))
+        openJHoraAction.setData((self._handleOpenJHoraAction, clickPosF))
+        openAstrologAction.setData((self._handleOpenAstrologAction, clickPosF))
+
         # Define a method to add to each instance of these QAction
-        # that we have instantiated.
+        # that we have instantiated.  This method will be the slot
+        # that is called when the QAction is triggered.
+        #
         def handleActionTriggered(self):
-            """Arguments:
+            """
+            This is a hack.
+            
+            This method basically just invokes another method providing an
+            argument.  I need this method because we do not have a way to
+            connect the 'triggered' signal of QAction to another method
+            that takes arguments because the 'triggered' signal does
+            not allow us to pass arguments to its connected slot.
+            
+            Arguments:
                  self - The reference to the QAction instance that has
                         this method bound to its instance.
+                        Assumes that self.setData() was called, and that the
+                        data set in the QVariant there stores a tuple
+                        containing:
+                        
+                          - The method to invoke.
+                          - The argument to that method.
             """
 
-            self.actionTriggeredQPointF.emit(self.data())
+            # Get the tuple that was stored in the QAction as a QVariant.
+            tup = self.data()
+
+            # Extract the method to invoke, and the argument to that method.
+            methodToInvoke = tup[0]
+            argument = tup[1]
+            
+            # Invoke the method.
+            methodToInvoke(argument)
             
         # Add the method to the QAction instances.
         setAstro1Action.handleActionTriggered = \
@@ -48068,7 +48084,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
             types.MethodType(handleActionTriggered,
                              openAstrologAction)
 
-        # Connect the triggered signal to the signal we appended
+        # Connect the triggered signal to the slot we appended
         # to the instances.
         setAstro1Action.triggered.\
             connect(setAstro1Action.handleActionTriggered)
@@ -48081,17 +48097,6 @@ class PriceBarChartGraphicsView(QGraphicsView):
         openAstrologAction.triggered.\
             connect(openAstrologAction.handleActionTriggered)
 
-        setAstro1Action.actionTriggeredQPointF[QPointF].\
-            connect(self._handleSetAstro1Action)
-        setAstro2Action.actionTriggeredQPointF[QPointF].\
-            connect(self._handleSetAstro2Action)
-        setAstro3Action.actionTriggeredQPointF[QPointF].\
-            connect(self._handleSetAstro3Action)
-        openJHoraAction.actionTriggeredQPointF[QPointF].\
-            connect(self._handleOpenJHoraAction)
-        openAstrologAction.actionTriggeredQPointF[QPointF].\
-            connect(self._handleOpenAstrologAction)
-        
         menu.addAction(setAstro1Action)
         menu.addAction(setAstro2Action)
         menu.addAction(setAstro3Action)
