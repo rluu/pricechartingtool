@@ -6932,7 +6932,10 @@ class AstrologyChartGraphicsView(QGraphicsView):
                            type=float)
         
         # Actually do the scaling of the view.
-        if qwheelevent.delta() > 0:
+        # In Qt5, 'delta()' was deprecated.
+        if (hasattr(qwheelevent, 'delta') and qwheelevent.delta() > 0) or \
+           (hasattr(qwheelevent, 'angleDelta') and qwheelevent.angleDelta().y() > 0):
+            
             # Zoom in.
             self.scale(scaleFactor, scaleFactor)
         else:

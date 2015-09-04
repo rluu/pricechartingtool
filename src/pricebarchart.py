@@ -42448,8 +42448,10 @@ class PriceBarChartWidget(QWidget):
                                 "our historic time range: {}".\
                                 format(Ephemeris.datetimeToDayStr(dt))
                             self.log.debug(debugStr)
-    
 
+            # Sort the PriceBars by ascending timestamp (earlier to later).
+            pbs.sort(key=lambda x: x.timestamp)
+            
             # Working variables that will be used later for scaling the
             # LookbackMultiplePriceBars to fit within the visible portion of
             # the QGraphicsView.
@@ -42662,7 +42664,7 @@ class PriceBarChartWidget(QWidget):
         value = settings.value(key, \
             SettingsKeys.lookbackMultipleCalcModelDefValue,
             type=str)
-        
+
         if value == str(LookbackMultipleCalcModel.local_serial):
             self.log.debug(\
                 "Doing LookbackMultiple calculations local serial.")
@@ -48183,7 +48185,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
                               self.transform().m22()))
                               
         # Actually do the scaling of the view.
-        if qwheelevent.delta() > 0:
+        # In Qt5, 'delta()' was deprecated.
+        if (hasattr(qwheelevent, 'delta') and qwheelevent.delta() > 0) or \
+           (hasattr(qwheelevent, 'angleDelta') and qwheelevent.angleDelta().y() > 0):
+            
             # Zoom in.
             self.scale(scaleFactor, scaleFactor)
         else:
