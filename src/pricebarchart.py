@@ -42387,16 +42387,26 @@ class PriceBarChartWidget(QWidget):
             # Compute results.
             resultsList = \
                 self._getLookbackMultipleDatetimesOfLongitudeDeltaDegreesInPast(\
-                    argsTupleList)
+                argsTupleList)
             
-            if len(resultsList) == 0:
-                # No results were returned.  This means an error happened
-                # during calculation that was already logged.  Return without
-                # drawing any LookbackMultiplePriceBars.
+            if len(resultsList) < 2:
+                # Expected number of results were not returned.  This
+                # means an error happened during calculation that was
+                # already logged.  Return without drawing any
+                # LookbackMultiplePriceBars.
                 return
-                
-            startLookbackDts = resultsList[0]
-            endLookbackDts = resultsList[1]
+
+            self.log.debug("len(resultsList) == {}".format(len(resultsList)))
+            
+            startLookbackResults = resultsList[0]
+            startLookbackDts = []
+            for result in startLookbackResults:
+                startLookbackDts.append(result[0])
+
+            endLookbackResults = resultsList[1]
+            endLookbackDts = []
+            for result in endLookbackResults:
+                endLookbackDts.append(result[0])
             
             if self.log.isEnabledFor(logging.DEBUG) == True:
                 self.log.debug("len(startLookbackDts) == {}".\
@@ -42509,12 +42519,13 @@ class PriceBarChartWidget(QWidget):
             # Compute results.
             resultsList = \
                 self._getLookbackMultipleDatetimesOfLongitudeDeltaDegreesInFuture(\
-                    argsTupleList)
-    
-            if len(resultsList) == 0:
-                # No results were returned.  This means an error happened
-                # during calculation that was already logged.  Return without
-                # drawing any LookbackMultiplePriceBars.
+                argsTupleList)
+
+            if len(resultsList) < 2:
+                # Expected number of results were not returned.  This
+                # means an error happened during calculation that was
+                # already logged.  Return without drawing any
+                # LookbackMultiplePriceBars.
                 return
                 
             # Create the LookbackMultiplePriceBars for these historic
@@ -42525,7 +42536,10 @@ class PriceBarChartWidget(QWidget):
                 # Current PriceBar and it's LookbackMultiple datetimes 
                 # in the future.
                 pb = pbs[i]
-                resultDts = resultsList[i]
+                results = resultsList[i]
+                resultDts = []
+                for result in results:
+                    resultDts.append(result[0])
                 
                 # Create the LookbackMultiplePriceBar for each timestamp.
                 # The prices used in the LookbackMultiplePriceBars are 
@@ -42641,7 +42655,7 @@ class PriceBarChartWidget(QWidget):
                           altitude in meters.
             
         Returns:
-        List of list of datetime.datetime objects.
+        List of list of the tuple results.  (Each tuple has a datetime timestamp).
         Each list within the list corresponds to the
         respective tuple within argsTupleList
         The datetime.datetime objects are the timestamps
@@ -42664,6 +42678,18 @@ class PriceBarChartWidget(QWidget):
         value = settings.value(key, \
             SettingsKeys.lookbackMultipleCalcModelDefValue,
             type=str)
+
+        # Do the first calculation for the first tuple in argsTupleList,
+        # and use that as an initial starting point for all the subsequent
+        # calculations.  This is so we don't do the same calculations
+        # over and over.
+        #argsTupleList
+        # Need to get the following info:
+        #   the earliest timestamp that is in looking-forward, and for that:
+        #     - numFullCircles
+        #     - desiredDegree
+        #     - planetReferenceLongitude
+        #     etc.
 
         if value == str(LookbackMultipleCalcModel.local_serial):
             self.log.debug(\
@@ -42689,7 +42715,7 @@ class PriceBarChartWidget(QWidget):
                     locationElevationMeters)
                 
                 # Do LookbackMultiple calculations.
-                dts = \
+                results = \
                     LookbackMultipleUtils.\
                     getDatetimesOfLongitudeDeltaDegreesInFuture(\
                         planetName,
@@ -42698,19 +42724,23 @@ class PriceBarChartWidget(QWidget):
                         referenceDt,
                         desiredDeltaDegrees,
                         maxErrorTd)
-
-                rv.append(dts)
+                
+                rv.append(results)
                 
         elif value == str(LookbackMultipleCalcModel.local_parallel):
             self.log.debug(\
                 "Doing LookbackMultiple calculations local parallel.")
 
             # Run calculations in parallel, locally.
-            rv = \
+            resultsList = \
                LookbackMultipleParallel.\
                getDatetimesOfLongitudeDeltaDegreesInFutureParallel(\
                    argsTupleList)
-            
+
+            for i in range(len(resultsList)):
+                results = resultsList[i]
+                rv.append(results)
+                
         elif value == str(LookbackMultipleCalcModel.remote_parallel):
             self.log.debug(\
                 "Doing LookbackMultiple calculations remote parallel.")
@@ -42718,9 +42748,13 @@ class PriceBarChartWidget(QWidget):
             # Run calculations in parallel, remotely.
             methodName = "getDatetimesOfLongitudeDeltaDegreesInFuture"
 
-            rv = self._runLookbackMultipleCalculationsRemoteParallel(\
+            resultsList = self._runLookbackMultipleCalculationsRemoteParallel(\
                 methodName, argsTupleList)
 
+            for i in range(len(resultsList)):
+                results = resultsList[i]
+                rv.append(results)
+            
         else:
             errorMsg = "QSettings had an unknown or unsupported " + \
                        "LookbackMultiple calculation model/architecture.  " + \
@@ -42786,7 +42820,7 @@ class PriceBarChartWidget(QWidget):
                           altitude in meters.
             
         Returns:
-        List of list of datetime.datetime objects.
+        List of list of the tuple results.  (Each tuple has a datetime timestamp).
         Each list within the list corresponds to the
         respective tuple within argsTupleList
         The datetime.datetime objects are the timestamps
@@ -42834,7 +42868,7 @@ class PriceBarChartWidget(QWidget):
                     locationElevationMeters)
                 
                 # Do LookbackMultiple calculations.
-                dts = \
+                results = \
                     LookbackMultipleUtils.\
                     getDatetimesOfLongitudeDeltaDegreesInPast(\
                         planetName,
@@ -42844,17 +42878,21 @@ class PriceBarChartWidget(QWidget):
                         desiredDeltaDegrees,
                         maxErrorTd)
 
-                rv.append(dts)
+                rv.append(results)
                 
         elif value == str(LookbackMultipleCalcModel.local_parallel):
             self.log.debug(\
                 "Doing LookbackMultiple calculations local parallel.")
 
             # Run calculations in parallel, locally.
-            rv = \
+            resultsList = \
                LookbackMultipleParallel.\
                getDatetimesOfLongitudeDeltaDegreesInPastParallel(\
                    argsTupleList)
+            
+            for i in range(len(resultsList)):
+                results = resultsList[i]
+                rv.append(results)
             
         elif value == str(LookbackMultipleCalcModel.remote_parallel):
             self.log.debug(\
@@ -42863,9 +42901,13 @@ class PriceBarChartWidget(QWidget):
             # Run calculations in parallel, remotely.
             methodName = "getDatetimesOfLongitudeDeltaDegreesInPast"
 
-            rv = self._runLookbackMultipleCalculationsRemoteParallel(\
+            resultsList = self._runLookbackMultipleCalculationsRemoteParallel(\
                 methodName, argsTupleList)
 
+            for i in range(len(resultsList)):
+                results = resultsList[i]
+                rv.append(results)
+            
         else:
             errorMsg = "QSettings had an unknown or unsupported " + \
                        "LookbackMultiple calculation model/architecture.  " + \
@@ -42875,7 +42917,6 @@ class PriceBarChartWidget(QWidget):
                                 errorMsg,
                                 QMessageBox.Ok,
                                 QMessageBox.NoButton);
-
 
         # Set the end time for timing how long the computations take.
         endTime = time.time()
@@ -42992,8 +43033,8 @@ class PriceBarChartWidget(QWidget):
             errorStr = "Caught ConnectionRefusedError while " + \
                 "trying to connect to " + \
                 "LookbackMultiple server {} port {}.  Aborting calculations.".\
-                format(serverAddress, serverPort, e) + \
-                "  e == {}".format(e)
+                format(serverAddress, serverPort) + os.linesep + \
+                "e == {}".format(e)
             self.log.error(errorStr)
             QMessageBox.warning(self, 
                                 "Connection Refused Error",
@@ -43009,7 +43050,8 @@ class PriceBarChartWidget(QWidget):
                 "LookbackMultiple server {} port {}.  ".\
                 format(serverAddress, serverPort) + \
                 "Please verify your authkey/password!  " + \
-                "Aborting calculations.  e == {}".format(e)
+                "Aborting calculations." + os.linesep + \
+                "e == {}".format(e)
             self.log.error(errorStr)
             QMessageBox.warning(self, 
                                 "Authentication Error",
@@ -43089,7 +43131,7 @@ class PriceBarChartWidget(QWidget):
         while resultCount < len(newArgsTupleList):
 
             # Get a result.
-            (argsTuple, resultDts) = resultQueue.get()
+            (argsTuple, results) = resultQueue.get()
              
             argIndex = 0
             methodToRun = argsTuple[argIndex]
@@ -43116,8 +43158,8 @@ class PriceBarChartWidget(QWidget):
             argIndex += 1
             
 
-            # Place the resultDts in the correct place.
-            resultsList[taskId] = resultDts
+            # Place the results in the correct place.
+            resultsList[taskId] = results
 
             # Debug output.
             if self.log.isEnabledFor(logging.DEBUG) == True:
@@ -43141,10 +43183,10 @@ class PriceBarChartWidget(QWidget):
     
                 self.log.debug("Obtained result: " + \
                           "argsTuple == {}, ".format(argsTuple) + 
-                          "len(resultDts) == {}".format(len(resultDts)))
-                for i in range(len(resultDts)):
-                    dt = resultDts[i]
-                    self.log.debug("  resultDts[{}] == {}".format(i, dt))
+                          "len(results) == {}".format(len(results)))
+                for i in range(len(results)):
+                    dt = results[i][0]
+                    self.log.debug("  results[{}][0] == {}".format(i, dt))
 
             # Notify that the consumption of this result is complete.
             resultQueue.task_done()

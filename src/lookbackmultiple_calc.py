@@ -89,12 +89,6 @@ class LookbackMultipleUtils:
         longitude degrees relative to the longitude degrees calculated at
         moment 'referenceDt', while stepping into the future in time.
 
-        Returns:
-        list of datetime.datetime objects, ordered chronologically 
-        from oldest to latest, of the timestamps when the planet 
-        is 'desiredDeltaDegrees' distance relative to the 
-        planet's longitude position at the reference datetime.datetime.
-        
         Pre-requisites:
         This method assumes that the user has initialized the Ephemeris 
         via Ephemeris.initialize() and has called 
@@ -121,10 +115,33 @@ class LookbackMultipleUtils:
                      calculations.  
 
         Returns:
-        List of datetime.datetime objects.  The datetime.datetime
-        objects in this list are the timestamps where the planet is at
-        the elapsed number of degrees away from the longitude at
-        'referenceDt'.
+        List of tuples, each containing info about the timestamp
+        where the planet is at the elapsed number of degrees away from
+        the longitude at 'referenceDt', and also some working calculation
+        variables that were used to arrive at that timestamp.
+        Each of these tuples' in the list are ordered chronologically 
+        from oldest to latest, of the timestamps when the planet 
+        is 'desiredDeltaDegrees' distance relative to the 
+        planet's longitude position at the reference datetime.datetime.
+        
+        Each tuple in the list contains:
+
+          - dt                 # Result datetime.datetime
+          
+          - planetName            # Input
+          - centricityType        # Input
+          - longitudeType         # Input
+          - referenceDt           # Input
+          - desiredDeltaDegrees   # Input
+          - maxErrorTd            # Input
+          
+          - numFullCircles     # Result number of full circles.
+          - desiredDegree      # Raw longitude degree desired.
+          - planetReferenceLongitude  # Planet longitude at the referenceDt.
+          - planetLongitude    # Planet longitude at the returned timestamp.
+          - currDiff           # Basically currDeltaDegrees % 360.
+          - currDeltaDegrees   # Current difference in degrees elapsed.
+          - currErrorTd        # Error timedelta of the returned result.
         """
         
         if LookbackMultipleUtils.log.isEnabledFor(logging.DEBUG) == True:
@@ -263,6 +280,7 @@ class LookbackMultipleUtils:
                     t1 = prevDt
                     t2 = currDt
                     currErrorTd = Util.absTd(t2 - t1)
+                    currLongitude = longitudesP1[-1]
                     
                     # Refine the timestamp until it is less than the threshold.
                     while currErrorTd > maxErrorTd:
@@ -293,6 +311,7 @@ class LookbackMultipleUtils:
                             # Update the curr values.
                             currDt = t2
                             currDiff = testDiff
+                            currLongitude = testValueP1
                         else:
                             t1 = testDt
 
@@ -304,6 +323,7 @@ class LookbackMultipleUtils:
                     # Update our deque.
                     steps[-1] = currDt
                     steps[-2] = prevDt
+                    longitudesP1[-1] = currLongitude
 
                     # Increment the number of 360-degree circles traversed.
                     numFullCircles += 1
@@ -321,6 +341,7 @@ class LookbackMultipleUtils:
                     t1 = prevDt
                     t2 = currDt
                     currErrorTd = Util.absTd(t2 - t1)
+                    currLongitude = longitudesP1[-1]
 
                     # Refine the timestamp until it is less than the threshold.
                     while currErrorTd > maxErrorTd:
@@ -356,12 +377,14 @@ class LookbackMultipleUtils:
                             # Update the curr values.
                             currDt = t2
                             currDiff = testDiff
+                            currLongitude = testValueP1
 
                         currErrorTd = Util.absTd(t2 - t1)
 
                     # Update our deque.
                     steps[-1] = currDt
                     steps[-2] = prevDt
+                    longitudesP1[-1] = currLongitude
 
                     # Decrement the number of 360-degree circles traversed.
                     numFullCircles -= 1
@@ -421,6 +444,7 @@ class LookbackMultipleUtils:
                     t1 = steps[-2]
                     t2 = steps[-1]
                     currErrorTd = Util.absTd(t2 - t1)
+                    currLongitude = longitudesP1[-1]
                     
                     # Refine the timestamp until it is less than the threshold.
                     while currErrorTd > maxErrorTd:
@@ -447,13 +471,42 @@ class LookbackMultipleUtils:
                         
                         if testDiff < 120:
                             t2 = testDt
+
+                            # Update the curr values.
+                            currDt = t2
+                            currLongitude = testValueP1
+                            currDiff = Util.toNormalizedAngle(\
+                                currLongitude - planetReferenceLongitude)
+                            currDeltaDegrees = (numFullCircles * 360.0) + currDiff
                         else:
                             t1 = testDt
 
+                            # Update the prev values.
+                            prevDt = t1
+                            
                         currErrorTd = Util.absTd(t2 - t1)
 
+                    # Update our deque.
+                    steps[-1] = currDt
+                    steps[-2] = prevDt
+                    longitudesP1[-1] = currLongitude
+                    
                     # t2 holds the moment in time.
-                    rv.append(t2)
+                    tup = (t2,
+                           planetName,
+                           centricityType,
+                           longitudeType,
+                           referenceDt,
+                           desiredDeltaDegrees,
+                           maxErrorTd,
+                           numFullCircles,
+                           desiredDegree,
+                           planetReferenceLongitude,
+                           currLongitude,
+                           currDiff,
+                           currDeltaDegrees,
+                           currErrorTd)
+                    rv.append(tup)
 
                     if LookbackMultipleUtils.log.isEnabledFor(logging.DEBUG) == True:
                         p1 = Ephemeris.getPlanetaryInfo(planetName, t2)
@@ -491,6 +544,7 @@ class LookbackMultipleUtils:
                     t1 = steps[-2]
                     t2 = steps[-1]
                     currErrorTd = Util.absTd(t2 - t1)
+                    currLongitude = longitudesP1[-1]
                     
                     # Refine the timestamp until it is less than the threshold.
                     while currErrorTd > maxErrorTd:
@@ -517,14 +571,43 @@ class LookbackMultipleUtils:
                         
                         if testDiff > 240:
                             t2 = testDt
+
+                            # Update the curr values.
+                            currDt = t2
+                            currLongitude = testValueP1
+                            currDiff = Util.toNormalizedAngle(\
+                                currLongitude - planetReferenceLongitude)
+                            currDeltaDegrees = (numFullCircles * 360.0) + currDiff
                         else:
                             t1 = testDt
 
+                            # Update the prev values.
+                            prevDt = t1
+                            
                         currErrorTd = Util.absTd(t2 - t1)
 
+                    # Update our deque.
+                    steps[-1] = currDt
+                    steps[-2] = prevDt
+                    longitudesP1[-1] = currLongitude
+                    
                     # t2 holds the moment in time.
-                    rv.append(t2)
-
+                    tup = (t2,
+                           planetName,
+                           centricityType,
+                           longitudeType,
+                           referenceDt,
+                           desiredDeltaDegrees,
+                           maxErrorTd,
+                           numFullCircles,
+                           desiredDegree,
+                           planetReferenceLongitude,
+                           currLongitude,
+                           currDiff,
+                           currDeltaDegrees,
+                           currErrorTd)
+                    rv.append(tup)
+                    
                     if LookbackMultipleUtils.log.isEnabledFor(logging.DEBUG) == True:
                         p1 = Ephemeris.getPlanetaryInfo(planetName, t2)
                         LookbackMultipleUtils.log.debug(\
@@ -588,12 +671,6 @@ class LookbackMultipleUtils:
         longitude degrees relative to the longitude degrees calculated at
         moment 'referenceDt', while stepping into the past in time.
 
-        Returns:
-        list of datetime.datetime objects, ordered chronologically 
-        from oldest to latest, of the timestamps when the planet 
-        is 'desiredDeltaDegrees' distance relative to the 
-        planet's longitude position at the reference datetime.datetime.
-        
         Pre-requisites:
         This method assumes that the user has initialized the Ephemeris 
         via Ephemeris.initialize() and has called 
@@ -620,10 +697,33 @@ class LookbackMultipleUtils:
                      calculations.  
         
         Returns:
-        List of datetime.datetime objects.  The datetime.datetime
-        objects in this list are the timestamps where the planet is at
-        the elapsed number of degrees away from the longitude at
-        'referenceDt'.
+        List of tuples, each containing info about the timestamp
+        where the planet is at the elapsed number of degrees away from
+        the longitude at 'referenceDt', and also some working calculation
+        variables that were used to arrive at that timestamp.
+        Each of these tuples' in the list are ordered chronologically 
+        from oldest to latest, of the timestamps when the planet 
+        is 'desiredDeltaDegrees' distance relative to the 
+        planet's longitude position at the reference datetime.datetime.
+        
+        Each tuple in the list contains:
+
+          - dt                 # Result datetime.datetime
+          
+          - planetName            # Input
+          - centricityType        # Input
+          - longitudeType         # Input
+          - referenceDt           # Input
+          - desiredDeltaDegrees   # Input
+          - maxErrorTd            # Input
+          
+          - numFullCircles     # Result number of full circles.
+          - desiredDegree      # Raw longitude degree desired.
+          - planetReferenceLongitude  # Planet longitude at the referenceDt.
+          - planetLongitude    # Planet longitude at the returned timestamp.
+          - currDiff           # Basically currDeltaDegrees % 360.
+          - currDeltaDegrees   # Current difference in degrees elapsed.
+          - currErrorTd        # Error timedelta of the returned result.
         """
         
         if LookbackMultipleUtils.log.isEnabledFor(logging.DEBUG) == True:
@@ -763,6 +863,7 @@ class LookbackMultipleUtils:
                     t1 = prevDt
                     t2 = currDt
                     currErrorTd = Util.absTd(t2 - t1)
+                    currLongitude = longitudesP1[-1]
                     
                     # Refine the timestamp until it is less than the threshold.
                     while currErrorTd > maxErrorTd:
@@ -793,6 +894,7 @@ class LookbackMultipleUtils:
                             # Update the curr values.
                             currDt = t2
                             currDiff = testDiff
+                            currLongitude = testValueP1
                         else:
                             t1 = testDt
 
@@ -804,6 +906,7 @@ class LookbackMultipleUtils:
                     # Update our deque.
                     steps[-1] = currDt
                     steps[-2] = prevDt
+                    longitudesP1[-1] = currLongitude
 
                     # Increment the number of 360-degree circles traversed.
                     numFullCircles += 1
@@ -821,6 +924,7 @@ class LookbackMultipleUtils:
                     t1 = prevDt
                     t2 = currDt
                     currErrorTd = Util.absTd(t2 - t1)
+                    currLongitude = longitudesP1[-1]
 
                     # Refine the timestamp until it is less than the threshold.
                     while currErrorTd > maxErrorTd:
@@ -856,12 +960,14 @@ class LookbackMultipleUtils:
                             # Update the curr values.
                             currDt = t2
                             currDiff = testDiff
+                            currLongitude = testValueP1
 
                         currErrorTd = Util.absTd(t2 - t1)
 
                     # Update our deque.
                     steps[-1] = currDt
                     steps[-2] = prevDt
+                    longitudesP1[-1] = currLongitude
 
                     # Decrement the number of 360-degree circles traversed.
                     numFullCircles -= 1
@@ -921,6 +1027,7 @@ class LookbackMultipleUtils:
                     t1 = steps[-2]
                     t2 = steps[-1]
                     currErrorTd = Util.absTd(t2 - t1)
+                    currLongitude = longitudesP1[-1]
                     
                     # Refine the timestamp until it is less than the threshold.
                     while currErrorTd > maxErrorTd:
@@ -947,13 +1054,42 @@ class LookbackMultipleUtils:
                         
                         if testDiff < 120:
                             t2 = testDt
+
+                            # Update the curr values.
+                            currDt = t2
+                            currLongitude = testValueP1
+                            currDiff = Util.toNormalizedAngle(\
+                                currLongitude - planetReferenceLongitude)
+                            currDeltaDegrees = (numFullCircles * 360.0) + currDiff
                         else:
                             t1 = testDt
 
+                            # Update the prev values.
+                            prevDt = t1
+
                         currErrorTd = Util.absTd(t2 - t1)
 
+                    # Update our deque.
+                    steps[-1] = currDt
+                    steps[-2] = prevDt
+                    longitudesP1[-1] = currLongitude
+                    
                     # t2 holds the moment in time.
-                    rv.append(t2)
+                    tup = (t2,
+                           planetName,
+                           centricityType,
+                           longitudeType,
+                           referenceDt,
+                           desiredDeltaDegrees,
+                           maxErrorTd,
+                           numFullCircles,
+                           desiredDegree,
+                           planetReferenceLongitude,
+                           currLongitude,
+                           currDiff,
+                           currDeltaDegrees,
+                           currErrorTd)
+                    rv.append(tup)
 
                     if LookbackMultipleUtils.log.isEnabledFor(logging.DEBUG) == True:
                         p1 = Ephemeris.getPlanetaryInfo(planetName, t2)
@@ -991,6 +1127,7 @@ class LookbackMultipleUtils:
                     t1 = steps[-2]
                     t2 = steps[-1]
                     currErrorTd = Util.absTd(t2 - t1)
+                    currLongitude = longitudesP1[-1]
                     
                     # Refine the timestamp until it is less than the threshold.
                     while currErrorTd > maxErrorTd:
@@ -1017,14 +1154,43 @@ class LookbackMultipleUtils:
                         
                         if testDiff > 240:
                             t2 = testDt
+
+                            # Update the curr values.
+                            currDt = t2
+                            currLongitude = testValueP1
+                            currDiff = Util.toNormalizedAngle(\
+                                currLongitude - planetReferenceLongitude)
+                            currDeltaDegrees = (numFullCircles * 360.0) + currDiff
                         else:
                             t1 = testDt
 
+                            # Update the prev values.
+                            prevDt = t1
+
                         currErrorTd = Util.absTd(t2 - t1)
 
+                    # Update our deque.
+                    steps[-1] = currDt
+                    steps[-2] = prevDt
+                    longitudesP1[-1] = currLongitude
+                    
                     # t2 holds the moment in time.
-                    rv.append(t2)
-
+                    tup = (t2,
+                           planetName,
+                           centricityType,
+                           longitudeType,
+                           referenceDt,
+                           desiredDeltaDegrees,
+                           maxErrorTd,
+                           numFullCircles,
+                           desiredDegree,
+                           planetReferenceLongitude,
+                           currLongitude,
+                           currDiff,
+                           currDeltaDegrees,
+                           currErrorTd)
+                    rv.append(tup)
+                    
                     if LookbackMultipleUtils.log.isEnabledFor(logging.DEBUG) == True:
                         p1 = Ephemeris.getPlanetaryInfo(planetName, t2)
                         LookbackMultipleUtils.log.debug(\
@@ -1141,7 +1307,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
     eastern = pytz.timezone('US/Eastern')
 
-    def printDatetimeResults(resultDts, planetName, centricityType, longitudeType, referenceDt, desiredDeltaDegrees):
+    def printDatetimeResults(results, planetName, centricityType, longitudeType, referenceDt, desiredDeltaDegrees):
+
+        resultDts = []
+        for result in results:
+            resultDts.append(result[0])
+            
         print("  Result datetimes for planetName={}, centricityType={}, longitudeType={}, referenceDt={}, desiredDeltaDegrees={} are:".\
               format(planetName, 
                      centricityType, 
@@ -1165,12 +1336,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1983, 10, 25, 19, 34, tzinfo=eastern)
         desiredDeltaDegrees = 3
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
             planetName, centricityType, longitudeType, referenceDt, 
             desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
         print("  Expected  num results == 1")
         print("  Expected resultDts[0] == 1983-10-28 19:43:36.123047-04:56")
@@ -1185,12 +1356,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1983, 10, 25, 19, 34, tzinfo=eastern)
         desiredDeltaDegrees = 150
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1205,12 +1376,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1983, 10, 25, 19, 34, tzinfo=eastern)
         desiredDeltaDegrees = 510
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1225,12 +1396,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1967, 5, 30, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 360
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 3")
@@ -1247,12 +1418,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1968, 5, 25, 21, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 2
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 3")
@@ -1269,12 +1440,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1968, 5, 25, 21, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = -2
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 2")
@@ -1290,12 +1461,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1968, 6, 19, 3, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 2
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1310,12 +1481,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1968, 6, 19, 3, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = -2
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 2")
@@ -1331,12 +1502,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1968, 7, 9, 23, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 2
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1351,12 +1522,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1968, 7, 9, 23, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = -2
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 0")
@@ -1370,12 +1541,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1968, 5, 25, 21, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 0
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 2")
@@ -1391,12 +1562,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1968, 5, 25, 21, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = -0
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 2")
@@ -1412,12 +1583,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1968, 6, 19, 4, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 0
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1432,12 +1603,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1967, 9, 11, 12, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 0
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 0")
@@ -1451,12 +1622,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1969, 5, 4, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 10
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1471,12 +1642,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1969, 5, 4, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 5
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 3")
@@ -1493,12 +1664,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1969, 6, 5, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 5
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1513,12 +1684,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1969, 6, 16, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 5
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1533,12 +1704,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1978, 3, 13, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 360
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 3")
@@ -1554,12 +1725,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         longitudeType="tropical"
         referenceDt = datetime.datetime(1979, 3, 2, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 20
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1574,12 +1745,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1979, 3, 2, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 10
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 3")
@@ -1596,12 +1767,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1979, 4, 1, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 10
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1616,12 +1787,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1979, 4, 14, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 10
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1636,12 +1807,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1979, 5, 23, 12, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 360 * 22
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1656,12 +1827,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1981, 4, 8, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 360 * 22
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1676,12 +1847,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = -50
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
         
         print("  Expected  num results == 0")
@@ -1699,7 +1870,13 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
 
     eastern = pytz.timezone('US/Eastern')
 
-    def printDatetimeResults(resultDts, planetName, centricityType, longitudeType, referenceDt, desiredDeltaDegrees):
+    def printDatetimeResults(results, planetName, centricityType, longitudeType, referenceDt, desiredDeltaDegrees):
+
+        resultDts = []
+        for result in results:
+            resultDts.append(result[0])
+            
+
         print("  Result datetimes for planetName={}, centricityType={}, longitudeType={}, referenceDt={}, desiredDeltaDegrees={} are:".\
               format(planetName, 
                      centricityType, 
@@ -1723,12 +1900,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1983, 10, 25, 19, 34, tzinfo=eastern)
         desiredDeltaDegrees = -3
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
             planetName, centricityType, longitudeType, referenceDt, 
             desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
         print("  Expected  num results == 1")
         print("  Expected resultDts[0] == 1983-10-22 19:16:21.027832-04:56")
@@ -1743,12 +1920,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1983, 10, 25, 19, 34, tzinfo=eastern)
         desiredDeltaDegrees = -150
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1763,12 +1940,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1983, 10, 25, 19, 34, tzinfo=eastern)
         desiredDeltaDegrees = -510
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1784,12 +1961,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1969, 11, 1, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = -360
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 3")
@@ -1806,12 +1983,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1968, 5, 25, 21, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 2
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 0")
@@ -1825,12 +2002,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1968, 5, 25, 21, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = -2
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1845,12 +2022,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1968, 6, 19, 3, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 2
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 2")
@@ -1866,12 +2043,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1968, 6, 19, 3, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = -2
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1886,12 +2063,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1968, 7, 9, 23, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 2
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 2")
@@ -1907,12 +2084,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1968, 7, 9, 23, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = -2
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 3")
@@ -1929,12 +2106,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1969, 6, 2, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 0
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1949,12 +2126,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1969, 6, 2, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = -0
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1969,12 +2146,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1968, 11, 11, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = -5
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 3")
@@ -1991,12 +2168,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1968, 10, 12, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = -5
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -2011,12 +2188,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1968, 9, 23, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = -5
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -2032,12 +2209,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1981, 1, 13, 22, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = -360 * 22
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -2052,12 +2229,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = -360 * 22
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -2072,12 +2249,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInPast():
         referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
         desiredDeltaDegrees = 50
 
-        resultDts = \
+        results = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                 planetName, centricityType, longitudeType, referenceDt, 
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(results, planetName, centricityType, 
                              longitudeType, referenceDt, desiredDeltaDegrees)
         
         print("  Expected  num results == 0")
@@ -2110,7 +2287,7 @@ def testLookbackMultipleUtils_speedTest():
             referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
             desiredDeltaDegrees = -360 * 360
 
-            resultDts = \
+            results = \
                 LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                     planetName, centricityType, longitudeType, referenceDt, 
                     desiredDeltaDegrees, maxErrorTd)
@@ -2135,7 +2312,7 @@ def testLookbackMultipleUtils_speedTest():
             referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
             desiredDeltaDegrees = -360 * 360
 
-            resultDts = \
+            results = \
                 LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                     planetName, centricityType, longitudeType, referenceDt, 
                     desiredDeltaDegrees, maxErrorTd)
@@ -2157,7 +2334,7 @@ def testLookbackMultipleUtils_speedTest():
             referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
             desiredDeltaDegrees = -360 * 12
 
-            resultDts = \
+            results = \
                 LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
                     planetName, centricityType, longitudeType, referenceDt, 
                     desiredDeltaDegrees, maxErrorTd)

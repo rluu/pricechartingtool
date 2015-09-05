@@ -127,12 +127,33 @@ class LookbackMultipleParallel:
                           altitude in meters.
             
         Returns:
-        List of list of datetime.datetime objects.
-        Each list within the list corresponds to the
-        respective tuple within listOfTuples
-        The datetime.datetime objects are the timestamps
-        where the planet is at the elapsed number of
-        degrees away from the longitude at 'referenceDt'.
+        List of tuples, each containing info about the timestamp
+        where the planet is at the elapsed number of degrees away from
+        the longitude at 'referenceDt', and also some working calculation
+        variables that were used to arrive at that timestamp.
+        Each of these tuples' in the list are ordered chronologically 
+        from oldest to latest, of the timestamps when the planet 
+        is 'desiredDeltaDegrees' distance relative to the 
+        planet's longitude position at the reference datetime.datetime.
+        
+        Each tuple in the list contains:
+
+          - dt                 # Result datetime.datetime
+          
+          - planetName            # Input
+          - centricityType        # Input
+          - longitudeType         # Input
+          - referenceDt           # Input
+          - desiredDeltaDegrees   # Input
+          - maxErrorTd            # Input
+          
+          - numFullCircles     # Result number of full circles.
+          - desiredDegree      # Raw longitude degree desired.
+          - planetReferenceLongitude  # Planet longitude at the referenceDt.
+          - planetLongitude    # Planet longitude at the returned timestamp.
+          - currDiff           # Basically currDeltaDegrees % 360.
+          - currDeltaDegrees   # Current difference in degrees elapsed.
+          - currErrorTd        # Error timedelta of the returned result.
         """
 
         listOfResults = \
@@ -179,12 +200,33 @@ class LookbackMultipleParallel:
                           altitude in meters.
             
         Returns:
-        List of list of datetime.datetime objects.
-        Each list within the list corresponds to the
-        respective tuple within listOfTuples
-        The datetime.datetime objects are the timestamps
-        where the planet is at the elapsed number of
-        degrees away from the longitude at 'referenceDt'.
+        List of tuples, each containing info about the timestamp
+        where the planet is at the elapsed number of degrees away from
+        the longitude at 'referenceDt', and also some working calculation
+        variables that were used to arrive at that timestamp.
+        Each of these tuples' in the list are ordered chronologically 
+        from oldest to latest, of the timestamps when the planet 
+        is 'desiredDeltaDegrees' distance relative to the 
+        planet's longitude position at the reference datetime.datetime.
+        
+        Each tuple in the list contains:
+
+          - dt                 # Result datetime.datetime
+          
+          - planetName            # Input
+          - centricityType        # Input
+          - longitudeType         # Input
+          - referenceDt           # Input
+          - desiredDeltaDegrees   # Input
+          - maxErrorTd            # Input
+          
+          - numFullCircles     # Result number of full circles.
+          - desiredDegree      # Raw longitude degree desired.
+          - planetReferenceLongitude  # Planet longitude at the referenceDt.
+          - planetLongitude    # Planet longitude at the returned timestamp.
+          - currDiff           # Basically currDeltaDegrees % 360.
+          - currDeltaDegrees   # Current difference in degrees elapsed.
+          - currErrorTd        # Error timedelta of the returned result.
         """
         
         listOfResults = \
@@ -252,7 +294,11 @@ def testLookbackMultipleParallel_speedTestParallel():
         
         for i in range(len(resultsList)):
             print("  JobSubmission {}:".format(i))
-            resultDts = resultsList[i]
+            results = resultsList[i]
+            
+            resultDts = []
+            for result in results:
+                resultDts.append(result[0])
             
             for j in range(len(resultDts)):
                 resultDt = resultDts[j]
@@ -308,18 +354,22 @@ def testLookbackMultipleParallel_speedTestSerial():
                                                       locationLatitudeDegrees,
                                                       locationElevationMeters)
     
-            resultDts = \
+            results = \
                 LookbackMultipleUtils.\
                 getDatetimesOfLongitudeDeltaDegreesInFuture(
                     planetName, centricityType, longitudeType, referenceDt, 
                     desiredDeltaDegrees, maxErrorTd)
 
-            resultsList.append(resultDts)
+            resultsList.append(results)
 
 
         for i in range(len(resultsList)):
             print("  JobSubmission {}:".format(i))
-            resultDts = resultsList[i]
+            results = resultsList[i]
+            
+            resultDts = []
+            for result in results:
+                resultDts.append(result[0])
             
             for j in range(len(resultDts)):
                 resultDt = resultDts[j]

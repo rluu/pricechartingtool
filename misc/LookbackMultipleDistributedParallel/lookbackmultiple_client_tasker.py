@@ -215,7 +215,7 @@ def speedTestDistributedParallel(taskQueue, resultQueue):
         while resultCount < len(argsTupleList):
 
             # Get a result.
-            (argsTuple, resultDts) = resultQueue.get()
+            (argsTuple, results) = resultQueue.get()
 
             argIndex = 0
             methodToRun = argsTuple[argIndex]
@@ -264,8 +264,11 @@ def speedTestDistributedParallel(taskQueue, resultQueue):
 
             log.debug("Obtained result: " + \
                       "argsTuple == {}, ".format(argsTuple) + 
-                      "len(resultDts) == {}".format(len(resultDts)))
-            for i in range(len(resultDts)):
+                      "len(results) == {}".format(len(results)))
+            for i in range(len(results)):
+                resultDts = []
+                for result in results:
+                    resultDts.append(result[0])
                 dt = resultDts[i]
                 log.debug("  resultDts[{}] == {}".format(i, dt))
 
