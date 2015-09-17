@@ -11277,6 +11277,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Draw the line.
             pen = QPen()
             pen.setColor(self.artifact.getColor())
+            pen.setWidth(0)
             painter.setPen(pen)
             
             brush = QBrush()
