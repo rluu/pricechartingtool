@@ -5,7 +5,7 @@
 Author:  Ryan Luu
 Email:   ryanluu@gmail.com
 
-Project website: http://rluu.github.io/pricechartingtool/
+Project website: https://rluu.github.io/pricechartingtool/
 
 ##############################################################################
 
