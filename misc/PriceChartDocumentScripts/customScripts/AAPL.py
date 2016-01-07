@@ -232,7 +232,7 @@ def processPCDD(pcdd, tag):
             degreeDiff += step
     
     # Investigate further.
-    if True:
+    if False:
         step = 360 / 72 # 5 deg steps.
         start = 0
         stop = 180
@@ -246,6 +246,48 @@ def processPCDD(pcdd, tag):
                 degreeDiff)
             degreeDiff += step
     
+    ##########################################################################
+    # Retrograde planets.
+
+    if True:
+        planetName = "Mercury"
+        
+        # Get the color to apply.
+        from astrologychart import AstrologyUtils
+        color = AstrologyUtils.\
+                getForegroundColorForPlanetName(planetName)
+            
+        success = PlanetaryCombinationsLibrary.\
+            addGeoLongitudeVelocityPolarityChangeVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            planetName)
+
+    if True:
+        planetName = "Venus"
+        
+        # Get the color to apply.
+        from astrologychart import AstrologyUtils
+        color = AstrologyUtils.\
+                getForegroundColorForPlanetName(planetName)
+            
+        success = PlanetaryCombinationsLibrary.\
+            addGeoLongitudeVelocityPolarityChangeVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            planetName)
+
+    if True:
+        planetName = "Mars"
+        
+        # Get the color to apply.
+        from astrologychart import AstrologyUtils
+        color = AstrologyUtils.\
+                getForegroundColorForPlanetName(planetName)
+            
+        success = PlanetaryCombinationsLibrary.\
+            addGeoLongitudeVelocityPolarityChangeVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            planetName)
+
     ############################################################################
 
     if success == True:
