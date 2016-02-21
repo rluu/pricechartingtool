@@ -4,6 +4,22 @@
 #
 #   Adds various sets of artifacts related to planetary combinations.
 #
+# Notes:
+#
+#   Methods I care most about as of Sun Feb 21 02:48:31 EST 2016:
+#
+#     _getDatetimesOfElapsedLongitudeDegrees()
+#     addGeoLongitudeVelocityPolarityChangeVerticalLines()
+#     addPlanetCrossingLongitudeDegVerticalLines()
+#     addVerticalLine()
+#     addHorizontalLine()
+#
+#     Newly added:
+#     getGeoRetrogradeDirectTimestamps()
+#     getConjunctionsOfDirectRetrogradeMidpoints()
+#     getGeoLeastMeanGreatConjunctionsOfRetrogradeDirectMidpoints()
+#     [TODO_rluu: more coming...]
+#
 ##############################################################################
 
 import copy
@@ -11975,3 +11991,818 @@ class PlanetaryCombinationsLibrary:
         log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
 
+
+    @staticmethod
+    def getPlanetCrossingLongitudeDegTimestamps(\
+        pcdd, startDt, endDt,
+        centricityType, longitudeType, planetName, degree,
+        maxErrorTd=datetime.timedelta(hours=1)):
+        """Returns a list of datetimes of when a certain planet crosses 
+        a certain degree of longitude.
+        
+        The algorithm used assumes that a step size won't move the
+        planet more than 1/3 of a circle.
+        
+        Arguments:
+        pcdd          - PriceChartDocumentData object used for geographical 
+                        location when initializing the ephemeris.
+        startDt       - datetime.datetime object for the starting timestamp
+                        to do the calculations for artifacts.
+        endDt         - datetime.datetime object for the ending timestamp
+                        to do the calculations for artifacts.
+        centricityType - str value holding either "geocentric",
+                         "topocentric", or "heliocentric".
+        longitudeType - str value holding either "tropical" or "sidereal".
+        planetName    - str value holding the name fo the planet to do
+                        the search for.
+        degree        - float value for the degree of longitude that should be
+                        crossed in order to trigger a vertical line being drawn.
+        maxErrorTd    - datetime.timedelta object holding the maximum
+                        time difference between the exact planetary
+                        combination timestamp, and the one calculated.
+                        This would define the accuracy of the
+                        calculations.  
+        
+        Returns:
+
+        List of datetime.datetime, containing the timestamps when the 
+        planet crosses the degree, within the startDt and endDt.
+        
+        If an error occurred, the None is returned.
+        """
+
+
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        # Return value.
+        rv = []
+
+        # Make sure the inputs are valid.
+        if endDt < startDt:
+            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            return None
+
+        centricityTypeOrig = centricityType
+        centricityType = centricityType.lower()
+        if centricityType != "geocentric" and \
+           centricityType != "topocentric" and \
+           centricityType != "heliocentric":
+
+            log.error("Invalid input: centricityType is invalid.  " + \
+                      "Value given was: {}".format(centricityTypeOrig))
+            return None
+
+        longitudeTypeOrig = longitudeType
+        longitudeType = longitudeType.lower()
+        if longitudeType != "tropical" and \
+           longitudeType != "sidereal":
+
+            log.error("Invalid input: longitudeType is invalid.  " + \
+                      "Value given was: {}".format(longitudeTypeOrig))
+            return None
+
+        # Field name we are getting.
+        fieldName = "longitude"
+        
+        # Initialize the Ephemeris with the birth location.
+        log.debug("Setting ephemeris location ...")
+        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                        pcdd.birthInfo.latitudeDegrees,
+                                        pcdd.birthInfo.elevation)
+
+        # Set the step size.
+        stepSizeTd = datetime.timedelta(days=1)
+        if Ephemeris.isHouseCuspPlanetName(planetName) or \
+               Ephemeris.isAscmcPlanetName(planetName):
+            
+            # House cusps and ascmc planets need a smaller step size.
+            stepSizeTd = datetime.timedelta(hours=1)
+            
+        # Iterate through, creating artfacts and adding them as we go.
+        steps = []
+        steps.append(copy.deepcopy(startDt))
+        steps.append(copy.deepcopy(startDt))
+
+        longitudes = []
+        longitudes.append(None)
+        longitudes.append(None)
+        
+        def getFieldValue(planetaryInfo, fieldName):
+            pi = planetaryInfo
+            fieldValue = None
+            
+            if centricityType == "geocentric":
+                fieldValue = pi.geocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "topocentric":
+                fieldValue = pi.topocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "heliocentric":
+                fieldValue = pi.heliocentric[longitudeType][fieldName]
+            else:
+                log.error("Unknown centricity type.")
+                fieldValue = None
+
+            return fieldValue
+            
+            
+        log.debug("Stepping through timestamps from {} to {} ...".\
+                  format(Ephemeris.datetimeToStr(startDt),
+                         Ephemeris.datetimeToStr(endDt)))
+        
+        while steps[-1] < endDt:
+            currDt = steps[-1]
+            prevDt = steps[-2]
+            
+            log.debug("Looking at currDt == {} ...".\
+                      format(Ephemeris.datetimeToStr(currDt)))
+            
+            p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
+
+            longitudes[-1] = getFieldValue(p1, fieldName)
+            
+            log.debug("{} {} {} {} is: {}".\
+                      format(p1.name, centricityType, longitudeType, fieldName,
+                             getFieldValue(p1, fieldName)))
+            
+            if longitudes[-2] != None:
+                
+                currValue = None
+                prevValue = None
+                desiredDegree = None
+                crossedOverZeroDegrees = None
+
+                # This algorithm assumes that a step size won't move the
+                # planet more than 1/3 of a circle.
+                if longitudes[-2] > 240 and longitudes[-1] < 120:
+                    # Hopped over 0 degrees.
+                    prevValue = longitudes[-2]
+                    currValue = longitudes[-1] + 360
+                    desiredDegree = degree + 360
+                    crossedOverZeroDegrees = True
+                else:
+                    prevValue = longitudes[-2]
+                    currValue = longitudes[-1]
+                    desiredDegree = degree
+                    crossedOverZeroDegrees = False
+
+                if prevValue < desiredDegree and currValue >= desiredDegree:
+                    log.debug("Crossed over from below to above!")
+                    
+                    # This is the upper-bound of the error timedelta.
+                    t1 = prevDt
+                    t2 = currDt
+                    currErrorTd = t2 - t1
+                        
+                    # Refine the timestamp until it is less than the threshold.
+                    while currErrorTd > maxErrorTd:
+                        log.debug("Refining between {} and {}".\
+                                  format(Ephemeris.datetimeToStr(t1),
+                                         Ephemeris.datetimeToStr(t2)))
+                        
+                        # Check the timestamp between.
+                        timeWindowTd = t2 - t1
+                        halfTimeWindowTd = \
+                            datetime.\
+                            timedelta(days=(timeWindowTd.days / 2.0),
+                                seconds=(timeWindowTd.seconds / 2.0),
+                                microseconds=(timeWindowTd.microseconds / 2.0))
+                        testDt = t1 + halfTimeWindowTd
+                        
+                        p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
+                        
+                        testValue = getFieldValue(p1, fieldName)
+
+                        if longitudes[-2] > 240 and testValue < 120:
+                            testValue += 360
+                        
+                        if testValue < desiredDegree:
+                            t1 = testDt
+                        else:
+                            t2 = testDt
+    
+                            # Update the curr values.
+                            currDt = t2
+                            currValue = testValue
+                            
+                        currErrorTd = t2 - t1
+
+                    # Update our lists.
+                    steps[-1] = currDt
+                    longitudes[-1] = Util.toNormalizedAngle(currValue)
+
+                    # Append the result datetime found.
+                    rv.append(currDt)
+                    
+                elif prevValue >= desiredDegree and currValue < desiredDegree:
+                    log.debug("Crossed over from above to below!")
+                    
+                    # This is the upper-bound of the error timedelta.
+                    t1 = prevDt
+                    t2 = currDt
+                    currErrorTd = t2 - t1
+    
+                    # Refine the timestamp until it is less than the threshold.
+                    while currErrorTd > maxErrorTd:
+                        log.debug("Refining between {} and {}".\
+                                  format(Ephemeris.datetimeToStr(t1),
+                                         Ephemeris.datetimeToStr(t2)))
+                        
+                        # Check the timestamp between.
+                        timeWindowTd = t2 - t1
+                        halfTimeWindowTd = \
+                            datetime.\
+                            timedelta(days=(timeWindowTd.days / 2.0),
+                                seconds=(timeWindowTd.seconds / 2.0),
+                                microseconds=(timeWindowTd.microseconds / 2.0))
+                        testDt = t1 + halfTimeWindowTd
+                        
+                        p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
+                        
+                        testValue = getFieldValue(p1, fieldName)
+
+                        if longitudes[-2] > 240 and testValue < 120:
+                            testValue += 360
+                        
+                        if testValue >= desiredDegree:
+                            t1 = testDt
+                        else:
+                            t2 = testDt
+                            
+                            # Update the curr values.
+                            currDt = t2
+                            currValue = testValue
+                            
+                        currErrorTd = t2 - t1
+                    
+                    # Update our lists.
+                    steps[-1] = currDt
+                    longitudes[-1] = Util.toNormalizedAngle(currValue)
+                    
+                    # Append the result datetime found.
+                    rv.append(currDt)
+            
+            # Prepare for the next iteration.
+            steps.append(copy.deepcopy(steps[-1]) + stepSizeTd)
+            del steps[0]
+            longitudes.append(None)
+            del longitudes[0]
+
+        log.info("Number of datetimes found: {}".format(len(rv)))
+        
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+
+    
+    @staticmethod
+    def getGeoLeastMeanGreatConjunctionsOfRetrogradeDirectMidpoints(\
+        pcdd,
+        planetName,
+        geoRetrogradeDirectTimestampsResultsList,
+        maxErrorTd=datetime.timedelta(minutes=1)):
+        """Obtains a list of tuples containing data describing
+        the timestamps of when a particular planet is conjunct the
+        midpoint longitude degree of: 
+
+        - Longitude when the geocentric planet is starting to go retrograde.
+        - Longitude when the geocentric planet is starting to go direct.
+
+        There are three conjunctions for each pair of retrograde-direct
+        timestamps.  These are called the Least, Mean, and Great conjunctions.
+
+        'Least' conjunction is the first conjunction with that longitude,
+        when the planet is currently going direct
+        (this lies earlier in time before the Retrograde moment).
+
+        'Mean' conjunction is the second conjunction with that longitude,
+        when the planet is currently going retrograde.
+
+        'Great' conjunction is the third conjunction with that longitude,
+        when the planet is currently going retrograde.
+        
+        Note: The midpoint of the retrograde longitude and the 
+        direct longitude is different from the midpoint of the 
+        direct longitude and the retrograde longitude.  
+        The method that deals with the second scenario is
+        getConjunctionsOfDirectRetrogradeMidpoints().  
+        See that method if that's what I want to test.
+        
+        Arguments:
+
+        pcdd       - PriceChartDocumentData object that is used for 
+                     obtaining geographical location information.
+                     This is used to initialize the ephemeris.
+
+        planetName - str holding the name of the
+                     planet to do the calculations for.
+
+        geoRetrogradeDirectTimestampsResultsList - 
+            List of tuples containing one of following possible entries, 
+            depending on whether it is the moment the planet turns 
+            direct or when the planet turns retrograde:
+    
+              (PlanetaryInfo p, "direct")
+              (PlanetaryInfo p, "retrograde")
+            
+            The list of tuples' PlanetaryInfo's datetimes are timestamp-ordered.
+            Thus: tup[0][0].dt is a datetime before tup[1][0].dt
+
+        maxErrorTd - datetime.timedelta object holding the maximum
+                     time difference between the exact planetary
+                     combination timestamp, and the one calculated.
+                     This would define the accuracy of the
+                     calculations.  
+        
+        Returns:
+
+        A list of tuples; each tuple in one of the following formats, 
+        depending on whether the timestamp is a least conjunction, 
+        mean conjunction or greater conjunction.
+
+            (PlanetaryInfo p, "least")
+            (PlanetaryInfo p, "mean")
+            (PlanetaryInfo p, "greater")
+
+        In the event of an error, the reference None is returned.
+        """
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+        log.debug("planetName=" + planetName + ", " +
+                  "maxErrorTd=" + maxErrorTd)
+
+        # List of tuples that are returned.
+        rv = []
+        
+        # Make sure the inputs are valid.
+        prevDt = None
+        currDt = None
+        for retroDirectResult in geoRetrogradeDirectTimestampsResultsList:
+            if prevDt == None:
+                prevDt = retroDirectResult[0].dt
+                continue
+            elif currDt == None:
+                currDt = retroDirectResult[0].dt
+            else:
+                prevDt = currDt
+                currDt = retroDirectResult[0].dt
+
+            if prevDt > currDt:
+                log.error("Invalid input: 'geoRetrogradeDirectTimestampsResultsList' must be ordered by timestamp.")
+                return None
+
+        # Inputs are valid.
+
+        # Set the step size.
+        stepSizeTd = datetime.timedelta(days=1)
+        if Ephemeris.isHouseCuspPlanetName(planetName) or \
+               Ephemeris.isAscmcPlanetName(planetName):
+
+            # House cusps and ascmc planets need a smaller step size.
+            stepSizeTd = datetime.timedelta(hours=1)
+
+        # Field name we are getting.
+        fieldName = "longitude"
+        centricityType = "geocentric"
+        
+        def getFieldValue(planetaryInfo, fieldName):
+            pi = planetaryInfo
+            fieldValue = None
+            
+            if centricityType == "geocentric":
+                fieldValue = pi.geocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "topocentric":
+                fieldValue = pi.topocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "heliocentric":
+                fieldValue = pi.heliocentric[longitudeType][fieldName]
+            else:
+                log.error("Unknown centricity type.")
+                fieldValue = None
+
+            return fieldValue
+            
+        # Iterate through the retrograde and direct data, calculating the
+        # midpoints and then working on those.
+        stations = []
+        stations.append(None)
+        stations.append(None)
+        stations.append(None)
+
+        if len(geoRetrogradeDirectTimestampsResultsList) < 3:
+            log.error("Too low number of " +
+                      "geocentric planetary stations detected!  " +
+                      "Because of the algorithm I've chosen, " +
+                      "you may not get any results.")
+            return None
+        elif len(geoRetrogradeDirectTimestampsResultsList) <= 3:
+            log.warn("Too low number of " +
+                      "geocentric planetary stations detected!  " +
+                      "Because of the algorithm I've chosen, " +
+                      "you may not get many results.")
+            
+        for i in range(len(geoRetrogradeDirectTimestampsResultsList)):
+
+            del stations[0]
+            stations.append(geoRetrogradeDirectTimestampsResultsList[i])
+            
+            if i == 0 or i == 1:
+                # Need three stations before starting to analyze.
+                #
+                # This is just so it's a simpler algorithm when computing
+                # degree cross-overs.  This means, we would need a wider time
+                # frame for the dataset of stations before calculating these
+                # conjunctions.  This means I'll need to get stations
+                # for about a year earlier than the actual conjunctions
+                # I'm looking for.
+                continue
+
+            prevStation = geoRetrogradeDirectTimestampsResultsList[i-1]
+            currStation = geoRetrogradeDirectTimestampsResultsList[i]
+
+            # Index to reference the PlanetaryInfo, in the tuple.
+            piIndex = 0
+            # Index for whether the movement is retrograde or direct,
+            # in the tuple
+            retroOrDirectIndex = 1
+            
+            if prevStation[retroOrDirectIndex] == "retrograde" and \
+                currStation[retroOrDirectIndex] == "direct":
+                
+                # We now have two values to compute a midpoint.
+                prevStationLongitude = \
+                    prevStation[piIndex].geocentric['tropical']['longitude']
+                currStationLongitude = \
+                    currStation[piIndex].geocentric['tropical']['longitude']
+                    
+                # Adjust for if it spans the 0 degree boundary.
+                if prevStationLongitude < currStationLongitude:
+                    prevStationLongitude += 360
+                    
+                # Calculate the midpoint.
+                midpointLongitude = \
+                    Util.toNormalizedAngle((prevStationLongitude +
+                                            currStationLongitude) / 2.0)
+                
+                ###############################
+                # Get the 'least' conjunction.
+                # This is when it crosses the midpointLongitude the 1st time.
+                
+                startDt = stations[-3][piIndex].dt
+                endDt   = stations[-2][piIndex].dt
+
+                desiredDegree = midpointLongitude
+                
+                crossingsDts = \
+                    PlanetaryCombinationsLibrary.\
+                    getPlanetCrossingLongitudeDegTimestamps(\
+                        pcdd, startDt, endDt,
+                        centricityType, longitudeType, planetName,
+                        desiredDegree, maxErrorTd)
+
+                log.debug("Got {} crossings for 'least' conjunctions.".\
+                          format(len(crossingsDts)))
+
+                # We expect that we will cross the midpoint before we start
+                # going retrograde.  This section of movement should be all
+                # direct, therefore only one crossing.
+                if len(crossingsDts) != 1:
+                    log.error("Unexpected number of crossings returned.  " + \
+                              "We expected only 1 !!!  There's a bug here.")
+                    return None
+
+                currDt = crossingsDts[0]
+                p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
+                rv.append(p1, "least")
+
+                
+                ###############################
+                # Get the 'mean' conjunction.
+                # This is when it crosses the midpointLongitude the 2nd time.
+                
+                startDt = stations[-2][piIndex].dt
+                endDt   = stations[-1][piIndex].dt
+
+                desiredDegree = midpointLongitude
+                
+                crossingsDts = \
+                    PlanetaryCombinationsLibrary.\
+                    getPlanetCrossingLongitudeDegTimestamps(\
+                        pcdd, startDt, endDt,
+                        centricityType, longitudeType, planetName,
+                        desiredDegree, maxErrorTd)
+
+                log.debug("Got {} crossings for 'mean' conjunctions.".\
+                          format(len(crossingsDts)))
+
+                # We expect that we will cross the midpoint before we start
+                # going direct.  This section of movement should be all
+                # retrograde, therefore only one crossing.
+                if len(crossingsDts) != 1:
+                    log.error("Unexpected number of crossings returned.  " + \
+                              "We expected only 1 !!!  There's a bug here.")
+                    return None
+
+                currDt = crossingsDts[0]
+                p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
+                rv.append(p1, "mean")
+
+                ###############################
+                # Get the 'great' conjunction.
+                # This is when it crosses the midpointLongitude the 3rd time.
+                
+                startDt = stations[-1][piIndex].dt
+                endDt   = startDt + datetime.timedelta(days=366)
+
+                # We set endDt to the startDt + a year because we know this is
+                # geocentric and every planet will cross the midpoint before
+                # the next solar year.  Doing this endDt may yield more than
+                # one datetime for the degree crossing here, which is fine.
+                # We are looking for the first crossing.
+                
+                desiredDegree = midpointLongitude
+                
+                crossingsDts = \
+                    PlanetaryCombinationsLibrary.\
+                    getPlanetCrossingLongitudeDegTimestamps(\
+                        pcdd, startDt, endDt,
+                        centricityType, longitudeType, planetName,
+                        desiredDegree, maxErrorTd)
+
+                log.debug("Got {} crossings for 'great' conjunctions.".\
+                          format(len(crossingsDts)))
+
+                # We expect that we will cross the midpoint before we start
+                # going retrograde.
+
+                # Get the first timestamp found.
+                currDt = crossingsDts[0]
+                p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
+                rv.append(p1, "great")
+
+        log.debug("Returning {} data points in the list.".format(len(rv)))
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+    
+    @staticmethod
+    def getConjunctionsOfDirectRetrogradeMidpoints(\
+        pcdd,
+        planetName,
+        geoRetrogradeDirectTimestampsResultsList,
+        maxErrorTd=datetime.timedelta(minutes=1)):
+        
+        # TODO_rluu: add comments for this method, adapted from getGeoLeastMeanGreatConjunctionsOfRetrogradeDirectMidpoints().
+
+        # TODO_rluu: write this method; adapt from getGeoLeastMeanGreatConjunctionsOfRetrogradeDirectMidpoints().
+        return None
+
+    @staticmethod
+    def getGeoRetrogradeDirectTimestamps(\
+        pcdd, startDt, endDt,
+        planetName,
+        maxErrorTd=datetime.timedelta(minutes=1)):
+        """Obtains a list of tuples containing data describing
+        the timestamps of when the specified planet is going 
+        retrograde or direct (i.e. is stationary).
+        
+        Arguments:
+        pcdd      - PriceChartDocumentData object that is used for 
+                    obtaining geographical location information.
+                    This is used to initialize the ephemeris.
+        startDt   - datetime.datetime object for the starting timestamp
+                    to do the calculations.
+        endDt     - datetime.datetime object for the ending timestamp
+                    to do the calculations for artifacts.
+        planetName - str holding the name of the
+                     planet to do the calculations for.
+        maxErrorTd - datetime.timedelta object holding the maximum
+                     time difference between the exact planetary
+                     combination timestamp, and the one calculated.
+                     This would define the accuracy of the
+                     calculations.  
+        
+        Returns:
+
+        List of tuples containing one of following possible entries, 
+        depending on whether it is the moment the planet turns 
+        direct or when the planet turns retrograde:
+
+          (PlanetaryInfo p, "direct")
+          (PlanetaryInfo p, "retrograde")
+        
+        The list of tuples' PlanetaryInfo's datetimes are timestamp-ordered.
+        Thus: tup[0][0].dt is a datetime before tup[1][0].dt
+
+        In the event of an error, the reference None is returned.
+        """
+
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+        log.debug("startDt=" + Ephemeris.datetimeToDayStr(startDt) + ", " + 
+                  "endDt=" + Ephemeris.datetimeToDayStr(endDt) +  ", " + 
+                  "planetName=" + planetName + ", " +
+                  "maxErrorTd=" + maxErrorTd)
+        
+        # List of tuples that are returned.
+        rv = []
+        
+        # Make sure the inputs are valid.
+        if endDt < startDt:
+            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            return None
+
+        # Initialize the Ephemeris with the birth location.
+        log.debug("Setting ephemeris location ...")
+        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                        pcdd.birthInfo.latitudeDegrees,
+                                        pcdd.birthInfo.elevation)
+
+        # Set the step size.
+        stepSizeTd = datetime.timedelta(days=1)
+        if Ephemeris.isHouseCuspPlanetName(planetName) or \
+               Ephemeris.isAscmcPlanetName(planetName):
+
+            # House cusps and ascmc planets need a smaller step size.
+            stepSizeTd = datetime.timedelta(hours=1)
+        
+        # Field name we are getting.
+        fieldName = "longitude_speed"
+        centricityType = "geocentric"
+        longitudeType = "tropical"
+
+        # Set the tag str.
+        tag = inspect.stack()[0][3]
+        if tag.startswith("add") and len(tag) > 3:
+            tag = tag[3:] + "_" + planetName
+        log.debug("tag == '{}'".format(tag))
+        
+        # Initialize the Ephemeris with the birth location.
+        log.debug("Setting ephemeris location ...")
+        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                        pcdd.birthInfo.latitudeDegrees,
+                                        pcdd.birthInfo.elevation)
+        
+        # Now, in UTC.
+        now = datetime.datetime.now(pytz.utc)
+        
+        # Timestamp steps saved (list of datetime.datetime).
+        steps = []
+        steps.append(copy.deepcopy(startDt))
+        steps.append(copy.deepcopy(startDt))
+        
+        # Velocity of the steps saved (list of float).
+        velocitys = []
+        velocitys.append(None)
+        velocitys.append(None)
+
+        def getFieldValue(planetaryInfo, fieldName):
+            pi = planetaryInfo
+            fieldValue = None
+            
+            if centricityType == "geocentric":
+                fieldValue = pi.geocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "topocentric":
+                fieldValue = pi.topocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "heliocentric":
+                fieldValue = pi.heliocentric[longitudeType][fieldName]
+            else:
+                log.error("Unknown centricity type.")
+                fieldValue = None
+
+            return fieldValue
+            
+        # Iterate through, creating artfacts and adding them as we go.
+        log.debug("Stepping through timestamps from {} to {} ...".\
+                  format(Ephemeris.datetimeToStr(startDt),
+                         Ephemeris.datetimeToStr(endDt)))
+        
+        while steps[-1] < endDt:
+            currDt = steps[-1]
+            log.debug("Looking at currDt == {} ...".\
+                      format(Ephemeris.datetimeToStr(currDt)))
+            
+            p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
+            
+            velocitys[-1] = getFieldValue(p1, fieldName)
+            
+            log.debug("{} velocity is: {}".\
+                      format(p1.name, velocitys[-1]))
+            
+            for i in range(len(steps)):
+                log.debug("steps[{}] == {}".\
+                          format(i, Ephemeris.datetimeToStr(steps[i])))
+            for i in range(len(velocitys)):
+                log.debug("velocitys[{}] == {}".format(i, velocitys[i]))
+            
+            
+            if velocitys[-2] != None:
+
+                prevValue = velocitys[-2]
+                currValue = velocitys[-1]
+                prevDt = steps[-2]
+                currDt = steps[-1]
+                desiredVelocity = 0
+                
+                if prevValue < desiredVelocity and currValue >= desiredVelocity:
+                    log.debug("Went from Retrograde to Direct!")
+                    
+                    # This is the upper-bound of the error timedelta.
+                    t1 = prevDt
+                    t2 = currDt
+                    currErrorTd = t2 - t1
+                    
+                    # Refine the timestamp until it is less than the threshold.
+                    while currErrorTd > maxErrorTd:
+                        log.debug("Refining between {} and {}".\
+                                  format(Ephemeris.datetimeToStr(t1),
+                                         Ephemeris.datetimeToStr(t2)))
+                        
+                        # Check the timestamp between.
+                        timeWindowTd = t2 - t1
+                        halfTimeWindowTd = \
+                            datetime.\
+                            timedelta(days=(timeWindowTd.days / 2.0),
+                                seconds=(timeWindowTd.seconds / 2.0),
+                                microseconds=(timeWindowTd.microseconds / 2.0))
+                        testDt = t1 + halfTimeWindowTd
+                        
+                        p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
+                        
+                        testValue = getFieldValue(p1, fieldName)
+
+                        if testValue < desiredVelocity:
+                            t1 = testDt
+                        else:
+                            t2 = testDt
+    
+                            # Update the curr values.
+                            currDt = t2
+                            currValue = testValue
+                            
+                        currErrorTd = t2 - t1
+
+                    # Update our lists.
+                    steps[-1] = currDt
+                    velocitys[-1] = currValue
+
+                    pi = Ephemeris.getPlanetaryInfo(planetName, currDt)
+                    tup = (pi, "direct")
+                    rv.append(tup)
+                    
+                elif prevValue >= desiredVelocity and currValue < desiredVelocity:
+                    log.debug("Went from Direct to Retrograde!")
+                    
+                    # This is the upper-bound of the error timedelta.
+                    t1 = prevDt
+                    t2 = currDt
+                    currErrorTd = t2 - t1
+    
+                    # Refine the timestamp until it is less than the threshold.
+                    while currErrorTd > maxErrorTd:
+                        log.debug("Refining between {} and {}".\
+                                  format(Ephemeris.datetimeToStr(t1),
+                                         Ephemeris.datetimeToStr(t2)))
+                        
+                        # Check the timestamp between.
+                        timeWindowTd = t2 - t1
+                        halfTimeWindowTd = \
+                            datetime.\
+                            timedelta(days=(timeWindowTd.days / 2.0),
+                                seconds=(timeWindowTd.seconds / 2.0),
+                                microseconds=(timeWindowTd.microseconds / 2.0))
+                        testDt = t1 + halfTimeWindowTd
+                        
+                        p1 = Ephemeris.getPlanetaryInfo(planetName, testDt)
+                        
+                        testValue = getFieldValue(p1, fieldName)
+
+                        if testValue >= desiredVelocity:
+                            t1 = testDt
+                        else:
+                            t2 = testDt
+                            
+                            # Update the curr values.
+                            currDt = t2
+                            currValue = testValue
+                        
+                        currErrorTd = t2 - t1
+                    
+                    # Update our lists.
+                    steps[-1] = currDt
+                    velocitys[-1] = currValue
+                    
+                    pi = Ephemeris.getPlanetaryInfo(planetName, currDt)
+                    tup = (pi, "retrograde")
+                    rv.append(tup)
+                    
+            # Prepare for the next iteration.
+            steps.append(copy.deepcopy(steps[-1]) + stepSizeTd)
+            del steps[0]
+            velocitys.append(None)
+            del velocitys[0]
+
+        log.info("Number of geo retrograde or direct planet timestamps: {}".\
+                 format(len(rv)))
+            
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+
+    # TODO_rluu: create a method to do the vertical lines for retro and direct geo planet locations.  Also, using results already calculated, create/do method for adding vertical lines for 1-planet conjunctions with geo retrograde-direct midpoint positions.
+    
+##############################################################################
+    
+    
