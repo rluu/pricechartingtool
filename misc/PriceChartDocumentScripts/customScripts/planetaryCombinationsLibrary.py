@@ -16,7 +16,7 @@
 #
 #     Newly added:
 #     getGeoRetrogradeDirectTimestamps()
-#     getConjunctionsOfDirectRetrogradeMidpoints()
+#     getGeoConjunctionsOfDirectRetrogradeMidpoints()
 #     getGeoLeastMeanGreatConjunctionsOfRetrogradeDirectMidpoints()
 #     [TODO_rluu: more coming...]
 #
@@ -12282,8 +12282,8 @@ class PlanetaryCombinationsLibrary:
         direct longitude is different from the midpoint of the 
         direct longitude and the retrograde longitude.  
         The method that deals with the second scenario is
-        getConjunctionsOfDirectRetrogradeMidpoints().  
-        See that method if that's what I want to test.
+        getGeoConjunctionsOfDirectRetrogradeMidpoints().  
+        See that method if that's what I want to get.
         
         Arguments:
 
@@ -12329,19 +12329,27 @@ class PlanetaryCombinationsLibrary:
 
         # List of tuples that are returned.
         rv = []
+
+        # Indexes into each tuple in list
+        # geoRetrogradeDirectTimestampsResultsList:
+        
+        # Index to reference the PlanetaryInfo, in the tuple.
+        piIndex = 0
+        # Index for whether the movement is retrograde or direct, in the tuple.
+        retroOrDirectIndex = 1
         
         # Make sure the inputs are valid.
         prevDt = None
         currDt = None
         for retroDirectResult in geoRetrogradeDirectTimestampsResultsList:
             if prevDt == None:
-                prevDt = retroDirectResult[0].dt
+                prevDt = retroDirectResult[piIndex].dt
                 continue
             elif currDt == None:
-                currDt = retroDirectResult[0].dt
+                currDt = retroDirectResult[piIndex].dt
             else:
                 prevDt = currDt
-                currDt = retroDirectResult[0].dt
+                currDt = retroDirectResult[piIndex].dt
 
             if prevDt > currDt:
                 log.error("Invalid input: 'geoRetrogradeDirectTimestampsResultsList' must be ordered by timestamp.")
@@ -12415,12 +12423,6 @@ class PlanetaryCombinationsLibrary:
             prevStation = geoRetrogradeDirectTimestampsResultsList[i-1]
             currStation = geoRetrogradeDirectTimestampsResultsList[i]
 
-            # Index to reference the PlanetaryInfo, in the tuple.
-            piIndex = 0
-            # Index for whether the movement is retrograde or direct,
-            # in the tuple
-            retroOrDirectIndex = 1
-            
             if prevStation[retroOrDirectIndex] == "retrograde" and \
                 currStation[retroOrDirectIndex] == "direct":
                 
@@ -12438,6 +12440,11 @@ class PlanetaryCombinationsLibrary:
                 midpointLongitude = \
                     Util.toNormalizedAngle((prevStationLongitude +
                                             currStationLongitude) / 2.0)
+                
+                log.debug("midpointLongitude between {} and {} is: {}".\
+                          format(Util.toNormalizedAngle(prevStationLongitude),
+                                 Util.toNormalizedAngle(currStationLongitude),
+                                 midpointLongitude))
                 
                 ###############################
                 # Get the 'least' conjunction.
@@ -12468,7 +12475,8 @@ class PlanetaryCombinationsLibrary:
 
                 currDt = crossingsDts[0]
                 p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
-                rv.append(p1, "least")
+                resultTuple = (p1, "least")
+                rv.append(resultTuple)
 
                 
                 ###############################
@@ -12500,7 +12508,8 @@ class PlanetaryCombinationsLibrary:
 
                 currDt = crossingsDts[0]
                 p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
-                rv.append(p1, "mean")
+                resultTuple = (p1, "mean")
+                rv.append(resultTuple)
 
                 ###############################
                 # Get the 'great' conjunction.
@@ -12533,24 +12542,214 @@ class PlanetaryCombinationsLibrary:
                 # Get the first timestamp found.
                 currDt = crossingsDts[0]
                 p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
-                rv.append(p1, "great")
+                resultTuple = (p1, "great")
+                rv.append(resultTuple)
 
         log.debug("Returning {} data points in the list.".format(len(rv)))
         log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
     
     @staticmethod
-    def getConjunctionsOfDirectRetrogradeMidpoints(\
+    def getGeoConjunctionsOfDirectRetrogradeMidpoints(\
         pcdd,
         planetName,
         geoRetrogradeDirectTimestampsResultsList,
         maxErrorTd=datetime.timedelta(minutes=1)):
+        """Obtains a list of tuples containing data describing
+        the timestamps of when a particular planet is conjunct the
+        midpoint longitude degree of: 
+
+        - Longitude when the geocentric planet is starting to go direct.
+        - Longitude when the geocentric planet is starting to go retrograde.
+
+        There should be only one conjunction for each pair of direct-retrograde
+        timestamps.  
         
-        # TODO_rluu: add comments for this method, adapted from getGeoLeastMeanGreatConjunctionsOfRetrogradeDirectMidpoints().
+        Note: The midpoint of the midpoint of the direct longitude and
+        the retrograde longitude is different from the midpoint of the
+        retrograde longitude and the direct longitude.  The method
+        that deals with the second scenario is
+        getGeoLeastMeanGreatConjunctionsOfRetrogradeDirectMidpoints().
+        See that method if that's what I want to get.
+        
+        Arguments:
 
-        # TODO_rluu: write this method; adapt from getGeoLeastMeanGreatConjunctionsOfRetrogradeDirectMidpoints().
-        return None
+        pcdd       - PriceChartDocumentData object that is used for 
+                     obtaining geographical location information.
+                     This is used to initialize the ephemeris.
 
+        planetName - str holding the name of the
+                     planet to do the calculations for.
+
+        geoRetrogradeDirectTimestampsResultsList - 
+            List of tuples containing one of following possible entries, 
+            depending on whether it is the moment the planet turns 
+            direct or when the planet turns retrograde:
+    
+              (PlanetaryInfo p, "direct")
+              (PlanetaryInfo p, "retrograde")
+            
+            The list of tuples' PlanetaryInfo's datetimes are timestamp-ordered.
+            Thus: tup[0][0].dt is a datetime before tup[1][0].dt
+
+        maxErrorTd - datetime.timedelta object holding the maximum
+                     time difference between the exact planetary
+                     combination timestamp, and the one calculated.
+                     This would define the accuracy of the
+                     calculations.  
+        
+        Returns:
+
+        A list of PlanetaryInfo objects.  Each one representing the
+        information about the planet when the planet is the at the
+        desired midpoint.
+        
+        In the event of an error, the reference None is returned.
+        """
+        
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+        log.debug("planetName=" + planetName + ", " +
+                  "maxErrorTd=" + maxErrorTd)
+
+        # List of tuples that are returned.
+        rv = []
+
+        # Indexes into each tuple in list
+        # geoRetrogradeDirectTimestampsResultsList:
+        
+        # Index to reference the PlanetaryInfo, in the tuple.
+        piIndex = 0
+        # Index for whether the movement is retrograde or direct, in the tuple.
+        retroOrDirectIndex = 1
+        
+        # Make sure the inputs are valid.
+        prevDt = None
+        currDt = None
+        for retroDirectResult in geoRetrogradeDirectTimestampsResultsList:
+            if prevDt == None:
+                prevDt = retroDirectResult[piIndex].dt
+                continue
+            elif currDt == None:
+                currDt = retroDirectResult[piIndex].dt
+            else:
+                prevDt = currDt
+                currDt = retroDirectResult[piIndex].dt
+
+            if prevDt > currDt:
+                log.error("Invalid input: 'geoRetrogradeDirectTimestampsResultsList' must be ordered by timestamp.")
+                return None
+
+        # Inputs are valid.
+
+        # Set the step size.
+        stepSizeTd = datetime.timedelta(days=1)
+        if Ephemeris.isHouseCuspPlanetName(planetName) or \
+               Ephemeris.isAscmcPlanetName(planetName):
+
+            # House cusps and ascmc planets need a smaller step size.
+            stepSizeTd = datetime.timedelta(hours=1)
+
+        # Field name we are getting.
+        fieldName = "longitude"
+        centricityType = "geocentric"
+        
+        def getFieldValue(planetaryInfo, fieldName):
+            pi = planetaryInfo
+            fieldValue = None
+            
+            if centricityType == "geocentric":
+                fieldValue = pi.geocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "topocentric":
+                fieldValue = pi.topocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "heliocentric":
+                fieldValue = pi.heliocentric[longitudeType][fieldName]
+            else:
+                log.error("Unknown centricity type.")
+                fieldValue = None
+
+            return fieldValue
+            
+        # Iterate through the retrograde and direct data, calculating the
+        # midpoints and then working on those.
+        stations = []
+        stations.append(None)
+        stations.append(None)
+
+        if len(geoRetrogradeDirectTimestampsResultsList) < 2:
+            log.warn("Too low number of " +
+                      "geocentric planetary stations detected!")
+            
+        for i in range(len(geoRetrogradeDirectTimestampsResultsList)):
+
+            del stations[0]
+            stations.append(geoRetrogradeDirectTimestampsResultsList[i])
+            
+            if i == 0:
+                # Need two stations before starting to analyze.
+                continue
+
+            prevStation = geoRetrogradeDirectTimestampsResultsList[i-1]
+            currStation = geoRetrogradeDirectTimestampsResultsList[i]
+
+            if prevStation[retroOrDirectIndex] == "direct" and \
+                currStation[retroOrDirectIndex] == "retrograde":
+                
+                # We now have two values to compute a midpoint.
+                prevStationLongitude = \
+                    prevStation[piIndex].geocentric['tropical']['longitude']
+                currStationLongitude = \
+                    currStation[piIndex].geocentric['tropical']['longitude']
+                    
+                # Adjust for if it spans the 0 degree boundary.
+                if prevStationLongitude > currStationLongitude:
+                    currStationLongitude += 360
+                    
+                # Calculate the midpoint.
+                midpointLongitude = \
+                    Util.toNormalizedAngle((prevStationLongitude +
+                                            currStationLongitude) / 2.0)
+
+                log.debug("midpointLongitude between {} and {} is: {}".\
+                          format(Util.toNormalizedAngle(prevStationLongitude),
+                                 Util.toNormalizedAngle(currStationLongitude),
+                                 midpointLongitude))
+                
+                ###############################
+                # Get the conjunction.
+                # This is when it crosses the midpointLongitude the 1st
+                # and only time.
+                
+                startDt = stations[-2][piIndex].dt
+                endDt   = stations[-1][piIndex].dt
+                
+                desiredDegree = midpointLongitude
+                
+                crossingsDts = \
+                    PlanetaryCombinationsLibrary.\
+                    getPlanetCrossingLongitudeDegTimestamps(\
+                        pcdd, startDt, endDt,
+                        centricityType, longitudeType, planetName,
+                        desiredDegree, maxErrorTd)
+                
+                log.debug("Got {} crossings for the conjunction.".\
+                          format(len(crossingsDts)))
+                
+                # We expect that we will cross the midpoint before we start
+                # going retrograde.  This section of movement should be all
+                # direct, therefore only one crossing.
+                if len(crossingsDts) != 1:
+                    log.error("Unexpected number of crossings returned.  " + \
+                              "We expected only 1 !!!  There's a bug here.")
+                    return None
+
+                currDt = crossingsDts[0]
+                p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
+                rv.append(p1)
+        
+        log.debug("Returning {} data points in the list.".format(len(rv)))
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+    
     @staticmethod
     def getGeoRetrogradeDirectTimestamps(\
         pcdd, startDt, endDt,
