@@ -6,7 +6,7 @@
 #
 # Notes:
 #
-#   Methods I care most about as of Sun Feb 21 02:48:31 EST 2016:
+#   Methods I care most about as of (Sun Feb 21 02:48:31 EST 2016):
 #
 #     _getDatetimesOfElapsedLongitudeDegrees()
 #     addGeoLongitudeVelocityPolarityChangeVerticalLines()
@@ -14,11 +14,13 @@
 #     addVerticalLine()
 #     addHorizontalLine()
 #
-#     Newly added:
+#   Newly added (Wed Feb 24 20:49:41 EST 2016):
+#
 #     getGeoRetrogradeDirectTimestamps()
 #     getGeoConjunctionsOfDirectRetrogradeMidpoints()
 #     getGeoLeastMeanGreatConjunctionsOfRetrogradeDirectMidpoints()
-#     [TODO_rluu: more coming...]
+#     addGeoConjunctionsOfDirectRetrogradeMidpointsVerticalLines()
+#     addGeoLeastMeanGreatConjunctionsOfRetrogradeDirectMidpointsVerticalLines()
 #
 ##############################################################################
 
@@ -13000,8 +13002,219 @@ class PlanetaryCombinationsLibrary:
         log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
 
-    # TODO_rluu: create a method to do the vertical lines for retro and direct geo planet locations.  Also, using results already calculated, create/do method for adding vertical lines for 1-planet conjunctions with geo retrograde-direct midpoint positions.
+    @staticmethod
+    def addGeoConjunctionsOfDirectRetrogradeMidpointsVerticalLines():
+        pcdd, startDt, endDt, highPrice, lowPrice,
+        planetName,
+        color=None,
+        maxErrorTd=datetime.timedelta(minutes=1)):
+        """Adds vertical line segments whenever the given planet reaches
+        conjunction with the midpoint longitude degree of: 
+
+        - Longitude when the geocentric planet is starting to go direct.
+        - Longitude when the geocentric planet is starting to go retrograde.
+
+        There should be only one conjunction for each pair of direct-retrograde
+        timestamps.  
+        
+        Arguments:
+        pcdd      - PriceChartDocumentData object that will be modified.
+        startDt   - datetime.datetime object for the starting timestamp
+                    to do the calculations for artifacts.
+        endDt     - datetime.datetime object for the ending timestamp
+                    to do the calculations for artifacts.
+        highPrice - float value for the high price which represents
+                    the top of the vertical line that is drawn.
+        lowPrice  - float value for the low price which represents
+                    the bottom of the vertical line that is drawn.
+        planetName - str holding the name of the planet to do the
+                     calculations for.
+        color     - QColor object for what color to draw the lines.
+                    If this is set to None, then the default color will be used.
+        maxErrorTd    - datetime.timedelta object holding the maximum
+                        time difference between the exact planetary
+                        combination timestamp, and the one calculated.
+                        This would define the accuracy of the
+                        calculations.  
+        
+        Returns:
+        True if operation succeeded, False otherwise.
+        """
+        
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        # Return value.
+        rv = True
+
+        # Make sure the inputs are valid.
+        if endDt < startDt:
+            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            rv = False
+            return rv
+        if lowPrice > highPrice:
+            log.error("Invalid input: " +
+                      "'lowPrice' is not less than or equal to 'highPrice'")
+            rv = False
+            return rv
+
+        # Set the color if it is not already set to something.
+        colorWasSpecifiedFlag = True
+        lighterColor = None
+        if color == None:
+            colorWasSpecifiedFlag = False
+            color = AstrologyUtils.getForegroundColorForPlanetName(planetName)
+            lighterColor = color.lighter()
+        else:
+            lighterColor = color
+
+        # Set the tag str.
+        tag = inspect.stack()[0][3]
+        if tag.startswith("add") and len(tag) > 3:
+            tag = tag[3:]
+
+            tag += "_Geo_Trop_{}".format(planetName)
+            
+        log.debug("tag == '{}'".format(tag))
+
+        # Count of artifacts added.
+        numArtifactsAdded = 0
+        
+        geoRetrogradeDirectTimestampsResultsList = \
+            PlanetaryCombinationsLibrary.\
+            getGeoRetrogradeDirectTimestamps(pcdd, startDt, endDt, 
+                                             planetName, maxErrorTd)
+
+        planetaryInfos = \
+            PlanetaryCombinationsLibrary.\
+            getGeoConjunctionsOfDirectRetrogradeMidpoints(pcdd, planetName,
+                geoRetrogradeDirectTimestampsResultsList, maxErrorTd)
+
+        for pi in planetaryInfos:
+            # Create the artifact at the timestamp.
+            PlanetaryCombinationsLibrary.\
+            addVerticalLine(pcdd, pi.dt, highPrice, lowPrice, tag, 
+                        lighterColor)
+            numArtifactsAdded += 1
+    
+        log.info("Number of artifacts added: {}".format(numArtifactsAdded))
+            
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+
+    @staticmethod
+    def addGeoLeastMeanGreatConjunctionsOfRetrogradeDirectMidpointsVerticalLines():
+        """Adds vertical line segments whenever the given planet reaches
+        conjunction with the midpoint longitude degree of: 
+
+        - Longitude when the geocentric planet is starting to go retrograde.
+        - Longitude when the geocentric planet is starting to go direct.
+
+        There are three conjunctions for each pair of retrograde-direct
+        timestamps.  These are called the Least, Mean, and Great conjunctions.
+
+        'Least' conjunction is the first conjunction with that longitude,
+        when the planet is currently going direct
+        (this lies earlier in time before the Retrograde moment).
+
+        'Mean' conjunction is the second conjunction with that longitude,
+        when the planet is currently going retrograde.
+
+        'Great' conjunction is the third conjunction with that longitude,
+        when the planet is currently going retrograde.
+        
+        Arguments:
+        pcdd      - PriceChartDocumentData object that will be modified.
+        startDt   - datetime.datetime object for the starting timestamp
+                    to do the calculations for artifacts.
+        endDt     - datetime.datetime object for the ending timestamp
+                    to do the calculations for artifacts.
+        highPrice - float value for the high price which represents
+                    the top of the vertical line that is drawn.
+        lowPrice  - float value for the low price which represents
+                    the bottom of the vertical line that is drawn.
+        planetName - str holding the name of the planet to do the
+                     calculations for.
+        color     - QColor object for what color to draw the lines.
+                    If this is set to None, then the default color will be used.
+        maxErrorTd    - datetime.timedelta object holding the maximum
+                        time difference between the exact planetary
+                        combination timestamp, and the one calculated.
+                        This would define the accuracy of the
+                        calculations.  
+        
+        Returns:
+        True if operation succeeded, False otherwise.
+        """
+        
+        log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        # Return value.
+        rv = True
+
+        # Make sure the inputs are valid.
+        if endDt < startDt:
+            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            rv = False
+            return rv
+        if lowPrice > highPrice:
+            log.error("Invalid input: " +
+                      "'lowPrice' is not less than or equal to 'highPrice'")
+            rv = False
+            return rv
+
+        # Set the color if it is not already set to something.
+        colorWasSpecifiedFlag = True
+        lighterColor = None
+        if color == None:
+            colorWasSpecifiedFlag = False
+            color = AstrologyUtils.getForegroundColorForPlanetName(planetName)
+            lighterColor = color.lighter()
+        else:
+            lighterColor = color
+
+        # Set the tag str.
+        tag = inspect.stack()[0][3]
+        if tag.startswith("add") and len(tag) > 3:
+            tag = tag[3:]
+
+            tag += "_Geo_Trop_{}".format(planetName)
+            
+        log.debug("tag == '{}'".format(tag))
+
+        # Count of artifacts added.
+        numArtifactsAdded = 0
+        
+        geoRetrogradeDirectTimestampsResultsList = \
+            PlanetaryCombinationsLibrary.\
+            getGeoRetrogradeDirectTimestamps(pcdd, startDt, endDt, 
+                                             planetName, maxErrorTd)
+
+        tupleResults = \
+            PlanetaryCombinationsLibrary.\
+            getGeoLeastMeanGreatConjunctionsOfRetrogradeDirectMidpoints(\
+                pcdd, planetName,
+                geoRetrogradeDirectTimestampsResultsList, maxErrorTd)
+
+        # Index to reference the PlanetaryInfo, in the tuple.
+        piIndex = 0
+        # Index for what type of conjunction it is, in the tuple.
+        conjunctionTypeIndex = 1
+
+        for tup in tupleResults:
+            pi = tup[piIndex]
+            conjunctionType = tup[conjunctionTypeIndex]
+
+            # Create the artifact at the timestamp.
+            PlanetaryCombinationsLibrary.\
+            addVerticalLine(pcdd, pi.dt, highPrice, lowPrice, 
+                    tag + conjunctionType.upper() + "_conjunction",
+                    lighterColor)
+            numArtifactsAdded += 1
+    
+        log.info("Number of artifacts added: {}".format(numArtifactsAdded))
+            
+        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
     
 ##############################################################################
-    
-    
+
