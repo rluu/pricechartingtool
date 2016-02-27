@@ -538,14 +538,8 @@ class LookbackMultipleUtils:
                 # planet can go retrograde.  Direct-only planets will yield
                 # only 1 timestamp, and we have found it already.
                 if len(rv) >= 1:    
-                    if centricityType == "heliocentric" or \
-                        (centricityType == "geocentric" and \
-                         (planetName == "Sun" or
-                          planetName == "Moon" or
-                          Ephemeris.isHouseCuspPlanetName(planetName) or
-                          Ephemeris.isAscmcPlanetName(planetName) or
-                          planetName == "MoSu")):
-                         
+                    if Ephemeris.isDirectOnlyPlanetName(centricityType, planetName):
+                        
                         if LookbackMultipleUtils.log.isEnabledFor(logging.DEBUG) == True:
                             LookbackMultipleUtils.log.debug(\
                             "No need to look for anymore timestamps " + \
@@ -1044,14 +1038,8 @@ class LookbackMultipleUtils:
                 # planet can go retrograde.  Direct-only planets will yield
                 # only 1 timestamp, and we have found it already.
                 if len(rv) >= 1:    
-                    if centricityType == "heliocentric" or \
-                        (centricityType == "geocentric" and \
-                         (planetName == "Sun" or
-                          planetName == "Moon" or
-                          Ephemeris.isHouseCuspPlanetName(planetName) or
-                          Ephemeris.isAscmcPlanetName(planetName) or
-                          planetName == "MoSu")):
-                         
+                    if Ephemeris.isDirectOnlyPlanetName(centricityType, planetName):
+                        
                         if LookbackMultipleUtils.log.isEnabledFor(logging.DEBUG) == True:
                             LookbackMultipleUtils.log.debug(\
                             "No need to look for anymore timestamps " + \
@@ -2229,8 +2217,8 @@ if __name__=="__main__":
     #cProfile.run('runTests()')
     
     # Exit the app when all windows are closed.
-    #app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
-    #app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))
+    #app.lastWindowClosed.connect(logging.shutdown)
+    #app.lastWindowClosed.connect(app.quit)
 
     #app.exec_()
 

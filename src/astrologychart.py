@@ -3115,7 +3115,8 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         
         # Remove all previously used aspects.
         for aspect in aspects:
-            self.scene().removeItem(aspect)
+            if self.scene() != None:
+                self.scene().removeItem(aspect)
         aspects = []
         
         # Check for aspects with planets in all combinations.
@@ -6939,7 +6940,9 @@ class AstrologyChartGraphicsView(QGraphicsView):
                            type=float)
         
         # Actually do the scaling of the view.
-        if qwheelevent.delta() > 0:
+        # In Qt5, 'delta()' was deprecated.
+        if (hasattr(qwheelevent, 'delta') and qwheelevent.delta() > 0) or \
+           (hasattr(qwheelevent, 'angleDelta') and qwheelevent.angleDelta().y() > 0):
             # Zoom in.
             self.scale(scaleFactor, scaleFactor)
         else:
@@ -11904,8 +11907,8 @@ if __name__=="__main__":
     #testAstrologyChartWidget()
     
     # Exit the app when all windows are closed.
-    app.connect(app, SIGNAL("lastWindowClosed()"), logging.shutdown)
-    app.connect(app, SIGNAL("lastWindowClosed()"), app, SLOT("quit()"))
+    app.lastWindowClosed.connect(logging.shutdown)
+    app.lastWindowClosed.connect(app.quit)
 
     # Quit.
     print("Exiting.")

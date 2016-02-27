@@ -5,7 +5,7 @@
 Author:  Ryan Luu
 Email:   ryanluu@gmail.com
 
-Project website: http://rluu.github.io/pricechartingtool/
+Project website: https://rluu.github.io/pricechartingtool/
 
 ##############################################################################
 
@@ -14,10 +14,10 @@ Project history:
 Google code project creation:
          2010-05-30 01:26:51 -0400 (Sun, 30 May 2010)
 
-Google code Subversion repository initial import:   
+Google code Subversion repository initial import:
          2010-05-30 01:49:38 -0400 (Sun, 30 May 2010)
 
-Codesion Subversion repository initial import: 
+Codesion Subversion repository initial import:
          2010-06-16 01:40:06 -0400 (Wed, 16 Jun 2010)
 
 GitHub repository migration:
@@ -45,7 +45,7 @@ Dependencies to build/run this project are:
 
 ##############################################################################
 
-Notes for building on the Linux platform: 
+Notes for building on the Linux platform (relevant for PyQt4 only):
 
   If compiling Qt from source on Linux, make sure to include the
   following tags or else the subsequent PyQt compile will fail when
@@ -56,7 +56,8 @@ Notes for building on the Linux platform:
 
 ##############################################################################
 
-Notes for running on the Windows platform:
+Notes for running on the Windows platform (relevant for PyQt4;
+                                           unconfirmed for PyQt5):
 
   Preferred way to get this going is:
 
@@ -221,7 +222,8 @@ Steps for building on the Windows platform:
 
 ##############################################################################
 
-General info about compiling PyQt with MinGW:
+General info about compiling PyQt with MinGW (relevant for PyQt4;
+                                              unconfirmed for PyQt5):
 
   If compiling SIP or PyQt on Windows platform using MinGW, use the following 
   configure command so that the environment can be detected correctly: 
@@ -359,13 +361,22 @@ older than 180 days.
 
 ##############################################################################
 
-Directory contents:
+Project top-level file and directory contents:
 
-pricechartingtool
+
+pricechartingtool (files)
+  |
+  |- README.txt:  This file that you are reading.
+
+pricechartingtool (directories)
   |
   |- conf: Holds configuration information.
   | 
   |- data: Holds emphemeris data to be used with the Swiss Ephemeris.
+  |
+  |          Ephemeris data to be used with the Swiss Ephemeris.
+  |          Market price data files (CSV files).
+  |          PriceChartDocument files created by this application (.pcd files).
   |
   |- doc:  Holds some documentation.
   |
@@ -398,10 +409,20 @@ Description:
  
 Solution is to uncompress it via pip:
 
-     pip unzip pytz
+    cd ./pricechartingtool/venv/lib/python3.4/site-packages
+    pip unzip pytz
 
 Source: 
   http://stackoverflow.com/questions/20500910/first-call-to-pytz-timezone-is-slow-in-virtualenv
+
+
+Note:
+  When runnning 'pip unzip', the current version of pip says that
+  the unzip feature of 'pip' will be going away in the future.
+  These egg files are in actually just zip files, so if this feature
+  is not available in your version of pip, you can also run:
+  
+    unzip pytz-2014.9-py3.4.egg
 
 ##############################################################################
 

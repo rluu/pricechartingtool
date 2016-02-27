@@ -966,6 +966,30 @@ class Ephemeris:
         return isAscmcPlanetName
 
     @staticmethod
+    def isDirectOnlyPlanetName(centricityType, planetName):
+        """Returns True if the centricity type and planet name given
+        only moves in direct motion (i.e. it never moves in retrograde motion).
+
+        Arguments:
+        centricityType - str value holding either "geocentric",
+                         "topocentric", or "heliocentric".
+        planetName - str holding the name of the planet to do the
+                     check for.
+        """
+
+        if centricityType == "heliocentric" or \
+               (centricityType == "geocentric" and \
+                (planetName == "Sun" or
+                 planetName == "Moon" or
+                 Ephemeris.isHouseCuspPlanetName(planetName) or
+                 Ephemeris.isAscmcPlanetName(planetName) or
+                 planetName == "MoSu")):
+
+            return True
+        else:
+            return False
+
+    @staticmethod
     def setSiderealZodiac():
         """Initializes the settings to use the sidereal zodiac for
         calculations.  This function sets the Ayanamsa to use as Lahiri, as

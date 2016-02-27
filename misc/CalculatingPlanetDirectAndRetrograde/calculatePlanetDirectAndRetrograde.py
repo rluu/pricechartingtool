@@ -96,7 +96,7 @@ retrogradeStr = "R"
 directStr = "D"
 
 # Destination output CSV file.
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/CalculatingPlanetDirectAndRetrograde/planetDirectAndRetrograde.csv"
+outputFilename = thisScriptDir + os.sep + "planetDirectAndRetrograde.csv"
 
 # Planet names to do calculations for.
 geocentricPlanetNames = [\
@@ -108,9 +108,9 @@ geocentricPlanetNames = [\
     "Mars",
     "Jupiter",
     "Saturn",
-    "Uranus",
-    "Neptune",
-    "Pluto",
+    #"Uranus",
+    #"Neptune",
+    #"Pluto",
     #"TrueNorthNode",
     #"Chiron",
     #"Isis"

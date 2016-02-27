@@ -11276,6 +11276,7 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Draw the line.
             pen = QPen()
             pen.setColor(self.artifact.getColor())
+            pen.setWidth(0)
             painter.setPen(pen)
             
             brush = QBrush()
@@ -42447,8 +42448,10 @@ class PriceBarChartWidget(QWidget):
                                 "our historic time range: {}".\
                                 format(Ephemeris.datetimeToDayStr(dt))
                             self.log.debug(debugStr)
-    
 
+            # Sort the PriceBars by ascending timestamp (earlier to later).
+            pbs.sort(key=lambda x: x.timestamp)
+            
             # Working variables that will be used later for scaling the
             # LookbackMultiplePriceBars to fit within the visible portion of
             # the QGraphicsView.
@@ -47931,9 +47934,11 @@ class PriceBarChartGraphicsView(QGraphicsView):
         scene = self.scene()
 
         # See if the user has right clicked on a QGraphicsItem.
-        items = scene.items(clickPosF,
-                            Qt.ContainsItemBoundingRect,
-                            Qt.AscendingOrder)
+        items = []
+        if scene != None:
+            items = scene.items(clickPosF,
+                                Qt.ContainsItemBoundingRect,
+                                Qt.AscendingOrder)
 
         # Here count the number of items at this position that
         # we care about for creating a context menu for.
@@ -48018,11 +48023,52 @@ class PriceBarChartGraphicsView(QGraphicsView):
         openJHoraAction = QAction("Open JHora with timestamp", parent)
         openAstrologAction = QAction("Open Astrolog with timestamp", parent)
 
-        # Define a method to add to each instance.
-        def handleActionTriggered(self):
-            self.emit(QtCore.SIGNAL("actionTriggered(QPointF)"), self.data())
+        # Store in each of the actions, a tuple containing:
+        #   - The method to invoke within the slot that gets run.
+        #   - The argument to the method that will get invoked within
+        #     the slot that gets run.
+        setAstro1Action.setData((self._handleSetAstro1Action, clickPosF))
+        setAstro2Action.setData((self._handleSetAstro2Action, clickPosF))
+        setAstro3Action.setData((self._handleSetAstro3Action, clickPosF))
+        openJHoraAction.setData((self._handleOpenJHoraAction, clickPosF))
+        openAstrologAction.setData((self._handleOpenAstrologAction, clickPosF))
 
-        # Add the method to the instances of the actions.
+        # Define a method to add to each instance of these QAction
+        # that we have instantiated.  This method will be the slot
+        # that is called when the QAction is triggered.
+        #
+        def handleActionTriggered(self):
+            """
+            This is a hack.
+            
+            This method basically just invokes another method providing an
+            argument.  I need this method because we do not have a way to
+            connect the 'triggered' signal of QAction to another method
+            that takes arguments because the 'triggered' signal does
+            not allow us to pass arguments to its connected slot.
+            
+            Arguments:
+                 self - The reference to the QAction instance that has
+                        this method bound to its instance.
+                        Assumes that self.setData() was called, and that the
+                        data set in the QVariant there stores a tuple
+                        containing:
+                        
+                          - The method to invoke.
+                          - The argument to that method.
+            """
+
+            # Get the tuple that was stored in the QAction as a QVariant.
+            tup = self.data()
+
+            # Extract the method to invoke, and the argument to that method.
+            methodToInvoke = tup[0]
+            argument = tup[1]
+            
+            # Invoke the method.
+            methodToInvoke(argument)
+            
+        # Add the method to the QAction instances.
         setAstro1Action.handleActionTriggered = \
             types.MethodType(handleActionTriggered,
                              setAstro1Action)
@@ -48039,14 +48085,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
             types.MethodType(handleActionTriggered,
                              openAstrologAction)
         
-        # Store in the actions, the scene position as a QPointF.
-        setAstro1Action.setData(clickPosF)
-        setAstro2Action.setData(clickPosF)
-        setAstro3Action.setData(clickPosF)
-        openJHoraAction.setData(clickPosF)
-        openAstrologAction.setData(clickPosF)
-
-        # Connect the triggered signal to the signal we appended
+        # Connect the triggered signal to the slot we appended
         # to the instances.
         setAstro1Action.triggered.\
             connect(setAstro1Action.handleActionTriggered)
@@ -48058,28 +48097,13 @@ class PriceBarChartGraphicsView(QGraphicsView):
             connect(openJHoraAction.handleActionTriggered)
         openAstrologAction.triggered.\
             connect(openAstrologAction.handleActionTriggered)
-        
-        QtCore.QObject.connect(setAstro1Action,
-                               QtCore.SIGNAL("actionTriggered(QPointF)"),
-                               self._handleSetAstro1Action)
-        QtCore.QObject.connect(setAstro2Action,
-                               QtCore.SIGNAL("actionTriggered(QPointF)"),
-                               self._handleSetAstro2Action)
-        QtCore.QObject.connect(setAstro3Action,
-                               QtCore.SIGNAL("actionTriggered(QPointF)"),
-                               self._handleSetAstro3Action)
-        QtCore.QObject.connect(openJHoraAction,
-                               QtCore.SIGNAL("actionTriggered(QPointF)"),
-                               self._handleOpenJHoraAction)
-        QtCore.QObject.connect(openAstrologAction,
-                               QtCore.SIGNAL("actionTriggered(QPointF)"),
-                               self._handleOpenAstrologAction)
 
         menu.addAction(setAstro1Action)
         menu.addAction(setAstro2Action)
         menu.addAction(setAstro3Action)
         menu.addAction(openJHoraAction)
         menu.addAction(openAstrologAction)
+
         return menu
     
     def _handleSetAstro1Action(self, clickPosF):
@@ -48087,40 +48111,55 @@ class PriceBarChartGraphicsView(QGraphicsView):
         astro chart.
         """
 
+        scene = self.scene()
+
         # The scene X position represents the time.
-        self.scene().setAstroChart1(clickPosF.x())
+        if scene != None: 
+            self.scene().setAstroChart1(clickPosF.x())
         
     def _handleSetAstro2Action(self, clickPosF):
         """Handles when the user triggers a QAction for setting the
         astro chart.
         """
 
+        scene = self.scene()
+
         # The scene X position represents the time.
-        self.scene().setAstroChart2(clickPosF.x())
+        if scene != None: 
+            self.scene().setAstroChart2(clickPosF.x())
         
     def _handleSetAstro3Action(self, clickPosF):
         """Handles when the user triggers a QAction for setting the
         astro chart.
         """
 
+        scene = self.scene()
+
         # The scene X position represents the time.
-        self.scene().setAstroChart3(clickPosF.x())
+        if scene != None: 
+            self.scene().setAstroChart3(clickPosF.x())
         
     def _handleOpenJHoraAction(self, clickPosF):
         """Causes the timestamp of this GraphicsItem to be opened in
         JHora.
         """
 
+        scene = self.scene()
+
         # The GraphicsItem's scene X position represents the time.
-        self.scene().openJHora(clickPosF.x())
+        if scene != None: 
+            self.scene().openJHora(clickPosF.x())
         
     def _handleOpenAstrologAction(self, clickPosF):
         """Causes the timestamp of this GraphicsItem to be opened in
         Astrolog.
         """
 
+        scene = self.scene()
+
         # The GraphicsItem's scene X position represents the time.
-        self.scene().openAstrolog(clickPosF.x())
+        if scene != None: 
+            self.scene().openAstrolog(clickPosF.x())
         
     def wheelEvent(self, qwheelevent):
         """Triggered when the mouse wheel is scrolled."""
@@ -48145,7 +48184,10 @@ class PriceBarChartGraphicsView(QGraphicsView):
                               self.transform().m22()))
                               
         # Actually do the scaling of the view.
-        if qwheelevent.delta() > 0:
+        # In Qt5, 'delta()' was deprecated.
+        if (hasattr(qwheelevent, 'delta') and qwheelevent.delta() > 0) or \
+           (hasattr(qwheelevent, 'angleDelta') and qwheelevent.angleDelta().y() > 0):
+                    
             # Zoom in.
             self.scale(scaleFactor, scaleFactor)
         else:

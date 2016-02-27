@@ -1452,7 +1452,32 @@ class MainWindow(QMainWindow):
                                 defaultPriceChartDocumentOpenDirectory,
                                 filters)
 
+        # With PyQt4, the filename returned here is a str in Python.
+        # With PyQt5, the filename returned here is a tuple in Python, which
+        # crashes the application.  
+        #   - First  field of the tuple is the str filename.
+        #   - Second field of hte tuple is the str for the file filter matched.
+        # 
+        # The Qt documentation says that a QString should be returned
+        # for this method, which should have been converted to a str
+        # with PyQt.  This is a bug, but we work around this problem here.
+        self.log.debug("_openChart(): Type of 'filename' is: {}".\
+                       format(type(filename)))
+        if type(filename) is tuple and len(filename) == 2:
+            # PyQt5.
+            self.log.debug("Extracting filename from the tuple returned ...")
+            filenameTuple = filename
+            filename = filenameTuple[0]
+            filterMatched = filenameTuple[1]
+        else:
+            # PyQt4.
+            # Convert filename from QString to str.
+            filename = str(filename)
+            
         if filename != "":
+            self.log.debug("_openChart(): The user selected filename: " +
+                           "'{}'".format(filename))
+            
             # Okay, so the person chose a file that is non-empty.  
             # See if this filename has already been opened in another
             # PriceChartDocument.  If this is so, prompt to make sure the
@@ -1614,7 +1639,14 @@ class MainWindow(QMainWindow):
             self.log.warn("'Save As' for this QMdiSubwindow type " + 
                           "is not supported.")
             rv = False
-            
+
+
+        # If the user did a saveAs successfully, then that means that
+        # the name of the PriceChartDocument has changed, and we
+        # need to update the 'Window' menu to reflect that.
+        if rv == True:
+            self._updateWindowMenu()
+                    
         self.log.debug("Exiting _saveAsChart() with rv == {}".format(rv))
         return rv
 
@@ -4905,11 +4937,49 @@ class PriceChartDocument(QMdiSubWindow):
                             defaultPriceChartDocumentSaveDirectory, 
                             filters)
 
-        # Convert filename from QString to str.
-        filename = str(filename)
+        # With PyQt4, the filename returned here is a str in Python.
+        # With PyQt5, the filename returned here is a tuple in Python, which
+        # crashes the application.  
+        #   - First  field of the tuple is the str filename.
+        #   - Second field of hte tuple is the str for the file filter matched.
+        # 
+        # The Qt documentation says that a QString should be returned
+        # for this method, which should have been converted to a str
+        # with PyQt.  This is a bug, but we work around this problem here.
+        self.log.debug("saveAsChart(): Type of 'filename' is: {}".\
+                       format(type(filename)))
+        if type(filename) is tuple and len(filename) == 2:
+            # PyQt5.
+            self.log.debug("Extracting filename from the tuple returned ...")
+            filenameTuple = filename
+            filename = filenameTuple[0]
+            filterMatched = filenameTuple[1]
+            self.log.debug("filename == {}".format(filename))
+            self.log.debug("filterMatched == {}".format(filterMatched))
+
+            # Ensure that the filename extension matches the filter selected.
+            if filterMatched == PriceChartDocument.fileFilter:
+                if len(filename) < len(PriceChartDocument.fileExtension):
+                    raise ValueError("Filename length is too short.")
+                if filename.endswith(PriceChartDocument.fileExtension.upper()):
+                    infoStr = "Filename extension given was in all caps.  " + \
+                              "Converting to lowercase letters extension."
+                    self.log.info(infoStr)
+                    filename = filename[:-4] + PriceChartDocument.fileExtension
+                elif not filename.endswith(PriceChartDocument.fileExtension):
+                    infoStr = "Filename given did not end in the " + \
+                              "selected file extension ({}).  ".\
+                              format(PriceChartDocument.fileFilter) + \
+                              "Modifying filename to add the file extension."
+                    self.log.info(infoStr)
+                    filename = filename + PriceChartDocument.fileExtension
+        else:
+            # PyQt4.
+            # Convert filename from QString to str.
+            filename = str(filename)
 
         self.log.debug("saveAsChart(): The user selected filename: " +
-                       filename + " as what they wanted to save to.")
+                       "'{}'".format(filename))
 
         # Verify input.
         if filename == "":
