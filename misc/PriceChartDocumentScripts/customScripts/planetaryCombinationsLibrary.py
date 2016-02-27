@@ -60,9 +60,10 @@ from astrologychart import AstrologyUtils
 
 # For logging.
 #logLevel = logging.DEBUG
-#logLevel = logging.INFO
-logLevel = logging.ERROR
-logging.basicConfig(format='%(levelname)s: %(message)s')
+logLevel = logging.INFO
+#logLevel = logging.ERROR
+#logging.basicConfig(format='%(levelname)s: %(message)s')
+logging.basicConfig(format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
 log.setLevel(logLevel)
@@ -4295,12 +4296,19 @@ class PlanetaryCombinationsLibrary:
                 # This algorithm assumes that a step size won't move the
                 # planet more than 1/3 of a circle.
                 if longitudes[-2] > 240 and longitudes[-1] < 120:
-                    # Hopped over 0 degrees.
+                    # Hopped over 0 degrees from below to above.
                     prevValue = longitudes[-2]
                     currValue = longitudes[-1] + 360
                     desiredDegree = degree + 360
                     crossedOverZeroDegrees = True
+                elif longitudes[-2] < 120 and longitudes[-1] > 240:
+                    # Hopped over 0 degrees from above to below.
+                    prevValue = longitudes[-2] + 360
+                    currValue = longitudes[-1]
+                    desiredDegree = degree
+                    crossedOverZeroDegrees = True
                 else:
+                    # Did not cross 0 degrees.
                     prevValue = longitudes[-2]
                     currValue = longitudes[-1]
                     desiredDegree = degree
@@ -12135,12 +12143,19 @@ class PlanetaryCombinationsLibrary:
                 # This algorithm assumes that a step size won't move the
                 # planet more than 1/3 of a circle.
                 if longitudes[-2] > 240 and longitudes[-1] < 120:
-                    # Hopped over 0 degrees.
+                    # Hopped over 0 degrees from below to above.
                     prevValue = longitudes[-2]
                     currValue = longitudes[-1] + 360
                     desiredDegree = degree + 360
                     crossedOverZeroDegrees = True
+                elif longitudes[-2] < 120 and longitudes[-1] > 240:
+                    # Hopped over 0 degrees from above to below.
+                    prevValue = longitudes[-2] + 360
+                    currValue = longitudes[-1]
+                    desiredDegree = degree
+                    crossedOverZeroDegrees = True
                 else:
+                    # Did not cross 0 degrees.
                     prevValue = longitudes[-2]
                     currValue = longitudes[-1]
                     desiredDegree = degree
@@ -12327,7 +12342,7 @@ class PlanetaryCombinationsLibrary:
         """
         log.debug("Entered " + inspect.stack()[0][3] + "()")
         log.debug("planetName=" + planetName + ", " +
-                  "maxErrorTd=" + maxErrorTd)
+                  "maxErrorTd=" + str(maxErrorTd))
 
         # List of tuples that are returned.
         rv = []
@@ -12370,6 +12385,7 @@ class PlanetaryCombinationsLibrary:
         # Field name we are getting.
         fieldName = "longitude"
         centricityType = "geocentric"
+        longitudeType = "tropical"
         
         def getFieldValue(planetaryInfo, fieldName):
             pi = planetaryInfo
@@ -12407,10 +12423,31 @@ class PlanetaryCombinationsLibrary:
                       "you may not get many results.")
             
         for i in range(len(geoRetrogradeDirectTimestampsResultsList)):
+            log.debug("i == {}".format(i))
 
             del stations[0]
             stations.append(geoRetrogradeDirectTimestampsResultsList[i])
-            
+
+            # Debug print the values in the 'stations' list.
+            for j in range(len(stations)):
+                if stations[j] == None:
+                    log.debug("stations[{}] == {}".format(j, None))
+                    continue
+                    
+                retroOrDirectStr = ""
+                if stations[j][piIndex].geocentric['tropical']['longitude_speed'] >= 0:
+                    retroOrDirectStr = "direct"
+                else:
+                    retroOrDirectStr = "retrograde"
+                    
+                log.debug("stations[{}] == {} {} @ {} on {}".\
+                          format(\
+                          j,
+                          stations[j][piIndex].name,
+                          retroOrDirectStr,
+                          stations[j][piIndex].geocentric['tropical']['longitude'],
+                          Ephemeris.datetimeToStr(stations[j][piIndex].dt)))
+
             if i == 0 or i == 1:
                 # Need three stations before starting to analyze.
                 #
@@ -12425,9 +12462,32 @@ class PlanetaryCombinationsLibrary:
             prevStation = geoRetrogradeDirectTimestampsResultsList[i-1]
             currStation = geoRetrogradeDirectTimestampsResultsList[i]
 
+            # Debug printing.
+            prevStationRetroOrDirectStr = ""
+            if prevStation[piIndex].geocentric['tropical']['longitude_speed'] >= 0:
+                prevStationRetroOrDirectStr = "direct"
+            else:
+                prevStationRetroOrDirectStr = "retrograde"
+            log.debug("prevStation(i @ {}) == {} {} @ {}".\
+                      format(\
+                      i-1,
+                      prevStation[piIndex].name,
+                      prevStationRetroOrDirectStr,
+                      prevStation[piIndex].geocentric['tropical']['longitude']))
+            if currStation[piIndex].geocentric['tropical']['longitude_speed'] >= 0:
+                currStationRetroOrDirectStr = "direct"
+            else:
+                currStationRetroOrDirectStr = "retrograde"
+            log.debug("currStation(i @ {}) == {} {} @ {}".\
+                      format(\
+                      i,
+                      currStation[piIndex].name,
+                      currStationRetroOrDirectStr,
+                      currStation[piIndex].geocentric['tropical']['longitude']))
+            
             if prevStation[retroOrDirectIndex] == "retrograde" and \
                 currStation[retroOrDirectIndex] == "direct":
-                
+
                 # We now have two values to compute a midpoint.
                 prevStationLongitude = \
                     prevStation[piIndex].geocentric['tropical']['longitude']
@@ -12451,6 +12511,8 @@ class PlanetaryCombinationsLibrary:
                 ###############################
                 # Get the 'least' conjunction.
                 # This is when it crosses the midpointLongitude the 1st time.
+
+                log.debug("Looking for 'least' conjunction ...")
                 
                 startDt = stations[-3][piIndex].dt
                 endDt   = stations[-2][piIndex].dt
@@ -12466,24 +12528,29 @@ class PlanetaryCombinationsLibrary:
 
                 log.debug("Got {} crossings for 'least' conjunctions.".\
                           format(len(crossingsDts)))
+                for j in range(len(crossingsDts)):
+                    log.debug("crossingsDts[{}] == {}".\
+                              format(j, Ephemeris.datetimeToStr(crossingsDts[j])))
 
                 # We expect that we will cross the midpoint before we start
                 # going retrograde.  This section of movement should be all
                 # direct, therefore only one crossing.
                 if len(crossingsDts) != 1:
-                    log.error("Unexpected number of crossings returned.  " + \
-                              "We expected only 1 !!!  There's a bug here.")
-                    return None
+                    errMsg = "Unexpected number of crossings returned.  " + \
+                        "We expected only 1 !!!  There's a bug here."
+                    log.error(errMsg)
+                    raise RuntimeError(errMsg)
 
                 currDt = crossingsDts[0]
                 p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
                 resultTuple = (p1, "least")
                 rv.append(resultTuple)
-
                 
                 ###############################
                 # Get the 'mean' conjunction.
                 # This is when it crosses the midpointLongitude the 2nd time.
+                
+                log.debug("Looking for 'mean' conjunction ...")
                 
                 startDt = stations[-2][piIndex].dt
                 endDt   = stations[-1][piIndex].dt
@@ -12499,14 +12566,18 @@ class PlanetaryCombinationsLibrary:
 
                 log.debug("Got {} crossings for 'mean' conjunctions.".\
                           format(len(crossingsDts)))
+                for j in range(len(crossingsDts)):
+                    log.debug("crossingsDts[{}] == {}".\
+                              format(j, Ephemeris.datetimeToStr(crossingsDts[j])))
 
                 # We expect that we will cross the midpoint before we start
                 # going direct.  This section of movement should be all
                 # retrograde, therefore only one crossing.
                 if len(crossingsDts) != 1:
-                    log.error("Unexpected number of crossings returned.  " + \
-                              "We expected only 1 !!!  There's a bug here.")
-                    return None
+                    errMsg = "Unexpected number of crossings returned.  " + \
+                        "We expected only 1 !!!  There's a bug here."
+                    log.error(errMsg)
+                    raise RuntimeError(errMsg)
 
                 currDt = crossingsDts[0]
                 p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
@@ -12516,6 +12587,8 @@ class PlanetaryCombinationsLibrary:
                 ###############################
                 # Get the 'great' conjunction.
                 # This is when it crosses the midpointLongitude the 3rd time.
+                
+                log.debug("Looking for 'great' conjunction ...")
                 
                 startDt = stations[-1][piIndex].dt
                 endDt   = startDt + datetime.timedelta(days=366)
@@ -12537,6 +12610,9 @@ class PlanetaryCombinationsLibrary:
 
                 log.debug("Got {} crossings for 'great' conjunctions.".\
                           format(len(crossingsDts)))
+                for j in range(len(crossingsDts)):
+                    log.debug("crossingsDts[{}] == {}".\
+                              format(j, Ephemeris.datetimeToStr(crossingsDts[j])))
 
                 # We expect that we will cross the midpoint before we start
                 # going retrograde.
@@ -12611,7 +12687,7 @@ class PlanetaryCombinationsLibrary:
         
         log.debug("Entered " + inspect.stack()[0][3] + "()")
         log.debug("planetName=" + planetName + ", " +
-                  "maxErrorTd=" + maxErrorTd)
+                  "maxErrorTd=" + str(maxErrorTd))
 
         # List of tuples that are returned.
         rv = []
@@ -12654,6 +12730,7 @@ class PlanetaryCombinationsLibrary:
         # Field name we are getting.
         fieldName = "longitude"
         centricityType = "geocentric"
+        longitudeType = "tropical"
         
         def getFieldValue(planetaryInfo, fieldName):
             pi = planetaryInfo
@@ -12682,10 +12759,31 @@ class PlanetaryCombinationsLibrary:
                       "geocentric planetary stations detected!")
             
         for i in range(len(geoRetrogradeDirectTimestampsResultsList)):
+            log.debug("i == {}".format(i))
 
             del stations[0]
             stations.append(geoRetrogradeDirectTimestampsResultsList[i])
             
+            # Debug print the values in the 'stations' list.
+            for j in range(len(stations)):
+                if stations[j] == None:
+                    log.debug("stations[{}] == {}".format(j, None))
+                    continue
+                    
+                retroOrDirectStr = ""
+                if stations[j][piIndex].geocentric['tropical']['longitude_speed'] >= 0:
+                    retroOrDirectStr = "direct"
+                else:
+                    retroOrDirectStr = "retrograde"
+                    
+                log.debug("stations[{}] == {} {} @ {} on {}".\
+                          format(\
+                          j,
+                          stations[j][piIndex].name,
+                          retroOrDirectStr,
+                          stations[j][piIndex].geocentric['tropical']['longitude'],
+                          Ephemeris.datetimeToStr(stations[j][piIndex].dt)))
+
             if i == 0:
                 # Need two stations before starting to analyze.
                 continue
@@ -12693,6 +12791,29 @@ class PlanetaryCombinationsLibrary:
             prevStation = geoRetrogradeDirectTimestampsResultsList[i-1]
             currStation = geoRetrogradeDirectTimestampsResultsList[i]
 
+            # Debug printing.
+            prevStationRetroOrDirectStr = ""
+            if prevStation[piIndex].geocentric['tropical']['longitude_speed'] >= 0:
+                prevStationRetroOrDirectStr = "direct"
+            else:
+                prevStationRetroOrDirectStr = "retrograde"
+            log.debug("prevStation(i @ {}) == {} {} @ {}".\
+                      format(\
+                      i-1,
+                      prevStation[piIndex].name,
+                      prevStationRetroOrDirectStr,
+                      prevStation[piIndex].geocentric['tropical']['longitude']))
+            if currStation[piIndex].geocentric['tropical']['longitude_speed'] >= 0:
+                currStationRetroOrDirectStr = "direct"
+            else:
+                currStationRetroOrDirectStr = "retrograde"
+            log.debug("currStation(i @ {}) == {} {} @ {}".\
+                      format(\
+                      i,
+                      currStation[piIndex].name,
+                      currStationRetroOrDirectStr,
+                      currStation[piIndex].geocentric['tropical']['longitude']))
+            
             if prevStation[retroOrDirectIndex] == "direct" and \
                 currStation[retroOrDirectIndex] == "retrograde":
                 
@@ -12720,6 +12841,8 @@ class PlanetaryCombinationsLibrary:
                 # Get the conjunction.
                 # This is when it crosses the midpointLongitude the 1st
                 # and only time.
+
+                log.debug("Looking for the conjunction ...")
                 
                 startDt = stations[-2][piIndex].dt
                 endDt   = stations[-1][piIndex].dt
@@ -12735,14 +12858,18 @@ class PlanetaryCombinationsLibrary:
                 
                 log.debug("Got {} crossings for the conjunction.".\
                           format(len(crossingsDts)))
+                for j in range(len(crossingsDts)):
+                    log.debug("crossingsDts[{}] == {}".\
+                              format(j, Ephemeris.datetimeToStr(crossingsDts[j])))
                 
                 # We expect that we will cross the midpoint before we start
                 # going retrograde.  This section of movement should be all
                 # direct, therefore only one crossing.
                 if len(crossingsDts) != 1:
-                    log.error("Unexpected number of crossings returned.  " + \
-                              "We expected only 1 !!!  There's a bug here.")
-                    return None
+                    errMsg = "Unexpected number of crossings returned.  " + \
+                        "We expected only 1 !!!  There's a bug here."
+                    log.error(errMsg)
+                    raise RuntimeError(errMsg)
 
                 currDt = crossingsDts[0]
                 p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
@@ -12796,7 +12923,7 @@ class PlanetaryCombinationsLibrary:
         log.debug("startDt=" + Ephemeris.datetimeToDayStr(startDt) + ", " + 
                   "endDt=" + Ephemeris.datetimeToDayStr(endDt) +  ", " + 
                   "planetName=" + planetName + ", " +
-                  "maxErrorTd=" + maxErrorTd)
+                  "maxErrorTd=" + str(maxErrorTd))
         
         # List of tuples that are returned.
         rv = []
@@ -13003,7 +13130,7 @@ class PlanetaryCombinationsLibrary:
         return rv
 
     @staticmethod
-    def addGeoConjunctionsOfDirectRetrogradeMidpointsVerticalLines():
+    def addGeoConjunctionsOfDirectRetrogradeMidpointsVerticalLines(\
         pcdd, startDt, endDt, highPrice, lowPrice,
         planetName,
         color=None,
@@ -13102,7 +13229,11 @@ class PlanetaryCombinationsLibrary:
         return rv
 
     @staticmethod
-    def addGeoLeastMeanGreatConjunctionsOfRetrogradeDirectMidpointsVerticalLines():
+    def addGeoLeastMeanGreatConjunctionsOfRetrogradeDirectMidpointsVerticalLines(\
+        pcdd, startDt, endDt, highPrice, lowPrice,
+        planetName,
+        color=None,
+        maxErrorTd=datetime.timedelta(minutes=1)):
         """Adds vertical line segments whenever the given planet reaches
         conjunction with the midpoint longitude degree of: 
 
@@ -13207,7 +13338,7 @@ class PlanetaryCombinationsLibrary:
             # Create the artifact at the timestamp.
             PlanetaryCombinationsLibrary.\
             addVerticalLine(pcdd, pi.dt, highPrice, lowPrice, 
-                    tag + conjunctionType.upper() + "_conjunction",
+                    tag + "_" + conjunctionType.upper() + "_conjunction",
                     lighterColor)
             numArtifactsAdded += 1
     

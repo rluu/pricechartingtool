@@ -97,7 +97,8 @@ scriptFile = ""
 # For logging.
 #logLevel = logging.DEBUG
 logLevel = logging.INFO
-logging.basicConfig(format='%(levelname)s: %(message)s')
+#logging.basicConfig(format='%(levelname)s: %(message)s')
+logging.basicConfig(format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
 log.setLevel(logLevel)

@@ -8,14 +8,6 @@
 #   it appears that Yahoo gets its data from
 #   Commodity Systems, Inc. (CSI) http://www.csidata.com/
 #
-# Note:
-#   As of 20130423, it appears that gathering the pricebars for the
-#   indexes doesn't work anymore through this script.  Yahoo appears
-#   to have disabled getting CSV data for the indexes, but obtaining
-#   CSV data for regular individual stocks still works.  To get data
-#   for the indexes, use script "getStockDataFromBarChart.py", which
-#   works for obtaining the pricebar data for the past year.
-# 
 # Usage:
 #
 #     ./getStockDataFromYahoo.py --help
