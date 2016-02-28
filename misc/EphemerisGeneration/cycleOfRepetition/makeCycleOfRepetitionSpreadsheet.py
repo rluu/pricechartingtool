@@ -102,7 +102,7 @@ ephemerisInputFileTimestampColumn = 0
 # Note: Helper script '/home/rluu/programming/pricechartingtool/misc/SpreadsheetColumnLetterNumberConversion/columnLettersToColumnIndex.py' can be used to convert between column letters and column index numbers, but note that this script returns values that are 1-based indexes, so you will need to subtract 1 to get the actual index that is 0-based used for the variable below.
 #
 #ephemerisInputFileLongitudeColumn = 2 # 2 corresponds to column "C", Day count.
-ephemerisInputFileLongitudeColumn = 113 # 113 corresponds to column "DJ", G.Moon.
+#ephemerisInputFileLongitudeColumn = 113 # 113 corresponds to column "DJ", G.Moon.
 #ephemerisInputFileLongitudeColumn = 114 # 114 corresponds to column "DK", G.Mercury.
 #ephemerisInputFileLongitudeColumn = 115 # 115 corresponds to column "DL", G.Venus.
 #ephemerisInputFileLongitudeColumn = 116 # 116 corresponds to column "DM", G.Sun.
@@ -116,6 +116,7 @@ ephemerisInputFileLongitudeColumn = 113 # 113 corresponds to column "DJ", G.Moon
 #ephemerisInputFileLongitudeColumn = 129 # 129 corresponds to column "DZ", H.Mars.
 #ephemerisInputFileLongitudeColumn = 130 # 130 corresponds to column "EA", H.Jupiter.
 #ephemerisInputFileLongitudeColumn = 131 # 131 corresponds to column "EB", H.Saturn.
+ephemerisInputFileLongitudeColumn = 139 # 139 corresponds to column "EJ", G.Moon/G.Sun.
 #ephemerisInputFileLongitudeColumn = 200 # 200 corresponds to column "GS", H.Mercury/H.Venus.
 #ephemerisInputFileLongitudeColumn = 201 # 201 corresponds to column "GT", H.Mercury/H.Earth.
 #ephemerisInputFileLongitudeColumn = 202 # 202 corresponds to column "GU", H.Mercury/H.Mars.
@@ -366,7 +367,22 @@ startingLongitude = 360  # Good starting longitude for all planets.
 #numDegreesElapsedForRepeat = 288 # For H.Venus/H.Earth
 #numDegreesElapsedForRepeat = 420 # For H.Mercury
 #numDegreesElapsedForRepeat = 49 # For H.Earth
-numDegreesElapsedForRepeat = 60 # For G.Mars
+#numDegreesElapsedForRepeat = 60 # For G.Mars
+
+
+numDegreesElapsedForRepeat = 37 * 1 # For G.Moon/G.Sun.
+#numDegreesElapsedForRepeat = 37 * 2 # For G.Moon/G.Sun.
+#numDegreesElapsedForRepeat = 37 * 3 # For G.Moon/G.Sun.
+#numDegreesElapsedForRepeat = 37 * 4 # For G.Moon/G.Sun.
+#numDegreesElapsedForRepeat = 37 * 5 # For G.Moon/G.Sun.
+#numDegreesElapsedForRepeat = 37 * 7 # For G.Moon/G.Sun.
+#numDegreesElapsedForRepeat = 37 * 10 # For G.Moon/G.Sun.
+#numDegreesElapsedForRepeat = 37 * 11 # For G.Moon/G.Sun.
+#numDegreesElapsedForRepeat = 37 * 12 # For G.Moon/G.Sun.
+#numDegreesElapsedForRepeat = 37 * 13 # For G.Moon/G.Sun.
+#numDegreesElapsedForRepeat = 37 * 15 # For G.Moon/G.Sun.
+#numDegreesElapsedForRepeat = 37 * 20 # For G.Moon/G.Sun.
+#numDegreesElapsedForRepeat = 37 * 30 # For G.Moon/G.Sun.
 
 # Ouptut CSV file.  
 #outputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/CountingWheelsFrom_19060609/H.Mars_180_deg_repeats.csv"

@@ -107,9 +107,9 @@ loc1Tuple = nycLoc
 
 
 #startDt
-#dt1 = datetime.datetime(year=1992, month=2, day=11,
-#                        hour=12, minute=0,
-#                        tzinfo=eastern)
+dt1 = datetime.datetime(year=1918, month=8, day=20,
+                        hour=12, minute=0,
+                        tzinfo=eastern)
 
 #dt1 = mrKInNYCPg64
 #dt1 = mrKOilStocksHighPg65
@@ -129,7 +129,7 @@ loc1Tuple = nycLoc
 #dt1 = marieBirthdayCandidatePg179
 #dt1 = ww1BrokeOutPg7
 #dt1 = usEnteredWorldWarPg10
-dt1 = windowPg40
+#dt1 = windowPg40
 #dt1 = christmas1926Pg42
 #dt1 = letterOfCommendationPg43
 #dt1 = letterRGTexarkanatoMrKpg62
@@ -269,9 +269,9 @@ dt1 = windowPg40
 loc2Tuple = nycLoc
 
 #endDt
-#dt2 = datetime.datetime(year=1997, month=4, day=21,
-#                        hour=12, minute=0,
-#                        tzinfo=eastern)
+dt2 = datetime.datetime(year=1932, month=7, day=8,
+                        hour=12, minute=0,
+                        tzinfo=eastern)
 
 #dt2 = mrKInNYCPg64
 #dt2 = mrKOilStocksHighPg65
@@ -419,9 +419,9 @@ outputFilename = "/home/rluu/programming/pricechartingtool/misc/CalculatingPlane
 # Planet names to do calculations for.
 geocentricPlanetNames = [\
     "H1",
-    "H4",
-    "H7",
-    "H10",
+    #"H4",
+    #"H7",
+    #"H10",
     "Moon",
     "MoSu",
     "Sun",
@@ -1073,10 +1073,10 @@ if __name__ == "__main__":
     printDt1 = True
     #printDt1 = False
     
-    #printDt2 = True
+    printDt2 = True
     #printDt2 = False
     
-    #printDiff = True
+    printDiff = True
     #printDiff = False
 
     if 'printDt1' in locals() and printDt1 == True:
