@@ -9555,6 +9555,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                             
                             text += line + os.linesep
                             
+                # Heliocentric measurement.
                 if self.showHeliocentricTextFlag == True:
                     
                     if self.tropicalZodiacFlag == True:
