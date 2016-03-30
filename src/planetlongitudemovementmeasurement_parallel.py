@@ -41,6 +41,12 @@ def getPlanetLongitudeMovementMeasurementText(argsTuple):
     i += 1
     siderealZodiacFlag = argsTuple[i]
     i += 1
+    measurementUnitDegreesEnabled = argsTuple[i]
+    i += 1
+    measurementUnitCirclesEnabled = argsTuple[i]
+    i += 1
+    measurementUnitBiblicalCirclesEnabled = argsTuple[i]
+    i += 1
     maxErrorTd = argsTuple[i]
     i += 1
     locationLongitudeDegrees = argsTuple[i]
@@ -64,6 +70,9 @@ def getPlanetLongitudeMovementMeasurementText(argsTuple):
         showHeliocentricTextFlag,
         tropicalZodiacFlag,
         siderealZodiacFlag,
+        measurementUnitDegreesEnabled,
+        measurementUnitCirclesEnabled,
+        measurementUnitBiblicalCirclesEnabled,
         maxErrorTd)
         
 

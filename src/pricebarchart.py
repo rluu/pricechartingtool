@@ -8754,22 +8754,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         #              the calculations.
         #
         # TODO: Perhaps I should put this setting into QSettings?
-        maxErrorTd = datetime.timedelta(seconds=4)
-
-        # Size of a circle, in degrees.
-        #
-        # Here we define our own value instead of using the value in
-        # AstrologyUtils.degreesInCircle because it is possible we may
-        # want to test different sizes of a 'circle'.
-        circleSizeInDegrees = 360.0
-        
-        # All references to longitude_speed need to
-        # be from tropical zodiac measurements!  If I use
-        # sidereal zodiac measurements for getting the
-        # longitude_speed, then the measurements from the
-        # Swiss Ephemeris do not yield the correct values.
-        # I use the following variable in these locations.
-        zodiacTypeForLongitudeSpeed = "tropical"
+        maxErrorTd = datetime.timedelta(minutes=1)
 
         # Text to set in the text item.
         text = ""
@@ -8841,12 +8826,15 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                 argsTuple = (planetName,
                              startTimestamp,
                              endTimestamp,
-                             showGeocentricRetroAsZeroTextFlag,
-                             showGeocentricRetroAsPositiveTextFlag,
-                             showGeocentricRetroAsNegativeTextFlag,
-                             showHeliocentricTextFlag,
-                             tropicalZodiacFlag,
-                             siderealZodiacFlag,
+                             self.showGeocentricRetroAsZeroTextFlag,
+                             self.showGeocentricRetroAsPositiveTextFlag,
+                             self.showGeocentricRetroAsNegativeTextFlag,
+                             self.showHeliocentricTextFlag,
+                             self.tropicalZodiacFlag,
+                             self.siderealZodiacFlag,
+                             self.measurementUnitDegreesEnabled,
+                             self.measurementUnitCirclesEnabled,
+                             self.measurementUnitBiblicalCirclesEnabled,
                              maxErrorTd,
                              birthInfo.longitudeDegrees,
                              birthInfo.latitudeDegrees,

@@ -5,6 +5,9 @@ import inspect
 # For line separators / newlines.
 import os
 
+# For deepcopy.
+import copy
+
 # For timestamps and timezone information.
 import datetime
 import pytz
@@ -16,142 +19,11 @@ import logging.config
 # Import the Ephemeris classes.
 from ephemeris import PlanetaryInfo
 from ephemeris import Ephemeris
+from astrologychart import AstrologyUtils
 
 # For generic utility helper methods.
 from util import Util
 
-class Brainstorming_existing_logic_layout:
-    startTimestamp
-    endTimestamp
-
-
-    # Variables needed to pass into the calc method:
-    #  - planetName
-    #  - startTimestamp
-    #  - endTimestamp
-    #  - showGeocentricRetroAsZeroTextFlag
-    #  - showGeocentricRetroAsPositiveTextFlag
-    #  - showGeocentricRetroAsNegativeTextFlag
-    #  - tropicalZodiacFlag
-    #  - siderealZodiacFlag
-    #  - showHeliocentricTextFlag
-    #  - maxErrorTd
-    #
-    # Return value:
-    #  - str containing the lines of text for that measurement.
-    #
-    # Variables needed to pass into the Ephemeris initialize method:
-    #  - locationLongitudeDegrees
-    #  - locationLatitudeDegrees
-    #  - locationElevationMeters
-    #
-    
-    # Strategy:
-    #   Use multiprocessing.Pool:
-    #   Invoke:
-    #     Pool.terminate
-    #     self.textItem.setText("")
-    #     Pool.map_async  --> with callback to
-    #         def handlePoolMapAsync(),
-    #             which will call:
-    #                 self.textItem.setText(text)
-    #                 self._updateTextItemPositions()     # Which thread/process will the UI be updated from?  Is this okay?
-
-            for planetName in self.planetNamesEnabled:
-    
-                # List of PlanetaryInfo objects for this particular
-                # planet, sorted by timestamp.
-                planetData = []
-                
-                # Step through the timestamps, calculating the planet positions.
-                while currDt < endTimestamp:
-                    p = Ephemeris.getPlanetaryInfo(planetName, currDt)
-                    planetData.append(p)
-                    
-                    # Increment step size.
-                    currDt += stepSizeTd
-                    
-                # We must also append the planet calculation for the end timestamp.
-                p = Ephemeris.getPlanetaryInfo(planetName, endTimestamp)
-                planetData.append(p)
-                
-                # Geocentric measurement.
-                if self.showGeocentricRetroAsZeroTextFlag == True or \
-                    self.showGeocentricRetroAsPositiveTextFlag == True or \
-                    self.showGeocentricRetroAsNegativeTextFlag == True:
-                    
-                    # Get the PlanetaryInfos for the timestamps of the
-                    # planet at the moment right after the
-                    # longitude_speed polarity changes.
-                    additionalPlanetaryInfos = []
-                    
-                    # Sort all the extra PlanetaryInfo objects by timestamp.
-                    additionalPlanetaryInfos = \
-                        sorted(additionalPlanetaryInfos, key=lambda c: c.dt)
-                    
-                    # Insert PlanetaryInfos from
-                    # 'additionalPlanetaryInfos' into 'planetData' at
-                    # the timestamp-ordered location.
-
-                    
-                    # ...
-                    # ...
-                    
-
-                    # Do summations to determine the measurements.
-                    
-                    if self.showGeocentricRetroAsZeroTextFlag == True:
-                        if self.tropicalZodiacFlag == True:
-
-                            totalDegrees = 0
-                            zodiacType = "tropical"
-
-                            for i in range(len(planetData)):
-                                # ...
-                                # totalDegrees calculated
-                                # ...
-                                pass
-
-                            # Line of text.  We append measurements to
-                            # this line of text depending on what
-                            # measurements are enabled.
-                            line = "G T {} moves ".format(planetName)
-
-                            # ...
-                            #if self.measurementUnitDegreesEnabled == True:
-                            #if self.measurementUnitCirclesEnabled == True:
-                            #if self.measurementUnitBiblicalCirclesEnabled == True:
-                            # line += 
-                            # ...
-                            
-                            # Append last part of the line.
-                            line += "(r as 0)"
-                            
-                            text += line + os.linesep
-
-                        if self.siderealZodiacFlag == True:
-                            totalDegrees = 0
-                            zodiacType = "sidereal"
-                            
-                            # ... Same as above except for sidereal zodiac ...
-
-                    if self.showGeocentricRetroAsPositiveTextFlag == True:
-                        if self.tropicalZodiacFlag == True:
-                        if self.siderealZodiacFlag == True:
-
-                    if self.showGeocentricRetroAsNegativeTextFlag == True:
-                        if self.tropicalZodiacFlag == True:
-                        if self.siderealZodiacFlag == True:
-                            
-                # Heliocentric measurement.
-                if self.showHeliocentricTextFlag == True:
-                    if self.tropicalZodiacFlag == True:
-                    if self.siderealZodiacFlag == True:
-
-                            
-        text = text.rstrip()
-        self.textItem.setText(text)
-                        
 ##############################################################################
 
 class PLMMUtils:
@@ -225,6 +97,9 @@ class PLMMUtils:
         showHeliocentricTextFlag,
         tropicalZodiacFlag,
         siderealZodiacFlag,
+        measurementUnitDegreesEnabled,
+        measurementUnitCirclesEnabled,
+        measurementUnitBiblicalCirclesEnabled,
         maxErrorTd=datetime.timedelta(minutes=1)):
         """Measures the planet longitude movement between two timestamps.
         The measurements are returned in a multi-line str.
@@ -350,13 +225,13 @@ class PLMMUtils:
 
         # Flag indicating that geocentric measurements are to be done.
         isGeocentricEnabled = \
-            showGeocentricRetroAsZeroTextFlag == True or
-            showGeocentricRetroAsPositiveTextFlag == True or 
+            showGeocentricRetroAsZeroTextFlag == True or \
+            showGeocentricRetroAsPositiveTextFlag == True or \
             showGeocentricRetroAsNegativeTextFlag == True
             
         # Flag indicating that heliocentric measurements are to be done.
         isHeliocentricEnabled = showHeliocentricTextFlag
-        
+
         # List of PlanetaryInfo objects for this particular
         # planet, sorted by timestamp.
         planetData = []
@@ -393,7 +268,8 @@ class PLMMUtils:
         planetData.append(p)
                 
         # Geocentric measurement.
-        if isGeocentricEnabled == True:
+        if isGeocentricEnabled == True and \
+                not Ephemeris.isHeliocentricOnlyPlanetName(planetName):
                     
             # Get the PlanetaryInfos for the timestamps of the
             # planet at the moment right after the
@@ -1055,8 +931,9 @@ class PLMMUtils:
                     text += line + os.linesep
                             
         # Heliocentric measurement.
-        if isHeliocentricEnabled == True:
-            
+        if isHeliocentricEnabled == True and \
+                not Ephemeris.isGeocentricOnlyPlanetName(planetName):
+          
             if tropicalZodiacFlag == True:
                 totalDegrees = 0
                 zodiacType = "tropical"
@@ -1304,7 +1181,7 @@ class PLMMUtils:
             elif planetName == "Sun":
                 stepSizeTd = datetime.timedelta(days=5)
         
-        elif centricityType == "heliocentric":
+        elif isHeliocentricEnabled:
             if planetName == "Mercury":
                 stepSizeTd = datetime.timedelta(days=5)
             elif planetName == "Venus":
