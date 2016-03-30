@@ -40,7 +40,7 @@ import pytz
 # For PyQt UI classes.
 from PyQt4 import QtCore
 from PyQt4.QtCore import *
-from PyQt5.QtGui import *
+from PyQt4.QtGui import *
 
 # Include some PriceChartingTool modules.
 from ephemeris import Ephemeris
@@ -59,8 +59,8 @@ from astrologychart import AstrologyUtils
 ##############################################################################
 
 # For logging.
-#logLevel = logging.DEBUG
-logLevel = logging.INFO
+logLevel = logging.DEBUG
+#logLevel = logging.INFO
 #logLevel = logging.ERROR
 #logging.basicConfig(format='%(levelname)s: %(message)s')
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s')
@@ -12532,19 +12532,17 @@ class PlanetaryCombinationsLibrary:
                     log.debug("crossingsDts[{}] == {}".\
                               format(j, Ephemeris.datetimeToStr(crossingsDts[j])))
 
-                # We expect that we will cross the midpoint before we start
-                # going retrograde.  This section of movement should be all
-                # direct, therefore only one crossing.
-                if len(crossingsDts) != 1:
-                    errMsg = "Unexpected number of crossings returned.  " + \
-                        "We expected only 1 !!!  There's a bug here."
-                    log.error(errMsg)
-                    raise RuntimeError(errMsg)
-
-                currDt = crossingsDts[0]
-                p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
-                resultTuple = (p1, "least")
-                rv.append(resultTuple)
+                # For some planets (e.g. Venus), it is possible to
+                # have more than one crossingsDt because there can be
+                # such a long time between direct and retrograde timestamps.
+                # Should I add all of them, or just the last one?
+                # Since this is research software, for now, include them all.
+                # I can figure out if it is important later.
+                for dt in crossingsDts:
+                    currDt = dt
+                    p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
+                    resultTuple = (p1, "least")
+                    rv.append(resultTuple)
                 
                 ###############################
                 # Get the 'mean' conjunction.
@@ -12617,11 +12615,17 @@ class PlanetaryCombinationsLibrary:
                 # We expect that we will cross the midpoint before we start
                 # going retrograde.
 
-                # Get the first timestamp found.
-                currDt = crossingsDts[0]
-                p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
-                resultTuple = (p1, "great")
-                rv.append(resultTuple)
+                # For some planets (e.g. Venus), it is possible to
+                # have more than one crossingsDt because there can be
+                # such a long time between direct and retrograde timestamps.
+                # Should I add all of them, or just the last one?
+                # Since this is research software, for now, include them all.
+                # I can figure out if it is important later.
+                for dt in crossingsDts:
+                    currDt = dt
+                    p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
+                    resultTuple = (p1, "great")
+                    rv.append(resultTuple)
 
         log.debug("Returning {} data points in the list.".format(len(rv)))
         log.debug("Exiting " + inspect.stack()[0][3] + "()")

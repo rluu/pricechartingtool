@@ -107,7 +107,7 @@ loc1Tuple = nycLoc
 
 
 #startDt
-dt1 = datetime.datetime(year=1918, month=8, day=20,
+dt1 = datetime.datetime(year=2004, month=12, day=4,
                         hour=12, minute=0,
                         tzinfo=eastern)
 
@@ -269,7 +269,7 @@ dt1 = datetime.datetime(year=1918, month=8, day=20,
 loc2Tuple = nycLoc
 
 #endDt
-dt2 = datetime.datetime(year=1932, month=7, day=8,
+dt2 = datetime.datetime(year=2011, month=8, day=30,
                         hour=12, minute=0,
                         tzinfo=eastern)
 
