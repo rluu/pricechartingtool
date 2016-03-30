@@ -990,6 +990,48 @@ class Ephemeris:
             return False
 
     @staticmethod
+    def isGeocentricOnlyPlanetName(planetName):
+        """Returns True if the planet name given is only relevant geocentrically
+        (i.e. The planet does not exist heliocentrically).
+
+        Arguments:
+        planetName - str holding the name of the planet to do the
+                     check for.
+        """
+        
+        if (planetName == "Sun" or
+            planetName == "Moon" or
+            Ephemeris.isHouseCuspPlanetName(planetName) or
+            Ephemeris.isAscmcPlanetName(planetName) or
+            planetName == "MoSu"):
+
+            return True
+        else:
+            return False
+        
+    @staticmethod
+    def isHeliocentricOnlyPlanetName(planetName):
+        """Returns True if the planet name given is only relevant heliocentrically
+        (i.e. The planet does not exist geocentrically).
+
+        Arguments:
+        planetName - str holding the name of the planet to do the
+                     check for.
+        """
+        
+        if (planetName == "Earth" or
+            planetName == "MeEa" or
+            planetName == "VeEa" or
+            planetName == "EaMa" or
+            planetName == "EaJu" or
+            planetName == "EaSa" or
+            planetName == "EaUr"):
+
+            return True
+        else:
+            return False
+        
+    @staticmethod
     def setSiderealZodiac():
         """Initializes the settings to use the sidereal zodiac for
         calculations.  This function sets the Ayanamsa to use as Lahiri, as
