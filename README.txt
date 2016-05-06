@@ -42,6 +42,7 @@ Dependencies to build/run this project are:
   - pyswisseph 1.77       [Included in tps directory]
       (Uses Swiss Ephemeris version 1.77.00, which was released Jan. 26, 2010)
   - pytz 2014.9           [Included in tps directory]
+  - convertdate 2.0.5     [Included in tps directory]
 
 ##############################################################################
 
@@ -72,7 +73,9 @@ Notes for running on the Windows platform (relevant for PyQt4;
    5) Install pyswisseph.  See below for the hacks necessary to get
    this working.
    
-   6) Run pricechartingtool source code.
+   6) Install convertdate.
+   
+   7) Run pricechartingtool source code.
 
 ##############################################################################
 
@@ -453,6 +456,10 @@ http://en.wikipedia.org/wiki/Greenwich_Mean_Time
 http://en.wikipedia.org/wiki/Time_zone
 http://en.wikipedia.org/wiki/Leap_second
 
+Hebrew Calendar dates with the 'convertdate' library:
+According to the documentation, in some calendar systems (such as the Hebrew calendar), the day begins at sundown.  Convertdate gives the conversion for noon of the day in question.
+https://pypi.python.org/pypi/convertdate/
+https://github.com/fitnr/convertdate
 
 Swiss Ephemeris and pyswisseph:
 The Swiss Ephemeris utilizes times based off of UTC, Julian Day in UT (UT1),

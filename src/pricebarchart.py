@@ -48,6 +48,9 @@ from settings import SettingsKeys
 # For constants used.
 from astrologychart import AstrologyUtils
 
+# For calendar conversions, and display methods.
+from hebrew_calendar_utils import HebrewCalendarUtils
+
 # For conversions from julian day to datetime.datetime and vice versa.
 from ephemeris import Ephemeris
 
@@ -9983,6 +9986,14 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # Uncomment out this line if you want the timestamp text
             # without time.
             text = text[:16] + os.linesep
+
+            text += "t=[{}]".\
+                format(HebrewCalendarUtils.datetimeToHebrewDateStr(dt)) + \
+                os.linesep
+                
+            text += "t={}".\
+                format(HebrewCalendarUtils.datetimeToHebrewMonthDayStr(dt)) + \
+                os.linesep
             
         if self.artifact.getShowPriceFlag():
             text += "p={:.4f}".format(price) + os.linesep
@@ -40345,12 +40356,15 @@ class PriceBarChartWidget(QWidget):
         
         localizedTimestampStr = "Mouse time: "
         utcTimestampStr       = "Mouse time: "
+        hebrewTimestampStr    = "Mouse time: "
         jdTimestampStr        = "Mouse jd:   "
         priceStr = "Mouse price: " 
         self.cursorLocalizedTimestampLabel = \
             QLabel(localizedTimestampStr)
         self.cursorUtcTimestampLabel = \
             QLabel(utcTimestampStr)
+        self.cursorHebrewTimestampLabel = \
+            QLabel(hebrewTimestampStr)
         self.cursorJdTimestampLabel = \
             QLabel(jdTimestampStr)
         self.cursorPriceLabel = \
@@ -40391,6 +40405,7 @@ class PriceBarChartWidget(QWidget):
         
         self.cursorLocalizedTimestampLabel.setFont(smallMonospacedFont)
         self.cursorUtcTimestampLabel.setFont(smallMonospacedFont)
+        self.cursorHebrewTimestampLabel.setFont(smallMonospacedFont)
         self.cursorJdTimestampLabel.setFont(smallMonospacedFont)
         self.cursorPriceLabel.setFont(smallMonospacedFont)
         
@@ -40424,6 +40439,7 @@ class PriceBarChartWidget(QWidget):
         col5 = QVBoxLayout()
         col5.addWidget(self.cursorLocalizedTimestampLabel)
         col5.addWidget(self.cursorUtcTimestampLabel)
+        col5.addWidget(self.cursorHebrewTimestampLabel)
         
         topLabelsLayout = QGridLayout()
         topLabelsLayout.addLayout(col0, 0, 0)
@@ -40565,6 +40581,7 @@ class PriceBarChartWidget(QWidget):
 
         localizedTimestampStr = "Mouse time: "
         utcTimestampStr       = "Mouse time: "
+        hebrewTimestampStr    = "Mouse time: "
         jdTimestampStr        = "Mouse jd:   "
         priceStr = "Mouse price: " 
 
@@ -40579,6 +40596,10 @@ class PriceBarChartWidget(QWidget):
             localizedTimestampStr += Ephemeris.datetimeToDayStr(timestamp)
             utcTimestampStr += \
                 Ephemeris.datetimeToDayStr(timestamp.astimezone(pytz.utc))
+            hebrewTimestampStr += \
+                "[ {} ]    {}".format(\
+                HebrewCalendarUtils.datetimeToHebrewDateStr(timestamp),
+                HebrewCalendarUtils.datetimeToHebrewMonthDayStr(timestamp))
             jdTimestampStr += \
                 str(Ephemeris.datetimeToJulianDay(timestamp))
             priceStr += "{}".format(price)
@@ -40586,6 +40607,7 @@ class PriceBarChartWidget(QWidget):
         # Actually set the text to the widgets.
         self.cursorLocalizedTimestampLabel.setText(localizedTimestampStr)
         self.cursorUtcTimestampLabel.setText(utcTimestampStr)
+        self.cursorHebrewTimestampLabel.setText(hebrewTimestampStr)
         self.cursorJdTimestampLabel.setText(jdTimestampStr)
         self.cursorPriceLabel.setText(priceStr)
 
