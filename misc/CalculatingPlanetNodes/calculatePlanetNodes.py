@@ -94,7 +94,7 @@ southStr = "S"
     
 
 # Destination output CSV file.
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/CalculatingPlanetNodes/planetNodePositions.csv"
+outputFilename = thisScriptDir + os.sep + "planetNodePositions.csv"
 
 # Planet names to do calculations for.
 heliocentricPlanetNames = [\

@@ -39,14 +39,16 @@ import logging
 ##############################################################################
 # Global variables
 
+thisScriptDir = os.path.dirname(os.path.abspath(__file__))
+
 # Input filename for the CSV file created by
 # 'makeCycleOfRepetitionSpreadsheet.py'.
-#inputFilename = "/home/rluu/programming/pricechartingtool/master/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
-inputFilename = "/home/rluu/programming/pricechartingtool/master/misc/EphemerisGeneration/cycleHuntingGeneric/master_2p_ephemeris_nyc_noon.csv"
+#inputFilename = thisScriptDir + os.sep + "master_3p_ephemeris_nyc_noon.csv"
+inputFilename = thisScriptDir + os.sep + "master_2p_ephemeris_nyc_noon.csv"
 
 # Output filename for the output CSV file.
-#outputFilename = "/home/rluu/programming/pricechartingtool/master/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon_with_mod_360_and_div_360.csv"
-outputFilename = "/home/rluu/programming/pricechartingtool/master/misc/EphemerisGeneration/cycleHuntingGeneric/master_2p_ephemeris_nyc_noon_with_mod_360_and_div_360.csv"
+#outputFilename = thisScriptDir + os.sep + "master_3p_ephemeris_nyc_noon_with_mod_360_and_div_360.csv"
+outputFilename = thisScriptDir + os.sep + "master_2p_ephemeris_nyc_noon_with_mod_360_and_div_360.csv"
 
 # Lines to skip in the ephemeris input file.
 #

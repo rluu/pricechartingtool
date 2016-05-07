@@ -413,9 +413,6 @@ stepSizeTd = datetime.timedelta(days=1)
 # Error threshold for calculating timestamps.
 maxErrorTd = datetime.timedelta(minutes=1)
 
-# Destination output CSV file.
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/CalculatingPlanetConjunctions/planetGeocentricConjunctions.csv"
-
 # Planet names to do calculations for.
 geocentricPlanetNames = [\
     "H1",

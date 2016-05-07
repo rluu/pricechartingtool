@@ -41,8 +41,10 @@ from urllib import *
 ##############################################################################
 # Global variables
 
+thisScriptDir = os.path.dirname(os.path.abspath(__file__))
+
 # Output filename to save the output CSV file to.
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/BibleDownloadAndFormatting/BibleGematriaValues.csv"
+outputFilename = thisScriptDir + os.sep + "BibleGematriaValues.csv"
 
 # Header line to put as the first line of text in the destination file.
 headerLine = "\"Strong's Concordance Number\",\"Gematria value\""

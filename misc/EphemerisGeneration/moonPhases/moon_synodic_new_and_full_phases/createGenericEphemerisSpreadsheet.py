@@ -49,9 +49,10 @@ import math
 # Include some PriceChartingTool modules.
 # This assumes that the relative directory from this script is: ../../../../src
 thisScriptDir = os.path.dirname(os.path.abspath(__file__))
-thisScriptDir = os.path.dirname(thisScriptDir)
-thisScriptDir = os.path.dirname(thisScriptDir)
-srcDir = os.path.dirname(os.path.dirname(thisScriptDir)) + os.sep + "src"
+srcDir = os.path.dirname(thisScriptDir)
+srcDir = os.path.dirname(srcDir)
+srcDir = os.path.dirname(srcDir)
+srcDir = os.path.dirname(srcDir) + os.sep + "src"
 if srcDir not in sys.path:
     sys.path.insert(0, srcDir)
 from astrologychart import AstrologyUtils
@@ -80,7 +81,7 @@ hourOfDay = 12
 minuteOfHour = 0
 
 
-startDt = datetime.datetime(year=1906, month=1, day=1,
+startDt = datetime.datetime(year=1905, month=1, day=1,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
 #startDt = datetime.datetime(year=1984, month=1, day=1,
@@ -91,12 +92,12 @@ startDt = datetime.datetime(year=1906, month=1, day=1,
 #                            tzinfo=timezone)
 
 
-endDt   = datetime.datetime(year=1906, month=5, day=31,
-                            hour=hourOfDay, minute=minuteOfHour,
-                            tzinfo=timezone)
-#endDt   = datetime.datetime(year=1936, month=12, day=31,
+#endDt   = datetime.datetime(year=1906, month=5, day=31,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
+endDt   = datetime.datetime(year=1933, month=12, day=31,
+                            hour=hourOfDay, minute=minuteOfHour,
+                            tzinfo=timezone)
 #endDt   = datetime.datetime(year=2015, month=12, day=31,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
@@ -106,7 +107,7 @@ endDt   = datetime.datetime(year=1906, month=5, day=31,
 
 
 # Destination output CSV file.
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_synodic_new_and_full_phases/sun_moon_node_ephemeris_nyc.csv"
+outputFilename = thisScriptDir + os.sep + "sun_moon_node_ephemeris_nyc.csv"
 
 # Planet names to do calculations for.
 geocentricPlanetNames = [\

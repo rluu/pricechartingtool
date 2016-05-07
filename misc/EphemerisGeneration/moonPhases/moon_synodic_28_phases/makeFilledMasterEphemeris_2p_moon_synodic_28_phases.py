@@ -48,11 +48,13 @@ import logging
 ##############################################################################
 # Global variables
 
+thisScriptDir = os.path.dirname(os.path.abspath(__file__))
+
 # Input CSV file.  
-inputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_synodic_28_phases/sun_moon_node_ephemeris_nyc.csv"
+inputFilename = thisScriptDir + os.sep + "sun_moon_node_ephemeris_nyc.csv"
 
 # Ouptut CSV file.  
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/EphemerisGeneration/moonPhases/moon_synodic_28_phases/moon_synodic_28_phases_ephemeris_nyc.csv"
+outputFilename = thisScriptDir + os.sep + "moon_synodic_28_phases_ephemeris_nyc.csv"
 
 # Number of moon phases.
 numMoonPhases = 28

@@ -45,8 +45,9 @@ import math
 # Include some PriceChartingTool modules.
 # This assumes that the relative directory from this script is: ../../../src
 thisScriptDir = os.path.dirname(os.path.abspath(__file__))
-thisScriptDir = os.path.dirname(thisScriptDir)
-srcDir = os.path.dirname(os.path.dirname(thisScriptDir)) + os.sep + "src"
+srcDir = os.path.dirname(thisScriptDir)
+srcDir = os.path.dirname(srcDir)
+srcDir = os.path.dirname(srcDir) + os.sep + "src"
 if srcDir not in sys.path:
     sys.path.insert(0, srcDir)
 from astrologychart import AstrologyUtils
@@ -104,7 +105,7 @@ endDt   = datetime.datetime(year=2018, month=12, day=31,
 
 
 # Destination output CSV file.
-outputFilename = "/home/rluu/programming/pricechartingtool/master/misc/EphemerisGeneration/cycleHuntingGeneric/generic_daily_ephemeris_nyc_noon.csv"
+outputFilename = thisScriptDir + os.sep + "generic_daily_ephemeris_nyc_noon.csv"
 
 
 # Planet names to do calculations for.

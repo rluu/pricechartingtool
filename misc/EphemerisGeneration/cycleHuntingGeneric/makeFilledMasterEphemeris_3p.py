@@ -46,11 +46,13 @@ import logging
 ##############################################################################
 # Global variables
 
+thisScriptDir = os.path.dirname(os.path.abspath(__file__))
+
 # Input CSV file.  See the BA ACCE5S lesson document for details.
-inputFilename = "/home/rluu/programming/pricechartingtool/master/misc/EphemerisGeneration/cycleHuntingGeneric/master_2p_ephemeris_nyc_noon.csv"
+inputFilename = thisScriptDir + os.sep + "master_2p_ephemeris_nyc_noon.csv"
 
 # Ouptut CSV file.  This is the CSV file with all the calculations completed, per the homework.  
-outputFilename = "/home/rluu/programming/pricechartingtool/master/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
+outputFilename = thisScriptDir + os.sep + "master_3p_ephemeris_nyc_noon.csv"
 
 # Lines to skip in the input file.
 linesToSkip = 1

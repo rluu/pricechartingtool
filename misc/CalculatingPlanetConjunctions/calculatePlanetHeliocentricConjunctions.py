@@ -86,7 +86,7 @@ stepSizeTd = datetime.timedelta(days=1)
 maxErrorTd = datetime.timedelta(minutes=1)
 
 # Destination output CSV file.
-outputFilename = "/home/rluu/programming/pricechartingtool/misc/CalculatingPlanetConjunctions/planetHeliocentricConjunctions.csv"
+outputFilename = thisScriptDir + os.sep + "planetHeliocentricConjunctions.csv"
 
 # Planet names to do calculations for.
 heliocentricPlanetNames = [\
