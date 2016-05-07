@@ -11,6 +11,8 @@ logs/*
 !logs/.gitignore
 
 # Ignore some generated CSV files and spreadsheets.
+misc/CalculatingPlanetDirectAndRetrograde/*.csv
+misc/CalculatingPlanetDirectAndRetrograde/*.ods
 misc/EphemerisGeneration/cycleHuntingGeneric/*.csv
 misc/EphemerisGeneration/cycleOfRepetition/*.csv
 misc/EphemerisGeneration/cycleOfRepetition/*.ods
@@ -29,6 +31,8 @@ misc/PriceChartDocumentScripts/customScripts/__pycache__
 src/resources.py
 
 # Ignore tps extracted tarball directories.
+tps/convertdate/convertdate-2.0.5
+tps/convertdate/convertdate-2.0.5/*
 tps/pyqt/4.11.3/PyQt-mac-gpl-4.11.3/*
 tps/pyqt/4.11.3/PyQt-win-gpl-4.11.3/*
 tps/pyqt/4.11.3/PyQt-x11-gpl-4.11.3/*
