@@ -11,11 +11,14 @@ logs/*
 !logs/.gitignore
 
 # Ignore some generated CSV files and spreadsheets.
+
 misc/CalculatingPlanetDirectAndRetrograde/*.csv
 misc/CalculatingPlanetDirectAndRetrograde/*.ods
 misc/EphemerisGeneration/cycleHuntingGeneric/*.csv
 misc/EphemerisGeneration/cycleOfRepetition/*.csv
 misc/EphemerisGeneration/cycleOfRepetition/*.ods
+misc/EphemerisGeneration/moonPhases/moon_synodic_new_and_full_phases/*.csv
+misc/EphemerisGeneration/moonPhases/moon_synodic_new_and_full_phases/*.ods
 
 # Ignore certain directories/files in the src directory.
 src/__pycache__
