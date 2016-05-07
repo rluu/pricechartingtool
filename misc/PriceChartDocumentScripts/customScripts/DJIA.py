@@ -139,7 +139,7 @@ def processPCDD(pcdd, tag):
         addGeoConjunctionsOfDirectRetrogradeMidpointsVerticalLines(\
             pcdd, startDt, endDt, highPrice, lowPrice,
             "Mercury")
-    if True:
+    if False:
         success = PlanetaryCombinationsLibrary.\
         addGeoLeastMeanGreatConjunctionsOfRetrogradeDirectMidpointsVerticalLines(\
             pcdd, startDt, endDt, highPrice, lowPrice,
@@ -214,6 +214,82 @@ def processPCDD(pcdd, tag):
             degreeValue, color=QColor(Qt.red))
     
 
+    ######################################
+
+    if False:
+        degreeValue = 0
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Mercury", "heliocentric", "tropical",
+            "Earth", "heliocentric", "tropical",
+            degreeValue, color=QColor(Qt.green))
+    
+    if False:
+        degreeValue = 180
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Mercury", "heliocentric", "tropical",
+            "Earth", "heliocentric", "tropical",
+            degreeValue, color=QColor(Qt.darkGreen))
+    
+    if False:
+        degreeValue = 0
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Venus", "heliocentric", "tropical",
+            "Earth", "heliocentric", "tropical",
+            degreeValue, color=QColor(Qt.magenta))
+    
+    if False:
+        degreeValue = 180
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Venus", "heliocentric", "tropical",
+            "Earth", "heliocentric", "tropical",
+            degreeValue, color=QColor(Qt.darkMagenta))
+    
+    if False:
+        degreeValue = 0
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Earth", "heliocentric", "tropical",
+            "Mars", "heliocentric", "tropical",
+            degreeValue, color=QColor(Qt.red))
+    
+    if False:
+        degreeValue = 180
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Earth", "heliocentric", "tropical",
+            "Mars", "heliocentric", "tropical",
+            degreeValue, color=QColor(Qt.darkRed))
+    
+    if False:
+        degreeValue = 0
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Earth", "heliocentric", "tropical",
+            "Jupiter", "heliocentric", "tropical",
+            degreeValue, color=QColor(Qt.cyan))
+    
+    if False:
+        degreeValue = 180
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Earth", "heliocentric", "tropical",
+            "Jupiter", "heliocentric", "tropical",
+            degreeValue, color=QColor(Qt.darkCyan))
+    
+    ######################################
+    
     # Works well.
     if False:
         step = 360 / 20.0

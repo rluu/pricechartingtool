@@ -645,7 +645,7 @@ def generateOutputFileCsvStr(priceBars, descriptionStr):
                 if pi.name == planetName:
                     lon = pi.geocentric['tropical']['longitude']
                     valueStr = AstrologyUtils.\
-                               convertLongitudeToStrWithRasiAbbrev(lon)
+                               convertLongitudeToStrWithRasiGlyph(lon)
                     rv += "{},".format(valueStr)
                     break
 

@@ -56,7 +56,7 @@ class AstrologyUtils:
 
 
     @staticmethod
-    def convertLongitudeToNavamsaStr(longitude):
+    def convertLongitudeToNavamsaGlyphStr(longitude):
         """Takes a float longitude value and converts it to a str that
         holds the glyph corresponding to its navamsa rasi.
 
@@ -108,51 +108,71 @@ class AstrologyUtils:
                            SettingsKeys.signPiscesGlyphUnicodeDefValue,
                            type=str)]
 
-        #signAbbreviations = [\
-        #    settings.value(SettingsKeys.signAriesAbbreviationKey,
-        #                   SettingsKeys.signAriesAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signTaurusAbbreviationKey,
-        #                   SettingsKeys.signTaurusAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signGeminiAbbreviationKey,
-        #                   SettingsKeys.signGeminiAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signCancerAbbreviationKey,
-        #                   SettingsKeys.signCancerAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signLeoAbbreviationKey,
-        #                   SettingsKeys.signLeoAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signVirgoAbbreviationKey,
-        #                   SettingsKeys.signVirgoAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signLibraAbbreviationKey,
-        #                   SettingsKeys.signLibraAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signScorpioAbbreviationKey,
-        #                   SettingsKeys.signScorpioAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signSagittariusAbbreviationKey,
-        #                   SettingsKeys.signSagittariusAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signCapricornAbbreviationKey,
-        #                   SettingsKeys.signCapricornAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signAquariusAbbreviationKey,
-        #                   SettingsKeys.signAquariusAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signPiscesAbbreviationKey,
-        #                   SettingsKeys.signPiscesAbbreviationDefValue,
-        #                   type=str)]
-        
         navamsaSize = 360 / 108.0
         index = math.floor(longitude / navamsaSize) % 12
         
         return signGlyphs[index]
         
     @staticmethod
-    def convertLongitudeToStrWithRasiAbbrev(longitude):
+    def convertLongitudeToNavamsaAbbrevStr(longitude):
+        """Takes a float longitude value and converts it to a str that
+        holds the abbreviation corresponding to its navamsa rasi.
+
+        Arguments:
+        longitude - float value for the longitude of the planet.
+
+        Returns:
+        str value holding the navamsa rasi abbreviation.
+        """
+
+        # Preference settings.
+        settings = QSettings()
+        
+        signAbbreviations = [\
+            settings.value(SettingsKeys.signAriesAbbreviationKey,
+                           SettingsKeys.signAriesAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signTaurusAbbreviationKey,
+                           SettingsKeys.signTaurusAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signGeminiAbbreviationKey,
+                           SettingsKeys.signGeminiAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signCancerAbbreviationKey,
+                           SettingsKeys.signCancerAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signLeoAbbreviationKey,
+                           SettingsKeys.signLeoAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signVirgoAbbreviationKey,
+                           SettingsKeys.signVirgoAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signLibraAbbreviationKey,
+                           SettingsKeys.signLibraAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signScorpioAbbreviationKey,
+                           SettingsKeys.signScorpioAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signSagittariusAbbreviationKey,
+                           SettingsKeys.signSagittariusAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signCapricornAbbreviationKey,
+                           SettingsKeys.signCapricornAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signAquariusAbbreviationKey,
+                           SettingsKeys.signAquariusAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signPiscesAbbreviationKey,
+                           SettingsKeys.signPiscesAbbreviationDefValue,
+                           type=str)]
+        
+        navamsaSize = 360 / 108.0
+        index = math.floor(longitude / navamsaSize) % 12
+        
+        return signAbbreviations[index]
+        
+    @staticmethod
+    def convertLongitudeToStrWithRasiGlyph(longitude):
         """Takes a float longitude value and converts it to a str
         in the format: 23 <RASI_GLYPH> 24' 14"
         
@@ -227,44 +247,6 @@ class AstrologyUtils:
                            SettingsKeys.signPiscesGlyphUnicodeDefValue,
                            type=str)]
         
-        #signAbbreviations = [\
-        #    settings.value(SettingsKeys.signAriesAbbreviationKey,
-        #                   SettingsKeys.signAriesAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signTaurusAbbreviationKey,
-        #                   SettingsKeys.signTaurusAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signGeminiAbbreviationKey,
-        #                   SettingsKeys.signGeminiAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signCancerAbbreviationKey,
-        #                   SettingsKeys.signCancerAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signLeoAbbreviationKey,
-        #                   SettingsKeys.signLeoAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signVirgoAbbreviationKey,
-        #                   SettingsKeys.signVirgoAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signLibraAbbreviationKey,
-        #                   SettingsKeys.signLibraAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signScorpioAbbreviationKey,
-        #                   SettingsKeys.signScorpioAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signSagittariusAbbreviationKey,
-        #                   SettingsKeys.signSagittariusAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signCapricornAbbreviationKey,
-        #                   SettingsKeys.signCapricornAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signAquariusAbbreviationKey,
-        #                   SettingsKeys.signAquariusAbbreviationDefValue,
-        #                   type=str),
-        #    settings.value(SettingsKeys.signPiscesAbbreviationKey,
-        #                   SettingsKeys.signPiscesAbbreviationDefValue,
-        #                   type=str)]
-        
         degreesStr = "{: >2}".format(degrees)
         rasiStr = signGlyphs[rasi]
         minutesStr = "{:0>02}".format(minutes)
@@ -279,11 +261,94 @@ class AstrologyUtils:
         return rv
 
     @staticmethod
-    def convertAngleToStrWithRasiAbbrev(longitude):
-        """Alias of convertLongitudeToStrWithRasiAbbrev(longitude)."""
-
-        return AstrologyUtils.convertLongitudeToStrWithRasiAbbrev(longitude)
+    def convertLongitudeToStrWithRasiAbbrev(longitude):
+        """Takes a float longitude value and converts it to a str
+        in the format: 23 <RASI_ABBREVIATION> 24' 14"
         
+        Arguments:
+        longitude - float value for the longitude of the planet.
+
+        Returns:
+        str - String that is in the above format.  It will always be a
+        fixed number of characters.  This means that if it is 8
+        degrees, or 8 minutes, or 8 seconds, the string will have a
+        space prefixing the 8.
+        """
+        
+        # Make sure the longitude is less than 360 and greater than or
+        # equal to 0.
+        if longitude >= 360.0 or longitude < 0.0:
+            longitude = longitude % 360
+        
+        # Rasi number, where 0 is Aries.
+        rasi = math.floor(longitude / 30.0)
+
+        # Degree in the rasi.
+        unflooredDegrees = longitude % 30
+        degrees = math.floor(unflooredDegrees)
+
+        # Minutes within the degree.
+        unflooredMinutes = (unflooredDegrees - degrees) * 60.0
+        minutes = math.floor(unflooredMinutes)
+
+        # Seconds within the degree.
+        unflooredSeconds = (unflooredMinutes - minutes) * 60.0
+        seconds = math.floor(unflooredSeconds)
+
+        # Preference settings.
+        settings = QSettings()
+        
+        signAbbreviations = [\
+            settings.value(SettingsKeys.signAriesAbbreviationKey,
+                           SettingsKeys.signAriesAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signTaurusAbbreviationKey,
+                           SettingsKeys.signTaurusAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signGeminiAbbreviationKey,
+                           SettingsKeys.signGeminiAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signCancerAbbreviationKey,
+                           SettingsKeys.signCancerAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signLeoAbbreviationKey,
+                           SettingsKeys.signLeoAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signVirgoAbbreviationKey,
+                           SettingsKeys.signVirgoAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signLibraAbbreviationKey,
+                           SettingsKeys.signLibraAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signScorpioAbbreviationKey,
+                           SettingsKeys.signScorpioAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signSagittariusAbbreviationKey,
+                           SettingsKeys.signSagittariusAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signCapricornAbbreviationKey,
+                           SettingsKeys.signCapricornAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signAquariusAbbreviationKey,
+                           SettingsKeys.signAquariusAbbreviationDefValue,
+                           type=str),
+            settings.value(SettingsKeys.signPiscesAbbreviationKey,
+                           SettingsKeys.signPiscesAbbreviationDefValue,
+                           type=str)]
+        
+        degreesStr = "{: >2}".format(degrees)
+        rasiStr = signAbbreviations[rasi]
+        minutesStr = "{:0>02}".format(minutes)
+        secondsStr = "{:0>02}".format(seconds)
+        
+        rv = \
+            degreesStr + " " + \
+            rasiStr + " " + \
+            minutesStr + "' " + \
+            secondsStr + "\""
+
+        return rv
+
     @staticmethod
     def convertLongitudeToNakshatraAbbrev(longitude):
         """Takes a float longitude value and converts it to a string
@@ -402,7 +467,7 @@ class AstrologyUtils:
             AstrologyUtils.convertBiblicalCircleAngleToCircleAngle(\
             biblicalAngle)
 
-        return AstrologyUtils.convertLongitudeToStrWithRasiAbbrev(angle)
+        return AstrologyUtils.convertLongitudeToStrWithRasiGlyph(angle)
 
     @staticmethod
     def convertDegMinSecToAngle(degrees, minutes, seconds):
@@ -6542,7 +6607,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         if value != None:
             valueStr = \
                 AstrologyUtils.\
-                convertLongitudeToStrWithRasiAbbrev(value)
+                convertLongitudeToStrWithRasiGlyph(value)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 
@@ -6551,7 +6616,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         if value != None:
             valueStr = \
                 AstrologyUtils.\
-                convertLongitudeToStrWithRasiAbbrev(value)
+                convertLongitudeToStrWithRasiGlyph(value)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
         
@@ -6576,7 +6641,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         if value != None:
             valueStr = \
                 AstrologyUtils.\
-                convertLongitudeToStrWithRasiAbbrev(value)
+                convertLongitudeToStrWithRasiGlyph(value)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 
@@ -6585,7 +6650,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         if value != None:
             valueStr = \
                 AstrologyUtils.\
-                convertLongitudeToStrWithRasiAbbrev(value)
+                convertLongitudeToStrWithRasiGlyph(value)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
 

@@ -47,7 +47,7 @@ startDt = datetime.datetime(year=1969, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=eastern)
 
-endDt   = datetime.datetime(year=2017, month=1, day=1,
+endDt   = datetime.datetime(year=2020, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=eastern)
 

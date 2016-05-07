@@ -40357,6 +40357,8 @@ class PriceBarChartWidget(QWidget):
         localizedTimestampStr = "Mouse time: "
         utcTimestampStr       = "Mouse time: "
         hebrewTimestampStr    = "Mouse time: "
+        geoSunTimestampStr    = "Mouse time: "
+        geoMoSuTimestampStr   = "Mouse time: "
         jdTimestampStr        = "Mouse jd:   "
         priceStr = "Mouse price: " 
         self.cursorLocalizedTimestampLabel = \
@@ -40365,6 +40367,10 @@ class PriceBarChartWidget(QWidget):
             QLabel(utcTimestampStr)
         self.cursorHebrewTimestampLabel = \
             QLabel(hebrewTimestampStr)
+        self.cursorGeoSunTimestampLabel = \
+            QLabel(geoSunTimestampStr)
+        self.cursorGeoMoSuTimestampLabel = \
+            QLabel(geoMoSuTimestampStr)
         self.cursorJdTimestampLabel = \
             QLabel(jdTimestampStr)
         self.cursorPriceLabel = \
@@ -40406,6 +40412,8 @@ class PriceBarChartWidget(QWidget):
         self.cursorLocalizedTimestampLabel.setFont(smallMonospacedFont)
         self.cursorUtcTimestampLabel.setFont(smallMonospacedFont)
         self.cursorHebrewTimestampLabel.setFont(smallMonospacedFont)
+        self.cursorGeoSunTimestampLabel.setFont(smallMonospacedFont)
+        self.cursorGeoMoSuTimestampLabel.setFont(smallMonospacedFont)
         self.cursorJdTimestampLabel.setFont(smallMonospacedFont)
         self.cursorPriceLabel.setFont(smallMonospacedFont)
         
@@ -40441,6 +40449,10 @@ class PriceBarChartWidget(QWidget):
         col5.addWidget(self.cursorUtcTimestampLabel)
         col5.addWidget(self.cursorHebrewTimestampLabel)
         
+        col6 = QVBoxLayout()
+        col6.addWidget(self.cursorGeoSunTimestampLabel)
+        col6.addWidget(self.cursorGeoMoSuTimestampLabel)
+        
         topLabelsLayout = QGridLayout()
         topLabelsLayout.addLayout(col0, 0, 0)
         topLabelsLayout.addLayout(col1, 0, 1)
@@ -40448,6 +40460,7 @@ class PriceBarChartWidget(QWidget):
         topLabelsLayout.addLayout(col3, 0, 3)
         topLabelsLayout.addLayout(col4, 0, 4)
         topLabelsLayout.addLayout(col5, 0, 5)
+        topLabelsLayout.addLayout(col6, 0, 6)
         
         layout = QVBoxLayout()
         layout.addLayout(topLabelsLayout)
@@ -40582,6 +40595,8 @@ class PriceBarChartWidget(QWidget):
         localizedTimestampStr = "Mouse time: "
         utcTimestampStr       = "Mouse time: "
         hebrewTimestampStr    = "Mouse time: "
+        geoSunTimestampStr    = "Mouse time: G.Sun:  "
+        geoMoSuTimestampStr   = "Mouse time: G.MoSu: "
         jdTimestampStr        = "Mouse jd:   "
         priceStr = "Mouse price: " 
 
@@ -40594,20 +40609,38 @@ class PriceBarChartWidget(QWidget):
 
             # Append to the strings.
             localizedTimestampStr += Ephemeris.datetimeToDayStr(timestamp)
+
             utcTimestampStr += \
                 Ephemeris.datetimeToDayStr(timestamp.astimezone(pytz.utc))
+              
             hebrewTimestampStr += \
                 "[ {} ]    {}".format(\
                 HebrewCalendarUtils.datetimeToHebrewDateStr(timestamp),
-                HebrewCalendarUtils.datetimeToHebrewMonthDayStr(timestamp))
+                    HebrewCalendarUtils.datetimeToHebrewMonthDayStr(timestamp))
+
+            planetSun = Ephemeris.getPlanetaryInfo("Sun", timestamp)
+            longitude = planetSun.geocentric['tropical']['longitude']
+            geoSunTimestampStr += \
+              AstrologyUtils.convertLongitudeToStrWithRasiAbbrev(longitude)
+
+            planetMoSu = Ephemeris.getPlanetaryInfo("MoSu", timestamp)
+            longitude = planetMoSu.geocentric['tropical']['longitude']
+            synodicPhase = longitude / 12.0
+            geoMoSuTimestampStr += \
+                "{: >6.2f} deg.  [ Phase {: >5.2f} ]".\
+                format(longitude, synodicPhase)
+
             jdTimestampStr += \
                 str(Ephemeris.datetimeToJulianDay(timestamp))
+
             priceStr += "{}".format(price)
 
         # Actually set the text to the widgets.
         self.cursorLocalizedTimestampLabel.setText(localizedTimestampStr)
         self.cursorUtcTimestampLabel.setText(utcTimestampStr)
         self.cursorHebrewTimestampLabel.setText(hebrewTimestampStr)
+        self.cursorGeoSunTimestampLabel.setText(geoSunTimestampStr)
+        self.cursorGeoMoSuTimestampLabel.setText(geoMoSuTimestampStr)
         self.cursorJdTimestampLabel.setText(jdTimestampStr)
         self.cursorPriceLabel.setText(priceStr)
 

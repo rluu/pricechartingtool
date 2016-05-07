@@ -829,20 +829,20 @@ if __name__ == "__main__":
                     line += "{}".format(planet1HelioTropLongitudeDegrees) + ","
                     line += "{}".format(planet2HelioTropLongitudeDegrees) + ","
                     line += "{}".format(\
-                        AstrologyUtils.convertLongitudeToStrWithRasiAbbrev(\
+                        AstrologyUtils.convertLongitudeToStrWithRasiGlyph(\
                             planet1HelioTropLongitudeDegrees)) + ","
                     line += "{}".format(\
-                        AstrologyUtils.convertLongitudeToStrWithRasiAbbrev(\
+                        AstrologyUtils.convertLongitudeToStrWithRasiGlyph(\
                             planet2HelioTropLongitudeDegrees)) + ","
                     line += "{}".format(planet1HelioTropLongitudeSpeed) + ","
                     line += "{}".format(planet2HelioTropLongitudeSpeed) + ","
                     line += "{}".format(planet1HelioSidLongitudeDegrees) + ","
                     line += "{}".format(planet2HelioSidLongitudeDegrees) + ","
                     line += "{}".format(\
-                        AstrologyUtils.convertLongitudeToStrWithRasiAbbrev(\
+                        AstrologyUtils.convertLongitudeToStrWithRasiGlyph(\
                             planet1HelioSidLongitudeDegrees)) + ","
                     line += "{}".format(\
-                        AstrologyUtils.convertLongitudeToStrWithRasiAbbrev(\
+                        AstrologyUtils.convertLongitudeToStrWithRasiGlyph(\
                             planet2HelioSidLongitudeDegrees)) + ","
                     line += "{}".format(planet1HelioSidLongitudeSpeed) + ","
                     line += "{}".format(planet2HelioSidLongitudeSpeed) + ","

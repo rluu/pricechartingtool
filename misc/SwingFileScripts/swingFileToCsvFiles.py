@@ -490,7 +490,7 @@ class GeoTropLongitudeField(TableFieldInfo):
         if value != None:
             valueStr = \
                 AstrologyUtils.\
-                convertLongitudeToStrWithRasiAbbrev(value)
+                convertLongitudeToStrWithRasiGlyph(value)
         return valueStr
     
 class HelioTropLongitudeField(TableFieldInfo):
@@ -512,7 +512,7 @@ class HelioTropLongitudeField(TableFieldInfo):
         if value != None:
             valueStr = \
                 AstrologyUtils.\
-                convertLongitudeToStrWithRasiAbbrev(value)
+                convertLongitudeToStrWithRasiGlyph(value)
         return valueStr
     
 class GeoTropMod15LonField(TableFieldInfo):
@@ -618,7 +618,7 @@ class GeoSidLongitudeField(TableFieldInfo):
         if value != None:
             valueStr = \
                 AstrologyUtils.\
-                convertLongitudeToStrWithRasiAbbrev(value)
+                convertLongitudeToStrWithRasiGlyph(value)
         return valueStr
     
 class HelioSidLongitudeField(TableFieldInfo):
@@ -640,7 +640,7 @@ class HelioSidLongitudeField(TableFieldInfo):
         if value != None:
             valueStr = \
                 AstrologyUtils.\
-                convertLongitudeToStrWithRasiAbbrev(value)
+                convertLongitudeToStrWithRasiGlyph(value)
         return valueStr
     
 class GeoSidMod15LonField(TableFieldInfo):
@@ -746,7 +746,7 @@ class GeoSidNavamsaField(TableFieldInfo):
         if value != None:
             valueStr = \
                 AstrologyUtils.\
-                convertLongitudeToNavamsaStr(value)
+                convertLongitudeToNavamsaGlyphStr(value)
         return valueStr
     
 class GeoSidNakshatraField(TableFieldInfo):
@@ -912,7 +912,7 @@ class HelioSidNavamsaField(TableFieldInfo):
         if value != None:
             valueStr = \
                 AstrologyUtils.\
-                convertLongitudeToNavamsaStr(value)
+                convertLongitudeToNavamsaGlyphStr(value)
         return valueStr
     
 class HelioSidNakshatraField(TableFieldInfo):

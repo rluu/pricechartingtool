@@ -4553,7 +4553,7 @@ class PlanetaryCombinationsLibrary:
             cop = crossOverPoints[copIndex]
             log.info("Working on cross-over-point {} ({})".\
                      format(AstrologyUtils.\
-                            convertLongitudeToStrWithRasiAbbrev(cop),
+                            convertLongitudeToStrWithRasiGlyph(cop),
                             cop))
                                
             if colorWasSpecifiedFlag == False:
@@ -4572,7 +4572,7 @@ class PlanetaryCombinationsLibrary:
                     "Working on planet '{}' for cross-over-point {} ({})".\
                     format(planetName,
                            AstrologyUtils.\
-                           convertLongitudeToStrWithRasiAbbrev(cop),
+                           convertLongitudeToStrWithRasiGlyph(cop),
                            cop))
                                
 
@@ -13343,7 +13343,7 @@ class PlanetaryCombinationsLibrary:
             PlanetaryCombinationsLibrary.\
             addVerticalLine(pcdd, pi.dt, highPrice, lowPrice, 
                     tag + "_" + conjunctionType.upper() + "_conjunction",
-                    lighterColor)
+                    color)
             numArtifactsAdded += 1
     
         log.info("Number of artifacts added: {}".format(numArtifactsAdded))

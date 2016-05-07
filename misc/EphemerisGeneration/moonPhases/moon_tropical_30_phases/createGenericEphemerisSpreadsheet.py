@@ -409,7 +409,7 @@ def getEphemerisDataLineForDatetime(dt):
                 lon = pi.geocentric['tropical']['longitude']
                 valueStr = \
                          AstrologyUtils.\
-                         convertLongitudeToStrWithRasiAbbrev(lon)
+                         convertLongitudeToStrWithRasiGlyph(lon)
                 rv += valueStr + ","
                 
     # Planet heliocentric longitude 15-degree axis points.
@@ -433,7 +433,7 @@ def getEphemerisDataLineForDatetime(dt):
                 lon = pi.heliocentric['tropical']['longitude']
                 valueStr = \
                          AstrologyUtils.\
-                         convertLongitudeToStrWithRasiAbbrev(lon)
+                         convertLongitudeToStrWithRasiGlyph(lon)
                 rv += valueStr + ","
                 
     # Planet declination.
