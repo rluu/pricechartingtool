@@ -21,7 +21,7 @@ import logging
 import logging.config
 
 # Import the Swiss Ephemeris
-import swisseph as swe
+import swisseph
 
 
 
@@ -405,7 +405,7 @@ class Ephemeris:
         if Ephemeris.log.isEnabledFor(logging.INFO) == True:
             Ephemeris.log.info("Setting Ephemeris data directory to " +
                                Ephemeris.SWISS_EPHEMERIS_DATA_DIR)
-        swe.set_ephe_path(Ephemeris.SWISS_EPHEMERIS_DATA_DIR)
+        swisseph.set_ephe_path(Ephemeris.SWISS_EPHEMERIS_DATA_DIR)
 
         # Reset the iflag used.
         Ephemeris.iflag = 0
@@ -413,12 +413,12 @@ class Ephemeris:
         # Use Swiss Ephemeris (and not JPL or Moshier)
         if Ephemeris.log.isEnabledFor(logging.INFO) == True:
             Ephemeris.log.info("Setting flag to use Swiss Ephemeris")
-        Ephemeris.iflag |= swe.FLG_SWIEPH
+        Ephemeris.iflag |= swisseph.FLG_SWIEPH
 
         # Calculate speeds when doing calculations.
         if Ephemeris.log.isEnabledFor(logging.INFO) == True:
             Ephemeris.log.info("Setting flag to calculate speeds")
-        Ephemeris.iflag |= swe.FLG_SPEED
+        Ephemeris.iflag |= swisseph.FLG_SPEED
 
         # Use true positions of the planets by default.
         if Ephemeris.log.isEnabledFor(logging.INFO) == True:
@@ -436,7 +436,7 @@ class Ephemeris:
 
         # Call close on the Swiss Ephemeris so it can cleanup files and
         # deallocate memory, etc.
-        swe.close()
+        swisseph.close()
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("Exiting closeEphemeris()")
@@ -472,7 +472,7 @@ class Ephemeris:
                                "-90 and 90.")
 
         # Set the topo values for use in topo calculations.
-        swe.set_topo(geoLatitudeDeg, geoLatitudeDeg, altitudeMeters)
+        swisseph.set_topo(geoLatitudeDeg, geoLatitudeDeg, altitudeMeters)
 
         # Save off the values for future use (when getting house positions).
         Ephemeris.geoLongitudeDeg = geoLongitudeDeg
@@ -550,9 +550,9 @@ class Ephemeris:
             Ephemeris.log.debug("datetime converted to UTC is: {}".format(dtUtc))
 
         # Get the Julian Day as calculated by Swiss Ephemeris.
-        cal = swe.GREG_CAL
+        cal = swisseph.GREG_CAL
         (jd_et, jd_ut) = \
-                swe.utc_to_jd(dtUtc.year, dtUtc.month, dtUtc.day, 
+                swisseph.utc_to_jd(dtUtc.year, dtUtc.month, dtUtc.day, 
                               dtUtc.hour, dtUtc.minute, dtUtc.second,
                               cal)
 
@@ -585,7 +585,7 @@ class Ephemeris:
                                 format(jd, tzInfo))
 
         gregFlag = 1
-        (year, month, day, hour, mins, secs) = swe.jdut1_to_utc(jd, gregFlag)
+        (year, month, day, hour, mins, secs) = swisseph.jdut1_to_utc(jd, gregFlag)
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             debugStr = "Got converted values from Swiss Ephemeris: " + \
@@ -800,55 +800,55 @@ class Ephemeris:
         rv = None
         
         if planetName == "Sun":
-            rv = swe.SUN
+            rv = swisseph.SUN
         elif planetName == "Moon":
-            rv = swe.MOON
+            rv = swisseph.MOON
         elif planetName == "Mercury":
-            rv = swe.MERCURY
+            rv = swisseph.MERCURY
         elif planetName == "Venus":
-            rv = swe.VENUS
+            rv = swisseph.VENUS
         elif planetName == "Mars":
-            rv = swe.MARS
+            rv = swisseph.MARS
         elif planetName == "Jupiter":
-            rv = swe.JUPITER
+            rv = swisseph.JUPITER
         elif planetName == "Saturn":
-            rv = swe.SATURN
+            rv = swisseph.SATURN
         elif planetName == "Uranus":
-            rv = swe.URANUS
+            rv = swisseph.URANUS
         elif planetName == "Neptune":
-            rv = swe.NEPTUNE
+            rv = swisseph.NEPTUNE
         elif planetName == "Pluto":
-            rv = swe.PLUTO
+            rv = swisseph.PLUTO
         elif planetName == "MeanNorthNode":
-            rv = swe.MEAN_NODE
+            rv = swisseph.MEAN_NODE
         elif planetName == "TrueNorthNode":
-            rv = swe.TRUE_NODE
+            rv = swisseph.TRUE_NODE
         elif planetName == "MeanLunarApogee":
-            rv = swe.MEAN_APOG
+            rv = swisseph.MEAN_APOG
         elif planetName == "OsculatingLunarApogee":
-            rv = swe.OSCU_APOG
+            rv = swisseph.OSCU_APOG
         elif planetName == "InterpolatedLunarApogee":
-            rv = swe.INTP_APOG
+            rv = swisseph.INTP_APOG
         elif planetName == "InterpolatedLunarPerigee":
-            rv = swe.INTP_PERG
+            rv = swisseph.INTP_PERG
         elif planetName == "Earth":
-            rv = swe.EARTH
+            rv = swisseph.EARTH
         elif planetName == "Chiron":
-            rv = swe.CHIRON
+            rv = swisseph.CHIRON
         elif planetName == "Pholus":
-            rv = swe.PHOLUS
+            rv = swisseph.PHOLUS
         elif planetName == "Ceres":
-            rv = swe.CERES
+            rv = swisseph.CERES
         elif planetName == "Pallas":
-            rv = swe.PALLAS
+            rv = swisseph.PALLAS
         elif planetName == "Juno":
-            rv = swe.JUNO
+            rv = swisseph.JUNO
         elif planetName == "Vesta":
-            rv = swe.VESTA
+            rv = swisseph.VESTA
         elif planetName == "Isis":
-            rv = swe.ISIS
+            rv = swisseph.ISIS
         elif planetName == "Nibiru":
-            rv = swe.NIBIRU
+            rv = swisseph.NIBIRU
         else:
             rv = None
 
@@ -864,7 +864,7 @@ class Ephemeris:
         """
 
         # Use the Swiss Ephemeris call to get the planet name.
-        planetName = swe.get_planet_name(planetId)
+        planetName = swisseph.get_planet_name(planetId)
 
         # Do a bit of cleanup of some of the planet names (if it's one of the
         # following planets).
@@ -1045,12 +1045,12 @@ class Ephemeris:
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("Entering setSiderealZodiac()")
-            Ephemeris.log.debug("swe.FLG_SIDEREAL == {}".format(swe.FLG_SIDEREAL))
+            Ephemeris.log.debug("swisseph.FLG_SIDEREAL == {}".format(swisseph.FLG_SIDEREAL))
             Ephemeris.log.debug("iflag before: {}".format(Ephemeris.iflag))
 
-        Ephemeris.iflag |= swe.FLG_SIDEREAL
+        Ephemeris.iflag |= swisseph.FLG_SIDEREAL
 
-        swe.set_sid_mode(swe.SIDM_LAHIRI)
+        swisseph.set_sid_mode(swisseph.SIDM_LAHIRI)
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
@@ -1064,10 +1064,10 @@ class Ephemeris:
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("Entering setTropicalZodiac()")
-            Ephemeris.log.debug("swe.FLG_SIDEREAL == {}".format(swe.FLG_SIDEREAL))
+            Ephemeris.log.debug("swisseph.FLG_SIDEREAL == {}".format(swisseph.FLG_SIDEREAL))
             Ephemeris.log.debug("iflag before: {}".format(Ephemeris.iflag))
             
-        Ephemeris.iflag &= (~swe.FLG_SIDEREAL)
+        Ephemeris.iflag &= (~swisseph.FLG_SIDEREAL)
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
@@ -1080,11 +1080,11 @@ class Ephemeris:
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("Entering setTruePlanetaryPositions()")
-            Ephemeris.log.debug("swe.FLG_TRUEPOS == {}".format(swe.FLG_TRUEPOS))
+            Ephemeris.log.debug("swisseph.FLG_TRUEPOS == {}".format(swisseph.FLG_TRUEPOS))
             Ephemeris.log.debug("iflag before: {}".format(Ephemeris.iflag))
 
             
-        Ephemeris.iflag |= swe.FLG_TRUEPOS
+        Ephemeris.iflag |= swisseph.FLG_TRUEPOS
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
@@ -1096,10 +1096,10 @@ class Ephemeris:
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("Entering setApparentPlanetaryPositions()")
-            Ephemeris.log.debug("swe.FLG_TRUEPOS == {}".format(swe.FLG_TRUEPOS))
+            Ephemeris.log.debug("swisseph.FLG_TRUEPOS == {}".format(swisseph.FLG_TRUEPOS))
             Ephemeris.log.debug("iflag before: {}".format(Ephemeris.iflag))
             
-        Ephemeris.iflag &= (~swe.FLG_TRUEPOS)
+        Ephemeris.iflag &= (~swisseph.FLG_TRUEPOS)
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
@@ -1998,9 +1998,9 @@ class Ephemeris:
             debugStr ="Clearing flags for different coordinate systems." 
             Ephemeris.log.debug(debugStr)
 
-        Ephemeris.iflag &= (~swe.FLG_EQUATORIAL)
-        Ephemeris.iflag &= (~swe.FLG_XYZ)
-        Ephemeris.iflag &= (~swe.FLG_RADIANS)
+        Ephemeris.iflag &= (~swisseph.FLG_EQUATORIAL)
+        Ephemeris.iflag &= (~swisseph.FLG_XYZ)
+        Ephemeris.iflag &= (~swisseph.FLG_RADIANS)
 
     @staticmethod
     def setEclipticalCoordinateSystemFlag():
@@ -2046,7 +2046,7 @@ class Ephemeris:
             Ephemeris.log.debug("setEquatorialCoordinateSystemFlag()")
             
         Ephemeris.__clearCoordinateSystemFlags()
-        Ephemeris.iflag |= swe.FLG_EQUATORIAL
+        Ephemeris.iflag |= swisseph.FLG_EQUATORIAL
 
     @staticmethod
     def setRectangularCoordinateSystemFlag():
@@ -2067,7 +2067,7 @@ class Ephemeris:
             Ephemeris.log.debug("setRectangularCoordinateSystemFlag()")
             
         Ephemeris.__clearCoordinateSystemFlags()
-        Ephemeris.iflag |= swe.FLG_XYZ
+        Ephemeris.iflag |= swisseph.FLG_XYZ
 
     @staticmethod
     def setRadiansCoordinateSystemFlag():
@@ -2077,7 +2077,7 @@ class Ephemeris:
             Ephemeris.log.debug("setRadiansCoordinateSystemFlag()")
             
         Ephemeris.__clearCoordinateSystemFlags()
-        Ephemeris.iflag |= swe.FLG_RADIANS
+        Ephemeris.iflag |= swisseph.FLG_RADIANS
 
     @staticmethod
     def unsetRadiansCoordinateSystemFlag():
@@ -2089,7 +2089,7 @@ class Ephemeris:
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("unsetRadiansCoordinateSystemFlag()")
             
-        Ephemeris.iflag &= (~swe.FLG_RADIANS)
+        Ephemeris.iflag &= (~swisseph.FLG_RADIANS)
 
     @staticmethod
     def setHeliocentricCalculations():
@@ -2098,8 +2098,8 @@ class Ephemeris:
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("setHeliocentricCalculations()")
             
-        Ephemeris.iflag &= (~swe.FLG_TOPOCTR)
-        Ephemeris.iflag |= swe.FLG_HELCTR
+        Ephemeris.iflag &= (~swisseph.FLG_TOPOCTR)
+        Ephemeris.iflag |= swisseph.FLG_HELCTR
         
     @staticmethod
     def setGeocentricCalculations():
@@ -2108,8 +2108,8 @@ class Ephemeris:
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("setGeocentricCalculations()")
             
-        Ephemeris.iflag &= (~swe.FLG_HELCTR)
-        Ephemeris.iflag &= (~swe.FLG_TOPOCTR)
+        Ephemeris.iflag &= (~swisseph.FLG_HELCTR)
+        Ephemeris.iflag &= (~swisseph.FLG_TOPOCTR)
         
     @staticmethod
     def setTopocentricCalculations():
@@ -2118,11 +2118,11 @@ class Ephemeris:
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("setTopocentricCalculations()")
             
-        Ephemeris.iflag &= (~swe.FLG_HELCTR)
-        Ephemeris.iflag |= swe.FLG_TOPOCTR
+        Ephemeris.iflag &= (~swisseph.FLG_HELCTR)
+        Ephemeris.iflag |= swisseph.FLG_TOPOCTR
 
     @staticmethod
-    def calc_ut(jd, planet, flag=swe.FLG_SWIEPH+swe.FLG_SPEED):
+    def calc_ut(jd, planet, flag=swisseph.FLG_SWIEPH+swisseph.FLG_SPEED):
         """Wrapper for the Swiss Ephemeris call calc_ut().
         Parameters and return values are the same as they are for calc_ut().
         This is added to enhance debugging.  
@@ -2141,7 +2141,7 @@ class Ephemeris:
                                 format(jd, planet, flag))
 
         # Do the calculation.
-        (arg1, arg2, arg3, arg4, arg5, arg6) = swe.calc_ut(jd, planet, flag)
+        (arg1, arg2, arg3, arg4, arg5, arg6) = swisseph.calc_ut(jd, planet, flag)
 
         # Log some debug for the calculations and parameters.
         if (Ephemeris.log.isEnabledFor(logging.DEBUG)):
@@ -2160,7 +2160,7 @@ class Ephemeris:
                       geoLatitudeDeg, 
                       geoLongitudeDeg,
                       houseSystem=b"O", 
-                      flag=swe.FLG_SIDEREAL):
+                      flag=swisseph.FLG_SIDEREAL):
         """Wrapper for the Swiss Ephemeris call swe_houses_ex().
 
         Return value:
@@ -2220,8 +2220,8 @@ class Ephemeris:
         flag - int value that is a bit flag.
                Flag is checked for an OR of any the following:
                - 0 
-               - swe.FLG_SIDEREAL
-               - swe.FLG_RADIANS
+               - swisseph.FLG_SIDEREAL
+               - swisseph.FLG_RADIANS
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
@@ -2231,7 +2231,7 @@ class Ephemeris:
 
         # Do the calculation.
         (cusps, ascmc) = \
-            swe.houses_ex(jd, 
+            swisseph.houses_ex(jd, 
                           geoLatitudeDeg,
                           geoLongitudeDeg,
                           houseSystem,
@@ -2281,31 +2281,31 @@ class Ephemeris:
 
         Ephemeris.log.debug("calc_ut(): Flags that set are: ")
         
-        if (Ephemeris.iflag & swe.FLG_JPLEPH):
+        if (Ephemeris.iflag & swisseph.FLG_JPLEPH):
             Ephemeris.log.debug("calc_ut():  - FLG_JPLEPH")
-        if (Ephemeris.iflag & swe.FLG_SWIEPH):
+        if (Ephemeris.iflag & swisseph.FLG_SWIEPH):
             Ephemeris.log.debug("calc_ut():  - FLG_SWIEPH")
-        if (Ephemeris.iflag & swe.FLG_MOSEPH):
+        if (Ephemeris.iflag & swisseph.FLG_MOSEPH):
             Ephemeris.log.debug("calc_ut():  - FLG_MOSEPH")
-        if (Ephemeris.iflag & swe.FLG_HELCTR):
+        if (Ephemeris.iflag & swisseph.FLG_HELCTR):
             Ephemeris.log.debug("calc_ut():  - FLG_HELCTR")
-        if (Ephemeris.iflag & swe.FLG_TRUEPOS):
+        if (Ephemeris.iflag & swisseph.FLG_TRUEPOS):
             Ephemeris.log.debug("calc_ut():  - FLG_TRUEPOS")
-        if (Ephemeris.iflag & swe.FLG_SPEED):
+        if (Ephemeris.iflag & swisseph.FLG_SPEED):
             Ephemeris.log.debug("calc_ut():  - FLG_SPEED")
-        if (Ephemeris.iflag & swe.FLG_EQUATORIAL):
+        if (Ephemeris.iflag & swisseph.FLG_EQUATORIAL):
             Ephemeris.log.debug("calc_ut():  - FLG_EQUATORIAL")
-        if (Ephemeris.iflag & swe.FLG_XYZ):
+        if (Ephemeris.iflag & swisseph.FLG_XYZ):
             Ephemeris.log.debug("calc_ut():  - FLG_XYZ")
-        if (Ephemeris.iflag & swe.FLG_RADIANS):
+        if (Ephemeris.iflag & swisseph.FLG_RADIANS):
             Ephemeris.log.debug("calc_ut():  - FLG_RADIANS")
-        if (Ephemeris.iflag & swe.FLG_TOPOCTR):
+        if (Ephemeris.iflag & swisseph.FLG_TOPOCTR):
             Ephemeris.log.debug("calc_ut():  - FLG_TOPOCTR")
-        if (Ephemeris.iflag & swe.FLG_SIDEREAL):
+        if (Ephemeris.iflag & swisseph.FLG_SIDEREAL):
             Ephemeris.log.debug("calc_ut():  - FLG_SIDEREAL")
 
         Ephemeris.log.debug("calc_ut(): Calculated values:")
-        if (Ephemeris.iflag & swe.FLG_EQUATORIAL):
+        if (Ephemeris.iflag & swisseph.FLG_EQUATORIAL):
             # Equatorial position calculated.
             # output here:
             debugStr = "calc_ut():  {:<36}{}"
@@ -2321,7 +2321,7 @@ class Ephemeris:
                     format("Speed in declination (deg/day):", arg5))
             Ephemeris.log.debug(debugStr.\
                     format("Speed in distance (AU/day)", arg6))
-        elif (Ephemeris.iflag & swe.FLG_XYZ): 
+        elif (Ephemeris.iflag & swisseph.FLG_XYZ): 
             # XYZ position calculated.
             debugStr = "calc_ut():  {:<15}{}"
             Ephemeris.log.debug(debugStr.\
@@ -2382,27 +2382,27 @@ class Ephemeris:
                 "flag={}".format(flag))
 
         # Output the flag set.
-        if (flag & swe.FLG_JPLEPH):
+        if (flag & swisseph.FLG_JPLEPH):
             Ephemeris.log.debug(prefix + " - FLG_JPLEPH")
-        if (flag & swe.FLG_SWIEPH):
+        if (flag & swisseph.FLG_SWIEPH):
             Ephemeris.log.debug(prefix + " - FLG_SWIEPH")
-        if (flag & swe.FLG_MOSEPH):
+        if (flag & swisseph.FLG_MOSEPH):
             Ephemeris.log.debug(prefix + " - FLG_MOSEPH")
-        if (flag & swe.FLG_HELCTR):
+        if (flag & swisseph.FLG_HELCTR):
             Ephemeris.log.debug(prefix + " - FLG_HELCTR")
-        if (flag & swe.FLG_TRUEPOS):
+        if (flag & swisseph.FLG_TRUEPOS):
             Ephemeris.log.debug(prefix + " - FLG_TRUEPOS")
-        if (flag & swe.FLG_SPEED):
+        if (flag & swisseph.FLG_SPEED):
             Ephemeris.log.debug(prefix + " - FLG_SPEED")
-        if (flag & swe.FLG_EQUATORIAL):
+        if (flag & swisseph.FLG_EQUATORIAL):
             Ephemeris.log.debug(prefix + " - FLG_EQUATORIAL")
-        if (flag & swe.FLG_XYZ):
+        if (flag & swisseph.FLG_XYZ):
             Ephemeris.log.debug(prefix + " - FLG_XYZ")
-        if (flag & swe.FLG_RADIANS):
+        if (flag & swisseph.FLG_RADIANS):
             Ephemeris.log.debug(prefix + " - FLG_RADIANS")
-        if (flag & swe.FLG_TOPOCTR):
+        if (flag & swisseph.FLG_TOPOCTR):
             Ephemeris.log.debug(prefix + " - FLG_TOPOCTR")
-        if (flag & swe.FLG_SIDEREAL):
+        if (flag & swisseph.FLG_SIDEREAL):
             Ephemeris.log.debug(prefix + " - FLG_SIDEREAL")
 
         # Output the values returned.
