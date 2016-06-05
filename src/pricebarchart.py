@@ -1853,11 +1853,24 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
                             self.barCountTextYScaling)
         self.barCountText.setTransform(textTransform)
 
+        # Flag that indicates that vertical dotted lines should be drawn.
+        self.drawVerticalDottedLinesFlag = False
+        
         # Flags that indicate that the user is dragging either the start
         # or end point of the QGraphicsItem.
         self.draggingStartPointFlag = False
         self.draggingEndPointFlag = False
         self.clickScenePointF = None
+        
+    def setDrawVerticalDottedLinesFlag(self, flag):
+        """If flag is set to true, then the vertical dotted lines are drawn.
+        """
+
+        self.drawVerticalDottedLinesFlag = flag
+
+        # Need to call this because the bounding box is updated with
+        # all the extra vertical lines being drawn.
+        self.prepareGeometryChange()
         
     def loadSettingsFromPriceBarChartSettings(self, priceBarChartSettings):
         """Reads some of the parameters/settings of this
@@ -2337,9 +2350,59 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         bottomRight = \
             QPointF(xDelta, 1.0 * (self.barCountGraphicsItemBarHeight * 0.5))
         
-        rectWithoutText = QRectF(topLeft, bottomRight)
+        # Initalize to the above boundaries.  We will set them below.
+        localHighY = topLeft.y()
+        localLowY = bottomRight.y()
+        if self.drawVerticalDottedLinesFlag or self.isSelected():
+            # Get the highest high, and lowest low PriceBar in local
+            # coordinates.
+            highestPriceBar = self.scene().getHighestPriceBar()
+            if highestPriceBar != None:
+                highestPrice = highestPriceBar.high
+                highestPriceBarY = self.scene().priceToSceneYPos(highestPrice)
+                localHighestPriceBarY = \
+                    self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
 
-        return rectWithoutText
+                # Overwrite the high if it is larger.
+                if localHighestPriceBarY > localHighY:
+                    localHighY = localHighestPriceBarY
+
+            lowestPriceBar = self.scene().getLowestPriceBar()
+            if lowestPriceBar != None:
+                lowestPrice = lowestPriceBar.low
+                lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                localLowestPriceBarY = \
+                    self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+            
+                # Overwrite the low if it is smaller.
+                if localLowestPriceBarY < localLowY:
+                    localLowY = localLowestPriceBarY
+                
+        xValues = []
+        xValues.append(topLeft.x())
+        xValues.append(bottomRight.x())
+
+        yValues = []
+        yValues.append(topLeft.y())
+        yValues.append(bottomRight.y())
+        yValues.append(localHighY)
+        yValues.append(localLowY)
+
+        xValues.sort()
+        yValues.sort()
+        
+        # Find the smallest x and y.
+        smallestX = xValues[0]
+        smallestY = yValues[0]
+        
+        # Find the largest x and y.
+        largestX = xValues[-1]
+        largestY = yValues[-1]
+            
+        rv = QRectF(QPointF(smallestX, smallestY),
+                    QPointF(largestX, largestY))
+
+        return rv
 
     def paint(self, painter, option, widget):
         """Paints this QGraphicsItem.  Assumes that self.barCountPen is set
@@ -2349,6 +2412,11 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         if painter.pen() != self.barCountPen:
             painter.setPen(self.barCountPen)
         
+        # Keep track of x and y values.  We use this to draw the
+        # dotted lines later.
+        xValues = []
+        yValues = []
+        
         # Draw the left vertical bar part.
         x1 = 0.0
         y1 = 1.0 * (self.barCountGraphicsItemBarHeight * 0.5)
@@ -2356,6 +2424,11 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         y2 = -1.0 * (self.barCountGraphicsItemBarHeight * 0.5)
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
         # Draw the right vertical bar part.
         xDelta = self.endPointF.x() - self.startPointF.x()
         x1 = 0.0 + xDelta
@@ -2364,6 +2437,11 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         y2 = -1.0 * (self.barCountGraphicsItemBarHeight * 0.5)
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
         # Draw the middle horizontal line.
         x1 = 0.0
         y1 = 0.0
@@ -2371,6 +2449,85 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         y2 = 0.0
         painter.drawLine(QLineF(x1, y1, x2, y2))
 
+        xValues.append(x1)
+        xValues.append(x2)
+        yValues.append(y1)
+        yValues.append(y2)
+        
+        # Draw vertical dotted lines at each enabled tick area if the
+        # flag is set to do so, or if it is selected.
+        if self.drawVerticalDottedLinesFlag == True or \
+           option.state & QStyle.State_Selected:
+
+            if self.scene() != None:
+                pad = self.barCountPen.widthF() * 0.5;
+                penWidth = 0.0
+                fgcolor = option.palette.windowText().color()
+                # Ensure good contrast against fgcolor.
+                r = 255
+                g = 255
+                b = 255
+                if fgcolor.red() > 127:
+                    r = 0
+                if fgcolor.green() > 127:
+                    g = 0
+                if fgcolor.blue() > 127:
+                    b = 0
+                bgcolor = QColor(r, g, b)
+    
+                # Get the highest high, and lowest low PriceBar in local
+                # coordinates.
+                highestPriceBar = self.scene().getHighestPriceBar()
+                if highestPriceBar != None:
+                    highestPrice = highestPriceBar.high
+                    highestPriceBarY = \
+                        self.scene().priceToSceneYPos(highestPrice)
+                    localHighY = \
+                        self.mapFromScene(QPointF(0.0, highestPriceBarY)).y()
+                    yValues.append(localHighY)
+                
+                lowestPriceBar = self.scene().getLowestPriceBar()
+                if lowestPriceBar != None:
+                    lowestPrice = lowestPriceBar.low
+                    lowestPriceBarY = self.scene().priceToSceneYPos(lowestPrice)
+                    localLowY = \
+                        self.mapFromScene(QPointF(0.0, lowestPriceBarY)).y()
+                    yValues.append(localLowY)
+
+                # We have all y values now, so sort them to get the
+                # low and high.
+                yValues.sort()
+                smallestY = yValues[0]
+                largestY = yValues[-1]
+        
+                # Vertical line at the beginning.
+                localPosX = 0.0
+                startPoint = QPointF(localPosX, largestY)
+                endPoint = QPointF(localPosX, smallestY)
+                        
+                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
+                painter.setPen(QPen(option.palette.windowText(), 0,
+                                    Qt.DashLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+            
+                # Vertical line at the end.
+                localPosX = 0.0 + xDelta
+                startPoint = QPointF(localPosX, largestY)
+                endPoint = QPointF(localPosX, smallestY)
+                        
+                painter.setPen(QPen(bgcolor, penWidth, Qt.SolidLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
+                painter.setPen(QPen(option.palette.windowText(), 0,
+                                    Qt.DashLine))
+                painter.setBrush(Qt.NoBrush)
+                painter.drawLine(startPoint, endPoint)
+                
         # Draw the bounding rect if the item is selected.
         if option.state & QStyle.State_Selected:
             pad = self.barCountPen.widthF() * 0.5;
@@ -48791,6 +48948,14 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     self.barCountGraphicsItem.\
                         loadSettingsFromPriceBarChartSettings(\
                             self.priceBarChartSettings)
+
+                    # Set the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.  We
+                    # will turn these off after the user fully
+                    # finishes adding the item.
+                    self.barCountGraphicsItem.\
+                        setDrawVerticalDottedLinesFlag(True)
+        
                     self.barCountGraphicsItem.setPos(self.clickOnePointF)
                     self.barCountGraphicsItem.\
                         setStartPointF(self.clickOnePointF)
@@ -48830,6 +48995,11 @@ class PriceBarChartGraphicsView(QGraphicsView):
                     # Call getArtifact() so that the item's artifact
                     # object gets updated and set.
                     self.barCountGraphicsItem.getArtifact()
+                    
+                    # Unset the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.
+                    self.barCountGraphicsItem.\
+                        setDrawVerticalDottedLinesFlag(False)
                     
                     # Emit that the PriceBarChart has changed.
                     self.scene().priceBarChartArtifactGraphicsItemAdded.\
