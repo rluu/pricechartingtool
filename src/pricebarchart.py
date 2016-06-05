@@ -1946,9 +1946,9 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Update the start and end points accordingly. 
         self.startPointF = self.startPointF + posDelta
-        self.startPointF.setX(round(self.startPointF.x()))
+        self.startPointF.setX(self.startPointF.x())
         self.endPointF = self.endPointF + posDelta
-        self.endPointF.setX(round(self.endPointF.x()))
+        self.endPointF.setX(self.endPointF.x())
 
         if self.scene() != None:
             self.recalculateBarCount()
@@ -2140,8 +2140,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         location, and snaps to the closest whole X position.
         """
 
-        #x = self._mousePosToNearestPriceBarX(pointF)
-        x = round(pointF.x())
+        x = pointF.x()
 
         newValue = QPointF(x, self.endPointF.y())
 
@@ -2167,8 +2166,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         location, and snaps to the closest whole X position.
         """
 
-        #x = self._mousePosToNearestPriceBarX(pointF)
-        x = round(pointF.x())
+        x = pointF.x()
 
         newValue = QPointF(x, self.startPointF.y())
 
@@ -2253,8 +2251,10 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
                         # the self.startPointF and the self.endPointF.
                         # This handles the case when the start and end
                         # points are reversed also.
-                        if (self.startPointF.x() < x <= self.endPointF.x()) or \
-                           (self.endPointF.x() < x <= self.startPointF.x()):
+                        if ((self.startPointF.x() < self.endPointF.x()) and \
+                            (self.startPointF.x() < x <= self.endPointF.x())) or \
+                           ((self.endPointF.x() < self.startPointF.x()) and \
+                            (self.endPointF.x() < x <= self.startPointF.x())):
                             
                             self.barCount += 1
                             
