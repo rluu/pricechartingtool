@@ -2149,8 +2149,6 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def setStartPointF(self, pointF):
         """Sets the starting point of the bar count.  The value passed in
         is the mouse location in scene coordinates.  
-        The actual start location drawn utilizes the mouse 
-        location, and snaps to the closest whole X position.
         """
 
         x = pointF.x()
@@ -2175,8 +2173,6 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
     def setEndPointF(self, pointF):
         """Sets the ending point of the bar count.  The value passed in
         is the mouse location in scene coordinates.  
-        The actual start location drawn utilizes the mouse 
-        location, and snaps to the closest whole X position.
         """
 
         x = pointF.x()
@@ -48016,7 +48012,16 @@ class PriceBarChartGraphicsView(QGraphicsView):
                 self.clickOnePointF = None
                 self.clickTwoPointF = None
                 self.barCountGraphicsItem = None
-
+            elif qkeyevent.key() == Qt.Key_Q:
+                # Turn on snap functionality.
+                self.snapEnabledFlag = True
+                self.log.debug("Snap mode enabled.")
+                self.statusMessageUpdate.emit("Snap mode enabled")
+            elif qkeyevent.key() == Qt.Key_W:
+                # Turn off snap functionality.
+                self.snapEnabledFlag = False
+                self.log.debug("Snap mode disabled.")
+                self.statusMessageUpdate.emit("Snap mode disabled")
             else:
                 super().keyPressEvent(qkeyevent)
 
