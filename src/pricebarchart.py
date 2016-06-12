@@ -1847,10 +1847,14 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.barCountTextBrush.setColor(self.barCountGraphicsItemTextColor)
         self.barCountText.setBrush(self.barCountTextBrush)
 
+        # Degrees of text rotation.
+        self.rotationDegrees = 90.0
+
         # Apply some size scaling to the text.
         textTransform = QTransform()
         textTransform.scale(self.barCountTextXScaling, \
                             self.barCountTextYScaling)
+        textTransform.rotate(self.rotationDegrees)
         self.barCountText.setTransform(textTransform)
 
         # Flag that indicates that vertical dotted lines should be drawn.
@@ -1912,6 +1916,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         textTransform = QTransform()
         textTransform.scale(self.barCountTextXScaling, \
                             self.barCountTextYScaling)
+        textTransform.rotate(self.rotationDegrees)
         self.barCountText.setTransform(textTransform)
 
         # Schedule an update.
@@ -2083,10 +2088,8 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             self.draggingStartPointFlag = False
 
-            # Make sure the starting point is to the left of the
-            # ending point.
-            self.normalizeStartAndEnd()
-            
+            self.refreshPosition()
+
             self.prepareGeometryChange()
 
             self.scene().priceBarChartChanged.emit()
@@ -2097,9 +2100,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             
             self.draggingEndPointFlag = False
 
-            # Make sure the starting point is to the left of the
-            # ending point.
-            self.normalizeStartAndEnd()
+            self.refreshPosition()
 
             self.prepareGeometryChange()
 
@@ -2192,6 +2193,17 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
                 self.recalculateBarCount()
                 self.prepareGeometryChange()
 
+    def refreshPosition(self):
+        # Update the barCount label position.  
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        y = 0
+        self.barCountText.setPos(QPointF(deltaX, y))
+        
+        self.recalculateBarCount()
+        
+        super().setPos(self.startPointF)
+
+
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
         point X location.
@@ -2206,17 +2218,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.startPointF = self.endPointF
             self.endPointF = temp
 
-        # Update the barCount label position.  For some reason, this
-        # is required irregardless of the above if statement.  If we
-        # don't do this, then some of the BarCountGraphicsItems
-        # created can't be clicked on.  I'm not sure why that is...
-        deltaX = self.endPointF.x() - self.startPointF.x()
-        y = 0
-        self.barCountText.setPos(QPointF(deltaX, y))
-        
-        self.recalculateBarCount()
-        
-        super().setPos(self.startPointF)
+        self.refreshPosition()
 
     def recalculateBarCount(self):
         """Sets the internal variable holding the number of bars in the
@@ -2261,11 +2263,14 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
                         # This handles the case when the start and end
                         # points are reversed also.
                         if ((self.startPointF.x() < self.endPointF.x()) and \
-                            (self.startPointF.x() < x <= self.endPointF.x())) or \
-                           ((self.endPointF.x() < self.startPointF.x()) and \
+                            (self.startPointF.x() < x <= self.endPointF.x())):
+
+                            self.barCount += 1
+
+                        elif ((self.endPointF.x() < self.startPointF.x()) and \
                             (self.endPointF.x() < x <= self.startPointF.x())):
                             
-                            self.barCount += 1
+                            self.barCount -= 1
                             
 
         # Update the text of the self.barCountText.
@@ -48996,7 +49001,7 @@ class PriceBarChartGraphicsView(QGraphicsView):
                         self.clickTwoPointF.setX(x)
                     
                     self.barCountGraphicsItem.setEndPointF(self.clickTwoPointF)
-                    self.barCountGraphicsItem.normalizeStartAndEnd()
+
                     # Call getArtifact() so that the item's artifact
                     # object gets updated and set.
                     self.barCountGraphicsItem.getArtifact()
@@ -49025,10 +49030,44 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    format(sceneBoundingRect.top(),
                                           sceneBoundingRect.bottom()))
                     
-                    # Clear out working variables.
-                    self.clickOnePointF = None
+                    # This tool will work differently than the other
+                    # measurement tools.  
+                    #
+                    # Instead of clearing out the working variables here,
+                    # we retain them so that we can 
+                    # continue to append new BarCountGraphicsItems
+                    # using the same start point, until the user does a
+                    # right-click.  
+
+                    # Create the BarCountGraphicsItem and initialize it to
+                    # the mouse location.
+                    self.barCountGraphicsItem = BarCountGraphicsItem()
+                    self.barCountGraphicsItem.\
+                        loadSettingsFromPriceBarChartSettings(\
+                            self.priceBarChartSettings)
+
+                    # Set the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.  We
+                    # will turn these off after the user fully
+                    # finishes adding the item.
+                    self.barCountGraphicsItem.\
+                        setDrawVerticalDottedLinesFlag(True)
+        
+                    self.barCountGraphicsItem.setPos(self.clickOnePointF)
+                    self.barCountGraphicsItem.\
+                        setStartPointF(self.clickOnePointF)
+                    self.barCountGraphicsItem.\
+                        setEndPointF(self.clickTwoPointF)
+                    self.scene().addItem(self.barCountGraphicsItem)
+                    
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.barCountGraphicsItem)
+
+                    # Now clear out self.clickTwoPointF so that
+                    # we fall in this same if case again if the user left
+                    # clicks.
                     self.clickTwoPointF = None
-                    self.barCountGraphicsItem = None
 
                 else:
                     self.log.warn("Unexpected state reached.")
