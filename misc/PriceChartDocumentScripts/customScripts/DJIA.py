@@ -66,9 +66,9 @@ highPrice = 22000.0
 #highPrice = 15000.0
 #highPrice = 4500.0
 #highPrice = 400.0
-#lowPrice = 240.0
+lowPrice = 240.0
 #lowPrice = 35.0
-lowPrice = 800.0
+#lowPrice = 800.0
 #lowPrice = 4500.0
 
 
@@ -102,7 +102,7 @@ def processPCDD(pcdd, tag):
     #lowPrice = 600.0
     #lowPrice = 300.0
 
-    if True:
+    if False:
         success = PlanetaryCombinationsLibrary.\
         addGeoLongitudeVelocityPolarityChangeVerticalLines(\
         pcdd, startDt, endDt, highPrice, lowPrice,
@@ -213,6 +213,24 @@ def processPCDD(pcdd, tag):
             "Sun", "geocentric", "tropical",
             degreeValue, color=QColor(Qt.red))
     
+    ######################################
+
+    if False:
+        degreeValue = 0
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Venus", "heliocentric", "tropical",
+            "Mars", "heliocentric", "tropical",
+            degreeValue, color=QColor(Qt.red))
+    if True:
+        degreeValue = 180
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Venus", "heliocentric", "tropical",
+            "Mars", "heliocentric", "tropical",
+            degreeValue, color=QColor(Qt.darkMagenta))
 
     ######################################
 
