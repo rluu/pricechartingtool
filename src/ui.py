@@ -52,13 +52,13 @@ class MainWindow(QMainWindow):
     # Default timeout for showing a message in the QStatusBar.
     defaultStatusBarMsgTimeMsec = 4000
 
-    
-    def __init__(self, 
-                 appName, 
-                 appVersion, 
-                 appDate, 
+
+    def __init__(self,
+                 appName,
+                 appVersion,
+                 appDate,
                  appAuthor,
-                 appAuthorEmail, 
+                 appAuthorEmail,
                  parent=None):
         super().__init__(parent)
 
@@ -71,7 +71,7 @@ class MainWindow(QMainWindow):
         self.appAuthor = appAuthor
         self.appAuthorEmail = appAuthorEmail
         self.appIcon = QIcon(":/images/rluu/appIcon.png")
-        
+
         # Set application details so the we can use QSettings default
         # constructor later.
         QCoreApplication.setOrganizationName(appAuthor)
@@ -99,7 +99,7 @@ class MainWindow(QMainWindow):
         # Variable holding the most recently activated QAction for a
         # tool mode related to creating QGraphicsItems.
         self.mostRecentGraphicsItemToolModeAction = None
-        
+
         # Create actions, menus, toolbars, statusbar, widgets, etc.
         self._createActions()
         self._createMenus()
@@ -122,9 +122,9 @@ class MainWindow(QMainWindow):
 
         # Remove old temporary Astrolog .txt files that were created by us.
         self.removeOldTemporaryAstrologFiles()
-        
+
     def _createActions(self):
-        """Creates all the QAction objects that will be mapped to the 
+        """Creates all the QAction objects that will be mapped to the
         choices on the menu, toolbar and keyboard shortcuts."""
 
         ####################
@@ -168,7 +168,7 @@ class MainWindow(QMainWindow):
             setStatusTip("Check source data file for PriceBar updates")
         self.checkSourceDataFileForPriceBarUpdatesAction.triggered.\
             connect(self._handleCheckSourceDataFileForPriceBarUpdatesAction)
-        
+
         # Create the printAction.
         icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/document-print.png")
         self.printAction = QAction(icon, "&Print", self)
@@ -217,7 +217,7 @@ class MainWindow(QMainWindow):
             setStatusTip("Edit PriceChartDocument Data")
         self.editPriceChartDocumentDataAction.triggered.\
             connect(self._editPriceChartDocumentData)
-        
+
         # Create the editPriceBarChartSettingsAction.
         icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/categories/applications-system.png")
         self.editPriceBarChartSettingsAction = \
@@ -226,7 +226,7 @@ class MainWindow(QMainWindow):
             setStatusTip("Edit PriceBarChart Settings")
         self.editPriceBarChartSettingsAction.triggered.\
             connect(self._editPriceBarChartSettings)
-        
+
         # Create the editPriceBarChartScalingAction.
         icon = QIcon(":/images/rluu/triangleRuler.png")
         self.editPriceBarChartScalingAction = \
@@ -235,7 +235,7 @@ class MainWindow(QMainWindow):
             setStatusTip("Edit PriceBarChart Scaling")
         self.editPriceBarChartScalingAction.triggered.\
             connect(self._editPriceBarChartScaling)
-        
+
         # Create the editLookbackMultiplesAction.
         icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/actions/edit-undo.png")
         self.editLookbackMultiplesAction = \
@@ -256,7 +256,7 @@ class MainWindow(QMainWindow):
             setStatusTip("Enable AstrologyChart")
         self.enableAndShowAstrologyChartAction.triggered.\
             connect(self._handleEnableAndShowAstrologyChartAction)
-        
+
         self.enableAndShowPlanetaryInfoTableAction = \
             QAction("Enable Planetary Info Table", self)
         self.enableAndShowPlanetaryInfoTableAction.setCheckable(True)
@@ -264,7 +264,7 @@ class MainWindow(QMainWindow):
             setStatusTip("Enable Planetary Info Table")
         self.enableAndShowPlanetaryInfoTableAction.triggered.\
             connect(self._handleEnableAndShowPlanetaryInfoTableAction)
-        
+
         self.trackMouseToAstroChart1Action = \
             QAction("Link mouse pos to Astro Chart 1", self)
         self.trackMouseToAstroChart1Action.setCheckable(True)
@@ -272,7 +272,7 @@ class MainWindow(QMainWindow):
             setStatusTip("Link mouse pos to Astro Chart 1")
         self.trackMouseToAstroChart1Action.triggered.\
             connect(self._handleTrackMouseToAstroChartAction)
-        
+
         self.trackMouseToAstroChart2Action = \
             QAction("Link mouse pos to Astro Chart 2", self)
         self.trackMouseToAstroChart2Action.setCheckable(True)
@@ -280,7 +280,7 @@ class MainWindow(QMainWindow):
             setStatusTip("Link mouse pos to Astro Chart 2")
         self.trackMouseToAstroChart2Action.triggered.\
             connect(self._handleTrackMouseToAstroChartAction)
-        
+
         self.trackMouseToAstroChart3Action = \
             QAction("Link mouse pos to Astro Chart 3", self)
         self.trackMouseToAstroChart3Action.setCheckable(True)
@@ -303,7 +303,7 @@ class MainWindow(QMainWindow):
             "chart's BirthInfo timezone.")
         self.openJHoraWithLocalizedNowAction.triggered.\
             connect(self._handleOpenJHoraWithLocalizedNowAction)
-        
+
         self.openJHoraWithBirthInfoAction = \
             QAction("Open JHora with the chart's birth info", self)
         self.openJHoraWithBirthInfoAction.\
@@ -325,7 +325,7 @@ class MainWindow(QMainWindow):
             "chart's BirthInfo timezone.")
         self.openAstrologWithLocalizedNowAction.triggered.\
             connect(self._handleOpenAstrologWithLocalizedNowAction)
-        
+
         self.openAstrologWithBirthInfoAction = \
             QAction("Open Astrolog with the chart's birth info", self)
         self.openAstrologWithBirthInfoAction.\
@@ -337,17 +337,17 @@ class MainWindow(QMainWindow):
             QAction("Set BirthInfo to Astro Chart 1", self)
         self.openAstroChart1WithBirthInfoAction.triggered.\
             connect(self._handleOpenAstroChart1WithBirthInfoAction)
-        
+
         self.openAstroChart2WithBirthInfoAction = \
             QAction("Set BirthInfo to Astro Chart 2", self)
         self.openAstroChart2WithBirthInfoAction.triggered.\
             connect(self._handleOpenAstroChart2WithBirthInfoAction)
-        
+
         self.openAstroChart3WithBirthInfoAction = \
             QAction("Set BirthInfo to Astro Chart 3", self)
         self.openAstroChart3WithBirthInfoAction.triggered.\
             connect(self._handleOpenAstroChart3WithBirthInfoAction)
-        
+
         self.openAstroChart1WithNowAction = \
             QAction("Set 'now' to Astro Chart 1", self)
         self.openAstroChart1WithNowAction.triggered.\
@@ -360,7 +360,7 @@ class MainWindow(QMainWindow):
             QAction("Set 'now' to Astro Chart 3", self)
         self.openAstroChart3WithNowAction.triggered.\
             connect(self._handleOpenAstroChart3WithNowAction)
-        
+
         self.clearAstroChart1Action = \
             QAction("Clear Astro Chart 1", self)
         self.clearAstroChart1Action.triggered.\
@@ -373,7 +373,7 @@ class MainWindow(QMainWindow):
             QAction("Clear Astro Chart 3", self)
         self.clearAstroChart3Action.triggered.\
             connect(self._handleClearAstroChart3Action)
-        
+
         ####################
         # Create actions for the LookbackMultiple Menu.
 
@@ -385,17 +385,17 @@ class MainWindow(QMainWindow):
         self.enableAndShowLookbackMultiplePanelAction.setCheckable(True)
         self.enableAndShowLookbackMultiplePanelAction.triggered.\
             connect(self._handleEnableAndShowLookbackMultiplePanelAction)
-        
+
         ####################
         # Create actions for the Tools Menu.
-        
+
         # Create the ReadOnlyPointerToolAction.
         icon = QIcon(":/images/qt/pointer.png")
         self.readOnlyPointerToolAction = \
             QAction(icon, "Read-Only Pointer Tool", self)
         self.readOnlyPointerToolAction.setStatusTip("Read-Only Pointer Tool")
         self.readOnlyPointerToolAction.setCheckable(True)
-        
+
         # Create the PointerToolAction.
         icon = QIcon(":/images/rluu/pointerPencil.png")
         self.pointerToolAction = QAction(icon, "Pointer Tool", self)
@@ -453,7 +453,7 @@ class MainWindow(QMainWindow):
             QAction(icon, "Price Modal Scale Tool", self)
         self.priceModalScaleToolAction.setStatusTip("Price Modal Scale Tool")
         self.priceModalScaleToolAction.setCheckable(True)
-        
+
         # Create the PlanetLongitudeMovementMeasurementToolAction
         icon = QIcon(":/images/rluu/planetLongitudeMovementMeasurement.png")
         self.planetLongitudeMovementMeasurementToolAction = \
@@ -461,7 +461,7 @@ class MainWindow(QMainWindow):
         self.planetLongitudeMovementMeasurementToolAction.\
             setStatusTip("Planet Longitude Movement Measurement Tool")
         self.planetLongitudeMovementMeasurementToolAction.setCheckable(True)
-        
+
         # Create the TextToolAction
         icon = QIcon(":/images/tango-icon-theme-0.8.90/32x32/mimetypes/font-x-generic.png")
         self.textToolAction = \
@@ -637,7 +637,7 @@ class MainWindow(QMainWindow):
         self.shashtihayaniDasaToolAction.setCheckable(True)
 
         # Create a QActionGroup because all these tool modes should be
-        # exclusive.  
+        # exclusive.
         self.toolActionGroup = QActionGroup(self)
         self.toolActionGroup.setExclusive(True)
         self.toolActionGroup.addAction(self.readOnlyPointerToolAction)
@@ -676,7 +676,7 @@ class MainWindow(QMainWindow):
         self.toolActionGroup.addAction(self.panchottariDasaToolAction)
         self.toolActionGroup.addAction(self.shashtihayaniDasaToolAction)
         self.toolActionGroup.triggered.connect(self._toolsActionTriggered)
-            
+
         # Default to the ReadOnlyPointerTool being checked by default.
         self.readOnlyPointerToolAction.setChecked(True)
 
@@ -738,7 +738,7 @@ class MainWindow(QMainWindow):
                     "&Shortcut Keys", self)
         self.showShortcutKeysAction.setStatusTip("Show shortcut keys")
         self.showShortcutKeysAction.triggered.connect(self._showShortcutKeys)
-        
+
         self.memoryUsageAction = QAction(self.appIcon, "&Memory Usage", self)
         self.memoryUsageAction.\
             setStatusTip("Show application memory utilization.")
@@ -813,7 +813,7 @@ class MainWindow(QMainWindow):
         self.astroMenu.addAction(self.clearAstroChart1Action)
         self.astroMenu.addAction(self.clearAstroChart2Action)
         self.astroMenu.addAction(self.clearAstroChart3Action)
-        
+
         # Create the LookbackMultiple menu.
         self.lookbackMultipleMenu = self.menuBar().addMenu("&Lookback Multiple")
         self.lookbackMultipleMenu.\
@@ -887,11 +887,11 @@ class MainWindow(QMainWindow):
         self.fileToolBar.addSeparator()
         # This action is shown on the toolbar only for non-Mac
         # platforms because it takes too much space on the toolbar on
-        # Macbook Pro laptop.  
+        # Macbook Pro laptop.
         if platform.system() != "Darwin":
             self.fileToolBar.addAction(self.printAction)
             self.fileToolBar.addAction(self.printPreviewAction)
-        
+
         # Create the Edit toolbar.
         self.editToolBar = self.addToolBar("Edit")
         self.editToolBar.setObjectName("editToolBar")
@@ -923,7 +923,7 @@ class MainWindow(QMainWindow):
         self.toolsToolBar.addAction(self.priceTimeInfoToolAction)
         # This action is shown on the toolbar only for non-Mac
         # platforms because it takes too much space on the toolbar on
-        # Macbook Pro laptop.  
+        # Macbook Pro laptop.
         if platform.system() != "Darwin":
             self.toolsToolBar.addAction(self.priceTimeVectorToolAction)
         self.toolsToolBar.addAction(self.lineSegment1ToolAction)
@@ -967,7 +967,7 @@ class MainWindow(QMainWindow):
             self.log.debug("Currently active subwindow is: None")
         else:
             isActive = True
-            self.log.debug("Currently active subwindow title is: " + 
+            self.log.debug("Currently active subwindow title is: " +
                            priceChartDocument.title)
 
         # Set the QActions according to whether it is always True, always
@@ -1067,7 +1067,7 @@ class MainWindow(QMainWindow):
 
             flag = self.enableAndShowPlanetaryInfoTableAction.isChecked()
             priceChartDocument.setEnableAndShowPlanetaryInfoTable(flag)
-            
+
             flag = self.trackMouseToAstroChart1Action.isChecked()
             priceChartDocument.setTrackMouseToAstroChart1(flag)
 
@@ -1076,7 +1076,7 @@ class MainWindow(QMainWindow):
 
             flag = self.trackMouseToAstroChart3Action.isChecked()
             priceChartDocument.setTrackMouseToAstroChart3(flag)
-        
+
         # Depending on whether or not the LookbackMultiplePanelWidget
         # is enabled or not, then set it to be visible or not, respectively.
         if isActive:
@@ -1232,16 +1232,16 @@ class MainWindow(QMainWindow):
                     action.setChecked(False)
 
                 # Add the action to the signal mapper that will connect
-                # this action being triggered to the related 
+                # this action being triggered to the related
                 # priceChartDocument.
                 self.windowMapper.setMapping(action, priceChartDocument)
                 action.triggered.connect(self.windowMapper.map)
-                
+
                 # Increment counter for the window number in the Window
                 # menu.
                 j += 1
             else:
-                self.log.debug("Currently only supporting windows that " + 
+                self.log.debug("Currently only supporting windows that " +
                                "are PriceChartDocument types only.")
 
         self.log.debug("Exiting _updateWindowMenu()")
@@ -1266,8 +1266,8 @@ class MainWindow(QMainWindow):
 
     def getActivePriceChartDocument(self):
         """Returns a reference to the currently selected
-        PriceChartDocument.  If no PriceChartDocument is selected 
-        (nothing selected, or some other kind of document selected), 
+        PriceChartDocument.  If no PriceChartDocument is selected
+        (nothing selected, or some other kind of document selected),
         then None is returned.
         """
 
@@ -1284,16 +1284,16 @@ class MainWindow(QMainWindow):
         Reads in QSettings values for preferences and default values.
 
         This function uses QSettings and assumes that the calls to
-        QCoreApplication.setOrganizationName(), and 
-        QCoreApplication.setApplicationName() have been called 
-        previously (so that the QSettings constructor can be called 
+        QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called
+        previously (so that the QSettings constructor can be called
         without any parameters specified).
         """
 
         self.log.debug("Entered _readSettings()")
 
         # Preference settings.
-        settings = QSettings() 
+        settings = QSettings()
 
         # Window geometry.
         key = "ui/MainWindow/windowGeometry"
@@ -1306,7 +1306,7 @@ class MainWindow(QMainWindow):
                                type=QByteArray)
             if self.windowGeometry == None:
                 self.windowGeometry = QByteArray()
-            
+
         # Window state.
         key = "ui/MainWindow/windowState"
         if not settings.contains(key):
@@ -1326,16 +1326,16 @@ class MainWindow(QMainWindow):
         Writes current settings values to the QSettings object.
 
         This function uses QSettings and assumes that the calls to
-        QCoreApplication.setOrganizationName(), and 
-        QCoreApplication.setApplicationName() have been called 
-        previously (so that the QSettings constructor can be called 
+        QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called
+        previously (so that the QSettings constructor can be called
         without any parameters specified).
         """
 
         self.log.debug("Entered _writeSettings()")
 
         # Preference settings.
-        settings = QSettings() 
+        settings = QSettings()
 
         # Only write the settings if the value has changed.
 
@@ -1345,9 +1345,9 @@ class MainWindow(QMainWindow):
                settings.value(key,
                               defaultValue=None,
                               type=QByteArray) != self.saveGeometry():
-                
+
             settings.setValue(key, self.saveGeometry())
-            
+
 
         # Window state.
         key = "ui/MainWindow/windowState"
@@ -1355,7 +1355,7 @@ class MainWindow(QMainWindow):
                settings.value(key,
                               defaultValue=None,
                               type=QByteArray) != self.saveState():
-                
+
             settings.setValue(key, self.saveState())
 
 
@@ -1369,7 +1369,7 @@ class MainWindow(QMainWindow):
         self.log.debug("Entered _newChart()")
 
         wizard = PriceChartDocumentWizard()
-        returnVal = wizard.exec_() 
+        returnVal = wizard.exec_()
 
         if returnVal == QDialog.Accepted:
             self.log.debug("PriceChartDocumentWizard accepted")
@@ -1424,9 +1424,9 @@ class MainWindow(QMainWindow):
         """Interactive dialogs to open an existing PriceChartDocument.
 
         This function uses QSettings and assumes that the calls to
-        QCoreApplication.setOrganizationName(), and 
-        QCoreApplication.setApplicationName() have been called 
-        previously (so that the QSettings constructor can be called 
+        QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called
+        previously (so that the QSettings constructor can be called
         without any parameters specified).
         """
 
@@ -1447,17 +1447,17 @@ class MainWindow(QMainWindow):
 
         filename = \
             QFileDialog.\
-                getOpenFileName(self, 
+                getOpenFileName(self,
                                 "Open PriceChartDocument File",
                                 defaultPriceChartDocumentOpenDirectory,
                                 filters)
 
         # With PyQt4, the filename returned here is a str in Python.
         # With PyQt5, the filename returned here is a tuple in Python, which
-        # crashes the application.  
+        # crashes the application.
         #   - First  field of the tuple is the str filename.
         #   - Second field of hte tuple is the str for the file filter matched.
-        # 
+        #
         # The Qt documentation says that a QString should be returned
         # for this method, which should have been converted to a str
         # with PyQt.  This is a bug, but we work around this problem here.
@@ -1473,16 +1473,16 @@ class MainWindow(QMainWindow):
             # PyQt4.
             # Convert filename from QString to str.
             filename = str(filename)
-            
+
         if filename != "":
             self.log.debug("_openChart(): The user selected filename: " +
                            "'{}'".format(filename))
-            
-            # Okay, so the person chose a file that is non-empty.  
+
+            # Okay, so the person chose a file that is non-empty.
             # See if this filename has already been opened in another
             # PriceChartDocument.  If this is so, prompt to make sure the
             # user wants to open two PriceChartDocuments that point to the
-            # same file.  
+            # same file.
             filenameAlreadyOpened = False
 
             # Get the list of subwindows.
@@ -1512,14 +1512,14 @@ class MainWindow(QMainWindow):
                 defaultButton = QMessageBox.No
 
                 buttonClicked = \
-                    QMessageBox.warning(self, title, text, buttons, 
+                    QMessageBox.warning(self, title, text, buttons,
                                         defaultButton)
 
                 if buttonClicked == QMessageBox.No:
                     # The user doesn't want to load this file.
                     # Exit this function.
                     return
-            
+
             # Load the file.
 
             # Create the subwindow.
@@ -1531,7 +1531,7 @@ class MainWindow(QMainWindow):
                     unpicklePriceChartDocumentDataFromFile(filename)
 
             if loadSuccess == True:
-                # Load into the object was successful.  
+                # Load into the object was successful.
 
                 # Connect the signal for updating the status bar message.
                 priceChartDocument.statusMessageUpdate[str].\
@@ -1556,13 +1556,13 @@ class MainWindow(QMainWindow):
 
                 # Update the QSettings value for the default open
                 # location if the directory is different.
-                
+
                 # Get the directory where this file lives.
                 loc = filename.rfind(os.sep)
                 directory = filename[:loc]
 
                 # Compare the directory of the file chosen with the
-                # QSettings value for the default open location.  
+                # QSettings value for the default open location.
                 # If they are different, then set a new default.
                 if directory != defaultPriceChartDocumentOpenDirectory:
                     settings.\
@@ -1596,7 +1596,7 @@ class MainWindow(QMainWindow):
 
     def _saveChart(self):
         """Saves the current QMdiSubwindow.
-        
+
         Returns True if the save action suceeded, False otherwise.
         """
 
@@ -1614,13 +1614,13 @@ class MainWindow(QMainWindow):
         else:
             self.log.warn("Saving this QMdiSubwindow type is not supported.")
             rv = False
-            
+
         self.log.debug("Exiting _saveChart() with rv == {}".format(rv))
         return rv
 
     def _saveAsChart(self):
         """Saves the current QMdiSubwindow to a new file.
-        
+
         Returns True if the save action suceeded, False otherwise.
         """
 
@@ -1636,7 +1636,7 @@ class MainWindow(QMainWindow):
 
             rv = priceChartDocument.saveAsChart()
         else:
-            self.log.warn("'Save As' for this QMdiSubwindow type " + 
+            self.log.warn("'Save As' for this QMdiSubwindow type " +
                           "is not supported.")
             rv = False
 
@@ -1646,7 +1646,7 @@ class MainWindow(QMainWindow):
         # need to update the 'Window' menu to reflect that.
         if rv == True:
             self._updateWindowMenu()
-                    
+
         self.log.debug("Exiting _saveAsChart() with rv == {}".format(rv))
         return rv
 
@@ -1655,7 +1655,7 @@ class MainWindow(QMainWindow):
         timeoutMSec milliseconds.
         """
 
-        self.statusBar().showMessage(text, 
+        self.statusBar().showMessage(text,
                                      MainWindow.defaultStatusBarMsgTimeMsec)
 
     def _handleCheckSourceDataFileForPriceBarUpdatesAction(self):
@@ -1675,10 +1675,10 @@ class MainWindow(QMainWindow):
             priceChartDocument = subwindow
 
             priceChartDocument.checkSourceDataFileForPriceBarUpdates()
-            
+
         self.log.debug("Exiting " +
                        "_handleCheckSourceDataFileForPriceBarUpdatesAction")
-        
+
     def handleJhoraLaunch(self, dt=None, birthInfo=None):
         """Opens JHora with the given datetime.datetime timestamp.
         Uses the currently set self.birthInfo object for timezone
@@ -1686,9 +1686,9 @@ class MainWindow(QMainWindow):
 
         If 'dt' is None, then JHora is opened without any arguments given.
         Otherwise, both 'dt' and 'birthInfo' need to be set.
-        
+
         Arguments:
-        
+
         dt - datetime.datetime object holding the timestamp to use for
              launching and viewing in JHora.  If dt is None, then
              JHora is opened without any arguments.
@@ -1704,25 +1704,25 @@ class MainWindow(QMainWindow):
         if dt == None:
             # Just open JHora without any file specified.
             self.log.debug("dt == None and birthInfo == None.")
-            
+
             # Launch JHora.
             self._execJHora()
-            
+
         elif dt != None and birthInfo != None:
             # Normal case for specifying a timestamp with birthInfo.
             self.log.debug("dt != None and birthInfo != None.")
-            
+
         else:
             self.log.error("If 'dt' argument is provided, " +
-                           "then birthInfo cannot be None.") 
+                           "then birthInfo cannot be None.")
             return
-        
+
         self.log.debug("Values being used: " +
                        "dt='{}', birthInfo='{}'".\
                        format(Ephemeris.datetimeToStr(dt),
                               birthInfo.toString()))
 
-        
+
         # This is chart destination directory path, in the filename format
         # readable on the current operating system.
         chartDestPath = ""
@@ -1730,7 +1730,7 @@ class MainWindow(QMainWindow):
         # This is the chart destination directory path, in the filename format
         # readable on Posix systems (Unix, Linux, Mac OS X).
         chartDestPathPosix = ""
-        
+
         # This is the chart destination directory path, in the filename format
         # readable on Microsoft Windows systems.
         chartDestPathWin = ""
@@ -1742,12 +1742,12 @@ class MainWindow(QMainWindow):
         self.log.debug("chartDestPath == " + chartDestPath)
         self.log.debug("chartDestPathPosix == " + chartDestPathPosix)
         self.log.debug("chartDestPathWin == " + chartDestPathWin)
-        
+
         # Create the file to open JHora with.
         filenameTemplate = chartDestPath + os.sep + \
                            "tmp_" + self.appName + "_XXXXXX.jhd"
         self.log.debug("filenameTemplate == " + filenameTemplate)
-        
+
         f = QTemporaryFile(filenameTemplate)
 
         # Need to disable auto-remove because the QTemporaryFile gets
@@ -1756,7 +1756,7 @@ class MainWindow(QMainWindow):
         f.setAutoRemove(False)
 
         if f.open(QIODevice.ReadWrite):
-            
+
             # Get the text to go into the file from the input parameters.
             text = self._generateJHoraFileText(dt, birthInfo)
 
@@ -1771,25 +1771,25 @@ class MainWindow(QMainWindow):
             # all wine or Windows knows how to see.
             filename = chartDestPathWin + "\\" + \
                        os.path.basename(f.fileName())
-            
+
             self.log.debug("f.fileName() == " + f.fileName())
             self.log.debug("filename == " + filename)
 
             self._execJHora(filename)
-            
+
         else:
             errMsg = "JHora launch failed because: " + os.linesep + \
                      "Could not open a temporary file for JHora."
             self.log.error(errMsg)
-            
+
             title = "Error"
             text = errMsg
             buttons = QMessageBox.Ok
             defaultButton = QMessageBox.NoButton
-            
+
             QMessageBox.warning(self, title, text, buttons, defaultButton)
-            
-        
+
+
         self.log.debug("Exiting handleJhoraLaunch()")
 
     def _getJHoraChartDestPath(self):
@@ -1814,7 +1814,7 @@ class MainWindow(QMainWindow):
         """
 
         self.log.debug("Entered _getJHoraChartDestPath()")
-        
+
         # Make a directory to store our temporary JHora .jhd files.
         # Optimally, we would like to place it within JHora's 'data'
         # directory, but that doesn't work because that directory path
@@ -1827,11 +1827,11 @@ class MainWindow(QMainWindow):
         # This is the chart destination directory path, in the filename format
         # readable on Posix systems (Unix, Linux, Mac OS X).
         chartDestPathPosix = ""
-        
+
         # This is the chart destination directory path, in the filename format
         # readable on Microsoft Windows systems.
         chartDestPathWin = ""
-        
+
         try:
             if os.name == "posix":
                 self.log.debug("posix")
@@ -1841,30 +1841,30 @@ class MainWindow(QMainWindow):
                     ".wine/drive_c/" + self.appName + "/data"
                 chartDestPathWin = \
                     "C:\\" + self.appName + "\\data"
-                
+
                 self.log.debug("chartDestPathPosix == " + chartDestPathPosix)
                 self.log.debug("chartDestPathWin == " + chartDestPathWin)
                 self.log.debug("os.path.exists(chartDestPathPosix) == {}".\
                                format(os.path.exists(chartDestPathPosix)))
                 self.log.debug("os.path.isdir(chartDestPathPosix) == {}".\
                                format(os.path.isdir(chartDestPathPosix)))
-                
+
                 if os.path.exists(chartDestPathPosix) and \
                        os.path.isdir(chartDestPathPosix):
-                    
+
                     self.log.debug("Good, directory exists: " +
                                    chartDestPathPosix)
-                    
+
                 else:
                     self.log.debug("making dirs: " + chartDestPathPosix)
                     os.makedirs(chartDestPathPosix)
 
-                    
+
                 chartDestPath = chartDestPathPosix
-                
+
             elif os.name == "nt":
                 self.log.debug("nt")
-            
+
                 chartDestPathWin = \
                     "C:\\" + self.appName + "\\data"
 
@@ -1873,10 +1873,10 @@ class MainWindow(QMainWindow):
                                format(os.path.exists(chartDestPathWin)))
                 self.log.debug("os.path.isdir(chartDestPathWin) == {}".\
                                format(os.path.isdir(chartDestPathWin)))
-                
+
                 if os.path.exists(chartDestPathWin) and \
                        os.path.isdir(chartDestPathWin):
-                    
+
                     self.log.debug("Good, directory exists: " + \
                                    chartDestPathWin)
                 else:
@@ -1884,81 +1884,81 @@ class MainWindow(QMainWindow):
                     os.makedirs(chartDestPathWin)
 
                 chartDestPath = chartDestPathWin
-                
+
             else:
                 self.log.warn("Operating system unsupported: " + os.name)
                 return
-            
+
         except os.error as e:
-            
+
             self.log.error("Error while trying to ensure the " +
                            "JHora chart destination directory exists.  " +
                            "{}".format(e))
-            
+
         self.log.debug("chartDestPath == " + chartDestPath)
         self.log.debug("chartDestPathPosix == " + chartDestPathPosix)
         self.log.debug("chartDestPathWin == " + chartDestPathWin)
-        
+
         self.log.debug("Exiting _getJHoraChartDestPath()")
-        
+
         return (chartDestPath, chartDestPathPosix, chartDestPathWin)
-    
+
     def _execJHora(self, filename=None):
         """Runs the executable JHora.
 
         Arguments:
-        
+
         filename - str containing the full path of the JHora .jhd to open.
                    This argument can be None if opening JHora without
                    any arguments is desired.
         """
 
         toExec = ""
-        
+
         if os.name == "posix":
-            
+
             toExec = \
                 "wine " + \
                 os.path.expanduser('~') + os.sep + \
                 ".wine/drive_c/Program\\ Files/Jagannatha\\ Hora/bin/jhora.exe"
-            
+
             if filename != None:
                 toExec += " \"" + filename + "\""
-            
+
             self.log.debug("Launching JHora.  toExec is: " + toExec)
-            
+
             p = subprocess.Popen(toExec, shell=True)
-            
+
             self.log.debug("JHora launched.")
-            
+
         elif os.name == "nt":
-            
+
             toExec = \
                 "C:\\Program Files\\Jagannatha Hora\\bin\\jhora.exe"
-            
+
             if filename != None:
                 toExec += " \"" + filename + "\""
-            
+
             self.log.debug("Launching JHora.  toExec is: " + toExec)
 
             p = subprocess.Popen(toExec)
-            
+
             self.log.debug("JHora launched.")
-            
+
         else:
             self.log.warn("Operating system unsupported: " + os.name)
 
-        
-        
+
+
     def _generateJHoraFileText(self, dt, birthInfo):
         """Generates the text that would be in a JHora .jhd file, for
         the information given in the specified datetime.datetime and
         BirthInfo.
-        
+
         Arguments:
-        
+
         dt - datetime.datetime object holding the timestamp to use for
-             launching and viewing in JHora.  
+             launching and viewing in JHora.
 
         birthInfo - BirthInfo object holding information about the
                     location/altitude and timezone.
@@ -1995,11 +1995,11 @@ class MainWindow(QMainWindow):
         # <5>: Minutes.  This includes the seconds as a float
         #      within it, but with no decimals.  This value is 15
         #      characters long.
-        # 
+        #
         #      For example:
         #        - 35 minutes and 45 seconds would be: "357500000000000"
         #        -  5 minutes and 37 seconds would be: "056166666666666"
-        # 
+        #
         # <6>: Hours of timezone offset in standard time, as an int.
         #      Negative values represent East of GMT, and
         #      positive values represent West of GMT.
@@ -2015,7 +2015,7 @@ class MainWindow(QMainWindow):
         #
         #      Example:
         #        "400000" for 40 minutes.
-        # 
+        #
         # <8>: Longitude degrees as an int.
         #      Negative values represent degrees East.
         #
@@ -2042,9 +2042,9 @@ class MainWindow(QMainWindow):
         #
         #      Example:
         #        "496500" for 49 minutes 39 seconds
-        # 
+        #
         # <12>: Altitude in meters above sea level,
-        #      as a float with 6 digits of precision.  
+        #      as a float with 6 digits of precision.
         #
         #      Example:
         #      "42.000000"
@@ -2099,7 +2099,7 @@ class MainWindow(QMainWindow):
         #
         #      Example:
         #        "20.000000" for 20 degrees celsius.
-        # 
+        #
         # <22>: "0" for unknown gender
         #       "1" for male gender
         #       "2" for female gender
@@ -2108,13 +2108,13 @@ class MainWindow(QMainWindow):
         """
 
         self.log.debug("Entered _generateJHoraFileText()")
-        
+
         self.log.debug("dt at input is: " + Ephemeris.datetimeToStr(dt))
 
         # Flag that indicates that the given timestamp matches the
         # birth timestamp.
         dtEqualsBirthDt = self._datetimeEqualsAdjustedBirthDt(dt, birthInfo)
-        
+
         # Datetime 'dt' needs to be localized to the timezone used in
         # birthInfo so that we may have it if we need it.  Assuming
         # 'dt' is already localized to UTC, GMT, or some other
@@ -2123,7 +2123,7 @@ class MainWindow(QMainWindow):
         # between them.
         tzinfoObj = pytz.timezone(birthInfo.timezoneName)
         relocalizedDt = tzinfoObj.normalize(dt.astimezone(tzinfoObj))
-        
+
         # <1>: Month as an integer.
         field1 = ""
         if dtEqualsBirthDt == True:
@@ -2131,7 +2131,7 @@ class MainWindow(QMainWindow):
         else:
             field1 = "{}".format(dt.month)
         self.log.debug("field1 is: {}".format(field1))
-        
+
         # <2>: Day-of-month as an integer.
         field2 = ""
         if dtEqualsBirthDt == True:
@@ -2155,15 +2155,15 @@ class MainWindow(QMainWindow):
         else:
             field4 = "{}".format(dt.hour)
         self.log.debug("field4 is: {}".format(field4))
-        
+
         # <5>: Minutes.  This includes the seconds as a float
         #      within it, but with no decimals.  This value is 15
         #      characters long.
-        # 
+        #
         #      For example:
         #        - 35 minutes and 45 seconds would be: "357500000000000"
         #        -  5 minutes and 37 seconds would be: "056166666666666"
-        # 
+        #
         field5 = ""
         if dtEqualsBirthDt == True:
             minutes = float(birthInfo.minute) + \
@@ -2178,7 +2178,7 @@ class MainWindow(QMainWindow):
             minutes = int(minutes)
             field5 = "{}".format(minutes)
         self.log.debug("field5 is: {}".format(field5))
-        
+
         # <6>: Hours of timezone offset, as an int.
         #      Negative values represent East of GMT, and
         #      positive values represent West of GMT.
@@ -2194,57 +2194,57 @@ class MainWindow(QMainWindow):
             if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
                 hoursTimezoneOffset = 0
                 minutesTimezoneOffset = 0
-            
+
                 offsetTimedelta = relocalizedDt.utcoffset()
                 self.log.debug("offsetTimedelta == {}".format(offsetTimedelta))
-            
+
                 totalMinutesOffset = \
                     int(round((offsetTimedelta.days * 60 * 24) + \
                               (offsetTimedelta.seconds / 60)))
                 hoursTimezoneOffset = abs(totalMinutesOffset) // 60
-                
+
                 if totalMinutesOffset > 0 and hoursTimezoneOffset != 0:
                     hoursTimezoneOffset *= -1
-                
+
                 field6 = "{}".format(hoursTimezoneOffset)
-                
+
             elif birthInfo.timeOffsetManualEntryRadioButtonState == True:
                 totalMinutesOffset = \
                     (birthInfo.timezoneManualEntryHours * 60) + \
                     (birthInfo.timezoneManualEntryMinutes)
-                    
+
                 if birthInfo.timezoneManualEntryEastWestComboBoxValue == "E":
                     totalMinutesOffset *= -1
-                        
+
                 hoursTimezoneOffset = abs(totalMinutesOffset) // 60
                 if totalMinutesOffset < 0 and hoursTimezoneOffset != 0:
                     hoursTimezoneOffset *= -1
                 field6 = "{}".format(hoursTimezoneOffset)
-                
+
             elif birthInfo.timeOffsetLMTRadioButtonState == True:
                 ratioOfDay = birthInfo.longitudeDegrees / 360.0
                 minutesInDay = 60 * 24
                 totalMinutesOffset = ratioOfDay * minutesInDay
-                    
+
                 hoursTimezoneOffset = abs(totalMinutesOffset) // 60
                 if totalMinutesOffset < 0 and hoursTimezoneOffset != 0:
                     hoursTimezoneOffset *= -1
                 field6 = "{}".format(hoursTimezoneOffset)
         else:
-            offsetTimedelta = dt.utcoffset()            
+            offsetTimedelta = dt.utcoffset()
             self.log.debug("offsetTimedelta == {}".format(offsetTimedelta))
-            
+
             totalMinutesOffset = \
                 int(round((offsetTimedelta.days * 60 * 24) + \
                           (offsetTimedelta.seconds / 60)))
             hoursTimezoneOffset = abs(totalMinutesOffset) // 60
-            
+
             if totalMinutesOffset > 0 and hoursTimezoneOffset != 0:
                 hoursTimezoneOffset *= -1
-            
+
             field6 = "{}".format(hoursTimezoneOffset)
         self.log.debug("field6 is: {}".format(field6))
-        
+
         # <7>: Minutes of timezone offset in standard time, as an
         #      float multiplied by 10000, with no decimal.  Note
         #      when times are in LMT, digits past the first 2
@@ -2252,11 +2252,11 @@ class MainWindow(QMainWindow):
         #
         #      Example:
         #        "400000" for 40 minutes.
-        # 
+        #
         minutesTimezoneOffset = abs(totalMinutesOffset) % 60
         field7 = "{}".format(minutesTimezoneOffset * 10000)
         self.log.debug("field7 is: {}".format(field7))
-        
+
         # <8>: Longitude degrees as an int.
         #      Negative values represent degrees East.
         #
@@ -2270,7 +2270,7 @@ class MainWindow(QMainWindow):
         else:
             value = math.floor(-1 * birthInfo.longitudeDegrees)
         field8 = "{}".format(value)
-            
+
         # <9>: Longitude minutes and seconds, displayed as an int
         #      but text is as a float multitplied to have 6 digits of
         #      precision total.
@@ -2297,21 +2297,21 @@ class MainWindow(QMainWindow):
         #
         #      Example:
         #        "496500" for 49 minutes 39 seconds
-        # 
+        #
         wholeDegs = math.floor(birthInfo.latitudeDegrees)
         fractionalDegs = birthInfo.latitudeDegrees - wholeDegs
         value = math.floor(fractionalDegs * 1000000)
         field11 = "{}".format(value)
-            
+
         # <12>: Altitude in meters above sea level,
-        #      as a float with 6 digits of precision.  
+        #      as a float with 6 digits of precision.
         #
         #      Example:
         #      "42.000000"
         #
         field12 = "{:.6}".format(float(birthInfo.elevation))
         self.log.debug("field12 (altitude) is: " + field12)
-            
+
         # <13>: Hours of timezone offset in standard time, as a
         #      float with 6 digits of precision.  Negative values
         #      represent East of GMT, and positive values
@@ -2341,10 +2341,10 @@ class MainWindow(QMainWindow):
                 # This value is calculated for relocalizedDt, as opposed
                 # to previous calculations where done on the birthInfo
                 # timezone information.
-    
+
                 offsetTimedelta = relocalizedDt.utcoffset()
                 self.log.debug("offsetTimedelta == {}".format(offsetTimedelta))
-                
+
                 totalMinutesOffset = \
                     int(round((offsetTimedelta.days * 60 * 24) + \
                               (offsetTimedelta.seconds / 60)))
@@ -2357,13 +2357,13 @@ class MainWindow(QMainWindow):
         else:
             offsetTimedelta = dt.utcoffset()
             self.log.debug("offsetTimedelta == {}".format(offsetTimedelta))
-            
+
             totalMinutesOffset = \
                 int(round((offsetTimedelta.days * 60 * 24) + \
                           (offsetTimedelta.seconds / 60)))
             hoursTimezoneOffsetFloat = -1 * totalMinutesOffset / 60.0
             field14 = "{:.6}".format(hoursTimezoneOffsetFloat)
-            
+
         self.log.debug("field14 is: " + field14)
 
         # <15>: "0" if the location is within the United States.
@@ -2375,7 +2375,7 @@ class MainWindow(QMainWindow):
         else:
             self.log.debug("field15 indicates outside United States.")
             field15 = "1"
-            
+
         # <16>: int value.  This is a zero-based index into either
         #      the list of US States or into the list of Countries.
         #
@@ -2383,7 +2383,7 @@ class MainWindow(QMainWindow):
         #        "11" for Australia
         #        "301" for Virginia, USA
         #
-        
+
         # We don't have the actual full list, so just set it to index 0.
         field16 = "0"
 
@@ -2401,40 +2401,40 @@ class MainWindow(QMainWindow):
         #        "Virginia,^USA"
         #        "Australia"
         #
-            
+
         field18 = ""
         if birthInfo.countryName == "United States":
             field18 = "USA"
         else:
             field18 = birthInfo.countryName
-        
+
         # <19>: "0" if the timestamp is in the Julian calendar.
         #       "1" if the timestamp is in the Gregorian calendar.
         #
-            
+
         field19 = ""
         if birthInfo.calendar == "Julian":
             field19 = "0"
         else:
             field19 = "1"
-            
+
         # <20>: Atmospheric pressure in mbar (hPa).
         #      This is a float value with 6 digits of precision.
         #
         #      Example:
         #        "1013.250000" for 1013.25.
         #
-            
+
         # We don't actually record gather this information, so
         # just use a value within the expected range.
         field20 = "{:.6}".format(1023.0)
-            
+
         # <21>: Atmospheric temperature in degrees Celsius.
         #      This is a float value with 6 digits of precision.
         #
         #      Example:
         #        "20.000000" for 20 degrees celsius.
-        # 
+        #
 
         # We don't actually record gather this information, so
         # just use a value within the expected range.
@@ -2444,7 +2444,7 @@ class MainWindow(QMainWindow):
         # <22>: "0" for unknown gender
         #       "1" for male gender
         #       "2" for female gender
-        
+
         field22 = "0"
 
         # Below, {0} is a dummy value, just so the numbers line up
@@ -2494,19 +2494,19 @@ class MainWindow(QMainWindow):
                            field22)
 
         self.log.debug("text is: ***" + text + "***")
-        
+
         self.log.debug("Exiting _generateJHoraFileText()")
-        
+
         return text
-    
-        
+
+
     def removeOldTemporaryJHoraFiles(self):
         """Removes any old JHora .jhd files that were previously created by this
         application.  By old, this means older than 180 days.
         """
 
         self.log.debug("Entered removeOldTemporaryJHoraFiles()")
-        
+
         # This is chart destination directory path, in the filename format
         # readable on the current operating system.
         chartDestPath = ""
@@ -2514,7 +2514,7 @@ class MainWindow(QMainWindow):
         # This is the chart destination directory path, in the filename format
         # readable on Posix systems (Unix, Linux, Mac OS X).
         chartDestPathPosix = ""
-        
+
         # This is the chart destination directory path, in the filename format
         # readable on Microsoft Windows systems.
         chartDestPathWin = ""
@@ -2530,20 +2530,20 @@ class MainWindow(QMainWindow):
         # Time threshold to keep the JHora .jhd data files.
         secsInDay = 60 * 60 * 24
         timeThresholdSecs = currTimeSecs - (180 * secsInDay)
-        
+
         self.log.info("Scanning for old JHora .jhd files to remove " +
                       "in directory: {}".format(chartDestPath))
-        
+
         for f in os.listdir(chartDestPath):
             fullFilename = chartDestPath + os.sep + f
             self.log.debug("Looking at file: {}".format(fullFilename))
             statinfo = os.lstat(fullFilename)
-            
+
             self.log.debug("Most recent access time is: {}".\
                            format(statinfo.st_atime))
             self.log.debug("Most recent mod time is:    {}".\
                            format(statinfo.st_atime))
-            
+
             if statinfo.st_atime < timeThresholdSecs:
                 # Older than our threshold, so try to remove the file.
                 try:
@@ -2556,9 +2556,9 @@ class MainWindow(QMainWindow):
                     self.log.warn("Failed to remove old temporary " +
                                   "JHora .jhd file {} because: {}".\
                                   format(f, e))
-            
+
         self.log.debug("Exiting removeOldTemporaryJHoraFiles()")
-        
+
     def handleAstrologLaunch(self, dt=None, birthInfo=None):
         """Opens Astrolog with the given datetime.datetime timestamp.
         Uses the currently set self.birthInfo object for timezone
@@ -2566,9 +2566,9 @@ class MainWindow(QMainWindow):
 
         If 'dt' is None, then Astrolog is opened without any arguments given.
         Otherwise, both 'dt' and 'birthInfo' need to be set.
-        
+
         Arguments:
-        
+
         dt - datetime.datetime object holding the timestamp to use for
              launching and viewing in Astrolog.  If dt is None, then
              Astrolog is opened without any arguments.
@@ -2584,25 +2584,25 @@ class MainWindow(QMainWindow):
         if dt == None:
             # Just open Astrolog without any file specified.
             self.log.debug("dt == None and birthInfo == None.")
-            
+
             # Launch Astrolog.
             self._execAstrolog()
-            
+
         elif dt != None and birthInfo != None:
             # Normal case for specifying a timestamp with birthInfo.
             self.log.debug("dt != None and birthInfo != None.")
-            
+
         else:
             self.log.error("If 'dt' argument is provided, " +
-                           "then birthInfo cannot be None.") 
+                           "then birthInfo cannot be None.")
             return
-        
+
         self.log.debug("Values being used: " +
                        "dt='{}', birthInfo='{}'".\
                        format(Ephemeris.datetimeToStr(dt),
                               birthInfo.toString()))
 
-        
+
         # This is chart destination directory path, in the filename format
         # readable on the current operating system.
         chartDestPath = ""
@@ -2610,7 +2610,7 @@ class MainWindow(QMainWindow):
         # This is the chart destination directory path, in the filename format
         # readable on Posix systems (Unix, Linux, Mac OS X).
         chartDestPathPosix = ""
-        
+
         # This is the chart destination directory path, in the filename format
         # readable on Microsoft Windows systems.
         chartDestPathWin = ""
@@ -2622,12 +2622,12 @@ class MainWindow(QMainWindow):
         self.log.debug("chartDestPath == " + chartDestPath)
         self.log.debug("chartDestPathPosix == " + chartDestPathPosix)
         self.log.debug("chartDestPathWin == " + chartDestPathWin)
-        
+
         # Create the file to open Astrolog with.
         filenameTemplate = chartDestPath + os.sep + \
                            "tmp_" + self.appName + "_Astrolog_XXXXXX.txt"
         self.log.debug("filenameTemplate == " + filenameTemplate)
-        
+
         f = QTemporaryFile(filenameTemplate)
 
         # Need to disable auto-remove because the QTemporaryFile gets
@@ -2636,7 +2636,7 @@ class MainWindow(QMainWindow):
         f.setAutoRemove(False)
 
         if f.open(QIODevice.ReadWrite):
-            
+
             # Get the text to go into the file from the input parameters.
             text = self._generateAstrologFileText(dt, birthInfo)
 
@@ -2651,25 +2651,25 @@ class MainWindow(QMainWindow):
             # all wine or Windows knows how to see.
             filename = chartDestPathWin + "\\" + \
                        os.path.basename(f.fileName())
-            
+
             self.log.debug("f.fileName() == " + f.fileName())
             self.log.debug("filename == " + filename)
 
             self._execAstrolog(filename)
-            
+
         else:
             errMsg = "Astrolog launch failed because: " + os.linesep + \
                      "Could not open a temporary file for Astrolog."
             self.log.error(errMsg)
-            
+
             title = "Error"
             text = errMsg
             buttons = QMessageBox.Ok
             defaultButton = QMessageBox.NoButton
-            
+
             QMessageBox.warning(self, title, text, buttons, defaultButton)
-            
-        
+
+
         self.log.debug("Exiting handleAstrologLaunch()")
 
     def _getAstrologChartDestPath(self):
@@ -2694,7 +2694,7 @@ class MainWindow(QMainWindow):
         """
 
         self.log.debug("Entered _getAstrologChartDestPath()")
-        
+
         # Make a directory to store our temporary .txt files.
         # Optimally, we would like to place it within Astrolog's 'data'
         # directory, but that doesn't work because that directory path
@@ -2707,11 +2707,11 @@ class MainWindow(QMainWindow):
         # This is the chart destination directory path, in the filename format
         # readable on Posix systems (Unix, Linux, Mac OS X).
         chartDestPathPosix = ""
-        
+
         # This is the chart destination directory path, in the filename format
         # readable on Microsoft Windows systems.
         chartDestPathWin = ""
-        
+
         try:
             if os.name == "posix":
                 self.log.debug("posix")
@@ -2721,30 +2721,30 @@ class MainWindow(QMainWindow):
                     ".wine/drive_c/" + self.appName + "/data"
                 chartDestPathWin = \
                     "C:\\" + self.appName + "\\data"
-                
+
                 self.log.debug("chartDestPathPosix == " + chartDestPathPosix)
                 self.log.debug("chartDestPathWin == " + chartDestPathWin)
                 self.log.debug("os.path.exists(chartDestPathPosix) == {}".\
                                format(os.path.exists(chartDestPathPosix)))
                 self.log.debug("os.path.isdir(chartDestPathPosix) == {}".\
                                format(os.path.isdir(chartDestPathPosix)))
-                
+
                 if os.path.exists(chartDestPathPosix) and \
                        os.path.isdir(chartDestPathPosix):
-                    
+
                     self.log.debug("Good, directory exists: " +
                                    chartDestPathPosix)
-                    
+
                 else:
                     self.log.debug("making dirs: " + chartDestPathPosix)
                     os.makedirs(chartDestPathPosix)
 
-                    
+
                 chartDestPath = chartDestPathPosix
-                
+
             elif os.name == "nt":
                 self.log.debug("nt")
-            
+
                 chartDestPathWin = \
                     "C:\\" + self.appName + "\\data"
 
@@ -2753,10 +2753,10 @@ class MainWindow(QMainWindow):
                                format(os.path.exists(chartDestPathWin)))
                 self.log.debug("os.path.isdir(chartDestPathWin) == {}".\
                                format(os.path.isdir(chartDestPathWin)))
-                
+
                 if os.path.exists(chartDestPathWin) and \
                        os.path.isdir(chartDestPathWin):
-                    
+
                     self.log.debug("Good, directory exists: " + \
                                    chartDestPathWin)
                 else:
@@ -2764,80 +2764,80 @@ class MainWindow(QMainWindow):
                     os.makedirs(chartDestPathWin)
 
                 chartDestPath = chartDestPathWin
-                
+
             else:
                 self.log.warn("Operating system unsupported: " + os.name)
                 return
-            
+
         except os.error as e:
-            
+
             self.log.error("Error while trying to ensure the " +
                            "Astrolog chart destination directory exists.  " +
                            "{}".format(e))
-            
+
         self.log.debug("chartDestPath == " + chartDestPath)
         self.log.debug("chartDestPathPosix == " + chartDestPathPosix)
         self.log.debug("chartDestPathWin == " + chartDestPathWin)
-        
+
         self.log.debug("Exiting _getAstrologChartDestPath()")
-        
+
         return (chartDestPath, chartDestPathPosix, chartDestPathWin)
-    
+
     def _execAstrolog(self, filename=None):
         """Runs the executable Astrolog.
 
         Arguments:
-        
+
         filename - str containing the full path of the Astrolog .txt to open.
                    This argument can be None if opening Astrolog without
                    any arguments is desired.
         """
 
         toExec = ""
-        
+
         if os.name == "posix":
-            
+
             toExec = \
                 "wine " + \
                 os.path.expanduser('~') + os.sep + \
                 ".wine/drive_c/ASTROLOG/ASTROLOG.EXE"
-            
+
             if filename != None:
                 toExec += " -i \"" + filename + "\""
-            
+
             self.log.debug("Launching Astrolog.  toExec is: " + toExec)
-            
+
             p = subprocess.Popen(toExec, shell=True)
-            
+
             self.log.debug("Astrolog launched.")
-            
+
         elif os.name == "nt":
-            
+
             toExec = \
                 "C:\\ASTROLOG\\ASTROLOG.EXE"
-            
+
             if filename != None:
                 toExec += " -i \"" + filename + "\""
-            
+
             self.log.debug("Launching Astrolog.  toExec is: " + toExec)
 
             p = subprocess.Popen(toExec)
-            
+
             self.log.debug("Astrolog launched.")
-            
+
         else:
             self.log.warn("Operating system unsupported: " + os.name)
 
-        
+
     def _generateAstrologFileText(self, dt, birthInfo):
         """Generates the text that would be in a Astrolog .txt file, for
         the information given in the specified datetime.datetime and
         BirthInfo.
-        
+
         Arguments:
-        
+
         dt - datetime.datetime object holding the timestamp to use for
-             launching and viewing in Astrolog.  
+             launching and viewing in Astrolog.
 
         birthInfo - BirthInfo object holding information about the
                     location/altitude and timezone.
@@ -2878,13 +2878,13 @@ class MainWindow(QMainWindow):
         #      Example:
         #
         #      +5:00   for 5 hours west of GMT.
-        # 
+        #
         # <9>: Longitude degrees (two characters), displayed as a
         #      positive int.  If the value is only 1 digit, then leave
         #      a space in the first character location.
         #
         # <10>: Longitude minutes (two characters), displayed as a
-        #      positive int.  
+        #      positive int.
         #
         # <11>: Longitude polarity.  "E" for East, and "W" for west.
         #
@@ -2897,7 +2897,7 @@ class MainWindow(QMainWindow):
         #
         # <14>: Latitude polarity.  "N" for North, and "S" for South.
         #
-        #        
+        #
         # Examples:
         #
         # @0102  ; Astrolog chart info.\r\n
@@ -2920,13 +2920,13 @@ class MainWindow(QMainWindow):
         """
 
         self.log.debug("Entered _generateAstrologFileText()")
-        
+
         self.log.debug("dt at input is: " + Ephemeris.datetimeToStr(dt))
 
         # Flag that indicates that the given timestamp matches the
         # birth timestamp.
         dtEqualsBirthDt = self._datetimeEqualsAdjustedBirthDt(dt, birthInfo)
-        
+
         # Datetime 'dt' needs to be localized to the timezone used in
         # birthInfo so that we may have it if we need it.  Assuming
         # 'dt' is already localized to UTC, GMT, or some other
@@ -2935,14 +2935,14 @@ class MainWindow(QMainWindow):
         # between them.
         tzinfoObj = pytz.timezone(birthInfo.timezoneName)
         relocalizedDt = tzinfoObj.normalize(dt.astimezone(tzinfoObj))
-            
+
         # <1>: Month as a 3-letter string with the first letter capitalized.
         field1 = ""
         if dtEqualsBirthDt == True:
             field1 = Util.monthNumberToAbbrev(birthInfo.month)
         else:
             field1 = Util.monthNumberToAbbrev(dt.month)
-        
+
         # <2>: Day-of-month as an integer.
         field2 = ""
         if dtEqualsBirthDt == True:
@@ -2969,14 +2969,14 @@ class MainWindow(QMainWindow):
             hourToUse = birthInfo.hour
         else:
             hourToUse = dt.hour
-            
+
         if hourToUse == 0:
             field4 = "12"
         elif 0 < hourToUse < 13:
             field4 = "{}".format(hourToUse)
         elif 13 <= hourToUse < 24:
             field4 = "{}".format(hourToUse - 12)
-            
+
         if hourToUse < 13:
             field6 = "am"
         else:
@@ -2996,9 +2996,9 @@ class MainWindow(QMainWindow):
             field5 = "{}".format(minutes)
         if len(field5) == 1:
             field5 = "0" + field5
-            
+
         self.log.debug("field5 is: {}".format(field5))
-        
+
         # <7>: "ST" if in standard time (not daylight savings).
         #      "DT" if in daylight time.
         field7 = ""
@@ -3021,7 +3021,7 @@ class MainWindow(QMainWindow):
         #    field7 = "ST"
 
         self.log.debug("field 7 is: {}".format(field7))
-            
+
         # <8>: Time offset from GMT when in standard time (i.e. when
         #      not in daylight savings time).  Format is:
         #
@@ -3036,7 +3036,7 @@ class MainWindow(QMainWindow):
         #      Example:
         #
         #      +5:00   for 5 hours west of GMT.
-        # 
+        #
         field8 = ""
         totalMinutesOffset = 0
 
@@ -3044,27 +3044,27 @@ class MainWindow(QMainWindow):
             if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
                 hoursTimezoneOffset = 0
                 minutesTimezoneOffset = 0
-                
+
                 tzinfoObj = pytz.timezone(birthInfo.timezoneName)
                 self.log.debug("birthInfo.timezoneName is: " + \
                                birthInfo.timezoneName)
-    
+
                 offsetTimedelta = tzinfoObj._utcoffset
                 self.log.debug("During standard time, offsetTimedelta == {}".\
                                format(offsetTimedelta))
-                
+
                 totalMinutesOffset = \
                     int(round((offsetTimedelta.days * 60 * 24) + \
                               (offsetTimedelta.seconds / 60)))
-                
+
             elif birthInfo.timeOffsetManualEntryRadioButtonState == True:
                 totalMinutesOffset = \
                     (birthInfo.timezoneManualEntryHours * 60) + \
                     (birthInfo.timezoneManualEntryMinutes)
-                    
+
                 if birthInfo.timezoneManualEntryEastWestComboBoxValue == "W":
                     totalMinutesOffset *= -1
-                
+
             elif birthInfo.timeOffsetLMTRadioButtonState == True:
                 ratioOfDay = birthInfo.longitudeDegrees / 360.0
                 minutesInDay = 60 * 24
@@ -3072,13 +3072,13 @@ class MainWindow(QMainWindow):
         else:
             offsetTimedelta = Ephemeris.getUtcOffsetForStandardTime(dt.tzinfo)
             self.log.debug("offsetTimedelta == {}".format(offsetTimedelta))
-            
+
             totalMinutesOffset = \
                 int(round((offsetTimedelta.days * 60 * 24) + \
                           (offsetTimedelta.seconds / 60)))
-            
+
         hoursTimezoneOffset = abs(totalMinutesOffset) // 60
-            
+
         if totalMinutesOffset <= 0:
             field8 += "+"
         else:
@@ -3089,10 +3089,10 @@ class MainWindow(QMainWindow):
             field8 += "0" + minutesPart
         else:
             field8 += minutesPart
-            
+
         self.log.debug("field8 is: {}".format(field6))
 
-                
+
         # <9>: Longitude degrees (two characters), displayed as a
         #      positive int.  If the value is only 1 digit, then leave
         #      a space in the first character location.
@@ -3100,9 +3100,9 @@ class MainWindow(QMainWindow):
         field9 = "{}".format(math.floor(abs(birthInfo.longitudeDegrees)))
         if len(field9) == 1:
             field9 = " " + field9
-        
+
         # <10>: Longitude minutes (two characters), displayed as a
-        #      positive int.  
+        #      positive int.
         wholeDegs = math.floor(abs(birthInfo.longitudeDegrees))
         fractionalDegs = abs(birthInfo.longitudeDegrees) - wholeDegs
         value = math.floor(fractionalDegs * 60.0)
@@ -3116,7 +3116,7 @@ class MainWindow(QMainWindow):
             field11 = "E"
         else:
             field11 = "W"
-        
+
         # <12>: Latitude degrees (two characters), displayed as a
         #      positive int.  If the value is only 1 digit, then leave
         #      a space in the first character location.
@@ -3124,7 +3124,7 @@ class MainWindow(QMainWindow):
         field12 = "{}".format(math.floor(abs(birthInfo.latitudeDegrees)))
         if len(field12) == 1:
             field12 = " " + field12
-        
+
         # <13>: Latitude minutes (two characters), displayed as an
         #       positive int.
         #
@@ -3134,7 +3134,7 @@ class MainWindow(QMainWindow):
         field13 = "{}".format(value)
         if len(field13) == 1:
             field13 = "0" + field13
-        
+
         # <14>: Latitude polarity.  "N" for North, and "S" for South.
         #
         field14 = ""
@@ -3168,20 +3168,20 @@ class MainWindow(QMainWindow):
                            field14)
 
         self.log.debug("text is: ***" + text + "***")
-        
+
         self.log.debug("Exiting _generateAstrologFileText()")
-        
+
         return text
-    
-        
+
+
     def removeOldTemporaryAstrologFiles(self):
         """Removes any old Astrolog .txt files that were previously
         created by this application.  By old, this means older than
         180 days.
         """
-        
+
         self.log.debug("Entered removeOldTemporaryAstrologFiles()")
-        
+
         # This is chart destination directory path, in the filename format
         # readable on the current operating system.
         chartDestPath = ""
@@ -3189,7 +3189,7 @@ class MainWindow(QMainWindow):
         # This is the chart destination directory path, in the filename format
         # readable on Posix systems (Unix, Linux, Mac OS X).
         chartDestPathPosix = ""
-        
+
         # This is the chart destination directory path, in the filename format
         # readable on Microsoft Windows systems.
         chartDestPathWin = ""
@@ -3205,20 +3205,20 @@ class MainWindow(QMainWindow):
         # Time threshold to keep the Astrolog .txt data files.
         secsInDay = 60 * 60 * 24
         timeThresholdSecs = currTimeSecs - (180 * secsInDay)
-        
+
         self.log.info("Scanning for old Astrolog .txt files to remove " +
                       "in directory: {}".format(chartDestPath))
-        
+
         for f in os.listdir(chartDestPath):
             fullFilename = chartDestPath + os.sep + f
             self.log.debug("Looking at file: {}".format(fullFilename))
             statinfo = os.lstat(fullFilename)
-            
+
             self.log.debug("Most recent access time is: {}".\
                            format(statinfo.st_atime))
             self.log.debug("Most recent mod time is:    {}".\
                            format(statinfo.st_atime))
-            
+
             if statinfo.st_atime < timeThresholdSecs:
                 # Older than our threshold, so try to remove the file.
                 try:
@@ -3231,9 +3231,9 @@ class MainWindow(QMainWindow):
                     self.log.warn("Failed to remove old temporary " +
                                   "Astrolog .txt file {} because: {}".\
                                   format(f, e))
-        
+
         self.log.debug("Exiting removeOldTemporaryAstrologFiles()")
-        
+
 
     def _datetimeEqualsAdjustedBirthDt(self, dt, birthInfo):
         """Returns True if the datetime is given is equal to the
@@ -3243,10 +3243,10 @@ class MainWindow(QMainWindow):
         self.log.debug("Entered _datetimeEqualsAdjustedBirthDt()")
         self.log.debug("dt == {}".format(Ephemeris.datetimeToStr(dt)))
         self.log.debug("birthInfo == {}".format(birthInfo.toString()))
-        
+
         # Return value.
         rv = False
-        
+
         # Get the localized datetime of birth.
         localizedDt = birthInfo.getBirthLocalizedDatetime()
 
@@ -3255,23 +3255,23 @@ class MainWindow(QMainWindow):
         if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
             # Nothing extra needs to be done.
             pass
-        
+
         elif birthInfo.timeOffsetManualEntryRadioButtonState == True:
             totalMinutesOffset = \
                 (birthInfo.timezoneManualEntryHours * 60) + \
                 (birthInfo.timezoneManualEntryMinutes)
-                
+
             if birthInfo.timezoneManualEntryEastWestComboBoxValue == "E":
                 totalMinutesOffset *= -1
 
             localizedDt = \
                 localizedDt - datetime.timedelta(minutes=totalMinutesOffset)
-            
+
         elif birthInfo.timeOffsetLMTRadioButtonState == True:
             # Use 4 minutes of time offset for each longitude degree away
             # from 0.
             timeShiftMinutes = self.longitudeDegrees * -4.0
-        
+
             localizedDt = \
                 localizedDt - datetime.timedelta(minutes=totalMinutesOffset)
 
@@ -3289,12 +3289,12 @@ class MainWindow(QMainWindow):
         """Opens up a dialog for printing the current selected document."""
 
         self.log.debug("Entered _print()")
-        
+
         # TODO: implement this _print() function.
-        QMessageBox.information(self, 
-                                "Not yet implemented", 
+        QMessageBox.information(self,
+                                "Not yet implemented",
                                 "This feature has not yet been implemented.")
-        
+
         self.log.debug("Exiting _print()")
 
 
@@ -3305,8 +3305,8 @@ class MainWindow(QMainWindow):
 
         self.log.debug("Entered _printPreview()")
         # TODO: implement this _printPreview() function.
-        QMessageBox.information(self, 
-                                "Not yet implemented", 
+        QMessageBox.information(self,
+                                "Not yet implemented",
                                 "This feature has not yet been implemented.")
         self.log.debug("Exiting _printPreview()")
 
@@ -3315,9 +3315,9 @@ class MainWindow(QMainWindow):
 
         self.log.debug("Entered closeEvent()")
 
-        # Flag that indicates that we should exit. 
+        # Flag that indicates that we should exit.
         shouldExit = True
-        
+
         # Get the list of subwindows.
         subwindows = self.mdiArea.subWindowList()
 
@@ -3454,8 +3454,8 @@ class MainWindow(QMainWindow):
     def _editPriceBarChartSettings(self):
         """Opens up a PriceBarChartSettingsEditDialog to edit
         the PriceBarChartSettings associated with the current active
-        PriceChartDocument in the in the UI.  
-        
+        PriceChartDocument in the in the UI.
+
         If the dialog is accepted, the changes are applied and the dirty
         flag is set.  If the dialog is rejected, then no changes will
         happen.
@@ -3503,8 +3503,8 @@ class MainWindow(QMainWindow):
     def _editPriceBarChartScaling(self):
         """Opens up a PriceBarChartScalingsListEditDialog to edit
         the PriceBarChartScaling associated with the current active
-        PriceChartDocument in the in the UI.  
-        
+        PriceChartDocument in the in the UI.
+
         If the dialog is accepted, the changes are applied and the dirty
         flag is set.  If the dialog is rejected, then no changes will
         happen.
@@ -3584,14 +3584,14 @@ class MainWindow(QMainWindow):
                            "when either no " + \
                            "PriceChartDocument is selected, or some " + \
                            "other unsupported subwindow was selected.")
-        
+
         self.log.debug("Exiting _editLookbackMultiples()")
 
     def _handleEnableAndShowAstrologyChartAction(self):
         """Slot function that is called when the user triggers the
         QAction 'self.enableAndShowAstrologyChartAction'.
         """
-        
+
         # This Astro action only makes sense to be triggered if there
         # is a PriceChartDocument open and active.  Check to make sure
         # that is true.
@@ -3600,14 +3600,14 @@ class MainWindow(QMainWindow):
             return
 
         flag = self.enableAndShowAstrologyChartAction.isChecked()
-        
+
         pcd.setEnableAndShowAstrologyChart(flag)
 
     def _handleEnableAndShowPlanetaryInfoTableAction(self):
         """Slot function that is called when the user triggers the
         QAction 'self.enableAndShowPlanetaryInfoTableAction'.
         """
-        
+
         # This Astro action only makes sense to be triggered if there
         # is a PriceChartDocument open and active.  Check to make sure
         # that is true.
@@ -3616,7 +3616,7 @@ class MainWindow(QMainWindow):
             return
 
         flag = self.enableAndShowPlanetaryInfoTableAction.isChecked()
-        
+
         pcd.setEnableAndShowPlanetaryInfoTable(flag)
 
     def _handleTrackMouseToAstroChartAction(self):
@@ -3625,7 +3625,7 @@ class MainWindow(QMainWindow):
         self.trackMouseToAstroChart2Action,
         self.trackMouseToAstroChart3Action.
         """
-        
+
         # These Astro actions only make sense to be triggered if
         # there is a PriceChartDocument open and active.  Check to
         # make sure that is true.
@@ -3636,7 +3636,7 @@ class MainWindow(QMainWindow):
         flag1 = self.trackMouseToAstroChart1Action.isChecked()
         flag2 = self.trackMouseToAstroChart2Action.isChecked()
         flag3 = self.trackMouseToAstroChart3Action.isChecked()
-        
+
         pcd.setTrackMouseToAstroChart1(flag1)
         pcd.setTrackMouseToAstroChart2(flag2)
         pcd.setTrackMouseToAstroChart3(flag3)
@@ -3646,14 +3646,14 @@ class MainWindow(QMainWindow):
         """Slot function that is called when the
         self.openJHoraWithNoArgsAction QAction is triggered.
         """
-        
+
         self._execJHora()
 
     def _handleOpenJHoraWithLocalizedNowAction(self):
         """Slot function that is called when the
         self.openJHoraWithLocalizedNowAction QAction is triggered.
         """
-        
+
         pcd = self.getActivePriceChartDocument()
         if pcd == None:
             return
@@ -3668,7 +3668,7 @@ class MainWindow(QMainWindow):
 
         self.log.debug("localized now dt is: {}".\
                        format(Ephemeris.datetimeToStr(localizedDt)))
-                       
+
         # Open JHora with these values.
         self.handleJhoraLaunch(localizedDt, birthInfo)
 
@@ -3687,7 +3687,7 @@ class MainWindow(QMainWindow):
 
         # Datetime to send to JHora.
         dt = None
-        
+
         # Get the localized datetime of birth.
         localizedDt = birthInfo.getBirthLocalizedDatetime()
 
@@ -3696,26 +3696,26 @@ class MainWindow(QMainWindow):
         if birthInfo.timeOffsetAutodetectedRadioButtonState == True:
             # Nothing extra needs to be done.
             pass
-        
+
         elif birthInfo.timeOffsetManualEntryRadioButtonState == True:
             totalMinutesOffset = \
                 (birthInfo.timezoneManualEntryHours * 60) + \
                 (birthInfo.timezoneManualEntryMinutes)
-                
+
             if birthInfo.timezoneManualEntryEastWestComboBoxValue == "E":
                 totalMinutesOffset *= -1
 
             localizedDt = \
                 localizedDt - datetime.timedelta(minutes=totalMinutesOffset)
-            
+
         elif birthInfo.timeOffsetLMTRadioButtonState == True:
             # Use 4 minutes of time offset for each longitude degree away
             # from 0.
             timeShiftMinutes = self.longitudeDegrees * -4.0
-        
+
             localizedDt = \
                 localizedDt - datetime.timedelta(minutes=totalMinutesOffset)
-        
+
         # Open JHora with these values.
         self.handleJhoraLaunch(localizedDt, birthInfo)
 
@@ -3723,14 +3723,14 @@ class MainWindow(QMainWindow):
         """Slot function that is called when the
         self.openAstrologWithNoArgsAction QAction is triggered.
         """
-        
+
         self._execAstrolog()
 
     def _handleOpenAstrologWithLocalizedNowAction(self):
         """Slot function that is called when the
         self.openAstrologWithLocalizedNowAction QAction is triggered.
         """
-        
+
         pcd = self.getActivePriceChartDocument()
         if pcd == None:
             return
@@ -3771,7 +3771,7 @@ class MainWindow(QMainWindow):
             totalMinutesOffset = \
                 (birthInfo.timezoneManualEntryHours * 60) + \
                 (birthInfo.timezoneManualEntryMinutes)
-                
+
             if birthInfo.timezoneManualEntryEastWestComboBoxValue == "E":
                 totalMinutesOffset *= -1
 
@@ -3781,10 +3781,10 @@ class MainWindow(QMainWindow):
             # Use 4 minutes of time offset for each longitude degree away
             # from 0.
             timeShiftMinutes = self.longitudeDegrees * -4.0
-        
+
             localizedDt = \
                 localizedDt - datetime.timedelta(minutes=totalMinutesOffset)
-        
+
         # Open Astrolog with these values.
         self.handleAstrologLaunch(localizedDt, birthInfo)
 
@@ -3798,7 +3798,7 @@ class MainWindow(QMainWindow):
             return
 
         pcd.setAstroChart1WithBirthInfo()
-        
+
     def _handleOpenAstroChart2WithBirthInfoAction(self):
         """Slot function that is called when the
         self.openAstroChart2WithBirthInfoAction QAction is triggered.
@@ -3820,7 +3820,7 @@ class MainWindow(QMainWindow):
             return
 
         pcd.setAstroChart3WithBirthInfo()
-        
+
     def _handleOpenAstroChart1WithNowAction(self):
         """Slot function that is called when the
         self.openAstroChart1WithNowAction QAction is triggered.
@@ -3900,14 +3900,14 @@ class MainWindow(QMainWindow):
             return
 
         flag = self.enableAndShowLookbackMultiplePanelAction.isChecked()
-        
+
         pcd.setEnableAndShowLookbackMultiplePanel(flag)
 
     def _toolsActionTriggered(self, qaction):
         """Slot function that is called when a Tools menu QAction is
         selected/activated.  This changes the Tools mode to whatever the
         new selection is.
-        
+
         Arguments:
         qaction - Reference to the QAction that was triggered.
         """
@@ -3915,7 +3915,7 @@ class MainWindow(QMainWindow):
         self.log.debug("Entered _toolsActionTriggered()")
 
         # Tool actions only make sense to be triggered if there is a
-        # PriceChartDocument open and active.  
+        # PriceChartDocument open and active.
         # Check to make sure that is true.
         pcd = self.getActivePriceChartDocument()
         if pcd == None:
@@ -4057,10 +4057,10 @@ class MainWindow(QMainWindow):
             self.log.warn("Unknown Tools QAction selected!  " + \
                 "There might be something wrong with the code, or " + \
                 "I maybe forgot to add a qaction type.")
-            
+
         self.log.debug("Exiting _toolsActionTriggered()")
 
-    
+
     def keyPressEvent(self, qkeyevent):
         """Overwrites the QGraphicsView.keyPressEvent() function.
         Called when a key is pressed.
@@ -4070,17 +4070,17 @@ class MainWindow(QMainWindow):
 
         if qkeyevent.key() == Qt.Key_F1 or \
                (platform.system() == "Darwin" and qkeyevent.key() == Qt.Key_1):
-            
+
             self.log.debug("Key Pressed: Qt.Key_F1 or (Qt.Key_1 on Darwin)")
-            
+
             # Trigger ReadOnlyPointerToolAction.
             if self.readOnlyPointerToolAction.isEnabled():
                 self.readOnlyPointerToolAction.trigger()
-                
+
         elif qkeyevent.key() == Qt.Key_F2 or \
                (platform.system() == "Darwin" and qkeyevent.key() == Qt.Key_2):
             self.log.debug("Key Pressed: Qt.Key_F2 or (Qt.Key_2 on Darwin)")
-            
+
             # Trigger PointerToolAction.
             if self.pointerToolAction.isEnabled():
                 self.pointerToolAction.trigger()
@@ -4096,7 +4096,7 @@ class MainWindow(QMainWindow):
         elif qkeyevent.key() == Qt.Key_F4 or \
                (platform.system() == "Darwin" and qkeyevent.key() == Qt.Key_4):
             self.log.debug("Key Pressed: Qt.Key_F4 or (Qt.Key_4 on Darwin)")
-            
+
             # Trigger the last used QGraphicsItem tool mode QAction.
             if self.mostRecentGraphicsItemToolModeAction != None:
                 if self.mostRecentGraphicsItemToolModeAction.isEnabled():
@@ -4105,14 +4105,14 @@ class MainWindow(QMainWindow):
         else:
             # For any other key just pass the event to the parent to handle.
             super().keyPressEvent(qkeyevent)
-            
+
         self.log.debug("Exiting keyPressEvent()")
 
     def _showShortcutKeys(self):
         """Opens up a popup window displaying information about the
         supported shortcut keys.
         """
-        
+
         endl = os.linesep
 
         title = "Shortcut Keys"
@@ -4142,7 +4142,7 @@ Octave Fan Tool:
   - Key_G: Rotate the modal scale down.
   - Key_R: Reverse the direction of the modal scale.
 
-Drawing vertical or horizontal dotted lines at the 
+Drawing vertical or horizontal dotted lines at the
 mouse position (works in all tool modes):
 
   - Key_V: Toggle vertical dotted line drawing on/off.
@@ -4182,9 +4182,9 @@ Snap key bindings are supported for the following tools:
   - PanchottariDasaTool
   - ShashtihayaniDasaTool
 """
-        
+
         QMessageBox.about(self, title, message)
-        
+
     def _memoryUsage(self):
         """Opens a popup window displaying memory utilization
         information about this application.
@@ -4198,8 +4198,8 @@ Snap key bindings are supported for the following tools:
         title = "Memory Usage"
 
         message = ""
-        
-        
+
+
         if platform.system() == "Linux":
             # Linux.
             message += self.appName + " process status:" + endl + endl
@@ -4219,7 +4219,7 @@ Snap key bindings are supported for the following tools:
 
                         message += line
                 f.close()
-                
+
                 message += endl
                 message += endl
                 message += "Note: " + endl + endl
@@ -4230,13 +4230,13 @@ Snap key bindings are supported for the following tools:
                 message += "VmSize == Virtual memory size" + endl
                 message += "VmRSS  == Resident set size" + endl
                 message += "VmStk  == Stack size" + endl
-                
+
             except IOError as e:
                 errMsg = "Could not open '{}' to read process status." + \
                          "  {}".format(e)
                 self.log.warn(errMsg)
                 message += errMsg
-                
+
         elif platform.system() == "Windows":
             # Windows.  The below is untested.
             message += self.appName + " memory usage:" + endl + endl
@@ -4249,11 +4249,11 @@ Snap key bindings are supported for the following tools:
 
             kilobytes = bytes / 1024
             megabytes = kilobytes / 1024
-            
+
             message += "Bytes: {}".format(bytes) + endl + \
                        "Kilobytes: {}".format(kilobytes) + endl + \
                        "Megabytes: {}".format(megabytes) + endl
-            
+
         elif platform.system() == "Darwin":
             # MacOS X.
             message += self.appName + " memory usage:" + endl + endl
@@ -4265,20 +4265,20 @@ Snap key bindings are supported for the following tools:
                 format(os.getpid()),
                 stderr=subprocess.STDOUT,
                 shell=True)
-            
+
             outputText = outputBinary.decode("utf-8")
 
             # Go through all the results of ps.
             foundFlag = False
             for line in outputText.split(os.linesep):
-                
+
                 splitLine = line.split()
 
                 # Make sure we don't have an incomplete line.
                 if len(splitLine) > 8:
                     # Process ID.
                     pidStr = splitLine[1]
-                    
+
                     # VSZ (Virtual Set Size).
                     vszStr = splitLine[4]
 
@@ -4304,7 +4304,7 @@ Snap key bindings are supported for the following tools:
 
         QMessageBox.about(self, title, message)
 
-        
+
 
     def _about(self):
         """Opens a popup window displaying information about this
@@ -4340,7 +4340,7 @@ Snap key bindings are supported for the following tools:
 
 
 class PriceChartDocument(QMdiSubWindow):
-    """QMdiSubWindow in the QMdiArea.  This window allows a user to 
+    """QMdiSubWindow in the QMdiArea.  This window allows a user to
     view and edit the data contained in a PriceChartDocumentData object.
     """
 
@@ -4364,11 +4364,11 @@ class PriceChartDocument(QMdiSubWindow):
     # Signal emitted when the user desires to view a datetime.datetime
     # in JHora.
     jhoraLaunch = QtCore.pyqtSignal(datetime.datetime, BirthInfo)
-    
+
     # Signal emitted when the user desires to view a datetime.datetime
     # in Astrolog.
     astrologLaunch = QtCore.pyqtSignal(datetime.datetime, BirthInfo)
-    
+
     def __init__(self, parent=None):
         """Creates the QMdiSubWindow with the internal widgets,
         and loads the given PriceChartDocumentData object.
@@ -4378,7 +4378,7 @@ class PriceChartDocument(QMdiSubWindow):
         self.log = logging.getLogger("ui.PriceChartDocument")
         self.log.debug("Entered PriceChartDocument()")
 
-        
+
         # Create internal data attributes.
         self.priceChartDocumentData = PriceChartDocumentData()
 
@@ -4390,7 +4390,7 @@ class PriceChartDocument(QMdiSubWindow):
             "Untitled{}".\
                 format(PriceChartDocument.untitledDocSequenceNum) + \
             PriceChartDocument.fileExtension +  \
-            PriceChartDocument.modifiedFileStr 
+            PriceChartDocument.modifiedFileStr
         PriceChartDocument.untitledDocSequenceNum += 1
 
         # Create the internal widget(s).
@@ -4398,7 +4398,7 @@ class PriceChartDocument(QMdiSubWindow):
         self.setWidget(self.widgets)
 
         # According to the Qt QMdiArea documentation:
-        # 
+        #
         #   When you create your own subwindow, you must set the
         #   Qt.WA_DeleteOnClose  widget attribute if you want the window to
         #   be deleted when closed in the MDI area. If not, the window will
@@ -4417,7 +4417,7 @@ class PriceChartDocument(QMdiSubWindow):
             connect(self.handleJhoraLaunch)
         self.widgets.astrologLaunch.\
             connect(self.handleAstrologLaunch)
-        
+
         self.log.debug("Exiting PriceChartDocument()")
 
     def picklePriceChartDocumentDataToFile(self, filename):
@@ -4438,15 +4438,15 @@ class PriceChartDocument(QMdiSubWindow):
         # Pickle to file.
         with open(filename, "wb") as fh:
             try:
-                pickle.dump(priceChartDocumentData, fh) 
+                pickle.dump(priceChartDocumentData, fh)
                 rv = True
             except pickle.PickleError as pe:
                 self.log.error("Error while pickling a " +
-                               "PriceChartDocumentData to file " + 
-                               filename + 
+                               "PriceChartDocumentData to file " +
+                               filename +
                                ".  Error is: {}".format(pe) +
-                               ".  PriceChartDocumentData object " + 
-                               "has the following info: " + 
+                               ".  PriceChartDocumentData object " +
+                               "has the following info: " +
                                priceChartDocumentData.toString())
                 rv = False
 
@@ -4474,7 +4474,7 @@ class PriceChartDocument(QMdiSubWindow):
                     priceChartDocumentData = pickle.load(fh)
 
                     # Verify it is a PriceChartDocumentData object.
-                    if isinstance(priceChartDocumentData, 
+                    if isinstance(priceChartDocumentData,
                                   PriceChartDocumentData) == True:
                         self.setPriceChartDocumentData(priceChartDocumentData)
                         self.setFilename(filename)
@@ -4482,15 +4482,15 @@ class PriceChartDocument(QMdiSubWindow):
                         rv = True
                     else:
                         # Print error message.
-                        self.log.error("Cannot load this object.  " + 
-                                       "The object unpickled from file " + 
-                                       filename + " is not a " + 
+                        self.log.error("Cannot load this object.  " +
+                                       "The object unpickled from file " +
+                                       filename + " is not a " +
                                        "PriceChartDocumentData.")
                         rv = False
                 except pickle.UnpicklingError as upe:
                     self.log.error("Error while unpickling a " +
-                                   "PriceChartDocumentData from file " + 
-                                   filename + 
+                                   "PriceChartDocumentData from file " +
+                                   filename +
                                    ".  Error is: {}".format(upe))
                     rv = False
         except IOError as e:
@@ -4499,9 +4499,9 @@ class PriceChartDocument(QMdiSubWindow):
 
             rv = False
 
-            QMessageBox.warning(None, 
-                                "Error", 
-                                "IOError exception: " + 
+            QMessageBox.warning(None,
+                                "Error",
+                                "IOError exception: " +
                                 os.linesep + os.linesep + "{}".format(e))
 
         self.log.debug("Exiting unpicklePriceChartDocumentDataFromFile(), " +
@@ -4551,12 +4551,12 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.log.debug("Entered getPriceChartDocumentData()")
 
-        
+
         # The PriceBars reference in self.priceChartDocumentData
         # should hold the internal bars, since this is the reference that
         # passed into the child widgets to load stuff.  If there are bars
-        # added (via dialogs or some other means), the list that 
-        # the reference is pointing to should have those new bars.  
+        # added (via dialogs or some other means), the list that
+        # the reference is pointing to should have those new bars.
         # The same should be true with the BirthInfo.
         # Therefore, all we need to retrieve is the pricebarchart
         # artifacts and the settings objects.
@@ -4587,7 +4587,7 @@ class PriceChartDocument(QMdiSubWindow):
 
         # Store the object reference.
         self.priceChartDocumentData = priceChartDocumentData
-            
+
         self.log.debug("Number of priceBars is: {}".\
                 format(len(self.priceChartDocumentData.priceBars)))
 
@@ -4599,7 +4599,7 @@ class PriceChartDocument(QMdiSubWindow):
         # Set the description text.
         self.widgets.\
             setDescriptionText(self.priceChartDocumentData.description)
-        
+
         # Set the timezone.
         self.widgets.setTimezone(self.priceChartDocumentData.locationTimezone)
 
@@ -4627,22 +4627,22 @@ class PriceChartDocument(QMdiSubWindow):
         priceBarChartArtifacts = \
             self.priceChartDocumentData.priceBarChartArtifacts
         self.widgets.loadPriceBarChartArtifacts(priceBarChartArtifacts)
-        
-        # By default, set the flag as dirty.  
-        # If this was an open/load from file, the caller of this 
+
+        # By default, set the flag as dirty.
+        # If this was an open/load from file, the caller of this
         # function should themselves call the function to set the flag to
         # be not dirty.
         self.setDirtyFlag(True)
 
         self.log.\
             debug("Exiting setPriceChartDocumentData()")
-        
+
     def applyPriceBarChartSettings(self, priceBarChartSettings):
         """Applies the given PriceBarChartSettings to the underlying
-        PriceBarChart.  
-        
+        PriceBarChart.
+
         The caller is responsible for setting the dirty
-        flag if this priceBarChartSettings is different from the 
+        flag if this priceBarChartSettings is different from the
         currently used internal priceBarChartSettings.
         If it is expected to be the same, then the parent will need to
         explicitly set the dirty flag to False because a redraw of the
@@ -4659,8 +4659,8 @@ class PriceChartDocument(QMdiSubWindow):
     def applyPriceBarSpreadsheetSettings(self, priceBarSpreadsheetSettings):
         """Applies the given PriceBarSpreadsheetSettings to the underlying
         PriceBarSpreadsheet.  The caller is responsible for setting the dirty
-        flag if this priceBarSpreadsheetSettings is different from the 
-        currently used internal priceBarSpreadsheetSettings 
+        flag if this priceBarSpreadsheetSettings is different from the
+        currently used internal priceBarSpreadsheetSettings
         (which most likely it is).
         """
 
@@ -4742,7 +4742,7 @@ class PriceChartDocument(QMdiSubWindow):
         If there are unsaved modifications, then the user will be prompted
         for saving.
         """
-        
+
         self.log.debug("Entered closeEvent()")
 
         priceChartDocument = self
@@ -4753,14 +4753,14 @@ class PriceChartDocument(QMdiSubWindow):
             text = "This PriceChartDocument has not been saved yet." + \
                    os.linesep + os.linesep + \
                    "Save before closing?"
-            buttons = (QMessageBox.Save | 
-                       QMessageBox.Discard | 
+            buttons = (QMessageBox.Save |
+                       QMessageBox.Discard |
                        QMessageBox.Cancel)
 
-            defaultButton = QMessageBox.Save 
+            defaultButton = QMessageBox.Save
 
             buttonClicked = \
-                QMessageBox.question(self, title, text, 
+                QMessageBox.question(self, title, text,
                                      buttons, defaultButton)
 
             # Check what button was clicked in the prompt.
@@ -4816,8 +4816,8 @@ class PriceChartDocument(QMdiSubWindow):
 
     def saveChart(self):
         """Saves this PriceChartDocument.
-        If the document has not been saved before, then a prompt 
-        will be brought up for the user to specify a filename 
+        If the document has not been saved before, then a prompt
+        will be brought up for the user to specify a filename
         to save as.
 
         Returns: True if the save action succeeded.
@@ -4841,19 +4841,19 @@ class PriceChartDocument(QMdiSubWindow):
         else:
             # The document has been saved before and has a filename
             # associated with it.
-            self.log.debug("saveChart(): " + 
+            self.log.debug("saveChart(): " +
                            "Filename associated with " +
                            "the PriceChartDocument is: " + filename)
 
             if os.path.exists(filename):
-                self.log.debug("saveChart(): " + 
-                               "Updating existing file: " + 
+                self.log.debug("saveChart(): " +
+                               "Updating existing file: " +
                                filename)
             else:
                 self.log.warn("saveChart(): " +
                               "Filename was non-empty " +
                               "and set to a file that does not exist!  " +
-                              "This is an invalid state.  Filenames " + 
+                              "This is an invalid state.  Filenames " +
                               "should only be set if it was previously " +
                               "saved to the given filename.")
 
@@ -4863,7 +4863,7 @@ class PriceChartDocument(QMdiSubWindow):
 
             # Clear the dirty flag if the operation was successful.
             if rv == True:
-                self.log.info("PriceChartDocumentData saved to file: " + 
+                self.log.info("PriceChartDocumentData saved to file: " +
                               filename)
 
                 if self.log.isEnabledFor(logging.DEBUG):
@@ -4888,7 +4888,7 @@ class PriceChartDocument(QMdiSubWindow):
                 self.statusMessageUpdate.emit("PriceChartDocument saved.")
             else:
                 # Save failure.
-                self.statusMessageUpdate.emit("Save failed.  " + 
+                self.statusMessageUpdate.emit("Save failed.  " +
                                 "Please check the log file for why.")
 
         self.log.debug("Exiting saveChart().  Returning {}".format(rv))
@@ -4896,15 +4896,15 @@ class PriceChartDocument(QMdiSubWindow):
 
 
     def saveAsChart(self):
-        """Brings up a prompt for the user to save this 
-        PriceChartDocument to a new file.  After the 
+        """Brings up a prompt for the user to save this
+        PriceChartDocument to a new file.  After the
         user selects the file, it will be saved
         to that file.
 
         This function uses QSettings and assumes that the calls to
-        QCoreApplication.setOrganizationName(), and 
-        QCoreApplication.setApplicationName() have been called 
-        previously (so that the QSettings constructor can be called 
+        QCoreApplication.setOrganizationName(), and
+        QCoreApplication.setApplicationName() have been called
+        previously (so that the QSettings constructor can be called
         without any parameters specified).
 
         Returns: True if the saveAs action succeeded.
@@ -4932,17 +4932,17 @@ class PriceChartDocument(QMdiSubWindow):
 
         # Prompt for what filename to save the data to.
         filename = QFileDialog.\
-            getSaveFileName(self, 
-                            "Save As", 
-                            defaultPriceChartDocumentSaveDirectory, 
+            getSaveFileName(self,
+                            "Save As",
+                            defaultPriceChartDocumentSaveDirectory,
                             filters)
 
         # With PyQt4, the filename returned here is a str in Python.
         # With PyQt5, the filename returned here is a tuple in Python, which
-        # crashes the application.  
+        # crashes the application.
         #   - First  field of the tuple is the str filename.
         #   - Second field of hte tuple is the str for the file filter matched.
-        # 
+        #
         # The Qt documentation says that a QString should be returned
         # for this method, which should have been converted to a str
         # with PyQt.  This is a bug, but we work around this problem here.
@@ -4993,7 +4993,7 @@ class PriceChartDocument(QMdiSubWindow):
             # If the save operation was successful, then update the
             # filename and clear the dirty flag.
             if rv == True:
-                self.log.info("PriceChartDocumentData saved to " + 
+                self.log.info("PriceChartDocumentData saved to " +
                               "new file: " + filename)
 
                 if self.log.isEnabledFor(logging.DEBUG):
@@ -5011,7 +5011,7 @@ class PriceChartDocument(QMdiSubWindow):
 
                 priceChartDocument.setFilename(filename)
                 priceChartDocument.setDirtyFlag(False)
- 
+
                 statusBarMessage = \
                     "PriceChartDocument saved to file {}.".format(filename)
 
@@ -5030,7 +5030,7 @@ class PriceChartDocument(QMdiSubWindow):
                                  directory)
             else:
                 # Save failure.
-                self.statusMessageUpdate.emit("Save failed.  " + 
+                self.statusMessageUpdate.emit("Save failed.  " +
                                 "Please check the log file for why.")
 
         self.log.debug("Exiting saveAsChart().  Returning {}".format(rv))
@@ -5056,11 +5056,11 @@ class PriceChartDocument(QMdiSubWindow):
 
         self.log.info("Checking to see if the data source CSV file " +
                        "'{}' exists...".format(dataSourceFilename))
-        
+
         if not os.path.exists(dataSourceFilename):
             self.log.info("Data source file does not exist.  " +
                           "Trying to rectify the situation...")
-        
+
             # Popup to let the user know that the backing data source
             # file couldn't be found.  Prompt to see if the user wants
             # to set a new path of the file.
@@ -5072,7 +5072,7 @@ class PriceChartDocument(QMdiSubWindow):
                    "Would you like to re-set the path of the CSV file now?"
             buttons = QMessageBox.Yes | QMessageBox.No
             defaultButton = QMessageBox.NoButton
-        
+
             buttonClicked = \
                 QMessageBox.warning(parent, title, text, buttons, defaultButton)
 
@@ -5098,10 +5098,10 @@ class PriceChartDocument(QMdiSubWindow):
 
                     self.log.debug("filename selected is: {}".\
                                    format(filename))
-                    
+
                     if filename == "":
                         self.log.debug("An error or invalid file was selected.")
-                        
+
                         parent = self
                         title = "Open file"
                         text = "A valid CSV text file was not selected.  " + \
@@ -5109,7 +5109,7 @@ class PriceChartDocument(QMdiSubWindow):
                                "Want to try to select a file again?"
                         buttons = QMessageBox.Yes | QMessageBox.No
                         defaultButton = QMessageBox.Yes
-                        
+
                         buttonClicked = \
                             QMessageBox.question(parent, title, text,
                                                  buttons, defaultButton)
@@ -5117,7 +5117,7 @@ class PriceChartDocument(QMdiSubWindow):
                         if buttonClicked == QMessageBox.Yes:
                             keepTrying = True
                             self.log.debug("User wants to select a file again.")
-                        
+
                         else:
                             keepTrying = False
                             self.log.info("User declined to update the " +
@@ -5125,7 +5125,7 @@ class PriceChartDocument(QMdiSubWindow):
                     else:
                         # We have a filename now.
                         keepTrying = False
-                
+
                 if filename != "":
                     text = "Updating the data source filename from " + \
                            "{} to {}".\
@@ -5135,13 +5135,13 @@ class PriceChartDocument(QMdiSubWindow):
 
                     self.priceChartDocumentData.priceBarsFileFilename = filename
                     dataSourceFilename = filename
-                    
+
                     self.setDirtyFlag(True)
-                    
+
         # If we are still in this function at this point, then the
         # data source filename should be a valid file.
         self.log.info("The data source file has now been confirmed to exist.")
-        
+
         # Make sure the CSV data file is in a valid format.
         self.log.info("Now validating the data in the file...")
 
@@ -5166,10 +5166,10 @@ class PriceChartDocument(QMdiSubWindow):
                 linesep + linesep + \
                 "Please correct any format problems before retrying to " + \
                 "update with new PriceBar data."
-            
+
             buttons = QMessageBox.Ok
             defaultButton = QMessageBox.Ok
-            
+
             buttonClicked = \
                 QMessageBox.warning(parent, title, text,
                                     buttons, defaultButton)
@@ -5195,12 +5195,12 @@ class PriceChartDocument(QMdiSubWindow):
         else:
             comboBox.setCurrentIndex(index)
         newPriceBars = wizard.getPriceBars()
-        
+
         # If there are differences, prompt via a dialog for action to take.
         dialog = PriceBarsCompareDialog(currPriceBars, newPriceBars, self)
         if not dialog.arePriceBarListsEqual():
             self.log.debug("PriceBar lists are different.")
-            
+
             rv = dialog.exec_()
             if rv == QDialog.Accepted:
                 self.log.info("Overwriting current PriceBars with the " +
@@ -5231,7 +5231,7 @@ class PriceChartDocument(QMdiSubWindow):
                 linesep = "<br />"
                 text = "PriceBars unchanged."
                 QMessageBox.information(parent, title, text)
-                
+
         else:
             self.log.debug("PriceBar lists are the same.  " + \
                            "No additional actions are required.")
@@ -5241,9 +5241,9 @@ class PriceChartDocument(QMdiSubWindow):
             linesep = "<br />"
             text = "PriceBars are already up to date.  "
             QMessageBox.information(parent, title, text)
-        
+
         self.log.debug("Exiting checkSourceDataFileForPriceBarUpdates()")
-        
+
     def toReadOnlyPointerToolMode(self):
         """Changes the tool mode to be the ReadOnlyPointerTool."""
 
@@ -5452,25 +5452,25 @@ class PriceChartDocument(QMdiSubWindow):
         the AstrologyChart.
 
         Arguments:
-        
+
         flag - True if the link is to be enabled and widget shown,
                False if the link is to be disabled and widget hidden.
         """
 
         self.widgets.setEnableAndShowAstrologyChart(flag)
-        
+
     def setEnableAndShowPlanetaryInfoTable(self, flag):
         """Shows and sets the link-connection enabled or disabled for
         the PlanetaryInfoTable.
 
         Arguments:
-        
+
         flag - True if the link is to be enabled and widget shown,
                False if the link is to be disabled and widget hidden.
         """
 
         self.widgets.setEnableAndShowPlanetaryInfoTable(flag)
-        
+
     def setTrackMouseToAstroChart1(self, flag):
         """Sets the link-connection enabled or disabled for the
         pricebarchart mouse position to AstroChart1.
@@ -5481,7 +5481,7 @@ class PriceChartDocument(QMdiSubWindow):
         """
 
         self.widgets.setTrackMouseToAstroChart1(flag)
-        
+
     def setTrackMouseToAstroChart2(self, flag):
         """Sets the link-connection enabled or disabled for the
         pricebarchart mouse position to AstroChart2.
@@ -5492,7 +5492,7 @@ class PriceChartDocument(QMdiSubWindow):
         """
 
         self.widgets.setTrackMouseToAstroChart2(flag)
-        
+
     def setTrackMouseToAstroChart3(self, flag):
         """Sets the link-connection enabled or disabled for the
         pricebarchart mouse position to AstroChart3.
@@ -5507,63 +5507,63 @@ class PriceChartDocument(QMdiSubWindow):
     def setAstroChart1WithBirthInfo(self):
         """Sets AstroChart1 with the info in the BirthInfo of this document.
         """
-        
+
         self.widgets.setAstroChart1WithBirthInfo()
-        
+
     def setAstroChart2WithBirthInfo(self):
         """Sets AstroChart2 with the info in the BirthInfo of this document.
         """
-        
+
         self.widgets.setAstroChart2WithBirthInfo()
-        
+
     def setAstroChart3WithBirthInfo(self):
         """Sets AstroChart3 with the info in the BirthInfo of this document.
         """
-        
+
         self.widgets.setAstroChart3WithBirthInfo()
-    
+
     def setAstroChart1WithNow(self):
         """Sets AstroChart1 with the current time."""
-        
+
         self.widgets.setAstroChart1WithNow()
-        
+
     def setAstroChart2WithNow(self):
         """Sets AstroChart2 with the current time."""
-        
+
         self.widgets.setAstroChart2WithNow()
-        
+
     def setAstroChart3WithNow(self):
         """Sets AstroChart3 with the current time."""
-        
+
         self.widgets.setAstroChart3WithNow()
 
     def clearAstroChart1(self):
         """Clears the AstroChart1."""
 
         self.widgets.clearAstroChart1()
-        
+
     def clearAstroChart2(self):
         """Clears the AstroChart2."""
 
         self.widgets.clearAstroChart2()
-        
+
     def clearAstroChart3(self):
         """Clears the AstroChart3."""
 
         self.widgets.clearAstroChart3()
-        
+
     def editLookbackMultiples(self):
         """Opens up a LookbackMultipleListEditDialog to edit
         the list of LookbackMultiple objects associated with this
         PriceChartDocument.
-        
+
         If the dialog is accepted, the changes are applied and the dirty
         flag is set.  If the dialog is rejected, then no changes will
         happen.
         """
         self.log.debug("Entered editLookbackMultiples()")
 
-        # Get the list of LookbackMultiple objects. 
+        # Get the list of LookbackMultiple objects.
         lookbackMultiples = \
             self.priceChartDocumentData.lookbackMultiples
 
@@ -5585,8 +5585,8 @@ class PriceChartDocument(QMdiSubWindow):
             # Set the dirty flag because the object has now changed.
             self.setDirtyFlag(True)
 
-            # Notify the widgets that the LookbackMultiples have changed.  
-            # This will cause the necessary refreshes/updates in the 
+            # Notify the widgets that the LookbackMultiples have changed.
+            # This will cause the necessary refreshes/updates in the
             # widgets and the charts.
             self.widgets.handleLookbackMultiplesChanged(lookbackMultiples)
         else:
@@ -5599,19 +5599,19 @@ class PriceChartDocument(QMdiSubWindow):
         """Enables and shows the LookbackMultiplePanel.
 
         Arguments:
-        
+
         flag - True if the link is to be enabled and widget shown,
                False if the link is to be disabled and widget hidden.
         """
 
         self.widgets.setEnableAndShowLookbackMultiplePanel(flag)
-        
+
     def _handlePriceChartDocumentWidgetChanged(self):
         """Slot for when the PriceChartDocumentWidget emits a signal to say
         that the widget(s) changed.  This means the document should be
         marked as dirty.
         """
-        
+
         if self.getDirtyFlag() != True:
             self.setDirtyFlag(True)
 
@@ -5634,7 +5634,7 @@ class PriceChartDocument(QMdiSubWindow):
         """Returns the str representation of this object.
         """
 
-        return self.toString() 
+        return self.toString()
 
 class PriceChartDocumentWidget(QWidget):
     """Internal widget within a PriceChartDocument (QMdiSubWindow) that
@@ -5649,15 +5649,15 @@ class PriceChartDocumentWidget(QWidget):
 
     # Signal emitted when a status message should be printed.
     statusMessageUpdate = QtCore.pyqtSignal(str)
-    
+
     # Signal emitted when the user desires to view a datetime.datetime
     # in JHora.
     jhoraLaunch = QtCore.pyqtSignal(datetime.datetime, BirthInfo)
-    
+
     # Signal emitted when the user desires to view a datetime.datetime
     # in Astrolog.
     astrologLaunch = QtCore.pyqtSignal(datetime.datetime, BirthInfo)
-    
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.log = logging.getLogger("ui.PriceChartDocumentWidget")
@@ -5668,16 +5668,16 @@ class PriceChartDocumentWidget(QWidget):
         # Astrology Chart.
         self.planetaryInfoTableWidgetEnabled = False
         self.astrologyChartWidgetEnabled = False
-        
+
         # Flags for linking the mouse position of PriceBarChart to the
         # AstroCharts.
         self.trackMouseToAstroChart1Enabled = False
         self.trackMouseToAstroChart2Enabled = False
         self.trackMouseToAstroChart3Enabled = False
-        
+
         # Flag for showing the LookbackMultiplePanelWidget.
         self.lookbackMultiplePanelWidgetEnabled = False
-        
+
         # Create the internal widgets displayed.
         self.lookbackMultiplePanelWidget = LookbackMultiplePanelWidget()
         self.priceBarChartWidget = PriceBarChartWidget()
@@ -5711,10 +5711,10 @@ class PriceChartDocumentWidget(QWidget):
         hsplitter.addWidget(self.lookbackMultiplePanelWidget)
         hsplitter.addWidget(self.priceBarChartWidget)
         hsplitter.addWidget(vsplitter)
-        
-        # Set stretch factors for the splitter so that the widgets are a 
+
+        # Set stretch factors for the splitter so that the widgets are a
         # sensible default size.
-        # 
+        #
         # Strangely, the setStretchFactor() method doesn't quite work as I
         # expect.  I think it is only accepting the first call to
         # setStretchFactor(), but I'm not sure.  Therefore, what I have below
@@ -5723,7 +5723,7 @@ class PriceChartDocumentWidget(QWidget):
         # with the splitter.  I don't set sizeHints with the
         # LookbackMultiplePanelWidget because what they are set to by default
         # are already pretty good.
-        # 
+        #
         #hsplitter.setStretchFactor(0, 1)
         hsplitter.setStretchFactor(1, 2)
         #hsplitter.setStretchFactor(2, 5)
@@ -5750,10 +5750,10 @@ class PriceChartDocumentWidget(QWidget):
             connect(self.handleAstrologLaunch)
         self.priceBarChartWidget.currentTimestampChanged.\
             connect(self._handleCurrentTimestampChanged)
-        
+
     def setBirthInfo(self, birthInfo):
         """Sets the birth info for this trading entity.
-        
+
         Arguments:
 
         birthInfo - BirthInfo object.
@@ -5763,24 +5763,24 @@ class PriceChartDocumentWidget(QWidget):
 
         # Give the self.priceBarChartWidget the birth time.
         self.priceBarChartWidget.setBirthInfo(self.birthInfo)
-        
+
         # Give the self.astrologyChartWidget the birth time.
         self.astrologyChartWidget.setBirthInfo(self.birthInfo)
-        
+
     def setDescriptionText(self, text):
         """Sets the description text of this PriceChartDocument.
-        
+
         Arguments:
-            
+
         text - str variable holding the new text to set the description
                with.
         """
 
         self.priceBarChartWidget.setDescriptionText(text)
-        
+
     def setTimezone(self, timezone):
         """Sets the timezone of this PriceChartDocument.
-        
+
         Arguments:
 
         timezone - datetime.tzinfo object to set for the location of this
@@ -5791,9 +5791,9 @@ class PriceChartDocumentWidget(QWidget):
 
     def loadPriceBars(self, priceBars):
         """Loads the price bars into the widgets.
-        
+
         Arguments:
-            
+
         priceBars - list of PriceBar objects with the price data.
         """
 
@@ -5812,7 +5812,7 @@ class PriceChartDocumentWidget(QWidget):
     def clearAllPriceBars(self):
         """Clears all PriceBars from all the internal widgets.
         This is called if a full reload is desired.
-        After this call, one can then call loadPriceBars(priceBars) 
+        After this call, one can then call loadPriceBars(priceBars)
         with all the pricebars to be loaded.
         """
 
@@ -5825,7 +5825,7 @@ class PriceChartDocumentWidget(QWidget):
         self.priceBarSpreadsheetWidget.clearAllPriceBars()
 
         self.log.debug("Leaving clearAllPriceBars()")
-        
+
     def loadPriceBarChartArtifacts(self, priceBarChartArtifacts):
         """Loads the PriceBarChart artifacts.
 
@@ -5844,7 +5844,7 @@ class PriceChartDocumentWidget(QWidget):
                        format(len(priceBarChartArtifacts)))
 
     def clearAllPriceBarChartArtifacts(self):
-        """Clears all the PriceBarChartArtifact objects from the 
+        """Clears all the PriceBarChartArtifact objects from the
         PriceBarChartWidget."""
 
         self.priceBarChartWidget.clearAllPriceBarChartArtifacts()
@@ -5854,33 +5854,33 @@ class PriceChartDocumentWidget(QWidget):
         """Loads a list of LookbackMultiple objects.
         These are only loaded into the LookbackMultiplePanelWidget.
         They are not redrawn in the PriceBarChartWidget.
-        
+
         Arguments:
         lookbackMultiples - list of LookbackMultiple objects to be loaded,
         """
-        
+
         self.log.debug("Entered loadLookbackMultiples({} LookbackMultiples)".\
                        format(len(lookbackMultiples)))
 
         self.lookbackMultiplePanelWidget.\
             setLookbackMultiples(lookbackMultiples)
-    
+
         self.log.debug("Exiting loadLookbackMultiples({} LookbackMultiples)".\
                        format(len(lookbackMultiples)))
 
     def getLookbackMultiples(self):
-        """ Returns the list of LookbackMultiple objects that are used 
+        """ Returns the list of LookbackMultiple objects that are used
         in this widget.
         """
-        
+
         return self.lookbackMultiplePanelWidget.getLookbackMultiples()
-    
+
     def applyRedrawLookbackMultiples(self):
         """Causes a removal of all
         LookbackMultiplePriceBarGraphicsItems, and then a drawing of all
         new LookbackMultiplePriceBarGraphicsItems.
         """
-        
+
         self.log.debug("Entered applyRedrawLookbackMultiples()")
 
         self.clearAllLookbackMultiplePriceBars()
@@ -5890,32 +5890,32 @@ class PriceChartDocumentWidget(QWidget):
 
     def drawLookbackMultiplePriceBars(self):
         """Causes the drawing of LookbackMultiplePriceBarGraphicsItems
-        These are only drawn for the currently visible area of the 
+        These are only drawn for the currently visible area of the
         QGraphicsScene.
         """
-        
+
         self.log.debug("Entered drawLookbackMultiplePriceBars()")
-        
+
         lookbackMultiples = \
             self.lookbackMultiplePanelWidget.getLookbackMultiples()
         self.priceBarChartWidget.\
             drawLookbackMultiplePriceBars(lookbackMultiples)
-        
+
         self.log.debug("Exiting drawLookbackMultiplePriceBars()")
 
     def clearAllLookbackMultiplePriceBars(self):
         """Causes the removal of all LookbackMultiplePriceBarGraphicsItems."""
 
         self.log.debug("Entered clearAllLookbackMultiplePriceBars()")
-        
+
         self.priceBarChartWidget.clearAllLookbackMultiplePriceBars()
 
         self.log.debug("Exiting clearAllLookbackMultiplePriceBars()")
 
     def applyPriceBarChartSettings(self, priceBarChartSettings):
         """Applies the given PriceBarChartSettings object to the
-        internal PriceBarChartWidget.  
-        
+        internal PriceBarChartWidget.
+
         Note:  This will most likely cause a redraw and thus signals will
         be emitted to say that the view has changed.
         """
@@ -5924,12 +5924,12 @@ class PriceChartDocumentWidget(QWidget):
 
         #self.log.debug("Applying the following settings: {}".\
         #               format(priceBarChartSettings.toString()))
-        
+
         self.priceBarChartWidget.\
             applyPriceBarChartSettings(priceBarChartSettings)
 
         self.log.debug("Exiting applyPriceBarChartSettings()")
-        
+
     def applyPriceBarSpreadsheetSettings(self, priceBarSpreadsheetSettings):
         """Applies the given PriceBarSpreadsheetSettings object to the
         internal PriceBarSpreadsheetWidget.
@@ -6008,7 +6008,7 @@ class PriceChartDocumentWidget(QWidget):
     def toPlanetLongitudeMovementMeasurementToolMode(self):
         """Changes the tool mode to be the
         PlanetLongitudeMovementMeasurementTool."""
-        
+
         self.priceBarChartWidget.\
             toPlanetLongitudeMovementMeasurementToolMode()
 
@@ -6156,47 +6156,47 @@ class PriceChartDocumentWidget(QWidget):
         the AstrologyChart.
 
         Arguments:
-        
+
         flag - True if the link is to be enabled and widget shown,
                False if the link is to be disabled and widget hidden.
         """
 
         if self.astrologyChartWidgetEnabled == True and flag == False:
-            
+
             self.priceBarChartWidget.astroChart1Update.\
                 disconnect(self.astrologyChartWidget.setAstroChart1Datetime)
             self.priceBarChartWidget.astroChart2Update.\
                 disconnect(self.astrologyChartWidget.setAstroChart2Datetime)
             self.priceBarChartWidget.astroChart3Update.\
                 disconnect(self.astrologyChartWidget.setAstroChart3Datetime)
-        
+
             self.astrologyChartWidget.setVisible(flag)
 
             self.astrologyChartWidgetEnabled = flag
-            
+
         elif self.astrologyChartWidgetEnabled == False and flag == True:
-            
+
             self.priceBarChartWidget.astroChart1Update.\
                 connect(self.astrologyChartWidget.setAstroChart1Datetime)
             self.priceBarChartWidget.astroChart2Update.\
                 connect(self.astrologyChartWidget.setAstroChart2Datetime)
             self.priceBarChartWidget.astroChart3Update.\
                 connect(self.astrologyChartWidget.setAstroChart3Datetime)
-        
+
             self.astrologyChartWidget.setVisible(flag)
-            
+
             self.astrologyChartWidgetEnabled = flag
-            
+
     def setEnableAndShowPlanetaryInfoTable(self, flag):
         """Shows and sets the link-connection enabled or disabled for
         the PlanetaryInfoTable.
-        
+
         Arguments:
-        
+
         flag - True if the link is to be enabled and widget shown,
         False if the link is to be disabled and widget hidden.
         """
-        
+
         if self.planetaryInfoTableWidgetEnabled == True and flag == False:
 
             self.priceBarChartWidget.astroChart1Update.\
@@ -6205,11 +6205,11 @@ class PriceChartDocumentWidget(QWidget):
                 disconnect(self._updatePlanetaryInfoTable)
             self.priceBarChartWidget.astroChart3Update.\
                 disconnect(self._updatePlanetaryInfoTable)
-            
+
             self.planetaryInfoTableWidget.setVisible(flag)
-            
+
             self.planetaryInfoTableWidgetEnabled = flag
-            
+
         elif self.planetaryInfoTableWidgetEnabled == False and flag == True:
 
             self.priceBarChartWidget.astroChart1Update.\
@@ -6218,11 +6218,11 @@ class PriceChartDocumentWidget(QWidget):
                 connect(self._updatePlanetaryInfoTable)
             self.priceBarChartWidget.astroChart3Update.\
                 connect(self._updatePlanetaryInfoTable)
-        
+
             self.planetaryInfoTableWidget.setVisible(flag)
-            
+
             self.planetaryInfoTableWidgetEnabled = flag
-            
+
     def setTrackMouseToAstroChart1(self, flag):
         """Sets the link-connection enabled or disabled for the
         pricebarchart mouse position to AstroChart1.
@@ -6233,7 +6233,7 @@ class PriceChartDocumentWidget(QWidget):
         """
 
         self.trackMouseToAstroChart1Enabled = flag
-        
+
     def setTrackMouseToAstroChart2(self, flag):
         """Sets the link-connection enabled or disabled for the
         pricebarchart mouse position to AstroChart2.
@@ -6244,7 +6244,7 @@ class PriceChartDocumentWidget(QWidget):
         """
 
         self.trackMouseToAstroChart2Enabled = flag
-        
+
     def setTrackMouseToAstroChart3(self, flag):
         """Sets the link-connection enabled or disabled for the
         pricebarchart mouse position to AstroChart3.
@@ -6259,7 +6259,7 @@ class PriceChartDocumentWidget(QWidget):
     def setAstroChart1WithBirthInfo(self):
         """Sets AstroChart1 with the info in the BirthInfo of this document.
         """
-        
+
         # Get the localized datetime of birth.
         localizedDt = self.birthInfo.getBirthLocalizedDatetime()
 
@@ -6270,115 +6270,115 @@ class PriceChartDocumentWidget(QWidget):
         if self.planetaryInfoTableWidgetEnabled:
             # Set PlanetaryInfoTable with this value.
             self._updatePlanetaryInfoTable(localizedDt)
-        
+
     def setAstroChart2WithBirthInfo(self):
         """Sets AstroChart2 with the info in the BirthInfo of this document.
         """
-        
+
         # Get the localized datetime of birth.
         localizedDt = self.birthInfo.getBirthLocalizedDatetime()
 
         if self.astrologyChartWidgetEnabled:
             # Open AstroChart2 with this value.
             self.astrologyChartWidget.setAstroChart2Datetime(localizedDt)
-        
+
         if self.planetaryInfoTableWidgetEnabled:
             # Set PlanetaryInfoTable with this value.
             self._updatePlanetaryInfoTable(localizedDt)
-        
+
     def setAstroChart3WithBirthInfo(self):
         """Sets AstroChart3 with the info in the BirthInfo of this document.
         """
-        
+
         # Get the localized datetime of birth.
         localizedDt = self.birthInfo.getBirthLocalizedDatetime()
 
         if self.astrologyChartWidgetEnabled:
             # Open AstroChart3 with this value.
             self.astrologyChartWidget.setAstroChart3Datetime(localizedDt)
-        
+
         if self.planetaryInfoTableWidgetEnabled:
             # Set PlanetaryInfoTable with this value.
             self._updatePlanetaryInfoTable(localizedDt)
-        
+
     def setAstroChart1WithNow(self):
         """Sets AstroChart1 with the current time."""
 
         # Get the timezone for the BirthInfo.
         tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
-        
+
         # Localize the 'now' timestamp.
         localizedDt = datetime.datetime.now(tzinfoObj)
-        
+
         if self.astrologyChartWidgetEnabled:
             # Open AstroChart1 with this value.
             self.astrologyChartWidget.setAstroChart1Datetime(localizedDt)
-        
+
         if self.planetaryInfoTableWidgetEnabled:
             # Set PlanetaryInfoTable with this value.
             self._updatePlanetaryInfoTable(localizedDt)
-        
+
     def setAstroChart2WithNow(self):
         """Sets AstroChart2 with the current time."""
-        
+
         # Get the timezone for the BirthInfo.
         tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
-        
+
         # Localize the 'now' timestamp.
         localizedDt = datetime.datetime.now(tzinfoObj)
-        
+
         if self.astrologyChartWidgetEnabled:
             # Open AstroChart2 with this value.
             self.astrologyChartWidget.setAstroChart2Datetime(localizedDt)
-        
+
         if self.planetaryInfoTableWidgetEnabled:
             # Set PlanetaryInfoTable with this value.
             self._updatePlanetaryInfoTable(localizedDt)
-        
+
     def setAstroChart3WithNow(self):
         """Sets AstroChart3 with the current time."""
-        
+
         # Get the timezone for the BirthInfo.
         tzinfoObj = pytz.timezone(self.birthInfo.timezoneName)
-            
+
         # Localize the 'now' timestamp.
         localizedDt = datetime.datetime.now(tzinfoObj)
-        
+
         if self.astrologyChartWidgetEnabled:
             # Open AstroChart3 with this value.
             self.astrologyChartWidget.setAstroChart3Datetime(localizedDt)
-        
+
         if self.planetaryInfoTableWidgetEnabled:
             # Set PlanetaryInfoTable with this value.
             self._updatePlanetaryInfoTable(localizedDt)
-        
+
     def clearAstroChart1(self):
         """Clears the AstroChart1."""
 
         if self.astrologyChartWidgetEnabled:
             self.astrologyChartWidget.clearAstroChart1()
-        
+
         if self.planetaryInfoTableWidgetEnabled:
             self.planetaryInfoTableWidget.clear()
-            
+
     def clearAstroChart2(self):
         """Clears the AstroChart2."""
 
         if self.astrologyChartWidgetEnabled:
             self.astrologyChartWidget.clearAstroChart2()
-        
+
         if self.planetaryInfoTableWidgetEnabled:
             self.planetaryInfoTableWidget.clear()
-            
+
     def clearAstroChart3(self):
         """Clears the AstroChart3."""
 
         if self.astrologyChartWidgetEnabled:
             self.astrologyChartWidget.clearAstroChart3()
-        
+
         if self.planetaryInfoTableWidgetEnabled:
             self.planetaryInfoTableWidget.clear()
-            
+
     def handleJhoraLaunch(self, dt):
         """Handles a launch of JHora with the given datetime.datetime.
         This function assumes that the birth information is available
@@ -6392,7 +6392,7 @@ class PriceChartDocumentWidget(QWidget):
 
         # Pass the command onto the parent MainWindow to handle.
         self.jhoraLaunch.emit(dt, self.birthInfo)
-        
+
     def handleAstrologLaunch(self, dt):
         """Handles a launch of Astrolog with the given datetime.datetime.
         This function assumes that the birth information is available
@@ -6412,27 +6412,27 @@ class PriceChartDocumentWidget(QWidget):
         """Enables and shows the LookbackMultiplePanel.
 
         Arguments:
-        
+
         flag - True if the link is to be enabled and widget shown,
                False if the link is to be disabled and widget hidden.
         """
-        
+
         if self.lookbackMultiplePanelWidgetEnabled != flag:
             self.lookbackMultiplePanelWidget.setVisible(flag)
             self.lookbackMultiplePanelWidgetEnabled = flag
-            
+
     def handleLookbackMultiplesChanged(self, lookbackMultiples):
         """Handles what needs to happen when the list of
         LookbackMultiple objects has changed or has been modified/updated.
 
         This method causes the following things to happen:
         - LookbackMultiplePanel is refreshed.
-        - PriceBarChartGraphicsScene removes all 
+        - PriceBarChartGraphicsScene removes all
           LookbackMultiplePriceBarGraphicsItems.
 
             Note: LookbackMultiplePriceBarGraphicsItems should NOT be redrawn.
-            The reason is because we don't want edits coming from 
-            LookbackMultiplePanel to cause a redraw, 
+            The reason is because we don't want edits coming from
+            LookbackMultiplePanel to cause a redraw,
             unless the user explicitly asks for it via the button.
 
         - Signal priceChartDocumentWidgetChanged is emitted.
@@ -6440,7 +6440,7 @@ class PriceChartDocumentWidget(QWidget):
         Arguments:
         lookbackMultiples - list of updated new LookbackMultiple objects.
         """
-    
+
         self.log.debug("Entered handleLookbackMultiplesChanged()")
 
         self.lookbackMultiplePanelWidget.\
@@ -6449,29 +6449,29 @@ class PriceChartDocumentWidget(QWidget):
         self.priceChartDocumentWidgetChanged.emit()
 
         self.log.debug("Exiting handleLookbackMultiplesChanged()")
-    
+
     def _handleCurrentTimestampChanged(self, dt):
         """Handles when the current mouse cursor datetime changes.
         This just calls certain astrology widgets to update their
-        display of what the current time is.  
+        display of what the current time is.
         """
-        
+
         if self.astrologyChartWidgetEnabled:
-            
+
             if self.trackMouseToAstroChart1Enabled:
                 self.astrologyChartWidget.setAstroChart1Datetime(dt)
-                
+
             if self.trackMouseToAstroChart2Enabled:
                 self.astrologyChartWidget.setAstroChart2Datetime(dt)
-                
+
             if self.trackMouseToAstroChart3Enabled:
                 self.astrologyChartWidget.setAstroChart3Datetime(dt)
-                
+
         if self.planetaryInfoTableWidgetEnabled:
-            
+
             if self.trackMouseToAstroChart1Enabled or \
                    self.trackMouseToAstroChart2Enabled or \
                    self.trackMouseToAstroChart3Enabled:
-                
+
                 self._updatePlanetaryInfoTable(dt)
-                
+

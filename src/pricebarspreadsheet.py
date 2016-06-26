@@ -23,7 +23,7 @@ from data_objects import PriceBarSpreadsheetSettings
 
 
 class PriceBarSpreadsheetWidget(QWidget):
-    """Widget holding the QTableView that displays the PriceBar 
+    """Widget holding the QTableView that displays the PriceBar
     information along with other metrics analysis information.
     """
 
@@ -51,9 +51,9 @@ class PriceBarSpreadsheetWidget(QWidget):
 
 
     def loadPriceBars(self, priceBars):
-        """Adds the given list of PriceBar objects to the 
-        spreadsheet widget.  
-        
+        """Adds the given list of PriceBar objects to the
+        spreadsheet widget.
+
         Note if you want to load a whole new set of PriceBar objects, then
         call clearAllPriceBars() first, or else you will retain all the
         old bars.
@@ -74,10 +74,10 @@ class PriceBarSpreadsheetWidget(QWidget):
     # objects.
 
 
-    def applyPriceBarSpreadsheetSettings(self, priceBarSpreadsheetSettings): 
+    def applyPriceBarSpreadsheetSettings(self, priceBarSpreadsheetSettings):
         """Applies the settings in the given PriceBarChartSettings object.
         """
-        
+
         self.priceBarSpreadsheetSettings = priceBarSpreadsheetSettings
         # TODO:  add code here to set all the settings.
 

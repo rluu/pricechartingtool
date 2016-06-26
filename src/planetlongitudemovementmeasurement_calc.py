@@ -29,7 +29,7 @@ from util import Util
 class PLMMUtils:
     """
     PLMMUtils is short for PlanetLongitudeMovementMeasurementUtils.
-    PLMMUtils contains various static methods to assist in calculating 
+    PLMMUtils contains various static methods to assist in calculating
     planet longitude movement measurements.
 
     Note:
@@ -37,7 +37,7 @@ class PLMMUtils:
       initializeEphemeris()
       getPlanetLongitudeMovementMeasurementText()
     """
-    
+
     # Logger object for this class.
     log = logging.getLogger("planetlongitudemovementmeasurement_calc.PLMMUtils")
 
@@ -47,7 +47,7 @@ class PLMMUtils:
     # AstrologyUtils.degreesInCircle because it is possible we may
     # want to test different sizes of a 'circle'.
     circleSizeInDegrees = 360.0
-    
+
     # All references to longitude_speed need to
     # be from tropical zodiac measurements!  If I use
     # sidereal zodiac measurements for getting the
@@ -63,32 +63,32 @@ class PLMMUtils:
                             locationElevationMeters=0):
         """Initializes or re-initializes the Ephemeris with the location
         given as parameters.
-        
+
         Arguments:
-        geoLongitudeDeg - Longitude in degrees.  
+        geoLongitudeDeg - Longitude in degrees.
                           West longitudes are negative,
                           East longitudes are positive.
                           Value should be in the range of -180 to 180.
                           Default value is the longitude of New York City.
-        geoLatitudeDeg  - Latitude in degrees.  North latitudes are positive, 
-                          south latitudes are negative.  
+        geoLatitudeDeg  - Latitude in degrees.  North latitudes are positive,
+                          south latitudes are negative.
                           Value should be in the range of -90 to 90.
                           Default value is the latitude of New York City.
         altitudeMeters  - Altitude in meters.
-        
+
         """
-        
+
         # Initialize the Ephemeris.
         Ephemeris.initialize()
-        
+
         # Set a geographic location.
-        Ephemeris.setGeographicPosition(locationLongitudeDegrees, 
+        Ephemeris.setGeographicPosition(locationLongitudeDegrees,
                                         locationLatitudeDegrees,
                                         locationElevationMeters)
-    
+
     @staticmethod
     def getPlanetLongitudeMovementMeasurementText(\
-        planetName, 
+        planetName,
         startTimestamp,
         endTimestamp,
         showGeocentricRetroAsZeroTextFlag,
@@ -105,15 +105,15 @@ class PLMMUtils:
         The measurements are returned in a multi-line str.
 
         If 'startTimestamp' and 'endTimestamp' are the same timestamp,
-        then an empty str is returned.  If 'startTimestamp' is not 
-        before 'endTimestamp' then the two timestamps will be swapped so that 
+        then an empty str is returned.  If 'startTimestamp' is not
+        before 'endTimestamp' then the two timestamps will be swapped so that
         'startTimestamp' is always before 'endTimestamp'.
-        
+
         Pre-requisites:
-        This method assumes that the user has initialized the Ephemeris 
-        via Ephemeris.initialize() and has called 
-        Ephemeris.setGeographicPosition() prior to running this method.  
-        Calling the PLMMUtils.initializeEphemeris() 
+        This method assumes that the user has initialized the Ephemeris
+        via Ephemeris.initialize() and has called
+        Ephemeris.setGeographicPosition() prior to running this method.
+        Calling the PLMMUtils.initializeEphemeris()
         method would work as a substitute for this.
 
         Arguments:
@@ -121,19 +121,19 @@ class PLMMUtils:
         planetName     - str holding the name of the planet to do the
                          calculations for.
 
-        startTimestamp - datetime.datetime holding the beginning timestamp 
-                         for measurement.  If this value is after 'endTimestamp', 
-                         then the algorithm for this method will swap 
-                         'startTimestamp' and 'endTimestamp' so that 
+        startTimestamp - datetime.datetime holding the beginning timestamp
+                         for measurement.  If this value is after 'endTimestamp',
+                         then the algorithm for this method will swap
+                         'startTimestamp' and 'endTimestamp' so that
                          'startTimestamp' is always before 'endTimestamp'.
 
-        endTimestamp   - datetime.datetime holding the ending timestamp 
-                         for measurement.  If this value is before 'endTimestamp', 
-                         then the algorithm for this method will swap 
-                         'startTimestamp' and 'endTimestamp' so that 
+        endTimestamp   - datetime.datetime holding the ending timestamp
+                         for measurement.  If this value is before 'endTimestamp',
+                         then the algorithm for this method will swap
+                         'startTimestamp' and 'endTimestamp' so that
                          'startTimestamp' is always before 'endTimestamp'.
 
-        showGeocentricRetroAsZeroTextFlag     
+        showGeocentricRetroAsZeroTextFlag
                        - bool flag for this measurement type to be included.
 
         showGeocentricRetroAsPositiveTextFlag
@@ -158,37 +158,37 @@ class PLMMUtils:
                        - bool flag for measuring in units of circles.
 
         measurementUnitBiblicalCirclesEnabled,
-                       - bool flag for measuring in units of 
+                       - bool flag for measuring in units of
                          George Bayer's biblical circles.
 
         maxErrorTd - datetime.timedelta object holding the maximum
                      time difference between the exact planetary
                      combination timestamp, and the one calculated.
                      This would define the accuracy of the
-                     calculations.  
+                     calculations.
 
         Returns:
         str containing the planet longitude movement
         measurements between two timestamps, as measured in various
         units, zodiacs and centricity types.
         """
-        
+
         if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
             PLMMUtils.log.debug("Entered " + inspect.stack()[0][3] + "()")
 
         # Return value.
         text = ""
 
-            
+
         timestampStr = Ephemeris.datetimeToDayStr(startTimestamp)
         if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
             PLMMUtils.log.debug("startTimestamp: " + timestampStr)
-        
-        
+
+
         timestampStr = Ephemeris.datetimeToDayStr(endTimestamp)
         if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
             PLMMUtils.log.debug("endTimestamp: " + timestampStr)
-            
+
         # If startTimestamp is after endTimestamp, then swap their
         # values.  This can happen if the person is measuring
         # 'backwards' from the future towards the past.  We have
@@ -202,7 +202,7 @@ class PLMMUtils:
             temp = startTimestamp
             startTimestamp = endTimestamp
             endTimestamp = temp
-            
+
         # If the start and end timestamps are the same, then
         # don't do any calculations.  Return an empty 'text' str.
         if startTimestamp == endTimestamp:
@@ -212,9 +212,9 @@ class PLMMUtils:
         # then don't do any calculations.
         if tropicalZodiacFlag == False and \
            siderealZodiacFlag == False:
-               
+
             return text
-                
+
         # If there are no measurement unit types specified,
         # then don't do calculations for any planets.
         if measurementUnitDegreesEnabled == False and \
@@ -228,7 +228,7 @@ class PLMMUtils:
             showGeocentricRetroAsZeroTextFlag == True or \
             showGeocentricRetroAsPositiveTextFlag == True or \
             showGeocentricRetroAsNegativeTextFlag == True
-            
+
         # Flag indicating that heliocentric measurements are to be done.
         isHeliocentricEnabled = showHeliocentricTextFlag
 
@@ -236,7 +236,7 @@ class PLMMUtils:
         # planet, sorted by timestamp.
         planetData = []
 
-        
+
         # Step size to use in populating the data list with
         # PlanetaryInfos.
 
@@ -244,61 +244,61 @@ class PLMMUtils:
             PLMMUtils._getOptimalStepSizeTd(planetName,
                                             isGeocentricEnabled,
                                             isHeliocentricEnabled)
-        
+
         if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
             PLMMUtils.log.debug("stepSizeTd == " + stepSizeTd)
             PLMMUtils.log.debug("Stepping through from {} to {} ...".\
                 format(Ephemeris.datetimeToStr(startTimestamp),
                        Ephemeris.datetimeToStr(endTimestamp)))
-                
+
         # Current datetime as we step through all the
         # timestamps between the start and end timestamp.
         currDt = copy.deepcopy(startTimestamp)
-                
+
         # Step through the timestamps, calculating the planet positions.
         while currDt < endTimestamp:
             p = Ephemeris.getPlanetaryInfo(planetName, currDt)
             planetData.append(p)
-                    
+
             # Increment step size.
             currDt += stepSizeTd
-                    
+
         # We must also append the planet calculation for the end timestamp.
         p = Ephemeris.getPlanetaryInfo(planetName, endTimestamp)
         planetData.append(p)
-                
+
         # Geocentric measurement.
         if isGeocentricEnabled == True and \
                 not Ephemeris.isHeliocentricOnlyPlanetName(planetName):
-                    
+
             # Get the PlanetaryInfos for the timestamps of the
             # planet at the moment right after the
             # longitude_speed polarity changes.
             additionalPlanetaryInfos = []
-                    
+
             prevLongitudeSpeed = None
-                    
+
             for i in range(len(planetData)):
                 currLongitudeSpeed = \
                     planetData[i].geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed']
-                        
+
                 if prevLongitudeSpeed != None and \
                    ((prevLongitudeSpeed < 0 and currLongitudeSpeed >= 0) or \
                    (prevLongitudeSpeed >= 0 and currLongitudeSpeed < 0)):
-                            
+
                     # Polarity changed.
                     # Try to narrow down the exact moment in
                     # time when this occured.
                     t1 = planetData[i-1].dt
                     t2 = planetData[i].dt
                     currErrorTd = t2 - t1
-                            
+
                     while currErrorTd > maxErrorTd:
                         if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
                             PLMMUtils.log.debug("Refining between {} and {}".\
                                            format(Ephemeris.datetimeToStr(t1),
                                                   Ephemeris.datetimeToStr(t2)))
-                                
+
                         # Check the timestamp between.
                         diffTd = t2 - t1
                         halfDiffTd = \
@@ -327,12 +327,12 @@ class PLMMUtils:
 
                         # Update the currErrorTd.
                         currErrorTd = t2 - t1
-                            
+
                     PLMMUtils.log.debug("Broke out of loop to find " + \
                                    "velocity polarity change.  " + \
                                    "currErrorTd is: {}, ".\
                                    format(currErrorTd))
-                                           
+
                     # Timestamp at t2 is now within the amount
                     # of the time error threshold ('maxErrorTd')
                     # following the polarity change.
@@ -342,7 +342,7 @@ class PLMMUtils:
 
                     t1pi = planetData[i-1]
                     t2pi = Ephemeris.getPlanetaryInfo(planetName, t2)
-                            
+
                     if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
                         PLMMUtils.log.debug("t1 == {}, ".\
                                    format(Ephemeris.datetimeToStr(t1pi.dt)) + \
@@ -352,7 +352,7 @@ class PLMMUtils:
                                    format(t1pi.geocentric['sidereal']['longitude']) + \
                                    "longitude_speed == {}, ".\
                                    format(t1pi.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed']))
-                                
+
                         PLMMUtils.log.debug("t2 == {}, ".\
                                    format(Ephemeris.datetimeToStr(t2pi.dt)) + \
                                    "longitude(tropical) == {}, ".\
@@ -361,19 +361,19 @@ class PLMMUtils:
                                    format(t2pi.geocentric['sidereal']['longitude']) + \
                                    "longitude_speed == {}, ".\
                                    format(t2pi.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed']))
-                            
+
                     # There is no need to update
                     # currLongitudeSpeed here, because the
                     # longitude_speed for 'p' should be the
                     # same polarity.
-                            
+
                 # Update prevLongitudeSpeed.
                 prevLongitudeSpeed = currLongitudeSpeed
-                        
+
             # Sort all the extra PlanetaryInfo objects by timestamp.
             additionalPlanetaryInfos = \
                 sorted(additionalPlanetaryInfos, key=lambda c: c.dt)
-                    
+
             # Insert PlanetaryInfos from
             # 'additionalPlanetaryInfos' into 'planetData' at
             # the timestamp-ordered location.
@@ -382,7 +382,7 @@ class PLMMUtils:
                 pi = additionalPlanetaryInfos[i]
 
                 insertedFlag = False
-                        
+
                 while currLoc < len(planetData):
                     if pi.dt < planetData[currLoc].dt:
                         planetData.insert(currLoc, pi)
@@ -391,7 +391,7 @@ class PLMMUtils:
                         break
                     else:
                         currLoc += 1
-                        
+
                 if insertedFlag == False:
                     # PlanetaryInfo 'pi' has a timestamp that
                     # is later than the last PlanetaryInfo in
@@ -405,12 +405,12 @@ class PLMMUtils:
                     currLoc += 1
 
             # Do summations to determine the measurements.
-                    
+
             if showGeocentricRetroAsZeroTextFlag == True:
                 if tropicalZodiacFlag == True:
                     totalDegrees = 0
                     zodiacType = "tropical"
-                            
+
                     for i in range(len(planetData)):
                         if i != 0:
                             prevPi = planetData[i-1]
@@ -419,12 +419,12 @@ class PLMMUtils:
                             if prevPi.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                 # Direct motion.
                                 # Elapsed amount for this segment should be positive.
-                                
+
                                 # Find the amount of longitude elasped.
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
                                     prevPi.geocentric[zodiacType]['longitude']
-                                        
+
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
                                 # If so, make the necessary adjustments
@@ -441,12 +441,12 @@ class PLMMUtils:
                                 # Retrograde movements are considered as zero.
                                 longitudeElapsed = 0
                                 totalDegrees += longitudeElapsed
-                                    
+
                     # Line of text.  We append measurements to
                     # this line of text depending on what
                     # measurements are enabled.
                     line = "G T {} moves ".format(planetName)
-                            
+
                     numCircles = totalDegrees / PLMMUtils.circleSizeInDegrees
                     numBiblicalCircles = \
                         totalDegrees / AstrologyUtils.degreesInBiblicalCircle
@@ -455,13 +455,13 @@ class PLMMUtils:
                     # measurement unit type is already
                     # appended to the line of text.
                     atLeastOneMeasurementAlreadyAddedFlag = False
-                            
+
                     if measurementUnitDegreesEnabled == True:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
                         line += "{:.2f} deg ".format(totalDegrees)
                         atLeastOneMeasurementAlreadyAddedFlag = True
-                                
+
                     if measurementUnitCirclesEnabled == True:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
@@ -476,13 +476,13 @@ class PLMMUtils:
 
                     # Append last part of the line.
                     line += "(r as 0)"
-                            
+
                     text += line + os.linesep
-                            
+
                 if siderealZodiacFlag == True:
                     totalDegrees = 0
                     zodiacType = "sidereal"
-                            
+
                     for i in range(len(planetData)):
                         if i != 0:
                             prevPi = planetData[i-1]
@@ -491,12 +491,12 @@ class PLMMUtils:
                             if prevPi.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                 # Direct motion.
                                 # Elapsed amount for this segment should be positive.
-                                        
+
                                 # Find the amount of longitude elasped.
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
                                     prevPi.geocentric[zodiacType]['longitude']
-                                        
+
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
                                 # If so, make the necessary adjustments
@@ -513,27 +513,27 @@ class PLMMUtils:
                                 # Retrograde movements are considered as zero.
                                 longitudeElapsed = 0
                                 totalDegrees += longitudeElapsed
-                                    
+
                     # Line of text.  We append measurements to
                     # this line of text depending on what
                     # measurements are enabled.
                     line = "G S {} moves ".format(planetName)
-                            
+
                     numCircles = totalDegrees / PLMMUtils.circleSizeInDegrees
                     numBiblicalCircles = \
                         totalDegrees / AstrologyUtils.degreesInBiblicalCircle
-                            
+
                     # Flag that indicates at least one
                     # measurement unit type is already
                     # appended to the line of text.
                     atLeastOneMeasurementAlreadyAddedFlag = False
-                            
+
                     if measurementUnitDegreesEnabled == True:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
                         line += "{:.2f} deg ".format(totalDegrees)
                         atLeastOneMeasurementAlreadyAddedFlag = True
-                                
+
                     if measurementUnitCirclesEnabled == True:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
@@ -548,14 +548,14 @@ class PLMMUtils:
 
                     # Append last part of the line.
                     line += "(r as 0)"
-                    
+
                     text += line + os.linesep
-                            
+
             if showGeocentricRetroAsPositiveTextFlag == True:
                 if tropicalZodiacFlag == True:
                     totalDegrees = 0
                     zodiacType = "tropical"
-                            
+
                     for i in range(len(planetData)):
                         if i != 0:
                             prevPi = planetData[i-1]
@@ -575,11 +575,11 @@ class PLMMUtils:
                                                       planetData[i].geocentric[zodiacType]['longitude'],
                                                       planetData[i].geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed']
                                                       ))
-                                    
+
                             if prevPi.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                 # Direct motion.
                                 # Elapsed amount for this segment should be positive.
-                                        
+
                                 # Find the amount of longitude elasped.
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
@@ -590,7 +590,7 @@ class PLMMUtils:
                                                    "longitudeElapsed " + \
                                                    "(before reduction): {}".\
                                                    format(longitudeElapsed))
-                                        
+
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
                                 # If so, make the necessary adjustments
@@ -598,16 +598,16 @@ class PLMMUtils:
                                 # correct.
                                 longitudeElapsed = \
                                     Util.toNormalizedAngle(longitudeElapsed)
-                                        
+
                                 totalDegrees += longitudeElapsed
-                                        
+
                                 if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
                                     PLMMUtils.log.debug("Direct motion: Added amount: {}".\
                                                    format(longitudeElapsed))
                             else:
                                 # Retrograde motion.
                                 # Elapsed amount for this segment should be negative.
-                                        
+
                                 # Find the amount of longitude elasped.
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
@@ -618,7 +618,7 @@ class PLMMUtils:
                                                    "longitudeElapsed " + \
                                                    "(before reduction): {}".\
                                                    format(longitudeElapsed))
-                                        
+
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
                                 # If so, make the necessary adjustments
@@ -637,27 +637,27 @@ class PLMMUtils:
                                 if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
                                     PLMMUtils.log.debug("Retrograde motion: Added amount: {}".\
                                                    format(abs(longitudeElapsed)))
-                                        
+
                     # Line of text.  We append measurements to
                     # this line of text depending on what
                     # measurements are enabled.
                     line = "G T {} moves ".format(planetName)
-                            
+
                     numCircles = totalDegrees / PLMMUtils.circleSizeInDegrees
                     numBiblicalCircles = \
                         totalDegrees / AstrologyUtils.degreesInBiblicalCircle
-                            
+
                     # Flag that indicates at least one
                     # measurement unit type is already
                     # appended to the line of text.
                     atLeastOneMeasurementAlreadyAddedFlag = False
-                            
+
                     if measurementUnitDegreesEnabled == True:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
                         line += "{:.2f} deg ".format(totalDegrees)
                         atLeastOneMeasurementAlreadyAddedFlag = True
-                                
+
                     if measurementUnitCirclesEnabled == True:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
@@ -672,13 +672,13 @@ class PLMMUtils:
 
                     # Append last part of the line.
                     line += "(r as +)"
-                            
+
                     text += line + os.linesep
-                            
+
                 if siderealZodiacFlag == True:
                     totalDegrees = 0
                     zodiacType = "sidereal"
-                            
+
                     for i in range(len(planetData)):
                         if i != 0:
                             prevPi = planetData[i-1]
@@ -687,12 +687,12 @@ class PLMMUtils:
                             if prevPi.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                 # Direct motion.
                                 # Elapsed amount for this segment should be positive.
-                                        
+
                                 # Find the amount of longitude elasped.
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
                                     prevPi.geocentric[zodiacType]['longitude']
-                                        
+
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
                                 # If so, make the necessary adjustments
@@ -705,7 +705,7 @@ class PLMMUtils:
                             else:
                                 # Retrograde motion.
                                 # Elapsed amount for this segment should be negative.
-                                        
+
                                 # Find the amount of longitude elasped.
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
@@ -725,27 +725,27 @@ class PLMMUtils:
                                 # positive values, negate it
                                 # before adding.
                                 totalDegrees += abs(longitudeElapsed)
-                                    
+
                     # Line of text.  We append measurements to
                     # this line of text depending on what
                     # measurements are enabled.
                     line = "G S {} moves ".format(planetName)
-                            
+
                     numCircles = totalDegrees / PLMMUtils.circleSizeInDegrees
                     numBiblicalCircles = \
                         totalDegrees / AstrologyUtils.degreesInBiblicalCircle
-                            
+
                     # Flag that indicates at least one
                     # measurement unit type is already
                     # appended to the line of text.
                     atLeastOneMeasurementAlreadyAddedFlag = False
-                            
+
                     if measurementUnitDegreesEnabled == True:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
                         line += "{:.2f} deg ".format(totalDegrees)
                         atLeastOneMeasurementAlreadyAddedFlag = True
-                        
+
                     if measurementUnitCirclesEnabled == True:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
@@ -760,14 +760,14 @@ class PLMMUtils:
 
                     # Append last part of the line.
                     line += "(r as +)"
-                            
+
                     text += line + os.linesep
-                            
+
             if showGeocentricRetroAsNegativeTextFlag == True:
                 if tropicalZodiacFlag == True:
                     totalDegrees = 0
                     zodiacType = "tropical"
-                            
+
                     for i in range(len(planetData)):
                         if i != 0:
                             prevPi = planetData[i-1]
@@ -776,12 +776,12 @@ class PLMMUtils:
                             if prevPi.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                 # Direct motion.
                                 # Elapsed amount for this segment should be positive.
-                                        
+
                                 # Find the amount of longitude elasped.
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
                                     prevPi.geocentric[zodiacType]['longitude']
-                                        
+
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
                                 # If so, make the necessary adjustments
@@ -794,7 +794,7 @@ class PLMMUtils:
                             else:
                                 # Retrograde motion.
                                 # Elapsed amount for this segment should be negative.
-                                        
+
                                 # Find the amount of longitude elasped.
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
@@ -809,7 +809,7 @@ class PLMMUtils:
                                     longitudeElapsed -= 360
 
                                 totalDegrees += longitudeElapsed
-                                    
+
                     # Line of text.  We append measurements to
                     # this line of text depending on what
                     # measurements are enabled.
@@ -818,18 +818,18 @@ class PLMMUtils:
                     numCircles = totalDegrees / PLMMUtils.circleSizeInDegrees
                     numBiblicalCircles = \
                         totalDegrees / AstrologyUtils.degreesInBiblicalCircle
-                            
+
                     # Flag that indicates at least one
                     # measurement unit type is already
                     # appended to the line of text.
                     atLeastOneMeasurementAlreadyAddedFlag = False
-                            
+
                     if measurementUnitDegreesEnabled == True:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
                         line += "{:.2f} deg ".format(totalDegrees)
                         atLeastOneMeasurementAlreadyAddedFlag = True
-                                
+
                     if measurementUnitCirclesEnabled == True:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
@@ -844,13 +844,13 @@ class PLMMUtils:
 
                     # Append last part of the line.
                     line += "(r as -)"
-                            
+
                     text += line + os.linesep
-                            
+
                 if siderealZodiacFlag == True:
                     totalDegrees = 0
                     zodiacType = "sidereal"
-                            
+
                     for i in range(len(planetData)):
                         if i != 0:
                             prevPi = planetData[i-1]
@@ -859,12 +859,12 @@ class PLMMUtils:
                             if prevPi.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                 # Direct motion.
                                 # Elapsed amount for this segment should be positive.
-                                        
+
                                 # Find the amount of longitude elasped.
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
                                     prevPi.geocentric[zodiacType]['longitude']
-                                        
+
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
                                 # If so, make the necessary adjustments
@@ -877,7 +877,7 @@ class PLMMUtils:
                             else:
                                 # Retrograde motion.
                                 # Elapsed amount for this segment should be negative.
-                                        
+
                                 # Find the amount of longitude elasped.
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
@@ -892,27 +892,27 @@ class PLMMUtils:
                                     longitudeElapsed -= 360
 
                                 totalDegrees += longitudeElapsed
-                                    
+
                     # Line of text.  We append measurements to
                     # this line of text depending on what
                     # measurements are enabled.
                     line = "G T {} moves ".format(planetName)
-                            
+
                     numCircles = totalDegrees / PLMMUtils.circleSizeInDegrees
                     numBiblicalCircles = \
                         totalDegrees / AstrologyUtils.degreesInBiblicalCircle
-                            
+
                     # Flag that indicates at least one
                     # measurement unit type is already
                     # appended to the line of text.
                     atLeastOneMeasurementAlreadyAddedFlag = False
-                            
+
                     if measurementUnitDegreesEnabled == True:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
                         line += "{:.2f} deg ".format(totalDegrees)
                         atLeastOneMeasurementAlreadyAddedFlag = True
-                                
+
                     if measurementUnitCirclesEnabled == True:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
@@ -924,34 +924,34 @@ class PLMMUtils:
                             line += "or "
                         line += "{:.3f} bcir ".format(numBiblicalCircles)
                         atLeastOneMeasurementAlreadyAddedFlag = True
-                            
+
                     # Append last part of the line.
                     line += "(r as -)"
-                            
+
                     text += line + os.linesep
-                            
+
         # Heliocentric measurement.
         if isHeliocentricEnabled == True and \
                 not Ephemeris.isGeocentricOnlyPlanetName(planetName):
-          
+
             if tropicalZodiacFlag == True:
                 totalDegrees = 0
                 zodiacType = "tropical"
-                        
+
                 for i in range(len(planetData)):
                     if i != 0:
                         prevPi = planetData[i-1]
                         currPi = planetData[i]
-                        
+
                         if prevPi.heliocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                             # Direct motion.
                             # Elapsed amount for this segment should be positive.
-                            
+
                             # Find the amount of longitude elasped.
                             longitudeElapsed = \
                                 currPi.heliocentric[zodiacType]['longitude'] - \
                                 prevPi.heliocentric[zodiacType]['longitude']
-                                    
+
                             # See if there was a crossing of the
                             # 0 degree point or the 360 degree point.
                             # If so, make the necessary adjustments
@@ -959,17 +959,17 @@ class PLMMUtils:
                             # correct.
                             longitudeElapsed = \
                                 Util.toNormalizedAngle(longitudeElapsed)
-                                    
+
                             totalDegrees += longitudeElapsed
                         else:
                             # Retrograde motion.
                             # Elapsed amount for this segment should be negative.
-                                    
+
                             # Find the amount of longitude elasped.
                             longitudeElapsed = \
                                 currPi.heliocentric[zodiacType]['longitude'] - \
                                 prevPi.heliocentric[zodiacType]['longitude']
-                                    
+
                             # See if there was a crossing of the
                             # 0 degree point or the 360 degree point.
                             # If so, make the necessary adjustments
@@ -977,35 +977,35 @@ class PLMMUtils:
                             # correct.
                             if longitudeElapsed > 0:
                                 longitudeElapsed -= 360
-                                        
+
                             totalDegrees += longitudeElapsed
-                                    
+
                 # Line of text.  We append measurements to
                 # this line of text depending on what
                 # measurements are enabled.
                 line = "H T {} moves ".format(planetName)
-                            
+
                 numCircles = totalDegrees / PLMMUtils.circleSizeInDegrees
                 numBiblicalCircles = \
                     totalDegrees / AstrologyUtils.degreesInBiblicalCircle
-                        
+
                 # Flag that indicates at least one
                 # measurement unit type is already
                 # appended to the line of text.
                 atLeastOneMeasurementAlreadyAddedFlag = False
-                        
+
                 if measurementUnitDegreesEnabled == True:
                     if atLeastOneMeasurementAlreadyAddedFlag == True:
                         line += "or "
                     line += "{:.2f} deg ".format(totalDegrees)
                     atLeastOneMeasurementAlreadyAddedFlag = True
-                                
+
                 if measurementUnitCirclesEnabled == True:
                     if atLeastOneMeasurementAlreadyAddedFlag == True:
                         line += "or "
                     line += "{:.3f} cir ".format(numCircles)
                     atLeastOneMeasurementAlreadyAddedFlag = True
-                            
+
                 if measurementUnitBiblicalCirclesEnabled == True:
                     if atLeastOneMeasurementAlreadyAddedFlag == True:
                         line += "or "
@@ -1013,25 +1013,25 @@ class PLMMUtils:
                     atLeastOneMeasurementAlreadyAddedFlag = True
 
                 text += line + os.linesep
-                        
+
             if siderealZodiacFlag == True:
                 totalDegrees = 0
                 zodiacType = "sidereal"
-                        
+
                 for i in range(len(planetData)):
                     if i != 0:
                         prevPi = planetData[i-1]
                         currPi = planetData[i]
-                                
+
                         if prevPi.heliocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                             # Direct motion.
                             # Elapsed amount for this segment should be positive.
-                                    
+
                             # Find the amount of longitude elasped.
                             longitudeElapsed = \
                                 currPi.heliocentric[zodiacType]['longitude'] - \
                                 prevPi.heliocentric[zodiacType]['longitude']
-                                    
+
                             # See if there was a crossing of the
                             # 0 degree point or the 360 degree point.
                             # If so, make the necessary adjustments
@@ -1039,17 +1039,17 @@ class PLMMUtils:
                             # correct.
                             longitudeElapsed = \
                                 Util.toNormalizedAngle(longitudeElapsed)
-                                    
+
                             totalDegrees += longitudeElapsed
                         else:
                             # Retrograde motion.
                             # Elapsed amount for this segment should be negative.
-                                    
+
                             # Find the amount of longitude elasped.
                             longitudeElapsed = \
                                 currPi.heliocentric[zodiacType]['longitude'] - \
                                 prevPi.heliocentric[zodiacType]['longitude']
-                                    
+
                             # See if there was a crossing of the
                             # 0 degree point or the 360 degree point.
                             # If so, make the necessary adjustments
@@ -1057,43 +1057,43 @@ class PLMMUtils:
                             # correct.
                             if longitudeElapsed > 0:
                                 longitudeElapsed -= 360
-                                        
+
                             totalDegrees += longitudeElapsed
-                                    
+
                 # Line of text.  We append measurements to
                 # this line of text depending on what
                 # measurements are enabled.
                 line = "H S {} moves ".format(planetName)
-                        
+
                 numCircles = totalDegrees / PLMMUtils.circleSizeInDegrees
                 numBiblicalCircles = \
                     totalDegrees / AstrologyUtils.degreesInBiblicalCircle
-                        
+
                 # Flag that indicates at least one
                 # measurement unit type is already
                 # appended to the line of text.
                 atLeastOneMeasurementAlreadyAddedFlag = False
-                        
+
                 if measurementUnitDegreesEnabled == True:
                     if atLeastOneMeasurementAlreadyAddedFlag == True:
                         line += "or "
                     line += "{:.2f} deg ".format(totalDegrees)
                     atLeastOneMeasurementAlreadyAddedFlag = True
-                            
+
                 if measurementUnitCirclesEnabled == True:
                     if atLeastOneMeasurementAlreadyAddedFlag == True:
                         line += "or "
                     line += "{:.3f} cir ".format(numCircles)
                     atLeastOneMeasurementAlreadyAddedFlag = True
-                            
+
                 if measurementUnitBiblicalCirclesEnabled == True:
                     if atLeastOneMeasurementAlreadyAddedFlag == True:
                         line += "or "
                     line += "{:.3f} bcir ".format(numBiblicalCircles)
                     atLeastOneMeasurementAlreadyAddedFlag = True
-                            
+
                 text += line + os.linesep
-        
+
         text = text.rstrip()
 
         if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
@@ -1101,12 +1101,12 @@ class PLMMUtils:
 
         return text
 
-        
+
     @staticmethod
     def _getOptimalStepSizeTd(planetName, isGeocentricEnabled, isHeliocentricEnabled):
         """Helper function that will try to determine a better step size
         for supporting other methods of PLMMUtils.
-        
+
         The step size chosen here is dependent on planetName and whether
         geocentric, heliocentric or a combination of both are used.
 
@@ -1127,8 +1127,8 @@ class PLMMUtils:
         # large period, we can increase the step size slightly
         # to improve performance.
         """
-        
-        # This is the default step size.  
+
+        # This is the default step size.
         # Planet should not ever move more than 120 degrees per step size.
         stepSizeTd = datetime.timedelta(days=1)
 
@@ -1139,15 +1139,15 @@ class PLMMUtils:
             # House cusps and ascmc planets need a smaller step size.
             stepSizeTd = datetime.timedelta(hours=5)
             return stepSizeTd
-        
+
         # These planets don't go retrograde, so we don't have to worry about
         # losing data points if our step size is too big.  We just have to keep
         # the step size to lower than 120 degrees.  Here, I'll just
         # use some overly safe values, because planets move a different speeds
         # due to their elliptical orbits.
-        
+
         if isGeocentricEnabled and isHeliocentricEnabled:
-            
+
             if planetName == "Moon":
                 stepSizeTd = datetime.timedelta(days=4)
             elif planetName == "MoSu":
@@ -1180,7 +1180,7 @@ class PLMMUtils:
                 stepSizeTd = datetime.timedelta(days=4)
             elif planetName == "Sun":
                 stepSizeTd = datetime.timedelta(days=5)
-        
+
         elif isHeliocentricEnabled:
             if planetName == "Mercury":
                 stepSizeTd = datetime.timedelta(days=5)
@@ -1209,19 +1209,19 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
     """Tests planet movements (both direct and retrograde planets/movements).
     """
 
-    
+
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     # Assumes that Ephemeris has been initialized by this point of execution.
 
     eastern = pytz.timezone('US/Eastern')
 
     def printDatetimeResults(resultDts, planetName, centricityType, longitudeType, referenceDt, desiredDeltaDegrees):
         print("  Result datetimes for planetName={}, centricityType={}, longitudeType={}, referenceDt={}, desiredDeltaDegrees={} are:".\
-              format(planetName, 
-                     centricityType, 
-                     longitudeType, 
-                     referenceDt, 
+              format(planetName,
+                     centricityType,
+                     longitudeType,
+                     referenceDt,
                      desiredDeltaDegrees))
 
         print("  Actual    num results == {}".format(len(resultDts)))
@@ -1242,10 +1242,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-            planetName, centricityType, longitudeType, referenceDt, 
+            planetName, centricityType, longitudeType, referenceDt,
             desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
         print("  Expected  num results == 1")
         print("  Expected resultDts[0] == 1983-10-28 19:43:36.123047-04:56")
@@ -1262,10 +1262,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1282,10 +1282,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1302,10 +1302,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 3")
@@ -1324,10 +1324,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 3")
@@ -1346,10 +1346,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 2")
@@ -1367,10 +1367,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1387,10 +1387,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 2")
@@ -1408,10 +1408,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1428,10 +1428,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 0")
@@ -1447,10 +1447,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 2")
@@ -1468,10 +1468,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 2")
@@ -1489,10 +1489,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1509,10 +1509,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 0")
@@ -1528,10 +1528,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1548,10 +1548,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 3")
@@ -1570,10 +1570,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1590,10 +1590,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1610,10 +1610,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 3")
@@ -1631,10 +1631,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
         desiredDeltaDegrees = 20
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1651,10 +1651,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 3")
@@ -1673,10 +1673,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1693,10 +1693,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1713,10 +1713,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1733,10 +1733,10 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
 
         print("  Expected  num results == 1")
@@ -1753,12 +1753,12 @@ def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
 
         resultDts = \
             LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt, 
+                planetName, centricityType, longitudeType, referenceDt,
                 desiredDeltaDegrees)
 
-        printDatetimeResults(resultDts, planetName, centricityType, 
+        printDatetimeResults(resultDts, planetName, centricityType,
                              longitudeType, referenceDt, desiredDeltaDegrees)
-        
+
         print("  Expected  num results == 0")
 
     print("")
@@ -1768,7 +1768,7 @@ def testLookbackMultipleUtils_speedTest():
     """Tests to see how long it takes to do some computations."""
 
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     # For timing the calculations.
     import time
 
@@ -1776,12 +1776,12 @@ def testLookbackMultipleUtils_speedTest():
         maxErrorTd = datetime.timedelta(minutes=60)
         #maxErrorTd = datetime.timedelta(minutes=5)
         #maxErrorTd = datetime.timedelta(seconds=2)
-        
+
         print("  Testing G.AsSu moving 360 rev., 3 times, with maxErrorTd={}".\
               format(maxErrorTd))
-        
+
         startTime = time.time()
-        
+
         for i in range(3):
             planetName="AsSu"
             centricityType="geocentric"
@@ -1791,7 +1791,7 @@ def testLookbackMultipleUtils_speedTest():
 
             resultDts = \
                 LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
-                    planetName, centricityType, longitudeType, referenceDt, 
+                    planetName, centricityType, longitudeType, referenceDt,
                     desiredDeltaDegrees, maxErrorTd)
 
         endTime = time.time()
@@ -1801,12 +1801,12 @@ def testLookbackMultipleUtils_speedTest():
         maxErrorTd = datetime.timedelta(minutes=60)
         #maxErrorTd = datetime.timedelta(minutes=5)
         #maxErrorTd = datetime.timedelta(seconds=2)
-        
+
         print("  Testing G.MoSu moving 360 rev., 3 times, with maxErrorTd={}".\
               format(maxErrorTd))
-        
+
         startTime = time.time()
-        
+
         for i in range(3):
             planetName="MoSu"
             centricityType="geocentric"
@@ -1816,19 +1816,19 @@ def testLookbackMultipleUtils_speedTest():
 
             resultDts = \
                 LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
-                    planetName, centricityType, longitudeType, referenceDt, 
+                    planetName, centricityType, longitudeType, referenceDt,
                     desiredDeltaDegrees, maxErrorTd)
 
     if True:
         maxErrorTd = datetime.timedelta(minutes=60)
         #maxErrorTd = datetime.timedelta(minutes=5)
         #maxErrorTd = datetime.timedelta(seconds=2)
-        
+
         print("  Testing G.MoSu moving 12 rev., 30 times, with maxErrorTd={}".\
               format(maxErrorTd))
-        
+
         startTime = time.time()
-        
+
         for i in range(30):
             planetName="MoSu"
             centricityType="geocentric"
@@ -1838,7 +1838,7 @@ def testLookbackMultipleUtils_speedTest():
 
             resultDts = \
                 LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
-                    planetName, centricityType, longitudeType, referenceDt, 
+                    planetName, centricityType, longitudeType, referenceDt,
                     desiredDeltaDegrees, maxErrorTd)
 
         endTime = time.time()
@@ -1846,7 +1846,7 @@ def testLookbackMultipleUtils_speedTest():
 
 ##############################################################################
 
-# For debugging the module during development.  
+# For debugging the module during development.
 if __name__=="__main__":
     # For inspect.stack().
     import inspect
@@ -1860,7 +1860,7 @@ if __name__=="__main__":
     # For logging and for exiting.
     import os
     import sys
-    
+
     # Initialize logging.
     LOG_CONFIG_FILE = os.path.join(sys.path[0], "../conf/logging.conf")
     logging.config.fileConfig(LOG_CONFIG_FILE)
@@ -1893,7 +1893,7 @@ if __name__=="__main__":
     print("Running all tests took: {} sec".format(endTime - startTime))
 
     #cProfile.run('runTests()')
-    
+
     # Exit the app when all windows are closed.
     #app.lastWindowClosed.connect(logging.shutdown)
     #app.lastWindowClosed.connect(app.quit)

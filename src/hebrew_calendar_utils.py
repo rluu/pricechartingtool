@@ -17,7 +17,7 @@ class HebrewCalendarUtils:
 
         hebrewDateTuple = \
             convertdate.hebrew.from_gregorian(dt.year, dt.month, dt.day)
-          
+
         hebrewYear = hebrewDateTuple[0]
         hebrewMonth = hebrewDateTuple[1]
         hebrewDay = hebrewDateTuple[2]
@@ -28,15 +28,15 @@ class HebrewCalendarUtils:
                    hebrewDay)
 
         return rv
-    
+
     @staticmethod
     def datetimeToHebrewMonthDayStr(dt):
         """Converts the given datetime.datetime to a Hebrew month and date str.
         """
-        
+
         hebrewDateTuple = \
             convertdate.hebrew.from_gregorian(dt.year, dt.month, dt.day)
-          
+
         hebrewYear = hebrewDateTuple[0]
         hebrewMonth = hebrewDateTuple[1]
         hebrewDay = hebrewDateTuple[2]
@@ -46,15 +46,15 @@ class HebrewCalendarUtils:
                    hebrewDay)
 
         return rv
-        
+
     @staticmethod
     def monthNumberToMonthName(monthNumber):
         """Converts the given hebrew month number to the month name"
-        
+
         Arguments:
         monthNumber - int for the month number, where 1 represents .
 
-        Returns: 
+        Returns:
         str value holding the month name.  If the input is
         invalid, then None is returned.
         """
@@ -91,4 +91,4 @@ class HebrewCalendarUtils:
             rv = None
 
         return rv
-        
+

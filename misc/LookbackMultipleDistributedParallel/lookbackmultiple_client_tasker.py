@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 ##############################################################################
-# 
+#
 # Description:
-# 
+#
 #   Runs a server that is a Python multiprocessing Manager for managing task
 #   queues and result queues.  Accepts connections on a certain port from other
 #   multiprocessing clients that are either workers or taskers.  Work tasks
@@ -11,9 +11,9 @@
 #   that is computed for the task onto the result queue.  The tasker can then
 #   pull results from the result queue.  There can be many workers in this
 #   model.
-#   
+#
 # Usage:
-#   
+#
 #   ./lookbackmultiple_client_tasker.py --server-address=192.168.1.200 --server-port=1940 --auth-key="passphrase"
 #
 #   ./lookbackmultiple_client_tasker.py --server-address=light.jumpingcrab.com --server-port=1940 --auth-key="passphrase"
@@ -37,7 +37,7 @@ import pytz
 import signal
 
 # For parsing command-line options.
-from optparse import OptionParser  
+from optparse import OptionParser
 
 # For timing the calculations.
 import time
@@ -119,21 +119,21 @@ def runClientTasker():
 
     QueueManager.register("getTaskQueue", callable=lambda: taskQueue)
     QueueManager.register("getResultQueue", callable=lambda: resultQueue)
-    
-    manager = QueueManager(address=(serverAddress, serverPort), 
+
+    manager = QueueManager(address=(serverAddress, serverPort),
                            authkey=serverAuthKey)
     manager.connect()
-    
+
     log.info("LookbackMultiple client tasker connected to {}:{}".\
              format(serverAddress, serverPort))
-    
+
     taskQueue = manager.getTaskQueue()
     resultQueue = manager.getResultQueue()
-    
+
     log.info("LookbackMultiple client tasker now creating tasks ...")
-    
+
     speedTestDistributedParallel(taskQueue, resultQueue)
-    
+
     log.info("LookbackMultiple client tasker is done.")
 
 
@@ -155,14 +155,14 @@ def speedTestDistributedParallel(taskQueue, resultQueue):
         maxErrorTd = datetime.timedelta(minutes=60)
         #maxErrorTd = datetime.timedelta(minutes=5)
         #maxErrorTd = datetime.timedelta(seconds=2)
-        
+
         numIterations = 8
 
         log.info("  Testing G.MoSu, {} iterations, with maxErrorTd={}".\
               format(numIterations, maxErrorTd))
-        
+
         startTime = time.time()
-        
+
         argsTupleList = []
         resultsList = []
 
@@ -180,29 +180,29 @@ def speedTestDistributedParallel(taskQueue, resultQueue):
 
             args = (methodToRun,
                     taskId,
-                    planetName, 
-                    centricityType, 
-                    longitudeType, 
-                    referenceDt, 
-                    desiredDeltaDegrees, 
-                    maxErrorTd, 
-                    locationLongitudeDegrees, 
-                    locationLatitudeDegrees, 
+                    planetName,
+                    centricityType,
+                    longitudeType,
+                    referenceDt,
+                    desiredDeltaDegrees,
+                    maxErrorTd,
+                    locationLongitudeDegrees,
+                    locationLatitudeDegrees,
                     locationElevationMeters)
-            
+
             argsTupleList.append(args)
 
         # Submit tasks.
         log.info("Submitting {} tasks ...".format(len(argsTupleList)))
         for argsTuple in argsTupleList:
-            
+
             log.debug("About to submit argsTuple: {}".\
                       format(argsTuple))
             taskQueue.put(argsTuple)
 
         log.info("Submitting {} tasks completed.".\
                   format(len(argsTupleList)))
-            
+
         # Block, waiting for all the tasks to complete.
         log.info("Waiting for all tasks to complete ...")
 
@@ -210,7 +210,7 @@ def speedTestDistributedParallel(taskQueue, resultQueue):
 
         #log.debug("Tasks completed.  Now analyzing results ...")
         log.info("Now analyzing results ...")
-        
+
         resultCount = 0
         while resultCount < len(argsTupleList):
 
@@ -240,7 +240,7 @@ def speedTestDistributedParallel(taskQueue, resultQueue):
             argIndex += 1
             locationElevationMeters = argsTuple[argIndex]
             argIndex += 1
-            
+
             endl = os.linesep
 
             argsTupleStr = \
@@ -263,7 +263,7 @@ def speedTestDistributedParallel(taskQueue, resultQueue):
 
 
             log.debug("Obtained result: " + \
-                      "argsTuple == {}, ".format(argsTuple) + 
+                      "argsTuple == {}, ".format(argsTuple) +
                       "len(results) == {}".format(len(results)))
             for i in range(len(results)):
                 resultDts = []
@@ -278,8 +278,8 @@ def speedTestDistributedParallel(taskQueue, resultQueue):
             resultCount += 1
             log.info("We have consumed {} total results now.".\
                       format(resultCount))
-     
-        log.info("Done consuming all tasks submitted.") 
+
+        log.info("Done consuming all tasks submitted.")
         endTime = time.time()
 
         log.info("  Calculations in distributed parallel took: {} sec".\
@@ -298,7 +298,7 @@ if __name__=="__main__":
                       dest="version",
                       default=False,
                       help="Display script version info and author contact.")
-    
+
     parser.add_option("--server-address",
                   action="store",
                   type="str",
@@ -331,13 +331,13 @@ if __name__=="__main__":
 
     # Parse the arguments into options.
     (options, args) = parser.parse_args()
-     
+
     # Print version information if the flag was used.
     if options.version == True:
         print(os.path.basename(sys.argv[0]) + " (Version " + VERSION + ")")
         print("By Ryan Luu, ryanluu@gmail.com")
         shutdown(0)
-    
+
     # Server address argument.
     if options.serverAddress == None:
         log.error("Please specify a server address to the " + \
@@ -346,7 +346,7 @@ if __name__=="__main__":
     else:
         serverAddress = options.serverAddress
         log.debug("serverAddress == {}".format(serverAddress))
-    
+
     # Server port argument.
     if options.serverPort == None:
         log.error("Please specify a server port to the " + \
@@ -355,7 +355,7 @@ if __name__=="__main__":
     else:
         serverPort = options.serverPort
         log.debug("serverPort == {}".format(serverPort))
-    
+
     # Server authentication key argument.
     if options.serverAuthKey == None:
         log.error("Please specify a server auth key to the " + \

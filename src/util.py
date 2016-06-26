@@ -23,7 +23,7 @@ class Util:
         Returns:
         str value holding the month abbreviation (e.g. 'Jan').  If the
                   input is invalid, then None is returned.
-        
+
         """
 
         rv = None
@@ -56,7 +56,7 @@ class Util:
             rv = None
 
         return rv
-            
+
     @staticmethod
     def monthAbbrevToNumber(monthAbbrev):
         """Converts the given month 3-letter abbreviation to the month
@@ -103,22 +103,22 @@ class Util:
             rv = None
 
         return rv
-            
+
     @staticmethod
     def absTd(timedelta):
         """Returns the absolute value of this datetime.timedelta object.
         This is to ensure timedeltas are positive for comparison purposes.
         """
-        
+
         if timedelta < datetime.timedelta(0):
             return timedelta * -1
         else:
             return timedelta
-        
+
     @staticmethod
     def fuzzyIsEqual(f1, f2, maxDiff=0.00000001):
         """Fuzzy test for floating point values being equal.
-        
+
         Arguments:
         f1 - float value to test against variable f2.
         f2 - float value to test against variable f1.
@@ -134,7 +134,7 @@ class Util:
             return True
         else:
             return False
-    
+
     @staticmethod
     def toNormalizedAngle(angleDeg):
         """Normalizes the given angle to a value in the range [0, 360).
@@ -147,12 +147,12 @@ class Util:
         """
 
         a = float(angleDeg)
-        
+
         while a < 0.0:
             a += 360.0
         while a >= 360.0:
             a -= 360.0
 
         return a
-    
+
 ##############################################################################

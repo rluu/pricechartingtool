@@ -26,7 +26,7 @@ class GeoNames:
 
     Limits per username are: 30,000 credits per day, and 2,000 credits per hour.
     http://www.geonames.org/export/credits.html
-    
+
     # Search
     # Each call to search uses 1 credit per request.
     http://www.geonames.org/export/geonames-search.html
@@ -42,7 +42,7 @@ class GeoNames:
     http://www.geonames.org/export/web-services.html#srtm3
     http://www.geonames.org/export/web-services.html#astergdem
     http://www.geonames.org/export/web-services.html#gtopo30
-    
+
     """
 
     # Base URL used for web service queries.
@@ -60,18 +60,18 @@ class GeoNames:
     # invocation.
     GEONAMES_USERNAME = "pricechartingtool"
     GEONAMES_PASSWORD = "password"
-    
+
     # Logger object for this class.
     log = logging.getLogger("geonames.GeoNames")
 
 
     def canConnectToWebService():
-        """Returns True if we are able to make a connection to the 
+        """Returns True if we are able to make a connection to the
         web service.  Returns False otherwise.
 
         This is useful for testing for an internet connection.
 
-        The timeout for the connection attempt is hardcoded in this 
+        The timeout for the connection attempt is hardcoded in this
         function to 4 seconds.
         """
 
@@ -81,7 +81,7 @@ class GeoNames:
         # There are no parameters specified so the results returned should be
         # empty.  E.g., we should see a response like the following:
         #
-        # 
+        #
         # <geonames style="MEDIUM">
         #   <totalResultsCount>0</totalResultsCount>
         # </geonames>
@@ -126,28 +126,28 @@ class GeoNames:
             GeoNames.log.error("Couldn't open the URL due to the " + \
                                "following URLError: " + str(e))
             retVal = False
-            
+
         except urllib.error.HTTPError as e:
             GeoNames.log.error("Couldn't open the URL due to the " + \
                                "following HTTPError: " + str(e))
             retVal = False
-            
+
         return retVal
 
 
-    def search(placename="", 
-               searchStr="", 
-               country="", 
-               maxRows="100", 
-               countryBias=COUNTRY_BIAS_DEFAULT, 
-               lang=LANGUAGE_DEFAULT, 
+    def search(placename="",
+               searchStr="",
+               country="",
+               maxRows="100",
+               countryBias=COUNTRY_BIAS_DEFAULT,
+               lang=LANGUAGE_DEFAULT,
                fuzzy="1"):
         """Does a query for locations matching various search parameters.
         It uses the 'search' function of the GeoNames web service.
 
-        One of the following parameters to this function are required 
+        One of the following parameters to this function are required
         to be specified:
-        
+
               - placename
               - searchStr
 
@@ -155,21 +155,21 @@ class GeoNames:
 
         placename - String containing the place to search for.
                     If an empty string is specified, then the 'searchStr'
-                    parameter needs to be non-empty.  
-        searchStr - String containing a the place, country, continent or 
-                    admin code to search for.  If an empty string is 
-                    specified, then the 'placename' parameter needs to be 
+                    parameter needs to be non-empty.
+        searchStr - String containing a the place, country, continent or
+                    admin code to search for.  If an empty string is
+                    specified, then the 'placename' parameter needs to be
                     non-empty.
-        country   - String containing the country to filter results with.  
+        country   - String containing the country to filter results with.
                     This is the country code in ISO-3166 (two-letter) format.
                     If this string is empty, all countries are searched.
         maxRows   - String containing a number for the maximum number of rows
                     to return.  Per the web service documentation, if this
                     is not specified, then 100 is the default.  Maximum
                     allowable value is 1000.
-        countryBias - String holding the country code that search results 
+        countryBias - String holding the country code that search results
                     will be biased towards.  Default is 'US'.
-        lang      - String containing the language to return the results in.  
+        lang      - String containing the language to return the results in.
                     The string should be a ISO-636 2-letter language code.
         fuzzy     - String containing a floating point value between 0 and 1.
                     It defines the fuzzyness of the search terms.
@@ -178,16 +178,16 @@ class GeoNames:
 
         Returns:    List of GeoInfo objects.
 
-        Raises:     urllib.error.URLError if an internet connection 
+        Raises:     urllib.error.URLError if an internet connection
                     could not be opened to the web service.
 
 
-        Please see the following URL for details on the parameters 
-        they take to the search web service function: 
-        
+        Please see the following URL for details on the parameters
+        they take to the search web service function:
+
               http://www.geonames.org/export/geonames-search.html
 
-        """ 
+        """
 
         # Return value.
         geoInfos = []
@@ -210,7 +210,7 @@ class GeoNames:
         maxRowsInt = 1
 
         # Try to cast the 'maxRows' to a int.  It should work fine if
-        # the string is a numeric string. 
+        # the string is a numeric string.
         try:
             maxRowsInt = int(maxRows)
 
@@ -232,7 +232,7 @@ class GeoNames:
         fuzzyFloat = 0
 
         # Try to cast the string 'fuzzy' to a float.  It should work fine if
-        # the string is a numeric string. 
+        # the string is a numeric string.
         try:
             fuzzyFloat = float(fuzzy)
 
@@ -254,13 +254,13 @@ class GeoNames:
         # Here we assemble the URL that will make up the query.
         url = GeoNames.GEONAMES_BASEURL + "search?"
 
-        # Append to the URL, the variables for the placename 
+        # Append to the URL, the variables for the placename
         # search string or the generic search string.
         # One of these should have been specified.
         if ((searchStr != None and searchStr != "") and \
             (placename != None and placename != "")):
-            
-            # Escape any characters that aren't valid in a URL. 
+
+            # Escape any characters that aren't valid in a URL.
             searchStr = urllib.parse.quote(searchStr)
             placename = urllib.parse.quote(placename)
 
@@ -268,13 +268,13 @@ class GeoNames:
             url += "&name={}".format(placename)
 
         elif (searchStr != None and searchStr != ""):
-            # Escape any characters that aren't valid in a URL. 
+            # Escape any characters that aren't valid in a URL.
             searchStr = urllib.parse.quote(searchStr)
 
             url += "q={}".format(searchStr)
-        
+
         elif (placename != None and placename != ""):
-            # Escape any characters that aren't valid in a URL. 
+            # Escape any characters that aren't valid in a URL.
             placename = urllib.parse.quote(placename)
 
             url += "name={}".format(placename)
@@ -285,14 +285,14 @@ class GeoNames:
 
         # Append the country.
         if country != None and country != "":
-            # Escape any characters that aren't valid in a URL. 
+            # Escape any characters that aren't valid in a URL.
             country = urllib.parse.quote(country.strip())
 
             url += "&country={}".format(country)
 
         # Append the country bias.
         if countryBias != None and countryBias != "":
-            # Escape any characters that aren't valid in a URL. 
+            # Escape any characters that aren't valid in a URL.
             countryBias = urllib.parse.quote(countryBias.strip())
 
             url += "&countryBias={}".format(countryBias)
@@ -306,7 +306,7 @@ class GeoNames:
         url += "&type={}".format("xml")
 
         # Append style.  This is the verbosity of the XML document returned.
-        # Valid values are 'SHORT', 'MEDIUM', 'LONG', 'FULL'. 
+        # Valid values are 'SHORT', 'MEDIUM', 'LONG', 'FULL'.
         url += "&style={}".format("FULL")
 
         # Append charset.  This specifies the encoding used for the document
@@ -318,7 +318,7 @@ class GeoNames:
 
         # Append username information.
         url += "&username={}".format(GeoNames.GEONAMES_USERNAME)
-        
+
         # Okay, we've completed assembling the URL.
         GeoNames.log.debug("GeoNames.search(): request URL is: " + url)
 
@@ -340,13 +340,13 @@ class GeoNames:
 
 
     def _parseSearchResultXml(data):
-        """Parses the search result XML in 'data' and returns the 
+        """Parses the search result XML in 'data' and returns the
         results as a list of GeoInfo objects.
         """
 
         # Return value.
         geoInfos = []
-        
+
         rootElement = ElementTree.XML(data)
 
         if rootElement.tag != "geonames":
@@ -357,9 +357,9 @@ class GeoNames:
 
         GeoNames.log.debug("rootElement has {} children.".\
                            format(len(rootElement.getchildren())))
-                           
+
         for child in rootElement.getchildren():
-            
+
             if child.tag == "totalResultsCount":
                 totalResultsCountStr = child.text
                 GeoNames.log.debug("HTTP Response: Total results count is " + \
@@ -367,7 +367,7 @@ class GeoNames:
             elif child.tag == "geoname":
                 # This is an entry for a geoname result.
 
-                # Create a GeoInfo object that will contain the info 
+                # Create a GeoInfo object that will contain the info
                 # in this XML element.
                 geoInfo = GeoInfo()
 
@@ -487,23 +487,23 @@ class GeoNames:
 
 
     def getTimezone(latitude, longitude, radius=None):
-        """Returns a string representing the timezone.  
-        The returned string is in the format such that it can be 
+        """Returns a string representing the timezone.
+        The returned string is in the format such that it can be
         looked up in the Olson database (e.g., 'US/Eastern').
 
         Arguments:
         latitude  - Float value containing the latitude location in degrees.
         longitude - Float value containing the longitude location in degrees.
-        radius    - Float value containing the buffer in kilometers for 
-                    closest country in coastal areas.  Specifying the 
+        radius    - Float value containing the buffer in kilometers for
+                    closest country in coastal areas.  Specifying the
                     radius parameter is optional.
 
-        Returns:  
+        Returns:
         String representing the timezone, for lookup in the Olson database.
         If an error occurred in obtaining the timezone, an empty string is
         returned and the error is logged.
 
-        Raises:     urllib.error.URLError if an internet connection 
+        Raises:     urllib.error.URLError if an internet connection
                     could not be opened to the web service.
         """
 
@@ -539,7 +539,7 @@ class GeoNames:
             GeoNames.log.error(errStr)
             raise ValueError(errStr)
 
-        
+
         # Here we assemble the URL that will make up the query.
         url = GeoNames.GEONAMES_BASEURL + "timezone?"
 
@@ -592,7 +592,7 @@ class GeoNames:
 
         GeoNames.log.debug("getTimezone(): returning '{}'".format(retVal))
         return retVal
-        
+
 
     def getElevation(latitude, longitude, source=""):
         """Returns a float representing the elevation of a location in meters.
@@ -613,27 +613,27 @@ class GeoNames:
             If the 'source' argument is an empty string, the following
             algorithm is used to determine which elevation source to use:
 
-              - If the latitude is between 60N and 56S, then the 
+              - If the latitude is between 60N and 56S, then the
                 SRTM3 data is used.
 
-              - If the latitude is outside 60N and 56S but between 
-                83N and 65S, then the Aster Global Digital Elevation Model 
+              - If the latitude is outside 60N and 56S but between
+                83N and 65S, then the Aster Global Digital Elevation Model
                 is used.
 
               - For all other latitudes, the GTOPO30 model is used.
 
-        Returns:  
-        Float value for the elevation in meters.  If the location is 
+        Returns:
+        Float value for the elevation in meters.  If the location is
         an ocean or there is no data, then a value of -9999 is returned.
 
-        Raises:     urllib.error.URLError if an internet connection 
+        Raises:     urllib.error.URLError if an internet connection
                     could not be opened to the web service.
 
         Detailed info on the sources for this elevation data:
 
           - SRTM3
 
-              Source website: 
+              Source website:
 
                 http://www2.jpl.nasa.gov/srtm/
 
@@ -661,21 +661,21 @@ class GeoNames:
 
                 This service is also available in XML and JSON format:
                 ws.geonames.org/srtm3XML?lat=50.01&lng=10.2
-                ws.geonames.org/srtm3JSON?lat=50.01&lng=10.2 
+                ws.geonames.org/srtm3JSON?lat=50.01&lng=10.2
 
           - Aster Global Digital Elevation Model
 
-              Source website: 
+              Source website:
 
                 http://asterweb.jpl.nasa.gov/gdem.asp
 
               Info from http://www.geonames.org/export/web-services.html
-              
+
                 Webservice Type : REST
                 Url : ws.geonames.org/astergdem?
                 Parameters : lat,lng;
 
-                sample are: ca 30m x 30m, between 83N and 65S latitude. 
+                sample are: ca 30m x 30m, between 83N and 65S latitude.
                 Result : a single number giving the elevation in meters
                 according to aster gdem, ocean areas have been masked as "no
                 data" and have been assigned a value of -9999
@@ -684,12 +684,12 @@ class GeoNames:
 
                 This service is also available in XML and JSON format :
                 ws.geonames.org/astergdemXML?lat=50.01&lng=10.2 and
-                ws.geonames.org/astergdemJSON?lat=50.01&lng=10.2 
+                ws.geonames.org/astergdemJSON?lat=50.01&lng=10.2
 
 
           - GTOPO30
 
-              Source website: 
+              Source website:
 
                 http://eros.usgs.gov/#/Find_Data/Products_and_Data_Available/GTOPO30
                 http://www1.gsi.go.jp/geowww/globalmap-gsi/gtopo30/README.html
@@ -699,21 +699,21 @@ class GeoNames:
                 GTOPO30 is a global digital elevation model (DEM) with a
                 horizontal grid spacing of 30 arc seconds (approximately 1
                 kilometer). GTOPO30 was derived from several raster and vector
-                sources of topographic information. 
+                sources of topographic information.
 
                 Webservice Type : REST
                 Url : ws.geonames.org/gtopo30?
                 Parameters : lat,lng;
 
                 sample area: ca 1km x 1km Result : a single number giving the
-                elevation in meters according to gtopo30, ocean areas have 
-                been masked as "no data" and have been assigned a value 
+                elevation in meters according to gtopo30, ocean areas have
+                been masked as "no data" and have been assigned a value
                 of -9999
 
                 Example http://ws.geonames.org/gtopo30?lat=47.01&lng=10.2
 
-                This service is also available in JSON format : 
-                http://ws.geonames.org/gtopo30JSON?lat=47.01&lng=10.2 
+                This service is also available in JSON format :
+                http://ws.geonames.org/gtopo30JSON?lat=47.01&lng=10.2
         """
 
         # Return value.  Default to no data.
@@ -797,7 +797,7 @@ class GeoNames:
 
         # Append username information.
         url += "&username={}".format(GeoNames.GEONAMES_USERNAME)
-        
+
         # Okay, we've completed assembling the URL.
         GeoNames.log.debug("getElevation(): request URL is: " + url)
 
@@ -814,7 +814,7 @@ class GeoNames:
         GeoNames.log.debug("getElevation(): Data from the response is: {}".\
                          format(data))
 
-        # Decode to a string. 
+        # Decode to a string.
         dataString = data.decode('utf-8').strip()
         GeoNames.log.debug("getElevation(): Data stripped as a str is: {}".\
                          format(dataString))
@@ -843,12 +843,12 @@ class GeoNames:
 class GeoInfo:
     """Class GeoInfo holds geographical information about a certain place."""
 
-    def __init__(self, 
-                 name="", 
-                 toponymName="", 
-                 latitude=None, 
-                 longitude=None, 
-                 geonameId=None, 
+    def __init__(self,
+                 name="",
+                 toponymName="",
+                 latitude=None,
+                 longitude=None,
+                 geonameId=None,
                  countryCode="",
                  countryName="",
                  fcl="",
@@ -886,17 +886,17 @@ class GeoInfo:
         fcodeName   - String containing the name of the feature code.
         population  - Integer containing the population of the GeoInfo place.
         elevation   - Float value for the elevation in meters.
-        continentCode - String holding the code for the Continent of the 
+        continentCode - String holding the code for the Continent of the
                         place.
         adminCode1  - String holding the admin code for this location.
                       In the United States this is "VA" for Virginia.
         adminName1  - String holding the admin name for this location.
-                      In the United States this is the state 
+                      In the United States this is the state
                       (e.g., "Virginia")
         adminCode2  - String holding the second admin code for this location.
                       In the United States this is the County number code.
         adminName2  - String holding the second admin name for this location.
-                      In the United States this is the County 
+                      In the United States this is the County
                       (e.g., "Arlington County")
         timezone    - Timezone string for a lookup in the Olson database.
         """
@@ -982,8 +982,8 @@ class GeoInfo:
         degrees to a tuple of degrees, minutes, seconds, and polarity string.
 
         Argument:
-        latitudeDegrees - 
-                  float value holding the degrees of the latitude as 
+        latitudeDegrees -
+                  float value holding the degrees of the latitude as
                   positive or negative number.
 
         Returns:
@@ -1010,9 +1010,9 @@ class GeoInfo:
         seconds = int(round(secondsFloat))
 
         return (degrees, minutes, seconds, polarity)
-    
+
     def latitudeToDegrees(degrees, minutes, seconds, polarity):
-        """Static class function for converting from 
+        """Static class function for converting from
         degrees, minutes, seconds, polarity to a float value of degrees.
 
         Arguments:
@@ -1024,8 +1024,8 @@ class GeoInfo:
 
         Returns:
 
-        latitudeDegrees - 
-                  float value holding the degrees of the latitude as 
+        latitudeDegrees -
+                  float value holding the degrees of the latitude as
                   positive or negative number.
         """
 
@@ -1047,7 +1047,7 @@ class GeoInfo:
             polarityMultiplier = 1.0
         elif str(polarity) == "S":
             polarityMultiplier = -1.0
-        else: 
+        else:
             # Input is invalid.
             raise ValueError("Latitude polarity value wasn't 'N' or 'S'")
 
@@ -1064,7 +1064,7 @@ class GeoInfo:
         degrees to a tuple of degrees, minutes, seconds, and polarity string.
 
         Argument:
-        longitudeDegrees - float value holding the degrees of the 
+        longitudeDegrees - float value holding the degrees of the
                   longitude as positive or negative number.
                   Positive numbers are East, Negative numbers are West.
 
@@ -1090,11 +1090,11 @@ class GeoInfo:
         minutes = int(minutesFloat)
         secondsFloat = (minutesFloat - float(minutes)) * 60.0
         seconds = int(round(secondsFloat))
-        
+
         return (degrees, minutes, seconds, polarity)
-    
+
     def longitudeToDegrees(degrees, minutes, seconds, polarity):
-        """Static class function for converting from 
+        """Static class function for converting from
         degrees, minutes, seconds, polarity to a float value of degrees.
 
         Arguments:
@@ -1106,7 +1106,7 @@ class GeoInfo:
 
         Returns:
 
-        longitudeDegrees - float value holding the degrees of the 
+        longitudeDegrees - float value holding the degrees of the
                   longitude as positive or negative number.
                   Positive numbers are East, Negative numbers are West.
         """
@@ -1129,7 +1129,7 @@ class GeoInfo:
             polarityMultiplier = 1.0
         elif str(polarity) == "W":
             polarityMultiplier = -1.0
-        else: 
+        else:
             # Input is invalid.
             raise ValueError("Longitude polarity value wasn't 'E' or 'W'")
 
@@ -1141,7 +1141,7 @@ class GeoInfo:
         return longitudeDegrees
 
 
-# For debugging the classes during development.  
+# For debugging the classes during development.
 if __name__=="__main__":
     # Exercising the GeoNames classes.
     print("------------------------")
@@ -1160,18 +1160,18 @@ if __name__=="__main__":
 
     if canConnect:
         #print("Doing a search for Arlington in the United States")
-        #geoInfos = GeoNames.search(placename="Arlington", 
-        #                           country="US", 
+        #geoInfos = GeoNames.search(placename="Arlington",
+        #                           country="US",
         #                           maxRows=10)
 
         #print("Doing a search for Seattle in the United States")
-        #geoInfos = GeoNames.search(placename="Seattle", 
-        #                           country="US", 
+        #geoInfos = GeoNames.search(placename="Seattle",
+        #                           country="US",
         #                           maxRows=10)
 
         print("Doing a search for Anchorage in the United States")
-        geoInfos = GeoNames.search(placename="Anchorage", 
-                                   country="US", 
+        geoInfos = GeoNames.search(placename="Anchorage",
+                                   country="US",
                                    maxRows=10)
 
         print("------------------------")
@@ -1195,11 +1195,11 @@ if __name__=="__main__":
 
     print("------------------------")
 
-    # Shutdown logging so all the file handles get flushed and 
+    # Shutdown logging so all the file handles get flushed and
     # cleanup can happen.
     logging.shutdown()
 
     print("Exiting.")
-     
+
 
 

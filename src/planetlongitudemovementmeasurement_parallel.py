@@ -4,21 +4,21 @@
 from multiprocessing import Pool
 
 import os
-    
+
 
 def getPlanetLongitudeMovementMeasurementText(argsTuple):
     """Method that is distrubted to dispy's nodes ('dispynode') for
     remote execution.  Module dependencies are imported within the
     method below.
-    
+
     This method runs the following method:
 
       planetlongitudemovementmeasurement_calc.PLMMUtils.getPlanetLongitudeMovementMeasurementText()
 
-    Please see documentation for that method for information about 
+    Please see documentation for that method for information about
     the functionality, method arguments, and return value(s).
     """
-    
+
 
     from planetlongitudemovementmeasurement_calc import PLMMUtils
 
@@ -56,12 +56,12 @@ def getPlanetLongitudeMovementMeasurementText(argsTuple):
     locationElevationMeters = argsTuple[i]
     i += 1
 
-    PLMMUtils.initializeEphemeris(locationLongitudeDegrees, 
+    PLMMUtils.initializeEphemeris(locationLongitudeDegrees,
                                   locationLatitudeDegrees,
                                   locationElevationMeters)
-    
+
     return PLMMUtils.getPlanetLongitudeMovementMeasurementText(\
-        planetName, 
+        planetName,
         startTimestamp,
         endTimestamp,
         showGeocentricRetroAsZeroTextFlag,
@@ -74,37 +74,37 @@ def getPlanetLongitudeMovementMeasurementText(argsTuple):
         measurementUnitCirclesEnabled,
         measurementUnitBiblicalCirclesEnabled,
         maxErrorTd)
-        
+
 
 class PlanetLongitudeMovementMeasurementParallel:
-    
+
     poolSize = os.cpu_count()
-    
+
     pool = Pool(poolSize)
-    
+
     @staticmethod
     def getPlanetLongitudeMovementMeasurementText(listOfTuples):
         """
         Arguments:
-        listOfTuples - List of tuple objects.  Each tuple has 
+        listOfTuples - List of tuple objects.  Each tuple has
                        the following within it:
-            
+
         planetName     - str holding the name of the planet to do the
                          calculations for.
 
-        startTimestamp - datetime.datetime holding the beginning timestamp 
-                         for measurement.  If this value is after 'endTimestamp', 
-                         then the algorithm for this method will swap 
-                         'startTimestamp' and 'endTimestamp' so that 
+        startTimestamp - datetime.datetime holding the beginning timestamp
+                         for measurement.  If this value is after 'endTimestamp',
+                         then the algorithm for this method will swap
+                         'startTimestamp' and 'endTimestamp' so that
                          'startTimestamp' is always before 'endTimestamp'.
 
-        endTimestamp   - datetime.datetime holding the ending timestamp 
-                         for measurement.  If this value is before 'endTimestamp', 
-                         then the algorithm for this method will swap 
-                         'startTimestamp' and 'endTimestamp' so that 
+        endTimestamp   - datetime.datetime holding the ending timestamp
+                         for measurement.  If this value is before 'endTimestamp',
+                         then the algorithm for this method will swap
+                         'startTimestamp' and 'endTimestamp' so that
                          'startTimestamp' is always before 'endTimestamp'.
 
-        showGeocentricRetroAsZeroTextFlag     
+        showGeocentricRetroAsZeroTextFlag
                        - bool flag for this measurement type to be included.
 
         showGeocentricRetroAsPositiveTextFlag
@@ -129,28 +129,28 @@ class PlanetLongitudeMovementMeasurementParallel:
                        - bool flag for measuring in units of circles.
 
         measurementUnitBiblicalCirclesEnabled,
-                       - bool flag for measuring in units of 
+                       - bool flag for measuring in units of
                          George Bayer's biblical circles.
 
         maxErrorTd - datetime.timedelta object holding the maximum
                      time difference between the exact planetary
                      combination timestamp, and the one calculated.
                      This would define the accuracy of the
-                     calculations.  
+                     calculations.
 
         locationLongitudeDegrees - float value holding the
-                      location longitude in degrees.  
+                      location longitude in degrees.
                       West longitudes are negative,
                       East longitudes are positive.
                       Value should be in the range of -180 to 180.
         locationLatitudeDegrees - float value holding the
                       location latitude in degrees.
-                      North latitudes are positive, 
-                      South latitudes are negative.  
+                      North latitudes are positive,
+                      South latitudes are negative.
                       Value should be in the range of -90 to 90.
         locationElevationMeters - float value holding the
                       altitude in meters.
-            
+
         Returns:
         The str containing the planet longitude movement measurements.
         """
@@ -164,18 +164,18 @@ class PlanetLongitudeMovementMeasurementParallel:
             if result != "":
                 text += result + os.linesep
         text = text.rstrip()
-        
+
         return text
-    
+
     @staticmethod
     def shutdown():
         PlanetLongitudeMovementMeasurementParallel.pool.close()
-            
-            
+
+
 ##############################################################################
 ##############################################################################
 
-# For debugging the module during development.  
+# For debugging the module during development.
 if __name__=="__main__":
     # For inspect.stack().
     import inspect
@@ -189,7 +189,7 @@ if __name__=="__main__":
     # For logging and for exiting.
     import os
     import sys
-    
+
     # For timestamps and timezone information.
     import datetime
     import pytz
@@ -235,7 +235,7 @@ if __name__=="__main__":
     #print("Running all tests took: {} sec".format(endTime - startTime))
 
     #cProfile.run('runTests()')
-    
+
     # Exit the app when all windows are closed.
     #app.lastWindowClosed.connect(logging.shutdown)
     #app.lastWindowClosed.connect(app.quit)

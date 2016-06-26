@@ -56,7 +56,7 @@ class MasterCharts:
         Returns:
         float value for the angle that the float value falls at.
         """
-        
+
         # TODO:  write this function.
         pass
 
@@ -82,7 +82,7 @@ class MasterCharts:
         292.5
         315
         337.5
-        
+
         Arguments:
         angleDeg - float value that is the angle of interest on the
                    square of 9 chart.
@@ -91,7 +91,7 @@ class MasterCharts:
         list of float values holding the angle degrees on the square of 9
         that are important relative to the given input angle.
         """
-        
+
         # TODO:  write this function.
         pass
 
@@ -104,7 +104,7 @@ class MasterCharts:
                    This value must be positive.
         base     - int value for the base number that is in the
                    center of the square of 9.
-                   
+
         Returns:
         float value for the number at the given angle and cycle on the
         square of 9.
@@ -115,7 +115,7 @@ class MasterCharts:
 
     def getSqOf9Values(angleDeg, minValue, maxValue, base=1):
         """Returns a list of numbers on the square of 9 at a given angle.
-        
+
         Arguments:
         angleDeg - float value for the angle on the square of 9.
         minValue - float value for the minimum value (lower limit) to

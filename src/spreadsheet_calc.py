@@ -14,7 +14,7 @@ class SpreadsheetCalcFormula:
 
     def __init__(self, name="", shortName="", description="", units=""):
         """Initializes the object variables with default values."""
-        
+
         self.log = logging.getLogger("spreadsheet_calc.SpreadsheetCalcFormula")
 
         self.name = name

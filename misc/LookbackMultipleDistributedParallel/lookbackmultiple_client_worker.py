@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 ##############################################################################
-# 
+#
 # Description:
-# 
+#
 #   Runs a client worker that connects to a remote Python multiprocessing
-#   Manager server for getting tasks and generating results.  
-# 
+#   Manager server for getting tasks and generating results.
+#
 #   Work tasks are obtained from the task queue on the Manager server.  When
 #   the worker completes a task, the worker puts the result that is computed
-#   for the task onto the result queue on the Manager server.  
-# 
+#   for the task onto the result queue on the Manager server.
+#
 #   This worker client runs forever, until the user either does Ctrl-C or sends
 #   a SIGINT signal to the process.
-# 
+#
 # Usage:
-#   
+#
 #   ./lookbackmultiple_client_worker.py --server-address=192.168.1.200 --server-port=1940 --auth-key="passphrase"
 #
 #   ./lookbackmultiple_client_worker.py --server-address=light.jumpingcrab.com --server-port=1940 --auth-key="passphrase"
@@ -38,7 +38,7 @@ import pytz
 import signal
 
 # For parsing command-line options.
-from optparse import OptionParser  
+from optparse import OptionParser
 
 # For multiprocessing features.
 from multiprocessing.managers import BaseManager
@@ -126,23 +126,23 @@ def runClientWorker():
 
     QueueManager.register("getTaskQueue", callable=lambda: taskQueue)
     QueueManager.register("getResultQueue", callable=lambda: resultQueue)
-    
-    manager = QueueManager(address=(serverAddress, serverPort), 
+
+    manager = QueueManager(address=(serverAddress, serverPort),
                            authkey=serverAuthKey)
     manager.connect()
-    
+
     log.info("LookbackMultiple client worker connected to {}:{}".\
              format(serverAddress, serverPort))
-    
+
     taskQueue = manager.getTaskQueue()
     resultQueue = manager.getResultQueue()
-    
+
     log.info("LookbackMultiple client worker now processing taskQueue ...")
-    
+
     # Process the queues.
     while True:
         argsTuple = taskQueue.get() # If queue is empty, then this will block.
-        
+
         log.debug("Obtained a task.  argsTuple == {}".format(argsTuple))
 
         # Do computation.
@@ -169,31 +169,31 @@ def runClientWorker():
         argIndex += 1
         locationElevationMeters = argsTuple[argIndex]
         argIndex += 1
-            
+
 
         LookbackMultipleUtils.\
-            initializeEphemeris(locationLongitudeDegrees, 
+            initializeEphemeris(locationLongitudeDegrees,
                                 locationLatitudeDegrees,
                                 locationElevationMeters)
-    
+
         if methodToRun == "getDatetimesOfLongitudeDeltaDegreesInFuture":
 
             results = \
                 LookbackMultipleUtils.\
                 getDatetimesOfLongitudeDeltaDegreesInFuture(\
-                    planetName, 
+                    planetName,
                     centricityType,
                     longitudeType,
                     referenceDt,
                     desiredDeltaDegrees,
                     maxErrorTd)
-                
+
             log.debug("len(results) == {}".format(len(results)))
 
             result = (argsTuple, results)
-                
+
             resultQueue.put(result)
-                
+
             taskQueue.task_done()
 
             log.debug("Task done.")
@@ -203,7 +203,7 @@ def runClientWorker():
             results = \
                 LookbackMultipleUtils.\
                 getDatetimesOfLongitudeDeltaDegreesInPast(\
-                    planetName, 
+                    planetName,
                     centricityType,
                     longitudeType,
                     referenceDt,
@@ -213,9 +213,9 @@ def runClientWorker():
             log.debug("len(results) == {}".format(len(results)))
 
             result = (argsTuple, results)
-                
+
             resultQueue.put(result)
-            
+
             taskQueue.task_done()
 
             log.debug("Task done.")
@@ -233,7 +233,7 @@ if __name__=="__main__":
                       dest="version",
                       default=False,
                       help="Display script version info and author contact.")
-    
+
     parser.add_option("--server-address",
                   action="store",
                   type="str",
@@ -266,13 +266,13 @@ if __name__=="__main__":
 
     # Parse the arguments into options.
     (options, args) = parser.parse_args()
-     
+
     # Print version information if the flag was used.
     if options.version == True:
         print(os.path.basename(sys.argv[0]) + " (Version " + VERSION + ")")
         print("By Ryan Luu, ryanluu@gmail.com")
         shutdown(0)
-    
+
     # Server address argument.
     if options.serverAddress == None:
         log.error("Please specify a server address to the " + \
@@ -281,7 +281,7 @@ if __name__=="__main__":
     else:
         serverAddress = options.serverAddress
         log.debug("serverAddress == {}".format(serverAddress))
-    
+
     # Server port argument.
     if options.serverPort == None:
         log.error("Please specify a server port to the " + \
@@ -290,7 +290,7 @@ if __name__=="__main__":
     else:
         serverPort = options.serverPort
         log.debug("serverPort == {}".format(serverPort))
-    
+
     # Server authentication key argument.
     if options.serverAuthKey == None:
         log.error("Please specify a server auth key to the " + \
@@ -301,7 +301,7 @@ if __name__=="__main__":
         log.debug("serverAuthKey == {}".format(serverAuthKey))
 
     # Run the client worker.
-    # 
+    #
     #
     # This method should run forever until the user presses Ctrl-C or SIGINT is
     # sent to the process.

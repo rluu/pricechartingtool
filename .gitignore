@@ -52,5 +52,8 @@ venv_mac
 # Ignore MacOS filesystem artifacts.
 .DS_Store
 
+# Ignore swap files created by Vim.
+*.swp
+
 # Don't ignore this file.
 !.gitignore
