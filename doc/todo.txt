@@ -4,6 +4,26 @@
 
 TODO:  
 
+    - Create/Add a tool to calculate and show ratios of planet movements.
+    (Harmony between planets).  It would work similar to
+    PlanetLongitudeMovementMeasurementTool.
+
+    1.5000  0.6666
+
+    For PlanetLongitudeMovementMeasurementTool:
+      - Make text show up at the end points. (regardless of going forwards or
+        backwards in time).
+
+      - Make this tool have accumulative click to add new graphicsitems.
+
+      #- Add flag for text at the end or at the beginning of a
+      #  PlanetLongitudeMovementMeasurementTool articfact/graphics item.
+      #
+      #- Add source code to upgrade existing PCD charts.
+      #
+      #- Default value is in the middle.
+
+
   - PriceChartDocumentScripts changes:
 
     - Plot line segments for elongation-degree-distances-between-two-planets.
