@@ -8728,7 +8728,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
 
             # Make sure the starting point is to the left of the
             # ending point.
-            self.normalizeStartAndEnd()
+            #self.normalizeStartAndEnd()
 
             self.prepareGeometryChange()
 
@@ -8742,7 +8742,7 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
 
             # Make sure the starting point is to the left of the
             # ending point.
-            self.normalizeStartAndEnd()
+            #self.normalizeStartAndEnd()
 
             self.prepareGeometryChange()
 
@@ -8795,47 +8795,9 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         """
 
         # Update the planetLongitudeMovementMeasurement label position.
-
-        # Changes in x and y.
         deltaX = self.endPointF.x() - self.startPointF.x()
-        deltaY = self.endPointF.y() - self.startPointF.y()
-
-        # Get bounding rectangle of text item.
-        boundingRect = self.textItem.boundingRect()
-
-        # Find largest text height and width.
-        largestTextHeight = boundingRect.height()
-        largestTextWidth = boundingRect.width()
-
-        # Now replace the above with the scaled version of it.
-        largestTextHeight = largestTextHeight * self.textTransform.m22()
-        largestTextWidth = largestTextWidth * self.textTransform.m11()
-
-        self.log.debug("largestTextHeight = {}".format(largestTextHeight))
-        self.log.debug("largestTextWidth = {}".format(largestTextWidth))
-
-        # Get the x and y of the point to place the text, referenced
-        # on the line from start point to end point, but offset by a
-        # certain amount such that the largest text would be centered
-        # on the line.
-        midX = self.mapFromScene(\
-            QPointF(self.startPointF.x() + (deltaX * 0.5), 0.0)).x()
-        midY = self.mapFromScene(\
-            QPointF(0.0, self.startPointF.y() + (deltaY * 0.5))).y()
-
-        self.log.debug("midX={}, midY={}".format(midX, midY))
-
-        startX = midX
-        startY = midY
-
-        # Amount to mutiply to get a largest offset from startY.
-        offsetY = largestTextHeight
-        offsetX = (largestTextWidth / 2.0)
-
-        x = startX - offsetX
-        y = startY - offsetY
-
-        self.textItem.setPos(QPointF(x, y))
+        y = 0
+        self.textItem.setPos(QPointF(deltaX, y))
 
     def setStartPointF(self, pointF):
         """Sets the starting point of the bar count.  The value passed in
@@ -8884,21 +8846,22 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         point X location.
         """
 
-        if self.startPointF.x() > self.endPointF.x():
-            self.log.debug("Normalization of PlanetLongitudeMovementMeasurementGraphicsItem " +
-                           "required.")
-
-            # Swap the points.
-            temp = self.startPointF
-            self.startPointF = self.endPointF
-            self.endPointF = temp
-
-            self.recalculatePlanetLongitudeMovementMeasurement()
-
-            # Update the planetLongitudeMovementMeasurement text item position.
-            self._updateTextItemPositions()
-
-            super().setPos(self.startPointF)
+        #if self.startPointF.x() > self.endPointF.x():
+        #    self.log.debug("Normalization of PlanetLongitudeMovementMeasurementGraphicsItem " +
+        #                   "required.")
+        #
+        #    # Swap the points.
+        #    temp = self.startPointF
+        #    self.startPointF = self.endPointF
+        #    self.endPointF = temp
+        #
+        #    self.recalculatePlanetLongitudeMovementMeasurement()
+        #
+        #    # Update the planetLongitudeMovementMeasurement text item position.
+        #    self._updateTextItemPositions()
+        #
+        #    super().setPos(self.startPointF)
+        pass
 
 
     def recalculatePlanetLongitudeMovementMeasurement(self):
@@ -49217,10 +49180,46 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    format(sceneBoundingRect.top(),
                                           sceneBoundingRect.bottom()))
 
-                    # Clear out working variables.
-                    self.clickOnePointF = None
+                    # This tool will work differently than the other
+                    # measurement tools.
+                    #
+                    # Instead of clearing out the working variables here,
+                    # we retain them so that we can continue to append new
+                    # TimeMeasurementGraphicsItem
+                    # using the same start point, until the user does a
+                    # right-click.
+
+                    # Create the TimeMeasurementGraphicsItem and
+                    # initialize it to the mouse location.
+                    self.timeMeasurementGraphicsItem = \
+                        TimeMeasurementGraphicsItem()
+                    self.timeMeasurementGraphicsItem.\
+                        loadSettingsFromPriceBarChartSettings(\
+                            self.priceBarChartSettings)
+
+                    # Set the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.  We
+                    # will turn these off after the user fully
+                    # finishes adding the item.
+                    self.timeMeasurementGraphicsItem.\
+                        setDrawVerticalDottedLinesFlag(True)
+
+                    self.timeMeasurementGraphicsItem.\
+                        setPos(self.clickOnePointF)
+                    self.timeMeasurementGraphicsItem.\
+                        setStartPointF(self.clickOnePointF)
+                    self.timeMeasurementGraphicsItem.\
+                        setEndPointF(self.clickTwoPointF)
+                    self.scene().addItem(self.timeMeasurementGraphicsItem)
+
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.timeMeasurementGraphicsItem)
+
+                    # Now clear out self.clickTwoPointF so that
+                    # we fall in this same if case again if the user left
+                    # clicks.
                     self.clickTwoPointF = None
-                    self.timeMeasurementGraphicsItem = None
 
                 else:
                     self.log.warn("Unexpected state reached.")
@@ -49677,10 +49676,47 @@ class PriceBarChartGraphicsView(QGraphicsView):
                                    format(sceneBoundingRect.top(),
                                           sceneBoundingRect.bottom()))
 
-                    # Clear out working variables.
-                    self.clickOnePointF = None
+                    # This tool will work differently than the other
+                    # measurement tools.
+                    #
+                    # Instead of clearing out the working variables here,
+                    # we retain them so that we can continue to append new
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # using the same start point, until the user does a
+                    # right-click.
+
+                    # Create the
+                    # PlanetLongitudeMovementMeasurementGraphicsItem and
+                    # initialize it to the mouse location.
+                    self.planetLongitudeMovementMeasurementGraphicsItem = \
+                        PlanetLongitudeMovementMeasurementGraphicsItem()
+                    self.planetLongitudeMovementMeasurementGraphicsItem.\
+                        loadSettingsFromPriceBarChartSettings(\
+                            self.priceBarChartSettings)
+
+                    # Set the flag that indicates we should draw
+                    # dotted vertical lines at the tick areas.  We
+                    # will turn these off after the user fully
+                    # finishes adding the item.
+                    self.planetLongitudeMovementMeasurementGraphicsItem.\
+                        setDrawVerticalDottedLinesFlag(True)
+
+                    self.planetLongitudeMovementMeasurementGraphicsItem.\
+                        setPos(self.clickOnePointF)
+                    self.planetLongitudeMovementMeasurementGraphicsItem.\
+                        setStartPointF(self.clickOnePointF)
+                    self.planetLongitudeMovementMeasurementGraphicsItem.\
+                        setEndPointF(self.clickTwoPointF)
+                    self.scene().addItem(self.planetLongitudeMovementMeasurementGraphicsItem)
+
+                    # Make sure the proper flags are set for the mode we're in.
+                    self.setGraphicsItemFlagsPerCurrToolMode(\
+                        self.planetLongitudeMovementMeasurementGraphicsItem)
+
+                    # Now clear out self.clickTwoPointF so that
+                    # we fall in this same if case again if the user left
+                    # clicks.
                     self.clickTwoPointF = None
-                    self.planetLongitudeMovementMeasurementGraphicsItem = None
 
                 else:
                     self.log.warn("Unexpected state reached.")
