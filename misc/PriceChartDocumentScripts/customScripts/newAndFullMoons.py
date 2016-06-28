@@ -62,7 +62,7 @@ def processPCDD(pcdd, tag):
     relevant to the Wheat chart.  The tag str used for the created
     artifacts is based the name of the function that is being called,
     without the 'add' string at the beginning.
-    
+
     Arguments:
     pcdd - PriceChartDocumentData object that will be modified.
     tag  - str containing the tag.
@@ -75,7 +75,7 @@ def processPCDD(pcdd, tag):
 
     global highPrice
     global lowPrice
-    
+
     # Return value.
     rv = 0
 
@@ -93,7 +93,7 @@ def processPCDD(pcdd, tag):
             "Moon", "geocentric", "tropical",
             "Sun", "geocentric", "tropical",
             degreeValue, color=QColor(Qt.blue))
-    
+
     if True:
         degreeValue = 180
         success = PlanetaryCombinationsLibrary.\

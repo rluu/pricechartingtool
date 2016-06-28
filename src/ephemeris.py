@@ -165,9 +165,9 @@ class PlanetaryInfo:
                  topocentricDict=None,
                  heliocentricDict=None):
         """Initializes the PlanetaryInfo class with the given parameters.
-        
+
         Parameters are as follows:
-        
+
         planetName - String holding the name of the planet.
         planetId   - Integer ID that represents the planet in the
                      Swiss Ephemeris.
@@ -178,7 +178,7 @@ class PlanetaryInfo:
                      for.  This should be equivalent to the value in
                      'dt' converted to julian day.
         """
-        
+
         self.name = planetName
         self.id = planetId
         self.dt = dt
@@ -199,8 +199,8 @@ class PlanetaryInfo:
         formatStr = "[name={}, id={}, datetime={}, julianDay={}, " + \
                     "geocentric={}, topocentric={}, heliocentric={}]"
 
-        returnStr = formatStr.format(self.name, 
-                                     self.id, 
+        returnStr = formatStr.format(self.name,
+                                     self.id,
                                      Ephemeris.datetimeToStr(self.dt),
                                      self.julianDay,
                                      self.geocentric,
@@ -211,7 +211,7 @@ class PlanetaryInfo:
 
 
 class Ephemeris:
-    """Provides access to ephemeris data.  Please exercise caution when 
+    """Provides access to ephemeris data.  Please exercise caution when
     using this class in multithreaded environments because the underlying
     implementation of swisseph is a simple C library and there is no way to
     make sure the internally stored data maintains its integrity
@@ -221,7 +221,7 @@ class Ephemeris:
 
     ############################
 
-    # Initialize the class.  This only needs to be called once 
+    # Initialize the class.  This only needs to be called once
     # before being used.
     Ephemeris.initialize()
 
@@ -255,21 +255,21 @@ class Ephemeris:
     SWISS_EPHEMERIS_DATA_DIR = \
         os.path.abspath(os.path.join(sys.path[0], "../data/ephe"))
 
-    # Flag that is used in Swiss Ephemeris calculations.  
+    # Flag that is used in Swiss Ephemeris calculations.
     # We make mods to this variable to add options.
     iflag = 0
 
-    # Holds the longitude, latitude, and altitude representing the 
-    # geographic positions to use in calculations of houses 
+    # Holds the longitude, latitude, and altitude representing the
+    # geographic positions to use in calculations of houses
     # (and in topocentric calculations).
     #
-    # Note: 
-    # Positive longitude degrees refer to East, and 
+    # Note:
+    # Positive longitude degrees refer to East, and
     # negative longitude degrees refer to West.
     geoLongitudeDeg = 0
     geoLatitudeDeg = 0
     geoAltitudeMeters = 0
-    
+
     # Dictionary for referencing various House Cusp Systems.
     HouseSys = { 'Placidus'      : b'P',
                  'Koch'          : b'K',
@@ -295,11 +295,11 @@ class Ephemeris:
     def getSupportedPlanetNamesList():
         """Returns a list of str objects that is the list of planet
         names supported by this Ephemeris class, that can be used to
-        obtain a PlanetaryInfo object.  
+        obtain a PlanetaryInfo object.
 
         This includes the house cusps and custom 2-planet combinations.
         """
-        
+
         swissEphemerisPlanetNames = [
             "Sun",
             "Moon",
@@ -327,7 +327,7 @@ class Ephemeris:
             "Isis",
             "Nibiru",
             ]
-        
+
         ascmcPlanetNames = [\
             "Ascendant",
             "MC",
@@ -352,7 +352,7 @@ class Ephemeris:
             "H11",
             "H12",
             ]
-            
+
         customPlanetCombinationPlanetNames = [
             "MeanOfFive",
             "CycleOfEight",
@@ -384,15 +384,15 @@ class Ephemeris:
             "JuUr",
             "SaUr",
             ]
-        
+
         allPlanetNames = \
           swissEphemerisPlanetNames + \
           ascmcPlanetNames + \
           houseCuspPlanetNames + \
           customPlanetCombinationPlanetNames
-        
+
         return allPlanetNames
-  
+
     @staticmethod
     def initialize():
         """Initializes the Ephemeris with default settings."""
@@ -424,11 +424,11 @@ class Ephemeris:
         if Ephemeris.log.isEnabledFor(logging.INFO) == True:
             Ephemeris.log.info("Setting to use true planetary positions")
         Ephemeris.setTruePlanetaryPositions()
-        
+
     @staticmethod
     def closeEphemeris():
-        """Does any cleanup needed to close the ephemeris.  
-        Using the ephemeris after calling this yields undefined results.  
+        """Does any cleanup needed to close the ephemeris.
+        Using the ephemeris after calling this yields undefined results.
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
@@ -442,25 +442,25 @@ class Ephemeris:
             Ephemeris.log.debug("Exiting closeEphemeris()")
 
     @staticmethod
-    def setGeographicPosition(geoLongitudeDeg, 
-                              geoLatitudeDeg, 
+    def setGeographicPosition(geoLongitudeDeg,
+                              geoLatitudeDeg,
                               altitudeMeters=0.0):
         """Sets the position for planetary calculations.
 
         Parameters:
-        geoLongitudeDeg - Longitude in degrees.  
+        geoLongitudeDeg - Longitude in degrees.
                           West longitudes are negative,
                           East longitudes are positive.
                           Value should be in the range of -180 to 180.
-        geoLatitudeDeg  - Latitude in degrees.  North latitudes are positive, 
-                          South latitudes are negative.  
+        geoLatitudeDeg  - Latitude in degrees.  North latitudes are positive,
+                          South latitudes are negative.
                           Value should be in the range of -90 to 90.
         altitudeMeters  - Altitude in meters.
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             debugStr = "Entering setGeographicPosition(lon={}, lat={}, alt={})"
-            Ephemeris.log.debug(debugStr.format(geoLongitudeDeg, 
+            Ephemeris.log.debug(debugStr.format(geoLongitudeDeg,
                                                 geoLatitudeDeg,
                                                 altitudeMeters))
 
@@ -493,20 +493,20 @@ class Ephemeris:
     def getUtcOffsetForStandardTime(timezoneObj):
         """Utility function for getting the utcoffset of the standard
         time of a given pytz.timezone object.
-        
+
         Returns:
         datetime.timedelta object holding what would be the timezone
         offset for standard time.
         """
 
         rv = None
-        
+
         if timezoneObj == None:
             self.log.error("timezoneObj cannot be None.")
             return None
 
         # TODO: Figure out how to get the standard time offset for a given timezone.
-        
+
         # HACK: Here as a workaround since I don't know how to do
         # this; I am just taking the UTC offset on Christmas, since it
         # is shortest day of the year for the northern hemisphere.  I
@@ -515,22 +515,22 @@ class Ephemeris:
         nativeDt = datetime.datetime(2001, 12, 25, 0, 0, tzinfo=None)
         localizedDt = timezoneObj.localize(nativeDt)
         rv = localizedDt.utcoffset()
-        
+
         return rv
-        
+
     @staticmethod
     def datetimeToJulianDay(dt):
-        """Utility function for converting a datetime.datetime object 
-        to Julian Day.  
-        
+        """Utility function for converting a datetime.datetime object
+        to Julian Day.
+
         Parameters:
-        
+
         dt - A datetime.datetime object with the 'tzinfo' attribute set
-        as a pytz-created datetime.tzinfo.  
-        
+        as a pytz-created datetime.tzinfo.
+
         The tzinfo attribute needing to be set to a pytz-created
-        datetime.tzinfo is to allow us to normalize for 
-        changes in the timezone properly.  The conversion process 
+        datetime.tzinfo is to allow us to normalize for
+        changes in the timezone properly.  The conversion process
         to a Julian Day utilizes the Swiss Ephemeris.
         """
 
@@ -552,13 +552,13 @@ class Ephemeris:
         # Get the Julian Day as calculated by Swiss Ephemeris.
         cal = swisseph.GREG_CAL
         (jd_et, jd_ut) = \
-                swisseph.utc_to_jd(dtUtc.year, dtUtc.month, dtUtc.day, 
+                swisseph.utc_to_jd(dtUtc.year, dtUtc.month, dtUtc.day,
                               dtUtc.hour, dtUtc.minute, dtUtc.second,
                               cal)
 
         # We use the Julian Day for Universal Time (UT).
         jd = jd_ut
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             debugStr = "Swiss Ephemeris converted UTC datetime({}) to " + \
                        "jd_et={}, jd_ut={}.  Using jd_ut as julian day."
@@ -571,15 +571,15 @@ class Ephemeris:
 
     @staticmethod
     def julianDayToDatetime(jd, tzInfo=pytz.utc):
-        """Utility function for converting a Julian Day number to 
-        a datetime.datetime object.  The returned datetime object is created 
+        """Utility function for converting a Julian Day number to
+        a datetime.datetime object.  The returned datetime object is created
         with the timestamp in the timezone specified (or UTC by default if the
         argument is not specified).
-        
-        This conversion process utilizes the Swiss Ephemeris to 
+
+        This conversion process utilizes the Swiss Ephemeris to
         do the conversion and calculation.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("Entering julianDayToDatetime({}, {})".\
                                 format(jd, tzInfo))
@@ -599,13 +599,13 @@ class Ephemeris:
         elif secs >= 60:
             secs = 59.999999
 
-        # Here we need to convert a float seconds to an integer seconds 
+        # Here we need to convert a float seconds to an integer seconds
         # plus a integer microseconds.
         secsTruncated = int(math.floor(secs))
         usecs = int(round((secs - secsTruncated) * 1000000))
         if usecs > 999999:
             usecs = 999999
-            
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("secs={}, secsTruncated={}, usecs={}".\
                                 format(secs, secsTruncated, usecs))
@@ -621,7 +621,7 @@ class Ephemeris:
                              "{}.".format(datetime.MAXYEAR))
 
         # Create a datetime.datetime in UTC.
-        dtUtc = datetime.datetime(year, month, day, hour, mins, 
+        dtUtc = datetime.datetime(year, month, day, hour, mins,
                                       secsTruncated, usecs, pytz.utc)
 
         # Convert to the timezone specified.
@@ -637,13 +637,13 @@ class Ephemeris:
     def datetimeToStr(datetimeObj):
         """Returns a string representation of a datetime.datetime object.
         Normally we wouldn't need to do this, but the datetime.strftime()
-        does not work on years less than 1900. 
+        does not work on years less than 1900.
 
         Arguments:
         datetimeObj - datetime.datetime object with a tzinfo defined.
 
         Returns:
-        String holding the info about the datetime.datetime object, in 
+        String holding the info about the datetime.datetime object, in
         the datetime.strftime() format:  "%Y-%m-%d %H:%M:%S.%f %Z%z"
         """
 
@@ -677,7 +677,7 @@ class Ephemeris:
         datetimeObj - datetime.datetime object with a tzinfo defined.
 
         Returns:
-        String holding the info about the datetime.datetime object, in 
+        String holding the info about the datetime.datetime object, in
         the format:  "Day %Y-%m-%d %H:%M:%S %Z%z", where 'Day' is the
         three-letter abbreviation for the day of the week.
         """
@@ -689,10 +689,10 @@ class Ephemeris:
             tznameStr = ""
 
         dayOfWeekStr = datetimeObj.ctime()[0:3]
-        
+
         offsetStr = \
             Ephemeris.getTimezoneOffsetFromDatetime(datetimeObj)
-            
+
         # Return value.
         rv = "{} {:04}-{:02}-{:02} {:02}:{:02}:{:02} {}{}".\
              format(dayOfWeekStr,
@@ -704,20 +704,20 @@ class Ephemeris:
                     datetimeObj.second,
                     tznameStr,
                     offsetStr)
-            
+
         return rv
-        
+
     @staticmethod
     def getTimezoneOffsetFromDatetime(datetimeObj):
-        """Extracts the string that holds the time offset from UTC from 
-        the given datetime object.  This is the string that would be 
-        outputted from a call to datetime.strftime("%z"), in the format 
-        that is the exact same (e.g., "+0230", "-0500", etc.).   
-        We have to extract this information manually because 
-        datetime.strftime() raises a ValueError exception if the year 
+        """Extracts the string that holds the time offset from UTC from
+        the given datetime object.  This is the string that would be
+        outputted from a call to datetime.strftime("%z"), in the format
+        that is the exact same (e.g., "+0230", "-0500", etc.).
+        We have to extract this information manually because
+        datetime.strftime() raises a ValueError exception if the year
         in the datetime object is less than 1900.
 
-        Arguments: 
+        Arguments:
         datetimeObj - datetime.datetime object with a tzinfo defined.
 
         Returns:
@@ -727,7 +727,7 @@ class Ephemeris:
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("Entered getTimezoneOffsetFromDatetime()")
             Ephemeris.log.debug("datetimeObj == {}".format(datetimeObj))
-            
+
         offsetStr = ""
 
         timeDelta = datetimeObj.utcoffset()
@@ -735,12 +735,12 @@ class Ephemeris:
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("datetimeObj.utcoffset() == {}".\
                                 format(datetimeObj.utcoffset()))
-        
+
         offsetSeconds = (timeDelta.days * (24 * 60 * 60)) + timeDelta.seconds
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("offsetSeconds == {}".format(offsetSeconds))
-        
+
         if offsetSeconds < 0:
             offsetStr += "-"
         else:
@@ -774,21 +774,21 @@ class Ephemeris:
         """
 
         a = float(angleDeg)
-        
+
         while a < 0.0:
             a += 360.0
         while a >= 360.0:
             a -= 360.0
 
         return a
-    
+
     @staticmethod
     def getPlanetIdForName(planetName):
         """Returns the planet ID for the given planet name.  This
         planet ID is the is the int that is used in the Swiss
         Ephemeris to specify a planet.  If a planet ID is not found
         for the given planet name, then None is returned.
-        
+
         Arguments:
         planetName - str value for the name of the planet.
 
@@ -798,7 +798,7 @@ class Ephemeris:
         """
 
         rv = None
-        
+
         if planetName == "Sun":
             rv = swisseph.SUN
         elif planetName == "Moon":
@@ -853,7 +853,7 @@ class Ephemeris:
             rv = None
 
         return rv
-            
+
     @staticmethod
     def getPlanetNameForId(planetId):
         """Returns the string representation of a planet name for the given
@@ -898,7 +898,7 @@ class Ephemeris:
         True if the planet name represents a astrological house cusp,
         False otherwise.
         """
-        
+
         # Flag as True until found otherwise.
         isHouseCusp = True
 
@@ -931,7 +931,7 @@ class Ephemeris:
                         PolarAscendant
                         AsSu
                         AsMo
-                        
+
         Arguments:
         planetName - str for the planet name to analyze.
 
@@ -939,7 +939,7 @@ class Ephemeris:
         True if the planet name represents one of the ascmc planet names,
         False otherwise.
         """
-        
+
         # Flag as True until found otherwise.
         isAscmcPlanetName = True
 
@@ -998,7 +998,7 @@ class Ephemeris:
         planetName - str holding the name of the planet to do the
                      check for.
         """
-        
+
         if (planetName == "Sun" or
             planetName == "Moon" or
             Ephemeris.isHouseCuspPlanetName(planetName) or
@@ -1008,7 +1008,7 @@ class Ephemeris:
             return True
         else:
             return False
-        
+
     @staticmethod
     def isHeliocentricOnlyPlanetName(planetName):
         """Returns True if the planet name given is only relevant heliocentrically
@@ -1018,7 +1018,7 @@ class Ephemeris:
         planetName - str holding the name of the planet to do the
                      check for.
         """
-        
+
         if (planetName == "Earth" or
             planetName == "MeEa" or
             planetName == "VeEa" or
@@ -1030,7 +1030,7 @@ class Ephemeris:
             return True
         else:
             return False
-        
+
     @staticmethod
     def setSiderealZodiac():
         """Initializes the settings to use the sidereal zodiac for
@@ -1039,7 +1039,7 @@ class Ephemeris:
         calculation done for the Lahiri Ayanamsa from the Swiss Ephemeris is
         not the most accurate, and can be off by approximately 2 arc minutes.
         There are better ways to calculate this Ayanamsa.  More details on this
-        topic can be found at: 
+        topic can be found at:
         http://jyotish-blog.blogspot.com/2005/12/ayanamsha-in-jhora-702-vs-swiss.html
         """
 
@@ -1066,13 +1066,13 @@ class Ephemeris:
             Ephemeris.log.debug("Entering setTropicalZodiac()")
             Ephemeris.log.debug("swisseph.FLG_SIDEREAL == {}".format(swisseph.FLG_SIDEREAL))
             Ephemeris.log.debug("iflag before: {}".format(Ephemeris.iflag))
-            
+
         Ephemeris.iflag &= (~swisseph.FLG_SIDEREAL)
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("iflag after: {}".format(Ephemeris.iflag))
             Ephemeris.log.debug("Exiting setTropicalZodiac()")
-        
+
 
     @staticmethod
     def setTruePlanetaryPositions():
@@ -1083,7 +1083,7 @@ class Ephemeris:
             Ephemeris.log.debug("swisseph.FLG_TRUEPOS == {}".format(swisseph.FLG_TRUEPOS))
             Ephemeris.log.debug("iflag before: {}".format(Ephemeris.iflag))
 
-            
+
         Ephemeris.iflag |= swisseph.FLG_TRUEPOS
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
@@ -1098,7 +1098,7 @@ class Ephemeris:
             Ephemeris.log.debug("Entering setApparentPlanetaryPositions()")
             Ephemeris.log.debug("swisseph.FLG_TRUEPOS == {}".format(swisseph.FLG_TRUEPOS))
             Ephemeris.log.debug("iflag before: {}".format(Ephemeris.iflag))
-            
+
         Ephemeris.iflag &= (~swisseph.FLG_TRUEPOS)
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
@@ -1142,7 +1142,7 @@ class Ephemeris:
 
         # Return value.
         rv = None
-        
+
         for p in planetaryInfos:
             if rv == None:
                 # First PlanetaryInfo in the list.  Just start off
@@ -1151,7 +1151,7 @@ class Ephemeris:
 
                 # Change the name and id fields.
                 rv.name = planetName
-                
+
                 # Use an invalid planet ID.
                 #
                 # (Note: The number chosen has no meaning.
@@ -1160,7 +1160,7 @@ class Ephemeris:
                 # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
                 #
                 rv.id = -9999
-                
+
             else:
                 # Not the first PlanetaryInfo.  Just sum the field values.
                 rv.geocentric['tropical']['longitude'] += \
@@ -1505,23 +1505,23 @@ class Ephemeris:
 
 
         return rv
-        
+
     @staticmethod
     def createCombinationPlanetaryInfo(planetName, planetaryInfos):
         """Creates a new PlanetaryInfo object from the values within
         the input 'planetaryInfos'.
-        
+
         If the planetaryInfos in the 'planetaryInfos' list are 'PI_A'
         and 'PI_B', then the resulting returned PlanetaryInfo will
         contain the field values resulting from the operation of:
         (PI_A - PI_B).
-        
+
         If the planetaryInfos in the 'planetaryInfos' list are 'PI_A',
         'PI_B' and 'PI_C', then the resulting returned PlanetaryInfo will
         contain the field values resulting from the operation of:
         (PI_A - (PI_B - PI_C)).
 
-        
+
         In the created PlanetaryInfo object, the 'id' field will be
         set to an invalid ID.
 
@@ -1536,7 +1536,7 @@ class Ephemeris:
                          It is assumed that the 'dt' field is the same
                          value in all these PlanetaryInfo objects, and
                          the 'julianDay' field is the same value also.
-                        
+
         Returns:
         PlanetaryInfo object that represents the combination of the
         given planets.
@@ -1563,13 +1563,13 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.warn("Passed a list ONE PlanetaryInfo to " + \
                                functName + "()")
-            
+
             # Get the first PlanetaryInfo in the list and make a deep copy.
             rv = copy.deepcopy(p)
-            
+
             # Change the name and id fields.
             rv.name = planetName
-                
+
             # Use an invalid planet ID.
             #
             # (Note: The number chosen has no meaning.
@@ -1578,12 +1578,12 @@ class Ephemeris:
             # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
             #
             rv.id = -9999
-            
+
             return rv
-        
+
         # At this point we know there is at least 2 PlanetaryInfos in
         # the list from which to create a combination PlanetaryInfo.
-            
+
         # Return value.
         rv = None
 
@@ -1591,7 +1591,7 @@ class Ephemeris:
         # update as we iterate through the list and combine as we go.
         currCombinedPI = None
 
-        
+
         # Iterate over the list, starting from the second-to-last
         # PlanetaryInfo, and moving towards the front of the list.
         i = numPIs - 1
@@ -1612,14 +1612,14 @@ class Ephemeris:
                 # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
                 #
                 currCombinedPI.id = -9999
-                
+
             else:
                 # Not the first PlanetaryInfo.  Combine the field
                 # values by doing a subtraction operation.
 
                 p = planetaryInfos[i]
-                
-                
+
+
                 currCombinedPI.geocentric['tropical']['longitude'] = \
                     p.geocentric['tropical']['longitude'] - \
                     currCombinedPI.geocentric['tropical']['longitude']
@@ -1960,34 +1960,34 @@ class Ephemeris:
                 currCombinedPI.geocentric['sidereal']['longitude'] = \
                     Ephemeris.__toNormalizedAngle(\
                     currCombinedPI.geocentric['sidereal']['longitude'])
-                
+
                 currCombinedPI.topocentric['tropical']['longitude'] = \
                     Ephemeris.__toNormalizedAngle(\
                     currCombinedPI.topocentric['tropical']['longitude'])
                 currCombinedPI.topocentric['sidereal']['longitude'] = \
                     Ephemeris.__toNormalizedAngle(\
                     currCombinedPI.topocentric['sidereal']['longitude'])
-                
+
                 currCombinedPI.heliocentric['tropical']['longitude'] = \
                     Ephemeris.__toNormalizedAngle(\
                     currCombinedPI.heliocentric['tropical']['longitude'])
                 currCombinedPI.heliocentric['sidereal']['longitude'] = \
                     Ephemeris.__toNormalizedAngle(\
                     currCombinedPI.heliocentric['sidereal']['longitude'])
-                
-                
+
+
             # Decrement i for the next iteration.
             i = i - 1
 
-            
+
         # Now 'currCombinedPI' should be a PlanetaryInfo object with
         # all fields holding the combination of the field values from
         # the given PlanetaryInfo objects.  Set this to 'rv' as the
         # return value.
         rv = currCombinedPI
-        
+
         return rv
-        
+
     @staticmethod
     def __clearCoordinateSystemFlags():
         """Private function that clears the flags for the coordinate position
@@ -1995,7 +1995,7 @@ class Ephemeris:
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            debugStr ="Clearing flags for different coordinate systems." 
+            debugStr ="Clearing flags for different coordinate systems."
             Ephemeris.log.debug(debugStr)
 
         Ephemeris.iflag &= (~swisseph.FLG_EQUATORIAL)
@@ -2009,10 +2009,10 @@ class Ephemeris:
         equvalent to the flag cleared.  This causes swe_calc() and
         swe_calc_ut() to return the following values when it is called:
         (
-         longitude in degrees, 
-         latitude in degrees, 
+         longitude in degrees,
+         latitude in degrees,
          distance in AU,
-         longitude speed in deg/day, 
+         longitude speed in deg/day,
          latitude speed in deg/day,
          speed in distance units AU/day
          )
@@ -2020,15 +2020,15 @@ class Ephemeris:
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("setEclipticalCoordinateSystemFlag()")
-            
-        # Just clear the coordinate system flags.  Ecliptical coordinates 
-        # is the default, so we don't need to do anything more than just 
-        # clear the flags. 
+
+        # Just clear the coordinate system flags.  Ecliptical coordinates
+        # is the default, so we don't need to do anything more than just
+        # clear the flags.
         Ephemeris.__clearCoordinateSystemFlags()
 
     @staticmethod
     def setEquatorialCoordinateSystemFlag():
-        """Sets the ephemeris to return results in equatorial 
+        """Sets the ephemeris to return results in equatorial
         coordinates.  This causes swe_calc() and swe_calc_ut() to return
         the following values when it is called:
         (
@@ -2044,7 +2044,7 @@ class Ephemeris:
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("setEquatorialCoordinateSystemFlag()")
-            
+
         Ephemeris.__clearCoordinateSystemFlags()
         Ephemeris.iflag |= swisseph.FLG_EQUATORIAL
 
@@ -2065,7 +2065,7 @@ class Ephemeris:
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("setRectangularCoordinateSystemFlag()")
-            
+
         Ephemeris.__clearCoordinateSystemFlags()
         Ephemeris.iflag |= swisseph.FLG_XYZ
 
@@ -2075,20 +2075,20 @@ class Ephemeris:
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("setRadiansCoordinateSystemFlag()")
-            
+
         Ephemeris.__clearCoordinateSystemFlags()
         Ephemeris.iflag |= swisseph.FLG_RADIANS
 
     @staticmethod
     def unsetRadiansCoordinateSystemFlag():
         """Unsets the ephemeris from returning results in radians
-        coordinates.  Future calls to swe_calc() and swe_calc_ut() will 
+        coordinates.  Future calls to swe_calc() and swe_calc_ut() will
         return values in degrees.
         """
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("unsetRadiansCoordinateSystemFlag()")
-            
+
         Ephemeris.iflag &= (~swisseph.FLG_RADIANS)
 
     @staticmethod
@@ -2097,27 +2097,27 @@ class Ephemeris:
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("setHeliocentricCalculations()")
-            
+
         Ephemeris.iflag &= (~swisseph.FLG_TOPOCTR)
         Ephemeris.iflag |= swisseph.FLG_HELCTR
-        
+
     @staticmethod
     def setGeocentricCalculations():
         """Sets the flag to do geocentric calculations."""
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("setGeocentricCalculations()")
-            
+
         Ephemeris.iflag &= (~swisseph.FLG_HELCTR)
         Ephemeris.iflag &= (~swisseph.FLG_TOPOCTR)
-        
+
     @staticmethod
     def setTopocentricCalculations():
         """Sets the flag to do topocentric calculations."""
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("setTopocentricCalculations()")
-            
+
         Ephemeris.iflag &= (~swisseph.FLG_HELCTR)
         Ephemeris.iflag |= swisseph.FLG_TOPOCTR
 
@@ -2125,17 +2125,17 @@ class Ephemeris:
     def calc_ut(jd, planet, flag=swisseph.FLG_SWIEPH+swisseph.FLG_SPEED):
         """Wrapper for the Swiss Ephemeris call calc_ut().
         Parameters and return values are the same as they are for calc_ut().
-        This is added to enhance debugging.  
-        
+        This is added to enhance debugging.
+
         Return value:
         Returns a tuple of 6 floats.
-        
+
         Parameters are the same as they are to calc_ut():
         jd - Float value for the Julian Day
         planet - Integer value for the planet to do the calculation for.
         flag - Integer for what flags to use in the calculation.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("Entering calc_ut(jd={}, planet={}, flag={})".\
                                 format(jd, planet, flag))
@@ -2145,9 +2145,9 @@ class Ephemeris:
 
         # Log some debug for the calculations and parameters.
         if (Ephemeris.log.isEnabledFor(logging.DEBUG)):
-            Ephemeris.__logDebugCalcUTInfo(jd, planet, flag, 
+            Ephemeris.__logDebugCalcUTInfo(jd, planet, flag,
                                            arg1, arg2, arg3, arg4, arg5, arg6)
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("Exiting calc_ut(jd={}, planet={}, flag={})".\
                                 format(jd, planet, flag))
@@ -2156,10 +2156,10 @@ class Ephemeris:
         return (arg1, arg2, arg3, arg4, arg5, arg6)
 
     @staticmethod
-    def swe_houses_ex(jd, 
-                      geoLatitudeDeg, 
+    def swe_houses_ex(jd,
+                      geoLatitudeDeg,
                       geoLongitudeDeg,
-                      houseSystem=b"O", 
+                      houseSystem=b"O",
                       flag=swisseph.FLG_SIDEREAL):
         """Wrapper for the Swiss Ephemeris call swe_houses_ex().
 
@@ -2188,16 +2188,16 @@ class Ephemeris:
         ascmc[5] = "Co-ascendant" (Walter Koch)
         ascmc[6] = "Co-ascendant" (Michael Munkasey)
         ascmc[7] = "Polar ascendant" (M. Munkasey)
-        
+
 
         Parameters:
         jd - float value for the Julian Day, UT.
-        geoLongitudeDeg - Longitude in degrees.  
+        geoLongitudeDeg - Longitude in degrees.
                           West longitudes are negative,
                           East longitudes are positive.
                           Value should be in the range of -180 to 180.
-        geoLatitudeDeg  - Latitude in degrees.  North latitudes are positive, 
-                          south latitudes are negative.  
+        geoLatitudeDeg  - Latitude in degrees.  North latitudes are positive,
+                          south latitudes are negative.
                           Value should be in the range of -90 to 90.
         houseSystem - byte string of length 1, that is one of the letters:
                       PKORCAEVXHTBG.
@@ -2219,7 +2219,7 @@ class Ephemeris:
                       G - Gauquelin sectors
         flag - int value that is a bit flag.
                Flag is checked for an OR of any the following:
-               - 0 
+               - 0
                - swisseph.FLG_SIDEREAL
                - swisseph.FLG_RADIANS
         """
@@ -2231,7 +2231,7 @@ class Ephemeris:
 
         # Do the calculation.
         (cusps, ascmc) = \
-            swisseph.houses_ex(jd, 
+            swisseph.houses_ex(jd,
                           geoLatitudeDeg,
                           geoLongitudeDeg,
                           houseSystem,
@@ -2239,14 +2239,14 @@ class Ephemeris:
 
         # Log some debug for the calculations and parameters.
         if (Ephemeris.log.isEnabledFor(logging.DEBUG)):
-            Ephemeris.__logDebugSweHousesEx(jd, 
+            Ephemeris.__logDebugSweHousesEx(jd,
                                             geoLatitudeDeg,
                                             geoLongitudeDeg,
                                             houseSystem,
                                             flag,
                                             cusps,
                                             ascmc)
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("Exiting swe_houses_ex(" + \
                                 "jd={}, ".format(jd) + \
@@ -2254,16 +2254,16 @@ class Ephemeris:
 
         # Return calculated values.
         return (cusps, ascmc)
-        
+
 
     @staticmethod
-    def __logDebugCalcUTInfo(jd, planet, flag, 
+    def __logDebugCalcUTInfo(jd, planet, flag,
                              arg1, arg2, arg3, arg4, arg5, arg6):
         """Helper function that simply logs the parameters provided.
-        These are the parameters provided to calc_ut() and returned 
+        These are the parameters provided to calc_ut() and returned
         values from calc_ut().
         """
-        
+
         # Only continue and log if the logging level is set to DEBUG.
         if (not Ephemeris.log.isEnabledFor(logging.DEBUG)):
             return
@@ -2280,7 +2280,7 @@ class Ephemeris:
                 format(planet, Ephemeris.getPlanetNameForId(planet)))
 
         Ephemeris.log.debug("calc_ut(): Flags that set are: ")
-        
+
         if (Ephemeris.iflag & swisseph.FLG_JPLEPH):
             Ephemeris.log.debug("calc_ut():  - FLG_JPLEPH")
         if (Ephemeris.iflag & swisseph.FLG_SWIEPH):
@@ -2321,7 +2321,7 @@ class Ephemeris:
                     format("Speed in declination (deg/day):", arg5))
             Ephemeris.log.debug(debugStr.\
                     format("Speed in distance (AU/day)", arg6))
-        elif (Ephemeris.iflag & swisseph.FLG_XYZ): 
+        elif (Ephemeris.iflag & swisseph.FLG_XYZ):
             # XYZ position calculated.
             debugStr = "calc_ut():  {:<15}{}"
             Ephemeris.log.debug(debugStr.\
@@ -2351,9 +2351,9 @@ class Ephemeris:
                     format("Speed in latitude (deg/day):", arg5))
             Ephemeris.log.debug(debugStr.\
                     format("Speed in distance (AU/day):", arg6))
-    
+
     @staticmethod
-    def __logDebugSweHousesEx(jd, 
+    def __logDebugSweHousesEx(jd,
                               geoLatitudeDeg,
                               geoLongitudeDeg,
                               houseSystem,
@@ -2368,7 +2368,7 @@ class Ephemeris:
         # Only continue and log if the logging level is set to DEBUG.
         if (not Ephemeris.log.isEnabledFor(logging.DEBUG)):
             return
-        
+
         prefix = "swe_house_ex(): "
 
         debugStr = prefix + "-----------------------------------------------"
@@ -2430,18 +2430,18 @@ class Ephemeris:
         Ephemeris.log.debug(prefix + " Polar ascendant (M. Munkasey)={}".\
                 format(ascmc[7]))
 
-        
+
     @staticmethod
     def getHouseCusps(dt, houseSystem=HouseSys['Porphyry']):
         """Returns a the degree locations of the house cusps, for both
         the tropical zodiac and the sidereal zodiac.
 
-        Preconditions: 
+        Preconditions:
 
             Ephemeris.setGeographicPosition() has been called previously.
 
         Arguments:
-        
+
         dt - datetime.datetime object that holds the timestamp for which
              you want to get the house cusps.
 
@@ -2465,13 +2465,13 @@ class Ephemeris:
 
                       For convenience you can use the dict at
                       Ephemeris.HouseSys to reference the house system you
-                      want.  E.g.  
-                      
+                      want.  E.g.
+
                       cusps = \
                           Ephemeris.\
                               getHouseCusps(dt, Ephemeris.HouseSys['Koch'])
-                      
-        Return value: 
+
+        Return value:
 
         Dictionary holding the house cusps in degrees.
 
@@ -2518,8 +2518,8 @@ class Ephemeris:
 
         # Obtain the house cusps.
         (tropicalCusps, tropicalAscmc) = \
-            Ephemeris.swe_houses_ex(jd, 
-                                    Ephemeris.geoLatitudeDeg, 
+            Ephemeris.swe_houses_ex(jd,
+                                    Ephemeris.geoLatitudeDeg,
                                     Ephemeris.geoLongitudeDeg,
                                     houseSystem,
                                     Ephemeris.iflag)
@@ -2530,8 +2530,8 @@ class Ephemeris:
 
         # Obtain the house cusps.
         (siderealCusps, siderealAscmc) = \
-            Ephemeris.swe_houses_ex(jd, 
-                                    Ephemeris.geoLatitudeDeg, 
+            Ephemeris.swe_houses_ex(jd,
+                                    Ephemeris.geoLatitudeDeg,
                                     Ephemeris.geoLongitudeDeg,
                                     houseSystem,
                                     Ephemeris.iflag)
@@ -2548,11 +2548,11 @@ class Ephemeris:
                                   houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the desired astrological house number at the given timestamp.
-        
+
         Parameters:
         houseNumber - int value for the house number desired.
                       Value 1 refers to the first house.
-        dt          - datetime.datetime object holding the timestamp at which 
+        dt          - datetime.datetime object holding the timestamp at which
                       to do the lookup.  Timezone information is automatically
                       converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -2599,7 +2599,7 @@ class Ephemeris:
         # bunch of times.
         tropicalStr = "tropical"
         siderealStr = "sidereal"
-        
+
         # Planet name.
         planetName = "H{}".format(houseNumber)
 
@@ -2615,15 +2615,15 @@ class Ephemeris:
 
         # julian day for the timestamp.
         jd = Ephemeris.datetimeToJulianDay(dt)
-        
+
         # House cusp index.
         houseCuspIndex = houseNumber - 1
-        
+
         # Get the tuple holding values for the house cusps.
         cusps = Ephemeris.getHouseCusps(dt, houseSystem)
 
         # Now fill out the dictionaries that go into a PlanetaryInfo object.
-        
+
         # Geocentric, Tropical.
         longitude = cusps[tropicalStr][houseCuspIndex]
         latitude = 0.0
@@ -2642,15 +2642,15 @@ class Ephemeris:
         dx = 0.0
         dy = 0.0
         dz = 0.0
-        
+
         geocentricTropicalDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -2681,15 +2681,15 @@ class Ephemeris:
         dx = 0.0
         dy = 0.0
         dz = 0.0
-        
+
         geocentricSiderealDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -2720,15 +2720,15 @@ class Ephemeris:
         dx = 0.0
         dy = 0.0
         dz = 0.0
-        
+
         topocentricTropicalDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -2759,15 +2759,15 @@ class Ephemeris:
         dx = 0.0
         dy = 0.0
         dz = 0.0
-        
+
         topocentricSiderealDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -2798,15 +2798,15 @@ class Ephemeris:
         dx = 0.0
         dy = 0.0
         dz = 0.0
-        
+
         heliocentricTropicalDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -2837,15 +2837,15 @@ class Ephemeris:
         dx = 0.0
         dy = 0.0
         dz = 0.0
-        
+
         heliocentricSiderealDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -2884,15 +2884,15 @@ class Ephemeris:
             Ephemeris.log.debug("Exiting " + functName + \
                                 "({}, {}, {})".\
                                 format(houseNumber, dt, houseSystem))
-        
+
         return planetaryInfo
-    
+
 
     @staticmethod
     def getAscmc(dt, houseSystem=HouseSys['Porphyry']):
         """Returns a dictionary that contains floats that are the
         degree locations of:
-        
+
             Ascendant
             MC
             ARMC
@@ -2901,13 +2901,13 @@ class Ephemeris:
             "Co-ascendant" (Walter Koch)
             "Co-ascendant" (Michael Munkasey)
             "Polar ascendant" (M. Munkasey)
-        
-        Preconditions: 
+
+        Preconditions:
 
             Ephemeris.setGeographicPosition() has been called previously.
 
         Arguments:
-        
+
         dt - datetime.datetime object that holds the timestamp for which
              you want to get the house cusps.
 
@@ -2931,13 +2931,13 @@ class Ephemeris:
 
                       For convenience you can use the dict at
                       Ephemeris.HouseSys to reference the house system you
-                      want.  E.g.  
-                      
+                      want.  E.g.
+
                       cusps = \
                           Ephemeris.\
                               getHouseCusps(dt, Ephemeris.HouseSys['Koch'])
-                      
-        Return value: 
+
+        Return value:
 
         Dictionary holding the following values.
 
@@ -2949,7 +2949,7 @@ class Ephemeris:
         ascmc['tropical']['CoAscendant1']        = "Co-ascendant" (Walter Koch)
         ascmc['tropical']['CoAscendant2']   = "Co-ascendant" (Michael Munkasey)
         ascmc['tropical']['PolarAscendant'] = "Polar ascendant" (M. Munkasey)
-        
+
         ascmc['sidereal']['Ascendant']           = Ascendant
         ascmc['sidereal']['MC']                  = MC
         ascmc['sidereal']['ARMC']                = ARMC
@@ -2976,20 +2976,20 @@ class Ephemeris:
 
         # Obtain the house cusps.
         (tropicalCusps, tropicalAscmc) = \
-            Ephemeris.swe_houses_ex(jd, 
-                                    Ephemeris.geoLatitudeDeg, 
+            Ephemeris.swe_houses_ex(jd,
+                                    Ephemeris.geoLatitudeDeg,
                                     Ephemeris.geoLongitudeDeg,
                                     houseSystem,
                                     Ephemeris.iflag)
-        
+
         # Get the house cusps in the sidereal zodiac coordinates.
         Ephemeris.setSiderealZodiac()
         Ephemeris.unsetRadiansCoordinateSystemFlag()
 
         # Obtain the house cusps.
         (siderealCusps, siderealAscmc) = \
-            Ephemeris.swe_houses_ex(jd, 
-                                    Ephemeris.geoLatitudeDeg, 
+            Ephemeris.swe_houses_ex(jd,
+                                    Ephemeris.geoLatitudeDeg,
                                     Ephemeris.geoLongitudeDeg,
                                     houseSystem,
                                     Ephemeris.iflag)
@@ -3004,7 +3004,7 @@ class Ephemeris:
                  CoAscendant1        = tropicalAscmc[5],
                  CoAscendant2        = tropicalAscmc[6],
                  PolarAscendant      = tropicalAscmc[7])
-        
+
         siderealAscmcDict = \
             dict(Ascendant           = siderealAscmc[0],
                  MC                  = siderealAscmc[1],
@@ -3014,20 +3014,20 @@ class Ephemeris:
                  CoAscendant1        = siderealAscmc[5],
                  CoAscendant2        = siderealAscmc[6],
                  PolarAscendant      = siderealAscmc[7])
-        
+
         ascmc = {'tropical' : tropicalAscmcDict,
                  'sidereal' : siderealAscmcDict}
 
         return ascmc
-    
-    
+
+
     @staticmethod
     def getAscmcPlanetaryInfo(planetName,
                               dt,
                               houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the desired astrological house number at the given timestamp.
-        
+
         Parameters:
         planetName  - Name of the planet, as a str.  This must be one of:
 
@@ -3039,11 +3039,11 @@ class Ephemeris:
                         CoAscendant1
                         CoAscendant2
                         PolarAscendant
-                        
-        dt          - datetime.datetime object holding the timestamp at which 
+
+        dt          - datetime.datetime object holding the timestamp at which
                       to do the lookup.  Timezone information is automatically
                       converted to UTC for getting the planetary info.
-                      
+
         houseSystem - byte string of length 1.  That character is one of:
 
                       P - Placidus
@@ -3079,7 +3079,7 @@ class Ephemeris:
                                 format(planetName,
                                        Ephemeris.datetimeToStr(dt),
                                        houseSystem))
-            
+
         validPlanetNames = [\
             "Ascendant",
             "MC",
@@ -3102,7 +3102,7 @@ class Ephemeris:
         # bunch of times.
         tropicalStr = "tropical"
         siderealStr = "sidereal"
-        
+
         # Planet ID.
         # Here we will use an invalid planet ID.
         #
@@ -3112,15 +3112,15 @@ class Ephemeris:
         # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
         #
         planetId = -9999
-        
+
         # julian day for the timestamp.
         jd = Ephemeris.datetimeToJulianDay(dt)
-        
+
         # Get the tuple holding values for the ascmc locations.
         ascmc = Ephemeris.getAscmc(dt, houseSystem)
-        
+
         # Now fill out the dictionaries that go into a PlanetaryInfo object.
-        
+
         # Geocentric, Tropical.
         longitude = ascmc[tropicalStr][planetName]
         latitude = 0.0
@@ -3139,15 +3139,15 @@ class Ephemeris:
         dx = 0.0
         dy = 0.0
         dz = 0.0
-        
+
         geocentricTropicalDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -3159,7 +3159,7 @@ class Ephemeris:
                  'dX': dx,
                  'dY': dy,
                  'dZ': dz}
-        
+
         # Geocentric, Sidereal.
         longitude = ascmc[siderealStr][planetName]
         latitude = 0.0
@@ -3178,15 +3178,15 @@ class Ephemeris:
         dx = 0.0
         dy = 0.0
         dz = 0.0
-        
+
         geocentricSiderealDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -3217,15 +3217,15 @@ class Ephemeris:
         dx = 0.0
         dy = 0.0
         dz = 0.0
-        
+
         topocentricTropicalDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -3256,15 +3256,15 @@ class Ephemeris:
         dx = 0.0
         dy = 0.0
         dz = 0.0
-        
+
         topocentricSiderealDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -3295,15 +3295,15 @@ class Ephemeris:
         dx = 0.0
         dy = 0.0
         dz = 0.0
-        
+
         heliocentricTropicalDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -3334,15 +3334,15 @@ class Ephemeris:
         dx = 0.0
         dy = 0.0
         dz = 0.0
-        
+
         heliocentricSiderealDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -3375,7 +3375,7 @@ class Ephemeris:
                                       geocentricDict,
                                       topocentricDict,
                                       heliocentricDict)
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Exiting " + functName + \
@@ -3383,9 +3383,9 @@ class Ephemeris:
                                 format(planetName,
                                        Ephemeris.datetimeToStr(dt),
                                        houseSystem))
-        
+
         return planetaryInfo
-        
+
     @staticmethod
     def getPlanetaryInfo(planetName, dt):
         """Returns a PlanetaryInfo object with a bunch of information about a
@@ -3394,15 +3394,15 @@ class Ephemeris:
         Parameters:
         planetName  - str that holds the name of the planet
         dt          - datetime.datetime object that represents the date and time
-                      for which the info is requested.  This object must 
-                      have the tzinfo attribute defined and it must created 
+                      for which the info is requested.  This object must
+                      have the tzinfo attribute defined and it must created
                       from pytz.
-        
+
         Returns:
         A PlanetaryInfo object for the given timestamp.
-        It has all fields populated.  The timestamp in the PlanetaryInfo 
+        It has all fields populated.  The timestamp in the PlanetaryInfo
         object returned is the same timestamp passed into this function.
-        See the class description for PlanetaryInfo for details on 
+        See the class description for PlanetaryInfo for details on
         all the fields available.
         """
 
@@ -3412,14 +3412,14 @@ class Ephemeris:
 
         # Get the planet id.
         planetId = Ephemeris.getPlanetIdForName(planetName)
-        
+
         if planetId == None:
             # This means that it is one of our additional custom
             # planets (not built into Swiss Ephemeris).
             # Handle these cases for building PlanetaryInfo separately.
 
             houseSystem = Ephemeris.HouseSys['Porphyry']
-        
+
             if planetName == "H1":
                 return Ephemeris.getH1PlanetaryInfo(dt, houseSystem)
             elif planetName == "H2":
@@ -3540,13 +3540,13 @@ class Ephemeris:
                 Ephemeris.log.error("Unknown planetName given to " + \
                                     "getPlanetaryInfo(): {}".format(planetName))
                 return None
-            
+
         # If it got here, then the planet name given is a standard
         # planet supported by the Swiss Ephemeris.
 
         # Convert time to Julian Day.
         jd = Ephemeris.datetimeToJulianDay(dt)
-        
+
         # Geocentric, Tropical, Ecliptical info.
         Ephemeris.setGeocentricCalculations()
         Ephemeris.setTropicalZodiac()
@@ -3587,13 +3587,13 @@ class Ephemeris:
         dz = arg6
 
         geocentricTropicalDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -3646,13 +3646,13 @@ class Ephemeris:
         dz = arg6
 
         geocentricSiderealDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -3706,13 +3706,13 @@ class Ephemeris:
         dz = arg6
 
         topocentricTropicalDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -3765,13 +3765,13 @@ class Ephemeris:
         dz = arg6
 
         topocentricSiderealDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -3824,13 +3824,13 @@ class Ephemeris:
         dz = arg6
 
         heliocentricTropicalDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -3883,13 +3883,13 @@ class Ephemeris:
         dz = arg6
 
         heliocentricSiderealDict = \
-                {'longitude': longitude, 
+                {'longitude': longitude,
                  'latitude': latitude,
                  'distance': distance,
                  'longitude_speed': longitude_speed,
                  'latitude_speed': latitude_speed,
                  'distance_speed': distance_speed,
-                 'rectascension': rectascension, 
+                 'rectascension': rectascension,
                  'declination': declination,
                  'distance': distance,
                  'rectascension_speed': rectascension_speed,
@@ -3936,9 +3936,9 @@ class Ephemeris:
     def getH1PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'H1' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -3965,18 +3965,18 @@ class Ephemeris:
         """
 
         houseNumber = 1
-        
+
         return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
                                                     timestamp,
                                                     houseSystem)
-        
+
     @staticmethod
     def getH2PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'H2' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4003,18 +4003,18 @@ class Ephemeris:
         """
 
         houseNumber = 2
-        
+
         return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
                                                     timestamp,
                                                     houseSystem)
-        
+
     @staticmethod
     def getH3PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'H3' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4041,18 +4041,18 @@ class Ephemeris:
         """
 
         houseNumber = 3
-        
+
         return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
                                                     timestamp,
                                                     houseSystem)
-        
+
     @staticmethod
     def getH4PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'H4' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4079,18 +4079,18 @@ class Ephemeris:
         """
 
         houseNumber = 4
-        
+
         return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
                                                     timestamp,
                                                     houseSystem)
-        
+
     @staticmethod
     def getH5PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'H5' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4117,18 +4117,18 @@ class Ephemeris:
         """
 
         houseNumber = 5
-        
+
         return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
                                                     timestamp,
                                                     houseSystem)
-        
+
     @staticmethod
     def getH6PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'H6' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4155,18 +4155,18 @@ class Ephemeris:
         """
 
         houseNumber = 6
-        
+
         return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
                                                     timestamp,
                                                     houseSystem)
-        
+
     @staticmethod
     def getH7PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'H7' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4193,18 +4193,18 @@ class Ephemeris:
         """
 
         houseNumber = 7
-        
+
         return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
                                                     timestamp,
                                                     houseSystem)
-        
+
     @staticmethod
     def getH8PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'H8' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4231,18 +4231,18 @@ class Ephemeris:
         """
 
         houseNumber = 8
-        
+
         return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
                                                     timestamp,
                                                     houseSystem)
-        
+
     @staticmethod
     def getH9PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'H9' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4269,18 +4269,18 @@ class Ephemeris:
         """
 
         houseNumber = 9
-        
+
         return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
                                                     timestamp,
                                                     houseSystem)
-        
+
     @staticmethod
     def getH10PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'H10' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4307,18 +4307,18 @@ class Ephemeris:
         """
 
         houseNumber = 10
-        
+
         return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
                                                     timestamp,
                                                     houseSystem)
-        
+
     @staticmethod
     def getH11PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'H11' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4345,18 +4345,18 @@ class Ephemeris:
         """
 
         houseNumber = 11
-        
+
         return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
                                                     timestamp,
                                                     houseSystem)
-        
+
     @staticmethod
     def getH12PlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'H12' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4383,7 +4383,7 @@ class Ephemeris:
         """
 
         houseNumber = 12
-        
+
         return Ephemeris.getHouseCuspPlanetaryInfo(houseNumber,
                                                     timestamp,
                                                     houseSystem)
@@ -4392,9 +4392,9 @@ class Ephemeris:
     def getAscendantPlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'Ascendant' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4419,7 +4419,7 @@ class Ephemeris:
                       Ephemeris.HouseSys to reference the house system you
                       want.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Entered " + functName + \
@@ -4427,11 +4427,11 @@ class Ephemeris:
                                 format(Ephemeris.datetimeToStr(timestamp),
                                        houseSystem))
         planetName = "Ascendant"
-        
+
         planetaryInfo = Ephemeris.getAscmcPlanetaryInfo(planetName,
                                                         timestamp,
                                                         houseSystem)
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Exiting " + functName + \
@@ -4440,14 +4440,14 @@ class Ephemeris:
                                        houseSystem))
 
         return planetaryInfo
-        
+
     @staticmethod
     def getMCPlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'MC' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4472,7 +4472,7 @@ class Ephemeris:
                       Ephemeris.HouseSys to reference the house system you
                       want.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Entered " + functName + \
@@ -4480,11 +4480,11 @@ class Ephemeris:
                                 format(Ephemeris.datetimeToStr(timestamp),
                                        houseSystem))
         planetName = "MC"
-        
+
         planetaryInfo = Ephemeris.getAscmcPlanetaryInfo(planetName,
                                                         timestamp,
                                                         houseSystem)
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Exiting " + functName + \
@@ -4493,14 +4493,14 @@ class Ephemeris:
                                        houseSystem))
 
         return planetaryInfo
-        
+
     @staticmethod
     def getARMCPlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'ARMC' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4525,7 +4525,7 @@ class Ephemeris:
                       Ephemeris.HouseSys to reference the house system you
                       want.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Entered " + functName + \
@@ -4533,11 +4533,11 @@ class Ephemeris:
                                 format(Ephemeris.datetimeToStr(timestamp),
                                        houseSystem))
         planetName = "ARMC"
-        
+
         planetaryInfo = Ephemeris.getAscmcPlanetaryInfo(planetName,
                                                         timestamp,
                                                         houseSystem)
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Exiting " + functName + \
@@ -4546,14 +4546,14 @@ class Ephemeris:
                                        houseSystem))
 
         return planetaryInfo
-        
+
     @staticmethod
     def getVertexPlanetaryInfo(timestamp, houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'Vertex' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4578,7 +4578,7 @@ class Ephemeris:
                       Ephemeris.HouseSys to reference the house system you
                       want.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Entered " + functName + \
@@ -4586,11 +4586,11 @@ class Ephemeris:
                                 format(Ephemeris.datetimeToStr(timestamp),
                                        houseSystem))
         planetName = "Vertex"
-        
+
         planetaryInfo = Ephemeris.getAscmcPlanetaryInfo(planetName,
                                                         timestamp,
                                                         houseSystem)
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Exiting " + functName + \
@@ -4599,15 +4599,15 @@ class Ephemeris:
                                        houseSystem))
 
         return planetaryInfo
-        
+
     @staticmethod
     def getEquatorialAscendantPlanetaryInfo(timestamp,
                                             houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'EquatorialAscendant' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4632,7 +4632,7 @@ class Ephemeris:
                       Ephemeris.HouseSys to reference the house system you
                       want.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Entered " + functName + \
@@ -4640,11 +4640,11 @@ class Ephemeris:
                                 format(Ephemeris.datetimeToStr(timestamp),
                                        houseSystem))
         planetName = "EquatorialAscendant"
-        
+
         planetaryInfo = Ephemeris.getAscmcPlanetaryInfo(planetName,
                                                         timestamp,
                                                         houseSystem)
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Exiting " + functName + \
@@ -4653,15 +4653,15 @@ class Ephemeris:
                                        houseSystem))
 
         return planetaryInfo
-        
+
     @staticmethod
     def getCoAscendant1PlanetaryInfo(timestamp,
                                      houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'CoAscendant1' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4686,7 +4686,7 @@ class Ephemeris:
                       Ephemeris.HouseSys to reference the house system you
                       want.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Entered " + functName + \
@@ -4694,11 +4694,11 @@ class Ephemeris:
                                 format(Ephemeris.datetimeToStr(timestamp),
                                        houseSystem))
         planetName = "CoAscendant1"
-        
+
         planetaryInfo = Ephemeris.getAscmcPlanetaryInfo(planetName,
                                                         timestamp,
                                                         houseSystem)
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Exiting " + functName + \
@@ -4707,15 +4707,15 @@ class Ephemeris:
                                        houseSystem))
 
         return planetaryInfo
-        
+
     @staticmethod
     def getCoAscendant2PlanetaryInfo(timestamp,
                                      houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'CoAscendant2' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4740,7 +4740,7 @@ class Ephemeris:
                       Ephemeris.HouseSys to reference the house system you
                       want.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Entered " + functName + \
@@ -4748,11 +4748,11 @@ class Ephemeris:
                                 format(Ephemeris.datetimeToStr(timestamp),
                                        houseSystem))
         planetName = "CoAscendant2"
-        
+
         planetaryInfo = Ephemeris.getAscmcPlanetaryInfo(planetName,
                                                         timestamp,
                                                         houseSystem)
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Exiting " + functName + \
@@ -4761,15 +4761,15 @@ class Ephemeris:
                                        houseSystem))
 
         return planetaryInfo
-        
+
     @staticmethod
     def getPolarAscendantPlanetaryInfo(timestamp,
                                        houseSystem=HouseSys['Porphyry']):
         """Returns a PlanetaryInfo containing information about
         the 'PolarAscendant' at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         houseSystem - byte string of length 1.  That character is one of:
@@ -4794,7 +4794,7 @@ class Ephemeris:
                       Ephemeris.HouseSys to reference the house system you
                       want.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Entered " + functName + \
@@ -4802,11 +4802,11 @@ class Ephemeris:
                                 format(Ephemeris.datetimeToStr(timestamp),
                                        houseSystem))
         planetName = "PolarAscendant"
-        
+
         planetaryInfo = Ephemeris.getAscmcPlanetaryInfo(planetName,
                                                         timestamp,
                                                         houseSystem)
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug("Exiting " + functName + \
@@ -4815,17 +4815,17 @@ class Ephemeris:
                                        houseSystem))
 
         return planetaryInfo
-        
+
     # TODO:  Add and write function: getHoraLagnaPlanetaryInfo()
     # TODO:  Add and write function: getGhatiLagnaPlanetaryInfo()
-        
+
     @staticmethod
     def getSunPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the Sun at
-        the given timestamp. 
-        
+        the given timestamp.
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
@@ -4839,8 +4839,8 @@ class Ephemeris:
     @staticmethod
     def getMoonPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the Moon at
-        the given timestamp. 
-        
+        the given timestamp.
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -4857,7 +4857,7 @@ class Ephemeris:
     def getMercuryPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Mercury at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -4874,7 +4874,7 @@ class Ephemeris:
     def getVenusPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Venus at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -4891,7 +4891,7 @@ class Ephemeris:
     def getMarsPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Mars at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -4908,7 +4908,7 @@ class Ephemeris:
     def getJupiterPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Jupiter at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -4925,7 +4925,7 @@ class Ephemeris:
     def getSaturnPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Saturn at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -4942,7 +4942,7 @@ class Ephemeris:
     def getUranusPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Uranus at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -4959,7 +4959,7 @@ class Ephemeris:
     def getNeptunePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Neptune at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -4976,7 +4976,7 @@ class Ephemeris:
     def getPlutoPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Pluto at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -4993,7 +4993,7 @@ class Ephemeris:
     def getMeanNorthNodePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the MeanNorthNode at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -5012,7 +5012,7 @@ class Ephemeris:
     def getTrueNorthNodePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the TrueNorthNode at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -5026,12 +5026,12 @@ class Ephemeris:
         return Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
 
     # TODO:  Add and write function: getTrueSouthNodePlanetaryInfo()
-    
+
     @staticmethod
     def getMeanLunarApogeePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the MeanLunarApogee at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -5048,7 +5048,7 @@ class Ephemeris:
     def getOsculatingLunarApogeePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the OsculatingLunarApogee at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -5065,7 +5065,7 @@ class Ephemeris:
     def getInterpolatedLunarApogeePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the InterpolatedLunarApogee at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -5082,7 +5082,7 @@ class Ephemeris:
     def getInterpolatedLunarPerigeePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the InterpolatedLunarPerigee at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -5099,7 +5099,7 @@ class Ephemeris:
     def getEarthPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Earth at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -5116,7 +5116,7 @@ class Ephemeris:
     def getChironPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Chiron at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -5131,12 +5131,12 @@ class Ephemeris:
 
     # TODO:  Add and write function: getGulikaPlanetaryInfo()
     # TODO:  Add and write function: getMandiPlanetaryInfo()
-    
+
     @staticmethod
     def getPholusPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Pholus at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -5153,7 +5153,7 @@ class Ephemeris:
     def getCeresPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Ceres at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -5170,7 +5170,7 @@ class Ephemeris:
     def getPallasPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Pallas at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -5187,7 +5187,7 @@ class Ephemeris:
     def getJunoPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Juno at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -5204,7 +5204,7 @@ class Ephemeris:
     def getVestaPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Vesta at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -5221,7 +5221,7 @@ class Ephemeris:
     def getIsisPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Isis at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
@@ -5231,62 +5231,62 @@ class Ephemeris:
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-        
+
         return Ephemeris.getPlanetaryInfo("Isis", timestamp)
-    
+
     @staticmethod
     def getNibiruPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the Nibiru at the given timestamp.
-        
+
         Parameters:
         timestamp - datetime.datetime object holding the timestamp at which to
                     do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         return Ephemeris.getPlanetaryInfo("Nibiru", timestamp)
-    
+
     @staticmethod
     def getMeanOfFivePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
         the 'Mean Of Five' (MOF) at the given timestamp.
-        
+
         'Mean Of Five' is the average of Jupiter, Saturn, Uranus,
         Neptune and Pluto.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
         saturnPI  = Ephemeris.getSaturnPlanetaryInfo(timestamp)
         uranusPI  = Ephemeris.getUranusPlanetaryInfo(timestamp)
         neptunePI = Ephemeris.getNeptunePlanetaryInfo(timestamp)
         plutoPI   = Ephemeris.getPlutoPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(jupiterPI)
         planetaryInfos.append(saturnPI)
         planetaryInfos.append(uranusPI)
         planetaryInfos.append(neptunePI)
         planetaryInfos.append(plutoPI)
-        
+
         planetName = "MeanOfFive"
         rv = Ephemeris.createAveragedPlanetaryInfo(planetName, planetaryInfos)
-        
+
         return rv
-    
+
     @staticmethod
     def getCycleOfEightPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
@@ -5296,17 +5296,17 @@ class Ephemeris:
 
         'Cycle Of Eight' is the average of Mercury, Venus, Mars,
         Jupiter, Saturn, Uranus, Neptune, and Pluto.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
         venusPI   = Ephemeris.getVenusPlanetaryInfo(timestamp)
         marsPI    = Ephemeris.getMarsPlanetaryInfo(timestamp)
@@ -5315,7 +5315,7 @@ class Ephemeris:
         uranusPI  = Ephemeris.getUranusPlanetaryInfo(timestamp)
         neptunePI = Ephemeris.getNeptunePlanetaryInfo(timestamp)
         plutoPI   = Ephemeris.getPlutoPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
         planetaryInfos.append(venusPI)
@@ -5325,35 +5325,35 @@ class Ephemeris:
         planetaryInfos.append(uranusPI)
         planetaryInfos.append(neptunePI)
         planetaryInfos.append(plutoPI)
-        
+
         planetName = "CycleOfEight"
         rv = Ephemeris.createAveragedPlanetaryInfo(planetName, planetaryInfos)
-        
+
         return rv
-            
+
     @staticmethod
     def getAvgMaJuSaUrNePlPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         average of the 6 outer planets (Mars to Pluto) at the given
         timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         marsPI    = Ephemeris.getMarsPlanetaryInfo(timestamp)
         jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
         saturnPI  = Ephemeris.getSaturnPlanetaryInfo(timestamp)
         uranusPI  = Ephemeris.getUranusPlanetaryInfo(timestamp)
         neptunePI = Ephemeris.getNeptunePlanetaryInfo(timestamp)
         plutoPI   = Ephemeris.getPlutoPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(marsPI)
         planetaryInfos.append(jupiterPI)
@@ -5361,33 +5361,33 @@ class Ephemeris:
         planetaryInfos.append(uranusPI)
         planetaryInfos.append(neptunePI)
         planetaryInfos.append(plutoPI)
-        
+
         planetName = "AvgMaJuSaUrNePl"
         rv = Ephemeris.createAveragedPlanetaryInfo(planetName, planetaryInfos)
-        
+
         return rv
-            
+
     @staticmethod
     def getAvgJuSaUrNePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         average of 4 outer planets (Jupiter, Saturn, Uranus, Neptune)
         at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
         saturnPI  = Ephemeris.getSaturnPlanetaryInfo(timestamp)
         uranusPI  = Ephemeris.getUranusPlanetaryInfo(timestamp)
         neptunePI = Ephemeris.getNeptunePlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(jupiterPI)
         planetaryInfos.append(saturnPI)
@@ -5396,706 +5396,706 @@ class Ephemeris:
 
         planetName = "AvgJuSaUrNe"
         rv = Ephemeris.createAveragedPlanetaryInfo(planetName, planetaryInfos)
-        
+
         return rv
-    
+
     @staticmethod
     def getAvgJuSaPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         average of Jupiter and Saturn at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
         saturnPI  = Ephemeris.getSaturnPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(jupiterPI)
         planetaryInfos.append(saturnPI)
-        
+
         planetName = "AvgJuSa"
         rv = Ephemeris.createAveragedPlanetaryInfo(planetName, planetaryInfos)
-        
+
         return rv
-    
+
     @staticmethod
     def getAsSuPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Ascendant - Sun) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
         sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(ascendantPI)
         planetaryInfos.append(sunPI)
-        
+
         planetName = "AsSu"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getAsMoPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Ascendant - Moon) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
         moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(ascendantPI)
         planetaryInfos.append(moonPI)
-        
+
         planetName = "AsMo"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getMoSuPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Moon - Sun) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
         sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(moonPI)
         planetaryInfos.append(sunPI)
-        
+
         planetName = "MoSu"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getMeVePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Mercury - Venus) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
         venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
         planetaryInfos.append(venusPI)
-        
+
         planetName = "MeVe"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getMeEaPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Mercury - Earth) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
         earthPI = Ephemeris.getEarthPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
         planetaryInfos.append(earthPI)
-        
+
         planetName = "MeEa"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getMeMaPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Mercury - Mars) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
         marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
         planetaryInfos.append(marsPI)
-        
+
         planetName = "MeMa"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getMeJuPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Mercury - Jupiter) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
         jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
         planetaryInfos.append(jupiterPI)
-        
+
         planetName = "MeJu"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getMeSaPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Mercury - Saturn) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
         saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
         planetaryInfos.append(saturnPI)
-        
+
         planetName = "MeSa"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getMeUrPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Mercury - Uranus) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
         uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
         planetaryInfos.append(uranusPI)
-        
+
         planetName = "MeUr"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getVeEaPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Venus - Earth) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
         earthPI = Ephemeris.getEarthPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(venusPI)
         planetaryInfos.append(earthPI)
-        
+
         planetName = "VeEa"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getVeMaPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Venus - Mars) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
         marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(venusPI)
         planetaryInfos.append(marsPI)
-        
+
         planetName = "VeMa"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getVeJuPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Venus - Jupiter) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
         jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(venusPI)
         planetaryInfos.append(jupiterPI)
-        
+
         planetName = "VeJu"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getVeSaPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Venus - Saturn) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
         saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(venusPI)
         planetaryInfos.append(saturnPI)
-        
+
         planetName = "VeSa"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getVeUrPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Venus - Uranus) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
         uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(venusPI)
         planetaryInfos.append(uranusPI)
-        
+
         planetName = "VeUr"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getEaMaPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Earth - Mars) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         earthPI = Ephemeris.getEarthPlanetaryInfo(timestamp)
         marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(earthPI)
         planetaryInfos.append(marsPI)
-        
+
         planetName = "EaMa"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getEaJuPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Earth - Jupiter) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         earthPI = Ephemeris.getEarthPlanetaryInfo(timestamp)
         jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(earthPI)
         planetaryInfos.append(jupiterPI)
-        
+
         planetName = "EaJu"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getEaSaPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Earth - Saturn) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         earthPI = Ephemeris.getEarthPlanetaryInfo(timestamp)
         saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(earthPI)
         planetaryInfos.append(saturnPI)
-        
+
         planetName = "EaSa"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getEaUrPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Earth - Uranus) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         earthPI = Ephemeris.getEarthPlanetaryInfo(timestamp)
         uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(earthPI)
         planetaryInfos.append(uranusPI)
-        
+
         planetName = "EaUr"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getMaJuPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Mars - Jupiter) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
         jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(marsPI)
         planetaryInfos.append(jupiterPI)
-        
+
         planetName = "MaJu"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getMaSaPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Mars - Saturn) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
         saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(marsPI)
         planetaryInfos.append(saturnPI)
-        
+
         planetName = "MaSa"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getMaUrPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Mars - Uranus) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
         uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(marsPI)
         planetaryInfos.append(uranusPI)
-        
+
         planetName = "MaUr"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getJuSaPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Jupiter - Saturn) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
         saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(jupiterPI)
         planetaryInfos.append(saturnPI)
-        
+
         planetName = "JuSa"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getJuUrPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Jupiter - Uranus) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
         uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(jupiterPI)
         planetaryInfos.append(uranusPI)
-        
+
         planetName = "JuUr"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
     @staticmethod
     def getSaUrPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Saturn - Uranus) at the given timestamp.
-        
+
         Parameters:
-        timestamp - datetime.datetime object holding the timestamp at which 
+        timestamp - datetime.datetime object holding the timestamp at which
                     to do the lookup.  Timezone information is automatically
                     converted to UTC for getting the planetary info.
         """
-        
+
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
-            
+
         saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
         uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
-        
+
         planetaryInfos = []
         planetaryInfos.append(saturnPI)
         planetaryInfos.append(uranusPI)
-        
+
         planetName = "SaUr"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
-        
+
         return rv
 
 ##############################################################################
@@ -6104,28 +6104,28 @@ def testTimezoneSpeed():
     """This test will test the speed of creating a timezone via pytz.timezone().
     If it is slow, that means pytz needs to be decompressed (see more info
     below) If it is fast, then we're fine.
-     
+
     Description:
       The first call to pytz.timezone() is very slow, up to about 8 seconds.
       Subsequent calls are fast.
-     
+
       Reason: pytz gets its timezone settings from within the egg and the
       first call to timezone has to check that all the timezone files exist,
       the first call could be slow depending on how the os has to find those
       files.
-     
+
     Solution is to uncompress it via pip:
 
          pip unzip pytz
-    
-    Source: 
+
+    Source:
       http://stackoverflow.com/questions/20500910/first-call-to-pytz-timezone-is-slow-in-virtualenv
     """
 
     print("Running " + inspect.stack()[0][3] + "()")
 
     import time
-    
+
     for i in range(5):
         startTime = time.time()
         eastern = pytz.timezone('US/Eastern')
@@ -6133,7 +6133,7 @@ def testTimezoneSpeed():
         print("  Execution {}: pytz.timezone() took: {} sec".\
               format(i, endTime - startTime))
 
-    
+
 def testGetPlanetaryInfos():
     print("Running " + inspect.stack()[0][3] + "()")
 
@@ -6315,19 +6315,19 @@ def testHouseCusps():
     eastern = pytz.timezone('US/Eastern')
     now = datetime.datetime.now(eastern)
     print("    now is: {}".format(now))
-    
+
     cusps = Ephemeris.getHouseCusps(now, Ephemeris.HouseSys['Porphyry'])
     print("    Tropical house cusps are: {}".format(cusps['tropical']))
-    
+
     for i in range(len(cusps['tropical'])):
         print("    House {}:    {}".format(i, cusps['tropical'][i]))
-        
+
     print("    Sidereal house cusps are: {}".format(cusps['sidereal']))
-    
+
     for i in range(len(cusps['sidereal'])):
         print("    House {}:    {}".format(i, cusps['sidereal'][i]))
-    
-    
+
+
 def testAscmc():
     print("Running " + inspect.stack()[0][3] + "()")
 
@@ -6336,25 +6336,25 @@ def testAscmc():
     eastern = pytz.timezone('US/Eastern')
     now = datetime.datetime.now(eastern)
     print("    now is: {}".format(now))
-    
+
     ascmc = Ephemeris.getAscmc(now, Ephemeris.HouseSys['Porphyry'])
-    
+
     zodiacType = "tropical"
     print("    Tropical ascmc planets are: {}".format(ascmc[zodiacType]))
     for key, value, in ascmc[zodiacType].items():
         print("    ascmc[\'{}\'][\'{}\'] == {}".\
               format(zodiacType, key, value))
-    
+
     zodiacType = "sidereal"
     print("    Sidereal ascmc planets are: {}".format(ascmc[zodiacType]))
     for key, value, in ascmc[zodiacType].items():
         print("    ascmc[\'{}\'][\'{}\'] == {}".\
               format(zodiacType, key, value))
-    
-    
+
+
 def testPlanetTopicalLongitude():
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     # Get the current time, which we will use to get planetary info.
     #now = datetime.datetime.utcnow()
     eastern = pytz.timezone('US/Eastern')
@@ -6402,7 +6402,7 @@ def testDatetimeJulianPrecisionLoss():
 
 def testMinMaxPlanetLongitudeSpeeds():
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     # Get the current time, which we will use to get planetary info.
     #now = datetime.datetime.utcnow()
     eastern = pytz.timezone('US/Eastern')
@@ -6537,7 +6537,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
         curr = start
         maxSpeed = 0
         minSpeed = 0
@@ -6598,7 +6598,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
         curr = start
         maxSpeed = 0
         minSpeed = 0
@@ -6659,7 +6659,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
         curr = start
         maxSpeed = 0
         minSpeed = 0
@@ -6720,7 +6720,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
         curr = start
         maxSpeed = 0
         minSpeed = 0
@@ -6781,7 +6781,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
         curr = start
         maxSpeed = 0
         minSpeed = 0
@@ -6842,7 +6842,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
         curr = start
         maxSpeed = 0
         minSpeed = 0
@@ -6903,7 +6903,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
         curr = start
         maxSpeed = 0
         minSpeed = 0
@@ -6964,7 +6964,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
     # TrueNorthNode.
     if True:
         start = datetime.datetime.now(eastern)
@@ -6998,7 +6998,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
     # MeanLunarApogee.
     if True:
         start = datetime.datetime.now(eastern)
@@ -7032,7 +7032,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
     # OsculatingLunarApogee.
     if True:
         start = datetime.datetime.now(eastern)
@@ -7066,7 +7066,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
     # InterpolatedLunarApogee.
     if True:
         start = datetime.datetime.now(eastern)
@@ -7100,7 +7100,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
     # InterpolatedLunarPerigee.
     if True:
         start = datetime.datetime.now(eastern)
@@ -7134,7 +7134,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
     # Earth.
     if True:
         start = datetime.datetime.now(eastern)
@@ -7168,7 +7168,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
         curr = start
         maxSpeed = 0
         minSpeed = 0
@@ -7229,7 +7229,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
         curr = start
         maxSpeed = 0
         minSpeed = 0
@@ -7290,7 +7290,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
         curr = start
         maxSpeed = 0
         minSpeed = 0
@@ -7351,7 +7351,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
         curr = start
         maxSpeed = 0
         minSpeed = 0
@@ -7412,7 +7412,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
         curr = start
         maxSpeed = 0
         minSpeed = 0
@@ -7473,7 +7473,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
         curr = start
         maxSpeed = 0
         minSpeed = 0
@@ -7596,7 +7596,7 @@ def testMinMaxPlanetLongitudeSpeeds():
               format(p.name, maxSpeed))
         print("    FINAL: geocentric   minSpeed of {} is: {}".\
               format(p.name, minSpeed))
-        
+
         curr = start
         maxSpeed = 0
         minSpeed = 0
@@ -7813,7 +7813,7 @@ def testMinMaxPlanetLongitudeSpeeds():
 
 def testMinMaxPlanetLatitude():
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     # Get the current time, which we will use to get planetary info.
     #now = datetime.datetime.utcnow()
     eastern = pytz.timezone('US/Eastern')
@@ -7921,7 +7921,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minHeliocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
+
     # Mars.
     if True:
         start = datetime.datetime.now(eastern)
@@ -7955,8 +7955,8 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minHeliocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
-        
+
+
     # Jupiter.
     if True:
         start = datetime.datetime.now(eastern)
@@ -7990,8 +7990,8 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minHeliocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
-        
+
+
     # Saturn.
     if True:
         start = datetime.datetime.now(eastern)
@@ -8025,8 +8025,8 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minHeliocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
-        
+
+
     # Uranus.
     if True:
         start = datetime.datetime.now(eastern)
@@ -8060,8 +8060,8 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minHeliocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
-        
+
+
     # Neptune.
     if True:
         start = datetime.datetime.now(eastern)
@@ -8095,8 +8095,8 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minHeliocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
-        
+
+
     # Pluto.
     if True:
         start = datetime.datetime.now(eastern)
@@ -8130,8 +8130,8 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minHeliocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
-        
+
+
     # MeanNorthNode.
     if False:
         start = datetime.datetime.now(eastern)
@@ -8165,7 +8165,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minGeocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
+
     # TrueNorthNode.
     if False:
         start = datetime.datetime.now(eastern)
@@ -8199,7 +8199,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minGeocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
+
     # MeanLunarApogee.
     if False:
         start = datetime.datetime.now(eastern)
@@ -8233,7 +8233,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minGeocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
+
     # OsculatingLunarApogee.
     if False:
         start = datetime.datetime.now(eastern)
@@ -8267,7 +8267,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minGeocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
+
     # InterpolatedLunarApogee.
     if False:
         start = datetime.datetime.now(eastern)
@@ -8301,7 +8301,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minGeocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
+
     # InterpolatedLunarPerigee.
     if False:
         start = datetime.datetime.now(eastern)
@@ -8335,7 +8335,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minGeocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
+
     # Earth.
     if True:
         start = datetime.datetime.now(eastern)
@@ -8369,7 +8369,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minHeliocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
+
     # Chiron.
     if True:
         start = datetime.datetime.now(eastern)
@@ -8403,7 +8403,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minHeliocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
+
     # Pholus.
     if False:
         start = datetime.datetime.now(eastern)
@@ -8437,7 +8437,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minHeliocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
+
     # Ceres.
     if False:
         start = datetime.datetime.now(eastern)
@@ -8471,7 +8471,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minHeliocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
+
     # Pallas.
     if False:
         start = datetime.datetime.now(eastern)
@@ -8505,7 +8505,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minHeliocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
+
     # Juno.
     if False:
         start = datetime.datetime.now(eastern)
@@ -8539,7 +8539,7 @@ def testMinMaxPlanetLatitude():
               format(p.name, maxLatitude))
         print("    FINAL: minHeliocentricLatitude of {} is: {}".\
               format(p.name, minLatitude))
-        
+
     # Vesta.
     if False:
         start = datetime.datetime.now(eastern)
@@ -8715,7 +8715,7 @@ def testMinMaxPlanetLatitude():
 
 def testMinMaxPlanetDeclination():
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     # Get the current time, which we will use to get planetary info.
     #now = datetime.datetime.utcnow()
     eastern = pytz.timezone('US/Eastern')
@@ -8823,7 +8823,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # Mars.
     if True:
         start = datetime.datetime.now(eastern)
@@ -8857,7 +8857,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # Jupiter.
     if True:
         start = datetime.datetime.now(eastern)
@@ -8891,7 +8891,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # Saturn.
     if True:
         start = datetime.datetime.now(eastern)
@@ -8925,7 +8925,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # Uranus.
     if True:
         start = datetime.datetime.now(eastern)
@@ -8959,7 +8959,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # Neptune.
     if True:
         start = datetime.datetime.now(eastern)
@@ -8993,7 +8993,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # Pluto.
     if True:
         start = datetime.datetime.now(eastern)
@@ -9027,7 +9027,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # MeanNorthNode.
     if True:
         start = datetime.datetime.now(eastern)
@@ -9061,7 +9061,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # TrueNorthNode.
     if True:
         start = datetime.datetime.now(eastern)
@@ -9095,7 +9095,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # MeanLunarApogee.
     if True:
         start = datetime.datetime.now(eastern)
@@ -9129,7 +9129,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # OsculatingLunarApogee.
     if True:
         start = datetime.datetime.now(eastern)
@@ -9163,7 +9163,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # InterpolatedLunarApogee.
     if True:
         start = datetime.datetime.now(eastern)
@@ -9197,7 +9197,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # InterpolatedLunarPerigee.
     if True:
         start = datetime.datetime.now(eastern)
@@ -9231,7 +9231,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # Earth.
     if False:
         start = datetime.datetime.now(eastern)
@@ -9265,7 +9265,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # Chiron.
     if False:
         start = datetime.datetime.now(eastern)
@@ -9299,7 +9299,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # Pholus.
     if False:
         start = datetime.datetime.now(eastern)
@@ -9333,7 +9333,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # Ceres.
     if False:
         start = datetime.datetime.now(eastern)
@@ -9367,7 +9367,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # Pallas.
     if False:
         start = datetime.datetime.now(eastern)
@@ -9401,7 +9401,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # Juno.
     if False:
         start = datetime.datetime.now(eastern)
@@ -9435,7 +9435,7 @@ def testMinMaxPlanetDeclination():
               format(p.name, maxDeclination))
         print("    FINAL: minDeclination of {} is: {}".\
               format(p.name, minDeclination))
-        
+
     # Vesta.
     if False:
         start = datetime.datetime.now(eastern)
@@ -9611,14 +9611,14 @@ def testMinMaxPlanetDeclination():
 
 ##############################################################################
 
-# For debugging the Ephemeris class during development.  
+# For debugging the Ephemeris class during development.
 if __name__=="__main__":
     # For timing the calculations.
     import time
 
     # Exercising the PlanetaryInfo and Ephemeris classes.
     print("------------------------")
-    
+
 
     # Initialize Logging for the Ephemeris class (required).
     LOG_CONFIG_FILE = os.path.join(sys.path[0], "../conf/logging.conf")
@@ -9632,7 +9632,7 @@ if __name__=="__main__":
     # Chicago:
     #lon = -87.627777777777
     #lat = 41.8819444444444444
-    
+
     # Chantilly/Arlington:
     #lon = -77.084444
     #lat = 38.890277
@@ -9640,10 +9640,10 @@ if __name__=="__main__":
     # New York City:
     lon = -74.0064
     lat = 40.7142
-    
+
     #Ephemeris.setGeographicPosition(lon, lat, -68)
     Ephemeris.setGeographicPosition(lon, lat)
-    
+
     startTime = time.time()
 
     # Different tests that can be run:
@@ -9658,14 +9658,14 @@ if __name__=="__main__":
     #testMinMaxPlanetLongitudeSpeeds()
     #testMinMaxPlanetLatitude()
     #testMinMaxPlanetDeclination()
-    
+
     endTime = time.time()
     print("Calculations took: {} sec".format(endTime - startTime))
 
     # Close the Ephemeris so it can do necessary cleanups.
     Ephemeris.closeEphemeris()
 
-    # Shutdown logging so all the file handles get flushed and 
+    # Shutdown logging so all the file handles get flushed and
     # cleanup can happen.
     logging.shutdown()
 

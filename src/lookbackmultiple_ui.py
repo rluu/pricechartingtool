@@ -59,10 +59,10 @@ class LookbackMultiplePanelWidget(QWidget):
         self.tableWidget.setCornerButtonEnabled(False)
         self.tableWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tableWidget.setSelectionMode(QAbstractItemView.NoSelection)
-        
+
         self.tableWidgetHeaderItem = QTableWidgetItem("Lookback Multiples")
         column = 0
-        self.tableWidget.setHorizontalHeaderItem(column, 
+        self.tableWidget.setHorizontalHeaderItem(column,
                                                  self.tableWidgetHeaderItem)
         self.tableWidget.horizontalHeader().setResizeMode(QHeaderView.Stretch)
 
@@ -79,17 +79,17 @@ class LookbackMultiplePanelWidget(QWidget):
           connect(self._handleItemChanged)
         self.tableWidget.itemDoubleClicked.\
           connect(self._handleItemDoubleClicked)
-        
+
         self.log.debug("size is: w={},h={}".\
-                       format(self.size().width(), 
+                       format(self.size().width(),
                               self.size().height()))
         self.log.debug("sizeHint is: w={},h={}".\
-                       format(self.sizeHint().width(), 
+                       format(self.sizeHint().width(),
                               self.sizeHint().height()))
 
     def getLookbackMultiples(self):
         """Returns the reference to the list of LookbackMultiple objects."""
-        
+
         if self.log.isEnabledFor(logging.DEBUG):
             self.log.debug("Entered getLookbackMultiples()")
 
@@ -128,33 +128,33 @@ class LookbackMultiplePanelWidget(QWidget):
         # is changed.  We will reconnect it at the end of this method after we
         # have made our modifications and created/modified the
         # QTableWidgetItems within the QTableWidget.
-        # 
+        #
         # Reason: This is because we don't want the signal to propagate
         # upwards to indicate a real change has occured via user interaction
-        # from just loading.  
+        # from just loading.
         self.tableWidget.itemChanged.disconnect(self._handleItemChanged)
 
         self.log.debug("Old lookbackMultiples has length: {}".\
                        format(len(self.lookbackMultiples)))
         self.log.debug("New lookbackMultiples has length: {}".\
                        format(len(lookbackMultiples)))
-        self.log.debug("Before setting new lookbackMultiples, " + 
+        self.log.debug("Before setting new lookbackMultiples, " +
                        "the number of rows is: {}".\
                        format(self.tableWidget.rowCount()))
-     
+
         # Store a reference to the new LookbackMultiples.
         self.lookbackMultiples = lookbackMultiples
 
         # Update the row count.
         if self.tableWidget.rowCount() != len(self.lookbackMultiples):
             self.tableWidget.setRowCount(len(self.lookbackMultiples))
-        
+
         for i in range(len(self.lookbackMultiples)):
             lookbackMultiple = lookbackMultiples[i]
             row = i
             column = 0
-            
-            # Get the existing item at the current row and column.  
+
+            # Get the existing item at the current row and column.
             # If it doesn't exist, then create it.
             item = self.tableWidget.item(row, column)
             if item == None:
@@ -171,28 +171,28 @@ class LookbackMultiplePanelWidget(QWidget):
                 item.setCheckState(Qt.Checked)
             else:
                 item.setCheckState(Qt.Unchecked)
-                
+
             item.setIcon(ColorIcon(lookbackMultiple.getColor()))
             item.setText(lookbackMultiple.toShortString())
             item.setToolTip(\
                 self._getToolTipTextTextForLookbackMultiple(lookbackMultiple))
-            
+
         # Reconnect the signal-to-slot, so that user changes to the items will
-        # notify us so we can update the internal LookbackMultiple variable(s), 
+        # notify us so we can update the internal LookbackMultiple variable(s),
         # and take any other necessary actions.
         self.tableWidget.itemChanged.connect(self._handleItemChanged)
 
         self.log.debug("Exiting setLookbackMultiples(lookbackMultiples)")
 
-    
+
     def _handleItemChanged(self, item):
         """Slot that handles when a QTableWidgetItem changes.
         An example of a change that this handles is the item's check state.
-        
+
         Arguments:
         item - QTableWidgetItem that is sent via Qt's signal to this slot.
         """
-        
+
         self.log.debug("Entered _handleItemChanged(item)")
 
         self.log.debug("Item changed at (row={}, col={})".\
@@ -210,9 +210,9 @@ class LookbackMultiplePanelWidget(QWidget):
 
             # Emit that there were modifications to the LoobkackMultiples.
             self.lookbackMultiplesModified.emit(self.lookbackMultiples)
-        
+
         self.log.debug("Exiting _handleItemChanged(item)")
-        
+
     def _handleItemDoubleClicked(self, item):
         """Slot that handles when a QTableWidgetItem is double-clicked.
         This will open up an edit dialog to edit the underlying
@@ -221,20 +221,20 @@ class LookbackMultiplePanelWidget(QWidget):
         Arguments:
         item - QTableWidgetItem that is sent via Qt's signal to this slot.
         """
-        
+
         self.log.debug("Entered _handleItemDoubleClicked(item)")
-        
+
         self.log.debug("Item double-clicked at (row={}, col={})".\
                        format(item.row(), item.column()))
-                       
+
         # Get the LookbackMultiple that underlies this QTableWidgetItem that
         # was double-clicked.
         row = item.row()
         lookbackMultiple = self.lookbackMultiples[row]
-        
+
         # Create a dialog to edit this LookbackMultiple.
         dialog = LookbackMultipleEditDialog(lookbackMultiple)
-        
+
         rv = dialog.exec_()
         if rv == QDialog.Accepted:
             # Dialog was accepted.  Obtain and store the new LookbackMultiple.
@@ -246,7 +246,7 @@ class LookbackMultiplePanelWidget(QWidget):
 
             # Reload the current QTableWidgetItem so that it displays updated
             # information.
-            # 
+            #
             # (Here we will disconnect the itemChanged signal and then after
             # updates, reconnect it).
             self.tableWidget.itemChanged.disconnect(self._handleItemChanged)
@@ -267,14 +267,14 @@ class LookbackMultiplePanelWidget(QWidget):
             self.lookbackMultiplesModified.emit(self.lookbackMultiples)
         else:
             self.log.debug("Edit dialog for the LookbackMultiple was rejected.")
-        
+
         self.log.debug("Exiting _handleItemDoubleClicked(item)")
-        
+
     def _getToolTipTextTextForLookbackMultiple(self, lookbackMultiple):
         """Returns a formatted string to use for the tooltip."""
-        
+
         lm = lookbackMultiple
-        
+
         # Newlines.
         endl = os.linesep
 
@@ -284,16 +284,16 @@ class LookbackMultiplePanelWidget(QWidget):
             centricityTypeStr = "G."
         if lm.getHeliocentricFlag() == True:
             centricityTypeStr = "H."
-            
+
         planetNameStr = lm.getPlanetName()
         lookbackMultipleStr = "{}".format(lm.getLookbackMultiple())
-        
+
         longitudeTypeStr = ""
         if lm.getTropicalFlag() == True:
             longitudeTypeStr = "Trop."
         if lm.getSiderealFlag() == True:
             longitudeTypeStr = "Sid."
-            
+
         baseUnitStr = "{}".format(lm.getBaseUnit())
 
         baseUnitTypeStr = ""
@@ -308,11 +308,11 @@ class LookbackMultiplePanelWidget(QWidget):
         formattedText += "Enabled: {}".format(lm.getEnabled()) + endl
         formattedText += \
             "Summary: {}{} {} {} x {} {}".\
-            format(centricityTypeStr, 
-                   planetNameStr, 
+            format(centricityTypeStr,
+                   planetNameStr,
                    longitudeTypeStr,
-                   lookbackMultipleStr, 
-                   baseUnitStr, 
+                   lookbackMultipleStr,
+                   baseUnitStr,
                    baseUnitTypeStr) + endl
         formattedText += "Description: {}".format(lm.getDescription())
 
@@ -324,7 +324,7 @@ class LookbackMultiplePanelWidget(QWidget):
 
 def testLookbackMultiplePanelWidget():
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     lm1 = LookbackMultiple(name="49ers",
                           description="MyDescription1",
                           lookbackMultiple=1.0,
@@ -388,7 +388,7 @@ def testLookbackMultiplePanelWidget():
 
     layout = QVBoxLayout()
     layout.addWidget(widget)
-    
+
     dialog = QDialog()
     dialog.setLayout(layout)
     rv = dialog.exec_()
@@ -396,10 +396,10 @@ def testLookbackMultiplePanelWidget():
 
 def testLookbackMultiplePanelWidgetEmpty():
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     # Just display the panel widget without any LookbackMultiples.
     # This is to get an idea about the minimum/default sizes of the widget.
-    
+
     lookbackMultiples = []
 
     widget = LookbackMultiplePanelWidget()
@@ -407,16 +407,16 @@ def testLookbackMultiplePanelWidgetEmpty():
 
     layout = QVBoxLayout()
     layout.addWidget(widget)
-    
+
     dialog = QDialog()
     dialog.setLayout(layout)
     rv = dialog.exec_()
 
-    
+
 
 ##############################################################################
 
-# For debugging the module during development.  
+# For debugging the module during development.
 if __name__=="__main__":
     # For inspect.stack().
     import inspect
@@ -424,14 +424,14 @@ if __name__=="__main__":
     # For logging and for exiting.
     import os
     import sys
-    
+
     # Initialize the Ephemeris (required).
     #Ephemeris.initialize()
 
     # New York City:
     #lon = -74.0064
     #lat = 40.7142
-    
+
     # Set a default location (required).
     #Ephemeris.setGeographicPosition(lon, lat)
 

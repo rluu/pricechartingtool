@@ -16,6 +16,16 @@ TODO:
 
       - Make this tool have accumulative click to add new graphicsitems.
 
+      #- Make the names of the planet be the abbreviation.
+      #    On further thought... ehh, maybe it's good to have the full
+      #    name of the planet.
+
+      #- Remove the 'moves' part of the text.
+      #    Ehh, when I wrote this, I thought that the 'T' in the label
+      #    text: "G T Mars moves [...]" was referring to transiting.
+      #    But it actually stands for Tropical.  So 'moves' is actually
+      #    informative.  So maybe I won't make this change.
+
       #- Add flag for text at the end or at the beginning of a
       #  PlanetLongitudeMovementMeasurementTool articfact/graphics item.
       #

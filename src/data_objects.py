@@ -51,13 +51,13 @@ class ObjectUtils:
         #              qcolor.green(),
         #              qcolor.blue(),
         #              qcolor.alpha())
-        
+
         #return "QColor(h={},s={},v={},a={})".\
         #       format(qcolor.hue(),
         #              qcolor.saturation(),
         #              qcolor.value(),
         #              qcolor.alpha())
-    
+
         return "QColor(h={},s={},v={},r={},g={},b={},a={})".\
                format(qcolor.hue(),
                       qcolor.saturation(),
@@ -70,7 +70,7 @@ class ObjectUtils:
     @staticmethod
     def objToString(obj):
         """Returns a string representing the given object's contents."""
-        
+
         rv = "["
         rv += "{}, ".format(type(obj))
 
@@ -82,7 +82,7 @@ class ObjectUtils:
             if not attr.startswith('__') and \
                    not isinstance(getattr(obj, attr), logging.Logger) and \
                    not hasattr(getattr(obj, attr), '__call__'):
-                
+
                 attrObj = getattr(obj, attr)
 
                 # Do special handling for QColor objects and lists.
@@ -104,7 +104,7 @@ class ObjectUtils:
         rv += "]"
 
         return rv
-        
+
 
 class BirthInfo:
     """Contains data related to the birth of an entity or person.
@@ -142,46 +142,46 @@ class BirthInfo:
         year             - int value for the birth year.
         month            - int value for the birth month.
         day              - int value for the birth day.
-        calendar         - str value for the calendar system used.  
+        calendar         - str value for the calendar system used.
                            Can be 'Gregorian' or 'Julian'.
         hour             - int value for the birth hour.
         minute           - int value for the birth minute.
         second           - int value for the birth second.
         locationName     - str value for the birth location (city, etc.).
         countryName      - str value containing country name.
-        longitudeDegrees - float value for the geographical longitude 
+        longitudeDegrees - float value for the geographical longitude
                            location of birth.  Positive longitudes refer
                            to East, and negative longitudes refer to West.
-        latitudeDegrees  - float value for the geographical latitude 
+        latitudeDegrees  - float value for the geographical latitude
                            location of birth.  Positive latitudes refer to
                            North, and negative latitudes refer to South.
-        elevation        - int value for the birth location elevation 
+        elevation        - int value for the birth location elevation
                            in meters.
-        timezoneName     - str value holding the name of the timezone.  
+        timezoneName     - str value holding the name of the timezone.
                            This is a string like "US/Eastern" or "Asia/Tokyo".
-        timezoneOffsetAbbreviation 
-                         - str value holding the abbreviation for the time 
+        timezoneOffsetAbbreviation
+                         - str value holding the abbreviation for the time
                            offset used.  This is a string like "EST" or "EDT".
-        timezoneOffsetValueStr 
-                         - str value for the time offset.  It is a string 
+        timezoneOffsetValueStr
+                         - str value for the time offset.  It is a string
                            in the defined format like "+0500" or "-0200".
-        timezoneManualEntryHours 
+        timezoneManualEntryHours
                          - int value for the manual time offset 'hours' value.
-        timezoneManualEntryMinutes 
-                         - int value for the manual time offset 
+        timezoneManualEntryMinutes
+                         - int value for the manual time offset
                            'minutes' value.
-        timezoneManualEntryEastWestComboBoxValue 
-                         - str value for whether the manual time offset 
-                           spinbox is west of UTC or east of UTC.  
+        timezoneManualEntryEastWestComboBoxValue
+                         - str value for whether the manual time offset
+                           spinbox is west of UTC or east of UTC.
                            Valid values for this are 'W' and 'E'.
-        timeOffsetAutodetectedRadioButtonState 
-                         - bool value for whether or not the radio button 
+        timeOffsetAutodetectedRadioButtonState
+                         - bool value for whether or not the radio button
                            for autodetected time offset is checked.
-        timeOffsetManualEntryRadioButtonState 
-                         - bool value for whether or not the radio button 
+        timeOffsetManualEntryRadioButtonState
+                         - bool value for whether or not the radio button
                            for manual entry time offset is checked.
-        timeOffsetLMTRadioButtonState 
-                         - bool value for whether or not the radio button 
+        timeOffsetLMTRadioButtonState
+                         - bool value for whether or not the radio button
                            for local mean time is checked.
         """
 
@@ -297,15 +297,15 @@ class BirthInfo:
 
             self.log.debug("datetimeObj == {}".\
                            format(Ephemeris.datetimeToStr(datetimeObj)))
-            
+
         elif self.timeOffsetManualEntryRadioButtonState == True:
             self.log.debug("timeOffsetManualEntryRadioButtonState == True")
-            
+
             # Localize the datetime.datetime as UTC.
             utcDatetimeObj = pytz.utc.localize(nativeDatetimeObj)
             self.log.debug("utcDatetimeObj == {}".\
                            format(Ephemeris.datetimeToStr(utcDatetimeObj)))
-            
+
             # Add the offset.  We can do this type of arithmetic
             # because the datetime.datetime is now in UTC and there
             # are no daylight savings shifts to worry about.
@@ -317,15 +317,15 @@ class BirthInfo:
                 numSeconds *= -1
 
             self.log.debug("numSeconds == {}".format(numSeconds))
-            
+
             datetimeObj = \
                 utcDatetimeObj + datetime.timedelta(seconds=numSeconds)
             self.log.debug("datetimeObj == {}".\
                            format(Ephemeris.datetimeToStr(datetimeObj)))
-            
+
         elif self.timeOffsetLMTRadioButtonState == True:
             self.log.debug("timeOffsetLMTRadioButtonState == True")
-            
+
             # For the LMT conversion to UTC, should I be
             # taking into account the axis tilt of the Earth (23.5
             # degrees) and the precession of the equinoxes for the
@@ -341,7 +341,7 @@ class BirthInfo:
             utcDatetimeObj = pytz.utc.localize(nativeDatetimeObj)
             self.log.debug("utcDatetimeObj == {}".\
                            format(Ephemeris.datetimeToStr(utcDatetimeObj)))
-            
+
             # Use 4 minutes of time offset for each longitude degree away
             # from 0.
             timeShiftMinutes = self.longitudeDegrees * -4.0
@@ -358,9 +358,9 @@ class BirthInfo:
 
         self.log.debug("Leaving getBirthLocalizedDatetime()")
         return datetimeObj
-    
+
     def getBirthUtcDatetime(self):
-        """Takes the date, time and timezone information in this 
+        """Takes the date, time and timezone information in this
         object and converts it to a UTC datetime.datetime object,
         such that it represents the same moment in time.
         This datetime.datetime object is returned.
@@ -411,7 +411,7 @@ class BirthInfo:
 
             datetimeObj = \
                 utcDatetimeObj + datetime.timedelta(seconds=numSeconds)
-            
+
         elif self.timeOffsetLMTRadioButtonState == True:
             # For the LMT conversion to UTC, should I be
             # taking into account the axis tilt of the Earth (23.5
@@ -452,7 +452,7 @@ class BirthInfo:
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
 
@@ -487,8 +487,8 @@ class BirthInfo:
 
 
 class PriceBar:
-    """Contains price information for a single interval of time.  
-    PriceBar can include the following information: 
+    """Contains price information for a single interval of time.
+    PriceBar can include the following information:
 
     - timestamp as a datetime.datetime object.
     - open, high, low and close prices as floats
@@ -496,7 +496,7 @@ class PriceBar:
     - volume as float
     - tags as list of str
 
-     
+
     The 'tags' is a list of strings to tag a bar as holding a certain
     attributes.  By convention, (initially anyways), it is used to indicate if
     the price bar is a high or low bar, and to what degree.  The convention is
@@ -507,9 +507,9 @@ class PriceBar:
     """
 
 
-    def __init__(self, timestamp, open=None, high=None, low=None, close=None, 
+    def __init__(self, timestamp, open=None, high=None, low=None, close=None,
             oi=None, vol=None, tags=list()):
-        """Initializes the PriceBar object.  
+        """Initializes the PriceBar object.
 
         Arguments are as follows:
         - open is the open price for the PriceBar, as a float
@@ -540,7 +540,7 @@ class PriceBar:
         if high != None and low != None:
             if high < low:
                 self.log.warn("Created a PriceBar with a high price lower " +
-                              "than the low price.") 
+                              "than the low price.")
 
     def midPrice(self):
         """Returns the average of the high and low.  I.e., ((high+low)/2.0)
@@ -618,12 +618,12 @@ class PriceBar:
         """Returns the string representation of the PriceBar data"""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __eq__(self, other):
         """Returns True if the two PriceBars are equal."""
-        
+
         rv = True
 
         leftObj = self
@@ -631,7 +631,7 @@ class PriceBar:
 
         if rightObj == None:
             return False
-        
+
         self.log.debug("leftObj: {}".format(leftObj.toString()))
         self.log.debug("rightObj: {}".format(rightObj.toString()))
 
@@ -659,7 +659,7 @@ class PriceBar:
         if leftObj.vol != rightObj.vol:
             self.log.debug("vol differs.")
             rv = False
-            
+
         if len(leftObj.tags) != len(rightObj.tags):
             self.log.debug("len(tags) differs.")
             rv = False
@@ -671,7 +671,7 @@ class PriceBar:
                     break
 
         self.log.debug("__eq__() returning: {}".format(rv))
-        
+
         return rv
 
     def __ne__(self, other):
@@ -679,7 +679,7 @@ class PriceBar:
         Returns False otherwise."""
 
         return not self.__eq__(other)
-    
+
     def __str__(self):
         """Returns the string representation of the PriceBar data"""
 
@@ -726,10 +726,10 @@ class Ratio:
                  description="",
                  enabled=True,
                  mathDescription=""):
-        """Initializes the PriceBar object.  
+        """Initializes the PriceBar object.
 
         Arguments are as follows:
-        
+
         ratio - float value holding the ratio.
         description - str value holding the description of the ratio.
         enabled - bool flag indicating if the ratio is enabled or not.
@@ -770,7 +770,7 @@ class Ratio:
         # Append other ratios that are geometric or harmonic.
 
         ############
-        
+
         # 0 / 1
         ratios.append(Ratio(ratio=0.0,
                             description="0.000",
@@ -806,7 +806,7 @@ class Ratio:
                             description="0.500",
                             enabled=True,
                             mathDescription="1 / 2"))
-        
+
         # 5 / 8
         ratios.append(Ratio(ratio=0.625,
                             description="0.625",
@@ -818,7 +818,7 @@ class Ratio:
                             description="0.666",
                             enabled=True,
                             mathDescription="2 / 3"))
-        
+
         # 3 / 4
         ratios.append(Ratio(ratio=0.75,
                             description="0.750",
@@ -836,99 +836,99 @@ class Ratio:
                             description="1.000",
                             enabled=True,
                             mathDescription="1"))
-        
+
         # 4 / 3
         ratios.append(Ratio(ratio=1.333333333333,
                             description="1.333",
                             enabled=True,
                             mathDescription="4 / 3"))
-        
+
         # 3 / 2
         ratios.append(Ratio(ratio=1.5,
                             description="1.500",
                             enabled=True,
                             mathDescription="3 / 2"))
-        
+
         # 2 / 1
         ratios.append(Ratio(ratio=2.0,
                             description="2.000",
                             enabled=True,
                             mathDescription="2 / 1"))
-        
+
         # 3 / 1
         ratios.append(Ratio(ratio=3.0,
                             description="3.000",
                             enabled=True,
                             mathDescription="3 / 1"))
-        
+
         # 4 / 1
         ratios.append(Ratio(ratio=4.0,
                             description="4.000",
                             enabled=False,
                             mathDescription="4 / 1"))
-        
+
         # 5 / 1
         ratios.append(Ratio(ratio=5.0,
                             description="5.000",
                             enabled=False,
                             mathDescription="5 / 1"))
-        
+
         # 6 / 1
         ratios.append(Ratio(ratio=6.0,
                             description="6.000",
                             enabled=False,
                             mathDescription="6 / 1"))
-        
+
         # 7 / 1
         ratios.append(Ratio(ratio=7.0,
                             description="7.000",
                             enabled=False,
                             mathDescription="7 / 1"))
-        
+
         # 8 / 1
         ratios.append(Ratio(ratio=8.0,
                             description="8.000",
                             enabled=False,
                             mathDescription="8 / 1"))
-        
+
         ############
-        
+
         # 1 / (2 * math.sqrt(2))
         ratios.append(Ratio(ratio=0.353553390593274,
                             description="0.354",
                             enabled=True,
                             mathDescription="1 / (2 * math.sqrt(2))"))
-        
+
         # 1 / math.sqrt(5)
         ratios.append(Ratio(ratio=0.447213595499958,
                             description="0.447",
                             enabled=True,
                             mathDescription="1 / math.sqrt(5)"))
-        
+
         # 1 / math.sqrt(3)
         ratios.append(Ratio(ratio=0.577350269189626,
                             description="0.577",
                             enabled=True,
                             mathDescription="1 / math.sqrt(3)"))
-        
+
         # 1 / math.sqrt(2)
         ratios.append(Ratio(ratio=0.577350269189626,
                             description="0.577",
                             enabled=True,
                             mathDescription="1 / math.sqrt(2)"))
-        
+
         # math.sqrt(2)
         ratios.append(Ratio(ratio=1.4142135623731,
                             description="1.414",
                             enabled=True,
                             mathDescription="math.sqrt(2)"))
-        
+
         # math.sqrt(3)
         ratios.append(Ratio(ratio=1.73205080756888,
                             description="1.732",
                             enabled=True,
                             mathDescription="math.sqrt(3)"))
-        
+
         # math.sqrt(5)
         ratios.append(Ratio(ratio=2.2360679775,
                             description="2.236",
@@ -939,12 +939,12 @@ class Ratio:
 
         # Sort by ratio value.
         ratios.sort(key=lambda r: r.ratio)
-        
+
         # Put the unique ratios in a new list called 'ratios_unique'.
         ratios_unique = []
         for i in range(len(ratios)):
             currRatio = ratios[i]
-            
+
             if i == 0:
                 ratios_unique.append(currRatio)
             else:
@@ -959,7 +959,7 @@ class Ratio:
         ratios = ratios_unique
 
         return ratios
-    
+
     @staticmethod
     def getSupportedFibRatios():
         """Returns a list of Fibonacci Ratio objects that we plan on
@@ -980,105 +980,105 @@ class Ratio:
                             description="0.000",
                             enabled=True,
                             mathDescription="0"))
-        
+
         # (1 / phi)^4
         ratios.append(Ratio(ratio=0.14589803375,
                             description="0.146",
                             enabled=True,
                             mathDescription="(1 / phi)^4"))
-        
+
         # (1 / phi)^3
         ratios.append(Ratio(ratio=0.23606797695,
                             description="0.236",
                             enabled=True,
                             mathDescription="(1 / phi)^3"))
-        
+
         # (1 / phi)^2
         ratios.append(Ratio(ratio=0.38196601066,
                             description="0.382",
                             enabled=True,
                             mathDescription="(1 / phi)^2"))
-        
+
         # (1 / phi)^1
         ratios.append(Ratio(ratio=0.61803398827,
                             description="0.618",
                             enabled=True,
                             mathDescription="(1 / phi)^1"))
-        
+
         # math.sqrt(1 / phi)
         ratios.append(Ratio(ratio=0.78615137745,
                             description="0.786",
                             enabled=True,
                             mathDescription="math.sqrt(1 / phi)"))
-        
+
         # math.pow((1 / phi), 1/3)
         ratios.append(Ratio(ratio=0.85179964186,
                             description="0.852",
                             enabled=True,
                             mathDescription="math.pow((1 / phi), 1/3)"))
-        
+
         # 1
         ratios.append(Ratio(ratio=1.000,
                             description="1.000",
                             enabled=True,
                             mathDescription="1"))
-        
+
         # 0.5 + (1 / phi)
         ratios.append(Ratio(ratio=1.11803398875,
                             description="1.118",
                             enabled=True,
                             mathDescription="0.5 + (1 / phi)"))
-        
+
         # math.pow(phi, 1/3)
         ratios.append(Ratio(ratio=1.17398499701,
                             description="1.174",
                             enabled=True,
                             mathDescription="math.pow(phi, 1/3)"))
-        
+
         # math.sqrt(phi)
         ratios.append(Ratio(ratio=1.27201965001,
                             description="1.272",
                             enabled=True,
                             mathDescription="math.sqrt(phi)"))
-        
+
         # math.sqrt(phi)^2
         ratios.append(Ratio(ratio=1.61803398875,
                             description="1.618",
                             enabled=True,
                             mathDescription="math.sqrt(phi)^2"))
-        
+
         # math.sqrt(1^2 + phi^2)
         ratios.append(Ratio(ratio=1.90211303259,
                             description="1.902",
                             enabled=True,
                             mathDescription="math.sqrt(1^2 + phi^2)"))
-        
+
         # math.sqrt(phi)^3
         ratios.append(Ratio(ratio=2.05817102727,
                             description="2.058",
                             enabled=True,
                             mathDescription="math.sqrt(phi)^3"))
-        
+
         # math.sqrt(phi)^4
         ratios.append(Ratio(ratio=2.61803398859,
                             description="2.618",
                             enabled=True,
                             mathDescription="math.sqrt(phi)^4"))
-        
+
         # math.sqrt(phi)^5
         ratios.append(Ratio(ratio=3.33019067679,
                             description="3.330",
                             enabled=True,
                             mathDescription="math.sqrt(phi)^5"))
-        
+
         # math.sqrt(phi)^6
         ratios.append(Ratio(ratio=4.2360679775,
                             description="4.236",
                             enabled=False,
                             mathDescription="math.sqrt(phi)^6"))
-        
+
         return ratios
-    
+
     @staticmethod
     def getSupportedGannFanRatios():
         """Returns a list of Gann Ratio objects that we plan on
@@ -1091,65 +1091,65 @@ class Ratio:
 
         # These ratios below are multiplied by 90 degrees to get the
         # angle that will be drawn in the QGraphicsItem.
-        
-        
+
+
         # 0
         ratios.append(Ratio(ratio=0.000,
                             description="0x1",
                             enabled=True))
-        
+
         # 1 / 8
         ratios.append(Ratio(ratio=0.125,
                             description="1x4",
                             enabled=True))
-        
+
         # 1 / 6
         ratios.append(Ratio(ratio=1.0/6.0,
                             description="1x3",
                             enabled=True))
-        
+
         # 1 / 4
         ratios.append(Ratio(ratio=0.250,
                             description="1x2",
                             enabled=True))
-        
+
         # 1 / 3
         ratios.append(Ratio(ratio=1.0/3.0,
                             description="1x1.5",
                             enabled=True))
-        
+
         # 1 / 2
         ratios.append(Ratio(ratio=0.500,
                             description="1x1",
                             enabled=True))
-        
+
         # 2 / 3
         ratios.append(Ratio(ratio=2.0/3.0,
                             description="1.5x1",
                             enabled=True))
-        
+
         # 3 / 4
         ratios.append(Ratio(ratio=0.750,
                             description="2x1",
                             enabled=True))
-        
+
         # 5 / 6
         ratios.append(Ratio(ratio=5.0/6.0,
                             description="3x1",
                             enabled=True))
-        
+
         # 7 / 8
         ratios.append(Ratio(ratio=0.875,
                             description="4x1",
                             enabled=True))
-        
+
         # 1
         ratios.append(Ratio(ratio=1.000,
                             description="1x0",
                             enabled=True))
-        
+
         return ratios
-    
+
     def getRatio(self):
         """Returns the float ratio value.
         """
@@ -1158,13 +1158,13 @@ class Ratio:
 
     def setRatio(self, ratio):
         """Sets the ratio.
-        
+
         Arguments:
         ratio - float value for the ratio.
         """
-        
+
         self.ratio = ratio
-    
+
     def getDescription(self):
         """Returns the str description value.
         """
@@ -1173,19 +1173,19 @@ class Ratio:
 
     def setDescription(self, description):
         """Sets the description.
-        
+
         Arguments:
         description - str value for the description.
         """
-        
+
         self.description = description
-    
+
     def isEnabled(self):
         """Returns the whether or not the MusicalRatio is enabled.
         """
 
         return self.enabled
-    
+
     def getEnabled(self):
         """Returns the whether or not the MusicalRatio is enabled.
         """
@@ -1194,13 +1194,13 @@ class Ratio:
 
     def setEnabled(self, enabled):
         """Sets whether or not the MusicalRatio is enabled.
-        
+
         Arguments:
         enabled - bool value for the enabled.
         """
-        
+
         self.enabled = enabled
-    
+
     def getMathDescription(self):
         """Returns the str mathDescription value.
         """
@@ -1209,18 +1209,18 @@ class Ratio:
 
     def setMathDescription(self, mathDescription):
         """Sets the mathDescription.
-        
+
         Arguments:
         mathDescription - str value for the mathDescription.
         """
-        
+
         self.mathDescription = mathDescription
-    
+
     def toString(self):
         """Returns the string representation of the data."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __str__(self):
@@ -1262,31 +1262,31 @@ class Ratio:
                 #
                 # self.mathDescription
                 #
-                
+
                 try:
                     # See if the variable is set.
                     self.mathDescription
-    
+
                     # If it got here, then the field is already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
                                   format(self.classVersion) + \
                                   "class shouldn't have this field.")
-                    
+
                 except AttributeError:
                     # Variable was not set.  Set it to the default value.
                     self.mathDescription = ""
-                    
+
                     self.log.debug("Added field 'mathDescription' " + \
                                    "to the loaded Ratio.")
-                    
+
                     # Update the class version.
                     prevClassVersion = self.classVersion
                     self.classVersion = 2
-            
+
                     self.log.info("Object has been updated from " + \
                                   "version {} to version {}.".\
                                   format(prevClassVersion, self.classVersion))
-            
+
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + Ratio.__name__ +
                        " object of version {}".format(self.classVersion))
@@ -1310,10 +1310,10 @@ class MusicalRatio(Ratio):
                  numerator=None,
                  denominator=None,
                  enabled=True):
-        """Initializes the PriceBar object.  
+        """Initializes the PriceBar object.
 
         Arguments are as follows:
-        
+
         ratio - float value holding the ratio for the musical note.
         description - str value holding the description of the ratio.
         numerator - int value holding the numerator of
@@ -1324,7 +1324,7 @@ class MusicalRatio(Ratio):
                   enabled or disabled.
         """
         super().__init__(ratio, description, enabled)
-        
+
         # Class version stored for pickling and unpickling.
         self.classVersion = 1
 
@@ -1336,7 +1336,7 @@ class MusicalRatio(Ratio):
         self.numerator = numerator
         self.denominator = denominator
         self.enabled = enabled
-        
+
     @staticmethod
     def getIndianMusicalRatios():
         """Returns a list of MusicalRatio objects that contain all the
@@ -1485,7 +1485,7 @@ class MusicalRatio(Ratio):
         #                           enabled=True))
 
         return ratios
-    
+
     @staticmethod
     def getNonIndianPythagoreanMusicalRatios():
         """Returns a list of MusicalRatio objects that are the
@@ -1494,7 +1494,7 @@ class MusicalRatio(Ratio):
         """
 
         ratios = []
-        
+
         ratios.append(MusicalRatio(ratio=1024/729.0,
                                    description="(d5) Pythagorean Tuning",
                                    numerator=1024,
@@ -1502,7 +1502,7 @@ class MusicalRatio(Ratio):
                                    enabled=True))
 
         return ratios
-    
+
     @staticmethod
     def getMusicalRatiosForTimeModalScaleGraphicsItem():
         """Returns a list of MusicalRatios to be used for the
@@ -1517,7 +1517,7 @@ class MusicalRatio(Ratio):
 
             numerator = musicalRatio.getNumerator()
             denominator = musicalRatio.getDenominator()
-            
+
             if numerator == 1 and denominator == 1:
                 musicalRatio.setEnabled(True)
             elif numerator == 256 and denominator == 243:
@@ -1566,14 +1566,14 @@ class MusicalRatio(Ratio):
                 musicalRatio.setEnabled(False)
             else:
                 currMethodName = inspect.stack()[0][3] + "()"
-                
-                print("WARNING: " + currMethodName + ": " + 
+
+                print("WARNING: " + currMethodName + ": " +
                       "Unknown musical ratio: " + musicalRatio.toString())
-                
+
                 musicalRatio.setEnabled(False)
 
         return musicalRatios
-    
+
     @staticmethod
     def getMusicalRatiosForPriceModalScaleGraphicsItem():
         """Returns a list of MusicalRatios to be used for the
@@ -1588,7 +1588,7 @@ class MusicalRatio(Ratio):
 
             numerator = musicalRatio.getNumerator()
             denominator = musicalRatio.getDenominator()
-            
+
             if numerator == 1 and denominator == 1:
                 musicalRatio.setEnabled(True)
             elif numerator == 256 and denominator == 243:
@@ -1637,14 +1637,14 @@ class MusicalRatio(Ratio):
                 musicalRatio.setEnabled(False)
             else:
                 currMethodName = inspect.stack()[0][3] + "()"
-                
-                print("WARNING: " + currMethodName + ": " + 
+
+                print("WARNING: " + currMethodName + ": " +
                       "Unknown musical ratio: " + musicalRatio.toString())
-                
+
                 musicalRatio.setEnabled(False)
 
         return musicalRatios
-    
+
     @staticmethod
     def getMusicalRatiosForOctaveFanGraphicsItem():
         """Returns a list of MusicalRatios to be used for the
@@ -1659,7 +1659,7 @@ class MusicalRatio(Ratio):
 
             numerator = musicalRatio.getNumerator()
             denominator = musicalRatio.getDenominator()
-            
+
             if numerator == 1 and denominator == 1:
                 musicalRatio.setEnabled(True)
             elif numerator == 256 and denominator == 243:
@@ -1708,14 +1708,14 @@ class MusicalRatio(Ratio):
                 musicalRatio.setEnabled(False)
             else:
                 currMethodName = inspect.stack()[0][3] + "()"
-                
-                print("WARNING: " + currMethodName + ": " + 
+
+                print("WARNING: " + currMethodName + ": " +
                       "Unknown musical ratio: " + musicalRatio.toString())
-                
+
                 musicalRatio.setEnabled(False)
 
         return musicalRatios
-    
+
     @staticmethod
     def getVimsottariDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
@@ -1745,9 +1745,9 @@ class MusicalRatio(Ratio):
         jupiter = 16.0
         saturn = 19.0
         mercury = 17.0
-        
+
         total = 120.0
-        
+
         # Ketu.
         ketuStart = 0.0
         key = SettingsKeys.planetMeanSouthNodeAbbreviationKey
@@ -1769,7 +1769,7 @@ class MusicalRatio(Ratio):
                                    numerator=int(venusStart),
                                    denominator=int(total),
                                    enabled=True))
-        
+
         # Sun.
         sunStart = venusStart + venus
         key = SettingsKeys.planetSunAbbreviationKey
@@ -1848,7 +1848,7 @@ class MusicalRatio(Ratio):
                                    enabled=True))
 
         return ratios
-    
+
     @staticmethod
     def getAshtottariDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
@@ -1878,9 +1878,9 @@ class MusicalRatio(Ratio):
         mercury = 17.0
         saturn = 10.0
         jupiter = 19.0
-        
+
         total = 108.0
-        
+
         # Rahu.
         rahuStart = 0.0
         key = SettingsKeys.planetMeanNorthNodeAbbreviationKey
@@ -1902,7 +1902,7 @@ class MusicalRatio(Ratio):
                                    numerator=int(venusStart),
                                    denominator=int(total),
                                    enabled=True))
-        
+
         # Sun.
         sunStart = venusStart + venus
         key = SettingsKeys.planetSunAbbreviationKey
@@ -1970,12 +1970,12 @@ class MusicalRatio(Ratio):
                                    enabled=True))
 
         return ratios
-    
+
     @staticmethod
     def getYoginiDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
         supporting for Yogini dasa in this application.
-        
+
         Dasa description:
         Yogini dasa is a tantrik dasa that shows the impact of various
         Yoginis on a person at various times.
@@ -1994,9 +1994,9 @@ class MusicalRatio(Ratio):
         saturn = 6.0
         venus = 7.0
         rahu = 8.0
-        
+
         total = 36.0
-        
+
         # Moon.
         moonStart = 0.0
         key = SettingsKeys.planetMoonAbbreviationKey
@@ -2073,7 +2073,7 @@ class MusicalRatio(Ratio):
                                    numerator=int(venusStart),
                                    denominator=int(total),
                                    enabled=True))
-        
+
         # Rahu.
         rahuStart = venusStart + venus
         key = SettingsKeys.planetMeanNorthNodeAbbreviationKey
@@ -2086,7 +2086,7 @@ class MusicalRatio(Ratio):
                                    enabled=True))
 
         return ratios
-    
+
     @staticmethod
     def getDwisaptatiSamaDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
@@ -2096,7 +2096,7 @@ class MusicalRatio(Ratio):
         Dwi-saptati sama dasa is a conditional nakshatra dasa that is
         applicable if lagna lord is in 7th or 7th lord is in lagna.
         """
-        
+
         # Return value.
         ratios = []
 
@@ -2110,9 +2110,9 @@ class MusicalRatio(Ratio):
         venus = 9.0
         saturn = 9.0
         rahu = 9.0
-        
+
         total = 72.0
-        
+
         # Sun.
         sunStart = 0.0
         key = SettingsKeys.planetSunAbbreviationKey
@@ -2178,7 +2178,7 @@ class MusicalRatio(Ratio):
                                    numerator=int(venusStart),
                                    denominator=int(total),
                                    enabled=True))
-        
+
         # Saturn.
         saturnStart = venusStart + venus
         key = SettingsKeys.planetSaturnAbbreviationKey
@@ -2202,7 +2202,7 @@ class MusicalRatio(Ratio):
                                    enabled=True))
 
         return ratios
-    
+
     @staticmethod
     def getShattrimsaSamaDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
@@ -2227,9 +2227,9 @@ class MusicalRatio(Ratio):
         saturn = 6.0
         venus = 7.0
         rahu = 8.0
-        
+
         total = 36.0
-        
+
         # Moon.
         moonStart = 0.0
         key = SettingsKeys.planetMoonAbbreviationKey
@@ -2306,7 +2306,7 @@ class MusicalRatio(Ratio):
                                    numerator=int(venusStart),
                                    denominator=int(total),
                                    enabled=True))
-        
+
         # Rahu.
         rahuStart = venusStart + venus
         key = SettingsKeys.planetMeanNorthNodeAbbreviationKey
@@ -2319,7 +2319,7 @@ class MusicalRatio(Ratio):
                                    enabled=True))
 
         return ratios
-    
+
     @staticmethod
     def getDwadasottariDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
@@ -2343,9 +2343,9 @@ class MusicalRatio(Ratio):
         mars = 17.0
         saturn = 19.0
         moon = 21.0
-        
+
         total = 112.0
-        
+
         # Sun.
         sunStart = 0.0
         key = SettingsKeys.planetSunAbbreviationKey
@@ -2378,7 +2378,7 @@ class MusicalRatio(Ratio):
                                    numerator=int(ketuStart),
                                    denominator=int(total),
                                    enabled=True))
-        
+
         # Mercury.
         mercuryStart = ketuStart + ketu
         key = SettingsKeys.planetMercuryAbbreviationKey
@@ -2435,7 +2435,7 @@ class MusicalRatio(Ratio):
                                    enabled=True))
 
         return ratios
-    
+
     @staticmethod
     def getChaturaseetiSamaDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
@@ -2458,9 +2458,9 @@ class MusicalRatio(Ratio):
         jupiter = 12.0
         venus = 12.0
         saturn = 12.0
-        
+
         total = 84.0
-        
+
         # Sun.
         sunStart = 0.0
         key = SettingsKeys.planetSunAbbreviationKey
@@ -2526,7 +2526,7 @@ class MusicalRatio(Ratio):
                                    numerator=int(venusStart),
                                    denominator=int(total),
                                    enabled=True))
-        
+
         # Saturn.
         saturnStart = venusStart + venus
         key = SettingsKeys.planetSaturnAbbreviationKey
@@ -2539,7 +2539,7 @@ class MusicalRatio(Ratio):
                                    enabled=True))
 
         return ratios
-    
+
     @staticmethod
     def getSataabdikaDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
@@ -2562,9 +2562,9 @@ class MusicalRatio(Ratio):
         jupiter = 20.0
         mars = 20.0
         saturn = 30.0
-        
+
         total = 100.0
-        
+
         # Sun.
         sunStart = 0.0
         key = SettingsKeys.planetSunAbbreviationKey
@@ -2597,7 +2597,7 @@ class MusicalRatio(Ratio):
                                    numerator=int(venusStart),
                                    denominator=int(total),
                                    enabled=True))
-        
+
         # Mercury.
         mercuryStart = venusStart + venus
         key = SettingsKeys.planetMercuryAbbreviationKey
@@ -2643,7 +2643,7 @@ class MusicalRatio(Ratio):
                                    enabled=True))
 
         return ratios
-    
+
     @staticmethod
     def getShodasottariDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
@@ -2654,10 +2654,10 @@ class MusicalRatio(Ratio):
         applicable if lagna is in Moon's hora in Krishna paksha or in
         Sun's hora in Sukla paksha.
         """
-        
+
         # Return value.
         ratios = []
-        
+
         settings = QSettings()
 
         sun = 11.0
@@ -2668,9 +2668,9 @@ class MusicalRatio(Ratio):
         moon = 16.0
         mercury = 17.0
         venus = 18.0
-        
+
         total = 116.0
-        
+
         # Sun.
         sunStart = 0.0
         key = SettingsKeys.planetSunAbbreviationKey
@@ -2758,9 +2758,9 @@ class MusicalRatio(Ratio):
                                    numerator=int(venusStart),
                                    denominator=int(total),
                                    enabled=True))
-        
+
         return ratios
-    
+
     @staticmethod
     def getPanchottariDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
@@ -2770,10 +2770,10 @@ class MusicalRatio(Ratio):
         Panchottari dasa is a conditional nakshatra dasa that is
         applicable if lagna is in Cancer in rasi and dwadasamsa.
         """
-        
+
         # Return value.
         ratios = []
-        
+
         settings = QSettings()
 
         sun = 12.0
@@ -2783,9 +2783,9 @@ class MusicalRatio(Ratio):
         venus = 16.0
         moon = 17.0
         jupiter = 18.0
-        
+
         total = 105.0
-        
+
         # Sun.
         sunStart = 0.0
         key = SettingsKeys.planetSunAbbreviationKey
@@ -2840,7 +2840,7 @@ class MusicalRatio(Ratio):
                                    numerator=int(venusStart),
                                    denominator=int(total),
                                    enabled=True))
-        
+
         # Moon.
         moonStart = venusStart + venus
         key = SettingsKeys.planetMoonAbbreviationKey
@@ -2864,7 +2864,7 @@ class MusicalRatio(Ratio):
                                    enabled=True))
 
         return ratios
-    
+
     @staticmethod
     def getShashtihayaniDasaMusicalRatios():
         """Returns a list of MusicalRatio objects that we plan on
@@ -2874,10 +2874,10 @@ class MusicalRatio(Ratio):
         Shashtihayani dasa is a conditional nakshatra dasa that is
         applicable if Sun is in lagna.
         """
-        
+
         # Return value.
         ratios = []
-        
+
         settings = QSettings()
 
         jupiter = 10.0
@@ -2888,9 +2888,9 @@ class MusicalRatio(Ratio):
         venus = 6.0
         saturn = 6.0
         rahu = 6.0
-        
+
         total = 60.0
-        
+
         # Jupiter.
         jupiterStart = 0.0
         key = SettingsKeys.planetJupiterAbbreviationKey
@@ -2956,7 +2956,7 @@ class MusicalRatio(Ratio):
                                    numerator=int(venusStart),
                                    denominator=int(total),
                                    enabled=True))
-        
+
         # Saturn.
         saturnStart = venusStart + venus
         key = SettingsKeys.planetSaturnAbbreviationKey
@@ -2980,7 +2980,7 @@ class MusicalRatio(Ratio):
                                    enabled=True))
 
         return ratios
-    
+
     def getNumerator(self):
         """Returns the int value that is the numerator portion of the
         fraction.  This can be None if it was not previously set.
@@ -2990,13 +2990,13 @@ class MusicalRatio(Ratio):
 
     def setNumerator(self, numerator):
         """Sets the value that is the numerator portion of the fraction.
-        
+
         Arguments:
         numerator - int value for the numerator.
         """
-        
+
         self.numerator = numerator
-    
+
     def getDenominator(self):
         """Returns the int value that is the denominator portion of the
         fraction.  This can be None if it was not previously set.
@@ -3006,13 +3006,13 @@ class MusicalRatio(Ratio):
 
     def setDenominator(self, denominator):
         """Sets the value that is the denominator portion of the fraction.
-        
+
         Arguments:
         denominator - int value for the denominator.
         """
-        
+
         self.denominator = denominator
-    
+
     def isEnabled(self):
         """Returns True if the MusicalRatio is set as enabled."""
 
@@ -3020,9 +3020,9 @@ class MusicalRatio(Ratio):
 
     def setEnabled(self, enabledFlag):
         """Sets whether or not the MusicalRatio is set as enabled."""
-        
+
         self.enabled = enabledFlag
-        
+
     def inverted(self):
         """Returns the same MusicalRatio, but just inverted.
         '(Inverted)' str is added to the description.
@@ -3037,12 +3037,12 @@ class MusicalRatio(Ratio):
                          enabled=self.getEnabled())
 
         return inverted
-    
+
     def toString(self):
         """Returns the string representation of the data."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __str__(self):
@@ -3105,21 +3105,21 @@ class LookbackMultiple:
         The lookback period of time is determined by multiplying,
         depending on whether the baseUnit is in degrees or in
         revolutions:
-        
+
             lookbackMultiple * baseUnit * 1.0
             lookbackMultiple * baseUnit * 360.0
 
         Arguments:
-        
+
         name     - str value for the name of the LookbackMultiple.
                    This is the display name used in the UI.
-    
+
         description - str value for the description of the LookbackMultiple.
 
         lookbackMultiple - float value for the multiple to look back.
-        
+
         baseUnit - float value for the base unit to look back.
-        
+
         baseUnitTypeDegreesFlag - boolean for indicating that the
                                   baseUnit is in degrees.  If this
                                   value if True, then
@@ -3127,7 +3127,7 @@ class LookbackMultiple:
                                   False.  If this value is False, then
                                   baseUnitTypeRevolutionsFlag must be
                                   True.
-        
+
         baseUnitTypeRevolutionsFlag - boolean for indicating that the
                                       baseUnit is in revolutions.  If
                                       this value is True, then
@@ -3141,29 +3141,29 @@ class LookbackMultiple:
 
         enabled - boolean for whether this LookbackMultiple is enabled
                   or disabled.  An enabled LookbackMultiple is drawn.
-        
+
         planetName - str value holding a valid planet name (from
                      Ephemeris.py) to use for the looking back in time.
-        
+
         geocentricFlag - boolean flag indicating that the lookback is
                          to be done with geocentric planet
                          measurements.  If this value is True, then
                          heliocentricFlag must be False.  If this
                          value is False, then heliocentricFlag must be
                          True.
-        
+
         heliocentricFlag - boolean flag indicating that the lookback
                          is to be done with heliocentric planet
                          measurements.  If this value is True, then
                          geocentricFlag must be False.  If this value
                          is False, then geocentricFlag must be True.
 
-        tropicalFlag - boolean flag that indicates that the measurements 
-                       are using the tropical zodiac.  If this value 
-                       is True then siderealFlag must be False.  
+        tropicalFlag - boolean flag that indicates that the measurements
+                       are using the tropical zodiac.  If this value
+                       is True then siderealFlag must be False.
                        If this value is False, then siderealFlag must be True.
 
-        siderealFlag - boolean flag that indicates that the measurements 
+        siderealFlag - boolean flag that indicates that the measurements
                        are using sidereal zodiac.  If this value
                        is True then tropicalFlag must be False.
                        If this value is False then tropicalFlag must be True.
@@ -3189,7 +3189,7 @@ class LookbackMultiple:
             self.log.error("baseUnitTypeRevolutionsFlag == {}".
                            format(baseUnitTypeRevolutionsFlag))
             return
-            
+
         if geocentricFlag == None or heliocentricFlag == None or \
                geocentricFlag == heliocentricFlag:
             self.log.error("Invalid parameters.  " +
@@ -3198,7 +3198,7 @@ class LookbackMultiple:
             self.log.error("geocentricFlag == {}".format(geocentricFlag))
             self.log.error("heliocentricFlag == {}".format(heliocentricFlag))
             return
-        
+
         if planetName == "" or \
                 planetName not in Ephemeris.getSupportedPlanetNamesList():
 
@@ -3209,7 +3209,7 @@ class LookbackMultiple:
             tropicalFlag == siderealFlag:
 
             self.log.error("Invalid parameters.  " +
-                           "zodiac type for the longitude " + 
+                           "zodiac type for the longitude " +
                            "measurements must be " +
                            "either tropical or sidereal.")
             self.log.error("tropicalFlag == {}".format(tropicalFlag))
@@ -3227,13 +3227,13 @@ class LookbackMultiple:
 
         # Base unit that gets multipled to the lookback multiple.
         self.baseUnit = baseUnit
-        
+
         # Flag that indicates the base unit is in units degrees.
         self.baseUnitTypeDegreesFlag = baseUnitTypeDegreesFlag
-        
+
         # Flag that indicates the base unit is in units revolutions.
         self.baseUnitTypeRevolutionsFlag = baseUnitTypeRevolutionsFlag
-        
+
         # Color to draw the past history.  (QColor)
         self.color = color
 
@@ -3260,7 +3260,7 @@ class LookbackMultiple:
 
     def getName(self):
         """Returns the display name of the LookbackMultiple."""
-        
+
         return self.name
 
     def setName(self, name):
@@ -3274,14 +3274,14 @@ class LookbackMultiple:
 
     def getDescription(self):
         """Returns the description of the LookbackMultiple."""
-        
+
         return self.description
 
     def setDescription(self, description):
         """Sets the description of the LookbackMultiple.
 
         Arguments:
-        description - str value representing the description of the 
+        description - str value representing the description of the
                       LookbackMultiple.
         """
 
@@ -3306,7 +3306,7 @@ class LookbackMultiple:
         """Returns the base unit multiple to look back in time."""
 
         return self.baseUnit
-    
+
     def setBaseUnit(self, baseUnit):
         """Sets the base unit multiple to look back in time.
 
@@ -3332,7 +3332,7 @@ class LookbackMultiple:
 
         Arguments:
         baseUnitTypeDegreesFlag - boolean value for indicating that the
-                                  baseUnit is in degrees.  
+                                  baseUnit is in degrees.
         """
 
         self.baseUnitTypeDegreesFlag = baseUnitTypeDegreesFlag
@@ -3354,7 +3354,7 @@ class LookbackMultiple:
 
         Arguments:
         baseUnitTypeRevolutionsFlag - boolean value for indicating that the
-                                  baseUnit is in revolutions.  
+                                  baseUnit is in revolutions.
         """
 
         self.baseUnitTypeRevolutionsFlag = baseUnitTypeRevolutionsFlag
@@ -3367,7 +3367,7 @@ class LookbackMultiple:
         """
 
         return self.color
-        
+
     def setColor(self, color):
         """Sets the color of the PriceBars for the lookback multiple.
 
@@ -3415,7 +3415,7 @@ class LookbackMultiple:
         """
 
         self.planetName = planetName
-        
+
     def getGeocentricFlag(self):
         """Returns the boolean flag indicating that the lookback is to
         be done with geocentric planet measurements.
@@ -3426,7 +3426,7 @@ class LookbackMultiple:
     def setGeocentricFlag(self, geocentricFlag):
         """Sets the boolean flag indicating that the lookback is to
         be done with geocentric planet measurements.
-        
+
         Note: Setting this flag will automatically set the
         heliocentricFlag to the opposite of this value.
         """
@@ -3444,14 +3444,14 @@ class LookbackMultiple:
     def setHeliocentricFlag(self, heliocentricFlag):
         """Sets the boolean flag indicating that the lookback is to
         be done with heliocentric planet measurements.
-        
+
         Note: Setting this flag will automatically set the
         geocentricFlag to the opposite of this value.
         """
 
         self.heliocentricFlag = heliocentricFlag
         self.geocentricFlag = not heliocentricFlag
-        
+
     def getTropicalFlag(self):
         """Returns the boolean flag that indicates that the tropical
         zodiac should be used for longitude measurements.
@@ -3493,7 +3493,7 @@ class LookbackMultiple:
         variables of this object.
 
         The returned string is in the format of:
-        
+
             MyName (G.Mars Trop. 3 x 1 rev.)
             MyName (G.MoSu Trop. 7 x 360 deg.)
             MyName (H.Venus Sid. 1.618 x 360 deg.)
@@ -3506,16 +3506,16 @@ class LookbackMultiple:
             centricityTypeStr = "G."
         if self.heliocentricFlag == True:
             centricityTypeStr = "H."
-            
+
         planetNameStr = self.planetName
         lookbackMultipleStr = "{}".format(self.lookbackMultiple)
-        
+
         longitudeTypeStr = ""
         if self.tropicalFlag == True:
             longitudeTypeStr = "Trop."
         if self.siderealFlag == True:
             longitudeTypeStr = "Sid."
-            
+
         baseUnitStr = "{}".format(self.baseUnit)
 
         baseUnitTypeStr = ""
@@ -3526,14 +3526,14 @@ class LookbackMultiple:
 
         # Return value.
         rv = "{} ({}{} {} {} x {} {})".\
-            format(nameStr, 
-                   centricityTypeStr, 
-                   planetNameStr, 
+            format(nameStr,
+                   centricityTypeStr,
+                   planetNameStr,
                    longitudeTypeStr,
-                   lookbackMultipleStr, 
-                   baseUnitStr, 
+                   lookbackMultipleStr,
+                   baseUnitStr,
                    baseUnitTypeStr)
-        
+
         return rv
 
 
@@ -3541,22 +3541,22 @@ class LookbackMultiple:
         """Returns the string representation of most of the attributes in this
         LookbackMultiple object.
         """
-        
+
         rv = ObjectUtils.objToString(self)
 
         return rv
 
     def __eq__(self, other):
         """Returns True if the two LookbackMultiples are equal."""
-        
+
         rv = True
-        
+
         leftObj = self
         rightObj = other
-        
+
         if rightObj == None:
             return False
-        
+
         self.log.debug("leftObj: {}".format(leftObj.toString()))
         self.log.debug("rightObj: {}".format(rightObj.toString()))
 
@@ -3605,7 +3605,7 @@ class LookbackMultiple:
             rv = False
 
         self.log.debug("__eq__() returning: {}".format(rv))
-        
+
         return rv
 
     def __ne__(self, other):
@@ -3613,7 +3613,7 @@ class LookbackMultiple:
         Returns False otherwise."""
 
         return not self.__eq__(other)
-    
+
     def __str__(self):
         """Returns the string representation of most of the attributes in this
         LookbackMultiple object.
@@ -3652,31 +3652,31 @@ class LookbackMultiple:
 class LookbackMultiplePriceBar:
     """Contains price information for a historic period of time,
     projected onto the current time period.
-    
+
     The this class has the same information provided as member
     variables, and methods as the regular PriceBar class, but it is not
-    a subclass of a PriceBar.  
+    a subclass of a PriceBar.
 
     TODO:  improve documentation and commenting here for LookbackMultiplePriceBar.
 
-    LookbackMultiplePriceBar can include the following information: 
+    LookbackMultiplePriceBar can include the following information:
 
     - timestamp of the current period of time.
-    - timestamp of the historic period of time.  
+    - timestamp of the historic period of time.
     (this is extracted from the PriceBar)
     - PriceBar object for the price information of a historical time period.
     - LookbackMultiple object for this LookbackMultiplePriceBar
     """
-    
+
     def __init__(self, lookbackMultiple, historicPriceBar):
-        """Initializes the PriceBar object.  
+        """Initializes the PriceBar object.
 
-# currentPriceBar - this is calculated based on the arguments given.  
+# currentPriceBar - this is calculated based on the arguments given.
 
-        Arguments are as follows: 
-TODO:  Think about what variables and information would be needed in this class. 
+        Arguments are as follows:
+TODO:  Think about what variables and information would be needed in this class.
         lookbackMultiple - LookbackMultiple that is associated with this LookbackMultiplePriceBar.
-        priceBar - PriceBar object that is the closest 
+        priceBar - PriceBar object that is the closest
         """
 
         self.log = logging.getLogger("data_objects.LookbackMultiple")
@@ -3685,15 +3685,15 @@ TODO:  Think about what variables and information would be needed in this class.
         self.classVersion = 1
 
         # Verify that neither of the inputs are None.
-        
+
 
         self.lookbackMultiple = lookbackMultiple
         self.historicPriceBar = historicPriceBar
 
-        
+
         # Member variables that hold information about this particular
-        # LookbackMultiplePriceBar's information.  
-        # 
+        # LookbackMultiplePriceBar's information.
+        #
         # The data of member variables are basically the historic PriceBar, but
         # projected into the future by the LookbackMultiple's time period.  The
         # price data here is not meaningful, because it is the historic
@@ -3709,7 +3709,7 @@ TODO:  Think about what variables and information would be needed in this class.
         self.vol = None
         self.tags = []
 
-        
+
     def midPrice(self):
         """Returns the average of the high and low.  I.e., ((high+low)/2.0)
         If high is None or low is None, then None is returned.
@@ -3721,7 +3721,7 @@ TODO:  Think about what variables and information would be needed in this class.
             return (self.high + self.low) / 2.0
 
     def addTag(self, tagToAdd):
-        """Adds a given tag string to the tags for this 
+        """Adds a given tag string to the tags for this
         LookbackMultiplePriceBar."""
 
         # Strip any leading or trailing whitespace
@@ -3792,12 +3792,12 @@ TODO:  Think about what variables and information would be needed in this class.
         """
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __eq__(self, other):
         """Returns True if the two LookbackMultiplePriceBars are equal."""
-        
+
         rv = True
 
         leftObj = self
@@ -3805,7 +3805,7 @@ TODO:  Think about what variables and information would be needed in this class.
 
         if rightObj == None:
             return False
-        
+
         self.log.debug("leftObj: {}".format(leftObj.toString()))
         self.log.debug("rightObj: {}".format(rightObj.toString()))
 
@@ -3839,7 +3839,7 @@ TODO:  Think about what variables and information would be needed in this class.
         if leftObj.vol != rightObj.vol:
             self.log.debug("vol differs.")
             rv = False
-            
+
         if len(leftObj.tags) != len(rightObj.tags):
             self.log.debug("len(tags) differs.")
             rv = False
@@ -3851,7 +3851,7 @@ TODO:  Think about what variables and information would be needed in this class.
                     break
 
         self.log.debug("__eq__() returning: {}".format(rv))
-        
+
         return rv
 
     def __ne__(self, other):
@@ -3860,7 +3860,7 @@ TODO:  Think about what variables and information would be needed in this class.
         """
 
         return not self.__eq__(other)
-    
+
     def __str__(self):
         """Returns the string representation of the
         LookbackMultiplePriceBar data.
@@ -3913,19 +3913,19 @@ class PriceBarChartArtifact:
     This class includes tags as a list of str.  Tags are to identify
     artifacts with certain attributes.  This is useful if artifacts
     are added or removed via an external script.  They can seek and
-    reference artifacts they added or removed by tags.  
+    reference artifacts they added or removed by tags.
     """
-    
+
     def __init__(self):
-        """Initializes attributes and members common to all 
+        """Initializes attributes and members common to all
         PriceBarChartArtifacts.
         """
-        
+
         # UUID.
         self.uuid = uuid.uuid1()
-        
+
         self.internalName = "UntypedArtifact_" + str(uuid.uuid1())
-        
+
         # Position of the artifact QGraphicsItem.
         self.position = QPointF()
 
@@ -3953,7 +3953,7 @@ class PriceBarChartArtifact:
 
     def getUuid(self):
         """Returns the uuid associated with this artifact."""
-        
+
         return self.uuid
 
     def addTag(self, tagToAdd):
@@ -3975,7 +3975,7 @@ class PriceBarChartArtifact:
         """Returns a list of str that are the tags for this artifact."""
 
         return self.tags
-    
+
     def hasTag(self, tagToCheck):
         """Returns True if the given 'tagToCheck' str is in the list of tags."""
 
@@ -4004,19 +4004,19 @@ class PriceBarChartArtifact:
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
 
 class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates bar counts starting 
-    at the given PriceBar timestamp and the given Y offset from the 
+    """PriceBarChartArtifact that indicates bar counts starting
+    at the given PriceBar timestamp and the given Y offset from the
     center of the bar.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -4038,28 +4038,28 @@ class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the BarCountArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the BarCountArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the BarCountArtifact."""
-        
+
         return self.endPointF
-        
+
     def __str__(self):
         """Returns the string representation of this object."""
 
@@ -4069,7 +4069,7 @@ class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -4102,14 +4102,14 @@ class PriceBarChartBarCountArtifact(PriceBarChartArtifact):
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates the time measurement starting 
-    at the given PriceBar timestamp and the given Y offset from the 
+    """PriceBarChartArtifact that indicates the time measurement starting
+    at the given PriceBar timestamp and the given Y offset from the
     center of the bar.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -4133,19 +4133,19 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         self.textYScaling = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemTextYScaling
-        
+
         # QFont cannot be pickled, but we can utilize
         # QFont.toString() and then QFont.fromString()
         self.fontDescription = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemDefaultFontDescription
-        
-        # QColor can be pickled   
+
+        # QColor can be pickled
         self.textColor = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemDefaultTextColor
 
-        # QColor can be pickled   
+        # QColor can be pickled
         self.color = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemDefaultColor
@@ -4154,67 +4154,67 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         self.showBarsTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowBarsTextFlag
-        
+
         self.showSqrtBarsTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtBarsTextFlag
-        
+
         self.showSqrdBarsTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdBarsTextFlag
-        
+
         self.showHoursTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowHoursTextFlag
-        
+
         self.showSqrtHoursTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtHoursTextFlag
-        
+
         self.showSqrdHoursTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdHoursTextFlag
-        
+
         self.showDaysTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowDaysTextFlag
-        
+
         self.showSqrtDaysTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtDaysTextFlag
-        
+
         self.showSqrdDaysTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdDaysTextFlag
-        
+
         self.showWeeksTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowWeeksTextFlag
-        
+
         self.showSqrtWeeksTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtWeeksTextFlag
-        
+
         self.showSqrdWeeksTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdWeeksTextFlag
-        
+
         self.showMonthsTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowMonthsTextFlag
-        
+
         self.showSqrtMonthsTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag
-        
+
         self.showSqrdMonthsTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdMonthsTextFlag
-        
+
         self.showTimeRangeTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowTimeRangeTextFlag
-        
+
         self.showSqrtTimeRangeTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag
@@ -4238,88 +4238,88 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         self.showAyanaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowAyanaTextFlag
-        
+
         self.showSqrtAyanaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtAyanaTextFlag
-        
+
         self.showSqrdAyanaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdAyanaTextFlag
-        
+
         self.showMuhurtaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowMuhurtaTextFlag
-        
+
         self.showSqrtMuhurtaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtMuhurtaTextFlag
-        
+
         self.showSqrdMuhurtaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdMuhurtaTextFlag
-        
+
         self.showVaraTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowVaraTextFlag
-        
+
         self.showSqrtVaraTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtVaraTextFlag
-        
+
         self.showSqrdVaraTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdVaraTextFlag
-        
+
         self.showRtuTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowRtuTextFlag
-        
+
         self.showSqrtRtuTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtRtuTextFlag
-        
+
         self.showSqrdRtuTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdRtuTextFlag
-        
+
         self.showMasaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowMasaTextFlag
-        
+
         self.showSqrtMasaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtMasaTextFlag
-        
+
         self.showSqrdMasaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdMasaTextFlag
-        
+
         self.showPaksaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowPaksaTextFlag
-        
+
         self.showSqrtPaksaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtPaksaTextFlag
-        
+
         self.showSqrdPaksaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdPaksaTextFlag
-        
+
         self.showSamaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSamaTextFlag
-        
+
         self.showSqrtSamaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtSamaTextFlag
-        
+
         self.showSqrdSamaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdSamaTextFlag
-        
-        
+
+
     def setFont(self, font):
         """Sets the font of this artifact's text.
 
@@ -4340,7 +4340,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         font.fromString(self.fontDescription)
 
         return font
-        
+
     def setTextColor(self, textColor):
         """Sets the color for this artifact's text.
 
@@ -4370,7 +4370,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         return self.color
 
     def setTextXScaling(self, textXScaling):
-        """Sets the text X scaling, used in making the text 
+        """Sets the text X scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -4386,9 +4386,9 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         return self.textXScaling
-        
+
     def setTextYScaling(self, textYScaling):
-        """Sets the text Y scaling, used in making the text 
+        """Sets the text Y scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -4404,266 +4404,266 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         return self.textYScaling
-        
+
     def setShowBarsTextFlag(self, flag):
         """Sets the flag that indicates that the text for the number
         of bars should be displayed.
         """
 
         self.showBarsTextFlag = flag
-        
+
     def getShowBarsTextFlag(self):
         """Returns the flag that indicates that the text for the
         number of bars should be displayed.
         """
 
         return self.showBarsTextFlag
-        
+
     def setShowSqrtBarsTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrt of
         the number of bars should be displayed.
         """
 
         self.showSqrtBarsTextFlag = flag
-        
+
     def getShowSqrtBarsTextFlag(self):
         """Returns the flag that indicates that the text for the sqrt
         of the number of bars should be displayed.
         """
 
         return self.showSqrtBarsTextFlag
-        
+
     def setShowSqrdBarsTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrd of
         the number of bars should be displayed.
         """
 
         self.showSqrdBarsTextFlag = flag
-        
+
     def getShowSqrdBarsTextFlag(self):
         """Returns the flag that indicates that the text for the sqrd
         of the number of bars should be displayed.
         """
 
         return self.showSqrdBarsTextFlag
-        
+
     def setShowHoursTextFlag(self, flag):
         """Sets the flag that indicates that the text for the number
         of hours should be displayed.
         """
 
         self.showHoursTextFlag = flag
-        
+
     def getShowHoursTextFlag(self):
         """Returns the flag that indicates that the text for the
         number of hours should be displayed.
         """
 
         return self.showHoursTextFlag
-        
+
     def setShowSqrtHoursTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrt of
         the number of hours should be displayed.
         """
 
         self.showSqrtHoursTextFlag = flag
-        
+
     def getShowSqrtHoursTextFlag(self):
         """Returns the flag that indicates that the text for the sqrt
         of the number of hours should be displayed.
         """
 
         return self.showSqrtHoursTextFlag
-        
+
     def setShowSqrdHoursTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrd of
         the number of hours should be displayed.
         """
 
         self.showSqrdHoursTextFlag = flag
-        
+
     def getShowSqrdHoursTextFlag(self):
         """Returns the flag that indicates that the text for the sqrd
         of the number of hours should be displayed.
         """
 
         return self.showSqrdHoursTextFlag
-        
+
     def setShowDaysTextFlag(self, flag):
         """Sets the flag that indicates that the text for the number
         of days should be displayed.
         """
 
         self.showDaysTextFlag = flag
-        
+
     def getShowDaysTextFlag(self):
         """Returns the flag that indicates that the text for the
         number of days should be displayed.
         """
 
         return self.showDaysTextFlag
-        
+
     def setShowSqrtDaysTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrt of
         the number of days should be displayed.
         """
 
         self.showSqrtDaysTextFlag = flag
-        
+
     def getShowSqrtDaysTextFlag(self):
         """Returns the flag that indicates that the text for the sqrt
         of the number of days should be displayed.
         """
 
         return self.showSqrtDaysTextFlag
-        
+
     def setShowSqrdDaysTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrd of
         the number of days should be displayed.
         """
 
         self.showSqrdDaysTextFlag = flag
-        
+
     def getShowSqrdDaysTextFlag(self):
         """Returns the flag that indicates that the text for the sqrd
         of the number of days should be displayed.
         """
 
         return self.showSqrdDaysTextFlag
-        
+
     def setShowWeeksTextFlag(self, flag):
         """Sets the flag that indicates that the text for the number
         of weeks should be displayed.
         """
 
         self.showWeeksTextFlag = flag
-        
+
     def getShowWeeksTextFlag(self):
         """Returns the flag that indicates that the text for the
         number of weeks should be displayed.
         """
 
         return self.showWeeksTextFlag
-        
+
     def setShowSqrtWeeksTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrt of
         the number of weeks should be displayed.
         """
 
         self.showSqrtWeeksTextFlag = flag
-        
+
     def getShowSqrtWeeksTextFlag(self):
         """Returns the flag that indicates that the text for the sqrt
         of the number of weeks should be displayed.
         """
 
         return self.showSqrtWeeksTextFlag
-        
+
     def setShowSqrdWeeksTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrd of
         the number of weeks should be displayed.
         """
 
         self.showSqrdWeeksTextFlag = flag
-        
+
     def getShowSqrdWeeksTextFlag(self):
         """Returns the flag that indicates that the text for the sqrd
         of the number of weeks should be displayed.
         """
 
         return self.showSqrdWeeksTextFlag
-        
+
     def setShowMonthsTextFlag(self, flag):
         """Sets the flag that indicates that the text for the number
         of months should be displayed.
         """
 
         self.showMonthsTextFlag = flag
-        
+
     def getShowMonthsTextFlag(self):
         """Returns the flag that indicates that the text for the
         number of months should be displayed.
         """
 
         return self.showMonthsTextFlag
-        
+
     def setShowSqrtMonthsTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrt of
         the number of months should be displayed.
         """
 
         self.showSqrtMonthsTextFlag = flag
-        
+
     def getShowSqrtMonthsTextFlag(self):
         """Returns the flag that indicates that the text for the sqrt
         of the number of months should be displayed.
         """
 
         return self.showSqrtMonthsTextFlag
-        
+
     def setShowSqrdMonthsTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrd of
         the number of months should be displayed.
         """
 
         self.showSqrdMonthsTextFlag = flag
-        
+
     def getShowSqrdMonthsTextFlag(self):
         """Returns the flag that indicates that the text for the sqrd
         of the number of months should be displayed.
         """
 
         return self.showSqrdMonthsTextFlag
-        
+
     def setShowTimeRangeTextFlag(self, flag):
         """Sets the flag that indicates that the text for the time
         range should be displayed.
         """
 
         self.showTimeRangeTextFlag = flag
-        
+
     def getShowTimeRangeTextFlag(self):
         """Returns the flag that indicates that the text for the
         time range should be displayed.
         """
 
         return self.showTimeRangeTextFlag
-        
+
     def setShowSqrtTimeRangeTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrt of
         the time range should be displayed.
         """
 
         self.showSqrtTimeRangeTextFlag = flag
-        
+
     def getShowSqrtTimeRangeTextFlag(self):
         """Returns the flag that indicates that the text for the sqrt
         of the time range should be displayed.
         """
 
         return self.showSqrtTimeRangeTextFlag
-        
+
     def setShowSqrdTimeRangeTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrd of
         the time range should be displayed.
         """
 
         self.showSqrdTimeRangeTextFlag = flag
-        
+
     def getShowSqrdTimeRangeTextFlag(self):
         """Returns the flag that indicates that the text for the sqrd
         of the time range should be displayed.
         """
 
         return self.showSqrdTimeRangeTextFlag
-        
+
     def setShowScaledValueRangeTextFlag(self, flag):
         """Sets the flag that indicates that the text for the scaled
         value representing the time range should be displayed.
         """
 
         self.showScaledValueRangeTextFlag = flag
-        
+
     def getShowScaledValueRangeTextFlag(self):
         """Returns the flag that indicates that the text for the
         scaled value representing the time range should be displayed.
@@ -4677,7 +4677,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrtScaledValueRangeTextFlag = flag
-        
+
     def getShowSqrtScaledValueRangeTextFlag(self):
         """Returns the flag that indicates that the text for the sqrt of
         scaled value representing the time range should be displayed.
@@ -4691,7 +4691,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrdScaledValueRangeTextFlag = flag
-        
+
     def getShowSqrdScaledValueRangeTextFlag(self):
         """Returns the flag that indicates that the text for the sqrd of
         scaled value representing the time range should be displayed.
@@ -4705,7 +4705,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showAyanaTextFlag = flag
-        
+
     def getShowAyanaTextFlag(self):
         """Returns the flag that indicates that the text for ayana (6
         months) count of time should be displayed.
@@ -4719,7 +4719,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrtAyanaTextFlag = flag
-        
+
     def getShowSqrtAyanaTextFlag(self):
         """Returns the flag that indicates that the text for sqrt
         ayana (6 months) count of time should be displayed.
@@ -4733,7 +4733,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrdAyanaTextFlag = flag
-        
+
     def getShowSqrdAyanaTextFlag(self):
         """Returns the flag that indicates that the text for sqrd
         ayana (6 months) count of time should be displayed.
@@ -4747,7 +4747,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showMuhurtaTextFlag = flag
-        
+
     def getShowMuhurtaTextFlag(self):
         """Returns the flag that indicates that the text for muhurta
         (48 minutes) count of time should be displayed.
@@ -4761,7 +4761,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrtMuhurtaTextFlag = flag
-        
+
     def getShowSqrtMuhurtaTextFlag(self):
         """Returns the flag that indicates that the text for sqrt
         muhurta (48 minutes) count of time should be displayed.
@@ -4775,7 +4775,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrdMuhurtaTextFlag = flag
-        
+
     def getShowSqrdMuhurtaTextFlag(self):
         """Returns the flag that indicates that the text for sqrd
         muhurta (48 minutes) count of time should be displayed.
@@ -4789,7 +4789,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showVaraTextFlag = flag
-        
+
     def getShowVaraTextFlag(self):
         """Returns the flag that indicates that the text for vara
         (24-hour day) count of time should be displayed.
@@ -4803,7 +4803,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrtVaraTextFlag = flag
-        
+
     def getShowSqrtVaraTextFlag(self):
         """Returns the flag that indicates that the text for sqrt vara
         (24-hour day) count of time should be displayed.
@@ -4817,7 +4817,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrdVaraTextFlag = flag
-        
+
     def getShowSqrdVaraTextFlag(self):
         """Returns the flag that indicates that the text for sqrd vara
         (24-hour day) count of time should be displayed.
@@ -4831,7 +4831,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showRtuTextFlag = flag
-        
+
     def getShowRtuTextFlag(self):
         """Returns the flag that indicates that the text for rtu
         (season of 2 months) count of time should be displayed.
@@ -4845,7 +4845,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrtRtuTextFlag = flag
-        
+
     def getShowSqrtRtuTextFlag(self):
         """Returns the flag that indicates that the text for sqrt rtu
         (season of 2 months) count of time should be displayed.
@@ -4859,7 +4859,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrdRtuTextFlag = flag
-        
+
     def getShowSqrdRtuTextFlag(self):
         """Returns the flag that indicates that the text for sqrd rtu
         (season of 2 months) count of time should be displayed.
@@ -4874,7 +4874,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showMasaTextFlag = flag
-        
+
     def getShowMasaTextFlag(self):
         """Returns the flag that indicates that the text for masa
         (full-moon to full-moon month) count of time should be
@@ -4890,7 +4890,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrtMasaTextFlag = flag
-        
+
     def getShowSqrtMasaTextFlag(self):
         """Returns the flag that indicates that the text for sqrt masa
         (full-moon to full-moon month) count of time should be
@@ -4906,7 +4906,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrdMasaTextFlag = flag
-        
+
     def getShowSqrdMasaTextFlag(self):
         """Returns the flag that indicates that the text for sqrd masa
         (full-moon to full-moon month) count of time should be
@@ -4921,7 +4921,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showPaksaTextFlag = flag
-        
+
     def getShowPaksaTextFlag(self):
         """Returns the flag that indicates that the text for paksa
         (15-day fortnight) count of time should be displayed.
@@ -4935,7 +4935,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrtPaksaTextFlag = flag
-        
+
     def getShowSqrtPaksaTextFlag(self):
         """Returns the flag that indicates that the text for sqrt
         paksa (15-day fortnight) count of time should be displayed.
@@ -4949,7 +4949,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrdPaksaTextFlag = flag
-        
+
     def getShowSqrdPaksaTextFlag(self):
         """Returns the flag that indicates that the text for sqrd
         paksa (15-day fortnight) count of time should be displayed.
@@ -4963,7 +4963,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSamaTextFlag = flag
-        
+
     def getShowSamaTextFlag(self):
         """Returns the flag that indicates that the text for sama
         (year) count of time should be displayed.
@@ -4977,7 +4977,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrtSamaTextFlag = flag
-        
+
     def getShowSqrtSamaTextFlag(self):
         """Returns the flag that indicates that the text for sqrt sama
         (year) count of time should be displayed.
@@ -4991,7 +4991,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrdSamaTextFlag = flag
-        
+
     def getShowSqrdSamaTextFlag(self):
         """Returns the flag that indicates that the text for sqrd sama
         (year) count of time should be displayed.
@@ -5005,28 +5005,28 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the TimeMeasurementArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the TimeMeasurementArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the TimeMeasurementArtifact."""
-        
+
         return self.endPointF
-        
+
     def __str__(self):
         """Returns the string representation of this object."""
 
@@ -5036,7 +5036,7 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -5070,14 +5070,14 @@ class PriceBarChartTimeMeasurementArtifact(PriceBarChartArtifact):
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates the time measurement starting 
-    at the given PriceBar timestamp and the given Y offset from the 
+    """PriceBarChartArtifact that indicates the time measurement starting
+    at the given PriceBar timestamp and the given Y offset from the
     center of the bar.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -5098,7 +5098,7 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
         self.musicalRatios = \
             PriceBarChartSettings.\
                 defaultTimeModalScaleGraphicsItemMusicalRatios
-        
+
         # color (QColor).
         self.color = \
             PriceBarChartSettings.\
@@ -5129,40 +5129,40 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
         self.textEnabledFlag = \
             PriceBarChartSettings.\
             defaultTimeModalScaleGraphicsItemTextEnabledFlag
-        
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the TimeModalScaleArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the TimeModalScaleArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the TimeModalScaleArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the TimeModalScaleArtifact."""
-        
+
         return self.endPointF
 
     def getMusicalRatios(self):
         """Returns the list of MusicalRatio objects."""
 
         return self.musicalRatios
-        
+
     def setMusicalRatios(self, musicalRatios):
         """Sets the list of MusicalRatio objects."""
 
@@ -5170,52 +5170,52 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def setTextColor(self, textColor):
         """Sets the text color.
-        
+
         Arguments:
         textColor - QColor object for the text color.
         """
 
         self.textColor = textColor
-        
+
     def getTextColor(self):
         """Gets the text color as a QColor object."""
 
         return self.textColor
-        
+
     def setBarHeight(self, barHeight):
         """Sets the bar height (float)."""
 
         self.barHeight = barHeight
-    
+
     def getBarHeight(self):
         """Returns the bar height (float)."""
 
         return self.barHeight
-    
+
     def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
         self.fontSize = fontSize
-    
+
     def getFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
         return self.fontSize
-    
+
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
         This value is used to tell how ratios are referenced (from the
@@ -5235,7 +5235,7 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
         """
 
         self.reversedFlag = reversedFlag
-        
+
     def isTextEnabled(self):
         """Returns whether or not the text is enabled for the
         musicalRatios that are enabled.
@@ -5253,20 +5253,20 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
         """
 
         self.textEnabledFlag = textEnabledFlag
-        
+
     def getXYForMusicalRatio(self, index):
         """Returns the x and y location of where this musical ratio
         would exist, based on the MusicalRatio ordering and the
         startPoint and endPoint locations.
 
         Arguments:
-        
+
         index - int value for index into self.musicalRatios that the
         user is looking for the musical ratio for.  This value must be
         within the valid index limits.
 
         Returns:
-        
+
         Tuple of 2 floats, representing (x, y) point.  This is where
         the musical ratio would exist.
         """
@@ -5282,7 +5282,7 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
             self.log.error("getXYForMusicalRatio(): Index out of range: {}".
                            format(index))
             return
-        
+
         # Return values.
         x = None
         y = None
@@ -5296,25 +5296,25 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
         #               format(startPointX, startPointY))
         #self.log.debug("endPoint is: ({}, {})".
         #               format(endPointX, endPointY))
-        
+
         deltaX = endPointX - startPointX
         deltaY = endPointY - startPointY
-        
+
         #self.log.debug("deltaX is: {}".format(deltaX))
         #self.log.debug("deltaY is: {}".format(deltaY))
-        
+
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         xOffset = 0.0
         yOffset = 0.0
 
-        
+
         #self.log.debug("There are {} number of musical ratios.".\
         #               format(len(self.musicalRatios)))
 
         for i in range(len(self.musicalRatios)):
             musicalRatio = self.musicalRatios[i]
-            
+
             #self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
             #               format(i, musicalRatio.getRatio()))
             if i == 0:
@@ -5324,12 +5324,12 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
 
                 #self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
                 #               format(xOffset, yOffset))
-                
+
             if i == index:
                 #self.log.debug("At the i == index, where i == {}.".format(i))
                 #self.log.debug("MusicalRatio is: {}".\
                 #               format(musicalRatio.getRatio()))
-                
+
                 x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
                 y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
 
@@ -5347,11 +5347,11 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
                 else:
                     x = endPointX - x
                     y = endPointY - y
-                    
+
 
                 #self.log.debug("Adjusting to start points, (x={}, y={})".
                 #               format(x, y))
-                
+
                 while x < startPointX and x < endPointX:
                     x += abs(deltaX)
                 while x > startPointX and x > endPointX:
@@ -5378,7 +5378,7 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
             # Reset values to 0.
             x = 0.0
             y = 0.0
-            
+
         #self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
         #               "Returning ({}, {})".format(x, y))
         return (x, y)
@@ -5392,7 +5392,7 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -5426,14 +5426,14 @@ class PriceBarChartTimeModalScaleArtifact(PriceBarChartArtifact):
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates the time measurement starting 
-    at the given PriceBar timestamp and the given Y offset from the 
+    """PriceBarChartArtifact that indicates the time measurement starting
+    at the given PriceBar timestamp and the given Y offset from the
     center of the bar.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -5452,7 +5452,7 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
 
         # List of used ratios.
         self.musicalRatios = MusicalRatio.getIndianMusicalRatios()
-        
+
         # color (QColor).
         self.color = \
             PriceBarChartSettings.\
@@ -5483,40 +5483,40 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
         self.textEnabledFlag = \
             PriceBarChartSettings.\
             defaultPriceModalScaleGraphicsItemTextEnabledFlag
-        
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the PriceModalScaleArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the PriceModalScaleArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the PriceModalScaleArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the PriceModalScaleArtifact."""
-        
+
         return self.endPointF
 
     def getMusicalRatios(self):
         """Returns the list of MusicalRatio objects."""
 
         return self.musicalRatios
-        
+
     def setMusicalRatios(self, musicalRatios):
         """Sets the list of MusicalRatio objects."""
 
@@ -5524,52 +5524,52 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def setTextColor(self, textColor):
         """Sets the text color.
-        
+
         Arguments:
         textColor - QColor object for the text color.
         """
 
         self.textColor = textColor
-        
+
     def getTextColor(self):
         """Gets the text color as a QColor object."""
 
         return self.textColor
-        
+
     def setBarWidth(self, barWidth):
         """Sets the bar width (float)."""
 
         self.barWidth = barWidth
-    
+
     def getBarWidth(self):
         """Returns the bar width (float)."""
 
         return self.barWidth
-    
+
     def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
         self.fontSize = fontSize
-    
+
     def getFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
         return self.fontSize
-    
+
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
         This value is used to tell how ratios are referenced (from the
@@ -5589,7 +5589,7 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
         """
 
         self.reversedFlag = reversedFlag
-        
+
     def isTextEnabled(self):
         """Returns whether or not the text is enabled for the
         musicalRatios that are enabled.
@@ -5607,20 +5607,20 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
         """
 
         self.textEnabledFlag = textEnabledFlag
-        
+
     def getXYForMusicalRatio(self, index):
         """Returns the x and y location of where this musical ratio
         would exist, based on the MusicalRatio ordering and the
         startPoint and endPoint locations.
 
         Arguments:
-        
+
         index - int value for index into self.musicalRatios that the
         user is looking for the musical ratio for.  This value must be
         within the valid index limits.
 
         Returns:
-        
+
         Tuple of 2 floats, representing (x, y) point.  This is where
         the musical ratio would exist.
         """
@@ -5636,7 +5636,7 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
             self.log.error("getXYForMusicalRatio(): Index out of range: {}".
                            format(index))
             return
-        
+
         # Return values.
         x = None
         y = None
@@ -5650,25 +5650,25 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
         #               format(startPointX, startPointY))
         #self.log.debug("endPoint is: ({}, {})".
         #               format(endPointX, endPointY))
-        
+
         deltaX = endPointX - startPointX
         deltaY = endPointY - startPointY
-        
+
         #self.log.debug("deltaX is: {}".format(deltaX))
         #self.log.debug("deltaY is: {}".format(deltaY))
-        
+
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         xOffset = 0.0
         yOffset = 0.0
 
-        
+
         #self.log.debug("There are {} number of musical ratios.".\
         #               format(len(self.musicalRatios)))
 
         for i in range(len(self.musicalRatios)):
             musicalRatio = self.musicalRatios[i]
-            
+
             #self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
             #               format(i, musicalRatio.getRatio()))
             if i == 0:
@@ -5678,12 +5678,12 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
 
                 #self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
                 #               format(xOffset, yOffset))
-                
+
             if i == index:
                 #self.log.debug("At the i == index, where i == {}.".format(i))
                 #self.log.debug("MusicalRatio is: {}".\
                 #               format(musicalRatio.getRatio()))
-                
+
                 x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
                 y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
 
@@ -5701,11 +5701,11 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
                 else:
                     x = endPointX - x
                     y = endPointY - y
-                    
+
 
                 self.log.debug("Adjusting to start points, (x={}, y={})".
                                format(x, y))
-                
+
                 while x < startPointX and x < endPointX:
                     x += abs(deltaX)
                 while x > startPointX and x > endPointX:
@@ -5732,7 +5732,7 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
             # Reset values to 0.
             x = 0.0
             y = 0.0
-            
+
         #self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
         #               "Returning ({}, {})".format(x, y))
         return (x, y)
@@ -5746,7 +5746,7 @@ class PriceBarChartPriceModalScaleArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -5784,10 +5784,10 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
     movement measurement starting at the given PriceBar timestamp and
     the given Y offset from the center of the bar.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 6
@@ -5812,19 +5812,19 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         self.textYScaling = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemTextYScaling
-        
+
         # QFont cannot be pickled, but we can utilize
         # QFont.toString() and then QFont.fromString()
         self.fontDescription = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultFontDescription
-        
-        # QColor can be pickled   
+
+        # QColor can be pickled
         self.textColor = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultTextColor
 
-        # QColor can be pickled   
+        # QColor can be pickled
         self.color = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultColor
@@ -5844,435 +5844,435 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         self.showGeocentricRetroAsZeroTextFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlag
-        
+
         # Flag for measuring planet geocentric longitude movement,
         # where retrograde movements count as positive values.
         self.showGeocentricRetroAsPositiveTextFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlag
-        
+
         # Flag for measuring planet geocentric longitude movement,
         # where retrograde movements count as negative values.
         self.showGeocentricRetroAsNegativeTextFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag
-        
+
         # Flag for measuring planet heliocentric longitude movement.
         self.showHeliocentricTextFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlag
-        
+
         # Flag for using the tropical zodiac in measurements.
         self.tropicalZodiacFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlag
-        
+
         # Flag for using the sidereal zodiac in measurements.
         self.siderealZodiacFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlag
-        
+
         # Flag for displaying measurements in degrees.
         self.measurementUnitDegreesEnabled = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled
-        
+
         # Flag for displaying measurements in number of circles.
         self.measurementUnitCirclesEnabled = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled
-        
+
         # Flag for displaying measurements in number of biblical circles.
         self.measurementUnitBiblicalCirclesEnabled = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
-        
+
         # Flag for measurement of planet H1 enabled.
         self.planetH1EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag
-        
+
         # Flag for measurement of planet H2 enabled.
         self.planetH2EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag
-        
+
         # Flag for measurement of planet H3 enabled.
         self.planetH3EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag
-        
+
         # Flag for measurement of planet H4 enabled.
         self.planetH4EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag
-        
+
         # Flag for measurement of planet H5 enabled.
         self.planetH5EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag
-        
+
         # Flag for measurement of planet H6 enabled.
         self.planetH6EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag
-        
+
         # Flag for measurement of planet H7 enabled.
         self.planetH7EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag
-        
+
         # Flag for measurement of planet H8 enabled.
         self.planetH8EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag
-        
+
         # Flag for measurement of planet H9 enabled.
         self.planetH9EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag
-        
+
         # Flag for measurement of planet H10 enabled.
         self.planetH10EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag
-        
+
         # Flag for measurement of planet H11 enabled.
         self.planetH11EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag
-        
+
         # Flag for measurement of planet H12 enabled.
         self.planetH12EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag
-        
+
         # Flag for measurement of planet ARMC enabled.
         self.planetARMCEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag
-        
+
         # Flag for measurement of planet Vertex enabled.
         self.planetVertexEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag
-        
+
         # Flag for measurement of planet EquatorialAscendant enabled.
         self.planetEquatorialAscendantEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag
-        
+
         # Flag for measurement of planet CoAscendant1 enabled.
         self.planetCoAscendant1EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag
-        
+
         # Flag for measurement of planet CoAscendant2 enabled.
         self.planetCoAscendant2EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag
-        
+
         # Flag for measurement of planet PolarAscendant enabled.
         self.planetPolarAscendantEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag
-        
+
         # Flag for measurement of planet HoraLagna enabled.
         self.planetHoraLagnaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag
-        
+
         # Flag for measurement of planet GhatiLagna enabled.
         self.planetGhatiLagnaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag
-        
+
         # Flag for measurement of planet MeanLunarApogee enabled.
         self.planetMeanLunarApogeeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag
-        
+
         # Flag for measurement of planet OsculatingLunarApogee enabled.
         self.planetOsculatingLunarApogeeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag
-        
+
         # Flag for measurement of planet InterpolatedLunarApogee enabled.
         self.planetInterpolatedLunarApogeeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag
-        
+
         # Flag for measurement of planet InterpolatedLunarPerigee enabled.
         self.planetInterpolatedLunarPerigeeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag
-        
+
         # Flag for measurement of planet Sun enabled.
         self.planetSunEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag
-        
+
         # Flag for measurement of planet Moon enabled.
         self.planetMoonEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag
-        
+
         # Flag for measurement of planet Mercury enabled.
         self.planetMercuryEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag
-        
+
         # Flag for measurement of planet Venus enabled.
         self.planetVenusEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag
-        
+
         # Flag for measurement of planet Earth enabled.
         self.planetEarthEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag
-        
+
         # Flag for measurement of planet Mars enabled.
         self.planetMarsEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag
-        
+
         # Flag for measurement of planet Jupiter enabled.
         self.planetJupiterEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag
-        
+
         # Flag for measurement of planet Saturn enabled.
         self.planetSaturnEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag
-        
+
         # Flag for measurement of planet Uranus enabled.
         self.planetUranusEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag
-        
+
         # Flag for measurement of planet Neptune enabled.
         self.planetNeptuneEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag
-        
+
         # Flag for measurement of planet Pluto enabled.
         self.planetPlutoEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag
-        
+
         # Flag for measurement of planet MeanNorthNode enabled.
         self.planetMeanNorthNodeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag
-        
+
         # Flag for measurement of planet MeanSouthNode enabled.
         self.planetMeanSouthNodeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag
-        
+
         # Flag for measurement of planet TrueNorthNode enabled.
         self.planetTrueNorthNodeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag
-        
+
         # Flag for measurement of planet TrueSouthNode enabled.
         self.planetTrueSouthNodeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag
-        
+
         # Flag for measurement of planet Ceres enabled.
         self.planetCeresEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag
-        
+
         # Flag for measurement of planet Pallas enabled.
         self.planetPallasEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag
-        
+
         # Flag for measurement of planet Juno enabled.
         self.planetJunoEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag
-        
+
         # Flag for measurement of planet Vesta enabled.
         self.planetVestaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag
-        
+
         # Flag for measurement of planet Isis enabled.
         self.planetIsisEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag
-        
+
         # Flag for measurement of planet Nibiru enabled.
         self.planetNibiruEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag
-        
+
         # Flag for measurement of planet Chiron enabled.
         self.planetChironEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag
-        
+
         # Flag for measurement of planet Gulika enabled.
         self.planetGulikaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag
-        
+
         # Flag for measurement of planet Mandi enabled.
         self.planetMandiEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag
-        
+
         # Flag for measurement of planet MeanOfFive enabled.
         self.planetMeanOfFiveEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag
-        
+
         # Flag for measurement of planet CycleOfEight enabled.
         self.planetCycleOfEightEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag
-        
+
         # Flag for measurement of planet AvgMaJuSaUrNePl enabled.
         self.planetAvgMaJuSaUrNePlEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag
-        
+
         # Flag for measurement of planet AvgJuSaUrNe enabled.
         self.planetAvgJuSaUrNeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag
-        
+
         # Flag for measurement of planet AvgJuSa enabled.
         self.planetAvgJuSaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
-        
+
         # Flag for measurement of planet AsSu enabled.
         self.planetAsSuEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
-        
+
         # Flag for measurement of planet AsMo enabled.
         self.planetAsMoEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
-        
+
         # Flag for measurement of planet MoSu enabled.
         self.planetMoSuEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag
-        
+
         # Flag for measurement of planet MeVe enabled.
         self.planetMeVeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag
-        
+
         # Flag for measurement of planet MeEa enabled.
         self.planetMeEaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag
-        
+
         # Flag for measurement of planet MeMa enabled.
         self.planetMeMaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeMaEnabledFlag
-        
+
         # Flag for measurement of planet MeJu enabled.
         self.planetMeJuEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeJuEnabledFlag
-        
+
         # Flag for measurement of planet MeSa enabled.
         self.planetMeSaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeSaEnabledFlag
-        
+
         # Flag for measurement of planet MeUr enabled.
         self.planetMeUrEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag
-        
+
         # Flag for measurement of planet VeEa enabled.
         self.planetVeEaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag
-        
+
         # Flag for measurement of planet VeMa enabled.
         self.planetVeMaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEnabledFlag
-        
+
         # Flag for measurement of planet VeJu enabled.
         self.planetVeJuEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeJuEnabledFlag
-        
+
         # Flag for measurement of planet VeSa enabled.
         self.planetVeSaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeSaEnabledFlag
-        
+
         # Flag for measurement of planet VeUr enabled.
         self.planetVeUrEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag
-        
+
         # Flag for measurement of planet EaMa enabled.
         self.planetEaMaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag
-        
+
         # Flag for measurement of planet EaJu enabled.
         self.planetEaJuEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuEnabledFlag
-        
+
         # Flag for measurement of planet EaSa enabled.
         self.planetEaSaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaEnabledFlag
-        
+
         # Flag for measurement of planet EaUr enabled.
         self.planetEaUrEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaUrEnabledFlag
-        
+
         # Flag for measurement of planet MaJu enabled.
         self.planetMaJuEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEnabledFlag
-        
+
         # Flag for measurement of planet MaSa enabled.
         self.planetMaSaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaSaEnabledFlag
-        
+
         # Flag for measurement of planet MaUr enabled.
         self.planetMaUrEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaUrEnabledFlag
-        
+
         # Flag for measurement of planet JuSa enabled.
         self.planetJuSaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag
-        
+
         # Flag for measurement of planet JuUr enabled.
         self.planetJuUrEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag
-        
+
         # Flag for measurement of planet SaUr enabled.
         self.planetSaUrEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag
-        
-        
+
+
     def setFont(self, font):
         """Sets the font of this artifact's text.
 
@@ -6293,7 +6293,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         font.fromString(self.fontDescription)
 
         return font
-        
+
     def setTextColor(self, textColor):
         """Sets the color for this artifact's text.
 
@@ -6323,7 +6323,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         return self.color
 
     def setTextXScaling(self, textXScaling):
-        """Sets the text X scaling, used in making the text 
+        """Sets the text X scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -6339,9 +6339,9 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         return self.textXScaling
-        
+
     def setTextYScaling(self, textYScaling):
-        """Sets the text Y scaling, used in making the text 
+        """Sets the text Y scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -6357,45 +6357,45 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         return self.textYScaling
-        
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the PlanetLongitudeMovementMeasurementArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the PlanetLongitudeMovementMeasurementArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the PlanetLongitudeMovementMeasurementArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the PlanetLongitudeMovementMeasurementArtifact."""
-        
+
         return self.endPointF
 
     def setBarHeight(self, barHeight):
         """Sets the bar height (float)."""
 
         self.barHeight = barHeight
-    
+
     def getBarHeight(self):
         """Returns the bar height (float)."""
 
         return self.barHeight
-    
+
     def setTextRotationAngle(self, textRotationAngle):
         """Sets the text rotation angle.
 
@@ -6412,7 +6412,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         return self.textRotationAngle
-        
+
     def setGeocentricRetroAsZeroTextFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
         longitude movement should be measured, where retrograde
@@ -6423,7 +6423,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.showGeocentricRetroAsZeroTextFlag = flag
-        
+
     def getGeocentricRetroAsZeroTextFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement should be measured, where retrograde
@@ -6445,7 +6445,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.showGeocentricRetroAsPositiveTextFlag = flag
-        
+
     def getGeocentricRetroAsPositiveTextFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement should be measured, where retrograde
@@ -6467,7 +6467,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.showGeocentricRetroAsNegativeTextFlag = flag
-        
+
     def getGeocentricRetroAsNegativeTextFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement should be measured, where retrograde
@@ -6489,7 +6489,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.showHeliocentricTextFlag = flag
-        
+
     def getHeliocentricTextFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement should be measured, where retrograde
@@ -6510,7 +6510,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.tropicalZodiacFlag = flag
-        
+
     def getTropicalZodiacFlag(self):
         """Returns the flag that indicates that the tropical zodiac
         should be used in measurements.
@@ -6530,7 +6530,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.siderealZodiacFlag = flag
-        
+
     def getSiderealZodiacFlag(self):
         """Returns the flag that indicates that the sidereal zodiac
         should be used in measurements.
@@ -6551,7 +6551,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.measurementUnitDegreesEnabled = flag
-        
+
     def getMeasurementUnitDegreesEnabled(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed in units
@@ -6573,7 +6573,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.measurementUnitCirclesEnabled = flag
-        
+
     def getMeasurementUnitCirclesEnabled(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed in units
@@ -6595,7 +6595,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.measurementUnitBiblicalCirclesEnabled = flag
-        
+
     def getMeasurementUnitBiblicalCirclesEnabled(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed in units
@@ -6617,7 +6617,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetH1EnabledFlag = flag
-        
+
     def getPlanetH1EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6639,7 +6639,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetH2EnabledFlag = flag
-        
+
     def getPlanetH2EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6661,7 +6661,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetH3EnabledFlag = flag
-        
+
     def getPlanetH3EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6683,7 +6683,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetH4EnabledFlag = flag
-        
+
     def getPlanetH4EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6705,7 +6705,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetH5EnabledFlag = flag
-        
+
     def getPlanetH5EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6727,7 +6727,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetH6EnabledFlag = flag
-        
+
     def getPlanetH6EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6749,7 +6749,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetH7EnabledFlag = flag
-        
+
     def getPlanetH7EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6771,7 +6771,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetH8EnabledFlag = flag
-        
+
     def getPlanetH8EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6793,7 +6793,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetH9EnabledFlag = flag
-        
+
     def getPlanetH9EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6815,7 +6815,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetH10EnabledFlag = flag
-        
+
     def getPlanetH10EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6837,7 +6837,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetH11EnabledFlag = flag
-        
+
     def getPlanetH11EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6859,7 +6859,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetH12EnabledFlag = flag
-        
+
     def getPlanetH12EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6881,7 +6881,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetARMCEnabledFlag = flag
-        
+
     def getPlanetARMCEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6903,7 +6903,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetVertexEnabledFlag = flag
-        
+
     def getPlanetVertexEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6925,7 +6925,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetEquatorialAscendantEnabledFlag = flag
-        
+
     def getPlanetEquatorialAscendantEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6947,7 +6947,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetCoAscendant1EnabledFlag = flag
-        
+
     def getPlanetCoAscendant1EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6969,7 +6969,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetCoAscendant2EnabledFlag = flag
-        
+
     def getPlanetCoAscendant2EnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -6991,7 +6991,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetPolarAscendantEnabledFlag = flag
-        
+
     def getPlanetPolarAscendantEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7013,7 +7013,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetHoraLagnaEnabledFlag = flag
-        
+
     def getPlanetHoraLagnaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7035,7 +7035,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetGhatiLagnaEnabledFlag = flag
-        
+
     def getPlanetGhatiLagnaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7057,7 +7057,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMeanLunarApogeeEnabledFlag = flag
-        
+
     def getPlanetMeanLunarApogeeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7079,7 +7079,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetOsculatingLunarApogeeEnabledFlag = flag
-        
+
     def getPlanetOsculatingLunarApogeeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7101,7 +7101,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetInterpolatedLunarApogeeEnabledFlag = flag
-        
+
     def getPlanetInterpolatedLunarApogeeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7123,7 +7123,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetInterpolatedLunarPerigeeEnabledFlag = flag
-        
+
     def getPlanetInterpolatedLunarPerigeeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7145,7 +7145,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetSunEnabledFlag = flag
-        
+
     def getPlanetSunEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7167,7 +7167,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMoonEnabledFlag = flag
-        
+
     def getPlanetMoonEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7189,7 +7189,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMercuryEnabledFlag = flag
-        
+
     def getPlanetMercuryEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7211,7 +7211,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetVenusEnabledFlag = flag
-        
+
     def getPlanetVenusEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7233,7 +7233,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetEarthEnabledFlag = flag
-        
+
     def getPlanetEarthEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7255,7 +7255,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMarsEnabledFlag = flag
-        
+
     def getPlanetMarsEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7277,7 +7277,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetJupiterEnabledFlag = flag
-        
+
     def getPlanetJupiterEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7299,7 +7299,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetSaturnEnabledFlag = flag
-        
+
     def getPlanetSaturnEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7321,7 +7321,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetUranusEnabledFlag = flag
-        
+
     def getPlanetUranusEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7343,7 +7343,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetNeptuneEnabledFlag = flag
-        
+
     def getPlanetNeptuneEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7365,7 +7365,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetPlutoEnabledFlag = flag
-        
+
     def getPlanetPlutoEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7387,7 +7387,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMeanNorthNodeEnabledFlag = flag
-        
+
     def getPlanetMeanNorthNodeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7409,7 +7409,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMeanSouthNodeEnabledFlag = flag
-        
+
     def getPlanetMeanSouthNodeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7431,7 +7431,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetTrueNorthNodeEnabledFlag = flag
-        
+
     def getPlanetTrueNorthNodeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7453,7 +7453,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetTrueSouthNodeEnabledFlag = flag
-        
+
     def getPlanetTrueSouthNodeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7475,7 +7475,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetCeresEnabledFlag = flag
-        
+
     def getPlanetCeresEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7497,7 +7497,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetPallasEnabledFlag = flag
-        
+
     def getPlanetPallasEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7519,7 +7519,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetJunoEnabledFlag = flag
-        
+
     def getPlanetJunoEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7541,7 +7541,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetVestaEnabledFlag = flag
-        
+
     def getPlanetVestaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7563,7 +7563,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetIsisEnabledFlag = flag
-        
+
     def getPlanetIsisEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7585,7 +7585,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetNibiruEnabledFlag = flag
-        
+
     def getPlanetNibiruEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7607,7 +7607,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetChironEnabledFlag = flag
-        
+
     def getPlanetChironEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7629,7 +7629,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetGulikaEnabledFlag = flag
-        
+
     def getPlanetGulikaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7651,7 +7651,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMandiEnabledFlag = flag
-        
+
     def getPlanetMandiEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7673,7 +7673,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMeanOfFiveEnabledFlag = flag
-        
+
     def getPlanetMeanOfFiveEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7695,7 +7695,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetCycleOfEightEnabledFlag = flag
-        
+
     def getPlanetCycleOfEightEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7717,7 +7717,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetAvgMaJuSaUrNePlEnabledFlag = flag
-        
+
     def getPlanetAvgMaJuSaUrNePlEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7739,7 +7739,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetAvgJuSaUrNeEnabledFlag = flag
-        
+
     def getPlanetAvgJuSaUrNeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7761,7 +7761,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetAvgJuSaEnabledFlag = flag
-        
+
     def getPlanetAvgJuSaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7783,7 +7783,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetAsSuEnabledFlag = flag
-        
+
     def getPlanetAsSuEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7805,7 +7805,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetAsMoEnabledFlag = flag
-        
+
     def getPlanetAsMoEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7827,7 +7827,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMoSuEnabledFlag = flag
-        
+
     def getPlanetMoSuEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7849,7 +7849,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMeVeEnabledFlag = flag
-        
+
     def getPlanetMeVeEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7871,7 +7871,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMeEaEnabledFlag = flag
-        
+
     def getPlanetMeEaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7893,7 +7893,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMeMaEnabledFlag = flag
-        
+
     def getPlanetMeMaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7915,7 +7915,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMeJuEnabledFlag = flag
-        
+
     def getPlanetMeJuEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7937,7 +7937,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMeSaEnabledFlag = flag
-        
+
     def getPlanetMeSaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7959,7 +7959,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMeUrEnabledFlag = flag
-        
+
     def getPlanetMeUrEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -7981,7 +7981,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetVeEaEnabledFlag = flag
-        
+
     def getPlanetVeEaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -8003,7 +8003,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetVeMaEnabledFlag = flag
-        
+
     def getPlanetVeMaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -8025,7 +8025,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetVeJuEnabledFlag = flag
-        
+
     def getPlanetVeJuEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -8047,7 +8047,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetVeSaEnabledFlag = flag
-        
+
     def getPlanetVeSaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -8069,7 +8069,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetVeUrEnabledFlag = flag
-        
+
     def getPlanetVeUrEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -8091,7 +8091,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetEaMaEnabledFlag = flag
-        
+
     def getPlanetEaMaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -8113,7 +8113,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetEaJuEnabledFlag = flag
-        
+
     def getPlanetEaJuEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -8135,7 +8135,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetEaSaEnabledFlag = flag
-        
+
     def getPlanetEaSaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -8157,7 +8157,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetEaUrEnabledFlag = flag
-        
+
     def getPlanetEaUrEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -8179,7 +8179,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMaJuEnabledFlag = flag
-        
+
     def getPlanetMaJuEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -8201,7 +8201,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMaSaEnabledFlag = flag
-        
+
     def getPlanetMaSaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -8223,7 +8223,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetMaUrEnabledFlag = flag
-        
+
     def getPlanetMaUrEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -8245,7 +8245,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetJuSaEnabledFlag = flag
-        
+
     def getPlanetJuSaEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -8267,7 +8267,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetJuUrEnabledFlag = flag
-        
+
     def getPlanetJuUrEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -8289,7 +8289,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         self.planetSaUrEnabledFlag = flag
-        
+
     def getPlanetSaUrEnabledFlag(self):
         """Returns the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -8310,7 +8310,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -8348,7 +8348,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                 # various planets.  These incorrect names had "show" in
                 # the front, and were not declared in the initialization
                 # function.
-                # 
+                #
                 # Version 2 also adds the following member variables:
                 #
                 # self.planetMeVeEnabledFlag
@@ -8373,10 +8373,10 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                 # self.planetJuUrEnabledFlag
                 # self.planetSaUrEnabledFlag
                 #
-    
-                
+
+
                 # Fix variables to use more correct names.
-    
+
                 try:
                     # Copy over the value to the new variable.
                     self.measurementUnitDegreesEnabled = \
@@ -8388,7 +8388,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.measurementUnitDegreesEnabled = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.measurementUnitCirclesEnabled = \
@@ -8400,7 +8400,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.measurementUnitCirclesEnabled = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetH1EnabledFlag = \
@@ -8412,7 +8412,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetH1EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetH2EnabledFlag = \
@@ -8424,7 +8424,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetH2EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetH3EnabledFlag = \
@@ -8436,7 +8436,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetH3EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetH4EnabledFlag = \
@@ -8448,7 +8448,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetH4EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetH5EnabledFlag = \
@@ -8460,7 +8460,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetH5EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetH6EnabledFlag = \
@@ -8472,7 +8472,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetH6EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetH7EnabledFlag = \
@@ -8484,7 +8484,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetH7EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetH8EnabledFlag = \
@@ -8496,7 +8496,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetH8EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetH9EnabledFlag = \
@@ -8508,7 +8508,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetH9EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetH10EnabledFlag = \
@@ -8520,7 +8520,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetH10EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetH11EnabledFlag = \
@@ -8532,7 +8532,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetH11EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetH12EnabledFlag = \
@@ -8544,7 +8544,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetH12EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetARMCEnabledFlag = \
@@ -8556,7 +8556,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetARMCEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetVertexEnabledFlag = \
@@ -8568,7 +8568,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetVertexEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetEquatorialAscendantEnabledFlag = \
@@ -8580,7 +8580,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetEquatorialAscendantEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetCoAscendant1EnabledFlag = \
@@ -8592,7 +8592,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetCoAscendant1EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetCoAscendant2EnabledFlag = \
@@ -8604,7 +8604,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetCoAscendant2EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag
-    
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetPolarAscendantEnabledFlag = \
@@ -8616,7 +8616,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetPolarAscendantEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetHoraLagnaEnabledFlag = \
@@ -8628,7 +8628,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetHoraLagnaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetGhatiLagnaEnabledFlag = \
@@ -8640,7 +8640,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetGhatiLagnaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetMeanLunarApogeeEnabledFlag = \
@@ -8652,7 +8652,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetMeanLunarApogeeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetOsculatingLunarApogeeEnabledFlag = \
@@ -8664,7 +8664,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetOsculatingLunarApogeeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetInterpolatedLunarApogeeEnabledFlag = \
@@ -8676,7 +8676,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetInterpolatedLunarApogeeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetInterpolatedLunarPerigeeEnabledFlag = \
@@ -8688,7 +8688,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetInterpolatedLunarPerigeeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetSunEnabledFlag = \
@@ -8700,7 +8700,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetSunEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetMoonEnabledFlag = \
@@ -8712,7 +8712,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetMoonEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetMercuryEnabledFlag = \
@@ -8724,7 +8724,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetMercuryEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetVenusEnabledFlag = \
@@ -8736,7 +8736,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetVenusEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetEarthEnabledFlag = \
@@ -8748,7 +8748,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetEarthEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetMarsEnabledFlag = \
@@ -8760,7 +8760,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetMarsEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetJupiterEnabledFlag = \
@@ -8772,7 +8772,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetJupiterEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetSaturnEnabledFlag = \
@@ -8784,7 +8784,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetSaturnEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetUranusEnabledFlag = \
@@ -8796,7 +8796,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetUranusEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetNeptuneEnabledFlag = \
@@ -8808,7 +8808,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetNeptuneEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetPlutoEnabledFlag = \
@@ -8820,7 +8820,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetPlutoEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetMeanNorthNodeEnabledFlag = \
@@ -8832,7 +8832,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetMeanNorthNodeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetMeanSouthNodeEnabledFlag = \
@@ -8844,7 +8844,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetMeanSouthNodeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetTrueNorthNodeEnabledFlag = \
@@ -8856,7 +8856,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetTrueNorthNodeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetTrueSouthNodeEnabledFlag = \
@@ -8868,7 +8868,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetTrueSouthNodeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetCeresEnabledFlag = \
@@ -8880,7 +8880,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetCeresEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetPallasEnabledFlag = \
@@ -8892,7 +8892,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetPallasEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetJunoEnabledFlag = \
@@ -8904,7 +8904,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetJunoEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetVestaEnabledFlag = \
@@ -8916,7 +8916,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetVestaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetIsisEnabledFlag = \
@@ -8928,7 +8928,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetIsisEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetNibiruEnabledFlag = \
@@ -8940,7 +8940,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetNibiruEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetChironEnabledFlag = \
@@ -8952,7 +8952,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetChironEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetGulikaEnabledFlag = \
@@ -8964,7 +8964,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetGulikaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetMandiEnabledFlag = \
@@ -8976,7 +8976,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetMandiEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetMeanOfFiveEnabledFlag = \
@@ -8988,7 +8988,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetMeanOfFiveEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetCycleOfEightEnabledFlag = \
@@ -9000,7 +9000,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetCycleOfEightEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetAvgMaJuSaUrNePlEnabledFlag = \
@@ -9012,7 +9012,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetAvgMaJuSaUrNePlEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetAvgJuSaUrNeEnabledFlag = \
@@ -9024,7 +9024,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetAvgJuSaUrNeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag
-                
+
                 try:
                     # Copy over the value to the new variable.
                     self.planetAvgJuSaEnabledFlag = \
@@ -9036,8 +9036,8 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetAvgJuSaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
-                
-    
+
+
                 # Handle variables that were added in this version.
                 try:
                     # See if the variables are set.
@@ -9062,101 +9062,101 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.planetJuSaEnabledFlag
                     self.planetJuUrEnabledFlag
                     self.planetSaUrEnabledFlag
-                    
+
                     # If it got here, then the fields are already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
                                   format(self.classVersion) + \
                                   "class shouldn't have these fields.")
-                    
+
                 except AttributeError:
                     # Variables were not set.  Set them to the default
                     # values.
-                    
+
                     self.planetMeVeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag
-                    
+
                     self.planetMeEaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag
-                    
+
                     self.planetMeMaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeMaEnabledFlag
-                    
+
                     self.planetMeJuEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeJuEnabledFlag
-                    
+
                     self.planetMeSaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeSaEnabledFlag
-                    
+
                     self.planetMeUrEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag
-                    
+
                     self.planetVeEaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag
-                    
+
                     self.planetVeMaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEnabledFlag
-                    
+
                     self.planetVeJuEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeJuEnabledFlag
-                    
+
                     self.planetVeSaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeSaEnabledFlag
-                    
+
                     self.planetVeUrEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag
-                    
+
                     self.planetEaMaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag
-                    
+
                     self.planetEaJuEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuEnabledFlag
-                    
+
                     self.planetEaSaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaEnabledFlag
-                    
+
                     self.planetEaUrEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaUrEnabledFlag
-                    
+
                     self.planetMaJuEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEnabledFlag
-                    
+
                     self.planetMaSaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaSaEnabledFlag
-                    
+
                     self.planetMaUrEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaUrEnabledFlag
-                    
+
                     self.planetJuSaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag
-                    
+
                     self.planetJuUrEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag
-                    
+
                     self.planetSaUrEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag
-                    
-                    
+
+
                     self.log.debug("Added fields " + \
                                    "'self.planetMeVeEnabledFlag', " + \
                                    "'self.planetMeEaEnabledFlag', " + \
@@ -9180,25 +9180,25 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                                    "'self.planetJuUrEnabledFlag', " + \
                                    "'self.planetSaUrEnabledFlag', " + \
                                    "to the loaded object.")
-                
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 2
-                                  
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
             if self.classVersion == 2:
                 # Version 3 adds the following member variables:
                 #
                 # self.measurementUnitBiblicalCirclesEnabled
                 #
-    
+
                 try:
                     # See if the variable is set.
                     self.measurementUnitBiblicalCirclesEnabled
-    
+
                     # If it got here, then the field is already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
                                   format(self.classVersion) + \
@@ -9209,26 +9209,26 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     self.measurementUnitBiblicalCirclesEnabled = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
-    
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 3
-                                  
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
             if self.classVersion == 3:
                 # Version 4 adds the following member variables:
                 #
                 # self.planetMoSuEnabledFlag
                 #
-    
+
                 # Handle variables that were added in this version.
                 try:
                     # See if the variable is set.
                     self.planetMoSuEnabledFlag
-    
+
                     # If it got here, then the field is already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
                                   format(self.classVersion) + \
@@ -9236,23 +9236,23 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                 except AttributeError:
                     # Variables were not set.  Set them to the default
                     # values.
-                    
+
                     self.planetMoSuEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag
-                    
+
                     self.log.debug("Added field " + \
                                    "'self.planetMoSuEnabledFlag' " + \
                                    "to the loaded object.")
-                                   
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 4
-                                  
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
             if self.classVersion == 4:
                 # Version 5 removed the following member variables:
                 #
@@ -9280,105 +9280,105 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                     # Member variable doesn't exist or is not set yet.
                     # No need to do anything special.
                     pass
-                
+
                 try:
                     del(self.planetMeVeMaEnabledFlag)
                 except AttributeError:
                     # Member variable doesn't exist or is not set yet.
                     # No need to do anything special.
                     pass
-                
+
                 try:
                     del(self.planetVeEaMeEnabledFlag)
                 except AttributeError:
                     # Member variable doesn't exist or is not set yet.
                     # No need to do anything special.
                     pass
-                
+
                 try:
                     del(self.planetVeEaMaEnabledFlag)
                 except AttributeError:
                     # Member variable doesn't exist or is not set yet.
                     # No need to do anything special.
                     pass
-                
+
                 try:
                     del(self.planetVeMaMeEnabledFlag)
                 except AttributeError:
                     # Member variable doesn't exist or is not set yet.
                     # No need to do anything special.
                     pass
-                
+
                 try:
                     del(self.planetVeMaEaEnabledFlag)
                 except AttributeError:
                     # Member variable doesn't exist or is not set yet.
                     # No need to do anything special.
                     pass
-                
+
                 try:
                     del(self.planetEaMaMeEnabledFlag)
                 except AttributeError:
                     # Member variable doesn't exist or is not set yet.
                     # No need to do anything special.
                     pass
-                
+
                 try:
                     del(self.planetEaMaVeEnabledFlag)
                 except AttributeError:
                     # Member variable doesn't exist or is not set yet.
                     # No need to do anything special.
                     pass
-                
+
                 try:
                     del(self.planetMaJuMeEnabledFlag)
                 except AttributeError:
                     # Member variable doesn't exist or is not set yet.
                     # No need to do anything special.
                     pass
-                
+
                 try:
                     del(self.planetMaJuVeEnabledFlag)
                 except AttributeError:
                     # Member variable doesn't exist or is not set yet.
                     # No need to do anything special.
                     pass
-                
+
                 try:
                     del(self.planetMaJuEaEnabledFlag)
                 except AttributeError:
                     # Member variable doesn't exist or is not set yet.
                     # No need to do anything special.
                     pass
-                
+
                 try:
                     del(self.planetEaJuMeEnabledFlag)
                 except AttributeError:
                     # Member variable doesn't exist or is not set yet.
                     # No need to do anything special.
                     pass
-                
+
                 try:
                     del(self.planetEaJuVeEnabledFlag)
                 except AttributeError:
                     # Member variable doesn't exist or is not set yet.
                     # No need to do anything special.
                     pass
-                
+
                 try:
                     del(self.planetEaSaMeEnabledFlag)
                 except AttributeError:
                     # Member variable doesn't exist or is not set yet.
                     # No need to do anything special.
                     pass
-                
+
                 try:
                     del(self.planetEaSaVeEnabledFlag)
                 except AttributeError:
                     # Member variable doesn't exist or is not set yet.
                     # No need to do anything special.
                     pass
-                
+
                 try:
                     del(self.planetEaSaMaEnabledFlag)
                 except AttributeError:
@@ -9404,28 +9404,28 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                                "'self.planetEaSaVeEnabledFlag', " + \
                                "'self.planetEaSaMaEnabledFlag', " + \
                                "from the loaded object.")
-                                   
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 5
-                                  
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
             if self.classVersion == 5:
                 # Version 6 adds the following member variables:
                 #
                 # self.planetAsSuEnabledFlag
                 # self.planetAsMoEnabledFlag
                 #
-    
+
                 # Handle variables that were added in this version.
                 try:
                     # See if the variable is set.
                     self.planetAsSuEnabledFlag
                     self.planetAsMoEnabledFlag
-    
+
                     # If it got here, then the field is already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
                                   format(self.classVersion) + \
@@ -9433,44 +9433,44 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                 except AttributeError:
                     # Variables were not set.  Set them to the default
                     # values.
-                    
+
                     self.planetAsSuEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
-                    
+
                     self.planetAsMoEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
-                    
+
                     self.log.debug("Added field " + \
                                    "'self.planetAsSuEnabledFlag', " + \
                                    "'self.planetAsMoEnabledFlag', " + \
                                    "to the loaded object.")
-                                   
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 6
-                                  
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
         # Log that we set the state of this object.
         self.log.debug("Set state of a " +
                        PriceBarChartPlanetLongitudeMovementMeasurementArtifact.__name__ +
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartTextArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that is a piece of text in the 
+    """PriceBarChartArtifact that is a piece of text in the
     PriceBarChartWidget.
     """
-    
+
     def __init__(self, text=""):
         """Initializes the PriceBarChartTextArtifact with
         the given values.
         """
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 2
@@ -9484,15 +9484,15 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
 
         # Holds the text that is displayed.
         self.text = text
-        
+
         # QFont cannot be pickled, but we can utilize
         # QFont.toString() and then QFont.fromString()
         self.fontDescription = \
             PriceBarChartSettings.defaultTextGraphicsItemDefaultFontDescription
-        
-        # QColor can be pickled   
+
+        # QColor can be pickled
         self.color = PriceBarChartSettings.defaultTextGraphicsItemDefaultColor
-        
+
         # Scaling the text, to make it bigger or smaller.
         self.textXScaling = \
             PriceBarChartSettings.defaultTextGraphicsItemDefaultXScaling
@@ -9537,7 +9537,7 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
         font.fromString(self.fontDescription)
 
         return font
-        
+
     def setColor(self, color):
         """Sets the text color for this PriceBarChartTextArtifact.
 
@@ -9553,7 +9553,7 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
         return self.color
 
     def setTextXScaling(self, textXScaling):
-        """Sets the text X scaling, used in making the text 
+        """Sets the text X scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -9569,9 +9569,9 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
         """
 
         return self.textXScaling
-        
+
     def setTextYScaling(self, textYScaling):
-        """Sets the text Y scaling, used in making the text 
+        """Sets the text Y scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -9587,7 +9587,7 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
         """
 
         return self.textYScaling
-        
+
     def setTextRotationAngle(self, textRotationAngle):
         """Sets the text rotation angle.
 
@@ -9604,17 +9604,17 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
         """
 
         return self.textRotationAngle
-        
+
     def __str__(self):
         """Returns the string representation of this object."""
 
         return self.toString()
-        
+
     def toString(self):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -9657,7 +9657,7 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
                     # If it got here, then the field is already set.
                     self.log.warn("Hmm, strange.  Version 1 of this " + \
                                   "class shouldn't have this field.")
-                    
+
                 except AttributeError:
                     # Variable was not set.  Set it to the default
                     # PriceBarChartSettings value.
@@ -9671,11 +9671,11 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 2
-                
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
         # Log that we set the state of this object.
         self.log.debug("Set state of a " +
                        PriceBarChartTextArtifact.__name__ +
@@ -9685,13 +9685,13 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that contains info about text that
     describes a certain point in time and price.
     """
-    
+
     def __init__(self):
         """Initializes the PriceBarChartPriceTimeInfoArtifact with
         the given values.
         """
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -9711,8 +9711,8 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
         self.fontDescription = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemDefaultFontDescription
-        
-        # QColor can be pickled   
+
+        # QColor can be pickled
         self.color = PriceBarChartSettings.\
                      defaultPriceTimeInfoGraphicsItemDefaultColor
 
@@ -9723,24 +9723,24 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
         self.textYScaling = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemDefaultYScaling
-        
+
         # Flags for what to show in the text.
         self.showTimestampFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemShowTimestampFlag
-        
+
         self.showPriceFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemShowPriceFlag
-        
+
         self.showSqrtPriceFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemShowSqrtPriceFlag
-        
+
         self.showTimeElapsedSinceBirthFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemShowTimeElapsedSinceBirthFlag
-        
+
         self.showSqrtTimeElapsedSinceBirthFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemShowSqrtTimeElapsedSinceBirthFlag
@@ -9748,25 +9748,25 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
         self.showPriceScaledValueFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemShowPriceScaledValueFlag
-        
+
         self.showSqrtPriceScaledValueFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag
-        
+
         self.showTimeScaledValueFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemShowTimeScaledValueFlag
-        
+
         self.showSqrtTimeScaledValueFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag
-        
+
         # Flag to show the line from the text to the info point.
         self.showLineToInfoPointFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemShowLineToInfoPointFlag
-        
-        
+
+
     def setInfoPointF(self, infoPointF):
         """Sets the point of info for the price and time, as a QPointF
         in scene coordinates.
@@ -9805,7 +9805,7 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
         font.fromString(self.fontDescription)
 
         return font
-        
+
     def setColor(self, color):
         """Sets the text color for this PriceBarChartPriceTimeInfoArtifact.
 
@@ -9822,7 +9822,7 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
         return self.color
 
     def setTextXScaling(self, textXScaling):
-        """Sets the text X scaling, used in making the text 
+        """Sets the text X scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -9838,9 +9838,9 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
         """
 
         return self.textXScaling
-        
+
     def setTextYScaling(self, textYScaling):
-        """Sets the text Y scaling, used in making the text 
+        """Sets the text Y scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -9856,7 +9856,7 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
         """
 
         return self.textYScaling
-        
+
     def setShowTimestampFlag(self, showTimestampFlag):
         """Sets the flag for showing the timestamp in the text."""
 
@@ -9866,7 +9866,7 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
         """Returns the flag for showing the timestamp in the text."""
 
         return self.showTimestampFlag
-    
+
     def setShowPriceFlag(self, showPriceFlag):
         """Sets the flag for showing the price in the text."""
 
@@ -9876,7 +9876,7 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
         """Returns the flag for showing the price in the text."""
 
         return self.showPriceFlag
-    
+
     def setShowSqrtPriceFlag(self, showSqrtPriceFlag):
         """Sets the flag for showing the square root of price in the
         text.
@@ -9890,7 +9890,7 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
         """
 
         return self.showSqrtPriceFlag
-    
+
     def setShowTimeElapsedSinceBirthFlag(self, showTimeElapsedSinceBirthFlag):
         """Sets the flag for showing the time elapsed since birth in
         the text.
@@ -9904,7 +9904,7 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
         """
 
         return self.showTimeElapsedSinceBirthFlag
-    
+
     def setShowSqrtTimeElapsedSinceBirthFlag(\
         self, showSqrtTimeElapsedSinceBirthFlag):
         """Sets the flag for showing the square root of time elapsed
@@ -9925,52 +9925,52 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
         """Sets the flag for showing the price scaled value in the text."""
 
         self.showPriceScaledValueFlag = showPriceScaledValueFlag
-        
+
     def getShowPriceScaledValueFlag(self):
         """Gets the flag for showing the price scaled value in the text."""
 
         return self.showPriceScaledValueFlag
-        
+
     def setShowSqrtPriceScaledValueFlag(self, showSqrtPriceScaledValueFlag):
         """Sets the flag for showing the sqrt of price scaled value in
         the text.
         """
 
         self.showSqrtPriceScaledValueFlag = showSqrtPriceScaledValueFlag
-        
+
     def getShowSqrtPriceScaledValueFlag(self):
         """Gets the flag for showing the sqrt of price scaled value in
         the text.
         """
 
         return self.showSqrtPriceScaledValueFlag
-        
+
     def setShowTimeScaledValueFlag(self, showTimeScaledValueFlag):
         """Sets the flag for showing the time in scaled value units in
         the text."""
 
         self.showTimeScaledValueFlag = showTimeScaledValueFlag
-        
+
     def getShowTimeScaledValueFlag(self):
         """Gets the flag for showing the time in scaled value units in
         the text."""
 
         return self.showTimeScaledValueFlag
-        
+
     def setShowSqrtTimeScaledValueFlag(self, showSqrtTimeScaledValueFlag):
         """Sets the flag for showing the sqrt of time, in scaled value
         units in the text.
         """
 
         self.showSqrtTimeScaledValueFlag = showSqrtTimeScaledValueFlag
-        
+
     def getShowSqrtTimeScaledValueFlag(self):
         """Gets the flag for showing the sqrt of time, in scaled value
         units in the text.
         """
 
         return self.showSqrtTimeScaledValueFlag
-        
+
     def setShowLineToInfoPointFlag(self, showLineToInfoPointFlag):
         """Sets the flag for showing the line from the text to the info point.
         """
@@ -9983,19 +9983,19 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
         """
 
         return self.showLineToInfoPointFlag
-    
+
     def __str__(self):
         """Returns the string representation of this object."""
 
         return self.toString()
-        
+
     def toString(self):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
-    
+
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
 
@@ -10026,13 +10026,13 @@ class PriceBarChartPriceTimeInfoArtifact(PriceBarChartArtifact):
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates the price measurement starting 
+    """PriceBarChartArtifact that indicates the price measurement starting
     at the given start and end prices, given as two QPointFs.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -10056,19 +10056,19 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
         self.textYScaling = \
             PriceBarChartSettings.\
             defaultPriceMeasurementGraphicsItemTextYScaling
-        
+
         # QFont cannot be pickled, but we can utilize
         # QFont.toString() and then QFont.fromString()
         self.fontDescription = \
             PriceBarChartSettings.\
             defaultPriceMeasurementGraphicsItemDefaultFontDescription
-        
-        # QColor can be pickled   
+
+        # QColor can be pickled
         self.textColor = \
             PriceBarChartSettings.\
             defaultPriceMeasurementGraphicsItemDefaultTextColor
 
-        # QColor can be pickled   
+        # QColor can be pickled
         self.color = \
             PriceBarChartSettings.\
             defaultPriceMeasurementGraphicsItemDefaultColor
@@ -10077,7 +10077,7 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
         self.showPriceRangeTextFlag = \
             PriceBarChartSettings.\
             defaultPriceMeasurementGraphicsItemShowPriceRangeTextFlag
-        
+
         self.showSqrtPriceRangeTextFlag = \
             PriceBarChartSettings.\
             defaultPriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag
@@ -10089,7 +10089,7 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
         self.showSqrtScaledValueRangeTextFlag = \
             PriceBarChartSettings.\
             defaultPriceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag
-        
+
     def setFont(self, font):
         """Sets the font of this artifact's text.
 
@@ -10110,7 +10110,7 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
         font.fromString(self.fontDescription)
 
         return font
-        
+
     def setTextColor(self, textColor):
         """Sets the color for this artifact's text.
 
@@ -10140,7 +10140,7 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
         return self.color
 
     def setTextXScaling(self, textXScaling):
-        """Sets the text X scaling, used in making the text 
+        """Sets the text X scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -10156,9 +10156,9 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
         """
 
         return self.textXScaling
-        
+
     def setTextYScaling(self, textYScaling):
-        """Sets the text Y scaling, used in making the text 
+        """Sets the text Y scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -10174,42 +10174,42 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
         """
 
         return self.textYScaling
-        
+
     def setShowPriceRangeTextFlag(self, flag):
         """Sets the flag that indicates that the text for the price
         range should be displayed.
         """
 
         self.showPriceRangeTextFlag = flag
-        
+
     def getShowPriceRangeTextFlag(self):
         """Returns the flag that indicates that the text for the
         price range should be displayed.
         """
 
         return self.showPriceRangeTextFlag
-        
+
     def setShowSqrtPriceRangeTextFlag(self, flag):
         """Sets the flag that indicates that the text for the sqrt of
         the price range should be displayed.
         """
 
         self.showSqrtPriceRangeTextFlag = flag
-        
+
     def getShowSqrtPriceRangeTextFlag(self):
         """Returns the flag that indicates that the text for the sqrt
         of the price range should be displayed.
         """
 
         return self.showSqrtPriceRangeTextFlag
-        
+
     def setShowScaledValueRangeTextFlag(self, flag):
         """Sets the flag that indicates that the text for the scaled
         value representing the price range should be displayed.
         """
 
         self.showScaledValueRangeTextFlag = flag
-        
+
     def getShowScaledValueRangeTextFlag(self):
         """Returns the flag that indicates that the text for the
         scaled value representing the price range should be displayed.
@@ -10223,7 +10223,7 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
         """
 
         self.showSqrtScaledValueRangeTextFlag = flag
-        
+
     def getShowSqrtScaledValueRangeTextFlag(self):
         """Returns the flag that indicates that the text for the sqrt of
         scaled value representing the price range should be displayed.
@@ -10237,28 +10237,28 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the PriceMeasurementArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the PriceMeasurementArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the PriceMeasurementArtifact."""
-        
+
         return self.endPointF
-        
+
     def __str__(self):
         """Returns the string representation of this object."""
 
@@ -10268,7 +10268,7 @@ class PriceBarChartPriceMeasurementArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -10306,10 +10306,10 @@ class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
     retracement starting at the given timestamp and the given ending
     timestamp.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -10333,19 +10333,19 @@ class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
         self.textYScaling = \
             PriceBarChartSettings.\
             defaultTimeRetracementGraphicsItemTextYScaling
-        
+
         # QFont cannot be pickled, but we can utilize
         # QFont.toString() and then QFont.fromString()
         self.fontDescription = \
             PriceBarChartSettings.\
             defaultTimeRetracementGraphicsItemDefaultFontDescription
-        
+
         # QColor can be pickled
         self.textColor = \
             PriceBarChartSettings.\
             defaultTimeRetracementGraphicsItemDefaultTextColor
 
-        # QColor can be pickled   
+        # QColor can be pickled
         self.color = \
             PriceBarChartSettings.\
             defaultTimeRetracementGraphicsItemDefaultColor
@@ -10358,7 +10358,7 @@ class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
         self.showTimeText = \
             PriceBarChartSettings.\
             defaultTimeRetracementGraphicsItemShowTimeTextFlag
-        
+
         self.showPercentText = \
             PriceBarChartSettings.\
             defaultTimeRetracementGraphicsItemShowPercentTextFlag
@@ -10388,7 +10388,7 @@ class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
         font.fromString(self.fontDescription)
 
         return font
-        
+
     def setTextColor(self, textColor):
         """Sets the color for this artifact's text.
 
@@ -10418,7 +10418,7 @@ class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
         return self.color
 
     def setTextXScaling(self, textXScaling):
-        """Sets the text X scaling, used in making the text 
+        """Sets the text X scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -10434,9 +10434,9 @@ class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
         """
 
         return self.textXScaling
-        
+
     def setTextYScaling(self, textYScaling):
-        """Sets the text Y scaling, used in making the text 
+        """Sets the text Y scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -10452,42 +10452,42 @@ class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
         """
 
         return self.textYScaling
-        
+
     def setShowFullLinesFlag(self, flag):
         """Sets the flag that indicates that the lines for the
         retracement should be displayed.
         """
 
         self.showFullLines = flag
-        
+
     def getShowFullLinesFlag(self):
         """Returns the flag that indicates that the lines for the
         retracement should be displayed.
         """
 
         return self.showFullLines
-        
+
     def setShowTimeTextFlag(self, flag):
         """Sets the flag that indicates that the text for the
         timestamp should be displayed.
         """
 
         self.showTimeText = flag
-        
+
     def getShowTimeTextFlag(self):
         """Returns the flag that indicates that the text for the
         timestamp should be displayed.
         """
 
         return self.showTimeText
-        
+
     def setShowPercentTextFlag(self, flag):
         """Sets the flag that indicates that the text for the
         timestamp should be displayed.
         """
 
         self.showPercentText = flag
-        
+
     def getShowPercentTextFlag(self):
         """Returns the flag that indicates that the text for the
         timestamp should be displayed.
@@ -10502,7 +10502,7 @@ class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
         """
 
         self.ratios = ratios
-    
+
     def getRatios(self):
         """Returns a list of Ratio objects, which holds the ratios
         supported, and whether they are enabled or not for this
@@ -10510,35 +10510,35 @@ class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
         """
 
         return self.ratios
-    
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the TimeRetracementArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the TimeRetracementArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the TimeRetracementArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the TimeRetracementArtifact."""
-        
+
         return self.endPointF
-        
+
     def __str__(self):
         """Returns the string representation of this object."""
 
@@ -10548,7 +10548,7 @@ class PriceBarChartTimeRetracementArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -10586,10 +10586,10 @@ class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
     retracement starting at the given price and the given ending
     price.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -10613,19 +10613,19 @@ class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
         self.textYScaling = \
             PriceBarChartSettings.\
             defaultPriceRetracementGraphicsItemTextYScaling
-        
+
         # QFont cannot be pickled, but we can utilize
         # QFont.toString() and then QFont.fromString()
         self.fontDescription = \
             PriceBarChartSettings.\
             defaultPriceRetracementGraphicsItemDefaultFontDescription
-        
+
         # QColor can be pickled
         self.textColor = \
             PriceBarChartSettings.\
             defaultPriceRetracementGraphicsItemDefaultTextColor
 
-        # QColor can be pickled   
+        # QColor can be pickled
         self.color = \
             PriceBarChartSettings.\
             defaultPriceRetracementGraphicsItemDefaultColor
@@ -10638,7 +10638,7 @@ class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
         self.showPriceText = \
             PriceBarChartSettings.\
             defaultPriceRetracementGraphicsItemShowPriceTextFlag
-        
+
         self.showPercentText = \
             PriceBarChartSettings.\
             defaultPriceRetracementGraphicsItemShowPercentTextFlag
@@ -10668,7 +10668,7 @@ class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
         font.fromString(self.fontDescription)
 
         return font
-        
+
     def setTextColor(self, textColor):
         """Sets the color for this artifact's text.
 
@@ -10698,7 +10698,7 @@ class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
         return self.color
 
     def setTextXScaling(self, textXScaling):
-        """Sets the text X scaling, used in making the text 
+        """Sets the text X scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -10714,9 +10714,9 @@ class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
         """
 
         return self.textXScaling
-        
+
     def setTextYScaling(self, textYScaling):
-        """Sets the text Y scaling, used in making the text 
+        """Sets the text Y scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -10732,42 +10732,42 @@ class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
         """
 
         return self.textYScaling
-        
+
     def setShowFullLinesFlag(self, flag):
         """Sets the flag that indicates that the lines for the
         retracement should be displayed.
         """
 
         self.showFullLines = flag
-        
+
     def getShowFullLinesFlag(self):
         """Returns the flag that indicates that the lines for the
         retracement should be displayed.
         """
 
         return self.showFullLines
-        
+
     def setShowPriceTextFlag(self, flag):
         """Sets the flag that indicates that the text for the
         pricestamp should be displayed.
         """
 
         self.showPriceText = flag
-        
+
     def getShowPriceTextFlag(self):
         """Returns the flag that indicates that the text for the
         price should be displayed.
         """
 
         return self.showPriceText
-        
+
     def setShowPercentTextFlag(self, flag):
         """Sets the flag that indicates that the text for the
         percent should be displayed.
         """
 
         self.showPercentText = flag
-        
+
     def getShowPercentTextFlag(self):
         """Returns the flag that indicates that the text for the
         percent should be displayed.
@@ -10782,7 +10782,7 @@ class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
         """
 
         self.ratios = ratios
-    
+
     def getRatios(self):
         """Returns a list of Ratio objects, which holds the ratios
         supported, and whether they are enabled or not for this
@@ -10790,35 +10790,35 @@ class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
         """
 
         return self.ratios
-    
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the PriceRetracementArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the PriceRetracementArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the PriceRetracementArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the PriceRetracementArtifact."""
-        
+
         return self.endPointF
-        
+
     def __str__(self):
         """Returns the string representation of this object."""
 
@@ -10828,7 +10828,7 @@ class PriceBarChartPriceRetracementArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -10865,10 +10865,10 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that indicates the measurement of
     distance and distance squared of a vector.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -10892,7 +10892,7 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
         self.textYScaling = \
             PriceBarChartSettings.\
             defaultPriceTimeVectorGraphicsItemTextYScaling
-        
+
         # priceTimeVectorGraphicsItemColor (QColor).
         self.color = \
             PriceBarChartSettings.\
@@ -10908,12 +10908,12 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
         self.fontDescription = \
             PriceBarChartSettings.\
             defaultPriceTimeVectorGraphicsItemDefaultFontDescription
-        
+
         # Flag for whether or not the text is displayed for distance.
         self.showDistanceTextFlag = \
             PriceBarChartSettings.\
                 defaultPriceTimeVectorGraphicsItemShowDistanceTextFlag
-        
+
         # Flag for whether or not the text is displayed for distance.
         self.showSqrtDistanceTextFlag = \
             PriceBarChartSettings.\
@@ -10924,7 +10924,7 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
         self.showDistanceScaledValueTextFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeVectorGraphicsItemShowDistanceScaledValueTextFlag
-        
+
         # Flag for whether or not the text is displayed for distance
         # in scaledValue units.
         self.showSqrtDistanceScaledValueTextFlag = \
@@ -10942,37 +10942,37 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
         self.angleTextFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeVectorGraphicsItemAngleTextFlag
-        
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the PriceTimeVectorArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the PriceTimeVectorArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the PriceTimeVectorArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the PriceTimeVectorArtifact."""
-        
+
         return self.endPointF
 
     def setTextXScaling(self, textXScaling):
-        """Sets the text X scaling, used in making the text 
+        """Sets the text X scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -10988,9 +10988,9 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
         """
 
         return self.textXScaling
-        
+
     def setTextYScaling(self, textYScaling):
-        """Sets the text Y scaling, used in making the text 
+        """Sets the text Y scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -11006,35 +11006,35 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
         """
 
         return self.textYScaling
-        
+
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def setTextColor(self, textColor):
         """Sets the text color.
-        
+
         Arguments:
         textColor - QColor object for the text color.
         """
 
         self.textColor = textColor
-        
+
     def getTextColor(self):
         """Gets the text color as a QColor object."""
 
         return self.textColor
-        
+
     def setFont(self, font):
         """Sets the font of this artifact's text.
 
@@ -11055,67 +11055,67 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
         font.fromString(self.fontDescription)
 
         return font
-        
+
     def getShowDistanceTextFlag(self):
         """Returns the showDistanceTextFlag."""
 
         return self.showDistanceTextFlag
-        
+
     def setShowDistanceTextFlag(self, flag):
         """Sets a new value for the showDistanceTextFlag."""
 
         self.showDistanceTextFlag = flag
-        
+
     def getShowSqrtDistanceTextFlag(self):
         """Returns the showSqrtDistanceTextFlag."""
 
         return self.showSqrtDistanceTextFlag
-        
+
     def setShowSqrtDistanceTextFlag(self, flag):
         """Sets a new value for the showSqrtDistanceTextFlag."""
 
         self.showSqrtDistanceTextFlag = flag
-        
+
     def getShowDistanceScaledValueTextFlag(self):
         """Returns the showDistanceScaledValueTextFlag."""
 
         return self.showDistanceScaledValueTextFlag
-        
+
     def setShowDistanceScaledValueTextFlag(self, flag):
         """Sets a new value for the showDistanceScaledValueTextFlag."""
 
         self.showDistanceScaledValueTextFlag = flag
-        
+
     def getShowSqrtDistanceScaledValueTextFlag(self):
         """Returns the showSqrtDistanceScaledValueTextFlag."""
 
         return self.showSqrtDistanceScaledValueTextFlag
-        
+
     def setShowSqrtDistanceScaledValueTextFlag(self, flag):
         """Sets a new value for the showSqrtDistanceScaledValueTextFlag."""
 
         self.showSqrtDistanceScaledValueTextFlag = flag
-        
+
     def getTiltedTextFlag(self):
         """Returns the tiltedTextFlag."""
 
         return self.tiltedTextFlag
-        
+
     def setTiltedTextFlag(self, flag):
         """Sets a new value for the tiltedTextFlag."""
 
         self.tiltedTextFlag = flag
-        
+
     def getAngleTextFlag(self):
         """Returns the angleTextFlag."""
 
         return self.angleTextFlag
-        
+
     def setAngleTextFlag(self, flag):
         """Sets a new value for the angleTextFlag."""
 
         self.angleTextFlag = flag
-        
+
     def __str__(self):
         """Returns the string representation of this object."""
 
@@ -11125,7 +11125,7 @@ class PriceBarChartPriceTimeVectorArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -11162,10 +11162,10 @@ class PriceBarChartLineSegmentArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that indicates a line segment on the
     graphics scene.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -11189,7 +11189,7 @@ class PriceBarChartLineSegmentArtifact(PriceBarChartArtifact):
         self.textYScaling = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemTextYScaling
-        
+
         # lineSegmentGraphicsItemColor (QColor).
         self.color = \
             PriceBarChartSettings.\
@@ -11205,7 +11205,7 @@ class PriceBarChartLineSegmentArtifact(PriceBarChartArtifact):
         self.fontDescription = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemDefaultFontDescription
-        
+
         # Flag for whether or not to show the text as tilted at the
         # angle parallel to the line.
         self.tiltedTextFlag = \
@@ -11217,37 +11217,37 @@ class PriceBarChartLineSegmentArtifact(PriceBarChartArtifact):
         self.angleTextFlag = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemAngleTextFlag
-        
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the LineSegmentArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the LineSegmentArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the LineSegmentArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the LineSegmentArtifact."""
-        
+
         return self.endPointF
 
     def setTextXScaling(self, textXScaling):
-        """Sets the text X scaling, used in making the text 
+        """Sets the text X scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -11263,9 +11263,9 @@ class PriceBarChartLineSegmentArtifact(PriceBarChartArtifact):
         """
 
         return self.textXScaling
-        
+
     def setTextYScaling(self, textYScaling):
-        """Sets the text Y scaling, used in making the text 
+        """Sets the text Y scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -11281,35 +11281,35 @@ class PriceBarChartLineSegmentArtifact(PriceBarChartArtifact):
         """
 
         return self.textYScaling
-        
+
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def setTextColor(self, textColor):
         """Sets the text color.
-        
+
         Arguments:
         textColor - QColor object for the text color.
         """
 
         self.textColor = textColor
-        
+
     def getTextColor(self):
         """Gets the text color as a QColor object."""
 
         return self.textColor
-        
+
     def setFont(self, font):
         """Sets the font of this artifact's text.
 
@@ -11330,27 +11330,27 @@ class PriceBarChartLineSegmentArtifact(PriceBarChartArtifact):
         font.fromString(self.fontDescription)
 
         return font
-        
+
     def getTiltedTextFlag(self):
         """Returns the tiltedTextFlag."""
 
         return self.tiltedTextFlag
-        
+
     def setTiltedTextFlag(self, flag):
         """Sets a new value for the tiltedTextFlag."""
 
         self.tiltedTextFlag = flag
-        
+
     def getAngleTextFlag(self):
         """Returns the angleTextFlag."""
 
         return self.angleTextFlag
-        
+
     def setAngleTextFlag(self, flag):
         """Sets a new value for the angleTextFlag."""
 
         self.angleTextFlag = flag
-        
+
     def __str__(self):
         """Returns the string representation of this object."""
 
@@ -11360,7 +11360,7 @@ class PriceBarChartLineSegmentArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -11397,10 +11397,10 @@ class PriceBarChartVerticalLineSegmentArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that indicates a vertical line segment on
     the graphics scene.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -11428,40 +11428,40 @@ class PriceBarChartVerticalLineSegmentArtifact(PriceBarChartArtifact):
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the VerticalLineSegmentArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the VerticalLineSegmentArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the VerticalLineSegmentArtifact."""
-        
+
         return self.endPointF
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def __str__(self):
@@ -11473,7 +11473,7 @@ class PriceBarChartVerticalLineSegmentArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -11510,10 +11510,10 @@ class PriceBarChartHorizontalLineSegmentArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that indicates a horizontal line segment on
     the graphics scene.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -11541,40 +11541,40 @@ class PriceBarChartHorizontalLineSegmentArtifact(PriceBarChartArtifact):
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the HorizontalLineSegmentArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the HorizontalLineSegmentArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the HorizontalLineSegmentArtifact."""
-        
+
         return self.endPointF
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def __str__(self):
@@ -11586,7 +11586,7 @@ class PriceBarChartHorizontalLineSegmentArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -11623,10 +11623,10 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that indicates the the data elements of a
     OctaveFanGraphicsItem.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -11643,20 +11643,20 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
         self.originPointF = QPointF()
         self.leg1PointF = QPointF()
         self.leg2PointF = QPointF()
-        
+
         # List of used ratios.
         self.musicalRatios = MusicalRatio.getIndianMusicalRatios()
-        
+
         # color (QColor).
         self.color = \
             PriceBarChartSettings.\
                 defaultOctaveFanGraphicsItemBarColor
-        
+
         # textColor (QColor).
         self.textColor = \
             PriceBarChartSettings.\
                 defaultOctaveFanGraphicsItemTextColor
-        
+
         # fontSize (float).
         self.fontSize = \
             PriceBarChartSettings.\
@@ -11670,33 +11670,33 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
         # Flag for whether or not the text is displayed for enabled
         # MusicalRatios in self.musicalRatios.
         self.textEnabledFlag = False
-        
+
     def setOriginPointF(self, originPointF):
         """Stores the origin point of the OctaveFanArtifact.
         Arguments:
 
         originPointF - QPointF for the origin point of the artifact.
         """
-        
+
         self.originPointF = originPointF
-        
+
     def getOriginPointF(self):
         """Returns the origin point of the OctaveFanArtifact."""
-        
+
         return self.originPointF
-        
+
     def setLeg1PointF(self, leg1PointF):
         """Stores the leg1 point of the OctaveFanArtifact.
         Arguments:
 
         leg1PointF - QPointF for the leg1 point of the artifact.
         """
-        
+
         self.leg1PointF = leg1PointF
-        
+
     def getLeg1PointF(self):
         """Returns the leg1 point of the OctaveFanArtifact."""
-        
+
         return self.leg1PointF
 
     def setLeg2PointF(self, leg2PointF):
@@ -11705,19 +11705,19 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
 
         leg2PointF - QPointF for the leg2 point of the artifact.
         """
-        
+
         self.leg2PointF = leg2PointF
-        
+
     def getLeg2PointF(self):
         """Returns the leg2 point of the OctaveFanArtifact."""
-        
+
         return self.leg2PointF
 
     def getMusicalRatios(self):
         """Returns the list of MusicalRatio objects."""
 
         return self.musicalRatios
-        
+
     def setMusicalRatios(self, musicalRatios):
         """Sets the list of MusicalRatio objects."""
 
@@ -11725,42 +11725,42 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def setTextColor(self, textColor):
         """Sets the text color.
-        
+
         Arguments:
         textColor - QColor object for the text color.
         """
 
         self.textColor = textColor
-        
+
     def getTextColor(self):
         """Gets the text color as a QColor object."""
 
         return self.textColor
-        
+
     def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
         self.fontSize = fontSize
-    
+
     def getFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
         return self.fontSize
-    
+
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
         This value is used to tell how ratios are referenced (from the
@@ -11780,7 +11780,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
         """
 
         self.reversedFlag = reversedFlag
-        
+
     def isTextEnabled(self):
         """Returns whether or not the text is enabled for the
         musicalRatios that are enabled.
@@ -11798,9 +11798,9 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
         """
 
         self.textEnabledFlag = textEnabledFlag
-        
+
     def getXYForMusicalRatio(self,
-                             index, 
+                             index,
                              scaledOriginPointF,
                              scaledLeg1PointF,
                              scaledLeg2PointF):
@@ -11810,10 +11810,10 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
         locations.  This method does it's calculation based on 3
         points, and the point returned is along the outter edge of a
         bounding rectangle created by the 3 points.  The calculated point
-        returned is based angular musical ratios.  
+        returned is based angular musical ratios.
 
         Arguments:
-        
+
         index - int value for index into self.musicalRatios that the
                 user is looking for the musical ratio for.  This value
                 must be within the valid index limits.
@@ -11825,7 +11825,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                              coordinates.
 
         Returns:
-        
+
         Tuple of 2 floats, representing (x, y) point in scaled
         coordinates.  This is where the musical ratio would exist.
         The caller must then unscale it back to scene or local
@@ -11836,7 +11836,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
 
         # Get the musical ratios.
         musicalRatios = self.getMusicalRatios()
-        
+
         # Validate input.
         if index < 0:
             self.log.error("getXYForMusicalRatio(): Invalid index: {}".
@@ -11864,7 +11864,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
             x = scaledOriginPointF.x()
             y = scaledOriginPointF.y()
             return (x, y)
-        
+
         elif scaledOriginPointF == scaledLeg1PointF and \
              scaledOriginPointF != scaledLeg2PointF:
 
@@ -11880,7 +11880,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
 
         elif scaledOriginPointF != scaledLeg1PointF and \
              scaledOriginPointF == scaledLeg2PointF:
-            
+
             # scaledOriginPointF and scaledLeg2PointF points are the same.
             #self.log.debug("scaledOriginPointF and scaledLeg2PointF " +
             #               "are equal, so we will" +
@@ -11892,7 +11892,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
             return (x, y)
 
         else:
-            
+
             # All three points the different.
             self.log.debug("All three points are different, so " +
                            "continuing on to do the calculations.")
@@ -11913,23 +11913,23 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
 
         #self.log.debug("Angle of leg1 is: {}".format(leg1.angle()))
         #self.log.debug("Angle of leg2 is: {}".format(leg2.angle()))
-        
-        
+
+
         # The angle returned by QLineF.angleTo() is always normalized.
         angleDegDelta = leg1.angleTo(leg2)
 
         #self.log.debug("Angle of leg1 to leg2 is: " +
         #               "angleDegDelta == {} deg".format(angleDegDelta))
-        
+
         # If the delta angle is greater than 180, then subtract 360
         # because we don't want to draw the fan on the undesired side
         # of the angle.
         if angleDegDelta > 180:
             angleDegDelta -= 360
-        
+
         #self.log.debug("Adjusted angle difference is: " + \
         #               "angleDegDelta == {} deg".format(angleDegDelta))
-        
+
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         angleDegOffset = 0.0
@@ -11939,7 +11939,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
 
         for i in range(len(musicalRatios)):
             musicalRatio = musicalRatios[i]
-            
+
             #self.log.debug("musicalRatios[{}].getRatio() is: {}".\
             #               format(i, musicalRatio.getRatio()))
             if i == 0:
@@ -11949,12 +11949,12 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
 
                 #self.log.debug("At i == 0.  angleDegOffset={}".\
                 #               format(angleDegOffset))
-                
+
             if i == index:
                 #self.log.debug("At the i == index, where i == {}.".format(i))
                 #self.log.debug("MusicalRatio is: {}".\
                 #               format(musicalRatio.getRatio()))
-                
+
                 angleDeg = \
                     (angleDegDelta * (musicalRatio.getRatio() - 1.0)) - \
                     angleDegOffset
@@ -11974,7 +11974,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                 #               format(angleDeg))
 
                 angleDeg = Util.toNormalizedAngle(angleDeg)
-                
+
                 #self.log.debug("After normalizing angleDeg, (angleDeg={})".
                 #               format(angleDeg))
 
@@ -11996,7 +11996,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                 if angleDegDelta >= 0:
                     # leg2 is higher in angle than leg1.
                     self.log.debug("leg2 is higher in angle than leg1.")
-                    
+
                     if Util.fuzzyIsEqual(angleToLeg2, 0.0) and \
                              self.isReversed():
                         self.log.debug("At leg2 angle while reversed.  " + \
@@ -12045,7 +12045,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                                       format(angleToLeg1) + \
                                       "angleToLeg2 == {}".\
                                       format(angleToLeg2))
-                        
+
                 #self.log.debug("For index {}, ".format(i) +
                 #               "normalized angleDeg to within " +
                 #               "leg1 and leg2 is: {}".format(angleDeg))
@@ -12076,7 +12076,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                 # Find the smallest x and y.
                 smallestX = xValues[0]
                 smallestY = yValues[0]
-        
+
                 # Find the largest x and y.
                 largestX = xValues[-1]
                 largestY = yValues[-1]
@@ -12085,7 +12085,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                 containingRectF = \
                     QRectF(QPointF(smallestX, smallestY),
                            QPointF(largestX, largestY))
-                
+
                 # Four lines that bound the 3 points.
                 line1 = QLineF(smallestX, smallestY,
                                smallestX, largestY)
@@ -12100,7 +12100,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                 lines.append(line2)
                 lines.append(line3)
                 lines.append(line4)
-                
+
                 # Here in the process, I'm trying to handle special
                 # cases of 0, 90, 180, 270 degrees where the end
                 # values are easily defined since it appears to choke
@@ -12110,44 +12110,44 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                     self.log.debug("Special case angle: 0.0")
                     x = largestX
                     y = scaledOriginPointF.y()
-                    
+
                     # Break out of for loop since we handled the index we
                     # were looking to process.
                     break
-                
+
                 elif Util.fuzzyIsEqual(angleDeg, 90.0) or \
                          Util.fuzzyIsEqual(angleDeg, -270.0):
                     self.log.debug("Special case angle: 90.0")
                     x = scaledOriginPointF.x()
                     y = smallestY
-                    
+
                     # Break out of for loop since we handled the index we
                     # were looking to process.
                     break
-                    
+
                 elif Util.fuzzyIsEqual(angleDeg, 180.0) or \
                          Util.fuzzyIsEqual(angleDeg, -180.0):
                     self.log.debug("Special case angle: 180.0")
                     x = smallestX
                     y = scaledOriginPointF.y()
-                    
+
                     # Break out of for loop since we handled the index we
                     # were looking to process.
                     break
-                    
+
                 elif Util.fuzzyIsEqual(angleDeg, 270.0) or \
                          Util.fuzzyIsEqual(angleDeg, -90.0):
                     self.log.debug("Special case angle: 270.0")
                     x = scaledOriginPointF.x()
                     y = largestY
-                    
+
                     # Break out of for loop since we handled the index we
                     # were looking to process.
                     break
 
                 else:
                     self.log.debug("Regular case.")
-                    
+
                 # Get the line from scaledOriginPointF outwards at the
                 # 'angleDeg' angle.  We just don't know what length it
                 # should be.
@@ -12160,7 +12160,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                 #self.log.debug("lineToAngleDeg.p2 == ({}, {})".\
                 #               format(lineToAngleDeg.p2().x(),
                 #                      lineToAngleDeg.p2().y()))
-                
+
                 # Find the intesections with the line segments in 'lines'.
                 intersectionPoints = []
                 for l in lines:
@@ -12174,41 +12174,41 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                     y3 = l.p1().y()
                     x4 = l.p2().x()
                     y4 = l.p2().y()
-                    
+
                     bx = x2 - x1
                     by = y2 - y1
                     dx = x4 - x3
-                    dy = y4 - y3 
+                    dy = y4 - y3
                     b_dot_d_perp = bx*dy - by*dx
 
                     if Util.fuzzyIsEqual(abs(b_dot_d_perp), 0.0):
                         continue
-                    
+
                     cx = x3-x1
                     cy = y3-y1
                     t = (cx*dy - cy*dx) / b_dot_d_perp
- 
+
                     x = x1+t*bx
                     y = y1+t*by
 
                     intersectionPoint = QPointF(x, y)
                     intersectionPoints.append(intersectionPoint)
-        
+
                     #self.log.debug("Appended intersection point: ({}, {})".\
                     #               format(intersectionPoint.x(),
                     #                      intersectionPoint.y()))
 
                 # Normalized angleDeg.
                 normalizedAngleDeg = Util.toNormalizedAngle(angleDeg)
-                
+
                 # Process the intersection points.
                 closestPointToCorrectAngle = None
                 smallestAngleDiff = None
-                
+
                 for p in intersectionPoints:
                     #self.log.debug("Looking at point: ({}, {})".\
                     #               format(p.x(), p.y()))
-                    
+
                     # Flag that indicates the intersection point is
                     # also the origin point.
                     pEqualsOriginPointF = \
@@ -12232,7 +12232,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                          Util.fuzzyIsEqual(p.y(), largestY))
                     pWithinContainingRect = \
                         xWithinContainingRect and yWithinContainingRect
-                                          
+
                     #self.log.debug("xWithinContainingRect == {}".\
                     #               format(xWithinContainingRect))
                     #self.log.debug("yWithinContainingRect == {}".\
@@ -12253,7 +12253,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                         #               format(diff))
                         #self.log.debug("smallest angle diff is: {}".\
                         #               format(diff))
-        
+
                         if closestPointToCorrectAngle == None and \
                            smallestAngleDiff == None:
 
@@ -12261,7 +12261,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                             smallestAngleDiff = diff
 
                         elif diff < smallestAngleDiff:
-                            
+
                             closestPointToCorrectAngle = p
                             smallestAngleDiff = diff
 
@@ -12278,7 +12278,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
                     # The closest point it the point we are looking for.
                     x = closestPointToCorrectAngle.x()
                     y = closestPointToCorrectAngle.y()
-                    
+
                 # Break out of for loop since we handled the index we
                 # were looking to process.
                 break
@@ -12292,7 +12292,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
             # Reset values to 0.
             x = 0.0
             y = 0.0
-            
+
         self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
                        "Returning ({}, {})".format(x, y))
         return (x, y)
@@ -12306,7 +12306,7 @@ class PriceBarChartOctaveFanArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -12343,10 +12343,10 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that indicates the the data elements of a
     FibFanGraphicsItem.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -12363,7 +12363,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
         self.originPointF = QPointF()
         self.leg1PointF = QPointF()
         self.leg2PointF = QPointF()
-        
+
         # Scaling the text, to make it bigger or smaller.
         self.textXScaling = \
             PriceBarChartSettings.\
@@ -12371,19 +12371,19 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
         self.textYScaling = \
             PriceBarChartSettings.\
             defaultFibFanGraphicsItemTextYScaling
-        
+
         # QFont cannot be pickled, but we can utilize
         # QFont.toString() and then QFont.fromString()
         self.fontDescription = \
             PriceBarChartSettings.\
             defaultFibFanGraphicsItemDefaultFontDescription
-        
+
         # QColor can be pickled
         self.textColor = \
             PriceBarChartSettings.\
             defaultFibFanGraphicsItemDefaultTextColor
 
-        # QColor can be pickled   
+        # QColor can be pickled
         self.color = \
             PriceBarChartSettings.\
             defaultFibFanGraphicsItemDefaultColor
@@ -12396,33 +12396,33 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
         # Flag for whether or not the text is displayed for enabled
         # MusicalRatios in self.musicalRatios.
         self.textEnabledFlag = False
-        
+
     def setOriginPointF(self, originPointF):
         """Stores the origin point of the FibFanArtifact.
         Arguments:
 
         originPointF - QPointF for the origin point of the artifact.
         """
-        
+
         self.originPointF = originPointF
-        
+
     def getOriginPointF(self):
         """Returns the origin point of the FibFanArtifact."""
-        
+
         return self.originPointF
-        
+
     def setLeg1PointF(self, leg1PointF):
         """Stores the leg1 point of the FibFanArtifact.
         Arguments:
 
         leg1PointF - QPointF for the leg1 point of the artifact.
         """
-        
+
         self.leg1PointF = leg1PointF
-        
+
     def getLeg1PointF(self):
         """Returns the leg1 point of the FibFanArtifact."""
-        
+
         return self.leg1PointF
 
     def setLeg2PointF(self, leg2PointF):
@@ -12431,16 +12431,16 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
 
         leg2PointF - QPointF for the leg2 point of the artifact.
         """
-        
+
         self.leg2PointF = leg2PointF
-        
+
     def getLeg2PointF(self):
         """Returns the leg2 point of the FibFanArtifact."""
-        
+
         return self.leg2PointF
 
     def setTextXScaling(self, textXScaling):
-        """Sets the text X scaling, used in making the text 
+        """Sets the text X scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -12456,9 +12456,9 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
         """
 
         return self.textXScaling
-        
+
     def setTextYScaling(self, textYScaling):
-        """Sets the text Y scaling, used in making the text 
+        """Sets the text Y scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -12474,7 +12474,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
         """
 
         return self.textYScaling
-        
+
     def setFont(self, font):
         """Sets the font of this artifact's text.
 
@@ -12495,7 +12495,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
         font.fromString(self.fontDescription)
 
         return font
-        
+
     def setTextColor(self, textColor):
         """Sets the color for this artifact's text.
 
@@ -12512,16 +12512,16 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def isTextEnabled(self):
@@ -12541,7 +12541,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
         """
 
         self.textEnabledFlag = textEnabledFlag
-        
+
     def setRatios(self, ratios):
         """Sets the list of Ratio objects, which is the ratios
         supported, and whether they are enabled or not for this
@@ -12549,7 +12549,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
         """
 
         self.ratios = ratios
-    
+
     def getRatios(self):
         """Returns a list of Ratio objects, which holds the ratios
         supported, and whether they are enabled or not for this
@@ -12557,9 +12557,9 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
         """
 
         return self.ratios
-    
+
     def getXYForRatio(self,
-                      index, 
+                      index,
                       scaledOriginPointF,
                       scaledLeg1PointF,
                       scaledLeg2PointF):
@@ -12572,7 +12572,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
         point returned is based angular ratios.
 
         Arguments:
-        
+
         index - int value for index into self.ratios that the
                 user is looking for the ratio for.  This value
                 must be within the valid index limits.
@@ -12584,7 +12584,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                              coordinates.
 
         Returns:
-        
+
         Tuple of 2 floats, representing (x, y) point in scaled
         coordinates.  This is where the ratio would exist.
         The caller must then unscale it back to scene or local
@@ -12595,7 +12595,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
 
         # Get the ratios.
         ratios = self.getRatios()
-        
+
         # Validate input.
         if index < 0:
             self.log.error("getXYForRatio(): Invalid index: {}".
@@ -12623,7 +12623,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
             x = scaledOriginPointF.x()
             y = scaledOriginPointF.y()
             return (x, y)
-        
+
         elif scaledOriginPointF == scaledLeg1PointF and \
              scaledOriginPointF != scaledLeg2PointF:
 
@@ -12639,7 +12639,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
 
         elif scaledOriginPointF != scaledLeg1PointF and \
              scaledOriginPointF == scaledLeg2PointF:
-            
+
             # scaledOriginPointF and scaledLeg2PointF points are the same.
             #self.log.debug("scaledOriginPointF and scaledLeg2PointF " +
             #               "are equal, so we will" +
@@ -12651,7 +12651,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
             return (x, y)
 
         else:
-            
+
             # All three points the different.
             self.log.debug("All three points are different, so " +
                            "continuing on to do the calculations.")
@@ -12672,22 +12672,22 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
 
         #self.log.debug("Angle of leg1 is: {}".format(leg1.angle()))
         #self.log.debug("Angle of leg2 is: {}".format(leg2.angle()))
-        
-        
+
+
         # The angle returned by QLineF.angleTo() is always normalized.
         angleDegDelta = leg1.angleTo(leg2)
 
         #self.log.debug("Angle of leg1 to leg2 is: " +
         #               "angleDegDelta == {} deg".format(angleDegDelta))
-        
+
         # As opposed to how things are done in the other fan tool,
         # we don't want to do any adjusting, so the below is commented out.
         #if angleDegDelta > 180:
         #    angleDegDelta -= 360
-        
+
         #self.log.debug("Adjusted angle difference is: " + \
         #               "angleDegDelta == {} deg".format(angleDegDelta))
-        
+
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         angleDegOffset = 0.0
@@ -12697,7 +12697,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
 
         for i in range(len(ratios)):
             ratio = ratios[i]
-            
+
             #self.log.debug("ratios[{}].getRatio() is: {}".\
             #               format(i, ratio.getRatio()))
             if i == 0:
@@ -12707,12 +12707,12 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
 
                 #self.log.debug("At i == 0.  angleDegOffset={}".\
                 #               format(angleDegOffset))
-                
+
             if i == index:
                 #self.log.debug("At the i == index, where i == {}.".format(i))
                 #self.log.debug("ratio is: {}".\
                 #               format(ratio.getRatio()))
-                
+
                 angleDeg = \
                     (angleDegDelta * ratio.getRatio()) - \
                     angleDegOffset
@@ -12725,14 +12725,14 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                 #               format(angleDeg))
 
                 angleDeg = Util.toNormalizedAngle(angleDeg)
-                
+
                 #self.log.debug("After normalizing angleDeg, (angleDeg={})".
                 #               format(angleDeg))
 
                 # Now that we have the angle, determine the
                 # intersection point along the edge of the giant
                 # rectangle.
-                
+
                 # Find the smallest x and y values, and the largest x
                 # and y values of the 3 points bounding
                 # scaledOriginPointF, from all directions:
@@ -12750,7 +12750,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                 xValues.append(scaledOriginPointF.x() - \
                                (scaledLeg2PointF.x() - scaledOriginPointF.x()))
 
-                
+
                 yValues = []
                 yValues.append(scaledOriginPointF.y())
                 yValues.append(scaledLeg1PointF.y())
@@ -12766,7 +12766,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                 # Find the smallest x and y.
                 smallestX = xValues[0]
                 smallestY = yValues[0]
-        
+
                 # Find the largest x and y.
                 largestX = xValues[-1]
                 largestY = yValues[-1]
@@ -12775,7 +12775,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                 containingRectF = \
                     QRectF(QPointF(smallestX, smallestY),
                            QPointF(largestX, largestY))
-                
+
                 # Four lines that bound the points.
                 line1 = QLineF(smallestX, smallestY,
                                smallestX, largestY)
@@ -12790,7 +12790,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                 lines.append(line2)
                 lines.append(line3)
                 lines.append(line4)
-                
+
                 # Here in the process, I'm trying to handle special
                 # cases of 0, 90, 180, 270 degrees where the end
                 # values are easily defined since it appears to choke
@@ -12800,44 +12800,44 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                     self.log.debug("Special case angle: 0.0")
                     x = largestX
                     y = scaledOriginPointF.y()
-                    
+
                     # Break out of for loop since we handled the index we
                     # were looking to process.
                     break
-                
+
                 elif Util.fuzzyIsEqual(angleDeg, 90.0) or \
                          Util.fuzzyIsEqual(angleDeg, -270.0):
                     self.log.debug("Special case angle: 90.0")
                     x = scaledOriginPointF.x()
                     y = smallestY
-                    
+
                     # Break out of for loop since we handled the index we
                     # were looking to process.
                     break
-                    
+
                 elif Util.fuzzyIsEqual(angleDeg, 180.0) or \
                          Util.fuzzyIsEqual(angleDeg, -180.0):
                     self.log.debug("Special case angle: 180.0")
                     x = smallestX
                     y = scaledOriginPointF.y()
-                    
+
                     # Break out of for loop since we handled the index we
                     # were looking to process.
                     break
-                    
+
                 elif Util.fuzzyIsEqual(angleDeg, 270.0) or \
                          Util.fuzzyIsEqual(angleDeg, -90.0):
                     self.log.debug("Special case angle: 270.0")
                     x = scaledOriginPointF.x()
                     y = largestY
-                    
+
                     # Break out of for loop since we handled the index we
                     # were looking to process.
                     break
 
                 else:
                     self.log.debug("Regular case.")
-                    
+
                 # Get the line from scaledOriginPointF outwards at the
                 # 'angleDeg' angle.  We just don't know what length it
                 # should be.
@@ -12850,7 +12850,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                 #self.log.debug("lineToAngleDeg.p2 == ({}, {})".\
                 #               format(lineToAngleDeg.p2().x(),
                 #                      lineToAngleDeg.p2().y()))
-                
+
                 # Find the intesections with the line segments in 'lines'.
                 intersectionPoints = []
                 for l in lines:
@@ -12864,41 +12864,41 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                     y3 = l.p1().y()
                     x4 = l.p2().x()
                     y4 = l.p2().y()
-                    
+
                     bx = x2 - x1
                     by = y2 - y1
                     dx = x4 - x3
-                    dy = y4 - y3 
+                    dy = y4 - y3
                     b_dot_d_perp = bx*dy - by*dx
 
                     if Util.fuzzyIsEqual(abs(b_dot_d_perp), 0.0):
                         continue
-                    
+
                     cx = x3-x1
                     cy = y3-y1
                     t = (cx*dy - cy*dx) / b_dot_d_perp
- 
+
                     x = x1+t*bx
                     y = y1+t*by
 
                     intersectionPoint = QPointF(x, y)
                     intersectionPoints.append(intersectionPoint)
-        
+
                     #self.log.debug("Appended intersection point: ({}, {})".\
                     #               format(intersectionPoint.x(),
                     #                      intersectionPoint.y()))
 
                 # Normalized angleDeg.
                 normalizedAngleDeg = Util.toNormalizedAngle(angleDeg)
-                
+
                 # Process the intersection points.
                 closestPointToCorrectAngle = None
                 smallestAngleDiff = None
-                
+
                 for p in intersectionPoints:
                     #self.log.debug("Looking at point: ({}, {})".\
                     #               format(p.x(), p.y()))
-                    
+
                     # Flag that indicates the intersection point is
                     # also the origin point.
                     pEqualsOriginPointF = \
@@ -12922,7 +12922,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                          Util.fuzzyIsEqual(p.y(), largestY))
                     pWithinContainingRect = \
                         xWithinContainingRect and yWithinContainingRect
-                                          
+
                     #self.log.debug("xWithinContainingRect == {}".\
                     #               format(xWithinContainingRect))
                     #self.log.debug("yWithinContainingRect == {}".\
@@ -12940,7 +12940,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                         #               format(diff))
                         #self.log.debug("smallest angle diff is: {}".\
                         #               format(diff))
-        
+
                         if closestPointToCorrectAngle == None and \
                            smallestAngleDiff == None:
 
@@ -12948,7 +12948,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                             smallestAngleDiff = diff
 
                         elif diff < smallestAngleDiff:
-                            
+
                             closestPointToCorrectAngle = p
                             smallestAngleDiff = diff
 
@@ -12965,7 +12965,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
                     # The closest point it the point we are looking for.
                     x = closestPointToCorrectAngle.x()
                     y = closestPointToCorrectAngle.y()
-                    
+
                 # Break out of for loop since we handled the index we
                 # were looking to process.
                 break
@@ -12979,7 +12979,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
             # Reset values to 0.
             x = 0.0
             y = 0.0
-            
+
         self.log.debug("Exiting getXYForRatio({}), ".format(index) + \
                        "Returning ({}, {})".format(x, y))
         return (x, y)
@@ -12993,7 +12993,7 @@ class PriceBarChartFibFanArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -13030,10 +13030,10 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
     """PriceBarChartArtifact that indicates the the data elements of a
     GannFanGraphicsItem.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -13050,7 +13050,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
         self.originPointF = QPointF()
         self.leg1PointF = QPointF()
         self.leg2PointF = QPointF()
-        
+
         # Scaling the text, to make it bigger or smaller.
         self.textXScaling = \
             PriceBarChartSettings.\
@@ -13058,19 +13058,19 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
         self.textYScaling = \
             PriceBarChartSettings.\
             defaultGannFanGraphicsItemTextYScaling
-        
+
         # QFont cannot be pickled, but we can utilize
         # QFont.toString() and then QFont.fromString()
         self.fontDescription = \
             PriceBarChartSettings.\
             defaultGannFanGraphicsItemDefaultFontDescription
-        
+
         # QColor can be pickled
         self.textColor = \
             PriceBarChartSettings.\
             defaultGannFanGraphicsItemDefaultTextColor
 
-        # QColor can be pickled   
+        # QColor can be pickled
         self.color = \
             PriceBarChartSettings.\
             defaultGannFanGraphicsItemDefaultColor
@@ -13083,33 +13083,33 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
         # Flag for whether or not the text is displayed for enabled
         # MusicalRatios in self.musicalRatios.
         self.textEnabledFlag = False
-        
+
     def setOriginPointF(self, originPointF):
         """Stores the origin point of the GannFanArtifact.
         Arguments:
 
         originPointF - QPointF for the origin point of the artifact.
         """
-        
+
         self.originPointF = originPointF
-        
+
     def getOriginPointF(self):
         """Returns the origin point of the GannFanArtifact."""
-        
+
         return self.originPointF
-        
+
     def setLeg1PointF(self, leg1PointF):
         """Stores the leg1 point of the GannFanArtifact.
         Arguments:
 
         leg1PointF - QPointF for the leg1 point of the artifact.
         """
-        
+
         self.leg1PointF = leg1PointF
-        
+
     def getLeg1PointF(self):
         """Returns the leg1 point of the GannFanArtifact."""
-        
+
         return self.leg1PointF
 
     def setLeg2PointF(self, leg2PointF):
@@ -13118,16 +13118,16 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
 
         leg2PointF - QPointF for the leg2 point of the artifact.
         """
-        
+
         self.leg2PointF = leg2PointF
-        
+
     def getLeg2PointF(self):
         """Returns the leg2 point of the GannFanArtifact."""
-        
+
         return self.leg2PointF
 
     def setTextXScaling(self, textXScaling):
-        """Sets the text X scaling, used in making the text 
+        """Sets the text X scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -13143,9 +13143,9 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
         """
 
         return self.textXScaling
-        
+
     def setTextYScaling(self, textYScaling):
-        """Sets the text Y scaling, used in making the text 
+        """Sets the text Y scaling, used in making the text
         bigger or smaller.
 
         Arguments:
@@ -13161,7 +13161,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
         """
 
         return self.textYScaling
-        
+
     def setFont(self, font):
         """Sets the font of this artifact's text.
 
@@ -13182,7 +13182,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
         font.fromString(self.fontDescription)
 
         return font
-        
+
     def setTextColor(self, textColor):
         """Sets the color for this artifact's text.
 
@@ -13199,16 +13199,16 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def isTextEnabled(self):
@@ -13228,7 +13228,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
         """
 
         self.textEnabledFlag = textEnabledFlag
-        
+
     def setRatios(self, ratios):
         """Sets the list of Ratio objects, which is the ratios
         supported, and whether they are enabled or not for this
@@ -13236,7 +13236,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
         """
 
         self.ratios = ratios
-    
+
     def getRatios(self):
         """Returns a list of Ratio objects, which holds the ratios
         supported, and whether they are enabled or not for this
@@ -13244,9 +13244,9 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
         """
 
         return self.ratios
-    
+
     def getXYForRatio(self,
-                      index, 
+                      index,
                       scaledOriginPointF,
                       scaledLeg1PointF,
                       scaledLeg2PointF):
@@ -13259,7 +13259,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
         point returned is based angular ratios.
 
         Arguments:
-        
+
         index - int value for index into self.ratios that the
                 user is looking for the ratio for.  This value
                 must be within the valid index limits.
@@ -13271,7 +13271,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                              coordinates.
 
         Returns:
-        
+
         Tuple of 2 floats, representing (x, y) point in scaled
         coordinates.  This is where the ratio would exist.
         The caller must then unscale it back to scene or local
@@ -13282,7 +13282,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
 
         # Get the ratios.
         ratios = self.getRatios()
-        
+
         # Validate input.
         if index < 0:
             self.log.error("getXYForRatio(): Invalid index: {}".
@@ -13310,7 +13310,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
             x = scaledOriginPointF.x()
             y = scaledOriginPointF.y()
             return (x, y)
-        
+
         elif scaledOriginPointF == scaledLeg1PointF and \
              scaledOriginPointF != scaledLeg2PointF:
 
@@ -13326,7 +13326,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
 
         elif scaledOriginPointF != scaledLeg1PointF and \
              scaledOriginPointF == scaledLeg2PointF:
-            
+
             # scaledOriginPointF and scaledLeg2PointF points are the same.
             #self.log.debug("scaledOriginPointF and scaledLeg2PointF " +
             #               "are equal, so we will" +
@@ -13338,7 +13338,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
             return (x, y)
 
         else:
-            
+
             # All three points the different.
             self.log.debug("All three points are different, so " +
                            "continuing on to do the calculations.")
@@ -13359,21 +13359,21 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
 
         #self.log.debug("Angle of leg1 is: {}".format(leg1.angle()))
         #self.log.debug("Angle of leg2 is: {}".format(leg2.angle()))
-        
-        
+
+
         # The angle returned by QLineF.angleTo() is always normalized.
         angleDegDelta = leg1.angleTo(leg2)
 
         #self.log.debug("Angle of leg1 to leg2 is: " +
         #               "angleDegDelta == {} deg".format(angleDegDelta))
-        
+
         # Adjust so that the angle is between (-180 and 180].
         if angleDegDelta > 180:
             angleDegDelta -= 360
-        
+
         #self.log.debug("Adjusted angle difference is: " + \
         #               "angleDegDelta == {} deg".format(angleDegDelta))
-        
+
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         angleDegOffset = 0.0
@@ -13383,7 +13383,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
 
         for i in range(len(ratios)):
             ratio = ratios[i]
-            
+
             #self.log.debug("ratios[{}].getRatio() is: {}".\
             #               format(i, ratio.getRatio()))
             if i == 0:
@@ -13393,25 +13393,25 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
 
                 #self.log.debug("At i == 0.  angleDegOffset={}".\
                 #               format(angleDegOffset))
-                
+
             if i == index:
                 #self.log.debug("At the i == index, where i == {}.".format(i))
                 #self.log.debug("ratio is: {}".\
                 #               format(ratio.getRatio()))
-                
+
                 angleDeg = \
                     (angleDegDelta * ratio.getRatio()) - \
                     angleDegOffset
-                
+
                 #self.log.debug("(angleDeg={})".format(angleDeg))
-                
+
                 angleDeg = leg1.angle() + angleDeg
-                
+
                 #self.log.debug("Adjusting to leg point angles, (angleDeg={})".
                 #               format(angleDeg))
 
                 angleDeg = Util.toNormalizedAngle(angleDeg)
-                
+
                 #self.log.debug("After normalizing angleDeg, (angleDeg={})".
                 #               format(angleDeg))
 
@@ -13436,7 +13436,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                 #xValues.append(scaledOriginPointF.x() - \
                 #               (scaledLeg2PointF.x() - scaledOriginPointF.x()))
 
-                
+
                 yValues = []
                 yValues.append(scaledOriginPointF.y())
                 yValues.append(scaledLeg1PointF.y())
@@ -13452,7 +13452,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                 # Find the smallest x and y.
                 smallestX = xValues[0]
                 smallestY = yValues[0]
-        
+
                 # Find the largest x and y.
                 largestX = xValues[-1]
                 largestY = yValues[-1]
@@ -13486,44 +13486,44 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                     self.log.debug("Special case angle: 0.0")
                     x = largestX
                     y = scaledOriginPointF.y()
-                    
+
                     # Break out of for loop since we handled the index we
                     # were looking to process.
                     break
-                
+
                 elif Util.fuzzyIsEqual(angleDeg, 90.0) or \
                          Util.fuzzyIsEqual(angleDeg, -270.0):
                     self.log.debug("Special case angle: 90.0")
                     x = scaledOriginPointF.x()
                     y = smallestY
-                    
+
                     # Break out of for loop since we handled the index we
                     # were looking to process.
                     break
-                    
+
                 elif Util.fuzzyIsEqual(angleDeg, 180.0) or \
                          Util.fuzzyIsEqual(angleDeg, -180.0):
                     self.log.debug("Special case angle: 180.0")
                     x = smallestX
                     y = scaledOriginPointF.y()
-                    
+
                     # Break out of for loop since we handled the index we
                     # were looking to process.
                     break
-                    
+
                 elif Util.fuzzyIsEqual(angleDeg, 270.0) or \
                          Util.fuzzyIsEqual(angleDeg, -90.0):
                     self.log.debug("Special case angle: 270.0")
                     x = scaledOriginPointF.x()
                     y = largestY
-                    
+
                     # Break out of for loop since we handled the index we
                     # were looking to process.
                     break
 
                 else:
                     self.log.debug("Regular case.")
-                    
+
                 # Get the line from scaledOriginPointF outwards at the
                 # 'angleDeg' angle.  We just don't know what length it
                 # should be.
@@ -13536,7 +13536,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                 #self.log.debug("lineToAngleDeg.p2 == ({}, {})".\
                 #               format(lineToAngleDeg.p2().x(),
                 #                      lineToAngleDeg.p2().y()))
-                
+
                 # Find the intesections with the line segments in 'lines'.
                 intersectionPoints = []
                 for l in lines:
@@ -13550,41 +13550,41 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                     y3 = l.p1().y()
                     x4 = l.p2().x()
                     y4 = l.p2().y()
-                    
+
                     bx = x2 - x1
                     by = y2 - y1
                     dx = x4 - x3
-                    dy = y4 - y3 
+                    dy = y4 - y3
                     b_dot_d_perp = bx*dy - by*dx
 
                     if Util.fuzzyIsEqual(abs(b_dot_d_perp), 0.0):
                         continue
-                    
+
                     cx = x3-x1
                     cy = y3-y1
                     t = (cx*dy - cy*dx) / b_dot_d_perp
- 
+
                     x = x1+t*bx
                     y = y1+t*by
 
                     intersectionPoint = QPointF(x, y)
                     intersectionPoints.append(intersectionPoint)
-        
+
                     #self.log.debug("Appended intersection point: ({}, {})".\
                     #               format(intersectionPoint.x(),
                     #                      intersectionPoint.y()))
 
                 # Normalized angleDeg.
                 normalizedAngleDeg = Util.toNormalizedAngle(angleDeg)
-                
+
                 # Process the intersection points.
                 closestPointToCorrectAngle = None
                 smallestAngleDiff = None
-                
+
                 for p in intersectionPoints:
                     #self.log.debug("Looking at point: ({}, {})".\
                     #               format(p.x(), p.y()))
-                    
+
                     # Flag that indicates the intersection point is
                     # also the origin point.
                     pEqualsOriginPointF = \
@@ -13608,7 +13608,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                          Util.fuzzyIsEqual(p.y(), largestY))
                     pWithinContainingRect = \
                         xWithinContainingRect and yWithinContainingRect
-                                          
+
                     #self.log.debug("xWithinContainingRect == {}".\
                     #               format(xWithinContainingRect))
                     #self.log.debug("yWithinContainingRect == {}".\
@@ -13626,7 +13626,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                         #               format(diff))
                         #self.log.debug("smallest angle diff is: {}".\
                         #               format(diff))
-        
+
                         if closestPointToCorrectAngle == None and \
                            smallestAngleDiff == None:
 
@@ -13634,7 +13634,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                             smallestAngleDiff = diff
 
                         elif diff < smallestAngleDiff:
-                            
+
                             closestPointToCorrectAngle = p
                             smallestAngleDiff = diff
 
@@ -13651,7 +13651,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                     # The closest point it the point we are looking for.
                     x = closestPointToCorrectAngle.x()
                     y = closestPointToCorrectAngle.y()
-                    
+
                 # Break out of for loop since we handled the index we
                 # were looking to process.
                 break
@@ -13665,7 +13665,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
             # Reset values to 0.
             x = 0.0
             y = 0.0
-            
+
         self.log.debug("Exiting getXYForRatio({}), ".format(index) + \
                        "Returning ({}, {})".format(x, y))
         return (x, y)
@@ -13679,7 +13679,7 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -13713,14 +13713,14 @@ class PriceBarChartGannFanArtifact(PriceBarChartArtifact):
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartVimsottariDasaArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates the time measurement starting 
-    at the given PriceBar timestamp and the given Y offset from the 
+    """PriceBarChartArtifact that indicates the time measurement starting
+    at the given PriceBar timestamp and the given Y offset from the
     center of the bar.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -13741,7 +13741,7 @@ class PriceBarChartVimsottariDasaArtifact(PriceBarChartArtifact):
         self.musicalRatios = \
             PriceBarChartSettings.\
                 defaultVimsottariDasaGraphicsItemMusicalRatios
-        
+
         # color (QColor).
         self.color = \
             PriceBarChartSettings.\
@@ -13772,40 +13772,40 @@ class PriceBarChartVimsottariDasaArtifact(PriceBarChartArtifact):
         self.textEnabledFlag = \
             PriceBarChartSettings.\
             defaultVimsottariDasaGraphicsItemTextEnabledFlag
-        
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the VimsottariDasaArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the VimsottariDasaArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the VimsottariDasaArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the VimsottariDasaArtifact."""
-        
+
         return self.endPointF
 
     def getMusicalRatios(self):
         """Returns the list of MusicalRatio objects."""
 
         return self.musicalRatios
-        
+
     def setMusicalRatios(self, musicalRatios):
         """Sets the list of MusicalRatio objects."""
 
@@ -13813,52 +13813,52 @@ class PriceBarChartVimsottariDasaArtifact(PriceBarChartArtifact):
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def setTextColor(self, textColor):
         """Sets the text color.
-        
+
         Arguments:
         textColor - QColor object for the text color.
         """
 
         self.textColor = textColor
-        
+
     def getTextColor(self):
         """Gets the text color as a QColor object."""
 
         return self.textColor
-        
+
     def setBarHeight(self, barHeight):
         """Sets the bar height (float)."""
 
         self.barHeight = barHeight
-    
+
     def getBarHeight(self):
         """Returns the bar height (float)."""
 
         return self.barHeight
-    
+
     def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
         self.fontSize = fontSize
-    
+
     def getFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
         return self.fontSize
-    
+
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
         This value is used to tell how ratios are referenced (from the
@@ -13878,7 +13878,7 @@ class PriceBarChartVimsottariDasaArtifact(PriceBarChartArtifact):
         """
 
         self.reversedFlag = reversedFlag
-        
+
     def isTextEnabled(self):
         """Returns whether or not the text is enabled for the
         musicalRatios that are enabled.
@@ -13896,20 +13896,20 @@ class PriceBarChartVimsottariDasaArtifact(PriceBarChartArtifact):
         """
 
         self.textEnabledFlag = textEnabledFlag
-        
+
     def getXYForMusicalRatio(self, index):
         """Returns the x and y location of where this musical ratio
         would exist, based on the MusicalRatio ordering and the
         startPoint and endPoint locations.
 
         Arguments:
-        
+
         index - int value for index into self.musicalRatios that the
         user is looking for the musical ratio for.  This value must be
         within the valid index limits.
 
         Returns:
-        
+
         Tuple of 2 floats, representing (x, y) point.  This is where
         the musical ratio would exist.
         """
@@ -13925,7 +13925,7 @@ class PriceBarChartVimsottariDasaArtifact(PriceBarChartArtifact):
             self.log.error("getXYForMusicalRatio(): Index out of range: {}".
                            format(index))
             return
-        
+
         # Return values.
         x = None
         y = None
@@ -13939,25 +13939,25 @@ class PriceBarChartVimsottariDasaArtifact(PriceBarChartArtifact):
                        format(startPointX, startPointY))
         self.log.debug("endPoint is: ({}, {})".
                        format(endPointX, endPointY))
-        
+
         deltaX = endPointX - startPointX
         deltaY = endPointY - startPointY
-        
+
         self.log.debug("deltaX is: {}".format(deltaX))
         self.log.debug("deltaY is: {}".format(deltaY))
-        
+
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         xOffset = 0.0
         yOffset = 0.0
 
-        
+
         self.log.debug("There are {} number of musical ratios.".\
                        format(len(self.musicalRatios)))
 
         for i in range(len(self.musicalRatios)):
             musicalRatio = self.musicalRatios[i]
-            
+
             self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
                            format(i, musicalRatio.getRatio()))
             if i == 0:
@@ -13967,12 +13967,12 @@ class PriceBarChartVimsottariDasaArtifact(PriceBarChartArtifact):
 
                 self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
                                format(xOffset, yOffset))
-                
+
             if i == index:
                 self.log.debug("At the i == index, where i == {}.".format(i))
                 self.log.debug("MusicalRatio is: {}".\
                                format(musicalRatio.getRatio()))
-                
+
                 x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
                 y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
 
@@ -13990,11 +13990,11 @@ class PriceBarChartVimsottariDasaArtifact(PriceBarChartArtifact):
                 else:
                     x = endPointX - x
                     y = endPointY - y
-                    
+
 
                 self.log.debug("Adjusting to start points, (x={}, y={})".
                                format(x, y))
-                
+
                 while x < startPointX and x < endPointX:
                     x += abs(deltaX)
                 while x > startPointX and x > endPointX:
@@ -14021,7 +14021,7 @@ class PriceBarChartVimsottariDasaArtifact(PriceBarChartArtifact):
             # Reset values to 0.
             x = 0.0
             y = 0.0
-            
+
         self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
                        "Returning ({}, {})".format(x, y))
         return (x, y)
@@ -14035,7 +14035,7 @@ class PriceBarChartVimsottariDasaArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -14069,14 +14069,14 @@ class PriceBarChartVimsottariDasaArtifact(PriceBarChartArtifact):
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartAshtottariDasaArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates the time measurement starting 
-    at the given PriceBar timestamp and the given Y offset from the 
+    """PriceBarChartArtifact that indicates the time measurement starting
+    at the given PriceBar timestamp and the given Y offset from the
     center of the bar.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -14097,7 +14097,7 @@ class PriceBarChartAshtottariDasaArtifact(PriceBarChartArtifact):
         self.musicalRatios = \
             PriceBarChartSettings.\
                 defaultAshtottariDasaGraphicsItemMusicalRatios
-        
+
         # color (QColor).
         self.color = \
             PriceBarChartSettings.\
@@ -14128,40 +14128,40 @@ class PriceBarChartAshtottariDasaArtifact(PriceBarChartArtifact):
         self.textEnabledFlag = \
             PriceBarChartSettings.\
             defaultAshtottariDasaGraphicsItemTextEnabledFlag
-        
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the AshtottariDasaArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the AshtottariDasaArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the AshtottariDasaArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the AshtottariDasaArtifact."""
-        
+
         return self.endPointF
 
     def getMusicalRatios(self):
         """Returns the list of MusicalRatio objects."""
 
         return self.musicalRatios
-        
+
     def setMusicalRatios(self, musicalRatios):
         """Sets the list of MusicalRatio objects."""
 
@@ -14169,52 +14169,52 @@ class PriceBarChartAshtottariDasaArtifact(PriceBarChartArtifact):
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def setTextColor(self, textColor):
         """Sets the text color.
-        
+
         Arguments:
         textColor - QColor object for the text color.
         """
 
         self.textColor = textColor
-        
+
     def getTextColor(self):
         """Gets the text color as a QColor object."""
 
         return self.textColor
-        
+
     def setBarHeight(self, barHeight):
         """Sets the bar height (float)."""
 
         self.barHeight = barHeight
-    
+
     def getBarHeight(self):
         """Returns the bar height (float)."""
 
         return self.barHeight
-    
+
     def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
         self.fontSize = fontSize
-    
+
     def getFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
         return self.fontSize
-    
+
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
         This value is used to tell how ratios are referenced (from the
@@ -14234,7 +14234,7 @@ class PriceBarChartAshtottariDasaArtifact(PriceBarChartArtifact):
         """
 
         self.reversedFlag = reversedFlag
-        
+
     def isTextEnabled(self):
         """Returns whether or not the text is enabled for the
         musicalRatios that are enabled.
@@ -14252,20 +14252,20 @@ class PriceBarChartAshtottariDasaArtifact(PriceBarChartArtifact):
         """
 
         self.textEnabledFlag = textEnabledFlag
-        
+
     def getXYForMusicalRatio(self, index):
         """Returns the x and y location of where this musical ratio
         would exist, based on the MusicalRatio ordering and the
         startPoint and endPoint locations.
 
         Arguments:
-        
+
         index - int value for index into self.musicalRatios that the
         user is looking for the musical ratio for.  This value must be
         within the valid index limits.
 
         Returns:
-        
+
         Tuple of 2 floats, representing (x, y) point.  This is where
         the musical ratio would exist.
         """
@@ -14281,7 +14281,7 @@ class PriceBarChartAshtottariDasaArtifact(PriceBarChartArtifact):
             self.log.error("getXYForMusicalRatio(): Index out of range: {}".
                            format(index))
             return
-        
+
         # Return values.
         x = None
         y = None
@@ -14295,25 +14295,25 @@ class PriceBarChartAshtottariDasaArtifact(PriceBarChartArtifact):
                        format(startPointX, startPointY))
         self.log.debug("endPoint is: ({}, {})".
                        format(endPointX, endPointY))
-        
+
         deltaX = endPointX - startPointX
         deltaY = endPointY - startPointY
-        
+
         self.log.debug("deltaX is: {}".format(deltaX))
         self.log.debug("deltaY is: {}".format(deltaY))
-        
+
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         xOffset = 0.0
         yOffset = 0.0
 
-        
+
         self.log.debug("There are {} number of musical ratios.".\
                        format(len(self.musicalRatios)))
 
         for i in range(len(self.musicalRatios)):
             musicalRatio = self.musicalRatios[i]
-            
+
             self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
                            format(i, musicalRatio.getRatio()))
             if i == 0:
@@ -14323,12 +14323,12 @@ class PriceBarChartAshtottariDasaArtifact(PriceBarChartArtifact):
 
                 self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
                                format(xOffset, yOffset))
-                
+
             if i == index:
                 self.log.debug("At the i == index, where i == {}.".format(i))
                 self.log.debug("MusicalRatio is: {}".\
                                format(musicalRatio.getRatio()))
-                
+
                 x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
                 y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
 
@@ -14346,11 +14346,11 @@ class PriceBarChartAshtottariDasaArtifact(PriceBarChartArtifact):
                 else:
                     x = endPointX - x
                     y = endPointY - y
-                    
+
 
                 self.log.debug("Adjusting to start points, (x={}, y={})".
                                format(x, y))
-                
+
                 while x < startPointX and x < endPointX:
                     x += abs(deltaX)
                 while x > startPointX and x > endPointX:
@@ -14377,7 +14377,7 @@ class PriceBarChartAshtottariDasaArtifact(PriceBarChartArtifact):
             # Reset values to 0.
             x = 0.0
             y = 0.0
-            
+
         self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
                        "Returning ({}, {})".format(x, y))
         return (x, y)
@@ -14391,7 +14391,7 @@ class PriceBarChartAshtottariDasaArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -14425,14 +14425,14 @@ class PriceBarChartAshtottariDasaArtifact(PriceBarChartArtifact):
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartYoginiDasaArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates the time measurement starting 
-    at the given PriceBar timestamp and the given Y offset from the 
+    """PriceBarChartArtifact that indicates the time measurement starting
+    at the given PriceBar timestamp and the given Y offset from the
     center of the bar.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -14453,7 +14453,7 @@ class PriceBarChartYoginiDasaArtifact(PriceBarChartArtifact):
         self.musicalRatios = \
             PriceBarChartSettings.\
                 defaultYoginiDasaGraphicsItemMusicalRatios
-        
+
         # color (QColor).
         self.color = \
             PriceBarChartSettings.\
@@ -14484,40 +14484,40 @@ class PriceBarChartYoginiDasaArtifact(PriceBarChartArtifact):
         self.textEnabledFlag = \
             PriceBarChartSettings.\
             defaultYoginiDasaGraphicsItemTextEnabledFlag
-        
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the YoginiDasaArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the YoginiDasaArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the YoginiDasaArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the YoginiDasaArtifact."""
-        
+
         return self.endPointF
 
     def getMusicalRatios(self):
         """Returns the list of MusicalRatio objects."""
 
         return self.musicalRatios
-        
+
     def setMusicalRatios(self, musicalRatios):
         """Sets the list of MusicalRatio objects."""
 
@@ -14525,52 +14525,52 @@ class PriceBarChartYoginiDasaArtifact(PriceBarChartArtifact):
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def setTextColor(self, textColor):
         """Sets the text color.
-        
+
         Arguments:
         textColor - QColor object for the text color.
         """
 
         self.textColor = textColor
-        
+
     def getTextColor(self):
         """Gets the text color as a QColor object."""
 
         return self.textColor
-        
+
     def setBarHeight(self, barHeight):
         """Sets the bar height (float)."""
 
         self.barHeight = barHeight
-    
+
     def getBarHeight(self):
         """Returns the bar height (float)."""
 
         return self.barHeight
-    
+
     def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
         self.fontSize = fontSize
-    
+
     def getFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
         return self.fontSize
-    
+
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
         This value is used to tell how ratios are referenced (from the
@@ -14590,7 +14590,7 @@ class PriceBarChartYoginiDasaArtifact(PriceBarChartArtifact):
         """
 
         self.reversedFlag = reversedFlag
-        
+
     def isTextEnabled(self):
         """Returns whether or not the text is enabled for the
         musicalRatios that are enabled.
@@ -14608,20 +14608,20 @@ class PriceBarChartYoginiDasaArtifact(PriceBarChartArtifact):
         """
 
         self.textEnabledFlag = textEnabledFlag
-        
+
     def getXYForMusicalRatio(self, index):
         """Returns the x and y location of where this musical ratio
         would exist, based on the MusicalRatio ordering and the
         startPoint and endPoint locations.
 
         Arguments:
-        
+
         index - int value for index into self.musicalRatios that the
         user is looking for the musical ratio for.  This value must be
         within the valid index limits.
 
         Returns:
-        
+
         Tuple of 2 floats, representing (x, y) point.  This is where
         the musical ratio would exist.
         """
@@ -14637,7 +14637,7 @@ class PriceBarChartYoginiDasaArtifact(PriceBarChartArtifact):
             self.log.error("getXYForMusicalRatio(): Index out of range: {}".
                            format(index))
             return
-        
+
         # Return values.
         x = None
         y = None
@@ -14651,25 +14651,25 @@ class PriceBarChartYoginiDasaArtifact(PriceBarChartArtifact):
                        format(startPointX, startPointY))
         self.log.debug("endPoint is: ({}, {})".
                        format(endPointX, endPointY))
-        
+
         deltaX = endPointX - startPointX
         deltaY = endPointY - startPointY
-        
+
         self.log.debug("deltaX is: {}".format(deltaX))
         self.log.debug("deltaY is: {}".format(deltaY))
-        
+
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         xOffset = 0.0
         yOffset = 0.0
 
-        
+
         self.log.debug("There are {} number of musical ratios.".\
                        format(len(self.musicalRatios)))
 
         for i in range(len(self.musicalRatios)):
             musicalRatio = self.musicalRatios[i]
-            
+
             self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
                            format(i, musicalRatio.getRatio()))
             if i == 0:
@@ -14679,12 +14679,12 @@ class PriceBarChartYoginiDasaArtifact(PriceBarChartArtifact):
 
                 self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
                                format(xOffset, yOffset))
-                
+
             if i == index:
                 self.log.debug("At the i == index, where i == {}.".format(i))
                 self.log.debug("MusicalRatio is: {}".\
                                format(musicalRatio.getRatio()))
-                
+
                 x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
                 y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
 
@@ -14702,11 +14702,11 @@ class PriceBarChartYoginiDasaArtifact(PriceBarChartArtifact):
                 else:
                     x = endPointX - x
                     y = endPointY - y
-                    
+
 
                 self.log.debug("Adjusting to start points, (x={}, y={})".
                                format(x, y))
-                
+
                 while x < startPointX and x < endPointX:
                     x += abs(deltaX)
                 while x > startPointX and x > endPointX:
@@ -14733,7 +14733,7 @@ class PriceBarChartYoginiDasaArtifact(PriceBarChartArtifact):
             # Reset values to 0.
             x = 0.0
             y = 0.0
-            
+
         self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
                        "Returning ({}, {})".format(x, y))
         return (x, y)
@@ -14747,7 +14747,7 @@ class PriceBarChartYoginiDasaArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -14781,14 +14781,14 @@ class PriceBarChartYoginiDasaArtifact(PriceBarChartArtifact):
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartDwisaptatiSamaDasaArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates the time measurement starting 
-    at the given PriceBar timestamp and the given Y offset from the 
+    """PriceBarChartArtifact that indicates the time measurement starting
+    at the given PriceBar timestamp and the given Y offset from the
     center of the bar.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -14809,7 +14809,7 @@ class PriceBarChartDwisaptatiSamaDasaArtifact(PriceBarChartArtifact):
         self.musicalRatios = \
             PriceBarChartSettings.\
                 defaultDwisaptatiSamaDasaGraphicsItemMusicalRatios
-        
+
         # color (QColor).
         self.color = \
             PriceBarChartSettings.\
@@ -14840,40 +14840,40 @@ class PriceBarChartDwisaptatiSamaDasaArtifact(PriceBarChartArtifact):
         self.textEnabledFlag = \
             PriceBarChartSettings.\
             defaultDwisaptatiSamaDasaGraphicsItemTextEnabledFlag
-        
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the DwisaptatiSamaDasaArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the DwisaptatiSamaDasaArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the DwisaptatiSamaDasaArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the DwisaptatiSamaDasaArtifact."""
-        
+
         return self.endPointF
 
     def getMusicalRatios(self):
         """Returns the list of MusicalRatio objects."""
 
         return self.musicalRatios
-        
+
     def setMusicalRatios(self, musicalRatios):
         """Sets the list of MusicalRatio objects."""
 
@@ -14881,52 +14881,52 @@ class PriceBarChartDwisaptatiSamaDasaArtifact(PriceBarChartArtifact):
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def setTextColor(self, textColor):
         """Sets the text color.
-        
+
         Arguments:
         textColor - QColor object for the text color.
         """
 
         self.textColor = textColor
-        
+
     def getTextColor(self):
         """Gets the text color as a QColor object."""
 
         return self.textColor
-        
+
     def setBarHeight(self, barHeight):
         """Sets the bar height (float)."""
 
         self.barHeight = barHeight
-    
+
     def getBarHeight(self):
         """Returns the bar height (float)."""
 
         return self.barHeight
-    
+
     def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
         self.fontSize = fontSize
-    
+
     def getFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
         return self.fontSize
-    
+
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
         This value is used to tell how ratios are referenced (from the
@@ -14946,7 +14946,7 @@ class PriceBarChartDwisaptatiSamaDasaArtifact(PriceBarChartArtifact):
         """
 
         self.reversedFlag = reversedFlag
-        
+
     def isTextEnabled(self):
         """Returns whether or not the text is enabled for the
         musicalRatios that are enabled.
@@ -14964,20 +14964,20 @@ class PriceBarChartDwisaptatiSamaDasaArtifact(PriceBarChartArtifact):
         """
 
         self.textEnabledFlag = textEnabledFlag
-        
+
     def getXYForMusicalRatio(self, index):
         """Returns the x and y location of where this musical ratio
         would exist, based on the MusicalRatio ordering and the
         startPoint and endPoint locations.
 
         Arguments:
-        
+
         index - int value for index into self.musicalRatios that the
         user is looking for the musical ratio for.  This value must be
         within the valid index limits.
 
         Returns:
-        
+
         Tuple of 2 floats, representing (x, y) point.  This is where
         the musical ratio would exist.
         """
@@ -14993,7 +14993,7 @@ class PriceBarChartDwisaptatiSamaDasaArtifact(PriceBarChartArtifact):
             self.log.error("getXYForMusicalRatio(): Index out of range: {}".
                            format(index))
             return
-        
+
         # Return values.
         x = None
         y = None
@@ -15007,25 +15007,25 @@ class PriceBarChartDwisaptatiSamaDasaArtifact(PriceBarChartArtifact):
                        format(startPointX, startPointY))
         self.log.debug("endPoint is: ({}, {})".
                        format(endPointX, endPointY))
-        
+
         deltaX = endPointX - startPointX
         deltaY = endPointY - startPointY
-        
+
         self.log.debug("deltaX is: {}".format(deltaX))
         self.log.debug("deltaY is: {}".format(deltaY))
-        
+
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         xOffset = 0.0
         yOffset = 0.0
 
-        
+
         self.log.debug("There are {} number of musical ratios.".\
                        format(len(self.musicalRatios)))
 
         for i in range(len(self.musicalRatios)):
             musicalRatio = self.musicalRatios[i]
-            
+
             self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
                            format(i, musicalRatio.getRatio()))
             if i == 0:
@@ -15035,12 +15035,12 @@ class PriceBarChartDwisaptatiSamaDasaArtifact(PriceBarChartArtifact):
 
                 self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
                                format(xOffset, yOffset))
-                
+
             if i == index:
                 self.log.debug("At the i == index, where i == {}.".format(i))
                 self.log.debug("MusicalRatio is: {}".\
                                format(musicalRatio.getRatio()))
-                
+
                 x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
                 y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
 
@@ -15058,11 +15058,11 @@ class PriceBarChartDwisaptatiSamaDasaArtifact(PriceBarChartArtifact):
                 else:
                     x = endPointX - x
                     y = endPointY - y
-                    
+
 
                 self.log.debug("Adjusting to start points, (x={}, y={})".
                                format(x, y))
-                
+
                 while x < startPointX and x < endPointX:
                     x += abs(deltaX)
                 while x > startPointX and x > endPointX:
@@ -15089,7 +15089,7 @@ class PriceBarChartDwisaptatiSamaDasaArtifact(PriceBarChartArtifact):
             # Reset values to 0.
             x = 0.0
             y = 0.0
-            
+
         self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
                        "Returning ({}, {})".format(x, y))
         return (x, y)
@@ -15103,7 +15103,7 @@ class PriceBarChartDwisaptatiSamaDasaArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -15137,14 +15137,14 @@ class PriceBarChartDwisaptatiSamaDasaArtifact(PriceBarChartArtifact):
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartShattrimsaSamaDasaArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates the time measurement starting 
-    at the given PriceBar timestamp and the given Y offset from the 
+    """PriceBarChartArtifact that indicates the time measurement starting
+    at the given PriceBar timestamp and the given Y offset from the
     center of the bar.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -15165,7 +15165,7 @@ class PriceBarChartShattrimsaSamaDasaArtifact(PriceBarChartArtifact):
         self.musicalRatios = \
             PriceBarChartSettings.\
                 defaultShattrimsaSamaDasaGraphicsItemMusicalRatios
-        
+
         # color (QColor).
         self.color = \
             PriceBarChartSettings.\
@@ -15196,40 +15196,40 @@ class PriceBarChartShattrimsaSamaDasaArtifact(PriceBarChartArtifact):
         self.textEnabledFlag = \
             PriceBarChartSettings.\
             defaultShattrimsaSamaDasaGraphicsItemTextEnabledFlag
-        
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the ShattrimsaSamaDasaArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the ShattrimsaSamaDasaArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the ShattrimsaSamaDasaArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the ShattrimsaSamaDasaArtifact."""
-        
+
         return self.endPointF
 
     def getMusicalRatios(self):
         """Returns the list of MusicalRatio objects."""
 
         return self.musicalRatios
-        
+
     def setMusicalRatios(self, musicalRatios):
         """Sets the list of MusicalRatio objects."""
 
@@ -15237,52 +15237,52 @@ class PriceBarChartShattrimsaSamaDasaArtifact(PriceBarChartArtifact):
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def setTextColor(self, textColor):
         """Sets the text color.
-        
+
         Arguments:
         textColor - QColor object for the text color.
         """
 
         self.textColor = textColor
-        
+
     def getTextColor(self):
         """Gets the text color as a QColor object."""
 
         return self.textColor
-        
+
     def setBarHeight(self, barHeight):
         """Sets the bar height (float)."""
 
         self.barHeight = barHeight
-    
+
     def getBarHeight(self):
         """Returns the bar height (float)."""
 
         return self.barHeight
-    
+
     def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
         self.fontSize = fontSize
-    
+
     def getFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
         return self.fontSize
-    
+
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
         This value is used to tell how ratios are referenced (from the
@@ -15302,7 +15302,7 @@ class PriceBarChartShattrimsaSamaDasaArtifact(PriceBarChartArtifact):
         """
 
         self.reversedFlag = reversedFlag
-        
+
     def isTextEnabled(self):
         """Returns whether or not the text is enabled for the
         musicalRatios that are enabled.
@@ -15320,20 +15320,20 @@ class PriceBarChartShattrimsaSamaDasaArtifact(PriceBarChartArtifact):
         """
 
         self.textEnabledFlag = textEnabledFlag
-        
+
     def getXYForMusicalRatio(self, index):
         """Returns the x and y location of where this musical ratio
         would exist, based on the MusicalRatio ordering and the
         startPoint and endPoint locations.
 
         Arguments:
-        
+
         index - int value for index into self.musicalRatios that the
         user is looking for the musical ratio for.  This value must be
         within the valid index limits.
 
         Returns:
-        
+
         Tuple of 2 floats, representing (x, y) point.  This is where
         the musical ratio would exist.
         """
@@ -15349,7 +15349,7 @@ class PriceBarChartShattrimsaSamaDasaArtifact(PriceBarChartArtifact):
             self.log.error("getXYForMusicalRatio(): Index out of range: {}".
                            format(index))
             return
-        
+
         # Return values.
         x = None
         y = None
@@ -15363,25 +15363,25 @@ class PriceBarChartShattrimsaSamaDasaArtifact(PriceBarChartArtifact):
                        format(startPointX, startPointY))
         self.log.debug("endPoint is: ({}, {})".
                        format(endPointX, endPointY))
-        
+
         deltaX = endPointX - startPointX
         deltaY = endPointY - startPointY
-        
+
         self.log.debug("deltaX is: {}".format(deltaX))
         self.log.debug("deltaY is: {}".format(deltaY))
-        
+
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         xOffset = 0.0
         yOffset = 0.0
 
-        
+
         self.log.debug("There are {} number of musical ratios.".\
                        format(len(self.musicalRatios)))
 
         for i in range(len(self.musicalRatios)):
             musicalRatio = self.musicalRatios[i]
-            
+
             self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
                            format(i, musicalRatio.getRatio()))
             if i == 0:
@@ -15391,12 +15391,12 @@ class PriceBarChartShattrimsaSamaDasaArtifact(PriceBarChartArtifact):
 
                 self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
                                format(xOffset, yOffset))
-                
+
             if i == index:
                 self.log.debug("At the i == index, where i == {}.".format(i))
                 self.log.debug("MusicalRatio is: {}".\
                                format(musicalRatio.getRatio()))
-                
+
                 x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
                 y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
 
@@ -15414,11 +15414,11 @@ class PriceBarChartShattrimsaSamaDasaArtifact(PriceBarChartArtifact):
                 else:
                     x = endPointX - x
                     y = endPointY - y
-                    
+
 
                 self.log.debug("Adjusting to start points, (x={}, y={})".
                                format(x, y))
-                
+
                 while x < startPointX and x < endPointX:
                     x += abs(deltaX)
                 while x > startPointX and x > endPointX:
@@ -15445,7 +15445,7 @@ class PriceBarChartShattrimsaSamaDasaArtifact(PriceBarChartArtifact):
             # Reset values to 0.
             x = 0.0
             y = 0.0
-            
+
         self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
                        "Returning ({}, {})".format(x, y))
         return (x, y)
@@ -15459,7 +15459,7 @@ class PriceBarChartShattrimsaSamaDasaArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -15493,14 +15493,14 @@ class PriceBarChartShattrimsaSamaDasaArtifact(PriceBarChartArtifact):
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartDwadasottariDasaArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates the time measurement starting 
-    at the given PriceBar timestamp and the given Y offset from the 
+    """PriceBarChartArtifact that indicates the time measurement starting
+    at the given PriceBar timestamp and the given Y offset from the
     center of the bar.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -15521,7 +15521,7 @@ class PriceBarChartDwadasottariDasaArtifact(PriceBarChartArtifact):
         self.musicalRatios = \
             PriceBarChartSettings.\
                 defaultDwadasottariDasaGraphicsItemMusicalRatios
-        
+
         # color (QColor).
         self.color = \
             PriceBarChartSettings.\
@@ -15552,40 +15552,40 @@ class PriceBarChartDwadasottariDasaArtifact(PriceBarChartArtifact):
         self.textEnabledFlag = \
             PriceBarChartSettings.\
             defaultDwadasottariDasaGraphicsItemTextEnabledFlag
-        
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the DwadasottariDasaArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the DwadasottariDasaArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the DwadasottariDasaArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the DwadasottariDasaArtifact."""
-        
+
         return self.endPointF
 
     def getMusicalRatios(self):
         """Returns the list of MusicalRatio objects."""
 
         return self.musicalRatios
-        
+
     def setMusicalRatios(self, musicalRatios):
         """Sets the list of MusicalRatio objects."""
 
@@ -15593,52 +15593,52 @@ class PriceBarChartDwadasottariDasaArtifact(PriceBarChartArtifact):
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def setTextColor(self, textColor):
         """Sets the text color.
-        
+
         Arguments:
         textColor - QColor object for the text color.
         """
 
         self.textColor = textColor
-        
+
     def getTextColor(self):
         """Gets the text color as a QColor object."""
 
         return self.textColor
-        
+
     def setBarHeight(self, barHeight):
         """Sets the bar height (float)."""
 
         self.barHeight = barHeight
-    
+
     def getBarHeight(self):
         """Returns the bar height (float)."""
 
         return self.barHeight
-    
+
     def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
         self.fontSize = fontSize
-    
+
     def getFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
         return self.fontSize
-    
+
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
         This value is used to tell how ratios are referenced (from the
@@ -15658,7 +15658,7 @@ class PriceBarChartDwadasottariDasaArtifact(PriceBarChartArtifact):
         """
 
         self.reversedFlag = reversedFlag
-        
+
     def isTextEnabled(self):
         """Returns whether or not the text is enabled for the
         musicalRatios that are enabled.
@@ -15676,20 +15676,20 @@ class PriceBarChartDwadasottariDasaArtifact(PriceBarChartArtifact):
         """
 
         self.textEnabledFlag = textEnabledFlag
-        
+
     def getXYForMusicalRatio(self, index):
         """Returns the x and y location of where this musical ratio
         would exist, based on the MusicalRatio ordering and the
         startPoint and endPoint locations.
 
         Arguments:
-        
+
         index - int value for index into self.musicalRatios that the
         user is looking for the musical ratio for.  This value must be
         within the valid index limits.
 
         Returns:
-        
+
         Tuple of 2 floats, representing (x, y) point.  This is where
         the musical ratio would exist.
         """
@@ -15705,7 +15705,7 @@ class PriceBarChartDwadasottariDasaArtifact(PriceBarChartArtifact):
             self.log.error("getXYForMusicalRatio(): Index out of range: {}".
                            format(index))
             return
-        
+
         # Return values.
         x = None
         y = None
@@ -15719,25 +15719,25 @@ class PriceBarChartDwadasottariDasaArtifact(PriceBarChartArtifact):
                        format(startPointX, startPointY))
         self.log.debug("endPoint is: ({}, {})".
                        format(endPointX, endPointY))
-        
+
         deltaX = endPointX - startPointX
         deltaY = endPointY - startPointY
-        
+
         self.log.debug("deltaX is: {}".format(deltaX))
         self.log.debug("deltaY is: {}".format(deltaY))
-        
+
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         xOffset = 0.0
         yOffset = 0.0
 
-        
+
         self.log.debug("There are {} number of musical ratios.".\
                        format(len(self.musicalRatios)))
 
         for i in range(len(self.musicalRatios)):
             musicalRatio = self.musicalRatios[i]
-            
+
             self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
                            format(i, musicalRatio.getRatio()))
             if i == 0:
@@ -15747,12 +15747,12 @@ class PriceBarChartDwadasottariDasaArtifact(PriceBarChartArtifact):
 
                 self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
                                format(xOffset, yOffset))
-                
+
             if i == index:
                 self.log.debug("At the i == index, where i == {}.".format(i))
                 self.log.debug("MusicalRatio is: {}".\
                                format(musicalRatio.getRatio()))
-                
+
                 x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
                 y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
 
@@ -15770,11 +15770,11 @@ class PriceBarChartDwadasottariDasaArtifact(PriceBarChartArtifact):
                 else:
                     x = endPointX - x
                     y = endPointY - y
-                    
+
 
                 self.log.debug("Adjusting to start points, (x={}, y={})".
                                format(x, y))
-                
+
                 while x < startPointX and x < endPointX:
                     x += abs(deltaX)
                 while x > startPointX and x > endPointX:
@@ -15801,7 +15801,7 @@ class PriceBarChartDwadasottariDasaArtifact(PriceBarChartArtifact):
             # Reset values to 0.
             x = 0.0
             y = 0.0
-            
+
         self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
                        "Returning ({}, {})".format(x, y))
         return (x, y)
@@ -15815,7 +15815,7 @@ class PriceBarChartDwadasottariDasaArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -15849,14 +15849,14 @@ class PriceBarChartDwadasottariDasaArtifact(PriceBarChartArtifact):
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartChaturaseetiSamaDasaArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates the time measurement starting 
-    at the given PriceBar timestamp and the given Y offset from the 
+    """PriceBarChartArtifact that indicates the time measurement starting
+    at the given PriceBar timestamp and the given Y offset from the
     center of the bar.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -15877,7 +15877,7 @@ class PriceBarChartChaturaseetiSamaDasaArtifact(PriceBarChartArtifact):
         self.musicalRatios = \
             PriceBarChartSettings.\
                 defaultChaturaseetiSamaDasaGraphicsItemMusicalRatios
-        
+
         # color (QColor).
         self.color = \
             PriceBarChartSettings.\
@@ -15908,40 +15908,40 @@ class PriceBarChartChaturaseetiSamaDasaArtifact(PriceBarChartArtifact):
         self.textEnabledFlag = \
             PriceBarChartSettings.\
             defaultChaturaseetiSamaDasaGraphicsItemTextEnabledFlag
-        
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the ChaturaseetiSamaDasaArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the ChaturaseetiSamaDasaArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the ChaturaseetiSamaDasaArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the ChaturaseetiSamaDasaArtifact."""
-        
+
         return self.endPointF
 
     def getMusicalRatios(self):
         """Returns the list of MusicalRatio objects."""
 
         return self.musicalRatios
-        
+
     def setMusicalRatios(self, musicalRatios):
         """Sets the list of MusicalRatio objects."""
 
@@ -15949,52 +15949,52 @@ class PriceBarChartChaturaseetiSamaDasaArtifact(PriceBarChartArtifact):
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def setTextColor(self, textColor):
         """Sets the text color.
-        
+
         Arguments:
         textColor - QColor object for the text color.
         """
 
         self.textColor = textColor
-        
+
     def getTextColor(self):
         """Gets the text color as a QColor object."""
 
         return self.textColor
-        
+
     def setBarHeight(self, barHeight):
         """Sets the bar height (float)."""
 
         self.barHeight = barHeight
-    
+
     def getBarHeight(self):
         """Returns the bar height (float)."""
 
         return self.barHeight
-    
+
     def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
         self.fontSize = fontSize
-    
+
     def getFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
         return self.fontSize
-    
+
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
         This value is used to tell how ratios are referenced (from the
@@ -16014,7 +16014,7 @@ class PriceBarChartChaturaseetiSamaDasaArtifact(PriceBarChartArtifact):
         """
 
         self.reversedFlag = reversedFlag
-        
+
     def isTextEnabled(self):
         """Returns whether or not the text is enabled for the
         musicalRatios that are enabled.
@@ -16032,20 +16032,20 @@ class PriceBarChartChaturaseetiSamaDasaArtifact(PriceBarChartArtifact):
         """
 
         self.textEnabledFlag = textEnabledFlag
-        
+
     def getXYForMusicalRatio(self, index):
         """Returns the x and y location of where this musical ratio
         would exist, based on the MusicalRatio ordering and the
         startPoint and endPoint locations.
 
         Arguments:
-        
+
         index - int value for index into self.musicalRatios that the
         user is looking for the musical ratio for.  This value must be
         within the valid index limits.
 
         Returns:
-        
+
         Tuple of 2 floats, representing (x, y) point.  This is where
         the musical ratio would exist.
         """
@@ -16061,7 +16061,7 @@ class PriceBarChartChaturaseetiSamaDasaArtifact(PriceBarChartArtifact):
             self.log.error("getXYForMusicalRatio(): Index out of range: {}".
                            format(index))
             return
-        
+
         # Return values.
         x = None
         y = None
@@ -16075,25 +16075,25 @@ class PriceBarChartChaturaseetiSamaDasaArtifact(PriceBarChartArtifact):
                        format(startPointX, startPointY))
         self.log.debug("endPoint is: ({}, {})".
                        format(endPointX, endPointY))
-        
+
         deltaX = endPointX - startPointX
         deltaY = endPointY - startPointY
-        
+
         self.log.debug("deltaX is: {}".format(deltaX))
         self.log.debug("deltaY is: {}".format(deltaY))
-        
+
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         xOffset = 0.0
         yOffset = 0.0
 
-        
+
         self.log.debug("There are {} number of musical ratios.".\
                        format(len(self.musicalRatios)))
 
         for i in range(len(self.musicalRatios)):
             musicalRatio = self.musicalRatios[i]
-            
+
             self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
                            format(i, musicalRatio.getRatio()))
             if i == 0:
@@ -16103,12 +16103,12 @@ class PriceBarChartChaturaseetiSamaDasaArtifact(PriceBarChartArtifact):
 
                 self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
                                format(xOffset, yOffset))
-                
+
             if i == index:
                 self.log.debug("At the i == index, where i == {}.".format(i))
                 self.log.debug("MusicalRatio is: {}".\
                                format(musicalRatio.getRatio()))
-                
+
                 x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
                 y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
 
@@ -16126,11 +16126,11 @@ class PriceBarChartChaturaseetiSamaDasaArtifact(PriceBarChartArtifact):
                 else:
                     x = endPointX - x
                     y = endPointY - y
-                    
+
 
                 self.log.debug("Adjusting to start points, (x={}, y={})".
                                format(x, y))
-                
+
                 while x < startPointX and x < endPointX:
                     x += abs(deltaX)
                 while x > startPointX and x > endPointX:
@@ -16157,7 +16157,7 @@ class PriceBarChartChaturaseetiSamaDasaArtifact(PriceBarChartArtifact):
             # Reset values to 0.
             x = 0.0
             y = 0.0
-            
+
         self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
                        "Returning ({}, {})".format(x, y))
         return (x, y)
@@ -16171,7 +16171,7 @@ class PriceBarChartChaturaseetiSamaDasaArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -16205,14 +16205,14 @@ class PriceBarChartChaturaseetiSamaDasaArtifact(PriceBarChartArtifact):
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartSataabdikaDasaArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates the time measurement starting 
-    at the given PriceBar timestamp and the given Y offset from the 
+    """PriceBarChartArtifact that indicates the time measurement starting
+    at the given PriceBar timestamp and the given Y offset from the
     center of the bar.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -16233,7 +16233,7 @@ class PriceBarChartSataabdikaDasaArtifact(PriceBarChartArtifact):
         self.musicalRatios = \
             PriceBarChartSettings.\
                 defaultSataabdikaDasaGraphicsItemMusicalRatios
-        
+
         # color (QColor).
         self.color = \
             PriceBarChartSettings.\
@@ -16264,40 +16264,40 @@ class PriceBarChartSataabdikaDasaArtifact(PriceBarChartArtifact):
         self.textEnabledFlag = \
             PriceBarChartSettings.\
             defaultSataabdikaDasaGraphicsItemTextEnabledFlag
-        
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the SataabdikaDasaArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the SataabdikaDasaArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the SataabdikaDasaArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the SataabdikaDasaArtifact."""
-        
+
         return self.endPointF
 
     def getMusicalRatios(self):
         """Returns the list of MusicalRatio objects."""
 
         return self.musicalRatios
-        
+
     def setMusicalRatios(self, musicalRatios):
         """Sets the list of MusicalRatio objects."""
 
@@ -16305,52 +16305,52 @@ class PriceBarChartSataabdikaDasaArtifact(PriceBarChartArtifact):
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def setTextColor(self, textColor):
         """Sets the text color.
-        
+
         Arguments:
         textColor - QColor object for the text color.
         """
 
         self.textColor = textColor
-        
+
     def getTextColor(self):
         """Gets the text color as a QColor object."""
 
         return self.textColor
-        
+
     def setBarHeight(self, barHeight):
         """Sets the bar height (float)."""
 
         self.barHeight = barHeight
-    
+
     def getBarHeight(self):
         """Returns the bar height (float)."""
 
         return self.barHeight
-    
+
     def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
         self.fontSize = fontSize
-    
+
     def getFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
         return self.fontSize
-    
+
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
         This value is used to tell how ratios are referenced (from the
@@ -16370,7 +16370,7 @@ class PriceBarChartSataabdikaDasaArtifact(PriceBarChartArtifact):
         """
 
         self.reversedFlag = reversedFlag
-        
+
     def isTextEnabled(self):
         """Returns whether or not the text is enabled for the
         musicalRatios that are enabled.
@@ -16388,20 +16388,20 @@ class PriceBarChartSataabdikaDasaArtifact(PriceBarChartArtifact):
         """
 
         self.textEnabledFlag = textEnabledFlag
-        
+
     def getXYForMusicalRatio(self, index):
         """Returns the x and y location of where this musical ratio
         would exist, based on the MusicalRatio ordering and the
         startPoint and endPoint locations.
 
         Arguments:
-        
+
         index - int value for index into self.musicalRatios that the
         user is looking for the musical ratio for.  This value must be
         within the valid index limits.
 
         Returns:
-        
+
         Tuple of 2 floats, representing (x, y) point.  This is where
         the musical ratio would exist.
         """
@@ -16417,7 +16417,7 @@ class PriceBarChartSataabdikaDasaArtifact(PriceBarChartArtifact):
             self.log.error("getXYForMusicalRatio(): Index out of range: {}".
                            format(index))
             return
-        
+
         # Return values.
         x = None
         y = None
@@ -16431,25 +16431,25 @@ class PriceBarChartSataabdikaDasaArtifact(PriceBarChartArtifact):
                        format(startPointX, startPointY))
         self.log.debug("endPoint is: ({}, {})".
                        format(endPointX, endPointY))
-        
+
         deltaX = endPointX - startPointX
         deltaY = endPointY - startPointY
-        
+
         self.log.debug("deltaX is: {}".format(deltaX))
         self.log.debug("deltaY is: {}".format(deltaY))
-        
+
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         xOffset = 0.0
         yOffset = 0.0
 
-        
+
         self.log.debug("There are {} number of musical ratios.".\
                        format(len(self.musicalRatios)))
 
         for i in range(len(self.musicalRatios)):
             musicalRatio = self.musicalRatios[i]
-            
+
             self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
                            format(i, musicalRatio.getRatio()))
             if i == 0:
@@ -16459,12 +16459,12 @@ class PriceBarChartSataabdikaDasaArtifact(PriceBarChartArtifact):
 
                 self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
                                format(xOffset, yOffset))
-                
+
             if i == index:
                 self.log.debug("At the i == index, where i == {}.".format(i))
                 self.log.debug("MusicalRatio is: {}".\
                                format(musicalRatio.getRatio()))
-                
+
                 x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
                 y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
 
@@ -16482,11 +16482,11 @@ class PriceBarChartSataabdikaDasaArtifact(PriceBarChartArtifact):
                 else:
                     x = endPointX - x
                     y = endPointY - y
-                    
+
 
                 self.log.debug("Adjusting to start points, (x={}, y={})".
                                format(x, y))
-                
+
                 while x < startPointX and x < endPointX:
                     x += abs(deltaX)
                 while x > startPointX and x > endPointX:
@@ -16513,7 +16513,7 @@ class PriceBarChartSataabdikaDasaArtifact(PriceBarChartArtifact):
             # Reset values to 0.
             x = 0.0
             y = 0.0
-            
+
         self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
                        "Returning ({}, {})".format(x, y))
         return (x, y)
@@ -16527,7 +16527,7 @@ class PriceBarChartSataabdikaDasaArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -16561,14 +16561,14 @@ class PriceBarChartSataabdikaDasaArtifact(PriceBarChartArtifact):
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartShodasottariDasaArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates the time measurement starting 
-    at the given PriceBar timestamp and the given Y offset from the 
+    """PriceBarChartArtifact that indicates the time measurement starting
+    at the given PriceBar timestamp and the given Y offset from the
     center of the bar.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -16589,7 +16589,7 @@ class PriceBarChartShodasottariDasaArtifact(PriceBarChartArtifact):
         self.musicalRatios = \
             PriceBarChartSettings.\
                 defaultShodasottariDasaGraphicsItemMusicalRatios
-        
+
         # color (QColor).
         self.color = \
             PriceBarChartSettings.\
@@ -16620,40 +16620,40 @@ class PriceBarChartShodasottariDasaArtifact(PriceBarChartArtifact):
         self.textEnabledFlag = \
             PriceBarChartSettings.\
             defaultShodasottariDasaGraphicsItemTextEnabledFlag
-        
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the ShodasottariDasaArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the ShodasottariDasaArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the ShodasottariDasaArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the ShodasottariDasaArtifact."""
-        
+
         return self.endPointF
 
     def getMusicalRatios(self):
         """Returns the list of MusicalRatio objects."""
 
         return self.musicalRatios
-        
+
     def setMusicalRatios(self, musicalRatios):
         """Sets the list of MusicalRatio objects."""
 
@@ -16661,52 +16661,52 @@ class PriceBarChartShodasottariDasaArtifact(PriceBarChartArtifact):
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def setTextColor(self, textColor):
         """Sets the text color.
-        
+
         Arguments:
         textColor - QColor object for the text color.
         """
 
         self.textColor = textColor
-        
+
     def getTextColor(self):
         """Gets the text color as a QColor object."""
 
         return self.textColor
-        
+
     def setBarHeight(self, barHeight):
         """Sets the bar height (float)."""
 
         self.barHeight = barHeight
-    
+
     def getBarHeight(self):
         """Returns the bar height (float)."""
 
         return self.barHeight
-    
+
     def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
         self.fontSize = fontSize
-    
+
     def getFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
         return self.fontSize
-    
+
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
         This value is used to tell how ratios are referenced (from the
@@ -16726,7 +16726,7 @@ class PriceBarChartShodasottariDasaArtifact(PriceBarChartArtifact):
         """
 
         self.reversedFlag = reversedFlag
-        
+
     def isTextEnabled(self):
         """Returns whether or not the text is enabled for the
         musicalRatios that are enabled.
@@ -16744,20 +16744,20 @@ class PriceBarChartShodasottariDasaArtifact(PriceBarChartArtifact):
         """
 
         self.textEnabledFlag = textEnabledFlag
-        
+
     def getXYForMusicalRatio(self, index):
         """Returns the x and y location of where this musical ratio
         would exist, based on the MusicalRatio ordering and the
         startPoint and endPoint locations.
 
         Arguments:
-        
+
         index - int value for index into self.musicalRatios that the
         user is looking for the musical ratio for.  This value must be
         within the valid index limits.
 
         Returns:
-        
+
         Tuple of 2 floats, representing (x, y) point.  This is where
         the musical ratio would exist.
         """
@@ -16773,7 +16773,7 @@ class PriceBarChartShodasottariDasaArtifact(PriceBarChartArtifact):
             self.log.error("getXYForMusicalRatio(): Index out of range: {}".
                            format(index))
             return
-        
+
         # Return values.
         x = None
         y = None
@@ -16787,25 +16787,25 @@ class PriceBarChartShodasottariDasaArtifact(PriceBarChartArtifact):
                        format(startPointX, startPointY))
         self.log.debug("endPoint is: ({}, {})".
                        format(endPointX, endPointY))
-        
+
         deltaX = endPointX - startPointX
         deltaY = endPointY - startPointY
-        
+
         self.log.debug("deltaX is: {}".format(deltaX))
         self.log.debug("deltaY is: {}".format(deltaY))
-        
+
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         xOffset = 0.0
         yOffset = 0.0
 
-        
+
         self.log.debug("There are {} number of musical ratios.".\
                        format(len(self.musicalRatios)))
 
         for i in range(len(self.musicalRatios)):
             musicalRatio = self.musicalRatios[i]
-            
+
             self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
                            format(i, musicalRatio.getRatio()))
             if i == 0:
@@ -16815,12 +16815,12 @@ class PriceBarChartShodasottariDasaArtifact(PriceBarChartArtifact):
 
                 self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
                                format(xOffset, yOffset))
-                
+
             if i == index:
                 self.log.debug("At the i == index, where i == {}.".format(i))
                 self.log.debug("MusicalRatio is: {}".\
                                format(musicalRatio.getRatio()))
-                
+
                 x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
                 y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
 
@@ -16838,11 +16838,11 @@ class PriceBarChartShodasottariDasaArtifact(PriceBarChartArtifact):
                 else:
                     x = endPointX - x
                     y = endPointY - y
-                    
+
 
                 self.log.debug("Adjusting to start points, (x={}, y={})".
                                format(x, y))
-                
+
                 while x < startPointX and x < endPointX:
                     x += abs(deltaX)
                 while x > startPointX and x > endPointX:
@@ -16869,7 +16869,7 @@ class PriceBarChartShodasottariDasaArtifact(PriceBarChartArtifact):
             # Reset values to 0.
             x = 0.0
             y = 0.0
-            
+
         self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
                        "Returning ({}, {})".format(x, y))
         return (x, y)
@@ -16883,7 +16883,7 @@ class PriceBarChartShodasottariDasaArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -16917,14 +16917,14 @@ class PriceBarChartShodasottariDasaArtifact(PriceBarChartArtifact):
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartPanchottariDasaArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates the time measurement starting 
-    at the given PriceBar timestamp and the given Y offset from the 
+    """PriceBarChartArtifact that indicates the time measurement starting
+    at the given PriceBar timestamp and the given Y offset from the
     center of the bar.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -16945,7 +16945,7 @@ class PriceBarChartPanchottariDasaArtifact(PriceBarChartArtifact):
         self.musicalRatios = \
             PriceBarChartSettings.\
                 defaultPanchottariDasaGraphicsItemMusicalRatios
-        
+
         # color (QColor).
         self.color = \
             PriceBarChartSettings.\
@@ -16976,40 +16976,40 @@ class PriceBarChartPanchottariDasaArtifact(PriceBarChartArtifact):
         self.textEnabledFlag = \
             PriceBarChartSettings.\
             defaultPanchottariDasaGraphicsItemTextEnabledFlag
-        
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the PanchottariDasaArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the PanchottariDasaArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the PanchottariDasaArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the PanchottariDasaArtifact."""
-        
+
         return self.endPointF
 
     def getMusicalRatios(self):
         """Returns the list of MusicalRatio objects."""
 
         return self.musicalRatios
-        
+
     def setMusicalRatios(self, musicalRatios):
         """Sets the list of MusicalRatio objects."""
 
@@ -17017,52 +17017,52 @@ class PriceBarChartPanchottariDasaArtifact(PriceBarChartArtifact):
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def setTextColor(self, textColor):
         """Sets the text color.
-        
+
         Arguments:
         textColor - QColor object for the text color.
         """
 
         self.textColor = textColor
-        
+
     def getTextColor(self):
         """Gets the text color as a QColor object."""
 
         return self.textColor
-        
+
     def setBarHeight(self, barHeight):
         """Sets the bar height (float)."""
 
         self.barHeight = barHeight
-    
+
     def getBarHeight(self):
         """Returns the bar height (float)."""
 
         return self.barHeight
-    
+
     def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
         self.fontSize = fontSize
-    
+
     def getFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
         return self.fontSize
-    
+
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
         This value is used to tell how ratios are referenced (from the
@@ -17082,7 +17082,7 @@ class PriceBarChartPanchottariDasaArtifact(PriceBarChartArtifact):
         """
 
         self.reversedFlag = reversedFlag
-        
+
     def isTextEnabled(self):
         """Returns whether or not the text is enabled for the
         musicalRatios that are enabled.
@@ -17100,20 +17100,20 @@ class PriceBarChartPanchottariDasaArtifact(PriceBarChartArtifact):
         """
 
         self.textEnabledFlag = textEnabledFlag
-        
+
     def getXYForMusicalRatio(self, index):
         """Returns the x and y location of where this musical ratio
         would exist, based on the MusicalRatio ordering and the
         startPoint and endPoint locations.
 
         Arguments:
-        
+
         index - int value for index into self.musicalRatios that the
         user is looking for the musical ratio for.  This value must be
         within the valid index limits.
 
         Returns:
-        
+
         Tuple of 2 floats, representing (x, y) point.  This is where
         the musical ratio would exist.
         """
@@ -17129,7 +17129,7 @@ class PriceBarChartPanchottariDasaArtifact(PriceBarChartArtifact):
             self.log.error("getXYForMusicalRatio(): Index out of range: {}".
                            format(index))
             return
-        
+
         # Return values.
         x = None
         y = None
@@ -17143,25 +17143,25 @@ class PriceBarChartPanchottariDasaArtifact(PriceBarChartArtifact):
                        format(startPointX, startPointY))
         self.log.debug("endPoint is: ({}, {})".
                        format(endPointX, endPointY))
-        
+
         deltaX = endPointX - startPointX
         deltaY = endPointY - startPointY
-        
+
         self.log.debug("deltaX is: {}".format(deltaX))
         self.log.debug("deltaY is: {}".format(deltaY))
-        
+
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         xOffset = 0.0
         yOffset = 0.0
 
-        
+
         self.log.debug("There are {} number of musical ratios.".\
                        format(len(self.musicalRatios)))
 
         for i in range(len(self.musicalRatios)):
             musicalRatio = self.musicalRatios[i]
-            
+
             self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
                            format(i, musicalRatio.getRatio()))
             if i == 0:
@@ -17171,12 +17171,12 @@ class PriceBarChartPanchottariDasaArtifact(PriceBarChartArtifact):
 
                 self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
                                format(xOffset, yOffset))
-                
+
             if i == index:
                 self.log.debug("At the i == index, where i == {}.".format(i))
                 self.log.debug("MusicalRatio is: {}".\
                                format(musicalRatio.getRatio()))
-                
+
                 x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
                 y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
 
@@ -17194,11 +17194,11 @@ class PriceBarChartPanchottariDasaArtifact(PriceBarChartArtifact):
                 else:
                     x = endPointX - x
                     y = endPointY - y
-                    
+
 
                 self.log.debug("Adjusting to start points, (x={}, y={})".
                                format(x, y))
-                
+
                 while x < startPointX and x < endPointX:
                     x += abs(deltaX)
                 while x > startPointX and x > endPointX:
@@ -17225,7 +17225,7 @@ class PriceBarChartPanchottariDasaArtifact(PriceBarChartArtifact):
             # Reset values to 0.
             x = 0.0
             y = 0.0
-            
+
         self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
                        "Returning ({}, {})".format(x, y))
         return (x, y)
@@ -17239,7 +17239,7 @@ class PriceBarChartPanchottariDasaArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -17273,14 +17273,14 @@ class PriceBarChartPanchottariDasaArtifact(PriceBarChartArtifact):
                        " object of version {}".format(self.classVersion))
 
 class PriceBarChartShashtihayaniDasaArtifact(PriceBarChartArtifact):
-    """PriceBarChartArtifact that indicates the time measurement starting 
-    at the given PriceBar timestamp and the given Y offset from the 
+    """PriceBarChartArtifact that indicates the time measurement starting
+    at the given PriceBar timestamp and the given Y offset from the
     center of the bar.
     """
-    
+
     def __init__(self):
         super().__init__()
-        
+
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
         self.classVersion = 1
@@ -17301,7 +17301,7 @@ class PriceBarChartShashtihayaniDasaArtifact(PriceBarChartArtifact):
         self.musicalRatios = \
             PriceBarChartSettings.\
                 defaultShashtihayaniDasaGraphicsItemMusicalRatios
-        
+
         # color (QColor).
         self.color = \
             PriceBarChartSettings.\
@@ -17332,40 +17332,40 @@ class PriceBarChartShashtihayaniDasaArtifact(PriceBarChartArtifact):
         self.textEnabledFlag = \
             PriceBarChartSettings.\
             defaultShashtihayaniDasaGraphicsItemTextEnabledFlag
-        
+
     def setStartPointF(self, startPointF):
         """Stores the starting point of the ShashtihayaniDasaArtifact.
         Arguments:
 
         startPointF - QPointF for the starting point of the artifact.
         """
-        
+
         self.startPointF = startPointF
-        
+
     def getStartPointF(self):
         """Returns the starting point of the ShashtihayaniDasaArtifact."""
-        
+
         return self.startPointF
-        
+
     def setEndPointF(self, endPointF):
         """Stores the ending point of the ShashtihayaniDasaArtifact.
         Arguments:
 
         endPointF - QPointF for the ending point of the artifact.
         """
-        
+
         self.endPointF = endPointF
-        
+
     def getEndPointF(self):
         """Returns the ending point of the ShashtihayaniDasaArtifact."""
-        
+
         return self.endPointF
 
     def getMusicalRatios(self):
         """Returns the list of MusicalRatio objects."""
 
         return self.musicalRatios
-        
+
     def setMusicalRatios(self, musicalRatios):
         """Sets the list of MusicalRatio objects."""
 
@@ -17373,52 +17373,52 @@ class PriceBarChartShashtihayaniDasaArtifact(PriceBarChartArtifact):
 
     def setColor(self, color):
         """Sets the bar color.
-        
+
         Arguments:
         color - QColor object for the bar color.
         """
-        
+
         self.color = color
 
     def getColor(self):
         """Gets the bar color as a QColor object."""
-        
+
         return self.color
 
     def setTextColor(self, textColor):
         """Sets the text color.
-        
+
         Arguments:
         textColor - QColor object for the text color.
         """
 
         self.textColor = textColor
-        
+
     def getTextColor(self):
         """Gets the text color as a QColor object."""
 
         return self.textColor
-        
+
     def setBarHeight(self, barHeight):
         """Sets the bar height (float)."""
 
         self.barHeight = barHeight
-    
+
     def getBarHeight(self):
         """Returns the bar height (float)."""
 
         return self.barHeight
-    
+
     def setFontSize(self, fontSize):
         """Sets the font size of the musical ratio text (float)."""
 
         self.fontSize = fontSize
-    
+
     def getFontSize(self):
         """Sets the font size of the musical ratio text (float)."""
 
         return self.fontSize
-    
+
     def isReversed(self):
         """Returns whether or not the musicalRatios are in reversed order.
         This value is used to tell how ratios are referenced (from the
@@ -17438,7 +17438,7 @@ class PriceBarChartShashtihayaniDasaArtifact(PriceBarChartArtifact):
         """
 
         self.reversedFlag = reversedFlag
-        
+
     def isTextEnabled(self):
         """Returns whether or not the text is enabled for the
         musicalRatios that are enabled.
@@ -17456,20 +17456,20 @@ class PriceBarChartShashtihayaniDasaArtifact(PriceBarChartArtifact):
         """
 
         self.textEnabledFlag = textEnabledFlag
-        
+
     def getXYForMusicalRatio(self, index):
         """Returns the x and y location of where this musical ratio
         would exist, based on the MusicalRatio ordering and the
         startPoint and endPoint locations.
 
         Arguments:
-        
+
         index - int value for index into self.musicalRatios that the
         user is looking for the musical ratio for.  This value must be
         within the valid index limits.
 
         Returns:
-        
+
         Tuple of 2 floats, representing (x, y) point.  This is where
         the musical ratio would exist.
         """
@@ -17485,7 +17485,7 @@ class PriceBarChartShashtihayaniDasaArtifact(PriceBarChartArtifact):
             self.log.error("getXYForMusicalRatio(): Index out of range: {}".
                            format(index))
             return
-        
+
         # Return values.
         x = None
         y = None
@@ -17499,25 +17499,25 @@ class PriceBarChartShashtihayaniDasaArtifact(PriceBarChartArtifact):
                        format(startPointX, startPointY))
         self.log.debug("endPoint is: ({}, {})".
                        format(endPointX, endPointY))
-        
+
         deltaX = endPointX - startPointX
         deltaY = endPointY - startPointY
-        
+
         self.log.debug("deltaX is: {}".format(deltaX))
         self.log.debug("deltaY is: {}".format(deltaY))
-        
+
         # Need to maintain offsets so that if the ratios are rotated a
         # certain way, then we have the correct starting point.
         xOffset = 0.0
         yOffset = 0.0
 
-        
+
         self.log.debug("There are {} number of musical ratios.".\
                        format(len(self.musicalRatios)))
 
         for i in range(len(self.musicalRatios)):
             musicalRatio = self.musicalRatios[i]
-            
+
             self.log.debug("self.musicalRatios[{}].getRatio() is: {}".\
                            format(i, musicalRatio.getRatio()))
             if i == 0:
@@ -17527,12 +17527,12 @@ class PriceBarChartShashtihayaniDasaArtifact(PriceBarChartArtifact):
 
                 self.log.debug("At i == 0.  xOffset={}, yOffset={}".\
                                format(xOffset, yOffset))
-                
+
             if i == index:
                 self.log.debug("At the i == index, where i == {}.".format(i))
                 self.log.debug("MusicalRatio is: {}".\
                                format(musicalRatio.getRatio()))
-                
+
                 x = (deltaX * (musicalRatio.getRatio() - 1.0)) - xOffset
                 y = (deltaY * (musicalRatio.getRatio() - 1.0)) - yOffset
 
@@ -17550,11 +17550,11 @@ class PriceBarChartShashtihayaniDasaArtifact(PriceBarChartArtifact):
                 else:
                     x = endPointX - x
                     y = endPointY - y
-                    
+
 
                 self.log.debug("Adjusting to start points, (x={}, y={})".
                                format(x, y))
-                
+
                 while x < startPointX and x < endPointX:
                     x += abs(deltaX)
                 while x > startPointX and x > endPointX:
@@ -17581,7 +17581,7 @@ class PriceBarChartShashtihayaniDasaArtifact(PriceBarChartArtifact):
             # Reset values to 0.
             x = 0.0
             y = 0.0
-            
+
         self.log.debug("Exiting getXYForMusicalRatio({}), ".format(index) + \
                        "Returning ({}, {})".format(x, y))
         return (x, y)
@@ -17595,7 +17595,7 @@ class PriceBarChartShashtihayaniDasaArtifact(PriceBarChartArtifact):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __getstate__(self):
@@ -17632,14 +17632,14 @@ class PriceBarChartScaling:
     """Class that holds information about the scaling of a PriceBarChart.
     """
 
-    def __init__(self, 
-                 unitsOfTime=1.0, 
+    def __init__(self,
+                 unitsOfTime=1.0,
                  unitsOfPrice=1.0,
                  viewScalingX=1.0,
                  viewScalingY=1.0,
-                 name="", 
+                 name="",
                  description=""):
-        """Initializes the members in this class.  
+        """Initializes the members in this class.
         If default arguments are used, then an identity matrix is
         used for the scaling.
         """
@@ -17660,7 +17660,7 @@ class PriceBarChartScaling:
         # Scaling used for the view.
         self.viewScalingX = 1.0
         self.viewScalingY = 1.0
-        
+
         # Set the internally stored QTransform.
         self.transform = QTransform()
         self.transform.reset()
@@ -17670,7 +17670,7 @@ class PriceBarChartScaling:
         """Updates the units-of-time variable part of scaling.
 
         Arguments:
-            
+
         unitsOfTime - float value representing the units-of-time part of
         scaling.
         """
@@ -17681,12 +17681,12 @@ class PriceBarChartScaling:
         """Returns the units-of-time part of the ratio used in scaling."""
 
         return self.unitsOfTime
-    
+
     def setUnitsOfPrice(self, unitsOfPrice):
         """Updates the units-of-price variable part of scaling.
 
         Arguments:
-            
+
         unitsOfPrice - float value representing the units-of-price part of
         scaling.
         """
@@ -17722,7 +17722,7 @@ class PriceBarChartScaling:
         self.viewScalingY = viewScalingY
 
         self._updateTransform()
-        
+
     def getViewScalingY(self):
         """Gets the scaling used for the view, which is separate from
         the normal scaling of units.
@@ -17748,22 +17748,22 @@ class PriceBarChartScaling:
         """Updates the self.transform object with the view scaling
         values set in this object.
         """
-        
+
         self.transform.reset()
         self.transform.scale(self.viewScalingX, self.viewScalingY)
-        
+
     def __str__(self):
         """Returns the string representation of this object."""
 
         return self.toString()
-        
+
     def toString(self):
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
-    
+
     def __getstate__(self):
         """Returns the object's state for pickling purposes."""
 
@@ -17795,7 +17795,7 @@ class PriceBarChartScaling:
 
 class PriceChartDocumentData:
     """Contains all the data about the price chart and price data.
-    This class is used for holding the data so that it can be 
+    This class is used for holding the data so that it can be
     pickled and unpickled.
     """
 
@@ -17811,10 +17811,10 @@ class PriceChartDocumentData:
 
         # Description label.
         self.description = ""
-        
+
         # List of PriceBar objects, sorted by timestamp.
         self.priceBars = []
-        
+
         # List of LookbackMultiple objects.
         self.lookbackMultiples = \
             PriceChartDocumentData.createDefaultLookbackMultiples()
@@ -17838,8 +17838,8 @@ class PriceChartDocumentData:
         self.priceBarSpreadsheetSettings = PriceBarSpreadsheetSettings()
 
 
-        # Configuration for the timezone used.  
-        # This is the pytz.timezone object that is a subclass of 
+        # Configuration for the timezone used.
+        # This is the pytz.timezone object that is a subclass of
         # datetime.tzinfo.
         self.locationTimezone = pytz.utc
 
@@ -17850,35 +17850,35 @@ class PriceChartDocumentData:
         # Configuration for the number of lines to skip in the file.
         self.priceBarsFileNumLinesToSkip = 0
 
-        # Index in self.priceBars of the last PriceBar that was selected.  
+        # Index in self.priceBars of the last PriceBar that was selected.
         # If none were selected at the time the application last closed, it
         # will be default to index 0 if self.priceBars is non-empty, and -1
-        # if self.priceBars is empty.  This information allows the UI to 
+        # if self.priceBars is empty.  This information allows the UI to
         # center on the same PriceBar the next time the application is opened.
         self.settingsLastPriceBarIndexSelected = -1
 
         # Notes that are added by the user in the the GUI.
         self.userNotes = ""
 
-        
+
     @staticmethod
     def createDefaultLookbackMultiples():
-        """Returns a list of LookbackMultiple objects that can be used as 
+        """Returns a list of LookbackMultiple objects that can be used as
         a default initial set.
-        
+
         Some default colors are here:
-        file:///usr/share/doc/packages/libqt4/html/qt.html#GlobalColor-enum        
+        file:///usr/share/doc/packages/libqt4/html/qt.html#GlobalColor-enum
         """
 
         rv = []
 
         geoPlanets = [
-            "Sun", 
-            "Moon", 
-            "MoSu", 
-            "AsSu", 
+            "Sun",
+            "Moon",
+            "MoSu",
+            "AsSu",
             "AsMo",
-            "Mercury", 
+            "Mercury",
             "Venus",
             "Mars",
             "Jupiter",
@@ -17897,10 +17897,10 @@ class PriceChartDocumentData:
            QColor(Qt.red),
            QColor(Qt.darkBlue),
           ]
-        
+
         helioPlanets = \
           [
-          "Mercury", 
+          "Mercury",
           "Venus",
           "Earth",
           "Mars",
@@ -17936,7 +17936,7 @@ class PriceChartDocumentData:
         for i in range(len(geoPlanets)):
             planetName = geoPlanets[i]
             color = geoPlanetsColors[i]
-            
+
             for revolution in revolutionsList:
 
                 lm = LookbackMultiple(name="",
@@ -17952,13 +17952,13 @@ class PriceChartDocumentData:
                                       heliocentricFlag=False,
                                       tropicalFlag=True,
                                       siderealFlag=False)
-                
-                rv.append(lm) 
+
+                rv.append(lm)
 
         for i in range(len(helioPlanets)):
             planetName = helioPlanets[i]
             color = helioPlanetsColors[i]
-            
+
             for revolution in revolutionsList:
 
                 lm = LookbackMultiple(name="",
@@ -17974,10 +17974,10 @@ class PriceChartDocumentData:
                                       heliocentricFlag=True,
                                       tropicalFlag=True,
                                       siderealFlag=False)
-                
-                rv.append(lm) 
 
-        
+                rv.append(lm)
+
+
         return rv
 
     def setDescription(self, description):
@@ -17993,7 +17993,7 @@ class PriceChartDocumentData:
     def setBirthInfo(self, birthInfo):
         """Sets the birth natal information for this trading entity.
         Parameters:
-            
+
         birthInfo - BirthInfo object holding the birth information.
         """
 
@@ -18025,23 +18025,23 @@ class PriceChartDocumentData:
         """
 
         return self.priceBarsFileFilename
-        
+
     def setPriceBarsFileFilename(self, filename):
         """Sets the source data file filename which we got the
         PriceBar data from.
         """
 
         self.priceBarsFileFilename = filename
-        
+
     def loadWizardData(self,
                        priceBars,
-                       priceBarsFileFilename, 
+                       priceBarsFileFilename,
                        priceBarsFileNumLinesToSkip,
                        locationTimezone,
                        description=""):
         """Loads data into this class object from the information provided
-        in the parameters.  
-        
+        in the parameters.
+
         Note:  The locationTimezone argument here is only set into the internal
         member variable.  The self.birthInfo BirthInfo object does not get
         set with this value.
@@ -18054,13 +18054,13 @@ class PriceChartDocumentData:
                                 file with price bar data.
 
         priceBarsFileNumLinesToSkip - int holding number of lines to skip
-                                      in the file above before reading CSV 
+                                      in the file above before reading CSV
                                       pricebar data.
 
         locationTimezone - Timezone name as a string, like "US/Eastern" or
                            "UTC"
 
-        description - str holding the description of the 
+        description - str holding the description of the
                       PriceChartDocumentData
         """
 
@@ -18080,8 +18080,8 @@ class PriceChartDocumentData:
 
 
     def getUniquePriceBarTags(self):
-        """Returns a list of strings that are the tags used in the internal 
-        PriceBars. 
+        """Returns a list of strings that are the tags used in the internal
+        PriceBars.
         """
 
         allTags = []
@@ -18097,7 +18097,7 @@ class PriceChartDocumentData:
         """Returns the string representation of most of the attributes in this
         PriceChartDocumentData object.
         """
-        
+
         # Strings that hold the timestamp info of the first and last PriceBar
         # in the priceBars list.
         firstPriceBarTimestamp = ""
@@ -18106,7 +18106,7 @@ class PriceChartDocumentData:
         # Need to use Ephemeris.datetimeToStr() below because
         # datetime.strftime() datetime.strftime() does not work on
         # years less than 1900.
-        
+
         if len(self.priceBars) > 0:
             firstPriceBarTimestamp = \
                 Ephemeris.datetimeToStr(self.priceBars[0].timestamp)
@@ -18117,7 +18117,7 @@ class PriceChartDocumentData:
         for artifact in self.priceBarChartArtifacts:
             artifactStrings += "[{}]".format(artifact.toString())
         artifactStrings += "]"
-            
+
         return "[{}, ".\
                    format(type(self)) + \
                 "classVersion={}, ".\
@@ -18185,22 +18185,22 @@ class PriceChartDocumentData:
             self.log.info("Detected an old class version of " + \
                           "PriceChartDocumentData (version {}).  ".\
                           format(self.classVersion))
-            
+
             if self.classVersion == 1:
                 # Version 2 added the following member variables:
                 #
                 # self.lookbackMultiples
                 #
-                
+
                 try:
                     # See if the variable is set.
                     self.lookbackMultiples
-                    
+
                     # If it got here, then the field is already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
                                   format(self.classVersion) + \
                                   "class shouldn't have this field.")
-                    
+
                 except AttributeError:
                     # Variable was not set.  Set it to the default
                     # initial values.
@@ -18210,15 +18210,15 @@ class PriceChartDocumentData:
                     self.log.debug("Added field " + \
                                    "'lookbackMultiples' " + \
                                    "to the loaded PriceChartDocumentData.")
-                    
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 2
-        
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + PriceChartDocumentData.__name__ +
                        " object of version {}".format(self.classVersion))
@@ -18237,15 +18237,15 @@ class PriceBarChartSettings:
     # Default width of the right extension (closing price) of a price bar.
     defaultPriceBarGraphicsItemRightExtensionWidth = 0.5
 
-    # Default pen width for a non-highlighted 
+    # Default pen width for a non-highlighted
     # LookbackMultiplePriceBarGraphicsItem.
     defaultLookbackMultiplePriceBarGraphicsItemPenWidth = 0.0
 
-    # Default width of the left extension (opening price) of a 
+    # Default width of the left extension (opening price) of a
     # LookbackMultiplePriceBarGraphicsItem.
     defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth = 0.5
 
-    # Default width of the right extension (closing price) of a 
+    # Default width of the right extension (closing price) of a
     # LookbackMultiplePriceBarGraphicsItem.
     defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth = 0.5
 
@@ -18279,74 +18279,74 @@ class PriceBarChartSettings:
 
     # TimeMeasurementGraphicsItem default text color.
     defaultTimeMeasurementGraphicsItemDefaultTextColor = QColor(Qt.black)
-    
+
     # TimeMeasurementGraphicsItem default color.
     defaultTimeMeasurementGraphicsItemDefaultColor = QColor(Qt.black)
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showBarsTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowBarsTextFlag = True
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrtBarsTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrtBarsTextFlag = False
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrdBarsTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrdBarsTextFlag = False
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showHoursTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowHoursTextFlag = False
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrtHoursTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrtHoursTextFlag = False
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrdHoursTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrdHoursTextFlag = False
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showDaysTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowDaysTextFlag = True
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrtDaysTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrtDaysTextFlag = False
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrdDaysTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrdDaysTextFlag = False
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showWeeksTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowWeeksTextFlag = True
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrtWeeksTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrtWeeksTextFlag = False
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrdWeeksTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrdWeeksTextFlag = False
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showMonthsTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowMonthsTextFlag = False
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrtMonthsTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrtMonthsTextFlag = False
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrdMonthsTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrdMonthsTextFlag = False
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showTimeRangeTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowTimeRangeTextFlag = False
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrtTimeRangeTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag = False
@@ -18358,7 +18358,7 @@ class PriceBarChartSettings:
     # Default value for the TimeMeasurementGraphicsItem
     # showScaledValueRangeTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowScaledValueRangeTextFlag = False
-    
+
     # Default value for the TimeMeasurementGraphicsItem
     # showSqrtScaledValueRangeTextFlag (bool).
     defaultTimeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag = False
@@ -18455,13 +18455,13 @@ class PriceBarChartSettings:
     # TimeModalScaleGraphicsItem (list of MusicalRatio)
     defaultTimeModalScaleGraphicsItemMusicalRatios = \
         MusicalRatio.getMusicalRatiosForTimeModalScaleGraphicsItem()
-    
+
     # Default color for the bar of a TimeModalScaleGraphicsItem (QColor).
     defaultTimeModalScaleGraphicsItemBarColor = QColor(Qt.black)
 
     # Default color for the text of a TimeModalScaleGraphicsItem (QColor).
     defaultTimeModalScaleGraphicsItemTextColor = QColor(Qt.black)
-    
+
     # Default value for the TimeModalScaleGraphicsItem bar height (float).
     defaultTimeModalScaleGraphicsItemBarHeight = 14.0
 
@@ -18482,13 +18482,13 @@ class PriceBarChartSettings:
     # PriceModalScaleGraphicsItem (list of MusicalRatio)
     defaultPriceModalScaleGraphicsItemMusicalRatios = \
         MusicalRatio.getMusicalRatiosForPriceModalScaleGraphicsItem()
-    
+
     # Default color for the bar of a PriceModalScaleGraphicsItem (QColor).
     defaultPriceModalScaleGraphicsItemBarColor = QColor(Qt.black)
 
     # Default color for the text of a PriceModalScaleGraphicsItem (QColor).
     defaultPriceModalScaleGraphicsItemTextColor = QColor(Qt.black)
-    
+
     # Default value for the PriceModalScaleGraphicsItem bar width (float).
     defaultPriceModalScaleGraphicsItemBarWidth = 14.0
 
@@ -18508,11 +18508,11 @@ class PriceBarChartSettings:
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # bar height (float).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemBarHeight = 8.0
-    
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # text rotation angle, in degrees (float).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemTextRotationAngle = 90.0
-    
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # text X scaling (float).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemTextXScaling = 1.0
@@ -18530,34 +18530,34 @@ class PriceBarChartSettings:
 
     # PlanetLongitudeMovementMeasurementGraphicsItem default text color.
     defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultTextColor = QColor(Qt.black)
-    
+
     # PlanetLongitudeMovementMeasurementGraphicsItem default color.
     defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultColor = QColor(Qt.black)
-    
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # showGeocentricRetroAsZeroTextFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlag = False
-    
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # showGeocentricRetroAsPositiveTextFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlag = False
-    
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # showGeocentricRetroAsNegativeTextFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag = True
-    
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # showHeliocentricTextFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlag = False
-    
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # tropicalZodiacFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlag = True
-    
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # siderealZodiacFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlag = False
-    
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # measurementUnitDegreesEnabled (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled = True
@@ -18573,311 +18573,311 @@ class PriceBarChartSettings:
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetH1EnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetH2EnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetH3EnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetH4EnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetH5EnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetH6EnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetH7EnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetH8EnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetH9EnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetH10EnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetH11EnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetH12EnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetARMCEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetVertexEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetEquatorialAscendantEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetCoAscendant1EnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetCoAscendant2EnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetPolarAscendantEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetHoraLagnaEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetGhatiLagnaEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMeanLunarApogeeEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetOsculatingLunarApogeeEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetInterpolatedLunarApogeeEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetInterpolatedLunarPerigeeEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetSunEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMoonEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMercuryEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag = True
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetVenusEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetEarthEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMarsEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetJupiterEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetSaturnEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetUranusEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetNeptuneEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetPlutoEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMeanNorthNodeEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMeanSouthNodeEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetTrueNorthNodeEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetTrueSouthNodeEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetCeresEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetPallasEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetJunoEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetVestaEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetIsisEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetNibiruEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetChironEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetGulikaEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMandiEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMeanOfFiveEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetCycleOfEightEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetAvgMaJuSaUrNePlEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetAvgJuSaUrNeEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetAvgJuSaEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetAsSuEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetAsMoEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMoSuEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMeVeEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMeEaEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMeMaEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeMaEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMeJuEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeJuEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMeSaEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeSaEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMeUrEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetVeEaEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetVeMaEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetVeJuEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeJuEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetVeSaEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeSaEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetVeUrEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetEaMaEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetEaJuEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetEaSaEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetEaUrEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaUrEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMaJuEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMaSaEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaSaEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMaUrEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaUrEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetJuSaEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetJuUrEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag = False
-        
+
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetSaUrEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag = False
-        
+
     # Default font description text (this is basically the QFont,
     # serialized to str) for the TextGraphicsItem.  This includes the
     # font size.
@@ -18887,16 +18887,16 @@ class PriceBarChartSettings:
 
     # Default font color for the TextGraphicsItem.
     defaultTextGraphicsItemDefaultColor = QColor(Qt.black)
-    
+
     # Default text X scaling for the TextGraphicsItem.
     defaultTextGraphicsItemDefaultXScaling = 1.0
-    
+
     # Default text Y scaling for the TextGraphicsItem.
     defaultTextGraphicsItemDefaultYScaling = 1.0
 
     # Default text rotation angle, in degrees (float).
     defaultTextGraphicsItemDefaultRotationAngle = 0.0
-    
+
     # Default font description text (this is basically the QFont,
     # serialized to str) for the PriceTimeInfoGraphicsItem.  This
     # includes the font size.
@@ -18906,10 +18906,10 @@ class PriceBarChartSettings:
 
     # Default font color for the PriceTimeInfoGraphicsItem.
     defaultPriceTimeInfoGraphicsItemDefaultColor = QColor(Qt.black)
-    
+
     # Default text X scaling for the PriceTimeInfoGraphicsItem.
     defaultPriceTimeInfoGraphicsItemDefaultXScaling = 1.0
-    
+
     # Default text Y scaling for the PriceTimeInfoGraphicsItem.
     defaultPriceTimeInfoGraphicsItemDefaultYScaling = 1.0
 
@@ -18940,7 +18940,7 @@ class PriceBarChartSettings:
     # Default value for the PriceTimeInfoGraphicsItem
     # showSqrtPriceScaledValueFlag (bool).
     defaultPriceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag = False
-        
+
     # Default value for the PriceTimeInfoGraphicsItem
     # showTimeScaledValueFlag (bool).
     defaultPriceTimeInfoGraphicsItemShowTimeScaledValueFlag = False
@@ -18948,7 +18948,7 @@ class PriceBarChartSettings:
     # Default value for the PriceTimeInfoGraphicsItem
     # showSqrtTimeScaledValueFlag (bool).
     defaultPriceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag = False
-        
+
     # Default value for the PriceTimeInfoGraphicsItem
     # showLineToInfoPointFlag (bool).
     defaultPriceTimeInfoGraphicsItemShowLineToInfoPointFlag = True
@@ -18971,14 +18971,14 @@ class PriceBarChartSettings:
 
     # PriceMeasurementGraphicsItem default text color.
     defaultPriceMeasurementGraphicsItemDefaultTextColor = QColor(Qt.black)
-    
+
     # PriceMeasurementGraphicsItem default color.
     defaultPriceMeasurementGraphicsItemDefaultColor = QColor(Qt.black)
-    
+
     # Default value for the PriceMeasurementGraphicsItem
     # showPriceRangeTextFlag (bool).
     defaultPriceMeasurementGraphicsItemShowPriceRangeTextFlag = True
-    
+
     # Default value for the PriceMeasurementGraphicsItem
     # showSqrtPriceRangeTextFlag (bool).
     defaultPriceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag = False
@@ -18986,7 +18986,7 @@ class PriceBarChartSettings:
     # Default value for the PriceMeasurementGraphicsItem
     # showScaledValueRangeTextFlag (bool).
     defaultPriceMeasurementGraphicsItemShowScaledValueRangeTextFlag = False
-    
+
     # Default value for the PriceMeasurementGraphicsItem
     # showSqrtScaledValueRangeTextFlag (bool).
     defaultPriceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag = False
@@ -19009,27 +19009,27 @@ class PriceBarChartSettings:
 
     # TimeRetracementGraphicsItem default text color.
     defaultTimeRetracementGraphicsItemDefaultTextColor = QColor(Qt.black)
-    
+
     # TimeRetracementGraphicsItem default color.
     defaultTimeRetracementGraphicsItemDefaultColor = QColor(Qt.black)
-    
+
     # Default value for the TimeRetracementGraphicsItem
     # showFullLinesFlag (bool).
     defaultTimeRetracementGraphicsItemShowFullLinesFlag = True
-    
+
     # Default value for the TimeRetracementGraphicsItem
     # showTimeTextFlag (bool).
     defaultTimeRetracementGraphicsItemShowTimeTextFlag = True
-    
+
     # Default value for the TimeRetracementGraphicsItem
     # showPercentTextFlag (bool).
     defaultTimeRetracementGraphicsItemShowPercentTextFlag = True
-    
+
     # Default value for the TimeRetracementGraphicsItem
     # ratios (list of Ratio).
     defaultTimeRetracementGraphicsItemRatios = \
         Ratio.getSupportedRetracementRatios()
-    
+
     # Default value for the PriceRetracementGraphicsItem bar width (float).
     defaultPriceRetracementGraphicsItemBarWidth = 4.0
 
@@ -19048,22 +19048,22 @@ class PriceBarChartSettings:
 
     # PriceRetracementGraphicsItem default text color.
     defaultPriceRetracementGraphicsItemDefaultTextColor = QColor(Qt.black)
-    
+
     # PriceRetracementGraphicsItem default color.
     defaultPriceRetracementGraphicsItemDefaultColor = QColor(Qt.black)
-    
+
     # Default value for the PriceRetracementGraphicsItem
     # showFullLinesFlag (bool).
     defaultPriceRetracementGraphicsItemShowFullLinesFlag = True
-    
+
     # Default value for the PriceRetracementGraphicsItem
     # showPriceTextFlag (bool).
     defaultPriceRetracementGraphicsItemShowPriceTextFlag = True
-    
+
     # Default value for the PriceRetracementGraphicsItem
     # showPercentTextFlag (bool).
     defaultPriceRetracementGraphicsItemShowPercentTextFlag = True
-    
+
     # Default value for the PriceRetracementGraphicsItem
     # ratios (list of Ratio).
     defaultPriceRetracementGraphicsItemRatios = \
@@ -19074,7 +19074,7 @@ class PriceBarChartSettings:
 
     # Default color for the text of a PriceTimeVectorGraphicsItem (QColor).
     defaultPriceTimeVectorGraphicsItemTextColor = QColor(Qt.black)
-    
+
     # Default value for the PriceTimeVectorGraphicsItem bar width (float).
     defaultPriceTimeVectorGraphicsItemBarWidth = 3.3
 
@@ -19095,7 +19095,7 @@ class PriceBarChartSettings:
     # showDistanceTextFlag (bool).
     defaultPriceTimeVectorGraphicsItemShowDistanceTextFlag = False
 
-    # Default value for the PriceTimeVectorGraphicsItem 
+    # Default value for the PriceTimeVectorGraphicsItem
     # showSqrtDistanceTextFlag (bool).
     defaultPriceTimeVectorGraphicsItemShowSqrtDistanceTextFlag = False
 
@@ -19103,24 +19103,24 @@ class PriceBarChartSettings:
     # showDistanceScaledValueTextFlag (bool).
     defaultPriceTimeVectorGraphicsItemShowDistanceScaledValueTextFlag = True
 
-    # Default value for the PriceTimeVectorGraphicsItem 
+    # Default value for the PriceTimeVectorGraphicsItem
     # showSqrtDistanceScaledValueTextFlag (bool).
     defaultPriceTimeVectorGraphicsItemShowSqrtDistanceScaledValueTextFlag = False
 
-    # Default value for the PriceTimeVectorGraphicsItem 
+    # Default value for the PriceTimeVectorGraphicsItem
     # tiltedTextFlag (bool).
     defaultPriceTimeVectorGraphicsItemTiltedTextFlag = True
-    
-    # Default value for the PriceTimeVectorGraphicsItem 
+
+    # Default value for the PriceTimeVectorGraphicsItem
     # angleTextFlag (bool).
     defaultPriceTimeVectorGraphicsItemAngleTextFlag = False
-    
+
     # Default color for the bar of a LineSegmentGraphicsItem (QColor).
     defaultLineSegmentGraphicsItemColor = QColor(Qt.black)
 
     # Default color for the text of a LineSegmentGraphicsItem (QColor).
     defaultLineSegmentGraphicsItemTextColor = QColor(Qt.black)
-    
+
     # Default value for the LineSegmentGraphicsItem bar width (float).
     defaultLineSegmentGraphicsItemBarWidth = 3.3
 
@@ -19137,14 +19137,14 @@ class PriceBarChartSettings:
     font.setPointSizeF(6)
     defaultLineSegmentGraphicsItemDefaultFontDescription = font.toString()
 
-    # Default value for the LineSegmentGraphicsItem 
+    # Default value for the LineSegmentGraphicsItem
     # tiltedTextFlag (bool).
     defaultLineSegmentGraphicsItemTiltedTextFlag = True
-    
-    # Default value for the LineSegmentGraphicsItem 
+
+    # Default value for the LineSegmentGraphicsItem
     # angleTextFlag (bool).
     defaultLineSegmentGraphicsItemAngleTextFlag = False
-    
+
     # Default color for the bar of a VerticalLineSegmentGraphicsItem (QColor).
     defaultVerticalLineSegmentGraphicsItemColor = QColor(Qt.gray)
 
@@ -19161,13 +19161,13 @@ class PriceBarChartSettings:
     # OctaveFanGraphicsItem (list of MusicalRatio)
     defaultOctaveFanGraphicsItemMusicalRatios = \
         MusicalRatio.getMusicalRatiosForOctaveFanGraphicsItem()
-    
+
     # Default color for the bar of a OctaveFanGraphicsItem (QColor).
     defaultOctaveFanGraphicsItemBarColor = QColor(Qt.black)
 
     # Default color for the text of a OctaveFanGraphicsItem (QColor).
     defaultOctaveFanGraphicsItemTextColor = QColor(Qt.black)
-    
+
     # Default value for the OctaveFanGraphicsItem bar height (float).
     defaultOctaveFanGraphicsItemBarHeight = 3.3
 
@@ -19199,14 +19199,14 @@ class PriceBarChartSettings:
 
     # FibFanGraphicsItem default text color.
     defaultFibFanGraphicsItemDefaultTextColor = QColor(Qt.black)
-    
+
     # FibFanGraphicsItem default color.
     defaultFibFanGraphicsItemDefaultColor = QColor(Qt.black)
-    
+
     # Default value for the FibFanGraphicsItem
     # ratios (list of Ratio).
     defaultFibFanGraphicsItemRatios = Ratio.getSupportedFibRatios()
-    
+
     # Default value for the FibFanGraphicsItem bar height (float).
     defaultFibFanGraphicsItemBarHeight = 3.3
 
@@ -19229,14 +19229,14 @@ class PriceBarChartSettings:
 
     # GannFanGraphicsItem default text color.
     defaultGannFanGraphicsItemDefaultTextColor = QColor(Qt.black)
-    
+
     # GannFanGraphicsItem default color.
     defaultGannFanGraphicsItemDefaultColor = QColor(Qt.black)
-    
+
     # Default value for the GannFanGraphicsItem
     # ratios (list of Ratio).
     defaultGannFanGraphicsItemRatios = Ratio.getSupportedGannFanRatios()
-    
+
     # Default value for the GannFanGraphicsItem bar height (float).
     defaultGannFanGraphicsItemBarHeight = 3.3
 
@@ -19248,13 +19248,13 @@ class PriceBarChartSettings:
     # VimsottariDasaGraphicsItem (list of MusicalRatio)
     defaultVimsottariDasaGraphicsItemMusicalRatios = \
         MusicalRatio.getVimsottariDasaMusicalRatios()
-    
+
     # Default color for the bar of a VimsottariDasaGraphicsItem (QColor).
     defaultVimsottariDasaGraphicsItemBarColor = QColor(Qt.black)
 
     # Default color for the text of a VimsottariDasaGraphicsItem (QColor).
     defaultVimsottariDasaGraphicsItemTextColor = QColor(Qt.black)
-    
+
     # Default value for the VimsottariDasaGraphicsItem bar height (float).
     defaultVimsottariDasaGraphicsItemBarHeight = 4.0
 
@@ -19275,13 +19275,13 @@ class PriceBarChartSettings:
     # AshtottariDasaGraphicsItem (list of MusicalRatio)
     defaultAshtottariDasaGraphicsItemMusicalRatios = \
         MusicalRatio.getAshtottariDasaMusicalRatios()
-    
+
     # Default color for the bar of a AshtottariDasaGraphicsItem (QColor).
     defaultAshtottariDasaGraphicsItemBarColor = QColor(Qt.black)
 
     # Default color for the text of a AshtottariDasaGraphicsItem (QColor).
     defaultAshtottariDasaGraphicsItemTextColor = QColor(Qt.black)
-    
+
     # Default value for the AshtottariDasaGraphicsItem bar height (float).
     defaultAshtottariDasaGraphicsItemBarHeight = 4.0
 
@@ -19302,13 +19302,13 @@ class PriceBarChartSettings:
     # YoginiDasaGraphicsItem (list of MusicalRatio)
     defaultYoginiDasaGraphicsItemMusicalRatios = \
         MusicalRatio.getYoginiDasaMusicalRatios()
-    
+
     # Default color for the bar of a YoginiDasaGraphicsItem (QColor).
     defaultYoginiDasaGraphicsItemBarColor = QColor(Qt.black)
 
     # Default color for the text of a YoginiDasaGraphicsItem (QColor).
     defaultYoginiDasaGraphicsItemTextColor = QColor(Qt.black)
-    
+
     # Default value for the YoginiDasaGraphicsItem bar height (float).
     defaultYoginiDasaGraphicsItemBarHeight = 4.0
 
@@ -19329,13 +19329,13 @@ class PriceBarChartSettings:
     # DwisaptatiSamaDasaGraphicsItem (list of MusicalRatio)
     defaultDwisaptatiSamaDasaGraphicsItemMusicalRatios = \
         MusicalRatio.getDwisaptatiSamaDasaMusicalRatios()
-    
+
     # Default color for the bar of a DwisaptatiSamaDasaGraphicsItem (QColor).
     defaultDwisaptatiSamaDasaGraphicsItemBarColor = QColor(Qt.black)
 
     # Default color for the text of a DwisaptatiSamaDasaGraphicsItem (QColor).
     defaultDwisaptatiSamaDasaGraphicsItemTextColor = QColor(Qt.black)
-    
+
     # Default value for the DwisaptatiSamaDasaGraphicsItem bar height (float).
     defaultDwisaptatiSamaDasaGraphicsItemBarHeight = 4.0
 
@@ -19358,13 +19358,13 @@ class PriceBarChartSettings:
     # ShattrimsaSamaDasaGraphicsItem (list of MusicalRatio)
     defaultShattrimsaSamaDasaGraphicsItemMusicalRatios = \
         MusicalRatio.getShattrimsaSamaDasaMusicalRatios()
-    
+
     # Default color for the bar of a ShattrimsaSamaDasaGraphicsItem (QColor).
     defaultShattrimsaSamaDasaGraphicsItemBarColor = QColor(Qt.black)
 
     # Default color for the text of a ShattrimsaSamaDasaGraphicsItem (QColor).
     defaultShattrimsaSamaDasaGraphicsItemTextColor = QColor(Qt.black)
-    
+
     # Default value for the ShattrimsaSamaDasaGraphicsItem bar height (float).
     defaultShattrimsaSamaDasaGraphicsItemBarHeight = 4.0
 
@@ -19387,13 +19387,13 @@ class PriceBarChartSettings:
     # DwadasottariDasaGraphicsItem (list of MusicalRatio)
     defaultDwadasottariDasaGraphicsItemMusicalRatios = \
         MusicalRatio.getDwadasottariDasaMusicalRatios()
-    
+
     # Default color for the bar of a DwadasottariDasaGraphicsItem (QColor).
     defaultDwadasottariDasaGraphicsItemBarColor = QColor(Qt.black)
 
     # Default color for the text of a DwadasottariDasaGraphicsItem (QColor).
     defaultDwadasottariDasaGraphicsItemTextColor = QColor(Qt.black)
-    
+
     # Default value for the DwadasottariDasaGraphicsItem bar height (float).
     defaultDwadasottariDasaGraphicsItemBarHeight = 4.0
 
@@ -19416,13 +19416,13 @@ class PriceBarChartSettings:
     # ChaturaseetiSamaDasaGraphicsItem (list of MusicalRatio)
     defaultChaturaseetiSamaDasaGraphicsItemMusicalRatios = \
         MusicalRatio.getChaturaseetiSamaDasaMusicalRatios()
-    
+
     # Default color for the bar of a ChaturaseetiSamaDasaGraphicsItem (QColor).
     defaultChaturaseetiSamaDasaGraphicsItemBarColor = QColor(Qt.black)
 
     # Default color for the text of a ChaturaseetiSamaDasaGraphicsItem (QColor).
     defaultChaturaseetiSamaDasaGraphicsItemTextColor = QColor(Qt.black)
-    
+
     # Default value for the ChaturaseetiSamaDasaGraphicsItem bar height (float).
     defaultChaturaseetiSamaDasaGraphicsItemBarHeight = 4.0
 
@@ -19445,13 +19445,13 @@ class PriceBarChartSettings:
     # SataabdikaDasaGraphicsItem (list of MusicalRatio)
     defaultSataabdikaDasaGraphicsItemMusicalRatios = \
         MusicalRatio.getSataabdikaDasaMusicalRatios()
-    
+
     # Default color for the bar of a SataabdikaDasaGraphicsItem (QColor).
     defaultSataabdikaDasaGraphicsItemBarColor = QColor(Qt.black)
 
     # Default color for the text of a SataabdikaDasaGraphicsItem (QColor).
     defaultSataabdikaDasaGraphicsItemTextColor = QColor(Qt.black)
-    
+
     # Default value for the SataabdikaDasaGraphicsItem bar height (float).
     defaultSataabdikaDasaGraphicsItemBarHeight = 4.0
 
@@ -19474,13 +19474,13 @@ class PriceBarChartSettings:
     # ShodasottariDasaGraphicsItem (list of MusicalRatio)
     defaultShodasottariDasaGraphicsItemMusicalRatios = \
         MusicalRatio.getShodasottariDasaMusicalRatios()
-    
+
     # Default color for the bar of a ShodasottariDasaGraphicsItem (QColor).
     defaultShodasottariDasaGraphicsItemBarColor = QColor(Qt.black)
 
     # Default color for the text of a ShodasottariDasaGraphicsItem (QColor).
     defaultShodasottariDasaGraphicsItemTextColor = QColor(Qt.black)
-    
+
     # Default value for the ShodasottariDasaGraphicsItem bar height (float).
     defaultShodasottariDasaGraphicsItemBarHeight = 4.0
 
@@ -19503,13 +19503,13 @@ class PriceBarChartSettings:
     # PanchottariDasaGraphicsItem (list of MusicalRatio)
     defaultPanchottariDasaGraphicsItemMusicalRatios = \
         MusicalRatio.getPanchottariDasaMusicalRatios()
-    
+
     # Default color for the bar of a PanchottariDasaGraphicsItem (QColor).
     defaultPanchottariDasaGraphicsItemBarColor = QColor(Qt.black)
 
     # Default color for the text of a PanchottariDasaGraphicsItem (QColor).
     defaultPanchottariDasaGraphicsItemTextColor = QColor(Qt.black)
-    
+
     # Default value for the PanchottariDasaGraphicsItem bar height (float).
     defaultPanchottariDasaGraphicsItemBarHeight = 4.0
 
@@ -19532,13 +19532,13 @@ class PriceBarChartSettings:
     # ShashtihayaniDasaGraphicsItem (list of MusicalRatio)
     defaultShashtihayaniDasaGraphicsItemMusicalRatios = \
         MusicalRatio.getShashtihayaniDasaMusicalRatios()
-    
+
     # Default color for the bar of a ShashtihayaniDasaGraphicsItem (QColor).
     defaultShashtihayaniDasaGraphicsItemBarColor = QColor(Qt.black)
 
     # Default color for the text of a ShashtihayaniDasaGraphicsItem (QColor).
     defaultShashtihayaniDasaGraphicsItemTextColor = QColor(Qt.black)
-    
+
     # Default value for the ShashtihayaniDasaGraphicsItem bar height (float).
     defaultShashtihayaniDasaGraphicsItemBarHeight = 4.0
 
@@ -19568,48 +19568,48 @@ class PriceBarChartSettings:
         # different versions of this class).
         self.classVersion = 13
 
-        # List of scalings used in the PriceBarChartGraphicsView.  
+        # List of scalings used in the PriceBarChartGraphicsView.
         # This is list of PriceBarChartScaling objects.
         self.priceBarChartGraphicsViewScalings = []
 
         # Index into the self.priceBarChartGraphicsViewScalings list of
         # PriceBarChartScalings objects that indicates
-        # which scaling to use.  
+        # which scaling to use.
         self.priceBarChartGraphicsViewScalingsIndex = -1
 
         # Pen width for PriceBars.
         # This is a float value.
         self.priceBarGraphicsItemPenWidth = \
-            PriceBarChartSettings.defaultPriceBarGraphicsItemPenWidth 
+            PriceBarChartSettings.defaultPriceBarGraphicsItemPenWidth
 
         # Width of the left extension drawn that represents the open price of a
         # PriceBar.  This is a float value.
         self.priceBarGraphicsItemLeftExtensionWidth = \
             PriceBarChartSettings.\
-                defaultPriceBarGraphicsItemLeftExtensionWidth 
+                defaultPriceBarGraphicsItemLeftExtensionWidth
 
         # Width of the right extension drawn that represents the close price of
         # a PriceBar.  This is a float value.
         self.priceBarGraphicsItemRightExtensionWidth = \
             PriceBarChartSettings.\
-                defaultPriceBarGraphicsItemRightExtensionWidth 
+                defaultPriceBarGraphicsItemRightExtensionWidth
 
         # Pen width for LookbackMultiplePriceBars.
         # This is a float value.
         self.lookbackMultiplePriceBarGraphicsItemPenWidth = \
-            PriceBarChartSettings.defaultLookbackMultiplePriceBarGraphicsItemPenWidth 
+            PriceBarChartSettings.defaultLookbackMultiplePriceBarGraphicsItemPenWidth
 
         # Width of the left extension drawn that represents the open price of a
         # LookbackMultiplePriceBar.  This is a float value.
         self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth = \
             PriceBarChartSettings.\
-                defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth 
+                defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth
 
         # Width of the right extension drawn that represents the close price of
         # a LookbackMultiplePriceBar.  This is a float value.
         self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidth = \
             PriceBarChartSettings.\
-                defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth 
+                defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth
 
         # BarCountGraphicsItem bar height (float).
         self.barCountGraphicsItemBarHeight = \
@@ -19657,77 +19657,77 @@ class PriceBarChartSettings:
         self.timeMeasurementGraphicsItemDefaultTextColor = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemDefaultTextColor
-        
+
         # TimeMeasurementGraphicsItem default color.
         self.timeMeasurementGraphicsItemDefaultColor = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemDefaultColor
-        
+
         # TimeMeasurementGraphicsItem showBarsTextFlag (bool).
         self.timeMeasurementGraphicsItemShowBarsTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowBarsTextFlag
-    
+
         # TimeMeasurementGraphicsItem showSqrtBarsTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtBarsTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtBarsTextFlag
-    
+
         # TimeMeasurementGraphicsItem showSqrdBarsTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrdBarsTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdBarsTextFlag
-    
+
         # TimeMeasurementGraphicsItem showHoursTextFlag (bool).
         self.timeMeasurementGraphicsItemShowHoursTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowHoursTextFlag
-    
+
         # TimeMeasurementGraphicsItem showSqrtHoursTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtHoursTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtHoursTextFlag
-    
+
         # TimeMeasurementGraphicsItem showSqrdHoursTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrdHoursTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdHoursTextFlag
-    
+
         # TimeMeasurementGraphicsItem showDaysTextFlag (bool).
         self.timeMeasurementGraphicsItemShowDaysTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowDaysTextFlag
-    
+
         # TimeMeasurementGraphicsItem showSqrtDaysTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtDaysTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtDaysTextFlag
-    
+
         # TimeMeasurementGraphicsItem showSqrdDaysTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrdDaysTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdDaysTextFlag
-    
+
         # TimeMeasurementGraphicsItem showWeeksTextFlag (bool).
         self.timeMeasurementGraphicsItemShowWeeksTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowWeeksTextFlag
-    
+
         # TimeMeasurementGraphicsItem showSqrtWeeksTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtWeeksTextFlag
-    
+
         # TimeMeasurementGraphicsItem showSqrdWeeksTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrdWeeksTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdWeeksTextFlag
-    
+
         # TimeMeasurementGraphicsItem showMonthsTextFlag (bool).
         self.timeMeasurementGraphicsItemShowMonthsTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowMonthsTextFlag
-    
+
         # TimeMeasurementGraphicsItem showSqrtMonthsTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlag = \
             PriceBarChartSettings.\
@@ -19742,7 +19742,7 @@ class PriceBarChartSettings:
         self.timeMeasurementGraphicsItemShowTimeRangeTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowTimeRangeTextFlag
-    
+
         # TimeMeasurementGraphicsItem showSqrtTimeRangeTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag = \
             PriceBarChartSettings.\
@@ -19757,7 +19757,7 @@ class PriceBarChartSettings:
         self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowScaledValueRangeTextFlag
-    
+
         # TimeMeasurementGraphicsItem showSqrtScaledValueRangeTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag = \
             PriceBarChartSettings.\
@@ -19787,87 +19787,87 @@ class PriceBarChartSettings:
         self.timeMeasurementGraphicsItemShowMuhurtaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowMuhurtaTextFlag
-            
+
         # TimeMeasurementGraphicsItem showSqrtMuhurtaTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtMuhurtaTextFlag
-            
+
         # TimeMeasurementGraphicsItem showSqrdMuhurtaTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdMuhurtaTextFlag
-            
+
         # TimeMeasurementGraphicsItem showVaraTextFlag (bool).
         self.timeMeasurementGraphicsItemShowVaraTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowVaraTextFlag
-            
+
         # TimeMeasurementGraphicsItem showSqrtVaraTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtVaraTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtVaraTextFlag
-            
+
         # TimeMeasurementGraphicsItem showSqrdVaraTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrdVaraTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdVaraTextFlag
-            
+
         # TimeMeasurementGraphicsItem showRtuTextFlag (bool).
         self.timeMeasurementGraphicsItemShowRtuTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowRtuTextFlag
-            
+
         # TimeMeasurementGraphicsItem showSqrtRtuTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtRtuTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtRtuTextFlag
-            
+
         # TimeMeasurementGraphicsItem showSqrdRtuTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrdRtuTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdRtuTextFlag
-            
+
         # TimeMeasurementGraphicsItem showMasaTextFlag (bool).
         self.timeMeasurementGraphicsItemShowMasaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowMasaTextFlag
-            
+
         # TimeMeasurementGraphicsItem showSqrtMasaTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtMasaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtMasaTextFlag
-            
+
         # TimeMeasurementGraphicsItem showSqrdMasaTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrdMasaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdMasaTextFlag
-            
+
         # TimeMeasurementGraphicsItem showPaksaTextFlag (bool).
         self.timeMeasurementGraphicsItemShowPaksaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowPaksaTextFlag
-            
+
         # TimeMeasurementGraphicsItem showSqrtPaksaTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtPaksaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtPaksaTextFlag
-            
+
         # TimeMeasurementGraphicsItem showSqrdPaksaTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrdPaksaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrdPaksaTextFlag
-            
+
         # TimeMeasurementGraphicsItem showSamaTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSamaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSamaTextFlag
-            
+
         # TimeMeasurementGraphicsItem showSqrtSamaTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrtSamaTextFlag = \
             PriceBarChartSettings.\
             defaultTimeMeasurementGraphicsItemShowSqrtSamaTextFlag
-            
+
         # TimeMeasurementGraphicsItem showSqrdSamaTextFlag (bool).
         self.timeMeasurementGraphicsItemShowSqrdSamaTextFlag = \
             PriceBarChartSettings.\
@@ -19897,7 +19897,7 @@ class PriceBarChartSettings:
         self.timeModalScaleGraphicsItemFontSize = \
             PriceBarChartSettings.\
                 defaultTimeModalScaleGraphicsItemFontSize
-        
+
         # TimeModalScaleGraphicsItem text X scaling (float).
         self.timeModalScaleGraphicsItemTextXScaling = \
             PriceBarChartSettings.\
@@ -19937,7 +19937,7 @@ class PriceBarChartSettings:
         self.priceModalScaleGraphicsItemFontSize = \
             PriceBarChartSettings.\
                 defaultPriceModalScaleGraphicsItemFontSize
-        
+
         # PriceModalScaleGraphicsItem text X scaling (float).
         self.priceModalScaleGraphicsItemTextXScaling = \
             PriceBarChartSettings.\
@@ -19985,48 +19985,48 @@ class PriceBarChartSettings:
         self.planetLongitudeMovementMeasurementGraphicsItemDefaultTextColor = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultTextColor
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem default color.
         self.planetLongitudeMovementMeasurementGraphicsItemDefaultColor = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultColor
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # showGeocentricRetroAsZeroTextFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlag
-    
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # showGeocentricRetroAsPositiveTextFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlag
-    
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # showGeocentricRetroAsNegativeTextFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag
-    
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # showHeliocentricTextFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlag
-    
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # tropicalZodiacFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlag
-    
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # siderealZodiacFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlag
-    
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # measurementUnitDegreesEnabled (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled = \
@@ -20050,464 +20050,464 @@ class PriceBarChartSettings:
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetH2EnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetH3EnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetH4EnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetH5EnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetH6EnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetH7EnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetH8EnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetH9EnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetH10EnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetH11EnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetH12EnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetARMCEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetVertexEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetEquatorialAscendantEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetCoAscendant1EnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetCoAscendant2EnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetPolarAscendantEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetHoraLagnaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetGhatiLagnaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMeanLunarApogeeEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetOsculatingLunarApogeeEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetInterpolatedLunarApogeeEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetInterpolatedLunarPerigeeEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetSunEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMoonEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMercuryEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetVenusEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetEarthEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMarsEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetJupiterEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetSaturnEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetUranusEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetNeptuneEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetPlutoEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMeanNorthNodeEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMeanSouthNodeEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetTrueNorthNodeEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetTrueSouthNodeEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetCeresEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetPallasEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetJunoEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetVestaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetIsisEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetNibiruEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetChironEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetGulikaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMandiEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMeanOfFiveEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetCycleOfEightEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetAvgMaJuSaUrNePlEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetAvgJuSaUrNeEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetAvgJuSaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetAsSuEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetAsMoEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMoSuEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMeVeEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMeEaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMeMaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeMaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeMaEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMeJuEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeJuEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeJuEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMeSaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeSaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeSaEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMeUrEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetVeEaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetVeMaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetVeJuEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeJuEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeJuEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetVeSaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeSaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeSaEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetVeUrEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetEaMaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetEaJuEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetEaSaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetEaUrEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaUrEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaUrEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMaJuEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMaSaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaSaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaSaEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMaUrEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaUrEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaUrEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetJuSaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetJuUrEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag
-        
+
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetSaUrEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag
-        
-        
+
+
         # Default font description text (this is basically the QFont,
         # serialized to str) for the TextGraphicsItem.  This includes the
         # font size.
@@ -20518,7 +20518,7 @@ class PriceBarChartSettings:
         # TextGraphicsItem default font color.
         self.textGraphicsItemDefaultColor = \
             PriceBarChartSettings.defaultTextGraphicsItemDefaultColor
-        
+
         # TextGraphicsItem default text X scaling.
         self.textGraphicsItemDefaultXScaling = \
             PriceBarChartSettings.\
@@ -20533,24 +20533,24 @@ class PriceBarChartSettings:
         self.textGraphicsItemDefaultRotationAngle = \
             PriceBarChartSettings.\
             defaultTextGraphicsItemDefaultRotationAngle
-        
+
         # Default font description text (this is basically the QFont,
         # serialized to str) for the PriceTimeInfoGraphicsItem.  This
         # includes the font size.
         self.priceTimeInfoGraphicsItemDefaultFontDescription = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemDefaultFontDescription
-            
+
         # PriceTimeInfoGraphicsItem default font color.
         self.priceTimeInfoGraphicsItemDefaultColor = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemDefaultColor
-    
+
         # PriceTimeInfoGraphicsItem default text X scaling.
         self.priceTimeInfoGraphicsItemDefaultXScaling = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemDefaultXScaling
-    
+
         # PriceTimeInfoGraphicsItem default text Y scaling.
         self.priceTimeInfoGraphicsItemDefaultYScaling = \
             PriceBarChartSettings.\
@@ -20590,7 +20590,7 @@ class PriceBarChartSettings:
         self.priceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemShowSqrtPriceScaledValueFlag
-        
+
         # PriceTimeInfoGraphicsItem showTimeScaledValueFlag (bool).
         self.priceTimeInfoGraphicsItemShowTimeScaledValueFlag = \
             PriceBarChartSettings.\
@@ -20600,7 +20600,7 @@ class PriceBarChartSettings:
         self.priceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeInfoGraphicsItemShowSqrtTimeScaledValueFlag
-        
+
         # PriceTimeInfoGraphicsItem showLineToInfoPointFlag (bool).
         self.priceTimeInfoGraphicsItemShowLineToInfoPointFlag = \
             PriceBarChartSettings.\
@@ -20610,7 +20610,7 @@ class PriceBarChartSettings:
         self.priceMeasurementGraphicsItemDefaultBarWidth = \
             PriceBarChartSettings.\
             defaultPriceMeasurementGraphicsItemBarWidth
-            
+
         # PriceMeasurementGraphicsItem default text X scaling (float).
         self.priceMeasurementGraphicsItemDefaultTextXScaling = \
             PriceBarChartSettings.\
@@ -20632,17 +20632,17 @@ class PriceBarChartSettings:
         self.priceMeasurementGraphicsItemDefaultTextColor = \
             PriceBarChartSettings.\
             defaultPriceMeasurementGraphicsItemDefaultTextColor
-    
+
         # PriceMeasurementGraphicsItem default color.
         self.priceMeasurementGraphicsItemDefaultColor = \
             PriceBarChartSettings.\
             defaultPriceMeasurementGraphicsItemDefaultColor
-    
+
         # PriceMeasurementGraphicsItem showPriceRangeTextFlag (bool).
         self.priceMeasurementGraphicsItemShowPriceRangeTextFlag = \
             PriceBarChartSettings.\
             defaultPriceMeasurementGraphicsItemShowPriceRangeTextFlag
-    
+
         # PriceMeasurementGraphicsItem showSqrtPriceRangeTextFlag (bool).
         self.priceMeasurementGraphicsItemShowSqrtPriceRangeTextFlag = \
             PriceBarChartSettings.\
@@ -20652,12 +20652,12 @@ class PriceBarChartSettings:
         self.priceMeasurementGraphicsItemShowScaledValueRangeTextFlag = \
             PriceBarChartSettings.\
             defaultPriceMeasurementGraphicsItemShowScaledValueRangeTextFlag
-    
+
         # PriceMeasurementGraphicsItem showSqrtScaledValueRangeTextFlag (bool).
         self.priceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag = \
             PriceBarChartSettings.\
             defaultPriceMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag
-    
+
         # TimeRetracementGraphicsItem bar height (float).
         self.timeRetracementGraphicsItemBarHeight = \
             PriceBarChartSettings.\
@@ -20684,7 +20684,7 @@ class PriceBarChartSettings:
         self.timeRetracementGraphicsItemDefaultTextColor = \
             PriceBarChartSettings.\
             defaultTimeRetracementGraphicsItemDefaultTextColor
-        
+
         # TimeRetracementGraphicsItem default color.
         self.timeRetracementGraphicsItemDefaultColor = \
             PriceBarChartSettings.\
@@ -20694,17 +20694,17 @@ class PriceBarChartSettings:
         self.timeRetracementGraphicsItemShowFullLinesFlag = \
             PriceBarChartSettings.\
             defaultTimeRetracementGraphicsItemShowFullLinesFlag
-    
+
         # TimeRetracementGraphicsItem showTimeTextFlag (bool).
         self.timeRetracementGraphicsItemShowTimeTextFlag = \
             PriceBarChartSettings.\
             defaultTimeRetracementGraphicsItemShowTimeTextFlag
-    
+
         # TimeRetracementGraphicsItem showPercentTextFlag (bool).
         self.timeRetracementGraphicsItemShowPercentTextFlag = \
             PriceBarChartSettings.\
             defaultTimeRetracementGraphicsItemShowPercentTextFlag
-    
+
         # TimeRetracementGraphicsItem ratios (list of Ratio).
         self.timeRetracementGraphicsItemRatios = \
             PriceBarChartSettings.\
@@ -20736,7 +20736,7 @@ class PriceBarChartSettings:
         self.priceRetracementGraphicsItemDefaultTextColor = \
             PriceBarChartSettings.\
             defaultPriceRetracementGraphicsItemDefaultTextColor
-        
+
         # PriceRetracementGraphicsItem default color.
         self.priceRetracementGraphicsItemDefaultColor = \
             PriceBarChartSettings.\
@@ -20746,17 +20746,17 @@ class PriceBarChartSettings:
         self.priceRetracementGraphicsItemShowFullLinesFlag = \
             PriceBarChartSettings.\
             defaultPriceRetracementGraphicsItemShowFullLinesFlag
-    
+
         # PriceRetracementGraphicsItem showPriceTextFlag (bool).
         self.priceRetracementGraphicsItemShowPriceTextFlag = \
             PriceBarChartSettings.\
             defaultPriceRetracementGraphicsItemShowPriceTextFlag
-    
+
         # PriceRetracementGraphicsItem showPercentTextFlag (bool).
         self.priceRetracementGraphicsItemShowPercentTextFlag = \
             PriceBarChartSettings.\
             defaultPriceRetracementGraphicsItemShowPercentTextFlag
-    
+
         # PriceRetracementGraphicsItem ratios (list of Ratio).
         self.priceRetracementGraphicsItemRatios = \
             PriceBarChartSettings.\
@@ -20771,7 +20771,7 @@ class PriceBarChartSettings:
         self.priceTimeVectorGraphicsItemTextColor = \
             PriceBarChartSettings.\
             defaultPriceTimeVectorGraphicsItemTextColor
-    
+
         # PriceTimeVectorGraphicsItem bar width (float).
         self.priceTimeVectorGraphicsItemBarWidth = \
             PriceBarChartSettings.\
@@ -20819,12 +20819,12 @@ class PriceBarChartSettings:
         self.priceTimeVectorGraphicsItemTiltedTextFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeVectorGraphicsItemTiltedTextFlag
-    
+
         # PriceTimeVectorGraphicsItem angleTextFlag (bool).
         self.priceTimeVectorGraphicsItemAngleTextFlag = \
             PriceBarChartSettings.\
             defaultPriceTimeVectorGraphicsItemAngleTextFlag
-    
+
         # LineSegment1GraphicsItem bar color (QColor).
         self.lineSegment1GraphicsItemColor = \
             PriceBarChartSettings.\
@@ -20834,7 +20834,7 @@ class PriceBarChartSettings:
         self.lineSegment1GraphicsItemTextColor = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemTextColor
-    
+
         # LineSegment1GraphicsItem bar width (float).
         self.lineSegment1GraphicsItemBarWidth = \
             PriceBarChartSettings.\
@@ -20861,7 +20861,7 @@ class PriceBarChartSettings:
         self.lineSegment1GraphicsItemTiltedTextFlag = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemTiltedTextFlag
-    
+
         # LineSegment1GraphicsItem angleTextFlag (bool).
         self.lineSegment1GraphicsItemAngleTextFlag = \
             PriceBarChartSettings.\
@@ -20876,7 +20876,7 @@ class PriceBarChartSettings:
         self.lineSegment2GraphicsItemTextColor = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemTextColor
-    
+
         # LineSegment2GraphicsItem bar width (float).
         self.lineSegment2GraphicsItemBarWidth = \
             PriceBarChartSettings.\
@@ -20903,7 +20903,7 @@ class PriceBarChartSettings:
         self.lineSegment2GraphicsItemTiltedTextFlag = \
             PriceBarChartSettings.\
             defaultLineSegmentGraphicsItemTiltedTextFlag
-    
+
         # LineSegment2GraphicsItem angleTextFlag (bool).
         self.lineSegment2GraphicsItemAngleTextFlag = \
             PriceBarChartSettings.\
@@ -20938,7 +20938,7 @@ class PriceBarChartSettings:
         self.octaveFanGraphicsItemBarHeight = \
             PriceBarChartSettings.\
             defaultOctaveFanGraphicsItemBarHeight
-        
+
         # OctaveFanGraphicsItem bar color (QColor).
         self.octaveFanGraphicsItemBarColor = \
             PriceBarChartSettings.\
@@ -20985,12 +20985,12 @@ class PriceBarChartSettings:
         self.fibFanGraphicsItemDefaultTextColor = \
             PriceBarChartSettings.\
             defaultFibFanGraphicsItemDefaultTextColor
-    
+
         # FibFanGraphicsItem default color.
         self.fibFanGraphicsItemDefaultColor = \
             PriceBarChartSettings.\
             defaultFibFanGraphicsItemDefaultColor
-    
+
         # FibFanGraphicsItem ratios (list of Ratio).
         self.fibFanGraphicsItemRatios = \
             PriceBarChartSettings.\
@@ -21027,12 +21027,12 @@ class PriceBarChartSettings:
         self.gannFanGraphicsItemDefaultTextColor = \
             PriceBarChartSettings.\
             defaultGannFanGraphicsItemDefaultTextColor
-    
+
         # GannFanGraphicsItem default color.
         self.gannFanGraphicsItemDefaultColor = \
             PriceBarChartSettings.\
             defaultGannFanGraphicsItemDefaultColor
-    
+
         # GannFanGraphicsItem ratios (list of Ratio).
         self.gannFanGraphicsItemRatios = \
             PriceBarChartSettings.\
@@ -21412,13 +21412,13 @@ class PriceBarChartSettings:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartSettings (version {}).  ".\
                           format(self.classVersion))
-            
+
             if self.classVersion == 1:
                 # Version 2 added the following member variables:
                 #
                 # self.textGraphicsItemDefaultRotationAngle
                 #
-                
+
                 try:
                     # See if the variable is set.
                     self.textGraphicsItemDefaultRotationAngle
@@ -21427,7 +21427,7 @@ class PriceBarChartSettings:
                     self.log.warn("Hmm, strange.  Version {} of this ".\
                                   format(self.classVersion) + \
                                   "class shouldn't have this field.")
-                    
+
                 except AttributeError:
                     # Variable was not set.  Set it to the default
                     # PriceBarChartSettings value.
@@ -21438,15 +21438,15 @@ class PriceBarChartSettings:
                     self.log.debug("Added field " + \
                                    "'textGraphicsItemDefaultRotationAngle' " + \
                                    "to the loaded PriceBarChartSettings.")
-                    
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 2
-        
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
             if self.classVersion == 2:
                 # Version 3 added the following member variables:
                 #
@@ -21455,14 +21455,14 @@ class PriceBarChartSettings:
                 # self.priceModalScaleGraphicsItemBarWidth
                 # self.priceModalScaleGraphicsItemFontSize
                 #
-                
+
                 try:
                     # See if the variables are set.
                     self.timeModalScaleGraphicsItemBarHeight
                     self.timeModalScaleGraphicsItemFontSize
                     self.priceModalScaleGraphicsItemBarWidth
                     self.priceModalScaleGraphicsItemFontSize
-                    
+
                     # If it got here, then the fields are already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
                                   format(self.classVersion) + \
@@ -21481,7 +21481,7 @@ class PriceBarChartSettings:
                     self.timeModalScaleGraphicsItemFontSize = \
                         PriceBarChartSettings.\
                         defaultTimeModalScaleGraphicsItemFontSize
-        
+
                     # PriceModalScaleGraphicsItem bar width (float).
                     self.priceModalScaleGraphicsItemBarWidth = \
                         PriceBarChartSettings.\
@@ -21491,22 +21491,22 @@ class PriceBarChartSettings:
                     self.priceModalScaleGraphicsItemFontSize = \
                         PriceBarChartSettings.\
                         defaultPriceModalScaleGraphicsItemFontSize
-        
+
                     self.log.debug("Added fields " + \
                                    "'timeModalScaleGraphicsItemBarHeight', "
                                    "'timeModalScaleGraphicsItemFontSize', "
                                    "'priceModalScaleGraphicsItemBarWidth', "
                                    "'priceModalScaleGraphicsItemFontSize', "
                                    "to the loaded PriceBarChartSettings.")
-                    
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 3
-        
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
             if self.classVersion == 3:
                 # Version 4 added the following member variables:
                 #
@@ -21579,7 +21579,7 @@ class PriceBarChartSettings:
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
                 #
-                
+
                 try:
                     # See if the variables are set.
                     self.planetLongitudeMovementMeasurementGraphicsItemBarHeight
@@ -21650,7 +21650,7 @@ class PriceBarChartSettings:
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
-                    
+
                     # If it got here, then the fields are already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
                                   format(self.classVersion) + \
@@ -21664,82 +21664,82 @@ class PriceBarChartSettings:
                     self.planetLongitudeMovementMeasurementGraphicsItemBarHeight = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemBarHeight
-            
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # text rotation angle (float).
                     self.planetLongitudeMovementMeasurementGraphicsItemTextRotationAngle = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemTextRotationAngle
-            
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem text X scaling (float).
                     self.planetLongitudeMovementMeasurementGraphicsItemTextXScaling = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemTextXScaling
-            
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem text Y scaling (float).
                     self.planetLongitudeMovementMeasurementGraphicsItemTextYScaling = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemTextYScaling
-            
+
                     # Default font (this is basically the QFont, serialized to
                     # str) for the PlanetLongitudeMovementMeasurementGraphicsItem.
                     # This includes the font size.
                     self.planetLongitudeMovementMeasurementGraphicsItemDefaultFontDescription = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultFontDescription
-            
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem default text color.
                     self.planetLongitudeMovementMeasurementGraphicsItemDefaultTextColor = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultTextColor
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem default color.
                     self.planetLongitudeMovementMeasurementGraphicsItemDefaultColor = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemDefaultColor
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # showGeocentricRetroAsZeroTextFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlag
-                
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # showGeocentricRetroAsPositiveTextFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlag
-                
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # showGeocentricRetroAsNegativeTextFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag
-                
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # showHeliocentricTextFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlag
-                
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # tropicalZodiacFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlag
-                
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # siderealZodiacFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlag
-                
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # measurementUnitDegreesEnabled (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled
-            
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # measurementUnitCirclesEnabled (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled = \
@@ -21751,319 +21751,319 @@ class PriceBarChartSettings:
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetH2EnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetH3EnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetH4EnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH4EnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetH5EnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH5EnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetH6EnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH6EnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetH7EnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH7EnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetH8EnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH8EnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetH9EnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH9EnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetH10EnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH10EnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetH11EnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH11EnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetH12EnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetH12EnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetARMCEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetARMCEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetVertexEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVertexEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetEquatorialAscendantEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEquatorialAscendantEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetCoAscendant1EnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant1EnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetCoAscendant2EnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCoAscendant2EnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetPolarAscendantEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPolarAscendantEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetHoraLagnaEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetHoraLagnaEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetGhatiLagnaEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGhatiLagnaEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMeanLunarApogeeEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanLunarApogeeEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetOsculatingLunarApogeeEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetOsculatingLunarApogeeEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetInterpolatedLunarApogeeEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarApogeeEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetInterpolatedLunarPerigeeEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetInterpolatedLunarPerigeeEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetSunEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMoonEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMercuryEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetVenusEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVenusEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetEarthEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEarthEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMarsEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMarsEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetJupiterEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJupiterEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetSaturnEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaturnEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetUranusEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetUranusEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetNeptuneEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNeptuneEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetPlutoEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPlutoEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMeanNorthNodeEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanNorthNodeEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMeanSouthNodeEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanSouthNodeEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetTrueNorthNodeEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueNorthNodeEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetTrueSouthNodeEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetTrueSouthNodeEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetCeresEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCeresEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetPallasEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetPallasEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetJunoEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJunoEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetVestaEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVestaEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetIsisEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetIsisEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetNibiruEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetNibiruEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetChironEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetChironEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetGulikaEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetGulikaEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMandiEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMandiEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMeanOfFiveEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeanOfFiveEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetCycleOfEightEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetCycleOfEightEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetAvgMaJuSaUrNePlEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetAvgJuSaUrNeEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetAvgJuSaEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added fields " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemBarHeight', " + \
@@ -22135,15 +22135,15 @@ class PriceBarChartSettings:
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag', " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 4
-        
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
             if self.classVersion == 4:
                 # Version 5 added the following member variables:
                 #
@@ -22169,7 +22169,7 @@ class PriceBarChartSettings:
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag
                 #
-                
+
                 try:
                     # See if the variables are set.
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag
@@ -22193,7 +22193,7 @@ class PriceBarChartSettings:
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag
-                    
+
                     # If it got here, then the fields are already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
                                   format(self.classVersion) + \
@@ -22208,241 +22208,241 @@ class PriceBarChartSettings:
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMeEaEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMeMaEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeMaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeMaEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeMaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMeJuEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeJuEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeJuEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeJuEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMeSaEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeSaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeSaEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeSaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMeUrEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetVeEaEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetVeMaEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetVeJuEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeJuEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeJuEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeJuEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetVeSaEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeSaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeSaEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeSaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetVeUrEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetEaMaEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetEaJuEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaJuEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetEaSaEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaSaEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetEaUrEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaUrEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaUrEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaUrEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMaJuEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMaSaEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaSaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaSaEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMaSaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMaUrEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaUrEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaUrEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMaUrEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetJuSaEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetJuUrEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetSaUrEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
-                    
+
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 5
-        
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
             if self.classVersion == 5:
                 # Version 6 added the following:
                 #
@@ -22450,14 +22450,14 @@ class PriceBarChartSettings:
                 #     self.priceRetracementGraphicsItemRatios
                 #     self.timeRetracementGraphicsItemRatios
                 #
-                
+
                 # See if the number of Ratios is the same.
                 if len(self.timeRetracementGraphicsItemRatios) == \
                        len(PriceBarChartSettings.defaultTimeRetracementGraphicsItemRatios) \
                        and \
                        len(self.priceRetracementGraphicsItemRatios) == \
                        len(PriceBarChartSettings.defaultPriceRetracementGraphicsItemRatios):
-                    
+
                     # If it got here, then the fields are already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
                                   format(self.classVersion) + \
@@ -22467,10 +22467,10 @@ class PriceBarChartSettings:
                     # PriceBarChartSettings.defaultTimeRetracementGraphicsItemRatios
                     # that are not already in
                     # self.timeRetracementGraphicsItemRatios.
-                    
+
                     for defaultRatio in PriceBarChartSettings.defaultTimeRetracementGraphicsItemRatios:
                         alreadyAddedFlag = False
-                        
+
                         # Go through the ratios and see if
                         # defaultRatio is already in there.
                         for ratio in self.timeRetracementGraphicsItemRatios:
@@ -22484,12 +22484,12 @@ class PriceBarChartSettings:
                                 # ratio so that they are updated.
                                 ratio.setDescription(defaultRatio.getDescription())
                                 ratio.setMathDescription(defaultRatio.getMathDescription())
-                                
+
                         if alreadyAddedFlag != True:
                             # This ratio is not in the current list
                             # and should be added.
                             self.timeRetracementGraphicsItemRatios.append(defaultRatio)
-                            
+
                     # Sort by ratio value.
                     self.timeRetracementGraphicsItemRatios.sort(key=lambda r: r.ratio)
 
@@ -22498,7 +22498,7 @@ class PriceBarChartSettings:
                     # PriceBarChartSettings.defaultPriceRetracementGraphicsItemRatios
                     # that are not already in
                     # self.priceRetracementGraphicsItemRatios.
-                    
+
                     for defaultRatio in PriceBarChartSettings.defaultPriceRetracementGraphicsItemRatios:
                         alreadyAddedFlag = False
 
@@ -22515,12 +22515,12 @@ class PriceBarChartSettings:
                                 # ratio so that they are updated.
                                 ratio.setDescription(defaultRatio.getDescription())
                                 ratio.setMathDescription(defaultRatio.getMathDescription())
-                                
+
                         if alreadyAddedFlag != True:
                             # This ratio is not in the current list
                             # and should be added.
                             self.priceRetracementGraphicsItemRatios.append(defaultRatio)
-                            
+
                     # Sort by ratio value.
                     self.priceRetracementGraphicsItemRatios.sort(key=lambda r: r.ratio)
 
@@ -22528,21 +22528,21 @@ class PriceBarChartSettings:
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 6
-        
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                    
+
             if self.classVersion == 6:
                 # Version 7 added the following member variables:
                 #
                 # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
                 #
-                
+
                 try:
                     # See if the variable is set already.
                     self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
-                    
+
                     # If it got here, then the fields are already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
                                   format(self.classVersion) + \
@@ -22557,19 +22557,19 @@ class PriceBarChartSettings:
                     self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
-                    
+
                     self.log.debug("Added field(s): " + \
                                    "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled', " + \
                                    "to the loaded PriceBarChartSettings.")
-                    
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 7
-        
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
             if self.classVersion == 7:
                 # Version 8 removed the following member variables:
                 #
@@ -22582,10 +22582,10 @@ class PriceBarChartSettings:
                 #   self.lineSegmentGraphicsItemTiltedTextFlag
                 #   self.lineSegmentGraphicsItemAngleTextFlag
                 #
-                #   
-                # 
+                #
+                #
                 # Version 8 added the following member variables:
-                #                
+                #
                 #   self.lineSegment1GraphicsItemColor
                 #   self.lineSegment1GraphicsItemTextColor
                 #   self.lineSegment1GraphicsItemBarWidth
@@ -22607,7 +22607,7 @@ class PriceBarChartSettings:
 
                 try:
                     # See if the variable is set already.
-                    
+
                     self.lineSegment1GraphicsItemColor
                     self.lineSegment1GraphicsItemTextColor
                     self.lineSegment1GraphicsItemBarWidth
@@ -22624,7 +22624,7 @@ class PriceBarChartSettings:
                     self.lineSegment2GraphicsItemDefaultFontDescription
                     self.lineSegment2GraphicsItemTiltedTextFlag
                     self.lineSegment2GraphicsItemAngleTextFlag
-                    
+
                     # If it got here, then the fields are already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
                                   format(self.classVersion) + \
@@ -22633,7 +22633,7 @@ class PriceBarChartSettings:
                 except AttributeError:
                     # Variable was not set.  Set the new variables to
                     # what the old one was set to.
-                    
+
                     self.lineSegment1GraphicsItemColor = \
                         self.lineSegmentGraphicsItemColor
                     self.lineSegment1GraphicsItemTextColor = \
@@ -22666,8 +22666,8 @@ class PriceBarChartSettings:
                         self.lineSegmentGraphicsItemTiltedTextFlag
                     self.lineSegment2GraphicsItemAngleTextFlag = \
                         self.lineSegmentGraphicsItemAngleTextFlag
-                    
-                    
+
+
                     self.log.debug("Added field(s): " + \
                                    "'lineSegment1GraphicsItemColor', " + \
                                    "'lineSegment1GraphicsItemTextColor', " + \
@@ -22696,15 +22696,15 @@ class PriceBarChartSettings:
                     del self.lineSegmentGraphicsItemDefaultFontDescription
                     del self.lineSegmentGraphicsItemTiltedTextFlag
                     del self.lineSegmentGraphicsItemAngleTextFlag
-                    
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 8
-        
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
             if self.classVersion == 8:
                 # Version 9 added the following member variables:
                 #
@@ -22714,7 +22714,7 @@ class PriceBarChartSettings:
                 try:
                     # See if the variables are set.
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag
-                
+
                     # If it got here, then the fields are already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
                                   format(self.classVersion) + \
@@ -22729,20 +22729,20 @@ class PriceBarChartSettings:
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 9
-        
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
             if self.classVersion == 9:
                 # Version 10 removed the following member variables:
                 #
@@ -22895,22 +22895,22 @@ class PriceBarChartSettings:
                     "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag', " + \
                     "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag', " + \
                     "from the loaded PriceBarChartSettings.")
-                    
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 10
-        
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
             if self.classVersion == 10:
                 # Version 11 added the following member variables:
                 #
                 # self.lookbackMultiplePriceBarGraphicsItemPenWidth
                 # self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth
                 # self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidth
-                
+
                 try:
                     # See if the variables are set.
                     self.lookbackMultiplePriceBarGraphicsItemPenWidth
@@ -22929,21 +22929,21 @@ class PriceBarChartSettings:
                     # Pen width for LookbackMultiplePriceBars.
                     # This is a float value.
                     self.lookbackMultiplePriceBarGraphicsItemPenWidth = \
-                        PriceBarChartSettings.defaultLookbackMultiplePriceBarGraphicsItemPenWidth 
+                        PriceBarChartSettings.defaultLookbackMultiplePriceBarGraphicsItemPenWidth
 
                     # Width of the left extension drawn that represents the
                     # open price of a LookbackMultiplePriceBar.  This is a
                     # float value.
                     self.lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth = \
                         PriceBarChartSettings.\
-                        defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth 
+                        defaultLookbackMultiplePriceBarGraphicsItemLeftExtensionWidth
 
                     # Width of the right extension drawn that represents the
                     # close price of a LookbackMultiplePriceBar.  This is a
                     # float value.
                     self.lookbackMultiplePriceBarGraphicsItemRightExtensionWidth = \
                         PriceBarChartSettings.\
-                        defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth 
+                        defaultLookbackMultiplePriceBarGraphicsItemRightExtensionWidth
 
                     self.log.debug(\
                                    "Added field " + \
@@ -22951,15 +22951,15 @@ class PriceBarChartSettings:
                         "'lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth', " + \
                         "'lookbackMultiplePriceBarGraphicsItemRightExtensionWidth', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 11
-        
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
             if self.classVersion == 11:
                 # Version 12 added the following member variables:
                 #
@@ -22967,7 +22967,7 @@ class PriceBarChartSettings:
                 # self.verticalLineSegmentGraphicsItemBarWidth
                 # self.horizontalLineSegmentGraphicsItemColor
                 # self.horizontalLineSegmentGraphicsItemBarWidth
-                
+
                 try:
                     # See if the variables are set.
                     self.verticalLineSegmentGraphicsItemColor
@@ -23011,15 +23011,15 @@ class PriceBarChartSettings:
                         "'horizontalLineSegmentGraphicsItemColor', " + \
                         "'horizontalLineSegmentGraphicsItemBarWidth', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 12
-        
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
             if self.classVersion == 12:
                 # Version 13 added the following member variables:
                 #
@@ -23031,7 +23031,7 @@ class PriceBarChartSettings:
                     # See if the variables are set.
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
-                
+
                     # If it got here, then the fields are already set.
                     self.log.warn("Hmm, strange.  Version {} of this ".\
                                   format(self.classVersion) + \
@@ -23046,27 +23046,27 @@ class PriceBarChartSettings:
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag
-                    
+
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetAsMoEnabledFlag (bool).
                     self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag = \
                         PriceBarChartSettings.\
                         defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
-                    
+
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag', " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag', " + \
                         "to the loaded PriceBarChartSettings.")
-                    
+
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 13
-        
+
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
-                
+
 
         # Log that we set the state of this object.
         self.log.debug("Set state of a " + PriceBarChartSettings.__name__ +
@@ -23076,7 +23076,7 @@ class PriceBarChartSettings:
         """Returns the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
 
     def __str__(self):
@@ -23128,7 +23128,7 @@ class PriceBarSpreadsheetSettings:
             logging.getLogger("data_objects.PriceBarSpreadsheetSettings")
 
         # Log that we set the state of this object.
-        self.log.debug("Set state of a " + 
+        self.log.debug("Set state of a " +
                        PriceBarSpreadsheetSettings.__name__ +
                        " object of version {}".format(self.classVersion))
 
@@ -23136,23 +23136,23 @@ class PriceBarSpreadsheetSettings:
         """Prints the string representation of this object."""
 
         rv = ObjectUtils.objToString(self)
-        
+
         return rv
-    
+
     def __str__(self):
         """Returns the string representation of this object."""
 
         return self.toString()
 
-# For debugging during development.  
+# For debugging during development.
 if __name__=="__main__":
     print("------------------------")
-    # Testing to make sure sorting works.  
+    # Testing to make sure sorting works.
 
     import time
-    
+
     pcdd = PriceChartDocumentData()
-   
+
     pb1 = PriceBar(datetime.datetime.now(pytz.utc), 5, 9, 1, 5)
     time.sleep(1)
     pb2 = PriceBar(datetime.datetime.now(pytz.utc), 5, 10, 2, 5)
@@ -23162,16 +23162,16 @@ if __name__=="__main__":
     dt = datetime.datetime.now(pytz.utc)
     dt = dt - datetime.timedelta(days=(365 * 800))
     pb4 = PriceBar(dt, 5, 3, 4, 5)
-    
+
     pcdd.priceBars.append(pb4)
     pcdd.priceBars.append(pb3)
     pcdd.priceBars.append(pb2)
     pcdd.priceBars.append(pb1)
-   
+
     pcdd.priceBars.sort(key=lambda pb: pb.timestamp)
-    
+
     print("Printing out price bars ...")
-    
+
     for i in range(0, len(pcdd.priceBars)):
         print("pb[{}]: ".format(i) + \
               pcdd.priceBars[i].toString())
@@ -23188,8 +23188,8 @@ if __name__=="__main__":
 
     x = [1, 2, 3, 4]
     print(x)
-    
-    # Shutdown logging so all the file handles get flushed and 
+
+    # Shutdown logging so all the file handles get flushed and
     # cleanup can happen.
     logging.shutdown()
 

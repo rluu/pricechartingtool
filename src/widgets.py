@@ -15,10 +15,10 @@ from PyQt4.QtGui import *
 
 class ColorIcon(QIcon):
     """A QIcon hosting just a color."""
-    
+
     def __init__(self, color=None):
         """Initializes a QIcon with a certain color.
-        
+
         Arguments:
             color - QColor object representing the color to set the text.
         """
@@ -47,7 +47,7 @@ class ColorLabel(QLabel):
 
     def __init__(self, color=None):
         """Initializes the widget with a certain color.
-        
+
         Arguments:
             color - QColor object representing the color to set.
         """
@@ -81,7 +81,7 @@ class ColorLabel(QLabel):
 
         if color == None:
             self.color = QColor()
-                
+
         pixmap = QPixmap(QSize(self.pixmapWidth, self.pixmapHeight))
         pixmap.fill(self.color)
 
@@ -94,11 +94,11 @@ class ColorLabel(QLabel):
         width - int value for the width.
         height - int value for the height.
         """
-        
+
         # Set the variables.
         self.pixmapWidth = width
         self.pixmapHeight = height
-        
+
         # Re-set the color to apply the changes in pixmap size.
         self.setColor(self.color)
 
@@ -171,19 +171,19 @@ def testColorIcon():
     colorIcon4 = ColorIcon()
     colorIcon5 = ColorIcon(QColor(Qt.yellow))
 
-    colorIcons = [colorIcon1, 
-                  colorIcon2, 
-                  colorIcon3, 
-                  colorIcon4, 
+    colorIcons = [colorIcon1,
+                  colorIcon2,
+                  colorIcon3,
+                  colorIcon4,
                   colorIcon5
                   ]
-    
+
     # TODO: Create a test for ColorIcon().  The below doesn't work.  How do I get Qt to display the Icons only?
 
     #for colorIcon in colorIcons:
     #    layout = QVBoxLayout()
     #    layout.addWidget(colorIcon)
-    # 
+    #
     #    dialog = QDialog()
     #    dialog.setLayout(layout)
     #    rv = dialog.exec_()
@@ -199,8 +199,8 @@ def testColorLabel():
     colorLabel5 = ColorLabel()                  # Displays black.
     colorLabel6 = ColorLabel(QColor(Qt.yellow))
 
-    colorLabels = [colorLabel1, 
-                   colorLabel2, 
+    colorLabels = [colorLabel1,
+                   colorLabel2,
                    colorLabel3,
                    colorLabel4,
                    colorLabel5,
@@ -210,14 +210,14 @@ def testColorLabel():
     for colorLabel in colorLabels:
         layout = QVBoxLayout()
         layout.addWidget(colorLabel)
-    
+
         dialog = QDialog()
         dialog.setLayout(layout)
         rv = dialog.exec_()
 
 def testColorEditPushButton():
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     color = QColor(Qt.red)
 
     print("Color before: {}".format(qColorToStr(color)))
@@ -226,13 +226,13 @@ def testColorEditPushButton():
 
     layout = QVBoxLayout()
     layout.addWidget(button)
-    
+
     dialog = QDialog()
     dialog.setLayout(layout)
     rv = dialog.exec_()
 
     button.getColor()
-    
+
     # Strangely, the color changed by clicking the ColorEditPushButton doesn't
     # get retained in the button after the dialog closes.  Why?  This shouldn't
     # have an impact on the way I use this widget, but it may have an impact in
@@ -241,11 +241,11 @@ def testColorEditPushButton():
     print("Color  after: {}".format(qColorToStr(color)))
 
 
-# For debugging the module during development.  
+# For debugging the module during development.
 if __name__=="__main__":
     # For inspect.stack().
     import inspect
-    
+
     # Initialize the Ephemeris (required).
     #Ephemeris.initialize()
 

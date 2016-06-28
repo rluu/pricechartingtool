@@ -3,9 +3,9 @@
 # For obtaining current directory path information, and creating directories
 import os
 import sys
-    
+
 # For parsing command-line options
-from optparse import OptionParser  
+from optparse import OptionParser
 
 # For logging.
 import logging
@@ -64,11 +64,11 @@ APP_AUTHOR_EMAIL = "ryanluu@gmail.com"
 
 # Profiler enabled flag.
 # Change this flag to turn on profiling.
-# 
+#
 # Note: When profiling is turned on, the output is printed to
 # stdout at the time Python exits, so make sure you redirect stdout
 # to a file if you want to analyze it!
-# 
+#
 # Also, to look at the output, pipe to sort like as follows:
 #
 #  cat /tmp/profilerOutput.txt | sort -k1 -r -n | less
@@ -87,9 +87,9 @@ def main():
 
     # Parse command-line arguments.
     (options, args) = parseCommandlineArgs()
-    
+
     # Set up the logger.
-    
+
     # Parsing the log config file doesn't work on the current version
     # of cx_Freeze (on Windows and on Mac).  The author of cx_Freeze
     # knows about this bug and hopefully the next release of cx_Freeze
@@ -116,18 +116,18 @@ def main():
     app.setEffectEnabled(Qt.UI_AnimateTooltip, False)
     app.setEffectEnabled(Qt.UI_FadeTooltip, False)
     app.setEffectEnabled(Qt.UI_AnimateToolBox, False)
-    
+
     # Initialize the Ephemeris.
     Ephemeris.initialize()
 
     # Set a default location (required).
     Ephemeris.setGeographicPosition(-77.084444, 38.890277)
-    
+
     # Create the main window for the app and show it.
-    mainWindow = MainWindow(APP_NAME, 
-                            APP_VERSION, 
-                            APP_DATE, 
-                            APP_AUTHOR, 
+    mainWindow = MainWindow(APP_NAME,
+                            APP_VERSION,
+                            APP_DATE,
+                            APP_AUTHOR,
                             APP_AUTHOR_EMAIL)
     mainWindow.show()
 
@@ -153,7 +153,7 @@ def parseCommandlineArgs():
                       default=False,
                       help="Display application version info and author " + \
                       "contact.")
-    
+
     # Parse the arguments into options.
     global options
     (options, args) = parser.parse_args()
@@ -171,7 +171,7 @@ def parseCommandlineArgs():
 ##############################################################################
 
 if __name__ == "__main__":
-    
+
     # Program return code.
     exitCode = 0
 

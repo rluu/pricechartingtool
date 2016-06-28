@@ -69,7 +69,7 @@ class AstrologyUtils:
 
         # Preference settings.
         settings = QSettings()
-        
+
         signGlyphs = [\
             settings.value(SettingsKeys.signAriesGlyphUnicodeKey,
                            SettingsKeys.signAriesGlyphUnicodeDefValue,
@@ -110,9 +110,9 @@ class AstrologyUtils:
 
         navamsaSize = 360 / 108.0
         index = math.floor(longitude / navamsaSize) % 12
-        
+
         return signGlyphs[index]
-        
+
     @staticmethod
     def convertLongitudeToNavamsaAbbrevStr(longitude):
         """Takes a float longitude value and converts it to a str that
@@ -127,7 +127,7 @@ class AstrologyUtils:
 
         # Preference settings.
         settings = QSettings()
-        
+
         signAbbreviations = [\
             settings.value(SettingsKeys.signAriesAbbreviationKey,
                            SettingsKeys.signAriesAbbreviationDefValue,
@@ -165,17 +165,17 @@ class AstrologyUtils:
             settings.value(SettingsKeys.signPiscesAbbreviationKey,
                            SettingsKeys.signPiscesAbbreviationDefValue,
                            type=str)]
-        
+
         navamsaSize = 360 / 108.0
         index = math.floor(longitude / navamsaSize) % 12
-        
+
         return signAbbreviations[index]
-        
+
     @staticmethod
     def convertLongitudeToStrWithRasiGlyph(longitude):
         """Takes a float longitude value and converts it to a str
         in the format: 23 <RASI_GLYPH> 24' 14"
-        
+
         Arguments:
         longitude - float value for the longitude of the planet.
 
@@ -185,12 +185,12 @@ class AstrologyUtils:
         degrees, or 8 minutes, or 8 seconds, the string will have a
         space prefixing the 8.
         """
-        
+
         # Make sure the longitude is less than 360 and greater than or
         # equal to 0.
         if longitude >= 360.0 or longitude < 0.0:
             longitude = longitude % 360
-        
+
         # Rasi number, where 0 is Aries.
         rasi = math.floor(longitude / 30.0)
 
@@ -208,7 +208,7 @@ class AstrologyUtils:
 
         # Preference settings.
         settings = QSettings()
-        
+
         signGlyphs = [\
             settings.value(SettingsKeys.signAriesGlyphUnicodeKey,
                            SettingsKeys.signAriesGlyphUnicodeDefValue,
@@ -246,12 +246,12 @@ class AstrologyUtils:
             settings.value(SettingsKeys.signPiscesGlyphUnicodeKey,
                            SettingsKeys.signPiscesGlyphUnicodeDefValue,
                            type=str)]
-        
+
         degreesStr = "{: >2}".format(degrees)
         rasiStr = signGlyphs[rasi]
         minutesStr = "{:0>02}".format(minutes)
         secondsStr = "{:0>02}".format(seconds)
-        
+
         rv = \
             degreesStr + " " + \
             rasiStr + " " + \
@@ -264,7 +264,7 @@ class AstrologyUtils:
     def convertLongitudeToStrWithRasiAbbrev(longitude):
         """Takes a float longitude value and converts it to a str
         in the format: 23 <RASI_ABBREVIATION> 24' 14"
-        
+
         Arguments:
         longitude - float value for the longitude of the planet.
 
@@ -274,12 +274,12 @@ class AstrologyUtils:
         degrees, or 8 minutes, or 8 seconds, the string will have a
         space prefixing the 8.
         """
-        
+
         # Make sure the longitude is less than 360 and greater than or
         # equal to 0.
         if longitude >= 360.0 or longitude < 0.0:
             longitude = longitude % 360
-        
+
         # Rasi number, where 0 is Aries.
         rasi = math.floor(longitude / 30.0)
 
@@ -297,7 +297,7 @@ class AstrologyUtils:
 
         # Preference settings.
         settings = QSettings()
-        
+
         signAbbreviations = [\
             settings.value(SettingsKeys.signAriesAbbreviationKey,
                            SettingsKeys.signAriesAbbreviationDefValue,
@@ -335,12 +335,12 @@ class AstrologyUtils:
             settings.value(SettingsKeys.signPiscesAbbreviationKey,
                            SettingsKeys.signPiscesAbbreviationDefValue,
                            type=str)]
-        
+
         degreesStr = "{: >2}".format(degrees)
         rasiStr = signAbbreviations[rasi]
         minutesStr = "{:0>02}".format(minutes)
         secondsStr = "{:0>02}".format(seconds)
-        
+
         rv = \
             degreesStr + " " + \
             rasiStr + " " + \
@@ -353,7 +353,7 @@ class AstrologyUtils:
     def convertLongitudeToNakshatraAbbrev(longitude):
         """Takes a float longitude value and converts it to a string
         that is the nakshatra abbreviation for that longitude.
-        
+
         Arguments:
         longitude - float value for the longitude of the planet.
 
@@ -365,7 +365,7 @@ class AstrologyUtils:
         # equal to 0.
         if longitude >= 360.0 or longitude < 0.0:
             longitude = longitude % 360
-            
+
         nakshatraAbbrevs = [\
             "Aswi",
             "Bhar",
@@ -397,7 +397,7 @@ class AstrologyUtils:
 
         nakshatraSize = 360 / 27.0
         index = math.floor(longitude / nakshatraSize)
-        
+
         return nakshatraAbbrevs[index]
 
     @staticmethod
@@ -415,15 +415,15 @@ class AstrologyUtils:
         Biblical circle.
         """
 
-        
+
         proportionOfCircle = \
             angle / AstrologyUtils.degreesInCircle
 
         biblicalAngle = \
             proportionOfCircle * AstrologyUtils.degreesInBiblicalCircle
-        
+
         return biblicalAngle
-    
+
     @staticmethod
     def convertBiblicalCircleAngleToCircleAngle(biblicalAngle):
         """Converts the given angle in degrees of a "Biblical Circle"
@@ -437,21 +437,21 @@ class AstrologyUtils:
         float value for the angle in units of degrees in a 360-degree circle.
         """
 
-        
+
         proportionOfCircle = \
             biblicalAngle / AstrologyUtils.degreesInBiblicalCircle
 
         angle = \
             proportionOfCircle * AstrologyUtils.degreesInCircle
-        
+
         return angle
-    
+
     @staticmethod
     def convertBiblicalCircleAngleToStrWithRasiAbbrev(biblicalAngle):
         """Takes a angle in Biblical degrees and converts it to a string
         in the format: 23 <RASI_GLYPH> 24' 14" that represents the
         zodiac location for that angle.
-        
+
         Arguments:
         biblicalAngle - float value for the angle in units of degrees in a
                         Biblical circle.
@@ -483,13 +483,13 @@ class AstrologyUtils:
         angle = degrees + (minutes / 60) + (seconds / 3600)
 
         return angle
-        
+
     @staticmethod
     def convertAngleToDegMinSec(angle):
         """Converts the given angle as a float and returns a tuple of
         int values containing the equivalent amount of degrees,
         minutes and seconds.
-        
+
         Arguments:
         angle - float value holding the angle to convert.
 
@@ -515,15 +515,15 @@ class AstrologyUtils:
                 minutes = 0
 
         return (degrees, minutes, seconds)
-        
+
     @staticmethod
     def convertAngleToDegMinSecStr(angle):
         """Converts the given angle as a float and returns a str that
         is the value in the format:  XXX° YY' ZZ"
-        
+
         If the angle does not fill the digits, a space will be used so
         that the output is fixed width.
-        
+
         Arguments:
         angle - float value holding the angle to convert.
 
@@ -538,12 +538,12 @@ class AstrologyUtils:
         rv = "{:>3}° {:>2}' {:>2}\"".format(degrees, minutes, seconds)
 
         return rv
-        
+
     @staticmethod
     def getGlyphForPlanetName(planetName):
         """Takes a string value for the planet name and returns the
         unicode glyph value for this planet.
-        
+
         Arguments:
         planetName - str value for the planet name.
 
@@ -555,7 +555,7 @@ class AstrologyUtils:
 
         # Return value.
         rv = None
-        
+
         if planetName == "H1":
             rv = settings.value(SettingsKeys.planetH1GlyphUnicodeKey,
                                 SettingsKeys.planetH1GlyphUnicodeDefValue,
@@ -870,12 +870,12 @@ class AstrologyUtils:
                           planetName + ".  Using default value " + str(rv))
 
         return rv
-    
+
     @staticmethod
     def getGlyphFontSizeForPlanetName(planetName):
         """Takes a string value for the planet name and returns the
         unicode glyph font size for this planet.
-        
+
         Arguments:
         planetName - str value for the planet name.
 
@@ -887,7 +887,7 @@ class AstrologyUtils:
 
         # Return value.
         rv = None
-        
+
         if planetName == "H1":
             rv = settings.value(SettingsKeys.planetH1GlyphFontSizeKey,
                                 SettingsKeys.planetH1GlyphFontSizeDefValue,
@@ -1208,7 +1208,7 @@ class AstrologyUtils:
     def getAbbreviationForPlanetName(planetName):
         """Takes a planet name string value and returns the planet
         abbreviation for this planet.
-        
+
         Arguments:
         planetName - str value for the planet name.
 
@@ -1220,7 +1220,7 @@ class AstrologyUtils:
 
         # Return value.
         rv = None
-        
+
         if planetName == "H1":
             rv = settings.value(SettingsKeys.planetH1AbbreviationKey,
                                 SettingsKeys.planetH1AbbreviationDefValue,
@@ -1541,7 +1541,7 @@ class AstrologyUtils:
     def getForegroundColorForPlanetName(planetName):
         """Takes a string value for the planet name and returns the
         planet foreground color for this planet.
-        
+
         Arguments:
         planetName - str value for the planet name.
 
@@ -1874,7 +1874,7 @@ class AstrologyUtils:
     def getBackgroundColorForPlanetName(planetName):
         """Takes a string value for the planet name and returns the
         planet background color for this planet.
-        
+
         Arguments:
         planetName - str value for the planet name.
 
@@ -1886,7 +1886,7 @@ class AstrologyUtils:
 
         # Return value.
         rv = None
-        
+
         if planetName == "H1":
             rv = settings.value(SettingsKeys.planetH1BackgroundColorKey,
                                 SettingsKeys.planetH1BackgroundColorDefValue,\
@@ -2206,39 +2206,39 @@ class AstrologyUtils:
                 planetName + ".  Using default value " + str(rv))
 
         return rv
-    
+
 
 class RadixChartAspectGraphicsItem(QGraphicsItem):
     """QGraphicsItem that represents an aspect on a Radix Chart."""
 
     def __init__(self, parent=None, scene=None):
         super().__init__(parent, scene)
-    
+
         # Logger
         self.log = \
             logging.getLogger("astrologychart.RadixChartAspectGraphicsItem")
-            
+
         # Name of the aspect that is applied.
         self.aspectName = None
 
         # Angle of the aspect that is applied (the ideal exact angle).
         self.aspectAngle = None
-        
+
         # Orb setting that makes the aspect applicable.
         self.aspectOrb = None
 
         # Actual aspect angle between the two planets.
         self.actualAspectAngle = None
-        
+
         # Actual orb between the two planets.
         self.actualAspectOrb = None
-        
+
         # Color of the drawn line.
         self.color = None
 
         # Brush style.
         self.brushStyle = None
-        
+
         # Degree of the first planet.
         self.p1Degree = None
 
@@ -2247,10 +2247,10 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
 
         # Wheel number of the first planet.
         self.p1WheelNumber = None
-        
+
         # Wheel number of the second planet.
         self.p2WheelNumber = None
-        
+
         # Use QSettings to get application preferences related to the
         # aspects.
         self.settings = QSettings()
@@ -2261,12 +2261,12 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
         # large.  In this case, we would log a warning and use the last
         # applicable aspect tested.
         self.numAspectMatches = 0
-        
+
         # Start and end points of the line segment, in parent coordinates.
         # These are used by the paint function.
         self.startPointF = QPointF(0.0, 0.0)
         self.endPointF = QPointF(0.0, 0.0)
-        
+
         # Set to not enabled and not visible by default, until other
         # parameters are set.
         self.setEnabled(False)
@@ -2275,14 +2275,14 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
     def setForPlanets(self, p1Degree, p2Degree,
                             p1WheelNumber, p2WheelNumber):
         """Sets the item so that it is applicable for the above parameters.
-        
+
         Arguments:
         p1Degree      - Degrees of longitude for the planet 1.
         p2Degree      - Degrees of longitude for the planet 2.
         p1WheelNumber - Wheel number applicable to planet 1.
         p2WheelNumber - Wheel number applicable to planet 2.
         """
-        
+
 
         if self.log.isEnabledFor(logging.DEBUG) == True:
             self.log.debug("Entered setForPlanets()")
@@ -2294,12 +2294,12 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
         # Set the enabled flag to True unless we find a case where it
         # should be False.
         enabledFlag = True
-        
+
         # Reset the count for the number of aspect matches.
         self.numAspectMatches = 0
-        
+
         # See if the wheel numbers used are applicable.
-        
+
         if (p1WheelNumber == 1 or p2WheelNumber == 1) and \
             self.settings.value(\
             SettingsKeys.aspectAstrologyChart1EnabledKey, \
@@ -2315,7 +2315,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
             type=bool) == False:
 
             enabledFlag = False
-        
+
         if (p1WheelNumber == 3 or p2WheelNumber == 3) and \
             self.settings.value(\
             SettingsKeys.aspectAstrologyChart3EnabledKey, \
@@ -2323,7 +2323,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
             type=bool) == False:
 
             enabledFlag = False
-        
+
         if ((p1WheelNumber == 1 and p2WheelNumber == 2) or \
             (p1WheelNumber == 2 and p2WheelNumber == 1)) and \
             self.settings.value(\
@@ -2332,7 +2332,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
             type=bool) == False:
 
             enabledFlag = False
-            
+
         if ((p1WheelNumber == 1 and p2WheelNumber == 3) or \
             (p1WheelNumber == 3 and p2WheelNumber == 1)) and \
             self.settings.value(\
@@ -2341,7 +2341,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
             type=bool) == False:
 
             enabledFlag = False
-            
+
         if ((p1WheelNumber == 2 and p2WheelNumber == 3) or \
             (p1WheelNumber == 3 and p2WheelNumber == 2)) and \
             self.settings.value(\
@@ -2355,7 +2355,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
             # If this particular combination of chart wheel numbers is
             # not enabled, then set to the item to disabled and return.
             self.log.debug("Not enabled.")
-            
+
             # Set all values to None.
             self.aspectName = None
             self.aspectAngle = None
@@ -2381,7 +2381,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
 
         if self.log.isEnabledFor(logging.DEBUG) == True:
             self.log.debug("diff == {}".format(diff))
-        
+
         # Conjunction.
         if self.settings.value(\
             SettingsKeys.aspectConjunctionEnabledKey, \
@@ -2394,7 +2394,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
                 SettingsKeys.aspectConjunctionNameKey,
                 SettingsKeys.aspectConjunctionNameDefValue,
                 type=str)
-            
+
             angle = \
                 self.settings.value(\
                 SettingsKeys.aspectConjunctionAngleKey,
@@ -2430,7 +2430,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
                 SettingsKeys.aspectOppositionNameKey,
                 SettingsKeys.aspectOppositionNameDefValue,
                 type=str)
-            
+
             angle = \
                 self.settings.value(\
                 SettingsKeys.aspectOppositionAngleKey,
@@ -2466,7 +2466,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
                 SettingsKeys.aspectSquareNameKey,
                 SettingsKeys.aspectSquareNameDefValue,
                 type=str)
-            
+
             angle = \
                 self.settings.value(\
                 SettingsKeys.aspectSquareAngleKey,
@@ -2502,7 +2502,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
                 SettingsKeys.aspectTrineNameKey,
                 SettingsKeys.aspectTrineNameDefValue,
                 type=str)
-            
+
             angle = \
                 self.settings.value(\
                 SettingsKeys.aspectTrineAngleKey,
@@ -2538,7 +2538,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
                 SettingsKeys.aspectSextileNameKey,
                 SettingsKeys.aspectSextileNameDefValue,
                 type=str)
-            
+
             angle = \
                 self.settings.value(\
                 SettingsKeys.aspectSextileAngleKey,
@@ -2574,7 +2574,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
                 SettingsKeys.aspectInconjunctNameKey,
                 SettingsKeys.aspectInconjunctNameDefValue,
                 type=str)
-            
+
             angle = \
                 self.settings.value(\
                 SettingsKeys.aspectInconjunctAngleKey,
@@ -2610,7 +2610,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
                 SettingsKeys.aspectSemisextileNameKey,
                 SettingsKeys.aspectSemisextileNameDefValue,
                 type=str)
-            
+
             angle = \
                 self.settings.value(\
                 SettingsKeys.aspectSemisextileAngleKey,
@@ -2646,7 +2646,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
                 SettingsKeys.aspectSemisquareNameKey,
                 SettingsKeys.aspectSemisquareNameDefValue,
                 type=str)
-            
+
             angle = \
                 self.settings.value(\
                 SettingsKeys.aspectSemisquareAngleKey,
@@ -2682,7 +2682,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
                 SettingsKeys.aspectSesquiquadrateNameKey,
                 SettingsKeys.aspectSesquiquadrateNameDefValue,
                 type=str)
-            
+
             angle = \
                 self.settings.value(\
                 SettingsKeys.aspectSesquiquadrateAngleKey,
@@ -2709,7 +2709,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
         if self.log.isEnabledFor(logging.DEBUG) == True:
             self.log.debug("self.numAspectMatches == {}".\
                            format(self.numAspectMatches))
-        
+
         if self.numAspectMatches == 0:
             # No matches.  Set all values to None.
             self.aspectName = None
@@ -2725,12 +2725,12 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
 
             self.setEnabled(False)
             self.setVisible(False)
-            
+
         elif self.numAspectMatches > 1:
                 self.log.warn("Matched more than one aspect type!  " +
                               "Only using the last match '{}'".\
                               format(self.aspectName))
-            
+
         if self.log.isEnabledFor(logging.DEBUG) == True:
             self.log.debug("Exiting setForPlanets()")
 
@@ -2754,14 +2754,14 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
         p2WheelNumber - int value for the wheel number of planet 2.
         diff - float value for the normalized difference in degrees
                between planet 1 and 2.
-               
+
         Returns:
         True if a match was found, False otherwise.
         """
 
         # Return value.
         rv = False
-        
+
         # Move all angle values to between 0 and 1080 so that we
         # don't have to worry about degree overlaps on the
         # boundaries.
@@ -2771,7 +2771,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
 
         minValue = shiftedAngle - orb
         maxValue = shiftedAngle + orb
-        
+
         shiftedDiff = diff
         if shiftedDiff < 360:
             shiftedDiff += 360
@@ -2793,7 +2793,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
         if minValue <= shiftedDiff <= maxValue:
             # Aspect applies.
             self.numAspectMatches += 1
-            
+
             # Set the values.
             self.aspectName = name
             self.aspectAngle = angle
@@ -2814,7 +2814,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
                 sliceNum = math.floor(abs(self.actualAspectOrb - 360.0) / orbRangeSlice)
             else:
                 sliceNum = math.floor(abs(self.actualAspectOrb) / orbRangeSlice)
-            
+
             if sliceNum == 0:
                 self.brushStyle = Qt.SolidPattern
             elif sliceNum == 1:
@@ -2848,34 +2848,34 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
                 self.log.debug("sliceNum == {}".format(sliceNum))
 
                 self.log.debug("Matched aspect {}".format(self.aspectName))
-            
+
             self.setEnabled(True)
             self.setVisible(True)
             self.update()
             self.prepareGeometryChange()
-            
+
             rv = True
         else:
             rv = False
 
         return rv
-    
-            
+
+
     def __str__(self):
         """Returns a str representing this object's contents."""
 
         return self.toString()
-        
+
     def toString(self):
         """Returns a str representing this object's contents."""
 
         return ObjectUtils.objToString(self)
-        
+
     def boundingRect(self):
         """Returns the bounding rectangle for this graphicsitem."""
 
         # Coordinate (0, 0) is the location where the center of the
-        # circular radix chart.  
+        # circular radix chart.
 
         # If there are circles for where the planets are drawn (which
         # there should be), then set the radius as the first circle
@@ -2888,31 +2888,31 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
             radius = parent.getInnerRasiRadius()
         else:
             return QRectF()
-            
+
         diameter = radius + radius
-        
+
         x = -1.0 * radius
         y = -1.0 * radius
         width = diameter
         height = diameter
-        
+
         return QRectF(x, y, width, height)
-    
+
     def paint(self, painter, option, widget):
         """Paints this QGraphicsItem. """
 
         # Coordinate (0, 0) is the location where the center of the
-        # circular radix chart.  
+        # circular radix chart.
 
         # Only paint if the item is enabled and visible.
         if self.isEnabled() == False or self.isVisible() == False:
             return
-        
+
         # Get the radius.
         radius = 0.0
         parent = self.parentItem()
         if parent != None and isinstance(parent, RadixChartGraphicsItem):
-            
+
             radius = parent.getInnerRasiRadius()
             if self.log.isEnabledFor(logging.DEBUG) == True:
                 self.log.debug("radius obtained from parent is: {}".\
@@ -2924,7 +2924,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
             if self.log.isEnabledFor(logging.DEBUG) == True:
                 self.log.debug("Radius is 0.0.  Not drawing anything.")
             return
-        
+
         # Start and end points of the line segment, in parent coordinates.
         # Use the QLineF function to convert from polar coordinates to
         # cartesian.
@@ -2932,7 +2932,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
             QLineF.fromPolar(radius, self.p1Degree + 180.0).p2()
         self.endPointF = \
             QLineF.fromPolar(radius, self.p2Degree + 180.0).p2()
-        
+
         # Pen and brush for the painting.
         pen = painter.pen()
         pen.setColor(self.color)
@@ -2942,7 +2942,7 @@ class RadixChartAspectGraphicsItem(QGraphicsItem):
         brush.setStyle(self.brushStyle)
         pen.setBrush(brush)
         painter.setPen(pen)
-        
+
         # Draw the line.
         painter.drawLine(self.startPointF, self.endPointF)
 
@@ -2987,7 +2987,7 @@ class RadixChartGraphicsItem(QGraphicsItem):
 
         return 0.0
 
-    
+
 class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
     """QGraphicsItem that is the circle chart with the following labels on
     the edges:
@@ -2999,7 +2999,7 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
 
     def __init__(self, parent=None, scene=None):
         super().__init__(parent, scene)
-        
+
         # Logger
         self.log = \
             logging.getLogger("astrologychart.SiderealRadixChartGraphicsItem")
@@ -3014,7 +3014,7 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         self.pen.setBrush(brush)
 
         # Below are radius measurements for when drawing.
-        
+
         # Rasi
         self.innerRasiRadius = 300.0
         self.outerRasiRadius = self.innerRasiRadius + 50.0
@@ -3047,11 +3047,11 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         self.rasiLabelFont = QFont()
         self.rasiLabelFont.setFamily("Lucida Console")
         self.rasiLabelFont.setPointSize(14)
-        
+
         self.nakshatraLabelFont = QFont()
         self.nakshatraLabelFont.setFamily("Lucida Console")
         self.nakshatraLabelFont.setPointSize(10)
-        
+
         self.navamsaLabelFont = QFont()
         self.navamsaLabelFont.setFamily("Lucida Console")
         self.navamsaLabelFont.setPointSize(9)
@@ -3073,7 +3073,7 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
 
         # Return value.
         rv = 0.0
-        
+
         if wheelNumber > 0 and wheelNumber <= len(self.wheelNumberCircleRadius):
             rv = self.wheelNumberCircleRadius[wheelNumber-1]
         else:
@@ -3123,7 +3123,7 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         is returned.
 
         Arguments:
-        
+
         planetName - str value holding the planet name as set in the
         RadixPlanetGraphicsItem.
 
@@ -3134,7 +3134,7 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
 
         # Get the child GraphicsItems.
         children = self.childItems()
-        
+
         # Go through them and look at the ones that are
         # RadixPlanetGraphicsItem.
         for child in children:
@@ -3143,7 +3143,7 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
                 # number matches, then return that QGraphicsItem.
                 if child.getPlanetName() == planetName and \
                     child.getWheelNumber() == wheelNumber:
-                    
+
                     return child
 
         return None
@@ -3158,14 +3158,14 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
 
         if self.log.isEnabledFor(logging.DEBUG) == True:
             self.log.debug("Entered redrawAspects()")
-        
+
         # Get the child GraphicsItems.
         children = self.childItems()
 
         # Get all planet graphics items, and all aspect graphics items.
         planets = []
         aspects = []
-        
+
         # Go through them and look at the ones that are
         # RadixPlanetGraphicsItem.
         for child in children:
@@ -3177,13 +3177,13 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         if self.log.isEnabledFor(logging.DEBUG) == True:
             self.log.debug("len(planets) == {}".format(len(planets)))
             self.log.debug("len(aspects) == {}".format(len(aspects)))
-        
+
         # Remove all previously used aspects.
         for aspect in aspects:
             if self.scene() != None:
                 self.scene().removeItem(aspect)
         aspects = []
-        
+
         # Check for aspects with planets in all combinations.
         for i in range(len(planets)):
             for j in range(len(planets)):
@@ -3199,7 +3199,7 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
                                    format(p2.planetName,
                                           p2.wheelNumber,
                                           p2.degree))
-                
+
                 if not (p1 is p2):
                     # House cusps shouldn't aspect other house cusps
                     # in the same wheel.  If both planets are house
@@ -3207,11 +3207,11 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
                     # the RadixChartAspectGraphicsItem.
                     p1Name = p1.getPlanetName()
                     p2Name = p2.getPlanetName()
-                    
+
                     if Ephemeris.isHouseCuspPlanetName(p1Name) and \
                         Ephemeris.isHouseCuspPlanetName(p2Name) and \
                         p1.getWheelNumber() == p2.getWheelNumber():
-                        
+
                         # Don't create the aspect.
                         pass
                     else:
@@ -3221,13 +3221,13 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
                                              p2.getDegree(),
                                              p1.getWheelNumber(),
                                              p2.getWheelNumber())
-                    
+
         if self.log.isEnabledFor(logging.DEBUG) == True:
             self.log.debug("Exiting redrawAspects()")
-        
+
     def getInnerRasiRadius(self):
         """Returns the radius of the inner Rasi circle."""
-        
+
         return self.innerRasiRadius
 
     def getOuterRasiRadius(self):
@@ -3237,29 +3237,29 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
 
     def getInnerNakshatraRadius(self):
         """Returns the radius of the inner Nakshatra circle."""
-        
+
         return self.innerNakshatraRadius
 
     def getOuterNakshatraRadius(self):
         """Returns the radius of the outer Nakshatra circle."""
 
         return self.outerNakshatraRadius
-    
+
     def getInnerNavamsaRadius(self):
         """Returns the radius of the inner Navamsa circle."""
-        
+
         return self.innerNavamsaRadius
 
     def getOuterNavamsaRadius(self):
         """Returns the radius of the outer Navamsa circle."""
 
         return self.outerNavamsaRadius
-    
-        
+
+
     def boundingRect(self):
         """Returns the bounding rectangle for this graphicsitem."""
 
-        # Coordinate (0, 0) is the center of the widget.  
+        # Coordinate (0, 0) is the center of the widget.
         # The painting should be relative to this point as the
         # center.
 
@@ -3270,23 +3270,23 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         radius = 0.0
         if len(self.wheelNumberCircleRadius) > 0:
             radius = self.wheelNumberCircleRadius[-1]
-            
+
         diameter = radius + radius
-        
+
         x = -1.0 * radius
         y = -1.0 * radius
         width = diameter
         height = diameter
-        
+
         return QRectF(x, y, width, height)
-    
+
     def paint(self, painter, option, widget):
         """Paints this QGraphicsItem. """
 
         if painter.pen() != self.pen:
             painter.setPen(self.pen)
 
-        # Coordinate (0, 0) is the center of the widget.  
+        # Coordinate (0, 0) is the center of the widget.
         # The painting should be relative to this point as the
         # center.
 
@@ -3315,20 +3315,20 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         for i in range(0, 12):
             textLocAngleRadians = \
                 (angleRadians * (i + 1)) - (0.4 * angleRadians)
-            
+
             textLocRadius = \
                 ((0.5 * (self.outerRasiRadius + self.innerRasiRadius)) -
                  (0.1 * (self.outerRasiRadius - self.innerRasiRadius)))
-            
+
             x = -1.0 * math.cos(textLocAngleRadians) * textLocRadius
             y =  1.0 * math.sin(textLocAngleRadians) * textLocRadius
 
             rotationRadians = (math.pi / 2.0) + textLocAngleRadians
             rotationDegrees = math.degrees(rotationRadians)
-            
+
             textPath = QPainterPath()
             textPath.addText(0, 0, self.rasiLabelFont, str(i+1))
-            
+
             rotationTransform = QTransform()
             rotationTransform.translate(x, y)
             rotationTransform.rotate(-1.0 * rotationDegrees)
@@ -3344,10 +3344,10 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
 
         ########################################
         # Nakshatra
-        
+
         # 13 degrees, 20 minutes.
         angleRadians = (2.0 * math.pi) / 27.0
-        
+
         painter.drawEllipse(origin,
                             self.innerNakshatraRadius,
                             self.innerNakshatraRadius)
@@ -3395,28 +3395,28 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
         for i in range(0, 27):
             textLocAngleRadians = \
                 (angleRadians * (i + 1)) - (0.3 * angleRadians)
-            
+
             textLocRadius = \
                 ((0.5 * (self.outerNakshatraRadius +
                          self.innerNakshatraRadius)) -
                  (0.3 * (self.outerNakshatraRadius -
                          self.innerNakshatraRadius)))
-            
+
             x = -1.0 * math.cos(textLocAngleRadians) * textLocRadius
             y =  1.0 * math.sin(textLocAngleRadians) * textLocRadius
 
             fudgeFactor = \
                 (0.01 * textLocAngleRadians)
-                        
+
             rotationRadians = \
                 (math.pi / 2.0) + \
                 textLocAngleRadians - fudgeFactor
-            
+
             rotationDegrees = math.degrees(rotationRadians)
-            
+
             textPath = QPainterPath()
             textPath.addText(0, 0, self.nakshatraLabelFont, nakshatraAbbrev[i])
-            
+
             rotationTransform = QTransform()
             rotationTransform.translate(x, y)
             rotationTransform.rotate(-1.0 * rotationDegrees)
@@ -3429,14 +3429,14 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
             painter.setBrush(self.pen.brush())
             painter.drawPath(rotatedTextPath)
             painter.setBrush(oldBrush)
-            
-            
+
+
         ########################################
         # Navamsa
-        
+
         # 13 degrees, 20 minutes.
         angleRadians = (2.0 * math.pi) / (108)
-        
+
         painter.drawEllipse(origin,
                             self.innerNavamsaRadius,
                             self.innerNavamsaRadius)
@@ -3457,24 +3457,24 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
             rasiNumber = (i + 1) % 12
             if rasiNumber == 0:
                 rasiNumber = 12
-                
+
             textLocAngleRadians = \
                 (angleRadians * (i + 1)) - (0.3 * angleRadians)
-            
+
             textLocRadius = \
                 ((0.5 * (self.outerNavamsaRadius + self.innerNavamsaRadius)) -
                  (0.3 * (self.outerNavamsaRadius - self.innerNavamsaRadius)))
-            
+
             x = -1.0 * math.cos(textLocAngleRadians) * textLocRadius
             y =  1.0 * math.sin(textLocAngleRadians) * textLocRadius
 
             rotationRadians = (math.pi / 2.0) + textLocAngleRadians
             rotationDegrees = math.degrees(rotationRadians)
-            
+
             textPath = QPainterPath()
-            
+
             textPath.addText(0, 0, self.navamsaLabelFont, str(rasiNumber))
-            
+
             rotationTransform = QTransform()
             rotationTransform.translate(x, y)
             rotationTransform.rotate(-1.0 * rotationDegrees)
@@ -3488,9 +3488,9 @@ class SiderealRadixChartGraphicsItem(RadixChartGraphicsItem):
             painter.drawPath(rotatedTextPath)
             painter.setBrush(oldBrush)
 
-        
+
         ########################################
-            
+
         # Two circles for the planet locations.
         for i in range(len(self.wheelNumberCircleRadius)):
             painter.drawEllipse(origin,
@@ -3538,7 +3538,7 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
                  QGraphicsItem.
         scene - QGraphicsScene object to draw this QGraphicsItem on.
         """
-    
+
         super().__init__(parent, scene)
 
         # Logger
@@ -3568,7 +3568,7 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
         #    settings.value(SettingsKeys.planetRetrogradeGlyphFontSizeKey,
         #                   SettingsKeys.planetRetrogradeGlyphFontSizeDefValue,
         #                   type=float)
-        
+
         # Radius from the origin to draw this planet.
         self.drawPointRadius = 0.0
         self.drawPointTerminalRadius = 0.0
@@ -3579,7 +3579,7 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
         # re-calculating the radisuses above.
         self.setParentItem(parent)
 
-        
+
     def setParentItem(self, parent):
         """Overwrites QGraphicsItem.setParentItem().  Needed so we can
         save off the parent in self.radixChartGraphicsItem.
@@ -3592,18 +3592,18 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
         if parent != None and not isinstance(parent, RadixChartGraphicsItem):
             raise TypeError("Argument 'parent' is not of type " + \
                             "'RadixChartGraphicsItem'")
-        
+
         # Save off the parent.
         self.radixChartGraphicsItem = parent
 
         # Call self.setWheelNumber() again so the radiuses can be recalculated.
         self.setWheelNumber(self.wheelNumber)
-        
+
     def setDegree(self, degree):
         """Sets the location of the planet in degrees of the zodiac.
 
         Arguments:
-        
+
         degree - float value for the degree location for where this
                  planet will be drawn on the zodiac.  If the value is not
                  in the range [0.0, 360), it will be normalized so that it
@@ -3612,7 +3612,7 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
 
         self.degree = degree
         self.update()
-        
+
     def getDegree(self):
         """Returns the location of the planet in degrees of the zodiac.
 
@@ -3663,13 +3663,13 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
         self.velocity = velocity
 
         self.update()
-        
+
     def setWheelNumber(self, wheelNumber):
         """Sets the wheel number that it will be drawn on.
         This value represents which 'circle' to use on
         RadixChartGraphicsItem for drawing the planet.
         The first wheel (circle) is wheel number 0.
-        
+
         Arguments:
         wheelNumber - int value for the wheel number to draw the planet on.
                       The first wheel (circle) is wheel number 0.
@@ -3689,10 +3689,10 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
             # Update variables only if new values are different.
             if self.drawPointRadius != drawPointRadius or \
                self.drawPointTerminalRadius != drawPointTerminalRadius:
-                
+
                 self.drawPointRadius = drawPointRadius
                 self.drawPointTerminalRadius = drawPointTerminalRadius
-                
+
                 self.update()
 
     def getWheelNumber(self):
@@ -3710,9 +3710,9 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
 
     def getPlanetName(self):
         """Returns the planet name."""
-        
+
         return self.planetName
-    
+
     def getPlanetGlyphUnicode(self):
         """Returns the planet glyph in unicode."""
 
@@ -3742,12 +3742,12 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
         """Returns a str representing this object's contents."""
 
         return self.toString()
-        
+
     def toString(self):
         """Returns a str representing this object's contents."""
 
         return ObjectUtils.objToString(self)
-        
+
     def boundingRect(self):
         """Returns the bounding rectangle for this graphicsitem.
 
@@ -3828,16 +3828,16 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
         rotatedTextPath = QPainterPath()
         rotatedTextPath.addPath(rotationTransform.map(textPath))
         planetDegreeTextRect = rotatedTextPath.boundingRect()
-        
+
 
         # Unite all rectangles.
         rv = lineRect.united(planetTextRect).united(planetDegreeTextRect)
-        
+
         return rv
 
     def paint(self, painter, option, widget):
         """Paints this QGraphicsItem.
-        
+
         The painting is done in three parts:
         - Paint the line from the text to the terminal point.
         - Paint the planet glyph as text.
@@ -3882,18 +3882,18 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
         text = self.planetGlyphUnicode
         if self.velocity < 0:
             text = "(" + self.planetGlyphUnicode + ")"
-            
+
         textPath = QPainterPath()
         textPath.addText(0, 0, font, text)
-        
+
         rotationTransform = QTransform()
         fudgeDegrees = 0.5
         rotationDegrees = self.degree + fudgeDegrees
-        
+
         r = self.radixChartGraphicsItem.\
             getRadiusForWheelNumber(self.wheelNumber + 1)
         planetTextRadius = r - ((r - self.drawPointRadius) / 3.0)
-        
+
         textX = -1.0 * math.cos(math.radians(rotationDegrees)) * \
                 planetTextRadius
         textY = 1.0 * math.sin(math.radians(rotationDegrees)) * \
@@ -3926,18 +3926,18 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
 
         # Text.
         text = "{}\u00b0{}'".format(degreesInSign, minutesInDegree)
-        
+
         textPath = QPainterPath()
         textPath.addText(0, 0, font, text)
-        
+
         rotationTransform = QTransform()
         fudgeDegrees = 1.0
         rotationDegrees = self.degree + fudgeDegrees
-        
+
         r = self.radixChartGraphicsItem.\
             getRadiusForWheelNumber(self.wheelNumber + 1)
         planetTextRadius = r - (2.0 * (r - self.drawPointRadius) / 3.0)
-        
+
         textX = -1.0 * math.cos(math.radians(rotationDegrees)) * \
                 planetTextRadius
         textY = 1.0 * math.sin(math.radians(rotationDegrees)) * \
@@ -3955,11 +3955,11 @@ class RadixPlanetGraphicsItem(QGraphicsItem):
         #painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
         #painter.setBrush(Qt.NoBrush)
         #painter.drawRect(self.boundingRect())
-        
+
         # Restore the old paintbrush and pen.
         painter.setBrush(oldBrush)
         painter.setPen(oldPen)
-        
+
 class DeclinationChartGraphicsItem(QGraphicsItem):
     """QGraphicsItem that paints a chart for displaying various
     planets' declination.
@@ -3982,24 +3982,24 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
 
         # Value used in getXLocationForPlanetGroupNumber().
         self.planetLineLength = self.rulerWidth
-        
+
     def getPlanetDeclinationGraphicsItem(self, planetName, groupNum):
         """Returns the PlanetDeclinationGraphicsItem with the given
         planet name and group number.  If no match is found, None is
         returned.
 
         Arguments:
-        
+
         planetName - str value holding the planet name as set in the
         RadixPlanetGraphicsItem.
-        
+
         groupNum - int value holding the planet group number as set in the
         RadixPlanetGraphicsItem.
         """
 
         # Get the child GraphicsItems.
         children = self.childItems()
-        
+
         # Go through them and look at the ones that are
         # PlanetDeclinationGraphicsItem.
         for child in children:
@@ -4008,7 +4008,7 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
                 # QGraphicsItem.
                 if child.getPlanetName() == planetName and \
                     child.getPlanetGroupNumber() == groupNum:
-                    
+
                     return child
 
         return None
@@ -4034,7 +4034,7 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
 
         return x
 
-    
+
     def convertYValueToDegree(self, y):
         """Converts a tick Y value to it's equivalent in degrees.
 
@@ -4047,7 +4047,7 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
 
         # Our algorithm for conversion is to drop an order of magnitude.
         return (y / -10.0)
-        
+
     def convertDegreeToYValue(self, degree):
         """Converts a degree value it's equivalent Y value in coordinates.
 
@@ -4060,7 +4060,7 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
 
         # Our algorithm for conversion is the following.
         return degree * -10.0
-        
+
     def boundingRect(self):
         """Returns the bounding rectangle for this graphicsitem."""
 
@@ -4073,7 +4073,7 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
         rectF = QRectF(x, y, self.rulerWidth, self.rulerHeight)
 
         return rectF
-    
+
     def paint(self, painter, option, widget):
         """Paints this QGraphicsItem. """
 
@@ -4102,7 +4102,7 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
         # else we don't want filled in.
         brush.setStyle(Qt.SolidPattern)
         painter.setBrush(brush)
-        
+
         # Draw small ticks.
         start = int(-1.0 * self.rulerHeight / 2.0)
         stop = int(self.rulerHeight / 2.0)
@@ -4133,26 +4133,26 @@ class DeclinationChartGraphicsItem(QGraphicsItem):
             font = QFont()
             font.setFamily("Lucida Console")
             font.setPointSize(10)
-            
+
             x1 = -1.0 * self.rulerWidth
             y1 = -1.0 * tick
             converted = math.floor(-1 * self.convertYValueToDegree(float(tick)))
             text = "{}\u00b0".format(converted)
             textPath = QPainterPath()
             textPath.addText(0, 0, font, text)
-            
+
             transform = QTransform()
             transform.translate(x1, y1)
-            
+
             translatedPath = QPainterPath()
             translatedPath.addPath(transform.map(textPath))
-            
+
             painter.drawPath(translatedPath)
-            
+
         # Restore old paintbrush and pen.
         painter.setBrush(oldBrush)
         painter.setPen(oldPen)
-    
+
 class PlanetDeclinationGraphicsItem(QGraphicsItem):
     """QGraphicsItem that is a 'planet' to be drawn with a
     DeclinationChartGraphicsItem object as its parent QGraphicsItem.
@@ -4196,9 +4196,9 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
                  QGraphicsItem.
         scene - QGraphicsScene object to draw this QGraphicsItem on.
         """
-        
+
         super().__init__(parent, scene)
-        
+
         # Logger
         self.log = \
             logging.getLogger("astrologychart.PlanetDeclinationGraphicsItem")
@@ -4226,7 +4226,7 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
         # re-calculating self.lineEndX and updating the QGraphicsItem.
         self.setParentItem(parent)
 
-        
+
     def setParentItem(self, parent):
         """Overwrites QGraphicsItem.setParentItem().  Needed so we can
         save off the parent in self.parentChartGraphicsItem.
@@ -4238,22 +4238,22 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
         # Verify parent class.
         if parent != None and \
                not isinstance(parent, DeclinationChartGraphicsItem):
-            
+
             raise TypeError("Argument 'parent' is not of type " + \
                             "'DeclinationChartGraphicsItem'")
-        
+
         # Save off the parent.
         self.parentChartGraphicsItem = parent
 
         # Call self.setPlanetGroupNumber() again so the drawn points
         # can be recalculated.
         self.setPlanetGroupNumber(self.planetGroupNumber)
-        
+
     def setDegree(self, degree):
         """Sets the location of the planet in degrees of the zodiac.
 
         Arguments:
-        
+
         degree - float value for the degree location for where this
                  planet will be drawn on the zodiac.  If the value is not
                  in the range [0.0, 360), it will be normalized so that it
@@ -4262,7 +4262,7 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
 
         self.degree = degree
         self.update()
-        
+
     def getDegree(self):
         """Returns the location of the planet in degrees of the zodiac.
 
@@ -4313,11 +4313,11 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
         self.velocity = velocity
 
         self.update()
-        
+
     def setPlanetGroupNumber(self, planetGroupNumber):
         """Sets the planet group number that this QGraphicsItem is
         associated with.  The first group is number 1.
-        
+
         Arguments:
         planetGroupNumber - int value for the group of planets that this
                             planet belongs to.  This is so planets of
@@ -4421,12 +4421,12 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
 
         # Unite all rectangles.
         rv = lineRect.united(textRect)
-        
+
         return rv
 
     def paint(self, painter, option, widget):
         """Paints this QGraphicsItem.
-        
+
         The painting is done in the following parts:
         - Paint the line from ruler to the location where the text starts.
         - Paint the text for the planet glyph and the degree it is at.
@@ -4465,7 +4465,7 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
         text += " {:.3f}\u00b0".format(self.degree)
         textPath = QPainterPath()
         textPath.addText(0, 0, font, text)
-        
+
         transform = QTransform()
         textX = self.lineEndX
         textY = self.parentChartGraphicsItem.convertDegreeToYValue(self.degree)
@@ -4479,7 +4479,7 @@ class PlanetDeclinationGraphicsItem(QGraphicsItem):
         #painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
         #painter.setBrush(Qt.NoBrush)
         #painter.drawRect(self.boundingRect())
-        
+
         # Restore the old paintbrush and pen.
         painter.setBrush(oldBrush)
         painter.setPen(oldPen)
@@ -4506,24 +4506,24 @@ class LatitudeChartGraphicsItem(QGraphicsItem):
 
         # Value used in getXLocationForPlanetGroupNumber().
         self.planetLineLength = self.rulerWidth
-        
+
     def getPlanetLatitudeGraphicsItem(self, planetName, groupNum):
         """Returns the PlanetLatitudeGraphicsItem with the given
         planet name and group number.  If no match is found, None is
         returned.
 
         Arguments:
-        
+
         planetName - str value holding the planet name as set in the
         RadixPlanetGraphicsItem.
-        
+
         groupNum - int value holding the planet group number as set in the
         RadixPlanetGraphicsItem.
         """
 
         # Get the child GraphicsItems.
         children = self.childItems()
-        
+
         # Go through them and look at the ones that are
         # PlanetLatitudeGraphicsItem.
         for child in children:
@@ -4532,7 +4532,7 @@ class LatitudeChartGraphicsItem(QGraphicsItem):
                 # QGraphicsItem.
                 if child.getPlanetName() == planetName and \
                     child.getPlanetGroupNumber() == groupNum:
-                    
+
                     return child
 
         return None
@@ -4558,7 +4558,7 @@ class LatitudeChartGraphicsItem(QGraphicsItem):
 
         return x
 
-    
+
     def convertYValueToDegree(self, y):
         """Converts a tick Y value to it's equivalent in degrees.
 
@@ -4571,7 +4571,7 @@ class LatitudeChartGraphicsItem(QGraphicsItem):
 
         # Our algorithm for conversion is to drop an order of magnitude.
         return (y / -10.0)
-        
+
     def convertDegreeToYValue(self, degree):
         """Converts a degree value it's equivalent Y value in coordinates.
 
@@ -4584,7 +4584,7 @@ class LatitudeChartGraphicsItem(QGraphicsItem):
 
         # Our algorithm for conversion is the following.
         return degree * -10.0
-        
+
     def boundingRect(self):
         """Returns the bounding rectangle for this graphicsitem."""
 
@@ -4597,7 +4597,7 @@ class LatitudeChartGraphicsItem(QGraphicsItem):
         rectF = QRectF(x, y, self.rulerWidth, self.rulerHeight)
 
         return rectF
-    
+
     def paint(self, painter, option, widget):
         """Paints this QGraphicsItem. """
 
@@ -4626,7 +4626,7 @@ class LatitudeChartGraphicsItem(QGraphicsItem):
         # else we don't want filled in.
         brush.setStyle(Qt.SolidPattern)
         painter.setBrush(brush)
-        
+
         # Draw small ticks.
         start = int(-1.0 * self.rulerHeight / 2.0)
         stop = int(self.rulerHeight / 2.0)
@@ -4657,26 +4657,26 @@ class LatitudeChartGraphicsItem(QGraphicsItem):
             font = QFont()
             font.setFamily("Lucida Console")
             font.setPointSize(10)
-            
+
             x1 = -1.0 * self.rulerWidth
             y1 = -1.0 * tick
             converted = math.floor(-1 * self.convertYValueToDegree(float(tick)))
             text = "{}\u00b0".format(converted)
             textPath = QPainterPath()
             textPath.addText(0, 0, font, text)
-            
+
             transform = QTransform()
             transform.translate(x1, y1)
-            
+
             translatedPath = QPainterPath()
             translatedPath.addPath(transform.map(textPath))
-            
+
             painter.drawPath(translatedPath)
-            
+
         # Restore old paintbrush and pen.
         painter.setBrush(oldBrush)
         painter.setPen(oldPen)
-    
+
 class PlanetLatitudeGraphicsItem(QGraphicsItem):
     """QGraphicsItem that is a 'planet' to be drawn with a
     LatitudeChartGraphicsItem object as its parent QGraphicsItem.
@@ -4720,9 +4720,9 @@ class PlanetLatitudeGraphicsItem(QGraphicsItem):
                  QGraphicsItem.
         scene - QGraphicsScene object to draw this QGraphicsItem on.
         """
-        
+
         super().__init__(parent, scene)
-        
+
         # Logger
         self.log = \
             logging.getLogger("astrologychart.PlanetLatitudeGraphicsItem")
@@ -4750,7 +4750,7 @@ class PlanetLatitudeGraphicsItem(QGraphicsItem):
         # re-calculating self.lineEndX and updating the QGraphicsItem.
         self.setParentItem(parent)
 
-        
+
     def setParentItem(self, parent):
         """Overwrites QGraphicsItem.setParentItem().  Needed so we can
         save off the parent in self.parentChartGraphicsItem.
@@ -4762,22 +4762,22 @@ class PlanetLatitudeGraphicsItem(QGraphicsItem):
         # Verify parent class.
         if parent != None and \
                not isinstance(parent, LatitudeChartGraphicsItem):
-            
+
             raise TypeError("Argument 'parent' is not of type " + \
                             "'LatitudeChartGraphicsItem'")
-        
+
         # Save off the parent.
         self.parentChartGraphicsItem = parent
 
         # Call self.setPlanetGroupNumber() again so the drawn points
         # can be recalculated.
         self.setPlanetGroupNumber(self.planetGroupNumber)
-        
+
     def setDegree(self, degree):
         """Sets the location of the planet in degrees of the zodiac.
 
         Arguments:
-        
+
         degree - float value for the degree location for where this
                  planet will be drawn on the zodiac.  If the value is not
                  in the range [0.0, 360), it will be normalized so that it
@@ -4786,7 +4786,7 @@ class PlanetLatitudeGraphicsItem(QGraphicsItem):
 
         self.degree = degree
         self.update()
-        
+
     def getDegree(self):
         """Returns the location of the planet in degrees of the zodiac.
 
@@ -4837,11 +4837,11 @@ class PlanetLatitudeGraphicsItem(QGraphicsItem):
         self.velocity = velocity
 
         self.update()
-        
+
     def setPlanetGroupNumber(self, planetGroupNumber):
         """Sets the planet group number that this QGraphicsItem is
         associated with.  The first group is number 1.
-        
+
         Arguments:
         planetGroupNumber - int value for the group of planets that this
                             planet belongs to.  This is so planets of
@@ -4945,12 +4945,12 @@ class PlanetLatitudeGraphicsItem(QGraphicsItem):
 
         # Unite all rectangles.
         rv = lineRect.united(textRect)
-        
+
         return rv
 
     def paint(self, painter, option, widget):
         """Paints this QGraphicsItem.
-        
+
         The painting is done in the following parts:
         - Paint the line from ruler to the location where the text starts.
         - Paint the text for the planet glyph and the degree it is at.
@@ -4989,7 +4989,7 @@ class PlanetLatitudeGraphicsItem(QGraphicsItem):
         text += " {:.3f}\u00b0".format(self.degree)
         textPath = QPainterPath()
         textPath.addText(0, 0, font, text)
-        
+
         transform = QTransform()
         textX = self.lineEndX
         textY = self.parentChartGraphicsItem.convertDegreeToYValue(self.degree)
@@ -5003,11 +5003,11 @@ class PlanetLatitudeGraphicsItem(QGraphicsItem):
         #painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
         #painter.setBrush(Qt.NoBrush)
         #painter.drawRect(self.boundingRect())
-        
+
         # Restore the old paintbrush and pen.
         painter.setBrush(oldBrush)
         painter.setPen(oldPen)
-        
+
 
 class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
     """QGraphicsItem that paints a chart for displaying various
@@ -5024,9 +5024,9 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         minSpeed - float value for the minimum longitude speed in
                    degrees per day.
         """
-        
+
         super().__init__(parent, scene)
-        
+
         # Logger
         self.log = \
             logging.getLogger("astrologychart.LongitudeSpeedChartGraphicsItem")
@@ -5045,7 +5045,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         # This is the X coordinate location where the text for the
         # min, max and 0 speed are painted.
         self.textXLoc = -35.0
-        
+
     def getRulerWidth(self):
         """Returns the ruler width."""
 
@@ -5055,7 +5055,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         """Returns the ruler height."""
 
         return self.rulerHeight
-        
+
     def setMaxSpeed(self, maxSpeed):
         """Sets the max longitude speed, in degrees per day.
 
@@ -5073,7 +5073,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         """
 
         return self.maxSpeed
-    
+
     def setMinSpeed(self, minSpeed):
         """Sets the min longitude speed, in degrees per day.
 
@@ -5091,8 +5091,8 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         """
 
         return self.minSpeed
-    
-        
+
+
     def convertSpeedToYValue(self, speed):
         """Converts the given longitude speed (in degrees per day) to
         the coordinate Y value where speed should be plotted.  This
@@ -5112,7 +5112,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         # the calculation.
         maxSpeed = self.maxSpeed
         minSpeed = self.minSpeed
-        
+
         # If self.maxSpeed or self.minSpeed is None, then default to
         # using the range as the ruler height, and the max and min as
         # positive and negative half the ruler height.
@@ -5125,7 +5125,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         amountAboveMinSpeed = speed - minSpeed
 
         ratio = amountAboveMinSpeed / speedRange
-        
+
         yValue = -1.0 * self.rulerHeight * ratio
 
         return yValue
@@ -5146,7 +5146,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         # the calculation.
         maxSpeed = self.maxSpeed
         minSpeed = self.minSpeed
-        
+
         # If self.maxSpeed or self.minSpeed is None, then default to
         # using the range as the ruler height, and the max and min as
         # positive and negative half the ruler height.
@@ -5160,12 +5160,12 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         speedRange = maxSpeed - minSpeed
         amountAboveMinSpeed = ratio * speedRange
         speed = minSpeed + amountAboveMinSpeed
-        
+
         return speed
 
     def boundingRect(self):
         """Returns the bounding rectangle for this graphicsitem.
-        
+
         We implement this function by taking all the pieces, and doing
         an logical OR on the areas covered by their rectangles.  The
         rectangles are calculated in the same way that paint() is
@@ -5180,7 +5180,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         # the calculation.
         maxSpeed = self.maxSpeed
         minSpeed = self.minSpeed
-        
+
         # If self.maxSpeed or self.minSpeed is None, then default to
         # using the range as the ruler height, and the max and min as
         # positive and negative half the ruler height.
@@ -5199,7 +5199,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         font = QFont()
         font.setFamily("Lucida Console")
         font.setPointSize(10)
-        
+
         # Max speed.
         x1 = self.textXLoc
         y1 = self.convertSpeedToYValue(maxSpeed)
@@ -5214,7 +5214,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         translatedPath = QPainterPath()
         translatedPath.addPath(transform.map(textPath))
         maxSpeedRectF = translatedPath.boundingRect()
-        
+
         # Min speed.
         x1 = self.textXLoc
         y1 = self.convertSpeedToYValue(minSpeed)
@@ -5250,7 +5250,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
              united(maxSpeedRectF).\
              united(minSpeedRectF).\
              united(zeroSpeedRectF)
-        
+
         return rv
 
     def paint(self, painter, option, widget):
@@ -5260,7 +5260,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         so if this function changes, then boundingRect() will need to
         be updated as well.
         """
-        
+
         # Coordinate (0, 0) is the location of the bottom left corner
         # of the ruler.
 
@@ -5280,7 +5280,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         # the calculation.
         maxSpeed = self.maxSpeed
         minSpeed = self.minSpeed
-        
+
         # If self.maxSpeed or self.minSpeed is None, then default to
         # using the range as the ruler height, and the max and min as
         # positive and negative half the ruler height.
@@ -5302,7 +5302,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         x2 = self.rulerWidth
         y2 = y1
         painter.drawLine(QLineF(x1, y1, x2, y2))
-        
+
         # Draw the text for the min, max, and 0 locations on the ruler.
         font = QFont()
         font.setFamily("Lucida Console")
@@ -5337,7 +5337,7 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         translatedPath = QPainterPath()
         translatedPath.addPath(transform.map(textPath))
         painter.drawPath(translatedPath)
-        
+
         # Zero speed.
         zeroSpeed = 0.0
         x1 = self.textXLoc
@@ -5359,11 +5359,11 @@ class LongitudeSpeedChartGraphicsItem(QGraphicsItem):
         #painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
         #painter.setBrush(Qt.NoBrush)
         #painter.drawRect(self.boundingRect())
-        
+
         # Restore old paintbrush and pen.
         painter.setBrush(oldBrush)
         painter.setPen(oldPen)
-        
+
 class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
     """QGraphicsItem that is a 'planet' to be drawn with a
     LongitudeSpeedChartGraphicsItem object as its parent QGraphicsItem.
@@ -5395,7 +5395,7 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
                  QGraphicsItem.
         scene - QGraphicsScene object to draw this QGraphicsItem on.
         """
-        
+
         super().__init__(parent, scene)
 
         # Logger
@@ -5414,7 +5414,7 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
         # Fill colors for the ruler area for positive and negative speeds.
         self.positiveSpeedBrush = QBrush(Qt.green, Qt.Dense4Pattern)
         self.negativeSpeedBrush = QBrush(Qt.red, Qt.Dense4Pattern)
-        
+
         # The ruler width.  This value is obtained from the parent
         # LongitudeSpeedChartGraphicsItem object.
         self.rulerWidth = 0.0
@@ -5428,7 +5428,7 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
         # subsequently have the (desired) side effect of
         # setting self.rulerWidth and updating the QGraphicsItem.
         self.setParentItem(parent)
-        
+
     def setParentItem(self, parent):
         """Overwrites QGraphicsItem.setParentItem().  Needed so we can
         save off the parent in self.parentChartGraphicsItem.
@@ -5440,10 +5440,10 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
         # Verify parent class.
         if parent != None and \
                not isinstance(parent, LongitudeSpeedChartGraphicsItem):
-            
+
             raise TypeError("Argument 'parent' is not of type " + \
                             "'LongitudeSpeedChartGraphicsItem'")
-        
+
         # Save off the parent.
         self.parentChartGraphicsItem = parent
 
@@ -5451,7 +5451,7 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
         self.rulerWidth = self.parentChartGraphicsItem.getRulerWidth()
         self.lineEndX = 1.5 * self.rulerWidth
         self.update()
-        
+
     def setSpeed(self, speed):
         """Sets the speed of the planet, in degrees per day.
 
@@ -5544,12 +5544,12 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
 
         # Unite all rectangles.
         rv = lineRect.united(textRect).united(rulerFillAreaRectF)
-        
+
         return rv
 
     def paint(self, painter, option, widget):
         """Paints this QGraphicsItem.
-        
+
         The painting is done in the following parts:
         - Paint the line from ruler to the location where the text starts.
         - Paint the text for the planet glyph and the degree it is at.
@@ -5589,7 +5589,7 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
         text += "  {}\u00b0/day".format(self.speed)
         textPath = QPainterPath()
         textPath.addText(0, 0, font, text)
-        
+
         transform = QTransform()
         textX = self.lineEndX
         textY = self.parentChartGraphicsItem.\
@@ -5621,7 +5621,7 @@ class PlanetLongitudeSpeedGraphicsItem(QGraphicsItem):
         #painter.setPen(QPen(option.palette.windowText(), 0, Qt.DashLine))
         #painter.setBrush(Qt.NoBrush)
         #painter.drawRect(self.boundingRect())
-        
+
         # Restore the old paintbrush and pen.
         painter.setBrush(oldBrush)
         painter.setPen(oldPen)
@@ -5632,20 +5632,20 @@ class PlanetaryInfoTableWidget(QTableWidget):
     def __init__(self, planetaryInfos=[], parent=None):
         """Creates and initializes the widget with the given list of
         PlanetaryInfo objects.
-        
+
         Arguments:
-            
+
         planetaryInfos - list of PlanetaryInfo objects that hold
                          information about the various planets that will
                          be displayed in the QTableWidget.
-                         
+
         """
 
         super().__init__(parent)
         self.setContextMenuPolicy(Qt.DefaultContextMenu)
 
         self.planetaryInfos = list(planetaryInfos)
-        
+
         self.log = logging.getLogger("widgets.PlanetaryInfoTableWidget")
 
         # Set the font so that it is mono-spaced.
@@ -5672,7 +5672,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
 
         # Modulus operations.
         mod360LonStr = "Mod 360 Lon."
-        
+
         # Different measurements available.
         #longitudeStr = "Longitude"
         #latitudeStr = "Latitude"
@@ -5719,7 +5719,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         # List of column numbers, for which the text should be aligned
         # in the center.
         self.alignHCenterColumns = []
-        
+
         # Create all the header QTableWidgetItems.
         col = 0
 
@@ -5735,7 +5735,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         self.setHorizontalHeaderItem(col, item)
         self.setColumnWidth(col, 98)
         col += 1
-        
+
         item = QTableWidgetItem(helioStr + tropStr + longitudeStr)
         item.setToolTip(longitudeStr + degreesUnitsStr)
         self.setHorizontalHeaderItem(col, item)
@@ -5832,12 +5832,12 @@ class PlanetaryInfoTableWidget(QTableWidget):
 
         # Load an empty list of PlanetaryInfos to clear.
         self.load([])
-        
+
     def load(self, planetaryInfos):
         """Loads the widgets with the given list of PlanetaryInfo
         objects.
         """
-        
+
         self.log.debug("Entered load()")
 
         # Make a list of PlanetaryInfos that will actually be loaded,
@@ -5855,7 +5855,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         for i in range(len(toLoad)):
 
             p = toLoad[i]
-            
+
             if len(self.planetaryInfos) != 0 and i >= len(self.planetaryInfos):
                 self._appendPlanetaryInfo(p)
             else:
@@ -5875,371 +5875,371 @@ class PlanetaryInfoTableWidget(QTableWidget):
         enabledPlanetNames = []
 
         settings = QSettings()
-        
+
         if settings.value(\
             SettingsKeys.planetH1EnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetH1EnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("H1")
-        
+
         if settings.value(\
             SettingsKeys.planetH2EnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetH2EnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("H2")
-        
+
         if settings.value(\
             SettingsKeys.planetH3EnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetH3EnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("H3")
-        
+
         if settings.value(\
             SettingsKeys.planetH4EnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetH4EnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("H4")
-        
+
         if settings.value(\
             SettingsKeys.planetH5EnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetH5EnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("H5")
-        
+
         if settings.value(\
             SettingsKeys.planetH6EnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetH6EnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("H6")
-        
+
         if settings.value(\
             SettingsKeys.planetH7EnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetH7EnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("H7")
-        
+
         if settings.value(\
             SettingsKeys.planetH8EnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetH8EnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("H8")
-        
+
         if settings.value(\
             SettingsKeys.planetH9EnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetH9EnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("H9")
-        
+
         if settings.value(\
             SettingsKeys.planetH10EnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetH10EnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("H10")
-        
+
         if settings.value(\
             SettingsKeys.planetH11EnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetH11EnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("H11")
-        
+
         if settings.value(\
             SettingsKeys.planetH12EnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetH12EnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("H12")
-        
+
         if settings.value(\
             SettingsKeys.planetARMCEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetARMCEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("ARMC")
-        
+
         if settings.value(\
             SettingsKeys.planetVertexEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetVertexEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Vertex")
-        
+
         if settings.value(\
             SettingsKeys.planetEquatorialAscendantEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetEquatorialAscendantEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("EquatorialAscendant")
-        
+
         if settings.value(\
             SettingsKeys.planetCoAscendant1EnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetCoAscendant1EnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("CoAscendant1")
-        
+
         if settings.value(\
             SettingsKeys.planetCoAscendant2EnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetCoAscendant2EnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("CoAscendant2")
-        
+
         if settings.value(\
             SettingsKeys.planetPolarAscendantEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetPolarAscendantEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("PolarAscendant")
-        
+
         if settings.value(\
             SettingsKeys.planetHoraLagnaEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetHoraLagnaEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("HoraLagna")
-        
+
         if settings.value(\
             SettingsKeys.planetGhatiLagnaEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetGhatiLagnaEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("GhatiLagna")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanLunarApogeeEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetMeanLunarApogeeEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetOsculatingLunarApogeeEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetOsculatingLunarApogeeEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("OsculatingLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetInterpolatedLunarApogeeEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetInterpolatedLunarApogeeEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("InterpolatedLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetInterpolatedLunarPerigeeEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetInterpolatedLunarPerigeeEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("InterpolatedLunarPerigee")
-        
+
         if settings.value(\
             SettingsKeys.planetSunEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetSunEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Sun")
-        
+
         if settings.value(\
             SettingsKeys.planetMoonEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetMoonEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Moon")
-        
+
         if settings.value(\
             SettingsKeys.planetMercuryEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetMercuryEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mercury")
-        
+
         if settings.value(\
             SettingsKeys.planetVenusEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetVenusEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Venus")
-        
+
         if settings.value(\
             SettingsKeys.planetEarthEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetEarthEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Earth")
-        
+
         if settings.value(\
             SettingsKeys.planetMarsEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetMarsEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mars")
-        
+
         if settings.value(\
             SettingsKeys.planetJupiterEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetJupiterEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Jupiter")
-        
+
         if settings.value(\
             SettingsKeys.planetSaturnEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetSaturnEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Saturn")
-        
+
         if settings.value(\
             SettingsKeys.planetUranusEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetUranusEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Uranus")
-        
+
         if settings.value(\
             SettingsKeys.planetNeptuneEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetNeptuneEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Neptune")
-        
+
         if settings.value(\
             SettingsKeys.planetPlutoEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetPlutoEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Pluto")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanNorthNodeEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetMeanNorthNodeEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanNorthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanSouthNodeEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetMeanSouthNodeEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanSouthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetTrueNorthNodeEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("TrueNorthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetTrueSouthNodeEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetTrueSouthNodeEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("TrueSouthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetCeresEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetCeresEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Ceres")
-        
+
         if settings.value(\
             SettingsKeys.planetPallasEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetPallasEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Pallas")
-        
+
         if settings.value(\
             SettingsKeys.planetJunoEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetJunoEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Juno")
-        
+
         if settings.value(\
             SettingsKeys.planetVestaEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetVestaEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Vesta")
-        
+
         if settings.value(\
             SettingsKeys.planetIsisEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetIsisEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Isis")
-        
+
         if settings.value(\
             SettingsKeys.planetNibiruEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetNibiruEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Nibiru")
-        
+
         if settings.value(\
             SettingsKeys.planetChironEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetChironEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Chiron")
-        
+
         if settings.value(\
             SettingsKeys.planetGulikaEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetGulikaEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Gulika")
-        
+
         if settings.value(\
             SettingsKeys.planetMandiEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetMandiEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mandi")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanOfFiveEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetMeanOfFiveEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanOfFive")
-        
+
         if settings.value(\
             SettingsKeys.planetCycleOfEightEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetCycleOfEightEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("CycleOfEight")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgMaJuSaUrNePlEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetAvgMaJuSaUrNePlEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("AvgMaJuSaUrNePl")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgJuSaUrNeEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetAvgJuSaUrNeEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
             enabledPlanetNames.append("AvgJuSaUrNe")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgJuSaEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetAvgJuSaEnabledForPlanetaryInfoTableDefValue,
@@ -6415,12 +6415,12 @@ class PlanetaryInfoTableWidget(QTableWidget):
 
             enabledPlanetNames.append("SaUr")
 
-        
+
         return enabledPlanetNames
-        
+
     def _handleCellDoubleClicked(self, row, column):
-        """Triggered when an item is double-clicked.  
-        
+        """Triggered when an item is double-clicked.
+
         This will highlight the entire row of the cell that the user
         double-clicked.
         """
@@ -6443,7 +6443,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         """Overwrites the QWidget contextMenuEvent function.
 
         This brings up a context menu with options:
-        - Copy highlighted cell(s) text to clipboard as CSV 
+        - Copy highlighted cell(s) text to clipboard as CSV
           (without column headers).
         - Copy highlighted cell(s) text to clipboard as CSV
           (with column headers).
@@ -6482,7 +6482,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         menu.addAction(copyCellTextWithColumnHeadersAsCSVAction)
 
         menu.exec_(QCursor.pos())
-    
+
         self.log.debug("Exiting contextMenuEvent()")
 
     def _selectedCellsTextToClipboard(self, sendColumnHeaders=False):
@@ -6503,7 +6503,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         textToClipboard = ""
 
         for i in range(numRanges):
-            r = selectedRanges[i] 
+            r = selectedRanges[i]
 
             leftColumn = r.leftColumn()
             rightColumn = r.rightColumn()
@@ -6511,9 +6511,9 @@ class PlanetaryInfoTableWidget(QTableWidget):
             bottomRow = r.bottomRow()
 
             self.log.debug("DEBUG: " + \
-                           "leftColumn={}, ".format(leftColumn) + 
-                           "rightColumn={}, ".format(rightColumn) + 
-                           "topRow={}, ".format(topRow) + 
+                           "leftColumn={}, ".format(leftColumn) +
+                           "rightColumn={}, ".format(rightColumn) +
+                           "topRow={}, ".format(topRow) +
                            "bottomRow={}".format(bottomRow))
 
             if sendColumnHeaders == True:
@@ -6541,7 +6541,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         if textToClipboard == "" and numRanges == 0:
             self.log.debug("No cells were selected.")
         else:
-            self.log.debug("Sending the following text to clipboard: " + 
+            self.log.debug("Sending the following text to clipboard: " +
                            textToClipboard)
             clipboard = QApplication.clipboard()
             clipboard.setText(textToClipboard)
@@ -6559,7 +6559,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         self._selectedCellsTextToClipboard(True)
 
         self.log.debug("Exiting _selectedCellsAndHeadersTextToClipboard()")
-    
+
     def _replaceRowWithPlanetaryInfo(self, row, planetaryInfo):
         """Replaces all the existing QTableWidgetItems in row 'row', with the
         data in PlanetaryInfo 'planetaryInfo'.
@@ -6577,7 +6577,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         rowCount = self.rowCount()
         col = 0
 
-        # If the row given 
+        # If the row given
         if row >= rowCount:
             self.setRowCount(row + 1)
 
@@ -6591,7 +6591,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
             # Set alignment.
             if col in self.alignHCenterColumns:
                 item.setTextAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
-            
+
             self.setItem(row, col, item)
         item.setText(p.name)
         col += 1
@@ -6600,7 +6600,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
         sidereal = "sidereal"
 
         p = self._filterOutNonsensicalValues(p)
-        
+
         # Populate the item cells for each column.
         value = p.geocentric[tropical]['longitude']
         valueStr = ""
@@ -6619,7 +6619,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
                 convertLongitudeToStrWithRasiGlyph(value)
         self._setItemAndToolTip(row, col, valueStr)
         col += 1
-        
+
         value = p.geocentric[tropical]['longitude']
         valueStr = ""
         if value != None:
@@ -6724,10 +6724,10 @@ class PlanetaryInfoTableWidget(QTableWidget):
         """
 
         p = planetaryInfo
-        
+
         tropical = "tropical"
         sidereal = "sidereal"
-        
+
         if Ephemeris.isHouseCuspPlanetName(p.name) or \
                Ephemeris.isAscmcPlanetName(p.name):
 
@@ -6745,7 +6745,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
             p.geocentric[sidereal]['declination_speed'] = None
             p.geocentric[sidereal]['latitude'] = None
             p.geocentric[sidereal]['latitude_speed'] = None
-            
+
             p.heliocentric[tropical]['longitude'] = None
             p.heliocentric[tropical]['longitude_speed'] = None
             p.heliocentric[tropical]['rectascension'] = None
@@ -6754,7 +6754,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
             p.heliocentric[tropical]['declination_speed'] = None
             p.heliocentric[tropical]['latitude'] = None
             p.heliocentric[tropical]['latitude_speed'] = None
-            
+
             p.heliocentric[sidereal]['longitude'] = None
             p.heliocentric[sidereal]['longitude_speed'] = None
             p.heliocentric[sidereal]['rectascension'] = None
@@ -6765,7 +6765,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
             p.heliocentric[sidereal]['latitude_speed'] = None
 
         elif p.name == "Sun":
-            
+
             p.heliocentric[tropical]['longitude'] = None
             p.heliocentric[tropical]['longitude_speed'] = None
             p.heliocentric[tropical]['rectascension'] = None
@@ -6774,7 +6774,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
             p.heliocentric[tropical]['declination_speed'] = None
             p.heliocentric[tropical]['latitude'] = None
             p.heliocentric[tropical]['latitude_speed'] = None
-            
+
             p.heliocentric[sidereal]['longitude'] = None
             p.heliocentric[sidereal]['longitude_speed'] = None
             p.heliocentric[sidereal]['rectascension'] = None
@@ -6785,7 +6785,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
             p.heliocentric[sidereal]['latitude_speed'] = None
 
         elif p.name == "Moon":
-            
+
             p.heliocentric[tropical]['longitude'] = None
             p.heliocentric[tropical]['longitude_speed'] = None
             p.heliocentric[tropical]['rectascension'] = None
@@ -6794,7 +6794,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
             p.heliocentric[tropical]['declination_speed'] = None
             p.heliocentric[tropical]['latitude'] = None
             p.heliocentric[tropical]['latitude_speed'] = None
-            
+
             p.heliocentric[sidereal]['longitude'] = None
             p.heliocentric[sidereal]['longitude_speed'] = None
             p.heliocentric[sidereal]['rectascension'] = None
@@ -6816,10 +6816,10 @@ class PlanetaryInfoTableWidget(QTableWidget):
 
                 p.geocentric[tropical]['latitude'] = None
                 p.geocentric[tropical]['latitude_speed'] = None
-                
+
                 p.geocentric[sidereal]['latitude'] = None
                 p.geocentric[sidereal]['latitude_speed'] = None
-            
+
             p.heliocentric[tropical]['longitude'] = None
             p.heliocentric[tropical]['longitude_speed'] = None
             p.heliocentric[tropical]['rectascension'] = None
@@ -6828,7 +6828,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
             p.heliocentric[tropical]['declination_speed'] = None
             p.heliocentric[tropical]['latitude'] = None
             p.heliocentric[tropical]['latitude_speed'] = None
-            
+
             p.heliocentric[sidereal]['longitude'] = None
             p.heliocentric[sidereal]['longitude_speed'] = None
             p.heliocentric[sidereal]['rectascension'] = None
@@ -6837,9 +6837,9 @@ class PlanetaryInfoTableWidget(QTableWidget):
             p.heliocentric[sidereal]['declination_speed'] = None
             p.heliocentric[sidereal]['latitude'] = None
             p.heliocentric[sidereal]['latitude_speed'] = None
-            
+
         elif p.name == "Earth":
-            
+
             p.geocentric[tropical]['longitude'] = None
             p.geocentric[tropical]['longitude_speed'] = None
             p.geocentric[tropical]['rectascension'] = None
@@ -6848,7 +6848,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
             p.geocentric[tropical]['declination_speed'] = None
             p.geocentric[tropical]['latitude'] = None
             p.geocentric[tropical]['latitude_speed'] = None
-            
+
             p.geocentric[sidereal]['longitude'] = None
             p.geocentric[sidereal]['longitude_speed'] = None
             p.geocentric[sidereal]['rectascension'] = None
@@ -6859,7 +6859,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
             p.geocentric[sidereal]['latitude_speed'] = None
 
         return p
-        
+
     def _setItemAndToolTip(self, row, col, valueStr):
         """Returns a str containing the calculated tooltip for the
         given cell.  The tooltip will be in the format"0.1234 degree/day".
@@ -6878,7 +6878,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
             # Set alignment.
             if col in self.alignHCenterColumns:
                 item.setTextAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
-            
+
             self.setItem(row, col, item)
         item.setText(valueStr)
 
@@ -6901,7 +6901,7 @@ class PlanetaryInfoTableWidget(QTableWidget):
 
             item.setToolTip(toolTipStr)
 
-    
+
     def _appendPlanetaryInfo(self, planetaryInfo):
         """Appends the info in the PlanetaryInfo object as a row of
         QTableWidgetItems.
@@ -6924,15 +6924,15 @@ class PlanetaryInfoTableGraphicsItem(QGraphicsProxyWidget):
     def __init__(self, planetaryInfos=[], parent=None, scene=None):
         """Creates and initializes the table with the given list of
         PlanetaryInfo objects.
-        
+
         Arguments:
-            
+
         planetaryInfos - list of PlanetaryInfo objects that hold
                          information about the various planets that will
                          be displayed in the internal QTableWidget.
         parent - Parent QGraphicsItem for this object.
         scene - QGraphicsScene object to draw this object on.
-        """                 
+        """
 
         super().__init__(parent)
 
@@ -6950,7 +6950,7 @@ class PlanetaryInfoTableGraphicsItem(QGraphicsProxyWidget):
         """Loads the widgets with the given list of PlanetaryInfo
         objects.
         """
-        
+
         self.planetaryInfoTableWidget.load(planetaryInfos)
 
 class AstrologyChartGraphicsView(QGraphicsView):
@@ -6970,10 +6970,10 @@ class AstrologyChartGraphicsView(QGraphicsView):
 
         self.setResizeAnchor(QGraphicsView.AnchorUnderMouse)
         self.setInteractive(True)
-        
+
         # Set some rendering settings so things draw nicely.
-        self.setRenderHints(QPainter.Antialiasing | 
-                            QPainter.TextAntialiasing | 
+        self.setRenderHints(QPainter.Antialiasing |
+                            QPainter.TextAntialiasing |
                             QPainter.SmoothPixmapTransform)
 
         # Set to FullViewportUpdate update mode.
@@ -6987,7 +6987,7 @@ class AstrologyChartGraphicsView(QGraphicsView):
 
         # For dragging to see different parts of the view.
         self.setDragMode(QGraphicsView.ScrollHandDrag)
-        
+
     def wheelEvent(self, qwheelevent):
         """Triggered when the mouse wheel is scrolled."""
 
@@ -6996,14 +6996,14 @@ class AstrologyChartGraphicsView(QGraphicsView):
         # of this method.
         oldViewportAnchor = self.transformationAnchor()
         self.setTransformationAnchor(QGraphicsView.AnchorUnderMouse)
-        
+
         # Get the QSetting key for the zoom scaling amounts.
         settings = QSettings()
         scaleFactor = \
             settings.value(SettingsKeys.zoomScaleFactorSettingsKey, \
                            SettingsKeys.zoomScaleFactorSettingsDefValue,
                            type=float)
-        
+
         # Actually do the scaling of the view.
         # In Qt5, 'delta()' was deprecated.
         if (hasattr(qwheelevent, 'delta') and qwheelevent.delta() > 0) or \
@@ -7017,7 +7017,7 @@ class AstrologyChartGraphicsView(QGraphicsView):
         # Put the old transformation anchor back.
         self.setTransformationAnchor(oldViewportAnchor)
 
-        
+
 class AstrologyChartWidget(QWidget):
     """Widget holding the QGraphicsScene and QGraphicsView that displays
     the Astrology information (circle radix and table of PlanetaryInfos).
@@ -7038,7 +7038,7 @@ class AstrologyChartWidget(QWidget):
         self.astroChart1Datetime = datetime.datetime.now(pytz.utc)
         self.astroChart2Datetime = datetime.datetime.now(pytz.utc)
         self.astroChart3Datetime = datetime.datetime.now(pytz.utc)
-        
+
         # Create the contents.
 
         # Create the QGraphicsScene.
@@ -7048,7 +7048,7 @@ class AstrologyChartWidget(QWidget):
         # We need to do this to prevent segmentation faults in Qt's
         # use of a BspTreeIndex.
         self.graphicsScene.setItemIndexMethod(QGraphicsScene.NoIndex)
-        
+
         # Create the QGraphicsView.
         self.graphicsView = AstrologyChartGraphicsView()
         self.graphicsView.setScene(self.graphicsScene)
@@ -7057,7 +7057,7 @@ class AstrologyChartWidget(QWidget):
         self.graphicsView.setInteractive(True)
 
         # Set some rendering settings so things draw nicely.
-        self.graphicsView.setRenderHints(QPainter.Antialiasing | 
+        self.graphicsView.setRenderHints(QPainter.Antialiasing |
                                          QPainter.TextAntialiasing |
                                          QPainter.SmoothPixmapTransform)
 
@@ -7084,7 +7084,7 @@ class AstrologyChartWidget(QWidget):
 
         self.latitudeChart = LatitudeChartGraphicsItem()
         self.latitudeChart.setScale(2.0)
-        
+
         # TODO: add these widgets for longitude speeds...?  Maybe it's not worth the effort right now?
         self.longitudeSpeedChart1Mercury = \
             LongitudeSpeedChartGraphicsItem(maxSpeed=16.0,
@@ -7098,7 +7098,7 @@ class AstrologyChartWidget(QWidget):
         self.locationLabelWidget = QLabel("Location: " + locationString)
         self.locationLabelProxyWidget = QGraphicsProxyWidget()
         self.locationLabelProxyWidget.setWidget(self.locationLabelWidget)
-        
+
         # Create labels for the timestamps of each astro chart.
         #
         # Need to use the Ephemeris.datetimeToStr() below because
@@ -7110,14 +7110,14 @@ class AstrologyChartWidget(QWidget):
         self.astroChart1DatetimeLabelProxyWidget = QGraphicsProxyWidget()
         self.astroChart1DatetimeLabelProxyWidget.\
             setWidget(self.astroChart1DatetimeLabelWidget)
-        
+
         self.astroChart2DatetimeLabelWidget = \
             QLabel("Chart 2:  " +
                    Ephemeris.datetimeToStr(self.astroChart2Datetime))
         self.astroChart2DatetimeLabelProxyWidget = QGraphicsProxyWidget()
         self.astroChart2DatetimeLabelProxyWidget.\
             setWidget(self.astroChart2DatetimeLabelWidget)
-        
+
         self.astroChart3DatetimeLabelWidget = \
             QLabel("Chart 3:  " +
                    Ephemeris.datetimeToStr(self.astroChart3Datetime))
@@ -7134,15 +7134,15 @@ class AstrologyChartWidget(QWidget):
 
         self.declinationChartLabel = QGraphicsProxyWidget()
         self.declinationChartLabel.setWidget(QLabel("Declination"))
-        
+
         self.latitudeChartLabel = QGraphicsProxyWidget()
         self.latitudeChartLabel.setWidget(QLabel("Latitude"))
-        
+
         # Set the positions of the QGraphicsItems then add them to the
         # QGraphicsScene.
         width = SiderealRadixChartGraphicsItem().boundingRect().width()
         radixLength = (width / 2.0) + 40
-    
+
         x = 0
         y = 0
         x -= 0.5 * radixLength
@@ -7176,7 +7176,7 @@ class AstrologyChartWidget(QWidget):
         x += 36
         y += 260
         self.latitudeChart.setPos(x, y)
-        
+
         x = 0.0
         y = 0.0
         self.geoTropRadixChartGraphicsItem.setPos(x, y)
@@ -7185,7 +7185,7 @@ class AstrologyChartWidget(QWidget):
         x += radixLength
         self.geoSidRadixChartGraphicsItem.setPos(x, y)
         x += radixLength
-        
+
         x = -0.45 * radixLength
         y = -0.45 * radixLength
         self.geoTropRadixChartLabel.setPos(x, y)
@@ -7200,32 +7200,32 @@ class AstrologyChartWidget(QWidget):
         self.graphicsScene.addItem(self.astroChart1DatetimeLabelProxyWidget)
         self.graphicsScene.addItem(self.astroChart2DatetimeLabelProxyWidget)
         self.graphicsScene.addItem(self.astroChart3DatetimeLabelProxyWidget)
-    
+
         self.graphicsScene.addItem(self.declinationChart)
         self.graphicsScene.addItem(self.latitudeChart)
-        
+
         self.graphicsScene.addItem(self.geoTropRadixChartGraphicsItem)
         self.graphicsScene.addItem(self.helioTropRadixChartGraphicsItem)
         self.graphicsScene.addItem(self.geoSidRadixChartGraphicsItem)
-        
+
         self.graphicsScene.addItem(self.geoTropRadixChartLabel)
         self.graphicsScene.addItem(self.helioTropRadixChartLabel)
         self.graphicsScene.addItem(self.geoSidRadixChartLabel)
 
         self.graphicsScene.addItem(self.declinationChartLabel)
-        
+
 
         # Setup the layout.
         layout = QVBoxLayout()
         layout.addWidget(self.graphicsView)
         self.setLayout(layout)
-        
+
         self.log.debug("Leaving __init__()")
-        
-        
+
+
     def setBirthInfo(self, birthInfo):
         """Sets the birth info for this trading entity.
-        
+
         Arguments:
 
         birthInfo - BirthInfo object.
@@ -7251,7 +7251,7 @@ class AstrologyChartWidget(QWidget):
         houseSystem = Ephemeris.HouseSys['Porphyry']
 
         settings = QSettings()
-        
+
         if settings.value(\
             SettingsKeys.planetH1CalculationsEnabledKey, \
             SettingsKeys.planetH1CalculationsEnabledDefValue,
@@ -7259,14 +7259,14 @@ class AstrologyChartWidget(QWidget):
 
             self.log.debug("Getting house 1 values...")
             planets.append(Ephemeris.getH1PlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetH2CalculationsEnabledKey, \
             SettingsKeys.planetH2CalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getH2PlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetH3CalculationsEnabledKey, \
             SettingsKeys.planetH3CalculationsEnabledDefValue,
@@ -7280,105 +7280,105 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             planets.append(Ephemeris.getH4PlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetH5CalculationsEnabledKey, \
             SettingsKeys.planetH5CalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getH5PlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetH6CalculationsEnabledKey, \
             SettingsKeys.planetH6CalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getH6PlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetH7CalculationsEnabledKey, \
             SettingsKeys.planetH7CalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getH7PlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetH8CalculationsEnabledKey, \
             SettingsKeys.planetH8CalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getH8PlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetH9CalculationsEnabledKey, \
             SettingsKeys.planetH9CalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getH9PlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetH10CalculationsEnabledKey, \
             SettingsKeys.planetH10CalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getH10PlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetH11CalculationsEnabledKey, \
             SettingsKeys.planetH11CalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getH11PlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetH12CalculationsEnabledKey, \
             SettingsKeys.planetH12CalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getH12PlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetARMCCalculationsEnabledKey, \
             SettingsKeys.planetARMCCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getARMCPlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetVertexCalculationsEnabledKey, \
             SettingsKeys.planetVertexCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getVertexPlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetEquatorialAscendantCalculationsEnabledKey, \
             SettingsKeys.planetEquatorialAscendantCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getEquatorialAscendantPlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetCoAscendant1CalculationsEnabledKey, \
             SettingsKeys.planetCoAscendant1CalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getCoAscendant1PlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetCoAscendant2CalculationsEnabledKey, \
             SettingsKeys.planetCoAscendant2CalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getCoAscendant2PlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetPolarAscendantCalculationsEnabledKey, \
             SettingsKeys.planetPolarAscendantCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getPolarAscendantPlanetaryInfo(dt, houseSystem))
-        
+
         if settings.value(\
             SettingsKeys.planetHoraLagnaCalculationsEnabledKey, \
             SettingsKeys.planetHoraLagnaCalculationsEnabledDefValue,
@@ -7386,7 +7386,7 @@ class AstrologyChartWidget(QWidget):
 
             pass # TODO:  update for HoraLagna
             #planets.append(Ephemeris.getHoraLagnaPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetGhatiLagnaCalculationsEnabledKey, \
             SettingsKeys.planetGhatiLagnaCalculationsEnabledDefValue,
@@ -7394,119 +7394,119 @@ class AstrologyChartWidget(QWidget):
 
             pass # TODO:  update for GhatiLagna
             #planets.append(Ephemeris.getGhatiLagnaPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetMeanLunarApogeeCalculationsEnabledKey, \
             SettingsKeys.planetMeanLunarApogeeCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getMeanLunarApogeePlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetOsculatingLunarApogeeCalculationsEnabledKey, \
             SettingsKeys.planetOsculatingLunarApogeeCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getOsculatingLunarApogeePlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetInterpolatedLunarApogeeCalculationsEnabledKey, \
             SettingsKeys.planetInterpolatedLunarApogeeCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getInterpolatedLunarApogeePlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetInterpolatedLunarPerigeeCalculationsEnabledKey, \
             SettingsKeys.planetInterpolatedLunarPerigeeCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetSunCalculationsEnabledKey, \
             SettingsKeys.planetSunCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getSunPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetMoonCalculationsEnabledKey, \
             SettingsKeys.planetMoonCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getMoonPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetMercuryCalculationsEnabledKey, \
             SettingsKeys.planetMercuryCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getMercuryPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetVenusCalculationsEnabledKey, \
             SettingsKeys.planetVenusCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getVenusPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetEarthCalculationsEnabledKey, \
             SettingsKeys.planetEarthCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getEarthPlanetaryInfo(dt))
-            
+
         if settings.value(\
             SettingsKeys.planetMarsCalculationsEnabledKey, \
             SettingsKeys.planetMarsCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getMarsPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetJupiterCalculationsEnabledKey, \
             SettingsKeys.planetJupiterCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getJupiterPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetSaturnCalculationsEnabledKey, \
             SettingsKeys.planetSaturnCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getSaturnPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetUranusCalculationsEnabledKey, \
             SettingsKeys.planetUranusCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getUranusPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetNeptuneCalculationsEnabledKey, \
             SettingsKeys.planetNeptuneCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getNeptunePlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetPlutoCalculationsEnabledKey, \
             SettingsKeys.planetPlutoCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getPlutoPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetMeanNorthNodeCalculationsEnabledKey, \
             SettingsKeys.planetMeanNorthNodeCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getMeanNorthNodePlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetMeanSouthNodeCalculationsEnabledKey, \
             SettingsKeys.planetMeanSouthNodeCalculationsEnabledDefValue,
@@ -7514,14 +7514,14 @@ class AstrologyChartWidget(QWidget):
 
             pass # TODO:  update for TrueSouthNode
             #planets.append(Ephemeris.getTrueSouthNodePlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetTrueNorthNodeCalculationsEnabledKey, \
             SettingsKeys.planetTrueNorthNodeCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getTrueNorthNodePlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetTrueSouthNodeCalculationsEnabledKey, \
             SettingsKeys.planetTrueSouthNodeCalculationsEnabledDefValue,
@@ -7529,56 +7529,56 @@ class AstrologyChartWidget(QWidget):
 
             pass # TODO:  update for TrueSouthNode
             #planets.append(Ephemeris.getTrueSouthNodePlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetCeresCalculationsEnabledKey, \
             SettingsKeys.planetCeresCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getCeresPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetPallasCalculationsEnabledKey, \
             SettingsKeys.planetPallasCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getPallasPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetJunoCalculationsEnabledKey, \
             SettingsKeys.planetJunoCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getJunoPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetVestaCalculationsEnabledKey, \
             SettingsKeys.planetVestaCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getVestaPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetIsisCalculationsEnabledKey, \
             SettingsKeys.planetIsisCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getIsisPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetNibiruCalculationsEnabledKey, \
             SettingsKeys.planetNibiruCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getNibiruPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetChironCalculationsEnabledKey, \
             SettingsKeys.planetChironCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getChironPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetGulikaCalculationsEnabledKey, \
             SettingsKeys.planetGulikaCalculationsEnabledDefValue,
@@ -7586,7 +7586,7 @@ class AstrologyChartWidget(QWidget):
 
             pass # TODO:  update for Gulika
             #planets.append(Ephemeris.getGulikaPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetMandiCalculationsEnabledKey, \
             SettingsKeys.planetMandiCalculationsEnabledDefValue,
@@ -7594,35 +7594,35 @@ class AstrologyChartWidget(QWidget):
 
             pass # TODO:  update for Mandi
             #planets.append(Ephemeris.getMandiPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetMeanOfFiveCalculationsEnabledKey, \
             SettingsKeys.planetMeanOfFiveCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getMeanOfFivePlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetCycleOfEightCalculationsEnabledKey, \
             SettingsKeys.planetCycleOfEightCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getCycleOfEightPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetAvgMaJuSaUrNePlCalculationsEnabledKey, \
             SettingsKeys.planetAvgMaJuSaUrNePlCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getAvgMaJuSaUrNePlPlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetAvgJuSaUrNeCalculationsEnabledKey, \
             SettingsKeys.planetAvgJuSaUrNeCalculationsEnabledDefValue,
             type=bool):
 
             planets.append(Ephemeris.getAvgJuSaUrNePlanetaryInfo(dt))
-        
+
         if settings.value(\
             SettingsKeys.planetAvgJuSaCalculationsEnabledKey, \
             SettingsKeys.planetAvgJuSaCalculationsEnabledDefValue,
@@ -7812,371 +7812,371 @@ class AstrologyChartWidget(QWidget):
         enabledPlanetNames = []
 
         settings = QSettings()
-        
+
         if settings.value(\
             SettingsKeys.planetH1EnabledForDeclinationKey, \
             SettingsKeys.planetH1EnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("H1")
-        
+
         if settings.value(\
             SettingsKeys.planetH2EnabledForDeclinationKey, \
             SettingsKeys.planetH2EnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("H2")
-        
+
         if settings.value(\
             SettingsKeys.planetH3EnabledForDeclinationKey, \
             SettingsKeys.planetH3EnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("H3")
-        
+
         if settings.value(\
             SettingsKeys.planetH4EnabledForDeclinationKey, \
             SettingsKeys.planetH4EnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("H4")
-        
+
         if settings.value(\
             SettingsKeys.planetH5EnabledForDeclinationKey, \
             SettingsKeys.planetH5EnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("H5")
-        
+
         if settings.value(\
             SettingsKeys.planetH6EnabledForDeclinationKey, \
             SettingsKeys.planetH6EnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("H6")
-        
+
         if settings.value(\
             SettingsKeys.planetH7EnabledForDeclinationKey, \
             SettingsKeys.planetH7EnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("H7")
-        
+
         if settings.value(\
             SettingsKeys.planetH8EnabledForDeclinationKey, \
             SettingsKeys.planetH8EnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("H8")
-        
+
         if settings.value(\
             SettingsKeys.planetH9EnabledForDeclinationKey, \
             SettingsKeys.planetH9EnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("H9")
-        
+
         if settings.value(\
             SettingsKeys.planetH10EnabledForDeclinationKey, \
             SettingsKeys.planetH10EnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("H10")
-        
+
         if settings.value(\
             SettingsKeys.planetH11EnabledForDeclinationKey, \
             SettingsKeys.planetH11EnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("H11")
-        
+
         if settings.value(\
             SettingsKeys.planetH12EnabledForDeclinationKey, \
             SettingsKeys.planetH12EnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("H12")
-        
+
         if settings.value(\
             SettingsKeys.planetARMCEnabledForDeclinationKey, \
             SettingsKeys.planetARMCEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("ARMC")
-        
+
         if settings.value(\
             SettingsKeys.planetVertexEnabledForDeclinationKey, \
             SettingsKeys.planetVertexEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Vertex")
-        
+
         if settings.value(\
             SettingsKeys.planetEquatorialAscendantEnabledForDeclinationKey, \
             SettingsKeys.planetEquatorialAscendantEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("EquatorialAscendant")
-        
+
         if settings.value(\
             SettingsKeys.planetCoAscendant1EnabledForDeclinationKey, \
             SettingsKeys.planetCoAscendant1EnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("CoAscendant1")
-        
+
         if settings.value(\
             SettingsKeys.planetCoAscendant2EnabledForDeclinationKey, \
             SettingsKeys.planetCoAscendant2EnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("CoAscendant2")
-        
+
         if settings.value(\
             SettingsKeys.planetPolarAscendantEnabledForDeclinationKey, \
             SettingsKeys.planetPolarAscendantEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("PolarAscendant")
-        
+
         if settings.value(\
             SettingsKeys.planetHoraLagnaEnabledForDeclinationKey, \
             SettingsKeys.planetHoraLagnaEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("HoraLagna")
-        
+
         if settings.value(\
             SettingsKeys.planetGhatiLagnaEnabledForDeclinationKey, \
             SettingsKeys.planetGhatiLagnaEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("GhatiLagna")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanLunarApogeeEnabledForDeclinationKey, \
             SettingsKeys.planetMeanLunarApogeeEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetOsculatingLunarApogeeEnabledForDeclinationKey, \
             SettingsKeys.planetOsculatingLunarApogeeEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("OsculatingLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetInterpolatedLunarApogeeEnabledForDeclinationKey, \
             SettingsKeys.planetInterpolatedLunarApogeeEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("InterpolatedLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetInterpolatedLunarPerigeeEnabledForDeclinationKey, \
             SettingsKeys.planetInterpolatedLunarPerigeeEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("InterpolatedLunarPerigee")
-        
+
         if settings.value(\
             SettingsKeys.planetSunEnabledForDeclinationKey, \
             SettingsKeys.planetSunEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Sun")
-        
+
         if settings.value(\
             SettingsKeys.planetMoonEnabledForDeclinationKey, \
             SettingsKeys.planetMoonEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Moon")
-        
+
         if settings.value(\
             SettingsKeys.planetMercuryEnabledForDeclinationKey, \
             SettingsKeys.planetMercuryEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mercury")
-        
+
         if settings.value(\
             SettingsKeys.planetVenusEnabledForDeclinationKey, \
             SettingsKeys.planetVenusEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Venus")
-        
+
         if settings.value(\
             SettingsKeys.planetEarthEnabledForDeclinationKey, \
             SettingsKeys.planetEarthEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Earth")
-        
+
         if settings.value(\
             SettingsKeys.planetMarsEnabledForDeclinationKey, \
             SettingsKeys.planetMarsEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mars")
-        
+
         if settings.value(\
             SettingsKeys.planetJupiterEnabledForDeclinationKey, \
             SettingsKeys.planetJupiterEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Jupiter")
-        
+
         if settings.value(\
             SettingsKeys.planetSaturnEnabledForDeclinationKey, \
             SettingsKeys.planetSaturnEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Saturn")
-        
+
         if settings.value(\
             SettingsKeys.planetUranusEnabledForDeclinationKey, \
             SettingsKeys.planetUranusEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Uranus")
-        
+
         if settings.value(\
             SettingsKeys.planetNeptuneEnabledForDeclinationKey, \
             SettingsKeys.planetNeptuneEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Neptune")
-        
+
         if settings.value(\
             SettingsKeys.planetPlutoEnabledForDeclinationKey, \
             SettingsKeys.planetPlutoEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Pluto")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanNorthNodeEnabledForDeclinationKey, \
             SettingsKeys.planetMeanNorthNodeEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanNorthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanSouthNodeEnabledForDeclinationKey, \
             SettingsKeys.planetMeanSouthNodeEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanSouthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetTrueNorthNodeEnabledForDeclinationKey, \
             SettingsKeys.planetTrueNorthNodeEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("TrueNorthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetTrueSouthNodeEnabledForDeclinationKey, \
             SettingsKeys.planetTrueSouthNodeEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("TrueSouthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetCeresEnabledForDeclinationKey, \
             SettingsKeys.planetCeresEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Ceres")
-        
+
         if settings.value(\
             SettingsKeys.planetPallasEnabledForDeclinationKey, \
             SettingsKeys.planetPallasEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Pallas")
-        
+
         if settings.value(\
             SettingsKeys.planetJunoEnabledForDeclinationKey, \
             SettingsKeys.planetJunoEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Juno")
-        
+
         if settings.value(\
             SettingsKeys.planetVestaEnabledForDeclinationKey, \
             SettingsKeys.planetVestaEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Vesta")
-        
+
         if settings.value(\
             SettingsKeys.planetIsisEnabledForDeclinationKey, \
             SettingsKeys.planetIsisEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Isis")
-        
+
         if settings.value(\
             SettingsKeys.planetNibiruEnabledForDeclinationKey, \
             SettingsKeys.planetNibiruEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Nibiru")
-        
+
         if settings.value(\
             SettingsKeys.planetChironEnabledForDeclinationKey, \
             SettingsKeys.planetChironEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Chiron")
-        
+
         if settings.value(\
             SettingsKeys.planetGulikaEnabledForDeclinationKey, \
             SettingsKeys.planetGulikaEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Gulika")
-        
+
         if settings.value(\
             SettingsKeys.planetMandiEnabledForDeclinationKey, \
             SettingsKeys.planetMandiEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mandi")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanOfFiveEnabledForDeclinationKey, \
             SettingsKeys.planetMeanOfFiveEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanOfFive")
-        
+
         if settings.value(\
             SettingsKeys.planetCycleOfEightEnabledForDeclinationKey, \
             SettingsKeys.planetCycleOfEightEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("CycleOfEight")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgMaJuSaUrNePlEnabledForDeclinationKey, \
             SettingsKeys.planetAvgMaJuSaUrNePlEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("AvgMaJuSaUrNePl")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgJuSaUrNeEnabledForDeclinationKey, \
             SettingsKeys.planetAvgJuSaUrNeEnabledForDeclinationDefValue,
             type=bool):
 
             enabledPlanetNames.append("AvgJuSaUrNe")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgJuSaEnabledForDeclinationKey, \
             SettingsKeys.planetAvgJuSaEnabledForDeclinationDefValue,
@@ -8354,7 +8354,7 @@ class AstrologyChartWidget(QWidget):
 
 
         return enabledPlanetNames
-        
+
     def _getPlanetNamesToDisplayForLatitude(self):
         """Function to return a list of planet names that should be
         used to display latitude information.  This is used because
@@ -8366,371 +8366,371 @@ class AstrologyChartWidget(QWidget):
         enabledPlanetNames = []
 
         settings = QSettings()
-        
+
         if settings.value(\
             SettingsKeys.planetH1EnabledForLatitudeKey, \
             SettingsKeys.planetH1EnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("H1")
-        
+
         if settings.value(\
             SettingsKeys.planetH2EnabledForLatitudeKey, \
             SettingsKeys.planetH2EnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("H2")
-        
+
         if settings.value(\
             SettingsKeys.planetH3EnabledForLatitudeKey, \
             SettingsKeys.planetH3EnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("H3")
-        
+
         if settings.value(\
             SettingsKeys.planetH4EnabledForLatitudeKey, \
             SettingsKeys.planetH4EnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("H4")
-        
+
         if settings.value(\
             SettingsKeys.planetH5EnabledForLatitudeKey, \
             SettingsKeys.planetH5EnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("H5")
-        
+
         if settings.value(\
             SettingsKeys.planetH6EnabledForLatitudeKey, \
             SettingsKeys.planetH6EnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("H6")
-        
+
         if settings.value(\
             SettingsKeys.planetH7EnabledForLatitudeKey, \
             SettingsKeys.planetH7EnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("H7")
-        
+
         if settings.value(\
             SettingsKeys.planetH8EnabledForLatitudeKey, \
             SettingsKeys.planetH8EnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("H8")
-        
+
         if settings.value(\
             SettingsKeys.planetH9EnabledForLatitudeKey, \
             SettingsKeys.planetH9EnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("H9")
-        
+
         if settings.value(\
             SettingsKeys.planetH10EnabledForLatitudeKey, \
             SettingsKeys.planetH10EnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("H10")
-        
+
         if settings.value(\
             SettingsKeys.planetH11EnabledForLatitudeKey, \
             SettingsKeys.planetH11EnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("H11")
-        
+
         if settings.value(\
             SettingsKeys.planetH12EnabledForLatitudeKey, \
             SettingsKeys.planetH12EnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("H12")
-        
+
         if settings.value(\
             SettingsKeys.planetARMCEnabledForLatitudeKey, \
             SettingsKeys.planetARMCEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("ARMC")
-        
+
         if settings.value(\
             SettingsKeys.planetVertexEnabledForLatitudeKey, \
             SettingsKeys.planetVertexEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Vertex")
-        
+
         if settings.value(\
             SettingsKeys.planetEquatorialAscendantEnabledForLatitudeKey, \
             SettingsKeys.planetEquatorialAscendantEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("EquatorialAscendant")
-        
+
         if settings.value(\
             SettingsKeys.planetCoAscendant1EnabledForLatitudeKey, \
             SettingsKeys.planetCoAscendant1EnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("CoAscendant1")
-        
+
         if settings.value(\
             SettingsKeys.planetCoAscendant2EnabledForLatitudeKey, \
             SettingsKeys.planetCoAscendant2EnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("CoAscendant2")
-        
+
         if settings.value(\
             SettingsKeys.planetPolarAscendantEnabledForLatitudeKey, \
             SettingsKeys.planetPolarAscendantEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("PolarAscendant")
-        
+
         if settings.value(\
             SettingsKeys.planetHoraLagnaEnabledForLatitudeKey, \
             SettingsKeys.planetHoraLagnaEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("HoraLagna")
-        
+
         if settings.value(\
             SettingsKeys.planetGhatiLagnaEnabledForLatitudeKey, \
             SettingsKeys.planetGhatiLagnaEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("GhatiLagna")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanLunarApogeeEnabledForLatitudeKey, \
             SettingsKeys.planetMeanLunarApogeeEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetOsculatingLunarApogeeEnabledForLatitudeKey, \
             SettingsKeys.planetOsculatingLunarApogeeEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("OsculatingLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetInterpolatedLunarApogeeEnabledForLatitudeKey, \
             SettingsKeys.planetInterpolatedLunarApogeeEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("InterpolatedLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetInterpolatedLunarPerigeeEnabledForLatitudeKey, \
             SettingsKeys.planetInterpolatedLunarPerigeeEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("InterpolatedLunarPerigee")
-        
+
         if settings.value(\
             SettingsKeys.planetSunEnabledForLatitudeKey, \
             SettingsKeys.planetSunEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Sun")
-        
+
         if settings.value(\
             SettingsKeys.planetMoonEnabledForLatitudeKey, \
             SettingsKeys.planetMoonEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Moon")
-        
+
         if settings.value(\
             SettingsKeys.planetMercuryEnabledForLatitudeKey, \
             SettingsKeys.planetMercuryEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mercury")
-        
+
         if settings.value(\
             SettingsKeys.planetVenusEnabledForLatitudeKey, \
             SettingsKeys.planetVenusEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Venus")
-        
+
         if settings.value(\
             SettingsKeys.planetEarthEnabledForLatitudeKey, \
             SettingsKeys.planetEarthEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Earth")
-        
+
         if settings.value(\
             SettingsKeys.planetMarsEnabledForLatitudeKey, \
             SettingsKeys.planetMarsEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mars")
-        
+
         if settings.value(\
             SettingsKeys.planetJupiterEnabledForLatitudeKey, \
             SettingsKeys.planetJupiterEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Jupiter")
-        
+
         if settings.value(\
             SettingsKeys.planetSaturnEnabledForLatitudeKey, \
             SettingsKeys.planetSaturnEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Saturn")
-        
+
         if settings.value(\
             SettingsKeys.planetUranusEnabledForLatitudeKey, \
             SettingsKeys.planetUranusEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Uranus")
-        
+
         if settings.value(\
             SettingsKeys.planetNeptuneEnabledForLatitudeKey, \
             SettingsKeys.planetNeptuneEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Neptune")
-        
+
         if settings.value(\
             SettingsKeys.planetPlutoEnabledForLatitudeKey, \
             SettingsKeys.planetPlutoEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Pluto")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanNorthNodeEnabledForLatitudeKey, \
             SettingsKeys.planetMeanNorthNodeEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanNorthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanSouthNodeEnabledForLatitudeKey, \
             SettingsKeys.planetMeanSouthNodeEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanSouthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetTrueNorthNodeEnabledForLatitudeKey, \
             SettingsKeys.planetTrueNorthNodeEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("TrueNorthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetTrueSouthNodeEnabledForLatitudeKey, \
             SettingsKeys.planetTrueSouthNodeEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("TrueSouthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetCeresEnabledForLatitudeKey, \
             SettingsKeys.planetCeresEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Ceres")
-        
+
         if settings.value(\
             SettingsKeys.planetPallasEnabledForLatitudeKey, \
             SettingsKeys.planetPallasEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Pallas")
-        
+
         if settings.value(\
             SettingsKeys.planetJunoEnabledForLatitudeKey, \
             SettingsKeys.planetJunoEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Juno")
-        
+
         if settings.value(\
             SettingsKeys.planetVestaEnabledForLatitudeKey, \
             SettingsKeys.planetVestaEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Vesta")
-        
+
         if settings.value(\
             SettingsKeys.planetIsisEnabledForLatitudeKey, \
             SettingsKeys.planetIsisEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Isis")
-        
+
         if settings.value(\
             SettingsKeys.planetNibiruEnabledForLatitudeKey, \
             SettingsKeys.planetNibiruEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Nibiru")
-        
+
         if settings.value(\
             SettingsKeys.planetChironEnabledForLatitudeKey, \
             SettingsKeys.planetChironEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Chiron")
-        
+
         if settings.value(\
             SettingsKeys.planetGulikaEnabledForLatitudeKey, \
             SettingsKeys.planetGulikaEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Gulika")
-        
+
         if settings.value(\
             SettingsKeys.planetMandiEnabledForLatitudeKey, \
             SettingsKeys.planetMandiEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mandi")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanOfFiveEnabledForLatitudeKey, \
             SettingsKeys.planetMeanOfFiveEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanOfFive")
-        
+
         if settings.value(\
             SettingsKeys.planetCycleOfEightEnabledForLatitudeKey, \
             SettingsKeys.planetCycleOfEightEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("CycleOfEight")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgMaJuSaUrNePlEnabledForLatitudeKey, \
             SettingsKeys.planetAvgMaJuSaUrNePlEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("AvgMaJuSaUrNePl")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgJuSaUrNeEnabledForLatitudeKey, \
             SettingsKeys.planetAvgJuSaUrNeEnabledForLatitudeDefValue,
             type=bool):
 
             enabledPlanetNames.append("AvgJuSaUrNe")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgJuSaEnabledForLatitudeKey, \
             SettingsKeys.planetAvgJuSaEnabledForLatitudeDefValue,
@@ -8908,7 +8908,7 @@ class AstrologyChartWidget(QWidget):
 
 
         return enabledPlanetNames
-        
+
     def _getPlanetNamesToDisplayForGeoSidRadixChart(self):
         """Function to return a list of planet names that can be
         used to display longitude information.  This is used because
@@ -8918,373 +8918,373 @@ class AstrologyChartWidget(QWidget):
 
         # Return value.
         enabledPlanetNames = []
-        
+
         settings = QSettings()
-        
+
         if settings.value(\
             SettingsKeys.planetH1EnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetH1EnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H1")
-        
+
         if settings.value(\
             SettingsKeys.planetH2EnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetH2EnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H2")
-        
+
         if settings.value(\
             SettingsKeys.planetH3EnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetH3EnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H3")
-        
+
         if settings.value(\
             SettingsKeys.planetH4EnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetH4EnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H4")
-        
+
         if settings.value(\
             SettingsKeys.planetH5EnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetH5EnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H5")
-        
+
         if settings.value(\
             SettingsKeys.planetH6EnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetH6EnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H6")
-        
+
         if settings.value(\
             SettingsKeys.planetH7EnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetH7EnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H7")
-        
+
         if settings.value(\
             SettingsKeys.planetH8EnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetH8EnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H8")
-        
+
         if settings.value(\
             SettingsKeys.planetH9EnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetH9EnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H9")
-        
+
         if settings.value(\
             SettingsKeys.planetH10EnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetH10EnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H10")
-        
+
         if settings.value(\
             SettingsKeys.planetH11EnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetH11EnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H11")
-        
+
         if settings.value(\
             SettingsKeys.planetH12EnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetH12EnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H12")
-        
+
         if settings.value(\
             SettingsKeys.planetARMCEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetARMCEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("ARMC")
-        
+
         if settings.value(\
             SettingsKeys.planetVertexEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetVertexEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Vertex")
-        
+
         if settings.value(\
             SettingsKeys.planetEquatorialAscendantEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetEquatorialAscendantEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("EquatorialAscendant")
-        
+
         if settings.value(\
             SettingsKeys.planetCoAscendant1EnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetCoAscendant1EnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("CoAscendant1")
-        
+
         if settings.value(\
             SettingsKeys.planetCoAscendant2EnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetCoAscendant2EnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("CoAscendant2")
-        
+
         if settings.value(\
             SettingsKeys.planetPolarAscendantEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetPolarAscendantEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("PolarAscendant")
-        
+
         if settings.value(\
             SettingsKeys.planetHoraLagnaEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetHoraLagnaEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("HoraLagna")
-        
+
         if settings.value(\
             SettingsKeys.planetGhatiLagnaEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetGhatiLagnaEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("GhatiLagna")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanLunarApogeeEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetMeanLunarApogeeEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetOsculatingLunarApogeeEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetOsculatingLunarApogeeEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("OsculatingLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetInterpolatedLunarApogeeEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetInterpolatedLunarApogeeEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("InterpolatedLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetInterpolatedLunarPerigeeEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetInterpolatedLunarPerigeeEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("InterpolatedLunarPerigee")
-        
+
         if settings.value(\
             SettingsKeys.planetSunEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetSunEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Sun")
-        
+
         if settings.value(\
             SettingsKeys.planetMoonEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetMoonEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Moon")
-        
+
         if settings.value(\
             SettingsKeys.planetMercuryEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetMercuryEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mercury")
-        
+
         if settings.value(\
             SettingsKeys.planetVenusEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetVenusEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Venus")
-        
+
         if settings.value(\
             SettingsKeys.planetEarthEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetEarthEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Earth")
-        
+
         if settings.value(\
             SettingsKeys.planetMarsEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetMarsEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mars")
-        
+
         if settings.value(\
             SettingsKeys.planetJupiterEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetJupiterEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Jupiter")
-        
+
         if settings.value(\
             SettingsKeys.planetSaturnEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetSaturnEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Saturn")
-        
+
         if settings.value(\
             SettingsKeys.planetUranusEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetUranusEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Uranus")
-        
+
         if settings.value(\
             SettingsKeys.planetNeptuneEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetNeptuneEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Neptune")
-        
+
         if settings.value(\
             SettingsKeys.planetPlutoEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetPlutoEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Pluto")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanNorthNodeEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetMeanNorthNodeEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanNorthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanSouthNodeEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetMeanSouthNodeEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanSouthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetTrueNorthNodeEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("TrueNorthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetTrueSouthNodeEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetTrueSouthNodeEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("TrueSouthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetCeresEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetCeresEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Ceres")
-        
+
         if settings.value(\
             SettingsKeys.planetPallasEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetPallasEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Pallas")
-        
+
         if settings.value(\
             SettingsKeys.planetJunoEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetJunoEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Juno")
-        
+
         if settings.value(\
             SettingsKeys.planetVestaEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetVestaEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Vesta")
-        
+
         if settings.value(\
             SettingsKeys.planetIsisEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetIsisEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Isis")
-        
+
         if settings.value(\
             SettingsKeys.planetNibiruEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetNibiruEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Nibiru")
-        
+
         if settings.value(\
             SettingsKeys.planetChironEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetChironEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Chiron")
-        
+
         if settings.value(\
             SettingsKeys.planetGulikaEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetGulikaEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Gulika")
-        
+
         if settings.value(\
             SettingsKeys.planetMandiEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetMandiEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mandi")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanOfFiveEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetMeanOfFiveEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanOfFive")
-        
+
         if settings.value(\
             SettingsKeys.planetCycleOfEightEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetCycleOfEightEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("CycleOfEight")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgMaJuSaUrNePlEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetAvgMaJuSaUrNePlEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("AvgMaJuSaUrNePl")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgJuSaUrNeEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetAvgJuSaUrNeEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("AvgJuSaUrNe")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgJuSaEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetAvgJuSaEnabledForGeoSidRadixChartDefValue,
@@ -9462,7 +9462,7 @@ class AstrologyChartWidget(QWidget):
 
 
         return enabledPlanetNames
-        
+
     def _getPlanetNamesToDisplayForGeoTropRadixChart(self):
         """Function to return a list of planet names that can be
         used to display longitude information.  This is used because
@@ -9472,373 +9472,373 @@ class AstrologyChartWidget(QWidget):
 
         # Return value.
         enabledPlanetNames = []
-        
+
         settings = QSettings()
-        
+
         if settings.value(\
             SettingsKeys.planetH1EnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetH1EnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H1")
-        
+
         if settings.value(\
             SettingsKeys.planetH2EnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetH2EnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H2")
-        
+
         if settings.value(\
             SettingsKeys.planetH3EnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetH3EnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H3")
-        
+
         if settings.value(\
             SettingsKeys.planetH4EnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetH4EnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H4")
-        
+
         if settings.value(\
             SettingsKeys.planetH5EnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetH5EnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H5")
-        
+
         if settings.value(\
             SettingsKeys.planetH6EnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetH6EnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H6")
-        
+
         if settings.value(\
             SettingsKeys.planetH7EnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetH7EnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H7")
-        
+
         if settings.value(\
             SettingsKeys.planetH8EnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetH8EnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H8")
-        
+
         if settings.value(\
             SettingsKeys.planetH9EnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetH9EnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H9")
-        
+
         if settings.value(\
             SettingsKeys.planetH10EnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetH10EnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H10")
-        
+
         if settings.value(\
             SettingsKeys.planetH11EnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetH11EnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H11")
-        
+
         if settings.value(\
             SettingsKeys.planetH12EnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetH12EnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H12")
-        
+
         if settings.value(\
             SettingsKeys.planetARMCEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetARMCEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("ARMC")
-        
+
         if settings.value(\
             SettingsKeys.planetVertexEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetVertexEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Vertex")
-        
+
         if settings.value(\
             SettingsKeys.planetEquatorialAscendantEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetEquatorialAscendantEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("EquatorialAscendant")
-        
+
         if settings.value(\
             SettingsKeys.planetCoAscendant1EnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetCoAscendant1EnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("CoAscendant1")
-        
+
         if settings.value(\
             SettingsKeys.planetCoAscendant2EnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetCoAscendant2EnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("CoAscendant2")
-        
+
         if settings.value(\
             SettingsKeys.planetPolarAscendantEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetPolarAscendantEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("PolarAscendant")
-        
+
         if settings.value(\
             SettingsKeys.planetHoraLagnaEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetHoraLagnaEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("HoraLagna")
-        
+
         if settings.value(\
             SettingsKeys.planetGhatiLagnaEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetGhatiLagnaEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("GhatiLagna")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanLunarApogeeEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetMeanLunarApogeeEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetOsculatingLunarApogeeEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetOsculatingLunarApogeeEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("OsculatingLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetInterpolatedLunarApogeeEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetInterpolatedLunarApogeeEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("InterpolatedLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetInterpolatedLunarPerigeeEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetInterpolatedLunarPerigeeEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("InterpolatedLunarPerigee")
-        
+
         if settings.value(\
             SettingsKeys.planetSunEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetSunEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Sun")
-        
+
         if settings.value(\
             SettingsKeys.planetMoonEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetMoonEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Moon")
-        
+
         if settings.value(\
             SettingsKeys.planetMercuryEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetMercuryEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mercury")
-        
+
         if settings.value(\
             SettingsKeys.planetVenusEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetVenusEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Venus")
-        
+
         if settings.value(\
             SettingsKeys.planetEarthEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetEarthEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Earth")
-        
+
         if settings.value(\
             SettingsKeys.planetMarsEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetMarsEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mars")
-        
+
         if settings.value(\
             SettingsKeys.planetJupiterEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetJupiterEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Jupiter")
-        
+
         if settings.value(\
             SettingsKeys.planetSaturnEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetSaturnEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Saturn")
-        
+
         if settings.value(\
             SettingsKeys.planetUranusEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetUranusEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Uranus")
-        
+
         if settings.value(\
             SettingsKeys.planetNeptuneEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetNeptuneEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Neptune")
-        
+
         if settings.value(\
             SettingsKeys.planetPlutoEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetPlutoEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Pluto")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanNorthNodeEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetMeanNorthNodeEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanNorthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanSouthNodeEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetMeanSouthNodeEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanSouthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetTrueNorthNodeEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("TrueNorthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetTrueSouthNodeEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetTrueSouthNodeEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("TrueSouthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetCeresEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetCeresEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Ceres")
-        
+
         if settings.value(\
             SettingsKeys.planetPallasEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetPallasEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Pallas")
-        
+
         if settings.value(\
             SettingsKeys.planetJunoEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetJunoEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Juno")
-        
+
         if settings.value(\
             SettingsKeys.planetVestaEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetVestaEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Vesta")
-        
+
         if settings.value(\
             SettingsKeys.planetIsisEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetIsisEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Isis")
-        
+
         if settings.value(\
             SettingsKeys.planetNibiruEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetNibiruEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Nibiru")
-        
+
         if settings.value(\
             SettingsKeys.planetChironEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetChironEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Chiron")
-        
+
         if settings.value(\
             SettingsKeys.planetGulikaEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetGulikaEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Gulika")
-        
+
         if settings.value(\
             SettingsKeys.planetMandiEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetMandiEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mandi")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanOfFiveEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetMeanOfFiveEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanOfFive")
-        
+
         if settings.value(\
             SettingsKeys.planetCycleOfEightEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetCycleOfEightEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("CycleOfEight")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgMaJuSaUrNePlEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetAvgMaJuSaUrNePlEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("AvgMaJuSaUrNePl")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgJuSaUrNeEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetAvgJuSaUrNeEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("AvgJuSaUrNe")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgJuSaEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetAvgJuSaEnabledForGeoTropRadixChartDefValue,
@@ -10014,9 +10014,9 @@ class AstrologyChartWidget(QWidget):
 
             enabledPlanetNames.append("SaUr")
 
-        
+
         return enabledPlanetNames
-        
+
     def _getPlanetNamesToDisplayForHelioTropRadixChart(self):
         """Function to return a list of planet names that can be
         used to display longitude information.  This is used because
@@ -10026,373 +10026,373 @@ class AstrologyChartWidget(QWidget):
 
         # Return value.
         enabledPlanetNames = []
-        
+
         settings = QSettings()
-        
+
         if settings.value(\
             SettingsKeys.planetH1EnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetH1EnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H1")
-        
+
         if settings.value(\
             SettingsKeys.planetH2EnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetH2EnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H2")
-        
+
         if settings.value(\
             SettingsKeys.planetH3EnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetH3EnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H3")
-        
+
         if settings.value(\
             SettingsKeys.planetH4EnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetH4EnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H4")
-        
+
         if settings.value(\
             SettingsKeys.planetH5EnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetH5EnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H5")
-        
+
         if settings.value(\
             SettingsKeys.planetH6EnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetH6EnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H6")
-        
+
         if settings.value(\
             SettingsKeys.planetH7EnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetH7EnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H7")
-        
+
         if settings.value(\
             SettingsKeys.planetH8EnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetH8EnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H8")
-        
+
         if settings.value(\
             SettingsKeys.planetH9EnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetH9EnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H9")
-        
+
         if settings.value(\
             SettingsKeys.planetH10EnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetH10EnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H10")
-        
+
         if settings.value(\
             SettingsKeys.planetH11EnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetH11EnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H11")
-        
+
         if settings.value(\
             SettingsKeys.planetH12EnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetH12EnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("H12")
-        
+
         if settings.value(\
             SettingsKeys.planetARMCEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetARMCEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("ARMC")
-        
+
         if settings.value(\
             SettingsKeys.planetVertexEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetVertexEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Vertex")
-        
+
         if settings.value(\
             SettingsKeys.planetEquatorialAscendantEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetEquatorialAscendantEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("EquatorialAscendant")
-        
+
         if settings.value(\
             SettingsKeys.planetCoAscendant1EnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetCoAscendant1EnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("CoAscendant1")
-        
+
         if settings.value(\
             SettingsKeys.planetCoAscendant2EnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetCoAscendant2EnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("CoAscendant2")
-        
+
         if settings.value(\
             SettingsKeys.planetPolarAscendantEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetPolarAscendantEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("PolarAscendant")
-        
+
         if settings.value(\
             SettingsKeys.planetHoraLagnaEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetHoraLagnaEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("HoraLagna")
-        
+
         if settings.value(\
             SettingsKeys.planetGhatiLagnaEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetGhatiLagnaEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("GhatiLagna")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanLunarApogeeEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetMeanLunarApogeeEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetOsculatingLunarApogeeEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetOsculatingLunarApogeeEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("OsculatingLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetInterpolatedLunarApogeeEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetInterpolatedLunarApogeeEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("InterpolatedLunarApogee")
-        
+
         if settings.value(\
             SettingsKeys.planetInterpolatedLunarPerigeeEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetInterpolatedLunarPerigeeEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("InterpolatedLunarPerigee")
-        
+
         if settings.value(\
             SettingsKeys.planetSunEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetSunEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Sun")
-        
+
         if settings.value(\
             SettingsKeys.planetMoonEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetMoonEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Moon")
-        
+
         if settings.value(\
             SettingsKeys.planetMercuryEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetMercuryEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mercury")
-        
+
         if settings.value(\
             SettingsKeys.planetVenusEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetVenusEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Venus")
-        
+
         if settings.value(\
             SettingsKeys.planetEarthEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetEarthEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Earth")
-        
+
         if settings.value(\
             SettingsKeys.planetMarsEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetMarsEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mars")
-        
+
         if settings.value(\
             SettingsKeys.planetJupiterEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetJupiterEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Jupiter")
-        
+
         if settings.value(\
             SettingsKeys.planetSaturnEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetSaturnEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Saturn")
-        
+
         if settings.value(\
             SettingsKeys.planetUranusEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetUranusEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Uranus")
-        
+
         if settings.value(\
             SettingsKeys.planetNeptuneEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetNeptuneEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Neptune")
-        
+
         if settings.value(\
             SettingsKeys.planetPlutoEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetPlutoEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Pluto")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanNorthNodeEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetMeanNorthNodeEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanNorthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanSouthNodeEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetMeanSouthNodeEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanSouthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetTrueNorthNodeEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("TrueNorthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetTrueSouthNodeEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetTrueSouthNodeEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("TrueSouthNode")
-        
+
         if settings.value(\
             SettingsKeys.planetCeresEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetCeresEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Ceres")
-        
+
         if settings.value(\
             SettingsKeys.planetPallasEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetPallasEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Pallas")
-        
+
         if settings.value(\
             SettingsKeys.planetJunoEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetJunoEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Juno")
-        
+
         if settings.value(\
             SettingsKeys.planetVestaEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetVestaEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Vesta")
-        
+
         if settings.value(\
             SettingsKeys.planetIsisEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetIsisEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Isis")
-        
+
         if settings.value(\
             SettingsKeys.planetNibiruEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetNibiruEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Nibiru")
-        
+
         if settings.value(\
             SettingsKeys.planetChironEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetChironEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Chiron")
-        
+
         if settings.value(\
             SettingsKeys.planetGulikaEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetGulikaEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Gulika")
-        
+
         if settings.value(\
             SettingsKeys.planetMandiEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetMandiEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("Mandi")
-        
+
         if settings.value(\
             SettingsKeys.planetMeanOfFiveEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetMeanOfFiveEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("MeanOfFive")
-        
+
         if settings.value(\
             SettingsKeys.planetCycleOfEightEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetCycleOfEightEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("CycleOfEight")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgMaJuSaUrNePlEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetAvgMaJuSaUrNePlEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("AvgMaJuSaUrNePl")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgJuSaUrNeEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetAvgJuSaUrNeEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
             enabledPlanetNames.append("AvgJuSaUrNe")
-        
+
         if settings.value(\
             SettingsKeys.planetAvgJuSaEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetAvgJuSaEnabledForHelioTropRadixChartDefValue,
@@ -10568,9 +10568,9 @@ class AstrologyChartWidget(QWidget):
 
             enabledPlanetNames.append("SaUr")
 
-        
+
         return enabledPlanetNames
-        
+
     def setAstroChartXDatetime(self, chartNum, dt):
         """Sets the datetime of astrology chart 'chartNum'
         within the radix chart and other charts.
@@ -10597,7 +10597,7 @@ class AstrologyChartWidget(QWidget):
 
         # Get the PlanetaryInfo objects.
         planets = self.getPlanetaryInfosForDatetime(dt)
-        
+
         # Update the planets' QGraphicsItems on each radix chart.
         for planet in planets:
             # Location label doesn't need to be updated here because
@@ -10608,7 +10608,7 @@ class AstrologyChartWidget(QWidget):
             planetDeclinationGraphicsItem = \
                 self.declinationChart.\
                 getPlanetDeclinationGraphicsItem(planet.name, chartNum)
-            
+
             if planet.name in planetNamesToDisplayForDeclination:
                 if planetDeclinationGraphicsItem == None:
                     # No PlanetDeclinationGraphicsItem exists yet for
@@ -10637,14 +10637,14 @@ class AstrologyChartWidget(QWidget):
                     # displayed.  The user must have just updated the
                     # settings, so remove the item.
                     self.graphicsScene.removeItem(planetDeclinationGraphicsItem)
-        
 
-            
+
+
             # Latitude chart.
             planetLatitudeGraphicsItem = \
                 self.latitudeChart.\
                 getPlanetLatitudeGraphicsItem(planet.name, chartNum)
-            
+
             if planet.name in planetNamesToDisplayForLatitude:
                 if planetLatitudeGraphicsItem == None:
                     # No PlanetLatitudeGraphicsItem exists yet for
@@ -10673,19 +10673,19 @@ class AstrologyChartWidget(QWidget):
                     # displayed.  The user must have just updated the
                     # settings, so remove the item.
                     self.graphicsScene.removeItem(planetLatitudeGraphicsItem)
-        
 
-            
+
+
             # Geocentric Tropical.
             radixPlanetGraphicsItem = \
                 self.geoTropRadixChartGraphicsItem.\
                 getRadixPlanetGraphicsItem(planet.name, wheelNumber)
-                
+
             if planet.name in planetNamesToDisplayForGeoTropRadixChart:
                 if radixPlanetGraphicsItem == None:
                     # No RadixPlanetGraphicsItem exists for this planet yet,
                     # so create it.
-    
+
                     # Get all the info needed to create it.
                     glyph = \
                         AstrologyUtils.\
@@ -10705,7 +10705,7 @@ class AstrologyChartWidget(QWidget):
                     degree = planet.geocentric['tropical']['longitude']
                     velocity = planet.geocentric['tropical']['longitude_speed']
                     parent = self.geoTropRadixChartGraphicsItem
-                    
+
                     # Create the RadixPlanetGraphicsItem.
                     radixPlanetGraphicsItem = \
                         RadixPlanetGraphicsItem(planet.name,
@@ -10723,7 +10723,7 @@ class AstrologyChartWidget(QWidget):
                     # values.
                     degree = planet.geocentric['tropical']['longitude']
                     velocity = planet.geocentric['tropical']['longitude_speed']
-                    
+
                     radixPlanetGraphicsItem.\
                         setDegreeAndVelocity(degree, velocity)
             else:
@@ -10732,18 +10732,18 @@ class AstrologyChartWidget(QWidget):
                     # displayed.  The user must have just updated the
                     # settings, so remove the item.
                     self.graphicsScene.removeItem(radixPlanetGraphicsItem)
-            
+
 
             # Heliocentric Tropical.
             radixPlanetGraphicsItem = \
                 self.helioTropRadixChartGraphicsItem.\
                 getRadixPlanetGraphicsItem(planet.name, wheelNumber)
-            
+
             if planet.name in planetNamesToDisplayForHelioTropRadixChart:
                 if radixPlanetGraphicsItem == None:
                     # No RadixPlanetGraphicsItem exists for this planet yet,
                     # so create it.
-    
+
                     # Get all the info needed to create it.
                     glyph = \
                         AstrologyUtils.\
@@ -10765,7 +10765,7 @@ class AstrologyChartWidget(QWidget):
                     velocity = \
                         planet.heliocentric['tropical']['longitude_speed']
                     parent = self.helioTropRadixChartGraphicsItem
-                    
+
                     # Create the RadixPlanetGraphicsItem.
                     radixPlanetGraphicsItem = \
                         RadixPlanetGraphicsItem(planet.name,
@@ -10785,7 +10785,7 @@ class AstrologyChartWidget(QWidget):
                         planet.heliocentric['tropical']['longitude']
                     velocity = \
                         planet.heliocentric['tropical']['longitude_speed']
-                    
+
                     radixPlanetGraphicsItem.\
                         setDegreeAndVelocity(degree, velocity)
             else:
@@ -10794,18 +10794,18 @@ class AstrologyChartWidget(QWidget):
                     # displayed.  The user must have just updated the
                     # settings, so remove the item.
                     self.graphicsScene.removeItem(radixPlanetGraphicsItem)
-                    
-                    
+
+
             # Geocentric Sidereal.
             radixPlanetGraphicsItem = \
                 self.geoSidRadixChartGraphicsItem.\
                 getRadixPlanetGraphicsItem(planet.name, wheelNumber)
-                
+
             if planet.name in planetNamesToDisplayForGeoSidRadixChart:
                 if radixPlanetGraphicsItem == None:
                     # No RadixPlanetGraphicsItem exists for this planet yet,
                     # so create it.
-                    
+
                     # Get all the info needed to create it.
                     glyph = \
                         AstrologyUtils.\
@@ -10825,7 +10825,7 @@ class AstrologyChartWidget(QWidget):
                     degree = planet.geocentric['sidereal']['longitude']
                     velocity = planet.geocentric['sidereal']['longitude_speed']
                     parent = self.geoSidRadixChartGraphicsItem
-    
+
                     # Create the RadixPlanetGraphicsItem.
                     radixPlanetGraphicsItem = \
                         RadixPlanetGraphicsItem(planet.name,
@@ -10843,7 +10843,7 @@ class AstrologyChartWidget(QWidget):
                     # values.
                     degree = planet.geocentric['sidereal']['longitude']
                     velocity = planet.geocentric['sidereal']['longitude_speed']
-                    
+
                     radixPlanetGraphicsItem.\
                         setDegreeAndVelocity(degree, velocity)
             else:
@@ -10856,10 +10856,10 @@ class AstrologyChartWidget(QWidget):
 
         # Call update for the declination chart.
         self.declinationChart.update()
-        
+
         # Call update for the latitude chart.
         self.latitudeChart.update()
-        
+
         # Update the aspects for the radix charts.
 
         # Geocentric Tropical.
@@ -10873,7 +10873,7 @@ class AstrologyChartWidget(QWidget):
         # Geocentric Sidereal.
         self.geoSidRadixChartGraphicsItem.redrawAspects()
         self.geoSidRadixChartGraphicsItem.update()
-        
+
     def setAstroChart1Datetime(self, dt):
         """Sets the datetime of astrology chart 1 within the radix chart.
 
@@ -10897,19 +10897,19 @@ class AstrologyChartWidget(QWidget):
 
         # Update the rest of the astro widgets.
         self.setAstroChartXDatetime(chartNum, dt)
-    
+
     def setAstroChart2Datetime(self, dt):
         """Sets the datetime of astrology chart 2 within the radix chart.
 
         Arguments:
         dt - datetime.datetime object holding the new timestamp.
         """
-        
+
         chartNum = 2
 
         # Save the datetime used.
         self.astroChart2Datetime = dt
-        
+
         # Set the label that shows what datetime is used for this
         # chart.
         #
@@ -10921,7 +10921,7 @@ class AstrologyChartWidget(QWidget):
 
         # Update the rest of the astro widgets.
         self.setAstroChartXDatetime(chartNum, dt)
-    
+
     def setAstroChart3Datetime(self, dt):
         """Sets the datetime of astrology chart 3 within the radix chart.
 
@@ -10980,7 +10980,7 @@ class AstrologyChartWidget(QWidget):
         for planet in planets:
 
             # Remove QGraphicsItems on each chart type.
-            
+
             # Update the declination chart.
             planetDeclinationGraphicsItem = \
                 self.declinationChart.\
@@ -10988,7 +10988,7 @@ class AstrologyChartWidget(QWidget):
 
             if planetDeclinationGraphicsItem != None:
                 self.graphicsScene.removeItem(planetDeclinationGraphicsItem)
-        
+
             # Update the latitude chart.
             planetLatitudeGraphicsItem = \
                 self.latitudeChart.\
@@ -10996,12 +10996,12 @@ class AstrologyChartWidget(QWidget):
 
             if planetLatitudeGraphicsItem != None:
                 self.graphicsScene.removeItem(planetLatitudeGraphicsItem)
-        
+
             # Update the Geocentric Sidereal chart.
             radixPlanetGraphicsItem = \
                 self.geoSidRadixChartGraphicsItem.\
                 getRadixPlanetGraphicsItem(planet.name, wheelNumber)
-            
+
             if radixPlanetGraphicsItem != None:
                 self.graphicsScene.removeItem(radixPlanetGraphicsItem)
 
@@ -11009,30 +11009,30 @@ class AstrologyChartWidget(QWidget):
             radixPlanetGraphicsItem = \
                 self.geoTropRadixChartGraphicsItem.\
                 getRadixPlanetGraphicsItem(planet.name, wheelNumber)
-            
+
             if radixPlanetGraphicsItem != None:
                 self.graphicsScene.removeItem(radixPlanetGraphicsItem)
-            
+
             # Update the Heliocentric Tropical chart.
             radixPlanetGraphicsItem = \
                 self.helioTropRadixChartGraphicsItem.\
                 getRadixPlanetGraphicsItem(planet.name, wheelNumber)
-            
+
             if radixPlanetGraphicsItem != None:
                 self.graphicsScene.removeItem(radixPlanetGraphicsItem)
 
         # Call update for the declination chart.
         self.declinationChart.update()
-        
+
         # Call update for the latitude chart.
         self.latitudeChart.update()
-        
+
         # Update the aspects for the radix charts.
-        
+
         # Geocentric Sidereal.
         self.geoSidRadixChartGraphicsItem.redrawAspects()
         self.geoSidRadixChartGraphicsItem.update()
-        
+
         # Geocentric Tropical.
         self.geoTropRadixChartGraphicsItem.redrawAspects()
         self.geoTropRadixChartGraphicsItem.update()
@@ -11041,29 +11041,29 @@ class AstrologyChartWidget(QWidget):
         self.helioTropRadixChartGraphicsItem.redrawAspects()
         self.helioTropRadixChartGraphicsItem.update()
 
-        
+
     def clearAstroChart1(self):
         """Clears the AstroChart1 of all planet-related objects."""
 
         chartNum = 1
         self.clearAstroChartX(chartNum)
-        
+
     def clearAstroChart2(self):
         """Clears the AstroChart2 of all planet-related objects."""
 
         chartNum = 2
         self.clearAstroChartX(chartNum)
-        
+
     def clearAstroChart3(self):
         """Clears the AstroChart3 of all planet-related objects."""
 
         chartNum = 3
         self.clearAstroChartX(chartNum)
-        
+
 
 def testConvertAngleToDegMinSecStr():
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     angles = [-0.0,
               0.0,
               0,
@@ -11102,7 +11102,7 @@ def testConvertAngleToDegMinSec():
 
         print("    Angle {:>10} == {} deg {} min {} sec".\
               format(angle, deg, min, sec))
-    
+
 def testSiderealRadixChartGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
 
@@ -11113,7 +11113,7 @@ def testSiderealRadixChartGraphicsItem():
     view.setInteractive(True)
 
     # Set some rendering settings so things draw nicely.
-    view.setRenderHints(QPainter.Antialiasing | 
+    view.setRenderHints(QPainter.Antialiasing |
                         QPainter.TextAntialiasing |
                         QPainter.SmoothPixmapTransform)
 
@@ -11125,14 +11125,14 @@ def testSiderealRadixChartGraphicsItem():
     # the FullViewportUpdate mode, we dont' have many things dynamically
     # updating and changing, so it isn't too big of an issue.
     view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
-    
+
     item = SiderealRadixChartGraphicsItem()
-    
+
     scene.addItem(item)
 
     layout = QVBoxLayout()
     layout.addWidget(view)
-    
+
     dialog = QDialog()
     dialog.setLayout(layout)
 
@@ -11141,9 +11141,9 @@ def testSiderealRadixChartGraphicsItem():
 
 def testRadixPlanetGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     from settings import SettingsKeys
-    
+
     scene = QGraphicsScene()
     view = QGraphicsView(scene)
 
@@ -11151,7 +11151,7 @@ def testRadixPlanetGraphicsItem():
     view.setInteractive(True)
 
     # Set some rendering settings so things draw nicely.
-    view.setRenderHints(QPainter.Antialiasing | 
+    view.setRenderHints(QPainter.Antialiasing |
                         QPainter.TextAntialiasing |
                         QPainter.SmoothPixmapTransform)
 
@@ -11163,9 +11163,9 @@ def testRadixPlanetGraphicsItem():
     # the FullViewportUpdate mode, we dont' have many things dynamically
     # updating and changing, so it isn't too big of an issue.
     view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
-    
+
     chartItem = SiderealRadixChartGraphicsItem()
-    
+
     scene.addItem(chartItem)
 
     jupiter = \
@@ -11190,11 +11190,11 @@ def testRadixPlanetGraphicsItem():
                                 velocity=-2.0,
                                 wheelNumber=1,
                                 parent=chartItem)
-    
+
 
     layout = QVBoxLayout()
     layout.addWidget(view)
-    
+
     dialog = QDialog()
     dialog.setLayout(layout)
 
@@ -11203,7 +11203,7 @@ def testRadixPlanetGraphicsItem():
 
 def testDeclinationChartGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     scene = QGraphicsScene()
     view = QGraphicsView(scene)
 
@@ -11211,7 +11211,7 @@ def testDeclinationChartGraphicsItem():
     view.setInteractive(True)
 
     # Set some rendering settings so things draw nicely.
-    view.setRenderHints(QPainter.Antialiasing | 
+    view.setRenderHints(QPainter.Antialiasing |
                         QPainter.TextAntialiasing |
                         QPainter.SmoothPixmapTransform)
 
@@ -11223,14 +11223,14 @@ def testDeclinationChartGraphicsItem():
     # the FullViewportUpdate mode, we dont' have many things dynamically
     # updating and changing, so it isn't too big of an issue.
     view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
-    
+
     chartItem = DeclinationChartGraphicsItem()
-    
+
     scene.addItem(chartItem)
 
     layout = QVBoxLayout()
     layout.addWidget(view)
-    
+
     dialog = QDialog()
     dialog.setLayout(layout)
 
@@ -11239,9 +11239,9 @@ def testDeclinationChartGraphicsItem():
 
 def testPlanetDeclinationGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     from settings import SettingsKeys
-    
+
     scene = QGraphicsScene()
     view = QGraphicsView(scene)
 
@@ -11249,7 +11249,7 @@ def testPlanetDeclinationGraphicsItem():
     view.setInteractive(True)
 
     # Set some rendering settings so things draw nicely.
-    view.setRenderHints(QPainter.Antialiasing | 
+    view.setRenderHints(QPainter.Antialiasing |
                         QPainter.TextAntialiasing |
                         QPainter.SmoothPixmapTransform)
 
@@ -11261,7 +11261,7 @@ def testPlanetDeclinationGraphicsItem():
     # the FullViewportUpdate mode, we dont' have many things dynamically
     # updating and changing, so it isn't too big of an issue.
     view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
-    
+
     chartItem = DeclinationChartGraphicsItem()
     scene.addItem(chartItem)
 
@@ -11277,7 +11277,7 @@ def testPlanetDeclinationGraphicsItem():
         velocity=2.0,
         planetGroupNumber=1,
         parent=chartItem)
-    
+
     mercury = \
         PlanetDeclinationGraphicsItem(
         "Mercury",
@@ -11316,7 +11316,7 @@ def testPlanetDeclinationGraphicsItem():
         velocity=2.0,
         planetGroupNumber=2,
         parent=chartItem)
-    
+
     mercury = \
         PlanetDeclinationGraphicsItem(
         "Mercury",
@@ -11342,10 +11342,10 @@ def testPlanetDeclinationGraphicsItem():
         velocity=3.0,
         planetGroupNumber=2,
         parent=chartItem)
-    
+
     layout = QVBoxLayout()
     layout.addWidget(view)
-    
+
     dialog = QDialog()
     dialog.setLayout(layout)
 
@@ -11354,9 +11354,9 @@ def testPlanetDeclinationGraphicsItem():
 
 def testPlanetLatitudeGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     from settings import SettingsKeys
-    
+
     scene = QGraphicsScene()
     view = QGraphicsView(scene)
 
@@ -11364,7 +11364,7 @@ def testPlanetLatitudeGraphicsItem():
     view.setInteractive(True)
 
     # Set some rendering settings so things draw nicely.
-    view.setRenderHints(QPainter.Antialiasing | 
+    view.setRenderHints(QPainter.Antialiasing |
                         QPainter.TextAntialiasing |
                         QPainter.SmoothPixmapTransform)
 
@@ -11376,7 +11376,7 @@ def testPlanetLatitudeGraphicsItem():
     # the FullViewportUpdate mode, we dont' have many things dynamically
     # updating and changing, so it isn't too big of an issue.
     view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
-    
+
     chartItem = LatitudeChartGraphicsItem()
     scene.addItem(chartItem)
 
@@ -11392,7 +11392,7 @@ def testPlanetLatitudeGraphicsItem():
         velocity=2.0,
         planetGroupNumber=1,
         parent=chartItem)
-    
+
     mercury = \
         PlanetLatitudeGraphicsItem(
         "Mercury",
@@ -11431,7 +11431,7 @@ def testPlanetLatitudeGraphicsItem():
         velocity=2.0,
         planetGroupNumber=2,
         parent=chartItem)
-    
+
     mercury = \
         PlanetLatitudeGraphicsItem(
         "Mercury",
@@ -11457,10 +11457,10 @@ def testPlanetLatitudeGraphicsItem():
         velocity=3.0,
         planetGroupNumber=2,
         parent=chartItem)
-    
+
     layout = QVBoxLayout()
     layout.addWidget(view)
-    
+
     dialog = QDialog()
     dialog.setLayout(layout)
 
@@ -11469,7 +11469,7 @@ def testPlanetLatitudeGraphicsItem():
 
 def testLatitudeChartGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     scene = QGraphicsScene()
     view = QGraphicsView(scene)
 
@@ -11477,7 +11477,7 @@ def testLatitudeChartGraphicsItem():
     view.setInteractive(True)
 
     # Set some rendering settings so things draw nicely.
-    view.setRenderHints(QPainter.Antialiasing | 
+    view.setRenderHints(QPainter.Antialiasing |
                         QPainter.TextAntialiasing |
                         QPainter.SmoothPixmapTransform)
 
@@ -11489,14 +11489,14 @@ def testLatitudeChartGraphicsItem():
     # the FullViewportUpdate mode, we dont' have many things dynamically
     # updating and changing, so it isn't too big of an issue.
     view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
-    
+
     chartItem = LatitudeChartGraphicsItem()
-    
+
     scene.addItem(chartItem)
 
     layout = QVBoxLayout()
     layout.addWidget(view)
-    
+
     dialog = QDialog()
     dialog.setLayout(layout)
 
@@ -11504,7 +11504,7 @@ def testLatitudeChartGraphicsItem():
 
 def testLongitudeSpeedChartGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     scene = QGraphicsScene()
     view = QGraphicsView(scene)
 
@@ -11512,7 +11512,7 @@ def testLongitudeSpeedChartGraphicsItem():
     view.setInteractive(True)
 
     # Set some rendering settings so things draw nicely.
-    view.setRenderHints(QPainter.Antialiasing | 
+    view.setRenderHints(QPainter.Antialiasing |
                         QPainter.TextAntialiasing |
                         QPainter.SmoothPixmapTransform)
 
@@ -11524,26 +11524,26 @@ def testLongitudeSpeedChartGraphicsItem():
     # the FullViewportUpdate mode, we dont' have many things dynamically
     # updating and changing, so it isn't too big of an issue.
     view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
-    
+
     chartItem = LongitudeSpeedChartGraphicsItem(maxSpeed=32.0,
                                                 minSpeed=-10.0)
-    
+
     scene.addItem(chartItem)
 
     layout = QVBoxLayout()
     layout.addWidget(view)
-    
+
     dialog = QDialog()
     dialog.setLayout(layout)
 
     dialog.exec_()
-    
+
 
 def testPlanetLongitudeSpeedGraphicsItem():
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     from settings import SettingsKeys
-    
+
     scene = QGraphicsScene()
     view = QGraphicsView(scene)
 
@@ -11551,7 +11551,7 @@ def testPlanetLongitudeSpeedGraphicsItem():
     view.setInteractive(True)
 
     # Set some rendering settings so things draw nicely.
-    view.setRenderHints(QPainter.Antialiasing | 
+    view.setRenderHints(QPainter.Antialiasing |
                         QPainter.TextAntialiasing |
                         QPainter.SmoothPixmapTransform)
 
@@ -11563,7 +11563,7 @@ def testPlanetLongitudeSpeedGraphicsItem():
     # the FullViewportUpdate mode, we dont' have many things dynamically
     # updating and changing, so it isn't too big of an issue.
     view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
-    
+
     chartItem = LongitudeSpeedChartGraphicsItem(maxSpeed=16.0,
                                                 minSpeed=-5.0)
     scene.addItem(chartItem)
@@ -11580,7 +11580,7 @@ def testPlanetLongitudeSpeedGraphicsItem():
 
     layout = QVBoxLayout()
     layout.addWidget(view)
-    
+
     dialog = QDialog()
     dialog.setLayout(layout)
 
@@ -11589,7 +11589,7 @@ def testPlanetLongitudeSpeedGraphicsItem():
 
 def testPlanetaryInfoTableWidget():
     print("Running " + inspect.stack()[0][3] + "()")
-    
+
     # Get the current time, which we will use to get planetary info.
     #now = datetime.datetime.utcnow()
     eastern = pytz.timezone('US/Eastern')
@@ -11602,58 +11602,58 @@ def testPlanetaryInfoTableWidget():
 
     p = Ephemeris.getH1PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH2PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH3PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH4PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH5PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH6PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH7PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH8PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH9PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH10PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH11PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH12PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getARMCPlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getVertexPlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getEquatorialAscendantPlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getCoAscendant1PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getCoAscendant2PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getPolarAscendantPlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getSunPlanetaryInfo(now)
     planets.append(p)
 
@@ -11709,7 +11709,7 @@ def testPlanetaryInfoTableWidget():
     planets.append(p)
 
     # TODO:  add HoraLagna, GhatiLagna, Gulika, Mandi, MeanSouthNode, TrueSouthNode.
-    
+
     # Various combinations of planets to test.
     widget = PlanetaryInfoTableWidget(planets)
     #widget = PlanetaryInfoTableWidget([])
@@ -11732,7 +11732,7 @@ def testPlanetaryInfoTableGraphicsItem():
     view.setInteractive(True)
 
     # Set some rendering settings so things draw nicely.
-    view.setRenderHints(QPainter.Antialiasing | 
+    view.setRenderHints(QPainter.Antialiasing |
                         QPainter.TextAntialiasing |
                         QPainter.SmoothPixmapTransform)
 
@@ -11744,7 +11744,7 @@ def testPlanetaryInfoTableGraphicsItem():
     # the FullViewportUpdate mode, we dont' have many things dynamically
     # updating and changing, so it isn't too big of an issue.
     view.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
-    
+
     # Get the current time, which we will use to get planetary info.
     #now = datetime.datetime.utcnow()
     eastern = pytz.timezone('US/Eastern')
@@ -11757,58 +11757,58 @@ def testPlanetaryInfoTableGraphicsItem():
 
     p = Ephemeris.getH1PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH2PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH3PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH4PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH5PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH6PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH7PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH8PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH9PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH10PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH11PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getH12PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getARMCPlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getVertexPlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getEquatorialAscendantPlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getCoAscendant1PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getCoAscendant2PlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getPolarAscendantPlanetaryInfo(now)
     planets.append(p)
-    
+
     p = Ephemeris.getSunPlanetaryInfo(now)
     planets.append(p)
 
@@ -11864,7 +11864,7 @@ def testPlanetaryInfoTableGraphicsItem():
     planets.append(p)
 
     # TODO:  add HoraLagna, GhatiLagna, Gulika, Mandi, MeanSouthNode, TrueSouthNode.
-    
+
 
     item = PlanetaryInfoTableGraphicsItem(planets)
     #item = PlanetaryInfoTableGraphicsItem()
@@ -11873,12 +11873,12 @@ def testPlanetaryInfoTableGraphicsItem():
 
     layout = QVBoxLayout()
     layout.addWidget(view)
-    
+
     dialog = QDialog()
     dialog.setLayout(layout)
 
     dialog.exec_()
-    
+
 def testAstrologyChartWidget():
     print("Running " + inspect.stack()[0][3] + "()")
 
@@ -11928,20 +11928,20 @@ def testAstrologyChartWidget():
     dialog.setLayout(layout)
 
     rv = dialog.exec_()
-    
-# For debugging the module during development.  
+
+# For debugging the module during development.
 if __name__=="__main__":
     # For inspect.stack().
     import inspect
-    
+
     import sys
-    
+
     # Initialize the Ephemeris (required).
     Ephemeris.initialize()
 
     # Set a default location (required).
     Ephemeris.setGeographicPosition(-77.084444, 38.890277)
-    
+
     # Initialize logging.
     LOG_CONFIG_FILE = os.path.join(sys.path[0], "../conf/logging.conf")
     logging.config.fileConfig(LOG_CONFIG_FILE)
@@ -11955,7 +11955,7 @@ if __name__=="__main__":
     appName = "PriceChartingTool"
     QCoreApplication.setOrganizationName(appAuthor)
     QCoreApplication.setApplicationName(appName)
-        
+
     # Various tests to run:
     testConvertAngleToDegMinSecStr()
     testConvertAngleToDegMinSec()
@@ -11970,7 +11970,7 @@ if __name__=="__main__":
     #testPlanetaryInfoTableWidget()
     #testPlanetaryInfoTableGraphicsItem()
     #testAstrologyChartWidget()
-    
+
     # Exit the app when all windows are closed.
     app.lastWindowClosed.connect(logging.shutdown)
     app.lastWindowClosed.connect(app.quit)
@@ -11980,6 +11980,6 @@ if __name__=="__main__":
     import sys
     sys.exit()
     #app.exec_()
-    
 
-        
+
+

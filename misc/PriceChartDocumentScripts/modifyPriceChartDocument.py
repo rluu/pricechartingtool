@@ -10,7 +10,7 @@
 #   src/data_objects.py
 #
 # Usage:
-# 
+#
 #   ./modifyPriceChartDocument.py --help
 #   ./modifyPriceChartDocument.py --version
 #
@@ -49,7 +49,7 @@ import copy
 import pickle
 
 # For parsing command-line options
-from optparse import OptionParser  
+from optparse import OptionParser
 
 # For logging.
 import logging
@@ -117,7 +117,7 @@ def picklePriceChartDocumentDataToFile(pcdd, filename):
     Arguments:
     pcdd     - PriceChartDocumentData object to save.
     filename - str holding the full path of the PriceChartDocument (.pcd) file.
-    
+
     Returns:
     True if the write operation succeeded without problems, False otherwise.
     """
@@ -132,15 +132,15 @@ def picklePriceChartDocumentDataToFile(pcdd, filename):
     # Pickle to file.
     with open(filename, "wb") as fh:
         try:
-            pickle.dump(priceChartDocumentData, fh) 
+            pickle.dump(priceChartDocumentData, fh)
             rv = True
         except pickle.PickleError as pe:
             log.error("Error while pickling a " +
-                      "PriceChartDocumentData to file " + 
-                      filename + 
+                      "PriceChartDocumentData to file " +
+                      filename +
                       ".  Error is: {}".format(pe) +
-                      ".  PriceChartDocumentData object " + 
-                      "has the following info: " + 
+                      ".  PriceChartDocumentData object " +
+                      "has the following info: " +
                       priceChartDocumentData.toString())
             rv = False
 
@@ -153,7 +153,7 @@ def unpicklePriceChartDocumentDataFromFile(filename):
 
     Arguments:
     filename - str holding the full path of the PriceChartDocument (.pcd) file.
-    
+
     Returns:
     Upon success: PriceChartDocumentData obtained is then returned
     Upon failure: None is returned.
@@ -171,20 +171,20 @@ def unpicklePriceChartDocumentDataFromFile(filename):
                 priceChartDocumentData = pickle.load(fh)
 
                 # Verify it is a PriceChartDocumentData object.
-                if isinstance(priceChartDocumentData, 
+                if isinstance(priceChartDocumentData,
                               PriceChartDocumentData) == True:
                     rv = priceChartDocumentData
                 else:
                     # Print error message.
-                    log.error("Cannot load this object.  " + 
-                              "The object unpickled from file " + 
-                              filename + " is not a " + 
+                    log.error("Cannot load this object.  " +
+                              "The object unpickled from file " +
+                              filename + " is not a " +
                               "PriceChartDocumentData.")
                     rv = None
             except pickle.UnpicklingError as upe:
                 log.error("Error while unpickling a " +
-                          "PriceChartDocumentData from file " + 
-                          filename + 
+                          "PriceChartDocumentData from file " +
+                          filename +
                           ".  Error is: {}".format(upe))
                 rv = None
     except IOError as e:
@@ -195,7 +195,7 @@ def unpicklePriceChartDocumentDataFromFile(filename):
 
     #log.debug("rv == {}".format(rv))
     log.debug("Exiting unpicklePriceChartDocumentDataFromFile()")
-    
+
     return rv
 
 
@@ -210,7 +210,7 @@ parser.add_option("-v", "--version",
                   dest="version",
                   default=False,
                   help="Display script version info and author contact.")
-    
+
 parser.add_option("--pcd-file",
                   action="store",
                   type="str",
@@ -284,7 +284,7 @@ if (options.tag != None):
         # Good, no spaces in the tag.
         tag = strippedTag
         log.debug("tag == {}".format(tag))
-        
+
 # Get the script filename.
 if (options.scriptFile != None):
     log.debug("options.scriptFile == {}".format(options.scriptFile))
@@ -295,18 +295,18 @@ if (options.scriptFile != None):
         log.error("Python3 script file '{}'".format(scriptFile) + \
                   " does not exist or it is not a file.")
         shutdown(1)
-    
+
     log.debug("scriptFile == {}".format(scriptFile))
     scriptFileDir = os.path.dirname(scriptFile)
     log.debug("scriptFileDir == {}".format(scriptFileDir))
-              
+
     # Make sure the __init__.py file exists so that it can be loaded
-    # as a module.  
+    # as a module.
     if not os.path.isfile(scriptFileDir + os.sep + "__init__.py"):
         log.error("Python3 script file specified does " + \
                   "not have file '__init__.py' in its directory.")
         shutdown(1)
-        
+
     if scriptFileDir not in sys.path:
         log.debug("scriptFileDir was not in sys.path.  Adding it now...")
         sys.path.insert(0, scriptFileDir)
@@ -348,22 +348,22 @@ if scriptFile != "":
     if moduleName.endswith(".py") == True and len(moduleName) > 3:
         moduleName = moduleName[:-3]
     log.debug("moduleName == {}".format(moduleName))
-    
+
     # Run the external code module.
     log.info("Loading external code module '{}' ...".format(moduleName))
     importedModule = \
         __import__(moduleName, globals(), locals(), [], 0)
-    
+
     log.info("Running external code module '{}' ...".format(moduleName))
     rc = importedModule.processPCDD(priceChartDocumentData, tag)
-    
+
     log.info("Finished running external code module.")
 
     # Check the return code of the function from the external code module.
     if rc == 0:
         # Return code 0 means to save changes.
         log.info("Saving changes...")
-    
+
         saveSuccess = \
             picklePriceChartDocumentDataToFile(priceChartDocumentData, pcdFile)
 
