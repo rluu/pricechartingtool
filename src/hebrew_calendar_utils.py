@@ -17,7 +17,7 @@ class HebrewCalendarUtils:
 
         hebrewDateTuple = \
             convertdate.hebrew.from_gregorian(dt.year, dt.month, dt.day)
-          
+
         hebrewYear = hebrewDateTuple[0]
         hebrewMonth = hebrewDateTuple[1]
         hebrewDay = hebrewDateTuple[2]
@@ -28,15 +28,15 @@ class HebrewCalendarUtils:
                    hebrewDay)
 
         return rv
-    
+
     @staticmethod
     def datetimeToHebrewMonthDayStr(dt):
         """Converts the given datetime.datetime to a Hebrew month and date str.
         """
-        
+
         hebrewDateTuple = \
             convertdate.hebrew.from_gregorian(dt.year, dt.month, dt.day)
-          
+
         hebrewYear = hebrewDateTuple[0]
         hebrewMonth = hebrewDateTuple[1]
         hebrewDay = hebrewDateTuple[2]
@@ -46,15 +46,15 @@ class HebrewCalendarUtils:
                    hebrewDay)
 
         return rv
-        
+
     @staticmethod
     def monthNumberToMonthName(monthNumber):
         """Converts the given hebrew month number to the month name"
-        
+
         Arguments:
         monthNumber - int for the month number, where 1 represents .
 
-        Returns: 
+        Returns:
         str value holding the month name.  If the input is
         invalid, then None is returned.
         """
@@ -91,4 +91,49 @@ class HebrewCalendarUtils:
             rv = None
 
         return rv
-        
+
+
+class HebrewLunarCalendar:
+    """Class for calculating Hebrew calendar dates and holidays.
+    These dates are the holidays reckoned from the astronomical lunar
+    phases (30 phases in total).
+    Many of the methods of this class take in a gregorianYear,
+    which is the year for which the date of the Nisan 1 occurs.
+    """
+
+    @staticmethod
+    def getPesachForYear(gregorianYear):
+        """Also known as Passover."""
+        pass
+
+    @staticmethod
+    def getFeastOfUnleavenBreadForYear(gregorianYear):
+        pass
+
+    @staticmethod
+    def getFeastOfFirstFruitsForYear(gregorianYear):
+        pass
+
+    @staticmethod
+    def getRoshHashanahForYear(gregorianYear):
+        pass
+
+    @staticmethod
+    def getKomKippurForYear(gregorianYear):
+        pass
+
+    @staticmethod
+    def getSukkotForYear(gregorianYear):
+        pass
+
+    @staticmethod
+    def getHanukkahForYear(gregorianYear):
+        pass
+
+    @staticmethod
+    def yearHas13Months(gregorianYear):
+        """Returns a boolean for whether or not the given gregorian
+        calendar year has 13 months."""
+
+        pass
+
