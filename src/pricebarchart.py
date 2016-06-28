@@ -1964,9 +1964,7 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
         # Update the start and end points accordingly.
         self.startPointF = self.startPointF + posDelta
-        self.startPointF.setX(self.startPointF.x())
         self.endPointF = self.endPointF + posDelta
-        self.endPointF.setX(self.endPointF.x())
 
         if self.scene() != None:
             self.recalculateBarCount()
@@ -2311,6 +2309,8 @@ class BarCountGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # QGraphicsView, then the bar count will be zero, since it
         # can't look up PriceBarGraphicsItems in the scene.
         self.recalculateBarCount()
+
+        self.refreshPosition()
 
         self.log.debug("Exiting setArtifact()")
 
@@ -3143,6 +3143,9 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.textItem = QGraphicsSimpleTextItem("", self)
         self.textItem.setPos(self.endPointF)
 
+        # Degrees of text rotation.
+        self.rotationDegrees = 90.0
+
         # Transform object applied to the text item.
         self.textTransform = QTransform()
 
@@ -3185,7 +3188,8 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # Apply some size scaling to the text.
         self.textTransform = QTransform()
         self.textTransform.scale(self.timeMeasurementTextXScaling, \
-                            self.timeMeasurementTextYScaling)
+                                 self.timeMeasurementTextYScaling)
+        self.textTransform.rotate(self.rotationDegrees)
         textItem.setTransform(self.textTransform)
 
 
@@ -3457,7 +3461,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         self.recalculateTimeMeasurement()
 
         # Update the timeMeasurement text item position.
-        self._updateTextItemPositions()
+        self.refreshPosition()
 
         # Set the new color of the pen for drawing the bar.
         self.timeMeasurementPen.\
@@ -3617,9 +3621,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             self.draggingStartPointFlag = False
 
-            # Make sure the starting point is to the left of the
-            # ending point.
-            self.normalizeStartAndEnd()
+            self.refreshPosition()
 
             self.prepareGeometryChange()
 
@@ -3631,9 +3633,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             self.draggingEndPointFlag = False
 
-            # Make sure the starting point is to the left of the
-            # ending point.
-            self.normalizeStartAndEnd()
+            self.refreshPosition()
 
             self.prepareGeometryChange()
 
@@ -3680,54 +3680,6 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.draggingStartPointFlag = False
             self.draggingEndPointFlag = False
 
-    def _updateTextItemPositions(self):
-        """Updates the location of the internal text items based on
-        where the start and end points are.
-        """
-
-        # Update the timeMeasurement label position.
-
-        # Changes in x and y.
-        deltaX = self.endPointF.x() - self.startPointF.x()
-        deltaY = self.endPointF.y() - self.startPointF.y()
-
-        # Get bounding rectangle of text item.
-        boundingRect = self.textItem.boundingRect()
-
-        # Find largest text height and width.
-        largestTextHeight = boundingRect.height()
-        largestTextWidth = boundingRect.width()
-
-        # Now replace the above with the scaled version of it.
-        largestTextHeight = largestTextHeight * self.textTransform.m22()
-        largestTextWidth = largestTextWidth * self.textTransform.m11()
-
-        self.log.debug("largestTextHeight = {}".format(largestTextHeight))
-        self.log.debug("largestTextWidth = {}".format(largestTextWidth))
-
-        # Get the x and y of the point to place the text, referenced
-        # on the line from start point to end point, but offset by a
-        # certain amount such that the largest text would be centered
-        # on the line.
-        midX = self.mapFromScene(\
-            QPointF(self.startPointF.x() + (deltaX * 0.5), 0.0)).x()
-        midY = self.mapFromScene(\
-            QPointF(0.0, self.startPointF.y() + (deltaY * 0.5))).y()
-
-        self.log.debug("midX={}, midY={}".format(midX, midY))
-
-        startX = midX
-        startY = midY
-
-        # Amount to mutiply to get a largest offset from startY.
-        offsetY = largestTextHeight
-        offsetX = (largestTextWidth / 2.0)
-
-        x = startX - offsetX
-        y = startY - offsetY
-
-        self.textItem.setPos(QPointF(x, y))
-
     def setStartPointF(self, pointF):
         """Sets the starting point of the bar count.  The value passed in
         is the mouse location in scene coordinates.
@@ -3742,8 +3694,10 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             self.setPos(self.startPointF)
 
-            # Update the timeMeasurement text item position.
-            self._updateTextItemPositions()
+            # Update the timeMeasurement label position.
+            deltaX = self.endPointF.x() - self.startPointF.x()
+            y = 0
+            self.textItem.setPos(QPointF(deltaX, y))
 
             if self.scene() != None:
                 # Re-calculate the timemeasurement.
@@ -3762,13 +3716,26 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         if self.endPointF != newValue:
             self.endPointF = newValue
 
-            # Update the timeMeasurement text item position.
-            self._updateTextItemPositions()
+            # Update the timeMeasurement label position.
+            deltaX = self.endPointF.x() - self.startPointF.x()
+            y = 0
+            self.textItem.setPos(QPointF(deltaX, y))
 
             if self.scene() != None:
                 # Re-calculate the timemeasurement.
                 self.recalculateTimeMeasurement()
                 self.prepareGeometryChange()
+
+    def refreshPosition(self):
+        # Update the time measurement label position.
+        deltaX = self.endPointF.x() - self.startPointF.x()
+        y = 0
+        self.textItem.setPos(QPointF(deltaX, y))
+
+        self.recalculateTimeMeasurement()
+
+        super().setPos(self.startPointF)
+
 
     def normalizeStartAndEnd(self):
         """Sets the starting point X location to be less than the ending
@@ -3784,13 +3751,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
             self.startPointF = self.endPointF
             self.endPointF = temp
 
-            self.recalculateTimeMeasurement()
-
-            # Update the timeMeasurement text item position.
-            self._updateTextItemPositions()
-
-            super().setPos(self.startPointF)
-
+        self.refreshPosition()
 
     def recalculateTimeMeasurement(self):
         """Sets the internal variables:
@@ -3902,10 +3863,15 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
                     # the self.startPointF and the self.endPointF.
                     # This handles the case when the start and end
                     # points are reversed also.
-                    if (self.startPointF.x() < x <= self.endPointF.x()) or \
-                       (self.endPointF.x() < x <= self.startPointF.x()):
+                    if ((self.startPointF.x() < self.endPointF.x()) and \
+                        (self.startPointF.x() < x <= self.endPointF.x())):
 
                         self.numPriceBars += 1
+
+                    elif ((self.endPointF.x() < self.startPointF.x()) and \
+                        (self.endPointF.x() < x <= self.startPointF.x())):
+
+                        self.numPriceBars -= 1
 
             # Calculate the number of (calendar) days.
             startTimestamp = \
@@ -3941,12 +3907,12 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
 
             # Calculate the time range.  (In what units should we do
             # this?... for now we will just use the default.)
-            self.numTimeRange = abs(self.endPointF.x() - self.startPointF.x())
+            self.numTimeRange = self.endPointF.x() - self.startPointF.x()
 
             # Calculate the scaled value range.
             self.numScaledValueRange = \
-                abs(scene.convertDatetimeToScaledValue(endTimestamp) -
-                    scene.convertDatetimeToScaledValue(startTimestamp))
+                (scene.convertDatetimeToScaledValue(endTimestamp) -
+                scene.convertDatetimeToScaledValue(startTimestamp))
 
             # Calculate number of ayanas (6 months).
             # Ayana is half of a tropical year (solstice to solstice).
@@ -4318,8 +4284,7 @@ class TimeMeasurementGraphicsItem(PriceBarChartArtifactGraphicsItem):
         # can't look up PriceBarGraphicsItems in the scene.
         self.recalculateTimeMeasurement()
 
-        # Update the timeMeasurement text item position.
-        self._updateTextItemPositions()
+        self.refreshPosition()
 
         self.log.debug("Exiting setArtifact()")
 
@@ -49151,7 +49116,6 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
                     self.timeMeasurementGraphicsItem.\
                         setEndPointF(self.clickTwoPointF)
-                    self.timeMeasurementGraphicsItem.normalizeStartAndEnd()
 
                     # Call getArtifact() so that the item's artifact
                     # object gets updated and set.
@@ -49647,7 +49611,6 @@ class PriceBarChartGraphicsView(QGraphicsView):
 
                     self.planetLongitudeMovementMeasurementGraphicsItem.\
                         setEndPointF(self.clickTwoPointF)
-                    self.planetLongitudeMovementMeasurementGraphicsItem.normalizeStartAndEnd()
 
                     # Call getArtifact() so that the item's artifact
                     # object gets updated and set.
