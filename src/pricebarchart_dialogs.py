@@ -797,41 +797,46 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
             self.showSqrtBarsTextFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrdBarsTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addSpacing(10)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showHoursTextFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrtHoursTextFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrdHoursTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addSpacing(10)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showDaysTextFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrtDaysTextFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrdDaysTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addSpacing(10)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.showWeeksTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.showSqrtWeeksTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.showSqrdWeeksTextFlagCheckBox)
         showTextCheckBoxesLeftLayout.addStretch()
 
         # Layout on the right side holding about half of the checkboxes
         # for this page.
         showTextCheckBoxesRightLayout = QVBoxLayout()
         showTextCheckBoxesRightLayout.addWidget(\
-            self.showWeeksTextFlagCheckBox)
-        showTextCheckBoxesRightLayout.addWidget(\
-            self.showSqrtWeeksTextFlagCheckBox)
-        showTextCheckBoxesRightLayout.addWidget(\
-            self.showSqrdWeeksTextFlagCheckBox)
-        showTextCheckBoxesRightLayout.addWidget(\
             self.showMonthsTextFlagCheckBox)
         showTextCheckBoxesRightLayout.addWidget(\
             self.showSqrtMonthsTextFlagCheckBox)
         showTextCheckBoxesRightLayout.addWidget(\
             self.showSqrdMonthsTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addSpacing(10)
         showTextCheckBoxesRightLayout.addWidget(\
             self.showTimeRangeTextFlagCheckBox)
         showTextCheckBoxesRightLayout.addWidget(\
             self.showSqrtTimeRangeTextFlagCheckBox)
         showTextCheckBoxesRightLayout.addWidget(\
             self.showSqrdTimeRangeTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addSpacing(10)
         showTextCheckBoxesRightLayout.addWidget(\
             self.showScaledValueRangeTextFlagCheckBox)
         showTextCheckBoxesRightLayout.addWidget(\
@@ -930,18 +935,21 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
             self.showSqrtAyanaTextFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrdAyanaTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addSpacing(10)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showMuhurtaTextFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrtMuhurtaTextFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrdMuhurtaTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addSpacing(10)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showVaraTextFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrtVaraTextFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showSqrdVaraTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addSpacing(10)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showRtuTextFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
@@ -959,12 +967,14 @@ class PriceBarChartTimeMeasurementArtifactEditWidget(QWidget):
             self.showSqrtMasaTextFlagCheckBox)
         showTextCheckBoxesRightLayout.addWidget(\
             self.showSqrdMasaTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addSpacing(10)
         showTextCheckBoxesRightLayout.addWidget(\
             self.showPaksaTextFlagCheckBox)
         showTextCheckBoxesRightLayout.addWidget(\
             self.showSqrtPaksaTextFlagCheckBox)
         showTextCheckBoxesRightLayout.addWidget(\
             self.showSqrdPaksaTextFlagCheckBox)
+        showTextCheckBoxesRightLayout.addSpacing(10)
         showTextCheckBoxesRightLayout.addWidget(\
             self.showSamaTextFlagCheckBox)
         showTextCheckBoxesRightLayout.addWidget(\
@@ -3808,6 +3818,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.groupBoxPage2 = self._createGroupBoxPage2()
         self.groupBoxPage3 = self._createGroupBoxPage3()
         self.groupBoxPage4 = self._createGroupBoxPage4()
+        self.groupBoxPage5 = self._createGroupBoxPage5()
 
         # Create a QTabWidget to stack all the QGroupBox that have our
         # edit widgets.
@@ -3816,6 +3827,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.tabWidget.addTab(self.groupBoxPage2, "Page 2")
         self.tabWidget.addTab(self.groupBoxPage3, "Page 3")
         self.tabWidget.addTab(self.groupBoxPage4, "Page 4")
+        self.tabWidget.addTab(self.groupBoxPage5, "Page 5")
 
         # Buttons at bottom.
         self.okayButton = QPushButton("&Okay")
@@ -4003,12 +4015,6 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
             QCheckBox("Use tropical zodiac in measurements")
         self.siderealZodiacFlagCheckBox = \
             QCheckBox("Use sidereal zodiac in measurements")
-        self.measurementUnitDegreesEnabledCheckBox = \
-            QCheckBox("Show measurements in degrees")
-        self.measurementUnitCirclesEnabledCheckBox = \
-            QCheckBox("Show measurements in circles")
-        self.measurementUnitBiblicalCirclesEnabledCheckBox = \
-            QCheckBox("Show measurements in biblical circles")
 
         # Layout on the left side holding about half of the checkboxes
         # for this page.
@@ -4019,30 +4025,19 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
             self.showGeocentricRetroAsPositiveTextFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showGeocentricRetroAsNegativeTextFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addSpacing(10)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.showHeliocentricTextFlagCheckBox)
-        showTextCheckBoxesLeftLayout.addStretch()
-
-        # Layout on the right side holding about half of the checkboxes
-        # for this page.
-        showTextCheckBoxesRightLayout = QVBoxLayout()
-        showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesLeftLayout.addSpacing(10)
+        showTextCheckBoxesLeftLayout.addWidget(\
             self.tropicalZodiacFlagCheckBox)
-        showTextCheckBoxesRightLayout.addWidget(\
+        showTextCheckBoxesLeftLayout.addWidget(\
             self.siderealZodiacFlagCheckBox)
-        showTextCheckBoxesRightLayout.addSpacing(10)
-        showTextCheckBoxesRightLayout.addWidget(\
-            self.measurementUnitDegreesEnabledCheckBox)
-        showTextCheckBoxesRightLayout.addWidget(\
-            self.measurementUnitCirclesEnabledCheckBox)
-        showTextCheckBoxesRightLayout.addWidget(\
-            self.measurementUnitBiblicalCirclesEnabledCheckBox)
-        showTextCheckBoxesRightLayout.addStretch()
+        showTextCheckBoxesLeftLayout.addStretch()
 
         # Layout for all the checkboxes.
         checkBoxesLayout = QHBoxLayout()
         checkBoxesLayout.addLayout(showTextCheckBoxesLeftLayout)
-        checkBoxesLayout.addLayout(showTextCheckBoxesRightLayout)
 
         # Layout for this groupbox page.
         layout = QVBoxLayout()
@@ -4060,6 +4055,152 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
 
         self.groupBoxPage3 = \
             QGroupBox("PriceBarChartPlanetLongitudeMovementMeasurementArtifact Data (page 3):")
+
+        # Create the QCheckBox widgets going on this page.
+        self.measurementUnitDegreesEnabledCheckBox = \
+            QCheckBox("Show measurements in degrees")
+        self.measurementUnitCirclesEnabledCheckBox = \
+            QCheckBox("Show measurements in circles")
+        self.measurementUnitBiblicalCirclesEnabledCheckBox = \
+            QCheckBox("Show measurements in biblical circles")
+        self.measurementUnit7ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 7-degree units")
+        self.measurementUnit11ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 11-degree units")
+        self.measurementUnit12ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 12-degree units")
+        self.measurementUnit24ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 24-degree units")
+        self.measurementUnit25ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 25-degree units")
+        self.measurementUnit33ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 33-degree units")
+        self.measurementUnit36ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 36-degree units")
+        self.measurementUnit37ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 37-degree units")
+        self.measurementUnit40ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 40-degree units")
+        self.measurementUnit45ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 45-degree units")
+        self.measurementUnit49ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 49-degree units")
+        self.measurementUnit60ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 60-degree units")
+        self.measurementUnit69ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 69-degree units")
+        self.measurementUnit72ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 72-degree units")
+        self.measurementUnit84ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 84-degree units")
+        self.measurementUnit90ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 90-degree units")
+        self.measurementUnit100ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 100-degree units")
+        self.measurementUnit110ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 110-degree units")
+        self.measurementUnit112ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 112-degree units")
+        self.measurementUnit133ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 133-degree units")
+        self.measurementUnit137ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 137-degree units")
+        self.measurementUnit144ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 144-degree units")
+        self.measurementUnit153ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 153-degree units")
+        self.measurementUnit194ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 194-degree units")
+        self.measurementUnit500ersEnabledCheckBox = \
+            QCheckBox("Show measurements in 500-degree units")
+
+        # Layout on the left side holding about half of the checkboxes
+        # for this page.
+        showTextCheckBoxesLeftLayout = QVBoxLayout()
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.measurementUnitDegreesEnabledCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.measurementUnitCirclesEnabledCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.measurementUnitBiblicalCirclesEnabledCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.measurementUnit7ersEnabledCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.measurementUnit11ersEnabledCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.measurementUnit12ersEnabledCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.measurementUnit24ersEnabledCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.measurementUnit25ersEnabledCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.measurementUnit33ersEnabledCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.measurementUnit36ersEnabledCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.measurementUnit37ersEnabledCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.measurementUnit40ersEnabledCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.measurementUnit45ersEnabledCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.measurementUnit49ersEnabledCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.measurementUnit60ersEnabledCheckBox)
+        showTextCheckBoxesLeftLayout.addStretch()
+
+        # Layout on the right side holding about half of the checkboxes
+        # for this page.
+        showTextCheckBoxesRightLayout = QVBoxLayout()
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.measurementUnit69ersEnabledCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.measurementUnit72ersEnabledCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.measurementUnit84ersEnabledCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.measurementUnit90ersEnabledCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.measurementUnit100ersEnabledCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.measurementUnit110ersEnabledCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.measurementUnit112ersEnabledCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.measurementUnit133ersEnabledCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.measurementUnit137ersEnabledCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.measurementUnit144ersEnabledCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.measurementUnit153ersEnabledCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.measurementUnit194ersEnabledCheckBox)
+        showTextCheckBoxesRightLayout.addWidget(\
+            self.measurementUnit500ersEnabledCheckBox)
+        showTextCheckBoxesRightLayout.addStretch()
+
+        # Layout for all the checkboxes.
+        checkBoxesLayout = QHBoxLayout()
+        checkBoxesLayout.addLayout(showTextCheckBoxesLeftLayout)
+        checkBoxesLayout.addLayout(showTextCheckBoxesRightLayout)
+
+        # Layout for this groupbox page.
+        layout = QVBoxLayout()
+        layout.addLayout(checkBoxesLayout)
+
+        self.groupBoxPage3.setLayout(layout)
+
+        return self.groupBoxPage3
+
+
+    def _createGroupBoxPage4(self):
+        """Creates a QGroupBox (and the widgets within it) for page4
+        of the edit widget, and then returns it.
+        """
+
+        self.groupBoxPage4 = \
+            QGroupBox("PriceBarChartPlanetLongitudeMovementMeasurementArtifact Data (page 4):")
 
         # Create the QCheckBox widgets going on this page.
         self.planetH1EnabledFlagCheckBox = \
@@ -4298,18 +4439,18 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         layout = QVBoxLayout()
         layout.addLayout(checkBoxesLayout)
 
-        self.groupBoxPage3.setLayout(layout)
+        self.groupBoxPage4.setLayout(layout)
 
-        return self.groupBoxPage3
+        return self.groupBoxPage4
 
 
-    def _createGroupBoxPage4(self):
-        """Creates a QGroupBox (and the widgets within it) for page4
+    def _createGroupBoxPage5(self):
+        """Creates a QGroupBox (and the widgets within it) for page5
         of the edit widget, and then returns it.
         """
 
-        self.groupBoxPage4 = \
-            QGroupBox("PriceBarChartPlanetLongitudeMovementMeasurementArtifact Data (page 4):")
+        self.groupBoxPage5 = \
+            QGroupBox("PriceBarChartPlanetLongitudeMovementMeasurementArtifact Data (page 5):")
 
         # Create the QCheckBox widgets going on this page.
         self.planetAsSuEnabledFlagCheckBox = \
@@ -4424,9 +4565,9 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         layout = QVBoxLayout()
         layout.addLayout(checkBoxesLayout)
 
-        self.groupBoxPage4.setLayout(layout)
+        self.groupBoxPage5.setLayout(layout)
 
-        return self.groupBoxPage4
+        return self.groupBoxPage5
 
 
     def setConvertObj(self, convertObj):
@@ -4502,6 +4643,31 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.measurementUnitDegreesEnabledCheckBox.setEnabled(not self.readOnlyFlag)
         self.measurementUnitCirclesEnabledCheckBox.setEnabled(not self.readOnlyFlag)
         self.measurementUnitBiblicalCirclesEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit7ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit11ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit12ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit24ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit25ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit33ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit36ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit37ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit40ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit45ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit49ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit60ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit69ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit72ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit84ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit90ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit100ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit110ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit112ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit133ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit137ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit144ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit153ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit194ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
+        self.measurementUnit500ersEnabledCheckBox.setEnabled(not self.readOnlyFlag)
 
         self.planetH1EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetH2EnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
@@ -4699,6 +4865,131 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
             self.measurementUnitBiblicalCirclesEnabledCheckBox.setCheckState(Qt.Checked)
         else:
             self.measurementUnitBiblicalCirclesEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit7ersEnabled() == True:
+            self.measurementUnit7ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit7ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit11ersEnabled() == True:
+            self.measurementUnit11ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit11ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit12ersEnabled() == True:
+            self.measurementUnit12ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit12ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit24ersEnabled() == True:
+            self.measurementUnit24ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit24ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit25ersEnabled() == True:
+            self.measurementUnit25ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit25ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit33ersEnabled() == True:
+            self.measurementUnit33ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit33ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit36ersEnabled() == True:
+            self.measurementUnit36ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit36ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit37ersEnabled() == True:
+            self.measurementUnit37ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit37ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit40ersEnabled() == True:
+            self.measurementUnit40ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit40ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit45ersEnabled() == True:
+            self.measurementUnit45ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit45ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit49ersEnabled() == True:
+            self.measurementUnit49ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit49ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit60ersEnabled() == True:
+            self.measurementUnit60ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit60ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit69ersEnabled() == True:
+            self.measurementUnit69ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit69ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit72ersEnabled() == True:
+            self.measurementUnit72ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit72ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit84ersEnabled() == True:
+            self.measurementUnit84ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit84ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit90ersEnabled() == True:
+            self.measurementUnit90ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit90ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit100ersEnabled() == True:
+            self.measurementUnit100ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit100ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit110ersEnabled() == True:
+            self.measurementUnit110ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit110ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit112ersEnabled() == True:
+            self.measurementUnit112ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit112ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit133ersEnabled() == True:
+            self.measurementUnit133ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit133ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit137ersEnabled() == True:
+            self.measurementUnit137ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit137ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit144ersEnabled() == True:
+            self.measurementUnit144ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit144ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit153ersEnabled() == True:
+            self.measurementUnit153ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit153ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit194ersEnabled() == True:
+            self.measurementUnit194ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit194ersEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getMeasurementUnit500ersEnabled() == True:
+            self.measurementUnit500ersEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.measurementUnit500ersEnabledCheckBox.setCheckState(Qt.Unchecked)
 
         if self.artifact.getPlanetH1EnabledFlag() == True:
             self.planetH1EnabledFlagCheckBox.setCheckState(Qt.Checked)
@@ -5153,6 +5444,81 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         measurementUnitBiblicalCirclesEnabled = \
             (self.measurementUnitBiblicalCirclesEnabledCheckBox.\
              checkState() == Qt.Checked)
+        measurementUnit7ersEnabled = \
+            (self.measurementUnit7ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit11ersEnabled = \
+            (self.measurementUnit11ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit12ersEnabled = \
+            (self.measurementUnit12ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit24ersEnabled = \
+            (self.measurementUnit24ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit25ersEnabled = \
+            (self.measurementUnit25ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit33ersEnabled = \
+            (self.measurementUnit33ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit36ersEnabled = \
+            (self.measurementUnit36ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit37ersEnabled = \
+            (self.measurementUnit37ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit40ersEnabled = \
+            (self.measurementUnit40ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit45ersEnabled = \
+            (self.measurementUnit45ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit49ersEnabled = \
+            (self.measurementUnit49ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit60ersEnabled = \
+            (self.measurementUnit60ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit69ersEnabled = \
+            (self.measurementUnit69ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit72ersEnabled = \
+            (self.measurementUnit72ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit84ersEnabled = \
+            (self.measurementUnit84ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit90ersEnabled = \
+            (self.measurementUnit90ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit100ersEnabled = \
+            (self.measurementUnit100ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit110ersEnabled = \
+            (self.measurementUnit110ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit112ersEnabled = \
+            (self.measurementUnit112ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit133ersEnabled = \
+            (self.measurementUnit133ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit137ersEnabled = \
+            (self.measurementUnit137ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit144ersEnabled = \
+            (self.measurementUnit144ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit153ersEnabled = \
+            (self.measurementUnit153ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit194ersEnabled = \
+            (self.measurementUnit194ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
+        measurementUnit500ersEnabled = \
+            (self.measurementUnit500ersEnabledCheckBox.\
+             checkState() == Qt.Checked)
         planetH1EnabledFlag = \
             (self.planetH1EnabledFlagCheckBox.\
              checkState() == Qt.Checked)
@@ -5405,6 +5771,31 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.artifact.setMeasurementUnitDegreesEnabled(measurementUnitDegreesEnabled)
         self.artifact.setMeasurementUnitCirclesEnabled(measurementUnitCirclesEnabled)
         self.artifact.setMeasurementUnitBiblicalCirclesEnabled(measurementUnitBiblicalCirclesEnabled)
+        self.artifact.setMeasurementUnit7ersEnabled(measurementUnit7ersEnabled)
+        self.artifact.setMeasurementUnit11ersEnabled(measurementUnit11ersEnabled)
+        self.artifact.setMeasurementUnit12ersEnabled(measurementUnit12ersEnabled)
+        self.artifact.setMeasurementUnit24ersEnabled(measurementUnit24ersEnabled)
+        self.artifact.setMeasurementUnit25ersEnabled(measurementUnit25ersEnabled)
+        self.artifact.setMeasurementUnit33ersEnabled(measurementUnit33ersEnabled)
+        self.artifact.setMeasurementUnit36ersEnabled(measurementUnit36ersEnabled)
+        self.artifact.setMeasurementUnit37ersEnabled(measurementUnit37ersEnabled)
+        self.artifact.setMeasurementUnit40ersEnabled(measurementUnit40ersEnabled)
+        self.artifact.setMeasurementUnit45ersEnabled(measurementUnit45ersEnabled)
+        self.artifact.setMeasurementUnit49ersEnabled(measurementUnit49ersEnabled)
+        self.artifact.setMeasurementUnit60ersEnabled(measurementUnit60ersEnabled)
+        self.artifact.setMeasurementUnit69ersEnabled(measurementUnit69ersEnabled)
+        self.artifact.setMeasurementUnit72ersEnabled(measurementUnit72ersEnabled)
+        self.artifact.setMeasurementUnit84ersEnabled(measurementUnit84ersEnabled)
+        self.artifact.setMeasurementUnit90ersEnabled(measurementUnit90ersEnabled)
+        self.artifact.setMeasurementUnit100ersEnabled(measurementUnit100ersEnabled)
+        self.artifact.setMeasurementUnit110ersEnabled(measurementUnit110ersEnabled)
+        self.artifact.setMeasurementUnit112ersEnabled(measurementUnit112ersEnabled)
+        self.artifact.setMeasurementUnit133ersEnabled(measurementUnit133ersEnabled)
+        self.artifact.setMeasurementUnit137ersEnabled(measurementUnit137ersEnabled)
+        self.artifact.setMeasurementUnit144ersEnabled(measurementUnit144ersEnabled)
+        self.artifact.setMeasurementUnit153ersEnabled(measurementUnit153ersEnabled)
+        self.artifact.setMeasurementUnit194ersEnabled(measurementUnit194ersEnabled)
+        self.artifact.setMeasurementUnit500ersEnabled(measurementUnit500ersEnabled)
         self.artifact.setPlanetH1EnabledFlag(planetH1EnabledFlag)
         self.artifact.setPlanetH2EnabledFlag(planetH2EnabledFlag)
         self.artifact.setPlanetH3EnabledFlag(planetH3EnabledFlag)

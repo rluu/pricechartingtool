@@ -100,6 +100,31 @@ class PLMMUtils:
         measurementUnitDegreesEnabled,
         measurementUnitCirclesEnabled,
         measurementUnitBiblicalCirclesEnabled,
+        measurementUnit7ersEnabled,
+        measurementUnit11ersEnabled,
+        measurementUnit12ersEnabled,
+        measurementUnit24ersEnabled,
+        measurementUnit25ersEnabled,
+        measurementUnit33ersEnabled,
+        measurementUnit36ersEnabled,
+        measurementUnit37ersEnabled,
+        measurementUnit40ersEnabled,
+        measurementUnit45ersEnabled,
+        measurementUnit49ersEnabled,
+        measurementUnit60ersEnabled,
+        measurementUnit69ersEnabled,
+        measurementUnit72ersEnabled,
+        measurementUnit84ersEnabled,
+        measurementUnit90ersEnabled,
+        measurementUnit100ersEnabled,
+        measurementUnit110ersEnabled,
+        measurementUnit112ersEnabled,
+        measurementUnit133ersEnabled,
+        measurementUnit137ersEnabled,
+        measurementUnit144ersEnabled,
+        measurementUnit153ersEnabled,
+        measurementUnit194ersEnabled,
+        measurementUnit500ersEnabled,
         maxErrorTd=datetime.timedelta(minutes=1)):
         """Measures the planet longitude movement between two timestamps.
         The measurements are returned in a multi-line str.
@@ -161,6 +186,106 @@ class PLMMUtils:
                        - bool flag for measuring in units of
                          George Bayer's biblical circles.
 
+        measurementUnit7ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 7-degree units.
+
+        measurementUnit11ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 11-degree units.
+
+        measurementUnit12ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 12-degree units.
+
+        measurementUnit24ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 24-degree units.
+
+        measurementUnit25ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 25-degree units.
+
+        measurementUnit33ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 33-degree units.
+
+        measurementUnit36ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 36-degree units.
+
+        measurementUnit37ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 37-degree units.
+
+        measurementUnit40ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 40-degree units.
+
+        measurementUnit45ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 45-degree units.
+
+        measurementUnit49ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 49-degree units.
+
+        measurementUnit60ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 60-degree units.
+
+        measurementUnit69ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 69-degree units.
+
+        measurementUnit72ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 72-degree units.
+
+        measurementUnit84ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 84-degree units.
+
+        measurementUnit90ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 90-degree units.
+
+        measurementUnit100ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 100-degree units.
+
+        measurementUnit110ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 110-degree units.
+
+        measurementUnit112ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 112-degree units.
+
+        measurementUnit133ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 133-degree units.
+
+        measurementUnit137ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 137-degree units.
+
+        measurementUnit144ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 144-degree units.
+
+        measurementUnit153ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 153-degree units.
+
+        measurementUnit194ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 194-degree units.
+
+        measurementUnit500ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 500-degree units.
+
         maxErrorTd - datetime.timedelta object holding the maximum
                      time difference between the exact planetary
                      combination timestamp, and the one calculated.
@@ -219,7 +344,32 @@ class PLMMUtils:
         # then don't do calculations for any planets.
         if measurementUnitDegreesEnabled == False and \
            measurementUnitCirclesEnabled == False and \
-           measurementUnitBiblicalCirclesEnabled == False:
+           measurementUnitBiblicalCirclesEnabled == False and \
+           measurementUnit7ersEnabled == False and \
+           measurementUnit11ersEnabled == False and \
+           measurementUnit12ersEnabled == False and \
+           measurementUnit24ersEnabled == False and \
+           measurementUnit25ersEnabled == False and \
+           measurementUnit33ersEnabled == False and \
+           measurementUnit36ersEnabled == False and \
+           measurementUnit37ersEnabled == False and \
+           measurementUnit40ersEnabled == False and \
+           measurementUnit45ersEnabled == False and \
+           measurementUnit49ersEnabled == False and \
+           measurementUnit60ersEnabled == False and \
+           measurementUnit69ersEnabled == False and \
+           measurementUnit72ersEnabled == False and \
+           measurementUnit84ersEnabled == False and \
+           measurementUnit90ersEnabled == False and \
+           measurementUnit100ersEnabled == False and \
+           measurementUnit110ersEnabled == False and \
+           measurementUnit112ersEnabled == False and \
+           measurementUnit133ersEnabled == False and \
+           measurementUnit137ersEnabled == False and \
+           measurementUnit144ersEnabled == False and \
+           measurementUnit153ersEnabled == False and \
+           measurementUnit194ersEnabled == False and \
+           measurementUnit500ersEnabled == False:
 
             return text
 
@@ -450,6 +600,31 @@ class PLMMUtils:
                     numCircles = totalDegrees / PLMMUtils.circleSizeInDegrees
                     numBiblicalCircles = \
                         totalDegrees / AstrologyUtils.degreesInBiblicalCircle
+                    num7ers = totalDegrees / 7.0
+                    num11ers = totalDegrees / 11.0
+                    num12ers = totalDegrees / 12.0
+                    num24ers = totalDegrees / 24.0
+                    num25ers = totalDegrees / 25.0
+                    num33ers = totalDegrees / 33.0
+                    num36ers = totalDegrees / 36.0
+                    num37ers = totalDegrees / 37.0
+                    num40ers = totalDegrees / 40.0
+                    num45ers = totalDegrees / 45.0
+                    num49ers = totalDegrees / 49.0
+                    num60ers = totalDegrees / 60.0
+                    num69ers = totalDegrees / 69.0
+                    num72ers = totalDegrees / 72.0
+                    num84ers = totalDegrees / 84.0
+                    num90ers = totalDegrees / 90.0
+                    num100ers = totalDegrees / 100.0
+                    num110ers = totalDegrees / 110.0
+                    num112ers = totalDegrees / 112.0
+                    num133ers = totalDegrees / 133.0
+                    num137ers = totalDegrees / 137.0
+                    num144ers = totalDegrees / 144.0
+                    num153ers = totalDegrees / 153.0
+                    num194ers = totalDegrees / 194.0
+                    num500ers = totalDegrees / 500.0
 
                     # Flag that indicates at least one
                     # measurement unit type is already
@@ -472,6 +647,156 @@ class PLMMUtils:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
                         line += "{:.3f} bcir ".format(numBiblicalCircles)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit7ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 7ers ".format(num7ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit11ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 11ers ".format(num11ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit12ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 12ers ".format(num12ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit24ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 24ers ".format(num24ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit25ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 25ers ".format(num25ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit33ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 33ers ".format(num33ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit36ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 36ers ".format(num36ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit37ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 37ers ".format(num37ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit40ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 40ers ".format(num40ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit45ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 45ers ".format(num45ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit49ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 49ers ".format(num49ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit60ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 60ers ".format(num60ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit69ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 69ers ".format(num69ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit72ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 72ers ".format(num72ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit84ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 84ers ".format(num84ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit90ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 90ers ".format(num90ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit100ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 100ers ".format(num100ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit110ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 110ers ".format(num110ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit112ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 112ers ".format(num112ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit133ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 133ers ".format(num133ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit137ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 137ers ".format(num137ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit144ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 144ers ".format(num144ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit153ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 153ers ".format(num153ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit194ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 194ers ".format(num194ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit500ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 500ers ".format(num500ers)
                         atLeastOneMeasurementAlreadyAddedFlag = True
 
                     # Append last part of the line.
@@ -522,6 +847,31 @@ class PLMMUtils:
                     numCircles = totalDegrees / PLMMUtils.circleSizeInDegrees
                     numBiblicalCircles = \
                         totalDegrees / AstrologyUtils.degreesInBiblicalCircle
+                    num7ers = totalDegrees / 7.0
+                    num11ers = totalDegrees / 11.0
+                    num12ers = totalDegrees / 12.0
+                    num24ers = totalDegrees / 24.0
+                    num25ers = totalDegrees / 25.0
+                    num33ers = totalDegrees / 33.0
+                    num36ers = totalDegrees / 36.0
+                    num37ers = totalDegrees / 37.0
+                    num40ers = totalDegrees / 40.0
+                    num45ers = totalDegrees / 45.0
+                    num49ers = totalDegrees / 49.0
+                    num60ers = totalDegrees / 60.0
+                    num69ers = totalDegrees / 69.0
+                    num72ers = totalDegrees / 72.0
+                    num84ers = totalDegrees / 84.0
+                    num90ers = totalDegrees / 90.0
+                    num100ers = totalDegrees / 100.0
+                    num110ers = totalDegrees / 110.0
+                    num112ers = totalDegrees / 112.0
+                    num133ers = totalDegrees / 133.0
+                    num137ers = totalDegrees / 137.0
+                    num144ers = totalDegrees / 144.0
+                    num153ers = totalDegrees / 153.0
+                    num194ers = totalDegrees / 194.0
+                    num500ers = totalDegrees / 500.0
 
                     # Flag that indicates at least one
                     # measurement unit type is already
@@ -544,6 +894,156 @@ class PLMMUtils:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
                         line += "{:.3f} bcir ".format(numBiblicalCircles)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit7ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 7ers ".format(num7ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit11ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 11ers ".format(num11ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit12ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 12ers ".format(num12ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit24ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 24ers ".format(num24ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit25ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 25ers ".format(num25ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit33ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 33ers ".format(num33ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit36ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 36ers ".format(num36ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit37ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 37ers ".format(num37ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit40ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 40ers ".format(num40ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit45ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 45ers ".format(num45ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit49ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 49ers ".format(num49ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit60ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 60ers ".format(num60ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit69ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 69ers ".format(num69ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit72ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 72ers ".format(num72ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit84ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 84ers ".format(num84ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit90ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 90ers ".format(num90ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit100ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 100ers ".format(num100ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit110ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 110ers ".format(num110ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit112ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 112ers ".format(num112ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit133ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 133ers ".format(num133ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit137ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 137ers ".format(num137ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit144ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 144ers ".format(num144ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit153ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 153ers ".format(num153ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit194ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 194ers ".format(num194ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit500ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 500ers ".format(num500ers)
                         atLeastOneMeasurementAlreadyAddedFlag = True
 
                     # Append last part of the line.
@@ -646,6 +1146,31 @@ class PLMMUtils:
                     numCircles = totalDegrees / PLMMUtils.circleSizeInDegrees
                     numBiblicalCircles = \
                         totalDegrees / AstrologyUtils.degreesInBiblicalCircle
+                    num7ers = totalDegrees / 7.0
+                    num11ers = totalDegrees / 11.0
+                    num12ers = totalDegrees / 12.0
+                    num24ers = totalDegrees / 24.0
+                    num25ers = totalDegrees / 25.0
+                    num33ers = totalDegrees / 33.0
+                    num36ers = totalDegrees / 36.0
+                    num37ers = totalDegrees / 37.0
+                    num40ers = totalDegrees / 40.0
+                    num45ers = totalDegrees / 45.0
+                    num49ers = totalDegrees / 49.0
+                    num60ers = totalDegrees / 60.0
+                    num69ers = totalDegrees / 69.0
+                    num72ers = totalDegrees / 72.0
+                    num84ers = totalDegrees / 84.0
+                    num90ers = totalDegrees / 90.0
+                    num100ers = totalDegrees / 100.0
+                    num110ers = totalDegrees / 110.0
+                    num112ers = totalDegrees / 112.0
+                    num133ers = totalDegrees / 133.0
+                    num137ers = totalDegrees / 137.0
+                    num144ers = totalDegrees / 144.0
+                    num153ers = totalDegrees / 153.0
+                    num194ers = totalDegrees / 194.0
+                    num500ers = totalDegrees / 500.0
 
                     # Flag that indicates at least one
                     # measurement unit type is already
@@ -668,6 +1193,156 @@ class PLMMUtils:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
                         line += "{:.3f} bcir ".format(numBiblicalCircles)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit7ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 7ers ".format(num7ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit11ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 11ers ".format(num11ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit12ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 12ers ".format(num12ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit24ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 24ers ".format(num24ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit25ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 25ers ".format(num25ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit33ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 33ers ".format(num33ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit36ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 36ers ".format(num36ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit37ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 37ers ".format(num37ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit40ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 40ers ".format(num40ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit45ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 45ers ".format(num45ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit49ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 49ers ".format(num49ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit60ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 60ers ".format(num60ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit69ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 69ers ".format(num69ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit72ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 72ers ".format(num72ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit84ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 84ers ".format(num84ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit90ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 90ers ".format(num90ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit100ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 100ers ".format(num100ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit110ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 110ers ".format(num110ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit112ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 112ers ".format(num112ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit133ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 133ers ".format(num133ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit137ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 137ers ".format(num137ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit144ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 144ers ".format(num144ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit153ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 153ers ".format(num153ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit194ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 194ers ".format(num194ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit500ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 500ers ".format(num500ers)
                         atLeastOneMeasurementAlreadyAddedFlag = True
 
                     # Append last part of the line.
@@ -734,6 +1409,31 @@ class PLMMUtils:
                     numCircles = totalDegrees / PLMMUtils.circleSizeInDegrees
                     numBiblicalCircles = \
                         totalDegrees / AstrologyUtils.degreesInBiblicalCircle
+                    num7ers = totalDegrees / 7.0
+                    num11ers = totalDegrees / 11.0
+                    num12ers = totalDegrees / 12.0
+                    num24ers = totalDegrees / 24.0
+                    num25ers = totalDegrees / 25.0
+                    num33ers = totalDegrees / 33.0
+                    num36ers = totalDegrees / 36.0
+                    num37ers = totalDegrees / 37.0
+                    num40ers = totalDegrees / 40.0
+                    num45ers = totalDegrees / 45.0
+                    num49ers = totalDegrees / 49.0
+                    num60ers = totalDegrees / 60.0
+                    num69ers = totalDegrees / 69.0
+                    num72ers = totalDegrees / 72.0
+                    num84ers = totalDegrees / 84.0
+                    num90ers = totalDegrees / 90.0
+                    num100ers = totalDegrees / 100.0
+                    num110ers = totalDegrees / 110.0
+                    num112ers = totalDegrees / 112.0
+                    num133ers = totalDegrees / 133.0
+                    num137ers = totalDegrees / 137.0
+                    num144ers = totalDegrees / 144.0
+                    num153ers = totalDegrees / 153.0
+                    num194ers = totalDegrees / 194.0
+                    num500ers = totalDegrees / 500.0
 
                     # Flag that indicates at least one
                     # measurement unit type is already
@@ -756,6 +1456,156 @@ class PLMMUtils:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
                         line += "{:.3f} bcir ".format(numBiblicalCircles)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit7ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 7ers ".format(num7ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit11ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 11ers ".format(num11ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit12ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 12ers ".format(num12ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit24ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 24ers ".format(num24ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit25ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 25ers ".format(num25ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit33ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 33ers ".format(num33ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit36ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 36ers ".format(num36ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit37ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 37ers ".format(num37ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit40ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 40ers ".format(num40ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit45ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 45ers ".format(num45ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit49ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 49ers ".format(num49ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit60ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 60ers ".format(num60ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit69ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 69ers ".format(num69ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit72ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 72ers ".format(num72ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit84ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 84ers ".format(num84ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit90ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 90ers ".format(num90ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit100ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 100ers ".format(num100ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit110ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 110ers ".format(num110ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit112ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 112ers ".format(num112ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit133ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 133ers ".format(num133ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit137ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 137ers ".format(num137ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit144ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 144ers ".format(num144ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit153ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 153ers ".format(num153ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit194ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 194ers ".format(num194ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit500ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 500ers ".format(num500ers)
                         atLeastOneMeasurementAlreadyAddedFlag = True
 
                     # Append last part of the line.
@@ -818,6 +1668,31 @@ class PLMMUtils:
                     numCircles = totalDegrees / PLMMUtils.circleSizeInDegrees
                     numBiblicalCircles = \
                         totalDegrees / AstrologyUtils.degreesInBiblicalCircle
+                    num7ers = totalDegrees / 7.0
+                    num11ers = totalDegrees / 11.0
+                    num12ers = totalDegrees / 12.0
+                    num24ers = totalDegrees / 24.0
+                    num25ers = totalDegrees / 25.0
+                    num33ers = totalDegrees / 33.0
+                    num36ers = totalDegrees / 36.0
+                    num37ers = totalDegrees / 37.0
+                    num40ers = totalDegrees / 40.0
+                    num45ers = totalDegrees / 45.0
+                    num49ers = totalDegrees / 49.0
+                    num60ers = totalDegrees / 60.0
+                    num69ers = totalDegrees / 69.0
+                    num72ers = totalDegrees / 72.0
+                    num84ers = totalDegrees / 84.0
+                    num90ers = totalDegrees / 90.0
+                    num100ers = totalDegrees / 100.0
+                    num110ers = totalDegrees / 110.0
+                    num112ers = totalDegrees / 112.0
+                    num133ers = totalDegrees / 133.0
+                    num137ers = totalDegrees / 137.0
+                    num144ers = totalDegrees / 144.0
+                    num153ers = totalDegrees / 153.0
+                    num194ers = totalDegrees / 194.0
+                    num500ers = totalDegrees / 500.0
 
                     # Flag that indicates at least one
                     # measurement unit type is already
@@ -840,6 +1715,156 @@ class PLMMUtils:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
                         line += "{:.3f} bcir ".format(numBiblicalCircles)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit7ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 7ers ".format(num7ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit11ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 11ers ".format(num11ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit12ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 12ers ".format(num12ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit24ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 24ers ".format(num24ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit25ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 25ers ".format(num25ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit33ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 33ers ".format(num33ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit36ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 36ers ".format(num36ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit37ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 37ers ".format(num37ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit40ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 40ers ".format(num40ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit45ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 45ers ".format(num45ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit49ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 49ers ".format(num49ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit60ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 60ers ".format(num60ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit69ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 69ers ".format(num69ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit72ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 72ers ".format(num72ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit84ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 84ers ".format(num84ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit90ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 90ers ".format(num90ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit100ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 100ers ".format(num100ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit110ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 110ers ".format(num110ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit112ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 112ers ".format(num112ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit133ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 133ers ".format(num133ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit137ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 137ers ".format(num137ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit144ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 144ers ".format(num144ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit153ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 153ers ".format(num153ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit194ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 194ers ".format(num194ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit500ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 500ers ".format(num500ers)
                         atLeastOneMeasurementAlreadyAddedFlag = True
 
                     # Append last part of the line.
@@ -901,6 +1926,31 @@ class PLMMUtils:
                     numCircles = totalDegrees / PLMMUtils.circleSizeInDegrees
                     numBiblicalCircles = \
                         totalDegrees / AstrologyUtils.degreesInBiblicalCircle
+                    num7ers = totalDegrees / 7.0
+                    num11ers = totalDegrees / 11.0
+                    num12ers = totalDegrees / 12.0
+                    num24ers = totalDegrees / 24.0
+                    num25ers = totalDegrees / 25.0
+                    num33ers = totalDegrees / 33.0
+                    num36ers = totalDegrees / 36.0
+                    num37ers = totalDegrees / 37.0
+                    num40ers = totalDegrees / 40.0
+                    num45ers = totalDegrees / 45.0
+                    num49ers = totalDegrees / 49.0
+                    num60ers = totalDegrees / 60.0
+                    num69ers = totalDegrees / 69.0
+                    num72ers = totalDegrees / 72.0
+                    num84ers = totalDegrees / 84.0
+                    num90ers = totalDegrees / 90.0
+                    num100ers = totalDegrees / 100.0
+                    num110ers = totalDegrees / 110.0
+                    num112ers = totalDegrees / 112.0
+                    num133ers = totalDegrees / 133.0
+                    num137ers = totalDegrees / 137.0
+                    num144ers = totalDegrees / 144.0
+                    num153ers = totalDegrees / 153.0
+                    num194ers = totalDegrees / 194.0
+                    num500ers = totalDegrees / 500.0
 
                     # Flag that indicates at least one
                     # measurement unit type is already
@@ -923,6 +1973,156 @@ class PLMMUtils:
                         if atLeastOneMeasurementAlreadyAddedFlag == True:
                             line += "or "
                         line += "{:.3f} bcir ".format(numBiblicalCircles)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit7ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 7ers ".format(num7ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit11ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 11ers ".format(num11ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit12ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 12ers ".format(num12ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit24ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 24ers ".format(num24ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit25ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 25ers ".format(num25ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit33ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 33ers ".format(num33ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit36ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 36ers ".format(num36ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit37ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 37ers ".format(num37ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit40ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 40ers ".format(num40ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit45ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 45ers ".format(num45ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit49ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 49ers ".format(num49ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit60ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 60ers ".format(num60ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit69ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 69ers ".format(num69ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit72ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 72ers ".format(num72ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit84ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 84ers ".format(num84ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit90ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 90ers ".format(num90ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit100ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 100ers ".format(num100ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit110ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 110ers ".format(num110ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit112ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 112ers ".format(num112ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit133ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 133ers ".format(num133ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit137ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 137ers ".format(num137ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit144ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 144ers ".format(num144ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit153ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 153ers ".format(num153ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit194ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 194ers ".format(num194ers)
+                        atLeastOneMeasurementAlreadyAddedFlag = True
+
+                    if measurementUnit500ersEnabled == True:
+                        if atLeastOneMeasurementAlreadyAddedFlag == True:
+                            line += "or "
+                        line += "{:.3f} 500ers ".format(num500ers)
                         atLeastOneMeasurementAlreadyAddedFlag = True
 
                     # Append last part of the line.
@@ -988,6 +2188,31 @@ class PLMMUtils:
                 numCircles = totalDegrees / PLMMUtils.circleSizeInDegrees
                 numBiblicalCircles = \
                     totalDegrees / AstrologyUtils.degreesInBiblicalCircle
+                num7ers = totalDegrees / 7.0
+                num11ers = totalDegrees / 11.0
+                num12ers = totalDegrees / 12.0
+                num24ers = totalDegrees / 24.0
+                num25ers = totalDegrees / 25.0
+                num33ers = totalDegrees / 33.0
+                num36ers = totalDegrees / 36.0
+                num37ers = totalDegrees / 37.0
+                num40ers = totalDegrees / 40.0
+                num45ers = totalDegrees / 45.0
+                num49ers = totalDegrees / 49.0
+                num60ers = totalDegrees / 60.0
+                num69ers = totalDegrees / 69.0
+                num72ers = totalDegrees / 72.0
+                num84ers = totalDegrees / 84.0
+                num90ers = totalDegrees / 90.0
+                num100ers = totalDegrees / 100.0
+                num110ers = totalDegrees / 110.0
+                num112ers = totalDegrees / 112.0
+                num133ers = totalDegrees / 133.0
+                num137ers = totalDegrees / 137.0
+                num144ers = totalDegrees / 144.0
+                num153ers = totalDegrees / 153.0
+                num194ers = totalDegrees / 194.0
+                num500ers = totalDegrees / 500.0
 
                 # Flag that indicates at least one
                 # measurement unit type is already
@@ -1010,6 +2235,156 @@ class PLMMUtils:
                     if atLeastOneMeasurementAlreadyAddedFlag == True:
                         line += "or "
                     line += "{:.3f} bcir ".format(numBiblicalCircles)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit7ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 7ers ".format(num7ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit11ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 11ers ".format(num11ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit12ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 12ers ".format(num12ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit24ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 24ers ".format(num24ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit25ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 25ers ".format(num25ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit33ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 33ers ".format(num33ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit36ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 36ers ".format(num36ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit37ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 37ers ".format(num37ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit40ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 40ers ".format(num40ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit45ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 45ers ".format(num45ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit49ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 49ers ".format(num49ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit60ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 60ers ".format(num60ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit69ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 69ers ".format(num69ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit72ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 72ers ".format(num72ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit84ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 84ers ".format(num84ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit90ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 90ers ".format(num90ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit100ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 100ers ".format(num100ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit110ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 110ers ".format(num110ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit112ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 112ers ".format(num112ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit133ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 133ers ".format(num133ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit137ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 137ers ".format(num137ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit144ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 144ers ".format(num144ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit153ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 153ers ".format(num153ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit194ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 194ers ".format(num194ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit500ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 500ers ".format(num500ers)
                     atLeastOneMeasurementAlreadyAddedFlag = True
 
                 text += line + os.linesep
@@ -1068,6 +2443,31 @@ class PLMMUtils:
                 numCircles = totalDegrees / PLMMUtils.circleSizeInDegrees
                 numBiblicalCircles = \
                     totalDegrees / AstrologyUtils.degreesInBiblicalCircle
+                num7ers = totalDegrees / 7.0
+                num11ers = totalDegrees / 11.0
+                num12ers = totalDegrees / 12.0
+                num24ers = totalDegrees / 24.0
+                num25ers = totalDegrees / 25.0
+                num33ers = totalDegrees / 33.0
+                num36ers = totalDegrees / 36.0
+                num37ers = totalDegrees / 37.0
+                num40ers = totalDegrees / 40.0
+                num45ers = totalDegrees / 45.0
+                num49ers = totalDegrees / 49.0
+                num60ers = totalDegrees / 60.0
+                num69ers = totalDegrees / 69.0
+                num72ers = totalDegrees / 72.0
+                num84ers = totalDegrees / 84.0
+                num90ers = totalDegrees / 90.0
+                num100ers = totalDegrees / 100.0
+                num110ers = totalDegrees / 110.0
+                num112ers = totalDegrees / 112.0
+                num133ers = totalDegrees / 133.0
+                num137ers = totalDegrees / 137.0
+                num144ers = totalDegrees / 144.0
+                num153ers = totalDegrees / 153.0
+                num194ers = totalDegrees / 194.0
+                num500ers = totalDegrees / 500.0
 
                 # Flag that indicates at least one
                 # measurement unit type is already
@@ -1090,6 +2490,156 @@ class PLMMUtils:
                     if atLeastOneMeasurementAlreadyAddedFlag == True:
                         line += "or "
                     line += "{:.3f} bcir ".format(numBiblicalCircles)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit7ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 7ers ".format(num7ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit11ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 11ers ".format(num11ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit12ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 12ers ".format(num12ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit24ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 24ers ".format(num24ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit25ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 25ers ".format(num25ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit33ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 33ers ".format(num33ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit36ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 36ers ".format(num36ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit37ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 37ers ".format(num37ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit40ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 40ers ".format(num40ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit45ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 45ers ".format(num45ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit49ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 49ers ".format(num49ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit60ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 60ers ".format(num60ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit69ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 69ers ".format(num69ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit72ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 72ers ".format(num72ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit84ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 84ers ".format(num84ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit90ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 90ers ".format(num90ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit100ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 100ers ".format(num100ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit110ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 110ers ".format(num110ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit112ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 112ers ".format(num112ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit133ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 133ers ".format(num133ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit137ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 137ers ".format(num137ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit144ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 144ers ".format(num144ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit153ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 153ers ".format(num153ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit194ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 194ers ".format(num194ers)
+                    atLeastOneMeasurementAlreadyAddedFlag = True
+
+                if measurementUnit500ersEnabled == True:
+                    if atLeastOneMeasurementAlreadyAddedFlag == True:
+                        line += "or "
+                    line += "{:.3f} 500ers ".format(num500ers)
                     atLeastOneMeasurementAlreadyAddedFlag = True
 
                 text += line + os.linesep

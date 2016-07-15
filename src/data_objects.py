@@ -1277,7 +1277,7 @@ class Ratio:
                     self.mathDescription = ""
 
                     self.log.debug("Added field 'mathDescription' " + \
-                                   "to the loaded Ratio.")
+                                   "to the loaded object.")
 
                     # Update the class version.
                     prevClassVersion = self.classVersion
@@ -5790,7 +5790,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 6
+        self.classVersion = 7
 
         # Create the logger.
         self.log = \
@@ -5886,6 +5886,131 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         self.measurementUnitBiblicalCirclesEnabled = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
+
+        # Flag for displaying measurements in number of 7-degree units.
+        self.measurementUnit7ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled
+
+        # Flag for displaying measurements in number of 11-degree units.
+        self.measurementUnit11ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled
+
+        # Flag for displaying measurements in number of 12-degree units.
+        self.measurementUnit12ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled
+
+        # Flag for displaying measurements in number of 24-degree units.
+        self.measurementUnit24ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled
+
+        # Flag for displaying measurements in number of 25-degree units.
+        self.measurementUnit25ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled
+
+        # Flag for displaying measurements in number of 33-degree units.
+        self.measurementUnit33ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled
+
+        # Flag for displaying measurements in number of 36-degree units.
+        self.measurementUnit36ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled
+
+        # Flag for displaying measurements in number of 37-degree units.
+        self.measurementUnit37ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled
+
+        # Flag for displaying measurements in number of 40-degree units.
+        self.measurementUnit40ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled
+
+        # Flag for displaying measurements in number of 45-degree units.
+        self.measurementUnit45ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled
+
+        # Flag for displaying measurements in number of 49-degree units.
+        self.measurementUnit49ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled
+
+        # Flag for displaying measurements in number of 60-degree units.
+        self.measurementUnit60ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled
+
+        # Flag for displaying measurements in number of 69-degree units.
+        self.measurementUnit69ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled
+
+        # Flag for displaying measurements in number of 72-degree units.
+        self.measurementUnit72ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled
+
+        # Flag for displaying measurements in number of 84-degree units.
+        self.measurementUnit84ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled
+
+        # Flag for displaying measurements in number of 90-degree units.
+        self.measurementUnit90ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled
+
+        # Flag for displaying measurements in number of 100-degree units.
+        self.measurementUnit100ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled
+
+        # Flag for displaying measurements in number of 110-degree units.
+        self.measurementUnit110ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled
+
+        # Flag for displaying measurements in number of 112-degree units.
+        self.measurementUnit112ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled
+
+        # Flag for displaying measurements in number of 133-degree units.
+        self.measurementUnit133ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled
+
+        # Flag for displaying measurements in number of 137-degree units.
+        self.measurementUnit137ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled
+
+        # Flag for displaying measurements in number of 144-degree units.
+        self.measurementUnit144ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled
+
+        # Flag for displaying measurements in number of 153-degree units.
+        self.measurementUnit153ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled
+
+        # Flag for displaying measurements in number of 194-degree units.
+        self.measurementUnit194ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled
+
+        # Flag for displaying measurements in number of 500-degree units.
+        self.measurementUnit500ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled
 
         # Flag for measurement of planet H1 enabled.
         self.planetH1EnabledFlag = \
@@ -6606,6 +6731,556 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         """
 
         return self.measurementUnitBiblicalCirclesEnabled
+
+    def setMeasurementUnit7ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 7-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit7ersEnabled = flag
+
+    def getMeasurementUnit7ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 7-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit7ersEnabled
+
+    def setMeasurementUnit11ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 11-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit11ersEnabled = flag
+
+    def getMeasurementUnit11ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 11-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit11ersEnabled
+
+    def setMeasurementUnit12ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 12-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit12ersEnabled = flag
+
+    def getMeasurementUnit12ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 12-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit12ersEnabled
+
+    def setMeasurementUnit24ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 24-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit24ersEnabled = flag
+
+    def getMeasurementUnit24ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 24-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit24ersEnabled
+
+    def setMeasurementUnit25ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 25-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit25ersEnabled = flag
+
+    def getMeasurementUnit25ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 25-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit25ersEnabled
+
+    def setMeasurementUnit33ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 33-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit33ersEnabled = flag
+
+    def getMeasurementUnit33ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 33-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit33ersEnabled
+
+    def setMeasurementUnit36ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 36-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit36ersEnabled = flag
+
+    def getMeasurementUnit36ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 36-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit36ersEnabled
+
+    def setMeasurementUnit37ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 37-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit37ersEnabled = flag
+
+    def getMeasurementUnit37ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 37-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit37ersEnabled
+
+    def setMeasurementUnit40ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 40-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit40ersEnabled = flag
+
+    def getMeasurementUnit40ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 40-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit40ersEnabled
+
+    def setMeasurementUnit45ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 45-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit45ersEnabled = flag
+
+    def getMeasurementUnit45ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 45-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit45ersEnabled
+
+    def setMeasurementUnit49ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 49-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit49ersEnabled = flag
+
+    def getMeasurementUnit49ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 49-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit49ersEnabled
+
+    def setMeasurementUnit60ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 60-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit60ersEnabled = flag
+
+    def getMeasurementUnit60ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 60-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit60ersEnabled
+
+    def setMeasurementUnit69ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 69-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit69ersEnabled = flag
+
+    def getMeasurementUnit69ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 69-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit69ersEnabled
+
+    def setMeasurementUnit72ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 72-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit72ersEnabled = flag
+
+    def getMeasurementUnit72ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 72-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit72ersEnabled
+
+    def setMeasurementUnit84ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 84-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit84ersEnabled = flag
+
+    def getMeasurementUnit84ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 84-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit84ersEnabled
+
+    def setMeasurementUnit90ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 90-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit90ersEnabled = flag
+
+    def getMeasurementUnit90ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 90-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit90ersEnabled
+
+    def setMeasurementUnit100ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 100-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit100ersEnabled = flag
+
+    def getMeasurementUnit100ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 100-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit100ersEnabled
+
+    def setMeasurementUnit110ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 110-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit110ersEnabled = flag
+
+    def getMeasurementUnit110ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 110-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit110ersEnabled
+
+    def setMeasurementUnit112ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 112-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit112ersEnabled = flag
+
+    def getMeasurementUnit112ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 112-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit112ersEnabled
+
+    def setMeasurementUnit133ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 133-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit133ersEnabled = flag
+
+    def getMeasurementUnit133ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 133-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit133ersEnabled
+
+    def setMeasurementUnit137ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 137-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit137ersEnabled = flag
+
+    def getMeasurementUnit137ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 137-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit137ersEnabled
+
+    def setMeasurementUnit144ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 144-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit144ersEnabled = flag
+
+    def getMeasurementUnit144ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 144-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit144ersEnabled
+
+    def setMeasurementUnit153ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 153-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit153ersEnabled = flag
+
+    def getMeasurementUnit153ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 153-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit153ersEnabled
+
+    def setMeasurementUnit194ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 194-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit194ersEnabled = flag
+
+    def getMeasurementUnit194ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 194-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit194ersEnabled
+
+    def setMeasurementUnit500ersEnabled(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 500-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.measurementUnit500ersEnabled = flag
+
+    def getMeasurementUnit500ersEnabled(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed in units
+        of 500-degrees.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.measurementUnit500ersEnabled
 
     def setPlanetH1EnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
@@ -8338,7 +9013,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
             "data_objects.PriceBarChartPlanetLongitudeMovementMeasurementArtifact")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 6:
+        if self.classVersion < 7:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartPlanetLongitudeMovementMeasurementArtifact (version {}).  ".\
                           format(self.classVersion))
@@ -9455,6 +10130,235 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                               "version {} to version {}.".\
                               format(prevClassVersion, self.classVersion))
 
+            if self.classVersion == 6:
+                # Version 7 added the following member variables:
+                #
+                # self.measurementUnit7ersEnabled
+                # self.measurementUnit11ersEnabled
+                # self.measurementUnit12ersEnabled
+                # self.measurementUnit24ersEnabled
+                # self.measurementUnit25ersEnabled
+                # self.measurementUnit33ersEnabled
+                # self.measurementUnit36ersEnabled
+                # self.measurementUnit37ersEnabled
+                # self.measurementUnit40ersEnabled
+                # self.measurementUnit45ersEnabled
+                # self.measurementUnit49ersEnabled
+                # self.measurementUnit60ersEnabled
+                # self.measurementUnit69ersEnabled
+                # self.measurementUnit72ersEnabled
+                # self.measurementUnit84ersEnabled
+                # self.measurementUnit90ersEnabled
+                # self.measurementUnit100ersEnabled
+                # self.measurementUnit110ersEnabled
+                # self.measurementUnit112ersEnabled
+                # self.measurementUnit133ersEnabled
+                # self.measurementUnit137ersEnabled
+                # self.measurementUnit144ersEnabled
+                # self.measurementUnit153ersEnabled
+                # self.measurementUnit194ersEnabled
+                # self.measurementUnit500ersEnabled
+                #
+
+                try:
+                    # See if the variables are set.
+                    self.measurementUnit7ersEnabled
+                    self.measurementUnit11ersEnabled
+                    self.measurementUnit12ersEnabled
+                    self.measurementUnit24ersEnabled
+                    self.measurementUnit25ersEnabled
+                    self.measurementUnit33ersEnabled
+                    self.measurementUnit36ersEnabled
+                    self.measurementUnit37ersEnabled
+                    self.measurementUnit40ersEnabled
+                    self.measurementUnit45ersEnabled
+                    self.measurementUnit49ersEnabled
+                    self.measurementUnit60ersEnabled
+                    self.measurementUnit69ersEnabled
+                    self.measurementUnit72ersEnabled
+                    self.measurementUnit84ersEnabled
+                    self.measurementUnit90ersEnabled
+                    self.measurementUnit100ersEnabled
+                    self.measurementUnit110ersEnabled
+                    self.measurementUnit112ersEnabled
+                    self.measurementUnit133ersEnabled
+                    self.measurementUnit137ersEnabled
+                    self.measurementUnit144ersEnabled
+                    self.measurementUnit153ersEnabled
+                    self.measurementUnit194ersEnabled
+                    self.measurementUnit500ersEnabled
+
+                    # If it got here, then the fields are already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have these fields.")
+
+                except AttributeError:
+                    # Variable was not set.  Set it to the default
+                    # PriceBarChartSettings value.
+
+                    # Flag for displaying measurements in number of 7-degree units.
+                    self.measurementUnit7ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled
+
+                    # Flag for displaying measurements in number of 11-degree units.
+                    self.measurementUnit11ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled
+
+                    # Flag for displaying measurements in number of 12-degree units.
+                    self.measurementUnit12ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled
+
+                    # Flag for displaying measurements in number of 24-degree units.
+                    self.measurementUnit24ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled
+
+                    # Flag for displaying measurements in number of 25-degree units.
+                    self.measurementUnit25ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled
+
+                    # Flag for displaying measurements in number of 33-degree units.
+                    self.measurementUnit33ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled
+
+                    # Flag for displaying measurements in number of 36-degree units.
+                    self.measurementUnit36ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled
+
+                    # Flag for displaying measurements in number of 37-degree units.
+                    self.measurementUnit37ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled
+
+                    # Flag for displaying measurements in number of 40-degree units.
+                    self.measurementUnit40ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled
+
+                    # Flag for displaying measurements in number of 45-degree units.
+                    self.measurementUnit45ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled
+
+                    # Flag for displaying measurements in number of 49-degree units.
+                    self.measurementUnit49ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled
+
+                    # Flag for displaying measurements in number of 60-degree units.
+                    self.measurementUnit60ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled
+
+                    # Flag for displaying measurements in number of 69-degree units.
+                    self.measurementUnit69ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled
+
+                    # Flag for displaying measurements in number of 72-degree units.
+                    self.measurementUnit72ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled
+
+                    # Flag for displaying measurements in number of 84-degree units.
+                    self.measurementUnit84ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled
+
+                    # Flag for displaying measurements in number of 90-degree units.
+                    self.measurementUnit90ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled
+
+                    # Flag for displaying measurements in number of 100-degree units.
+                    self.measurementUnit100ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled
+
+                    # Flag for displaying measurements in number of 110-degree units.
+                    self.measurementUnit110ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled
+
+                    # Flag for displaying measurements in number of 112-degree units.
+                    self.measurementUnit112ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled
+
+                    # Flag for displaying measurements in number of 133-degree units.
+                    self.measurementUnit133ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled
+
+                    # Flag for displaying measurements in number of 137-degree units.
+                    self.measurementUnit137ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled
+
+                    # Flag for displaying measurements in number of 144-degree units.
+                    self.measurementUnit144ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled
+
+                    # Flag for displaying measurements in number of 153-degree units.
+                    self.measurementUnit153ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled
+
+                    # Flag for displaying measurements in number of 194-degree units.
+                    self.measurementUnit194ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled
+
+                    # Flag for displaying measurements in number of 500-degree units.
+                    self.measurementUnit500ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled
+
+                    self.log.debug(\
+                        "Added field " + \
+                        "'measurementUnit7ersEnabled', " + \
+                        "'measurementUnit11ersEnabled', " + \
+                        "'measurementUnit12ersEnabled', " + \
+                        "'measurementUnit24ersEnabled', " + \
+                        "'measurementUnit25ersEnabled', " + \
+                        "'measurementUnit33ersEnabled', " + \
+                        "'measurementUnit36ersEnabled', " + \
+                        "'measurementUnit37ersEnabled', " + \
+                        "'measurementUnit40ersEnabled', " + \
+                        "'measurementUnit45ersEnabled', " + \
+                        "'measurementUnit49ersEnabled', " + \
+                        "'measurementUnit60ersEnabled', " + \
+                        "'measurementUnit69ersEnabled', " + \
+                        "'measurementUnit72ersEnabled', " + \
+                        "'measurementUnit84ersEnabled', " + \
+                        "'measurementUnit90ersEnabled', " + \
+                        "'measurementUnit100ersEnabled', " + \
+                        "'measurementUnit110ersEnabled', " + \
+                        "'measurementUnit112ersEnabled', " + \
+                        "'measurementUnit133ersEnabled', " + \
+                        "'measurementUnit137ersEnabled', " + \
+                        "'measurementUnit144ersEnabled', " + \
+                        "'measurementUnit153ersEnabled', " + \
+                        "'measurementUnit194ersEnabled', " + \
+                        "'measurementUnit500ersEnabled', " + \
+                        "to the loaded object.")
+
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 7
+
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+
         # Log that we set the state of this object.
         self.log.debug("Set state of a " +
                        PriceBarChartPlanetLongitudeMovementMeasurementArtifact.__name__ +
@@ -9666,7 +10570,7 @@ class PriceBarChartTextArtifact(PriceBarChartArtifact):
                         defaultTextGraphicsItemDefaultRotationAngle
 
                     self.log.debug("Added field 'textRotationAngle' " + \
-                                  "to the loaded PriceBarChartTextArtifact.")
+                                  "to the loaded object.")
 
                 # Update the class version.
                 prevClassVersion = self.classVersion
@@ -18209,7 +19113,7 @@ class PriceChartDocumentData:
 
                     self.log.debug("Added field " + \
                                    "'lookbackMultiples' " + \
-                                   "to the loaded PriceChartDocumentData.")
+                                   "to the loaded object.")
 
                 # Update the class version.
                 prevClassVersion = self.classVersion
@@ -18569,6 +19473,106 @@ class PriceBarChartSettings:
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # measurementUnitBiblicalCirclesEnabled (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit7ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit11ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit12ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit24ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit25ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit33ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit36ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit37ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit40ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit45ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit49ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit60ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit69ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit72ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit84ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit90ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit100ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit110ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit112ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit133ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit137ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit144ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit153ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit194ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # measurementUnit500ersEnabled (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled = False
 
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetH1EnabledFlag (bool).
@@ -19566,7 +20570,7 @@ class PriceBarChartSettings:
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 13
+        self.classVersion = 14
 
         # List of scalings used in the PriceBarChartGraphicsView.
         # This is list of PriceBarChartScaling objects.
@@ -20044,6 +21048,156 @@ class PriceBarChartSettings:
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit7ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit11ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit12ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit24ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit25ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit33ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit36ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit37ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit40ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit45ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit49ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit60ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit69ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit72ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit84ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit90ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit100ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit110ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit112ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit133ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit137ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit144ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit153ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit194ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # measurementUnit500ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled
 
         # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetH1EnabledFlag (bool).
@@ -21408,7 +22562,7 @@ class PriceBarChartSettings:
         self.log = logging.getLogger("data_objects.PriceBarChartSettings")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 13:
+        if self.classVersion < 14:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartSettings (version {}).  ".\
                           format(self.classVersion))
@@ -21437,7 +22591,7 @@ class PriceBarChartSettings:
 
                     self.log.debug("Added field " + \
                                    "'textGraphicsItemDefaultRotationAngle' " + \
-                                   "to the loaded PriceBarChartSettings.")
+                                   "to the loaded object.")
 
                 # Update the class version.
                 prevClassVersion = self.classVersion
@@ -21497,7 +22651,7 @@ class PriceBarChartSettings:
                                    "'timeModalScaleGraphicsItemFontSize', "
                                    "'priceModalScaleGraphicsItemBarWidth', "
                                    "'priceModalScaleGraphicsItemFontSize', "
-                                   "to the loaded PriceBarChartSettings.")
+                                   "to the loaded object.")
 
                 # Update the class version.
                 prevClassVersion = self.classVersion
@@ -21525,6 +22679,7 @@ class PriceBarChartSettings:
                 # self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled
                 # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetH2EnabledFlag
                 # self.planetLongitudeMovementMeasurementGraphicsItemPlanetH3EnabledFlag
@@ -22134,7 +23289,7 @@ class PriceBarChartSettings:
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetAvgMaJuSaUrNePlEnabledFlag', " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaUrNeEnabledFlag', " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetAvgJuSaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                 # Update the class version.
                 prevClassVersion = self.classVersion
@@ -22212,7 +23367,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMeEaEnabledFlag (bool).
@@ -22223,7 +23378,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMeMaEnabledFlag (bool).
@@ -22234,7 +23389,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeMaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMeJuEnabledFlag (bool).
@@ -22245,7 +23400,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeJuEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMeSaEnabledFlag (bool).
@@ -22256,7 +23411,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeSaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMeUrEnabledFlag (bool).
@@ -22267,7 +23422,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetVeEaEnabledFlag (bool).
@@ -22278,7 +23433,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetVeMaEnabledFlag (bool).
@@ -22289,7 +23444,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetVeJuEnabledFlag (bool).
@@ -22300,7 +23455,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeJuEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetVeSaEnabledFlag (bool).
@@ -22311,7 +23466,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeSaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetVeUrEnabledFlag (bool).
@@ -22322,7 +23477,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetEaMaEnabledFlag (bool).
@@ -22333,7 +23488,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetEaJuEnabledFlag (bool).
@@ -22344,7 +23499,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetEaSaEnabledFlag (bool).
@@ -22355,7 +23510,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetEaUrEnabledFlag (bool).
@@ -22366,7 +23521,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetEaUrEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMaJuEnabledFlag (bool).
@@ -22377,7 +23532,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMaSaEnabledFlag (bool).
@@ -22388,7 +23543,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMaSaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetMaUrEnabledFlag (bool).
@@ -22399,7 +23554,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMaUrEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetJuSaEnabledFlag (bool).
@@ -22410,7 +23565,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetJuUrEnabledFlag (bool).
@@ -22421,7 +23576,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                     # PlanetLongitudeMovementMeasurementGraphicsItem
                     # planetSaUrEnabledFlag (bool).
@@ -22432,7 +23587,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
 
                 # Update the class version.
@@ -22560,7 +23715,7 @@ class PriceBarChartSettings:
 
                     self.log.debug("Added field(s): " + \
                                    "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled', " + \
-                                   "to the loaded PriceBarChartSettings.")
+                                   "to the loaded object.")
 
                 # Update the class version.
                 prevClassVersion = self.classVersion
@@ -22685,7 +23840,7 @@ class PriceBarChartSettings:
                                    "'lineSegment2GraphicsItemDefaultFontDescription', " + \
                                    "'lineSegment2GraphicsItemTiltedTextFlag', " + \
                                    "'lineSegment2GraphicsItemAngleTextFlag', " + \
-                                   "to the loaded PriceBarChartSettings.")
+                                   "to the loaded object.")
 
                     # Remove old fields.
                     del self.lineSegmentGraphicsItemColor
@@ -22733,7 +23888,7 @@ class PriceBarChartSettings:
                     self.log.debug(\
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                 # Update the class version.
                 prevClassVersion = self.classVersion
@@ -22894,7 +24049,7 @@ class PriceBarChartSettings:
                     "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMeEnabledFlag', " + \
                     "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaVeEnabledFlag', " + \
                     "'self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaMaEnabledFlag', " + \
-                    "from the loaded PriceBarChartSettings.")
+                    "from the loaded object.")
 
                 # Update the class version.
                 prevClassVersion = self.classVersion
@@ -22950,7 +24105,7 @@ class PriceBarChartSettings:
                         "'lookbackMultiplePriceBarGraphicsItemPenWidth', " + \
                         "'lookbackMultiplePriceBarGraphicsItemLeftExtensionWidth', " + \
                         "'lookbackMultiplePriceBarGraphicsItemRightExtensionWidth', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                 # Update the class version.
                 prevClassVersion = self.classVersion
@@ -23010,7 +24165,7 @@ class PriceBarChartSettings:
                         "'verticalLineSegmentGraphicsItemBarWidth', " + \
                         "'horizontalLineSegmentGraphicsItemColor', " + \
                         "'horizontalLineSegmentGraphicsItemBarWidth', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                 # Update the class version.
                 prevClassVersion = self.classVersion
@@ -23057,11 +24212,266 @@ class PriceBarChartSettings:
                         "Added field " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetAsSuEnabledFlag', " + \
                         "'planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag', " + \
-                        "to the loaded PriceBarChartSettings.")
+                        "to the loaded object.")
 
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 13
+
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+
+
+            if self.classVersion == 13:
+                # Version 14 added the following member variables:
+                #
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled
+                # self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled
+                #
+
+                try:
+                    # See if the variables are set.
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled
+
+                    # If it got here, then the fields are already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have these fields.")
+
+                except AttributeError:
+                    # Variable was not set.  Set it to the default
+                    # PriceBarChartSettings value.
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit7ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit11ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit12ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit24ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit25ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit33ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit36ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit37ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit40ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit45ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit49ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit60ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit69ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit72ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit84ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit90ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit100ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit110ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit112ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit133ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit137ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit144ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit153ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit194ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # measurementUnit500ersEnabled (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled
+
+                    self.log.debug(\
+                        "Added field " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled', " + \
+                        "to the loaded object.")
+
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 14
 
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\

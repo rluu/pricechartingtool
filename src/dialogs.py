@@ -40343,6 +40343,8 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self._buildPlanetLongitudeMovementMeasurementGraphicsItemGroupBox1()
         self.planetLongitudeMovementMeasurementGraphicsItemGroupBox2 = \
             self._buildPlanetLongitudeMovementMeasurementGraphicsItemGroupBox2()
+        self.planetLongitudeMovementMeasurementGraphicsItemGroupBox3 = \
+            self._buildPlanetLongitudeMovementMeasurementGraphicsItemGroupBox3()
 
         # QGroupBox to hold the edit widgets and form for TextGraphicsItem.
         self.textGraphicsItemGroupBox = \
@@ -40523,6 +40525,11 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemGroupBox2,
             QIcon(":/images/rluu/planetLongitudeMovementMeasurement.png"),
             "(2)")
+
+        self.tabWidget.addTab(\
+            self.planetLongitudeMovementMeasurementGraphicsItemGroupBox3,
+            QIcon(":/images/rluu/planetLongitudeMovementMeasurement.png"),
+            "(3)")
 
         self.tabWidget.addTab(\
             self.textGraphicsItemGroupBox,
@@ -41733,172 +41740,128 @@ class PriceBarChartSettingsEditWidget(QWidget):
             QPushButton("Uncheck all below")
 
         # timeMeasurementGraphicsItemShowBarsTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowBarsTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show bars text:")
         self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show bars text")
         self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrtBarsTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem showSqrt bars text:")
         self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrt bars text")
         self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrdBarsTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrdBarsTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem showSqrd bars text:")
         self.timeMeasurementGraphicsItemShowSqrdBarsTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrd bars text")
         self.timeMeasurementGraphicsItemShowSqrdBarsTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowHoursTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowHoursTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show hours text:")
         self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show hours text")
         self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrtHoursTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem showSqrt hours text:")
         self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrt hours text")
         self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrdHoursTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrdHoursTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem showSqrd hours text:")
         self.timeMeasurementGraphicsItemShowSqrdHoursTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrd hours text")
         self.timeMeasurementGraphicsItemShowSqrdHoursTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowDaysTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowDaysTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show days text:")
         self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show days text")
         self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrtDaysTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem showSqrt days text:")
         self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrt days text")
         self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrdDaysTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrdDaysTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem showSqrd days text:")
         self.timeMeasurementGraphicsItemShowSqrdDaysTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrd days text")
         self.timeMeasurementGraphicsItemShowSqrdDaysTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowWeeksTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowWeeksTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show weeks text:")
         self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show weeks text")
         self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrtWeeksTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem showSqrt weeks text:")
         self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrt weeks text")
         self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrdWeeksTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrdWeeksTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem showSqrd weeks text:")
         self.timeMeasurementGraphicsItemShowSqrdWeeksTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrd weeks text")
         self.timeMeasurementGraphicsItemShowSqrdWeeksTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowMonthsTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowMonthsTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show months text:")
         self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show months text")
         self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrtMonthsTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem showSqrt months text:")
         self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrt months text")
         self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrdMonthsTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrdMonthsTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem showSqrd months text:")
         self.timeMeasurementGraphicsItemShowSqrdMonthsTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrd months text")
         self.timeMeasurementGraphicsItemShowSqrdMonthsTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowTimeRangeTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowTimeRangeTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show time range text:")
         self.timeMeasurementGraphicsItemShowTimeRangeTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show time range text")
         self.timeMeasurementGraphicsItemShowTimeRangeTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show sqrt time range text:")
         self.timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrt time range text")
         self.timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show sqrd time range text:")
         self.timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrd time range text")
         self.timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowScaledValueRangeTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show scaled value range text:")
         self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show scaled value range text")
         self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sqrt of scaled value range text:")
         self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrt of scaled value range text")
         self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sqrd of scaled value range text:")
         self.timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrd of scaled value range text")
         self.timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
@@ -41988,231 +41951,82 @@ class PriceBarChartSettingsEditWidget(QWidget):
             r, 2, ar)
 
         r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemGroupBox1CheckAllButton,
-            r, 1, ar)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemGroupBox1UncheckAllButton,
-            r, 2, ar)
 
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowBarsTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox,
-            r, 1, ar)
+        checkBoxesCheckAllUncheckAllLayout = QHBoxLayout()
+        checkBoxesCheckAllUncheckAllLayout.\
+            addWidget(self.timeMeasurementGraphicsItemGroupBox1CheckAllButton)
+        checkBoxesCheckAllUncheckAllLayout.\
+            addWidget(self.timeMeasurementGraphicsItemGroupBox1UncheckAllButton)
+        checkBoxesCheckAllUncheckAllLayout.addStretch()
 
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox,
-            r, 1, ar)
+        checkBoxesLeftLayout = QVBoxLayout()
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowBarsTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtBarsTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdBarsTextFlagCheckBox)
+        checkBoxesLeftLayout.addSpacing(10)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdHoursTextFlagCheckBox)
+        checkBoxesLeftLayout.addSpacing(10)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdDaysTextFlagCheckBox)
+        checkBoxesLeftLayout.addSpacing(10)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdWeeksTextFlagCheckBox)
+        checkBoxesLeftLayout.addStretch()
 
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdBarsTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdBarsTextFlagCheckBox,
-            r, 1, ar)
+        checkBoxesRightLayout = QVBoxLayout()
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox)
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox)
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdMonthsTextFlagCheckBox)
+        checkBoxesRightLayout.addSpacing(10)
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowTimeRangeTextFlagCheckBox)
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagCheckBox)
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlagCheckBox)
+        checkBoxesRightLayout.addSpacing(10)
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox)
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox)
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlagCheckBox)
+        checkBoxesRightLayout.addStretch()
 
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowHoursTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowHoursTextFlagCheckBox,
-            r, 1, ar)
+        checkBoxesHLayout = QHBoxLayout()
+        checkBoxesHLayout.addLayout(checkBoxesLeftLayout)
+        checkBoxesHLayout.addSpacing(20)
+        checkBoxesHLayout.addLayout(checkBoxesRightLayout)
+        checkBoxesHLayout.addStretch()
 
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtHoursTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdHoursTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdHoursTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowDaysTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowDaysTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtDaysTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdDaysTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdDaysTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowWeeksTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowWeeksTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtWeeksTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdWeeksTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdWeeksTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowMonthsTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowMonthsTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtMonthsTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdMonthsTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdMonthsTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowTimeRangeTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowTimeRangeTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.\
-            timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.\
-            timeMeasurementGraphicsItemShowSqrtTimeRangeTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.\
-            timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.\
-            timeMeasurementGraphicsItemShowSqrdTimeRangeTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowScaledValueRangeTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtScaledValueRangeTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdScaledValueRangeTextFlagCheckBox,
-            r, 1, ar)
+        checkBoxesLayout = QVBoxLayout()
+        checkBoxesLayout.addLayout(checkBoxesCheckAllUncheckAllLayout)
+        checkBoxesLayout.addLayout(checkBoxesHLayout)
+        checkBoxesLayout.addStretch()
 
         groupBox1Layout = QVBoxLayout()
         groupBox1Layout.addLayout(gridLayout)
+        groupBox1Layout.addSpacing(10)
+        groupBox1Layout.addLayout(checkBoxesLayout)
         groupBox1Layout.addStretch()
 
         self.timeMeasurementGraphicsItemGroupBox1.setLayout(groupBox1Layout)
@@ -42239,422 +42053,205 @@ class PriceBarChartSettingsEditWidget(QWidget):
             QPushButton("Uncheck all below")
 
         # timeMeasurementGraphicsItemShowAyanaTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowAyanaTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "ayana (6 months/Sun) text:")
         self.timeMeasurementGraphicsItemShowAyanaTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show ayana (6 months/Sun) text")
         self.timeMeasurementGraphicsItemShowAyanaTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrtAyanaTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrtAyanaTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sqrt of ayana (6 months/Sun) text:")
         self.timeMeasurementGraphicsItemShowSqrtAyanaTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrt of ayana (6 months/Sun) text")
         self.timeMeasurementGraphicsItemShowSqrtAyanaTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrdAyanaTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrdAyanaTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sqrd of ayana (6 months/Sun) text:")
         self.timeMeasurementGraphicsItemShowSqrdAyanaTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrd of ayana (6 months/Sun) text")
         self.timeMeasurementGraphicsItemShowSqrdAyanaTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowMuhurtaTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowMuhurtaTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "muhurta (48 minutes/Moon) text:")
         self.timeMeasurementGraphicsItemShowMuhurtaTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show muhurta (48 minutes/Moon) text")
         self.timeMeasurementGraphicsItemShowMuhurtaTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sqrt of muhurta (48 minutes/Moon) text:")
         self.timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrt of muhurta (48 minutes/Moon) text")
         self.timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sqrd of muhurta (48 minutes/Moon) text:")
         self.timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrd of muhurta (48 minutes/Moon) text")
         self.timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowVaraTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowVaraTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "vara (24-hour day/Mars) text:")
         self.timeMeasurementGraphicsItemShowVaraTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show vara (24-hour day/Mars) text")
         self.timeMeasurementGraphicsItemShowVaraTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrtVaraTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrtVaraTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sqrt of vara (24-hour day/Mars) text:")
         self.timeMeasurementGraphicsItemShowSqrtVaraTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrt of vara (24-hour day/Mars) text")
         self.timeMeasurementGraphicsItemShowSqrtVaraTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrdVaraTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrdVaraTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sqrd of vara (24-hour day/Mars) text:")
         self.timeMeasurementGraphicsItemShowSqrdVaraTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrd of vara (24-hour day/Mars) text")
         self.timeMeasurementGraphicsItemShowSqrdVaraTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowRtuTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowRtuTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "rtu (season of 2 months/Mercury) text:")
         self.timeMeasurementGraphicsItemShowRtuTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show rtu (season of 2 months/Mercury) text")
         self.timeMeasurementGraphicsItemShowRtuTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrtRtuTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrtRtuTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sqrt of rtu (season of 2 months/Mercury) text:")
         self.timeMeasurementGraphicsItemShowSqrtRtuTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrt of rtu (season of 2 months/Mercury) text")
         self.timeMeasurementGraphicsItemShowSqrtRtuTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrdRtuTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrdRtuTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sqrd of rtu (season of 2 months/Mercury) text:")
         self.timeMeasurementGraphicsItemShowSqrdRtuTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrd of rtu (season of 2 months/Mercury) text")
         self.timeMeasurementGraphicsItemShowSqrdRtuTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowMasaTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowMasaTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "masa (lunar synodic month/Jupiter) text:")
         self.timeMeasurementGraphicsItemShowMasaTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show masa (lunar synodic month/Jupiter) text")
         self.timeMeasurementGraphicsItemShowMasaTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrtMasaTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrtMasaTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sqrt of masa (lunar synodic month/Jupiter) text:")
         self.timeMeasurementGraphicsItemShowSqrtMasaTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrt of masa (lunar synodic month/Jupiter) text")
         self.timeMeasurementGraphicsItemShowSqrtMasaTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrdMasaTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrdMasaTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sqrd of masa (lunar synodic month/Jupiter) text:")
         self.timeMeasurementGraphicsItemShowSqrdMasaTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrd of masa (lunar synodic month/Jupiter) text")
         self.timeMeasurementGraphicsItemShowSqrdMasaTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowPaksaTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowPaksaTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "paksa (fortnight/Venus) text:")
         self.timeMeasurementGraphicsItemShowPaksaTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show paksa (fortnight/Venus) text")
         self.timeMeasurementGraphicsItemShowPaksaTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrtPaksaTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrtPaksaTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sqrt of paksa (fortnight/Venus) text:")
         self.timeMeasurementGraphicsItemShowSqrtPaksaTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrt of paksa (fortnight/Venus) text")
         self.timeMeasurementGraphicsItemShowSqrtPaksaTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrdPaksaTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrdPaksaTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sqrd of paksa (fortnight/Venus) text:")
         self.timeMeasurementGraphicsItemShowSqrdPaksaTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrd of paksa (fortnight/Venus) text")
         self.timeMeasurementGraphicsItemShowSqrdPaksaTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSamaTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSamaTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sama (year/Saturn) text:")
         self.timeMeasurementGraphicsItemShowSamaTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sama (year/Saturn) text")
         self.timeMeasurementGraphicsItemShowSamaTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrtSamaTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrtSamaTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sqrt of sama (year/Saturn) text:")
         self.timeMeasurementGraphicsItemShowSqrtSamaTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrt of sama (year/Saturn) text")
         self.timeMeasurementGraphicsItemShowSqrtSamaTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # timeMeasurementGraphicsItemShowSqrdSamaTextFlag (bool).
-        self.timeMeasurementGraphicsItemShowSqrdSamaTextFlagLabel = \
-            QLabel("TimeMeasurementGraphicsItem show " +
-                   "sqrd of sama (year/Saturn) text:")
         self.timeMeasurementGraphicsItemShowSqrdSamaTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show sqrd of sama (year/Saturn) text")
         self.timeMeasurementGraphicsItemShowSqrdSamaTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
 
         checkUncheckButtonsLayout = QHBoxLayout()
-        checkUncheckButtonsLayout.addStretch()
         checkUncheckButtonsLayout.addWidget(\
             self.timeMeasurementGraphicsItemGroupBox2CheckAllButton)
         checkUncheckButtonsLayout.addWidget(\
             self.timeMeasurementGraphicsItemGroupBox2UncheckAllButton)
+        checkUncheckButtonsLayout.addStretch()
 
-        # Grid layout.
-        gridLayout = QGridLayout()
-        r = 0
-        al = Qt.AlignLeft
-        ar = Qt.AlignRight
+        checkBoxesLeftLayout = QVBoxLayout()
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowAyanaTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtAyanaTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdAyanaTextFlagCheckBox)
+        checkBoxesLeftLayout.addSpacing(10)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowMuhurtaTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlagCheckBox)
+        checkBoxesLeftLayout.addSpacing(10)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowVaraTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtVaraTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdVaraTextFlagCheckBox)
+        checkBoxesLeftLayout.addSpacing(10)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowRtuTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtRtuTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdRtuTextFlagCheckBox)
+        checkBoxesLeftLayout.addStretch()
 
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowAyanaTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowAyanaTextFlagCheckBox,
-            r, 1, ar)
+        checkBoxesRightLayout = QVBoxLayout()
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowMasaTextFlagCheckBox)
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtMasaTextFlagCheckBox)
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdMasaTextFlagCheckBox)
+        checkBoxesRightLayout.addSpacing(10)
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowPaksaTextFlagCheckBox)
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtPaksaTextFlagCheckBox)
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdPaksaTextFlagCheckBox)
+        checkBoxesRightLayout.addSpacing(10)
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSamaTextFlagCheckBox)
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrtSamaTextFlagCheckBox)
+        checkBoxesRightLayout.addWidget(\
+            self.timeMeasurementGraphicsItemShowSqrdSamaTextFlagCheckBox)
+        checkBoxesRightLayout.addStretch()
 
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtAyanaTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtAyanaTextFlagCheckBox,
-            r, 1, ar)
+        checkBoxesHLayout = QHBoxLayout()
+        checkBoxesHLayout.addLayout(checkBoxesLeftLayout)
+        checkBoxesHLayout.addSpacing(20)
+        checkBoxesHLayout.addLayout(checkBoxesRightLayout)
+        checkBoxesHLayout.addStretch()
 
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdAyanaTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdAyanaTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowMuhurtaTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowMuhurtaTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtMuhurtaTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdMuhurtaTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowVaraTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowVaraTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtVaraTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtVaraTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdVaraTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdVaraTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowRtuTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowRtuTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtRtuTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtRtuTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdRtuTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdRtuTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowMasaTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowMasaTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtMasaTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtMasaTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdMasaTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdMasaTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowPaksaTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowPaksaTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtPaksaTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtPaksaTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdPaksaTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdPaksaTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSamaTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSamaTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtSamaTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrtSamaTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdSamaTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.timeMeasurementGraphicsItemShowSqrdSamaTextFlagCheckBox,
-            r, 1, ar)
-
+        checkBoxesLayout = QVBoxLayout()
+        checkBoxesLayout.addLayout(checkUncheckButtonsLayout)
+        checkBoxesLayout.addLayout(checkBoxesHLayout)
+        checkBoxesLayout.addStretch()
 
         groupBox2Layout = QVBoxLayout()
-        groupBox2Layout.addLayout(checkUncheckButtonsLayout)
-        groupBox2Layout.addLayout(gridLayout)
-        groupBox2Layout.addStretch()
+        groupBox2Layout.addLayout(checkBoxesLayout)
 
         self.timeMeasurementGraphicsItemGroupBox2.setLayout(groupBox2Layout)
 
@@ -43232,75 +42829,39 @@ class PriceBarChartSettingsEditWidget(QWidget):
             QPushButton("Reset to default")
 
         # planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlagLabel = \
-            QLabel("Show geocentric retro as zero text:")
         self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show geocentric retro as zero text")
         self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlagLabel = \
-            QLabel("Show geocentric retro as positive text:")
         self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show geocentric retro as positive text")
         self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlagLabel = \
-            QLabel("Show geocentric retro as negative text:")
         self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show geocentric retro as negative text")
         self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlagLabel = \
-            QLabel("Show heliocentric text:")
         self.planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Show heliocentric text")
         self.planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlagLabel = \
-            QLabel("Use tropical zodiac:")
         self.planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Use tropical zodiac")
         self.planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlagLabel = \
-            QLabel("Use sidereal zodiac:")
         self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlagCheckBox = \
-            QCheckBox()
+            QCheckBox("Use sidereal zodiac")
         self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlagCheckBox.\
-            setCheckState(Qt.Unchecked)
-
-        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabledLabel = \
-            QLabel("Measurement unit degrees:")
-        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabledCheckBox = \
-            QCheckBox()
-        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabledCheckBox.\
-            setCheckState(Qt.Unchecked)
-
-        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledLabel = \
-            QLabel("Measurement unit circles:")
-        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledCheckBox = \
-            QCheckBox()
-        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledCheckBox.\
-            setCheckState(Qt.Unchecked)
-
-        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledLabel = \
-            QLabel("Measurement unit biblical circles:")
-        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledCheckBox = \
-            QCheckBox()
-        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # Grid layout.
@@ -43402,99 +42963,32 @@ class PriceBarChartSettingsEditWidget(QWidget):
             r, 2, ar)
 
         r += 1
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlagCheckBox,
-            r, 1, ar)
 
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlagCheckBox,
-            r, 1, ar)
+        # Layout for check boxes.
+        checkBoxesLeftLayout = QVBoxLayout()
+        checkBoxesLeftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsZeroTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsPositiveTextFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlagCheckBox)
+        checkBoxesLeftLayout.addSpacing(10)
+        checkBoxesLeftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlagCheckBox)
+        checkBoxesLeftLayout.addSpacing(10)
+        checkBoxesLeftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlagCheckBox)
+        checkBoxesLeftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlagCheckBox)
+        checkBoxesLeftLayout.addStretch()
 
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemShowHeliocentricTextFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemTropicalZodiacFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlagLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemSiderealZodiacFlagCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabledLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabledCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledCheckBox,
-            r, 1, ar)
-
-        r += 1
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledLabel,
-            r, 0, al)
-        gridLayout.\
-            addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledCheckBox,
-            r, 1, ar)
-
-        r += 1
+        checkBoxesLayout = QHBoxLayout()
+        checkBoxesLayout.addLayout(checkBoxesLeftLayout)
 
         groupBox1Layout = QVBoxLayout()
         groupBox1Layout.addLayout(gridLayout)
+        groupBox1Layout.addSpacing(10)
+        groupBox1Layout.addLayout(checkBoxesLayout)
         groupBox1Layout.addStretch()
 
         self.planetLongitudeMovementMeasurementGraphicsItemGroupBox1.setLayout(groupBox1Layout)
@@ -43511,6 +43005,266 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         self.planetLongitudeMovementMeasurementGraphicsItemGroupBox2 = \
             QGroupBox("PlanetLongitudeMovementMeasurementGraphicsItem settings (page 2):")
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabledCheckBox = \
+            QCheckBox("Measurement unit degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledCheckBox = \
+            QCheckBox("Measurement unit circles")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledCheckBox = \
+            QCheckBox("Measurement unit biblical circles")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 7-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 11-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 12-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 24-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 25-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 33-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 36-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 37-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 40-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 45-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 49-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 60-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 69-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 72-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 84-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 90-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 100-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 110-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 112-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 133-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 137-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 144-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 153-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 194-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 500-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # Layout on the left side.
+        leftLayout = QVBoxLayout()
+
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitDegreesEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabledCheckBox)
+
+        leftLayout.addStretch()
+
+        # Layout on the middle side.
+        middleLayout = QVBoxLayout()
+
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabledCheckBox)
+
+        middleLayout.addStretch()
+
+        # Layout on the right side.
+        rightLayout = QVBoxLayout()
+        rightLayout.addStretch()
+
+        groupBox2Layout = QHBoxLayout()
+        groupBox2Layout.addLayout(leftLayout)
+        groupBox2Layout.addLayout(middleLayout)
+        groupBox2Layout.addLayout(rightLayout)
+
+        self.planetLongitudeMovementMeasurementGraphicsItemGroupBox2.setLayout(groupBox2Layout)
+
+        return self.planetLongitudeMovementMeasurementGraphicsItemGroupBox2
+
+    def _buildPlanetLongitudeMovementMeasurementGraphicsItemGroupBox3(self):
+        """Builds the groupbox containing info to edit the
+        PriceBarChartSettings related to a PlanetLongitudeMovementMeasurementGraphicsItem.
+
+        Returns:
+        QGroupBox obj containing all the created widgets.
+        """
+
+        self.planetLongitudeMovementMeasurementGraphicsItemGroupBox3 = \
+            QGroupBox("PlanetLongitudeMovementMeasurementGraphicsItem settings (page 3):")
 
         # planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlagCheckBox = \
@@ -44147,14 +43901,14 @@ class PriceBarChartSettingsEditWidget(QWidget):
 
         midRightLayout.addStretch()
 
-        groupBox2Layout = QHBoxLayout()
-        groupBox2Layout.addLayout(farLeftLayout)
-        groupBox2Layout.addLayout(midLeftLayout)
-        groupBox2Layout.addLayout(midRightLayout)
+        groupBox3Layout = QHBoxLayout()
+        groupBox3Layout.addLayout(farLeftLayout)
+        groupBox3Layout.addLayout(midLeftLayout)
+        groupBox3Layout.addLayout(midRightLayout)
 
-        self.planetLongitudeMovementMeasurementGraphicsItemGroupBox2.setLayout(groupBox2Layout)
+        self.planetLongitudeMovementMeasurementGraphicsItemGroupBox3.setLayout(groupBox3Layout)
 
-        return self.planetLongitudeMovementMeasurementGraphicsItemGroupBox2
+        return self.planetLongitudeMovementMeasurementGraphicsItemGroupBox3
 
     def _buildTextGraphicsItemGroupBox(self):
         """Builds the groupbox containing info to edit the
@@ -49670,6 +49424,256 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabledCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag (bool).
         if self.priceBarChartSettings.\
            planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag == True:
@@ -52292,6 +52296,256 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled = False
 
         # planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlagCheckBox.\

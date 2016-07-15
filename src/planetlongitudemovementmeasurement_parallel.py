@@ -47,6 +47,56 @@ def getPlanetLongitudeMovementMeasurementText(argsTuple):
     i += 1
     measurementUnitBiblicalCirclesEnabled = argsTuple[i]
     i += 1
+    measurementUnit7ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit11ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit12ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit24ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit25ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit33ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit36ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit37ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit40ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit45ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit49ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit60ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit69ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit72ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit84ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit90ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit100ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit110ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit112ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit133ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit137ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit144ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit153ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit194ersEnabled = argsTuple[i]
+    i += 1
+    measurementUnit500ersEnabled = argsTuple[i]
+    i += 1
     maxErrorTd = argsTuple[i]
     i += 1
     locationLongitudeDegrees = argsTuple[i]
@@ -73,6 +123,31 @@ def getPlanetLongitudeMovementMeasurementText(argsTuple):
         measurementUnitDegreesEnabled,
         measurementUnitCirclesEnabled,
         measurementUnitBiblicalCirclesEnabled,
+        measurementUnit7ersEnabled,
+        measurementUnit11ersEnabled,
+        measurementUnit12ersEnabled,
+        measurementUnit24ersEnabled,
+        measurementUnit25ersEnabled,
+        measurementUnit33ersEnabled,
+        measurementUnit36ersEnabled,
+        measurementUnit37ersEnabled,
+        measurementUnit40ersEnabled,
+        measurementUnit45ersEnabled,
+        measurementUnit49ersEnabled,
+        measurementUnit60ersEnabled,
+        measurementUnit69ersEnabled,
+        measurementUnit72ersEnabled,
+        measurementUnit84ersEnabled,
+        measurementUnit90ersEnabled,
+        measurementUnit100ersEnabled,
+        measurementUnit110ersEnabled,
+        measurementUnit112ersEnabled,
+        measurementUnit133ersEnabled,
+        measurementUnit137ersEnabled,
+        measurementUnit144ersEnabled,
+        measurementUnit153ersEnabled,
+        measurementUnit194ersEnabled,
+        measurementUnit500ersEnabled,
         maxErrorTd)
 
 
@@ -131,6 +206,106 @@ class PlanetLongitudeMovementMeasurementParallel:
         measurementUnitBiblicalCirclesEnabled,
                        - bool flag for measuring in units of
                          George Bayer's biblical circles.
+
+        measurementUnit7ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 7-degree units.
+
+        measurementUnit11ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 11-degree units.
+
+        measurementUnit12ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 12-degree units.
+
+        measurementUnit24ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 24-degree units.
+
+        measurementUnit25ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 25-degree units.
+
+        measurementUnit33ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 33-degree units.
+
+        measurementUnit36ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 36-degree units.
+
+        measurementUnit37ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 37-degree units.
+
+        measurementUnit40ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 40-degree units.
+
+        measurementUnit45ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 45-degree units.
+
+        measurementUnit49ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 49-degree units.
+
+        measurementUnit60ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 60-degree units.
+
+        measurementUnit69ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 69-degree units.
+
+        measurementUnit72ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 72-degree units.
+
+        measurementUnit84ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 84-degree units.
+
+        measurementUnit90ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 90-degree units.
+
+        measurementUnit100ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 100-degree units.
+
+        measurementUnit110ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 110-degree units.
+
+        measurementUnit112ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 112-degree units.
+
+        measurementUnit133ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 133-degree units.
+
+        measurementUnit137ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 137-degree units.
+
+        measurementUnit144ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 144-degree units.
+
+        measurementUnit153ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 153-degree units.
+
+        measurementUnit194ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 194-degree units.
+
+        measurementUnit500ersEnabled,
+                       - bool flag for displaying measurements in number
+                         of 500-degree units.
 
         maxErrorTd - datetime.timedelta object holding the maximum
                      time difference between the exact planetary

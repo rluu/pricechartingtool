@@ -7878,6 +7878,131 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
 
+        # Flag for displaying measurements in number of 7-degree units.
+        self.measurementUnit7ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled
+
+        # Flag for displaying measurements in number of 11-degree units.
+        self.measurementUnit11ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled
+
+        # Flag for displaying measurements in number of 12-degree units.
+        self.measurementUnit12ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled
+
+        # Flag for displaying measurements in number of 24-degree units.
+        self.measurementUnit24ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled
+
+        # Flag for displaying measurements in number of 25-degree units.
+        self.measurementUnit25ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled
+
+        # Flag for displaying measurements in number of 33-degree units.
+        self.measurementUnit33ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled
+
+        # Flag for displaying measurements in number of 36-degree units.
+        self.measurementUnit36ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled
+
+        # Flag for displaying measurements in number of 37-degree units.
+        self.measurementUnit37ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled
+
+        # Flag for displaying measurements in number of 40-degree units.
+        self.measurementUnit40ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled
+
+        # Flag for displaying measurements in number of 45-degree units.
+        self.measurementUnit45ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled
+
+        # Flag for displaying measurements in number of 49-degree units.
+        self.measurementUnit49ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled
+
+        # Flag for displaying measurements in number of 60-degree units.
+        self.measurementUnit60ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled
+
+        # Flag for displaying measurements in number of 69-degree units.
+        self.measurementUnit69ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled
+
+        # Flag for displaying measurements in number of 72-degree units.
+        self.measurementUnit72ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled
+
+        # Flag for displaying measurements in number of 84-degree units.
+        self.measurementUnit84ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled
+
+        # Flag for displaying measurements in number of 90-degree units.
+        self.measurementUnit90ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled
+
+        # Flag for displaying measurements in number of 100-degree units.
+        self.measurementUnit100ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled
+
+        # Flag for displaying measurements in number of 110-degree units.
+        self.measurementUnit110ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled
+
+        # Flag for displaying measurements in number of 112-degree units.
+        self.measurementUnit112ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled
+
+        # Flag for displaying measurements in number of 133-degree units.
+        self.measurementUnit133ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled
+
+        # Flag for displaying measurements in number of 137-degree units.
+        self.measurementUnit137ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled
+
+        # Flag for displaying measurements in number of 144-degree units.
+        self.measurementUnit144ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled
+
+        # Flag for displaying measurements in number of 153-degree units.
+        self.measurementUnit153ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled
+
+        # Flag for displaying measurements in number of 194-degree units.
+        self.measurementUnit194ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled
+
+        # Flag for displaying measurements in number of 500-degree units.
+        self.measurementUnit500ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled
+
         # List of names of the enabled planets.
         self.planetNamesEnabled = []
         if PriceBarChartSettings.\
@@ -8288,6 +8413,131 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         self.measurementUnitBiblicalCirclesEnabled = \
             priceBarChartSettings.\
             planetLongitudeMovementMeasurementGraphicsItemMeasurementUnitBiblicalCirclesEnabled
+
+        # Flag for displaying measurements in number of 7-degree units.
+        self.measurementUnit7ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit7ersEnabled
+
+        # Flag for displaying measurements in number of 11-degree units.
+        self.measurementUnit11ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit11ersEnabled
+
+        # Flag for displaying measurements in number of 12-degree units.
+        self.measurementUnit12ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled
+
+        # Flag for displaying measurements in number of 24-degree units.
+        self.measurementUnit24ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled
+
+        # Flag for displaying measurements in number of 25-degree units.
+        self.measurementUnit25ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled
+
+        # Flag for displaying measurements in number of 33-degree units.
+        self.measurementUnit33ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled
+
+        # Flag for displaying measurements in number of 36-degree units.
+        self.measurementUnit36ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled
+
+        # Flag for displaying measurements in number of 37-degree units.
+        self.measurementUnit37ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabled
+
+        # Flag for displaying measurements in number of 40-degree units.
+        self.measurementUnit40ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled
+
+        # Flag for displaying measurements in number of 45-degree units.
+        self.measurementUnit45ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled
+
+        # Flag for displaying measurements in number of 49-degree units.
+        self.measurementUnit49ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled
+
+        # Flag for displaying measurements in number of 60-degree units.
+        self.measurementUnit60ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled
+
+        # Flag for displaying measurements in number of 69-degree units.
+        self.measurementUnit69ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled
+
+        # Flag for displaying measurements in number of 72-degree units.
+        self.measurementUnit72ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled
+
+        # Flag for displaying measurements in number of 84-degree units.
+        self.measurementUnit84ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled
+
+        # Flag for displaying measurements in number of 90-degree units.
+        self.measurementUnit90ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled
+
+        # Flag for displaying measurements in number of 100-degree units.
+        self.measurementUnit100ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled
+
+        # Flag for displaying measurements in number of 110-degree units.
+        self.measurementUnit110ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabled
+
+        # Flag for displaying measurements in number of 112-degree units.
+        self.measurementUnit112ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabled
+
+        # Flag for displaying measurements in number of 133-degree units.
+        self.measurementUnit133ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled
+
+        # Flag for displaying measurements in number of 137-degree units.
+        self.measurementUnit137ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled
+
+        # Flag for displaying measurements in number of 144-degree units.
+        self.measurementUnit144ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled
+
+        # Flag for displaying measurements in number of 153-degree units.
+        self.measurementUnit153ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled
+
+        # Flag for displaying measurements in number of 194-degree units.
+        self.measurementUnit194ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled
+
+        # Flag for displaying measurements in number of 500-degree units.
+        self.measurementUnit500ersEnabled = \
+            priceBarChartSettings.\
+            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled
 
         # Remove contents of the list and retrieve the list of enabled
         # planets from priceBarChartSettings.
@@ -8907,7 +9157,32 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                 # then don't do calculations for any planets.
                 if self.measurementUnitDegreesEnabled == False and \
                    self.measurementUnitCirclesEnabled == False and \
-                   self.measurementUnitBiblicalCirclesEnabled == False:
+                   self.measurementUnitBiblicalCirclesEnabled == False and \
+                   self.measurementUnit7ersEnabled == False and \
+                   self.measurementUnit11ersEnabled == False and \
+                   self.measurementUnit12ersEnabled == False and \
+                   self.measurementUnit24ersEnabled == False and \
+                   self.measurementUnit25ersEnabled == False and \
+                   self.measurementUnit33ersEnabled == False and \
+                   self.measurementUnit36ersEnabled == False and \
+                   self.measurementUnit37ersEnabled == False and \
+                   self.measurementUnit40ersEnabled == False and \
+                   self.measurementUnit45ersEnabled == False and \
+                   self.measurementUnit49ersEnabled == False and \
+                   self.measurementUnit60ersEnabled == False and \
+                   self.measurementUnit69ersEnabled == False and \
+                   self.measurementUnit72ersEnabled == False and \
+                   self.measurementUnit84ersEnabled == False and \
+                   self.measurementUnit90ersEnabled == False and \
+                   self.measurementUnit100ersEnabled == False and \
+                   self.measurementUnit110ersEnabled == False and \
+                   self.measurementUnit112ersEnabled == False and \
+                   self.measurementUnit133ersEnabled == False and \
+                   self.measurementUnit137ersEnabled == False and \
+                   self.measurementUnit144ersEnabled == False and \
+                   self.measurementUnit153ersEnabled == False and \
+                   self.measurementUnit194ersEnabled == False and \
+                   self.measurementUnit500ersEnabled == False:
                     break
 
                 # Assemble a tuple of arguments to pass to the
@@ -8924,6 +9199,31 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                              self.measurementUnitDegreesEnabled,
                              self.measurementUnitCirclesEnabled,
                              self.measurementUnitBiblicalCirclesEnabled,
+                             self.measurementUnit7ersEnabled,
+                             self.measurementUnit11ersEnabled,
+                             self.measurementUnit12ersEnabled,
+                             self.measurementUnit24ersEnabled,
+                             self.measurementUnit25ersEnabled,
+                             self.measurementUnit33ersEnabled,
+                             self.measurementUnit36ersEnabled,
+                             self.measurementUnit37ersEnabled,
+                             self.measurementUnit40ersEnabled,
+                             self.measurementUnit45ersEnabled,
+                             self.measurementUnit49ersEnabled,
+                             self.measurementUnit60ersEnabled,
+                             self.measurementUnit69ersEnabled,
+                             self.measurementUnit72ersEnabled,
+                             self.measurementUnit84ersEnabled,
+                             self.measurementUnit90ersEnabled,
+                             self.measurementUnit100ersEnabled,
+                             self.measurementUnit110ersEnabled,
+                             self.measurementUnit112ersEnabled,
+                             self.measurementUnit133ersEnabled,
+                             self.measurementUnit137ersEnabled,
+                             self.measurementUnit144ersEnabled,
+                             self.measurementUnit153ersEnabled,
+                             self.measurementUnit194ersEnabled,
+                             self.measurementUnit500ersEnabled,
                              maxErrorTd,
                              birthInfo.longitudeDegrees,
                              birthInfo.latitudeDegrees,
@@ -8998,6 +9298,56 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.artifact.getMeasurementUnitCirclesEnabled()
         self.measurementUnitBiblicalCirclesEnabled = \
             self.artifact.getMeasurementUnitBiblicalCirclesEnabled()
+        self.measurementUnit7ersEnabled = \
+            self.artifact.getMeasurementUnit7ersEnabled()
+        self.measurementUnit11ersEnabled = \
+            self.artifact.getMeasurementUnit11ersEnabled()
+        self.measurementUnit12ersEnabled = \
+            self.artifact.getMeasurementUnit12ersEnabled()
+        self.measurementUnit24ersEnabled = \
+            self.artifact.getMeasurementUnit24ersEnabled()
+        self.measurementUnit25ersEnabled = \
+            self.artifact.getMeasurementUnit25ersEnabled()
+        self.measurementUnit33ersEnabled = \
+            self.artifact.getMeasurementUnit33ersEnabled()
+        self.measurementUnit36ersEnabled = \
+            self.artifact.getMeasurementUnit36ersEnabled()
+        self.measurementUnit37ersEnabled = \
+            self.artifact.getMeasurementUnit37ersEnabled()
+        self.measurementUnit40ersEnabled = \
+            self.artifact.getMeasurementUnit40ersEnabled()
+        self.measurementUnit45ersEnabled = \
+            self.artifact.getMeasurementUnit45ersEnabled()
+        self.measurementUnit49ersEnabled = \
+            self.artifact.getMeasurementUnit49ersEnabled()
+        self.measurementUnit60ersEnabled = \
+            self.artifact.getMeasurementUnit60ersEnabled()
+        self.measurementUnit69ersEnabled = \
+            self.artifact.getMeasurementUnit69ersEnabled()
+        self.measurementUnit72ersEnabled = \
+            self.artifact.getMeasurementUnit72ersEnabled()
+        self.measurementUnit84ersEnabled = \
+            self.artifact.getMeasurementUnit84ersEnabled()
+        self.measurementUnit90ersEnabled = \
+            self.artifact.getMeasurementUnit90ersEnabled()
+        self.measurementUnit100ersEnabled = \
+            self.artifact.getMeasurementUnit100ersEnabled()
+        self.measurementUnit110ersEnabled = \
+            self.artifact.getMeasurementUnit110ersEnabled()
+        self.measurementUnit112ersEnabled = \
+            self.artifact.getMeasurementUnit112ersEnabled()
+        self.measurementUnit133ersEnabled = \
+            self.artifact.getMeasurementUnit133ersEnabled()
+        self.measurementUnit137ersEnabled = \
+            self.artifact.getMeasurementUnit137ersEnabled()
+        self.measurementUnit144ersEnabled = \
+            self.artifact.getMeasurementUnit144ersEnabled()
+        self.measurementUnit153ersEnabled = \
+            self.artifact.getMeasurementUnit153ersEnabled()
+        self.measurementUnit194ersEnabled = \
+            self.artifact.getMeasurementUnit194ersEnabled()
+        self.measurementUnit500ersEnabled = \
+            self.artifact.getMeasurementUnit500ersEnabled()
 
         # Remove contents of the list and retrieve the list of enabled
         # planets from priceBarChartSettings.
@@ -9217,6 +9567,56 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.measurementUnitCirclesEnabled)
         self.artifact.setMeasurementUnitBiblicalCirclesEnabled(\
             self.measurementUnitBiblicalCirclesEnabled)
+        self.artifact.setMeasurementUnit7ersEnabled(\
+            self.measurementUnit7ersEnabled)
+        self.artifact.setMeasurementUnit11ersEnabled(\
+            self.measurementUnit11ersEnabled)
+        self.artifact.setMeasurementUnit12ersEnabled(\
+            self.measurementUnit12ersEnabled)
+        self.artifact.setMeasurementUnit24ersEnabled(\
+            self.measurementUnit24ersEnabled)
+        self.artifact.setMeasurementUnit25ersEnabled(\
+            self.measurementUnit25ersEnabled)
+        self.artifact.setMeasurementUnit33ersEnabled(\
+            self.measurementUnit33ersEnabled)
+        self.artifact.setMeasurementUnit36ersEnabled(\
+            self.measurementUnit36ersEnabled)
+        self.artifact.setMeasurementUnit37ersEnabled(\
+            self.measurementUnit37ersEnabled)
+        self.artifact.setMeasurementUnit40ersEnabled(\
+            self.measurementUnit40ersEnabled)
+        self.artifact.setMeasurementUnit45ersEnabled(\
+            self.measurementUnit45ersEnabled)
+        self.artifact.setMeasurementUnit49ersEnabled(\
+            self.measurementUnit49ersEnabled)
+        self.artifact.setMeasurementUnit60ersEnabled(\
+            self.measurementUnit60ersEnabled)
+        self.artifact.setMeasurementUnit69ersEnabled(\
+            self.measurementUnit69ersEnabled)
+        self.artifact.setMeasurementUnit72ersEnabled(\
+            self.measurementUnit72ersEnabled)
+        self.artifact.setMeasurementUnit84ersEnabled(\
+            self.measurementUnit84ersEnabled)
+        self.artifact.setMeasurementUnit90ersEnabled(\
+            self.measurementUnit90ersEnabled)
+        self.artifact.setMeasurementUnit100ersEnabled(\
+            self.measurementUnit100ersEnabled)
+        self.artifact.setMeasurementUnit110ersEnabled(\
+            self.measurementUnit110ersEnabled)
+        self.artifact.setMeasurementUnit112ersEnabled(\
+            self.measurementUnit112ersEnabled)
+        self.artifact.setMeasurementUnit133ersEnabled(\
+            self.measurementUnit133ersEnabled)
+        self.artifact.setMeasurementUnit137ersEnabled(\
+            self.measurementUnit137ersEnabled)
+        self.artifact.setMeasurementUnit144ersEnabled(\
+            self.measurementUnit144ersEnabled)
+        self.artifact.setMeasurementUnit153ersEnabled(\
+            self.measurementUnit153ersEnabled)
+        self.artifact.setMeasurementUnit194ersEnabled(\
+            self.measurementUnit194ersEnabled)
+        self.artifact.setMeasurementUnit500ersEnabled(\
+            self.measurementUnit500ersEnabled)
 
         self.artifact.setPlanetH1EnabledFlag(\
             "H1" in self.planetNamesEnabled)
