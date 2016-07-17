@@ -6,32 +6,19 @@ TODO:
 
     - Create/Add a tool to calculate and show ratios of planet movements.
     (Harmony between planets).  It would work similar to
-    PlanetLongitudeMovementMeasurementTool.
+    PlanetLongitudeMovementMeasurementTool.  
 
     1.5000  0.6666
+    (3/2)   (2/3)    <---- Should I try to show these whole number
+                           numerical relationships?  It would make it
+                           easier to recognize harmonies/musical intervals.
 
-    For PlanetLongitudeMovementMeasurementTool:
-      - Make text show up at the end points. (regardless of going forwards or
-        backwards in time).
-
-      - Make this tool have accumulative click to add new graphicsitems.
-
-      #- Make the names of the planet be the abbreviation.
-      #    On further thought... ehh, maybe it's good to have the full
-      #    name of the planet.
-
-      #- Remove the 'moves' part of the text.
-      #    Ehh, when I wrote this, I thought that the 'T' in the label
-      #    text: "G T Mars moves [...]" was referring to transiting.
-      #    But it actually stands for Tropical.  So 'moves' is actually
-      #    informative.  So maybe I won't make this change.
-
-      #- Add flag for text at the end or at the beginning of a
-      #  PlanetLongitudeMovementMeasurementTool articfact/graphics item.
-      #
-      #- Add source code to upgrade existing PCD charts.
-      #
-      #- Default value is in the middle.
+        UPDATE_20160717: 
+        Consider augmenting PlanetLongitudeMovementMeasurementTool,
+        since it's a natural place for this to belong, and so that more
+        measurements can be shown on the same measurement graphics item 
+        without cluttering up the chart with multiple time measurement spans 
+        for the same start-end period.
 
 
   - PriceChartDocumentScripts changes:
@@ -491,3 +478,21 @@ DONE
 DONE          http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-instance-store.html
 DONE
 DONE      - Need scripts to start instances, deploy my code (maybe it already lives on the image?), then launch the server manager script on a node that has security/firewall permissions set, and worker script on all the other nodes.
+
+
+DONE    For PlanetLongitudeMovementMeasurementTool:
+DONE      - Make text show up at the end points. (regardless of going forwards or
+DONE        backwards in time).
+DONE
+DONE      - Make this tool have accumulative click to add new graphicsitems.
+DONE
+DONE      #- Make the names of the planet be the abbreviation.
+DONE      #    On further thought... ehh, maybe it's good to have the full
+DONE      #    name of the planet.
+DONE
+DONE      #- Remove the 'moves' part of the text.
+DONE      #    Ehh, when I wrote this, I thought that the 'T' in the label
+DONE      #    text: "G T Mars moves [...]" was referring to transiting.
+DONE      #    But it actually stands for Tropical.  So 'moves' is actually
+DONE      #    informative.  So maybe I won't make this change.
+
