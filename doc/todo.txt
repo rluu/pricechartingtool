@@ -14,12 +14,22 @@ TODO:
                            easier to recognize harmonies/musical intervals.
 
         UPDATE_20160717: 
-        Consider augmenting PlanetLongitudeMovementMeasurementTool,
-        since it's a natural place for this to belong, and so that more
-        measurements can be shown on the same measurement graphics item 
-        without cluttering up the chart with multiple time measurement spans 
-        for the same start-end period.
+            Consider augmenting PlanetLongitudeMovementMeasurementTool,
+            since it's a natural place for this to belong, and so that more
+            measurements can be shown on the same measurement graphics item 
+            without cluttering up the chart with multiple time measurement spans 
+            for the same start-end period.
 
+        Checkboxes would say:
+            [ ] Planet Ratio MeVe enabled
+
+        Data objects variables would be like: 
+            self.planetRatioMeVeEnabledFlag
+
+        What combinations does it make sense to do in Geocentric?  
+            AsSu may not make sense?  
+            Does MeSu make sense? 
+            Does VeSu make sense? 
 
   - PriceChartDocumentScripts changes:
 
