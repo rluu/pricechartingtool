@@ -43042,6 +43042,48 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabledCheckBox.\
             setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit13ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit13ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 13-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit13ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit15ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit15ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 15-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit15ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit16ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit16ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 16-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit16ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit18ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit18ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 18-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit18ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit19ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit19ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 19-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit19ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit22ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit22ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 22-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit22ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit23ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit23ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 23-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit23ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabledCheckBox = \
             QCheckBox("Measurement unit 24-degrees")
@@ -43054,10 +43096,34 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabledCheckBox.\
             setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit29ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit29ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 29-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit29ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit30ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit30ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 30-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit30ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit31ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit31ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 31-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit31ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabledCheckBox = \
             QCheckBox("Measurement unit 33-degrees")
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit34ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit34ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 34-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit34ersEnabledCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled (bool).
@@ -43078,16 +43144,52 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabledCheckBox.\
             setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit42ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit42ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 42-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit42ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabledCheckBox = \
             QCheckBox("Measurement unit 45-degrees")
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabledCheckBox.\
             setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit47ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit47ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 47-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit47ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabledCheckBox = \
             QCheckBox("Measurement unit 49-degrees")
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit50ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit50ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 50-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit50ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 51-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51_428ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51_428ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 51.428-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51_428ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit52ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit52ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 52-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit52ersEnabledCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled (bool).
@@ -43102,10 +43204,34 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabledCheckBox.\
             setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit70ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit70ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 70-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit70ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabledCheckBox = \
             QCheckBox("Measurement unit 72-degrees")
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit73ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit73ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 73-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit73ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit75ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit75ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 75-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit75ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit77ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit77ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 77-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit77ersEnabledCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled (bool).
@@ -43114,10 +43240,28 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabledCheckBox.\
             setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit88ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit88ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 88-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit88ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabledCheckBox = \
             QCheckBox("Measurement unit 90-degrees")
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit94ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit94ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 94-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit94ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit99ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit99ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 99-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit99ersEnabledCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled (bool).
@@ -43144,6 +43288,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabledCheckBox.\
             setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit135ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit135ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 135-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit135ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabledCheckBox = \
             QCheckBox("Measurement unit 137-degrees")
@@ -43154,6 +43304,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabledCheckBox = \
             QCheckBox("Measurement unit 144-degrees")
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit150ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit150ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 150-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit150ersEnabledCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled (bool).
@@ -43168,10 +43324,52 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabledCheckBox.\
             setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit225ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit225ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 225-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit225ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit275ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit275ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 275-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit275ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit311ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit311ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 311-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit311ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit400ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit400ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 400-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit400ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabledCheckBox = \
             QCheckBox("Measurement unit 500-degrees")
         self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit557ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit557ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 557-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit557ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit750ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit750ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 750-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit750ersEnabledCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit945ersEnabled (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit945ersEnabledCheckBox = \
+            QCheckBox("Measurement unit 945-degrees")
+        self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit945ersEnabledCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # Layout on the left side.
@@ -43190,23 +43388,27 @@ class PriceBarChartSettingsEditWidget(QWidget):
         leftLayout.addWidget(\
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabledCheckBox)
         leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit13ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit15ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit16ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit18ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit19ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit22ersEnabledCheckBox)
+        leftLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit23ersEnabledCheckBox)
+        leftLayout.addWidget(\
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabledCheckBox)
         leftLayout.addWidget(\
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabledCheckBox)
         leftLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabledCheckBox)
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit29ersEnabledCheckBox)
         leftLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabledCheckBox)
-        leftLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabledCheckBox)
-        leftLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabledCheckBox)
-        leftLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabledCheckBox)
-        leftLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabledCheckBox)
-        leftLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabledCheckBox)
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit30ersEnabledCheckBox)
 
         leftLayout.addStretch()
 
@@ -43214,36 +43416,100 @@ class PriceBarChartSettingsEditWidget(QWidget):
         middleLayout = QVBoxLayout()
 
         middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit31ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit34ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit37ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit42ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit47ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit50ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51_428ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit52ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabledCheckBox)
+        middleLayout.addWidget(\
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit70ersEnabledCheckBox)
         middleLayout.addWidget(\
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabledCheckBox)
         middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit73ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit75ersEnabledCheckBox)
+        middleLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit77ersEnabledCheckBox)
+        middleLayout.addWidget(\
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabledCheckBox)
         middleLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabledCheckBox)
-        middleLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabledCheckBox)
-        middleLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabledCheckBox)
-        middleLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabledCheckBox)
-        middleLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabledCheckBox)
-        middleLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabledCheckBox)
-        middleLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabledCheckBox)
-        middleLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabledCheckBox)
-        middleLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabledCheckBox)
-        middleLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabledCheckBox)
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit88ersEnabledCheckBox)
 
         middleLayout.addStretch()
 
         # Layout on the right side.
         rightLayout = QVBoxLayout()
+
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit94ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit99ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit110ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit112ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit135ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit150ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit225ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit275ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit311ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit400ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit557ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit750ersEnabledCheckBox)
+        rightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit945ersEnabledCheckBox)
+
         rightLayout.addStretch()
 
         groupBox2Layout = QHBoxLayout()
@@ -49454,6 +49720,76 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabledCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit13ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit13ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit13ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit13ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit15ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit15ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit15ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit15ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit16ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit16ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit16ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit16ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit18ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit18ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit18ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit18ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit19ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit19ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit19ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit19ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit22ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit22ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit22ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit22ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit23ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit23ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit23ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit23ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled (bool).
         if self.priceBarChartSettings.\
            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled == True:
@@ -49474,6 +49810,36 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabledCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit29ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit29ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit29ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit29ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit30ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit30ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit30ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit30ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit31ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit31ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit31ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit31ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled (bool).
         if self.priceBarChartSettings.\
            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled == True:
@@ -49482,6 +49848,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 setCheckState(Qt.Checked)
         else:
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit34ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit34ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit34ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit34ersEnabledCheckBox.\
                 setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled (bool).
@@ -49514,6 +49890,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabledCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit42ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit42ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit42ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit42ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled (bool).
         if self.priceBarChartSettings.\
            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled == True:
@@ -49524,6 +49910,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabledCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit47ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit47ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit47ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit47ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled (bool).
         if self.priceBarChartSettings.\
            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled == True:
@@ -49532,6 +49928,46 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 setCheckState(Qt.Checked)
         else:
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit50ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit50ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit50ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit50ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51_428ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51_428ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51_428ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51_428ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit52ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit52ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit52ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit52ersEnabledCheckBox.\
                 setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled (bool).
@@ -49554,6 +49990,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabledCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit70ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit70ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit70ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit70ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled (bool).
         if self.priceBarChartSettings.\
            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled == True:
@@ -49562,6 +50008,36 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 setCheckState(Qt.Checked)
         else:
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit73ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit73ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit73ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit73ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit75ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit75ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit75ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit75ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit77ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit77ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit77ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit77ersEnabledCheckBox.\
                 setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled (bool).
@@ -49574,6 +50050,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabledCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit88ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit88ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit88ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit88ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled (bool).
         if self.priceBarChartSettings.\
            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled == True:
@@ -49582,6 +50068,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 setCheckState(Qt.Checked)
         else:
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit94ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit94ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit94ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit94ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit99ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit99ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit99ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit99ersEnabledCheckBox.\
                 setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled (bool).
@@ -49624,6 +50130,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabledCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit135ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit135ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit135ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit135ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled (bool).
         if self.priceBarChartSettings.\
            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled == True:
@@ -49642,6 +50158,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 setCheckState(Qt.Checked)
         else:
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit150ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit150ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit150ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit150ersEnabledCheckBox.\
                 setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled (bool).
@@ -49664,6 +50190,46 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabledCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit225ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit225ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit225ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit225ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit275ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit275ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit275ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit275ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit311ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit311ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit311ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit311ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit400ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit400ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit400ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit400ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled (bool).
         if self.priceBarChartSettings.\
            planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled == True:
@@ -49672,6 +50238,36 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 setCheckState(Qt.Checked)
         else:
             self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit557ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit557ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit557ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit557ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit750ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit750ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit750ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit750ersEnabledCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit945ersEnabled (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit945ersEnabled == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit945ersEnabledCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit945ersEnabledCheckBox.\
                 setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag (bool).
@@ -52327,6 +52923,76 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit12ersEnabled = False
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit13ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit13ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit13ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit13ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit15ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit15ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit15ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit15ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit16ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit16ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit16ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit16ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit18ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit18ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit18ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit18ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit19ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit19ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit19ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit19ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit22ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit22ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit22ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit22ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit23ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit23ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit23ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit23ersEnabled = False
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabled (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit24ersEnabledCheckBox.\
            checkState() == Qt.Checked:
@@ -52347,6 +53013,36 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit25ersEnabled = False
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit29ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit29ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit29ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit29ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit30ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit30ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit30ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit30ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit31ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit31ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit31ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit31ersEnabled = False
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabledCheckBox.\
            checkState() == Qt.Checked:
@@ -52356,6 +53052,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit33ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit34ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit34ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit34ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit34ersEnabled = False
 
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabled (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit36ersEnabledCheckBox.\
@@ -52387,6 +53093,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit40ersEnabled = False
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit42ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit42ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit42ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit42ersEnabled = False
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabledCheckBox.\
            checkState() == Qt.Checked:
@@ -52397,6 +53113,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit45ersEnabled = False
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit47ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit47ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit47ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit47ersEnabled = False
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabledCheckBox.\
            checkState() == Qt.Checked:
@@ -52406,6 +53132,46 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit49ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit50ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit50ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit50ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit50ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51_428ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51_428ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51_428ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit51_428ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit52ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit52ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit52ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit52ersEnabled = False
 
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabled (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit60ersEnabledCheckBox.\
@@ -52427,6 +53193,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit69ersEnabled = False
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit70ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit70ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit70ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit70ersEnabled = False
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabledCheckBox.\
            checkState() == Qt.Checked:
@@ -52436,6 +53212,36 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit72ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit73ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit73ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit73ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit73ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit75ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit75ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit75ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit75ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit77ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit77ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit77ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit77ersEnabled = False
 
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabledCheckBox.\
@@ -52447,6 +53253,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit84ersEnabled = False
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit88ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit88ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit88ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit88ersEnabled = False
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabledCheckBox.\
            checkState() == Qt.Checked:
@@ -52456,6 +53272,26 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit90ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit94ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit94ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit94ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit94ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit99ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit99ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit99ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit99ersEnabled = False
 
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabled (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit100ersEnabledCheckBox.\
@@ -52497,6 +53333,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit133ersEnabled = False
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit135ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit135ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit135ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit135ersEnabled = False
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabled (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit137ersEnabledCheckBox.\
            checkState() == Qt.Checked:
@@ -52516,6 +53362,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit144ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit150ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit150ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit150ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit150ersEnabled = False
 
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabled (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit153ersEnabledCheckBox.\
@@ -52537,6 +53393,46 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit194ersEnabled = False
 
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit225ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit225ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit225ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit225ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit275ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit275ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit275ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit275ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit311ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit311ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit311ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit311ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit400ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit400ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit400ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit400ersEnabled = False
+
         # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabledCheckBox.\
            checkState() == Qt.Checked:
@@ -52546,6 +53442,36 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit500ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit557ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit557ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit557ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit557ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit750ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit750ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit750ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit750ersEnabled = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit945ersEnabled (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit945ersEnabledCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit945ersEnabled = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemMeasurementUnit945ersEnabled = False
 
         # planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlag (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemPlanetH1EnabledFlagCheckBox.\
