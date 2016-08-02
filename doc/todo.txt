@@ -31,8 +31,12 @@ TODO:
             Does MeSu make sense? 
             Does VeSu make sense? 
 
-  - PriceChartDocumentScripts changes:
+  - PriceChartDocumentScripts changes/additions:
 
+    - Plot vertical line segments for Jewish Holiday dates
+      	   - Based on actual moon phases.
+	   - Based on civil calendar dates.
+	   
     - Plot line segments for elongation-degree-distances-between-two-planets.
       
     - Plot line segments that represent difference in longitude between planet X
