@@ -6805,14 +6805,18 @@ class PlanetaryInfoTableWidget(QTableWidget):
             p.heliocentric[sidereal]['latitude_speed'] = None
 
         elif p.name == "MeanNorthNode" or \
+            p.name == "MeanSouthNode" or \
             p.name == "TrueNorthNode" or \
+            p.name == "TrueSouthNode" or \
             p.name == "MeanLunarApogee" or \
             p.name == "OsculatingLunarApogee" or \
             p.name == "InterpolatedLunarApogee" or \
             p.name == "InterpolatedLunarPerigee":
 
             if p.name == "MeanNorthNode" or \
-                   p.name == "TrueNorthNode":
+                    p.name == "MeanSouthNode" or \
+                    p.name == "TrueNorthNode" or \
+                    p.name == "TrueSouthNode":
 
                 p.geocentric[tropical]['latitude'] = None
                 p.geocentric[tropical]['latitude_speed'] = None
@@ -7512,8 +7516,7 @@ class AstrologyChartWidget(QWidget):
             SettingsKeys.planetMeanSouthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            pass # TODO:  update for TrueSouthNode
-            #planets.append(Ephemeris.getTrueSouthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getMeanSouthNodePlanetaryInfo(dt))
 
         if settings.value(\
             SettingsKeys.planetTrueNorthNodeCalculationsEnabledKey, \
@@ -7527,8 +7530,7 @@ class AstrologyChartWidget(QWidget):
             SettingsKeys.planetTrueSouthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            pass # TODO:  update for TrueSouthNode
-            #planets.append(Ephemeris.getTrueSouthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getTrueSouthNodePlanetaryInfo(dt))
 
         if settings.value(\
             SettingsKeys.planetCeresCalculationsEnabledKey, \
@@ -11687,7 +11689,13 @@ def testPlanetaryInfoTableWidget():
     p = Ephemeris.getMeanNorthNodePlanetaryInfo(now)
     planets.append(p)
 
+    p = Ephemeris.getMeanSouthNodePlanetaryInfo(now)
+    planets.append(p)
+
     p = Ephemeris.getTrueNorthNodePlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getTrueSouthNodePlanetaryInfo(now)
     planets.append(p)
 
     p = Ephemeris.getMeanLunarApogeePlanetaryInfo(now)
@@ -11708,7 +11716,7 @@ def testPlanetaryInfoTableWidget():
     p = Ephemeris.getChironPlanetaryInfo(now)
     planets.append(p)
 
-    # TODO:  add HoraLagna, GhatiLagna, Gulika, Mandi, MeanSouthNode, TrueSouthNode.
+    # TODO:  add HoraLagna, GhatiLagna, Gulika, Mandi.
 
     # Various combinations of planets to test.
     widget = PlanetaryInfoTableWidget(planets)
@@ -11842,7 +11850,13 @@ def testPlanetaryInfoTableGraphicsItem():
     p = Ephemeris.getMeanNorthNodePlanetaryInfo(now)
     planets.append(p)
 
+    p = Ephemeris.getMeanSouthNodePlanetaryInfo(now)
+    planets.append(p)
+
     p = Ephemeris.getTrueNorthNodePlanetaryInfo(now)
+    planets.append(p)
+
+    p = Ephemeris.getTrueSouthNodePlanetaryInfo(now)
     planets.append(p)
 
     p = Ephemeris.getMeanLunarApogeePlanetaryInfo(now)

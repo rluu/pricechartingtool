@@ -312,7 +312,9 @@ class Ephemeris:
             "Neptune",
             "Pluto",
             "MeanNorthNode",
+            "MeanSouthNode",
             "TrueNorthNode",
+            "TrueSouthNode",
             "MeanLunarApogee",
             "OsculatingLunarApogee",
             "InterpolatedLunarApogee",
@@ -1001,6 +1003,10 @@ class Ephemeris:
 
         if (planetName == "Sun" or
             planetName == "Moon" or
+            planetName == "MeanNorthNode" or
+            planetName == "MeanSouthNode" or
+            planetName == "TrueNorthNode" or
+            planetName == "TrueSouthNode" or
             Ephemeris.isHouseCuspPlanetName(planetName) or
             Ephemeris.isAscmcPlanetName(planetName) or
             planetName == "MoSu"):
@@ -3472,12 +3478,10 @@ class Ephemeris:
             #elif planetName == "Mandi":
             #    # TODO:  update for Mandi.
             #    return Ephemeris.getMandiPlanetaryInfo(dt)
-            #elif planetName == "MeanSouthNode":
-            #    # TODO:  update for MeanSouthNode.
-            #    return Ephemeris.getMeanSouthNodePlanetaryInfo(dt)
-            #elif planetName == "TrueSouthNode":
-            #    # TODO:  update for TrueSouthNode.
-            #    return Ephemeris.getTrueSouthNodePlanetaryInfo(dt)
+            elif planetName == "MeanSouthNode":
+                return Ephemeris.getMeanSouthNodePlanetaryInfo(dt)
+            elif planetName == "TrueSouthNode":
+                return Ephemeris.getTrueSouthNodePlanetaryInfo(dt)
             elif planetName == "MeanOfFive":
                 return Ephemeris.getMeanOfFivePlanetaryInfo(dt)
             elif planetName == "CycleOfEight":
@@ -5006,7 +5010,41 @@ class Ephemeris:
 
         return Ephemeris.getPlanetaryInfo("MeanNorthNode", timestamp)
 
-    # TODO:  Add and write function: getMeanSouthNodePlanetaryInfo()
+    @staticmethod
+    def getMeanSouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the MeanSouthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        # Get the information for MeanNorthNode first, then make 
+        # the necessary modifications to that so that the data is for
+        # MeanSouthNode.
+        pi = Ephemeris.getPlanetaryInfo("MeanNorthNode", timestamp)
+        pi.name = "MeanSouthNode"
+        pi.id = None
+        pi.geocentric['tropical']['longitude'] = \
+            Ephemeris.__toNormalizedAngle(\
+            pi.geocentric['tropical']['longitude'] + 180.0)
+        pi.geocentric['sidereal']['longitude'] = \
+            Ephemeris.__toNormalizedAngle(\
+            pi.geocentric['sidereal']['longitude'] + 180.0)
+        pi.topocentric['tropical']['longitude'] = \
+            Ephemeris.__toNormalizedAngle(\
+            pi.geocentric['tropical']['longitude'] + 180.0)
+        pi.topocentric['sidereal']['longitude'] = \
+            Ephemeris.__toNormalizedAngle(\
+            pi.geocentric['sidereal']['longitude'] + 180.0)
+
+        return pi
 
     @staticmethod
     def getTrueNorthNodePlanetaryInfo(timestamp):
@@ -5025,7 +5063,41 @@ class Ephemeris:
 
         return Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
 
-    # TODO:  Add and write function: getTrueSouthNodePlanetaryInfo()
+    @staticmethod
+    def getTrueSouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the TrueSouthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        # Get the information for TrueNorthNode first, then make 
+        # the necessary modifications to that so that the data is for
+        # TrueSouthNode.
+        pi = Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
+        pi.name = "TrueSouthNode"
+        pi.id = None
+        pi.geocentric['tropical']['longitude'] = \
+            Ephemeris.__toNormalizedAngle(\
+            pi.geocentric['tropical']['longitude'] + 180.0)
+        pi.geocentric['sidereal']['longitude'] = \
+            Ephemeris.__toNormalizedAngle(\
+            pi.geocentric['sidereal']['longitude'] + 180.0)
+        pi.topocentric['tropical']['longitude'] = \
+            Ephemeris.__toNormalizedAngle(\
+            pi.geocentric['tropical']['longitude'] + 180.0)
+        pi.topocentric['sidereal']['longitude'] = \
+            Ephemeris.__toNormalizedAngle(\
+            pi.geocentric['sidereal']['longitude'] + 180.0)
+
+        return pi
 
     @staticmethod
     def getMeanLunarApogeePlanetaryInfo(timestamp):
@@ -6177,7 +6249,13 @@ def testGetPlanetaryInfos():
     p = Ephemeris.getMeanNorthNodePlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
+    p = Ephemeris.getMeanSouthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getTrueNorthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getTrueSouthNodePlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
     p = Ephemeris.getMeanLunarApogeePlanetaryInfo(now)
