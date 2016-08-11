@@ -5029,8 +5029,19 @@ class Ephemeris:
         # the necessary modifications to that so that the data is for
         # MeanSouthNode.
         pi = Ephemeris.getPlanetaryInfo("MeanNorthNode", timestamp)
+
+        # Change the name and id fields.
         pi.name = "MeanSouthNode"
-        pi.id = None
+
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
         pi.geocentric['tropical']['longitude'] = \
             Ephemeris.__toNormalizedAngle(\
             pi.geocentric['tropical']['longitude'] + 180.0)
@@ -5082,8 +5093,19 @@ class Ephemeris:
         # the necessary modifications to that so that the data is for
         # TrueSouthNode.
         pi = Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
+
+        # Change the name and id fields.
         pi.name = "TrueSouthNode"
-        pi.id = None
+
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
         pi.geocentric['tropical']['longitude'] = \
             Ephemeris.__toNormalizedAngle(\
             pi.geocentric['tropical']['longitude'] + 180.0)
