@@ -5790,7 +5790,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 7
+        self.classVersion = 8
 
         # Create the logger.
         self.log = \
@@ -6446,6 +6446,26 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
         self.planetAsMoEnabledFlag = \
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
+
+        # Flag for measurement of planet SunTrueNorthNode enabled.
+        self.planetSunTrueNorthNodeEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag
+
+        # Flag for measurement of planet SunTrueSouthNode enabled.
+        self.planetSunTrueSouthNodeEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueSouthNodeEnabledFlag
+
+        # Flag for measurement of planet MoonTrueNorthNode enabled.
+        self.planetMoonTrueNorthNodeEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueNorthNodeEnabledFlag
+
+        # Flag for measurement of planet MoonTrueSouthNode enabled.
+        self.planetMoonTrueSouthNodeEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlag
 
         # Flag for measurement of planet MoSu enabled.
         self.planetMoSuEnabledFlag = \
@@ -9378,6 +9398,94 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
 
         return self.planetAsMoEnabledFlag
 
+    def setPlanetSunTrueNorthNodeEnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.planetSunTrueNorthNodeEnabledFlag = flag
+
+    def getPlanetSunTrueNorthNodeEnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.planetSunTrueNorthNodeEnabledFlag
+
+    def setPlanetSunTrueSouthNodeEnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.planetSunTrueSouthNodeEnabledFlag = flag
+
+    def getPlanetSunTrueSouthNodeEnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.planetSunTrueSouthNodeEnabledFlag
+
+    def setPlanetMoonTrueNorthNodeEnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.planetMoonTrueNorthNodeEnabledFlag = flag
+
+    def getPlanetMoonTrueNorthNodeEnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.planetMoonTrueNorthNodeEnabledFlag
+
+    def setPlanetMoonTrueSouthNodeEnabledFlag(self, flag):
+        """Sets the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        self.planetMoonTrueSouthNodeEnabledFlag = flag
+
+    def getPlanetMoonTrueSouthNodeEnabledFlag(self):
+        """Returns the flag that indicates that the planet geocentric
+        longitude movement measurements should be displayed for this
+        planet.
+
+        Arguments:
+        flag - bool value for the enabled flag.
+        """
+
+        return self.planetMoonTrueSouthNodeEnabledFlag
+
     def setPlanetMoSuEnabledFlag(self, flag):
         """Sets the flag that indicates that the planet geocentric
         longitude movement measurements should be displayed for this
@@ -9899,7 +10007,7 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
             "data_objects.PriceBarChartPlanetLongitudeMovementMeasurementArtifact")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 7:
+        if self.classVersion < 8:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartPlanetLongitudeMovementMeasurementArtifact (version {}).  ".\
                           format(self.classVersion))
@@ -11504,6 +11612,62 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 7
+
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+
+            if self.classVersion == 7:
+                # Version 8 adds the following member variables:
+                #
+                # self.planetSunTrueNorthNodeEnabledFlag
+                # self.planetSunTrueSouthNodeEnabledFlag
+                # self.planetMoonTrueNorthNodeEnabledFlag
+                # self.planetMoonTrueSouthNodeEnabledFlag
+                #
+
+                # Handle variables that were added in this version.
+                try:
+                    # See if the variable is set.
+                    self.planetSunTrueNorthNodeEnabledFlag
+                    self.planetSunTrueSouthNodeEnabledFlag
+                    self.planetMoonTrueNorthNodeEnabledFlag
+                    self.planetMoonTrueSouthNodeEnabledFlag
+
+                    # If it got here, then the field is already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have this field.")
+                except AttributeError:
+                    # Variables were not set.  Set them to the default
+                    # values.
+
+                    self.planetSunTrueNorthNodeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag
+
+                    self.planetSunTrueSouthNodeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueSouthNodeEnabledFlag
+
+                    self.planetMoonTrueNorthNodeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueNorthNodeEnabledFlag
+
+                    self.planetMoonTrueSouthNodeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlag
+
+                    self.log.debug("Added field " + \
+                                   "'self.planetSunTrueNorthNodeEnabledFlag' " + \
+                                   "'self.planetSunTrueSouthNodeEnabledFlag' " + \
+                                   "'self.planetMoonTrueNorthNodeEnabledFlag' " + \
+                                   "'self.planetMoonTrueSouthNodeEnabledFlag' " + \
+                                   "to the loaded object.")
+
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 8
 
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\
@@ -19929,6 +20093,10 @@ class PriceChartDocumentData:
         geoPlanets = [
             "Sun",
             "Moon",
+            "SunTrueNorthNode",
+            "SunTrueSouthNode",
+            "MoonTrueNorthNode",
+            "MoonTrueSouthNode",
             "MoSu",
             "AsSu",
             "AsMo",
@@ -19942,6 +20110,10 @@ class PriceChartDocumentData:
           [
            QColor(255, 102, 0), # Orange.
            QColor(Qt.blue),
+           QColor(204, 140, 71), # Gray Orange.
+           QColor(204, 140, 71), # Gray Orange.
+           QColor(71, 135, 204), # Gray Blue.
+           QColor(71, 135, 204), # Gray Blue.
            QColor(Qt.darkYellow),
            QColor(Qt.cyan),
            QColor(Qt.darkCyan),
@@ -21077,6 +21249,22 @@ class PriceBarChartSettings:
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag = False
 
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetSunTrueNorthNodeEnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetSunTrueSouthNodeEnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueSouthNodeEnabledFlag = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetMoonTrueNorthNodeEnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueNorthNodeEnabledFlag = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
+    # planetMoonTrueSouthNodeEnabledFlag (bool).
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlag = False
+
+    # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMoSuEnabledFlag (bool).
     defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag = False
 
@@ -21852,7 +22040,7 @@ class PriceBarChartSettings:
 
         # Set the version of this class (used for pickling and unpickling
         # different versions of this class).
-        self.classVersion = 14
+        self.classVersion = 15
 
         # List of scalings used in the PriceBarChartGraphicsView.
         # This is list of PriceBarChartScaling objects.
@@ -23010,6 +23198,30 @@ class PriceBarChartSettings:
             defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag
 
         # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetSunTrueNorthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetSunTrueSouthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueSouthNodeEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueSouthNodeEnabledFlag
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetMoonTrueNorthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueNorthNodeEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueNorthNodeEnabledFlag
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
+        # planetMoonTrueSouthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlag = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlag
+
+        # PlanetLongitudeMovementMeasurementGraphicsItem
         # planetMoSuEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag = \
             PriceBarChartSettings.\
@@ -24042,7 +24254,7 @@ class PriceBarChartSettings:
         self.log = logging.getLogger("data_objects.PriceBarChartSettings")
 
         # Update the object to the most current version if it is not current.
-        if self.classVersion < 14:
+        if self.classVersion < 15:
             self.log.info("Detected an old class version of " + \
                           "PriceBarChartSettings (version {}).  ".\
                           format(self.classVersion))
@@ -26249,6 +26461,71 @@ class PriceBarChartSettings:
                 # Update the class version.
                 prevClassVersion = self.classVersion
                 self.classVersion = 14
+
+                self.log.info("Object has been updated from " + \
+                              "version {} to version {}.".\
+                              format(prevClassVersion, self.classVersion))
+
+            if self.classVersion == 14:
+                # Version 15 added the following member variables:
+                #
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueSouthNodeEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueNorthNodeEnabledFlag
+                # self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlag
+                #
+
+                try:
+                    # See if the variables are set.
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueSouthNodeEnabledFlag
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueNorthNodeEnabledFlag
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlag
+
+                    # If it got here, then the fields are already set.
+                    self.log.warn("Hmm, strange.  Version {} of this ".\
+                                  format(self.classVersion) + \
+                                  "class shouldn't have these fields.")
+
+                except AttributeError:
+                    # Variable was not set.  Set it to the default
+                    # PriceBarChartSettings value.
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetSunTrueNorthNodeEnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetSunTrueSouthNodeEnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueSouthNodeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueSouthNodeEnabledFlag
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetMoonTrueNorthNodeEnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueNorthNodeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueNorthNodeEnabledFlag
+
+                    # PlanetLongitudeMovementMeasurementGraphicsItem
+                    # planetMoonTrueSouthNodeEnabledFlag (bool).
+                    self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlag = \
+                        PriceBarChartSettings.\
+                        defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlag
+
+                    self.log.debug(\
+                        "Added field " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueSouthNodeEnabledFlag', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueNorthNodeEnabledFlag', " + \
+                        "'planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlag', " + \
+                        "to the loaded object.")
+
+                # Update the class version.
+                prevClassVersion = self.classVersion
+                self.classVersion = 15
 
                 self.log.info("Object has been updated from " + \
                               "version {} to version {}.".\

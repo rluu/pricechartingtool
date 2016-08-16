@@ -4746,6 +4746,14 @@ class PLMMUtils:
 
             if planetName == "Moon":
                 stepSizeTd = datetime.timedelta(days=4)
+            elif planetName == "SunTrueNorthNode":
+                stepSizeTd = datetime.timedelta(days=5)
+            elif planetName == "SunTrueSouthNode":
+                stepSizeTd = datetime.timedelta(days=5)
+            elif planetName == "MoonTrueNorthNode":
+                stepSizeTd = datetime.timedelta(days=4)
+            elif planetName == "MoonTrueSouthNode":
+                stepSizeTd = datetime.timedelta(days=4)
             elif planetName == "MoSu":
                 stepSizeTd = datetime.timedelta(days=4)
             elif planetName == "Sun":
@@ -4771,6 +4779,14 @@ class PLMMUtils:
 
         elif isGeocentricEnabled:
             if planetName == "Moon":
+                stepSizeTd = datetime.timedelta(days=4)
+            elif planetName == "SunTrueNorthNode":
+                stepSizeTd = datetime.timedelta(days=5)
+            elif planetName == "SunTrueSouthNode":
+                stepSizeTd = datetime.timedelta(days=5)
+            elif planetName == "MoonTrueNorthNode":
+                stepSizeTd = datetime.timedelta(days=4)
+            elif planetName == "MoonTrueSouthNode":
                 stepSizeTd = datetime.timedelta(days=4)
             elif planetName == "MoSu":
                 stepSizeTd = datetime.timedelta(days=4)
@@ -5392,6 +5408,94 @@ def testLookbackMultipleUtils_speedTest():
 
         endTime = time.time()
         print("    Calculations took: {} sec".format(endTime - startTime))
+
+    if False:
+        maxErrorTd = datetime.timedelta(minutes=60)
+        #maxErrorTd = datetime.timedelta(minutes=5)
+        #maxErrorTd = datetime.timedelta(seconds=2)
+
+        print("  Testing G.SunTrueNorthNode moving 360 rev., 3 times, with maxErrorTd={}".\
+              format(maxErrorTd))
+
+        startTime = time.time()
+
+        for i in range(3):
+            planetName="SunTrueNorthNode"
+            centricityType="geocentric"
+            longitudeType="tropical"
+            referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
+            desiredDeltaDegrees = -360 * 360
+
+            resultDts = \
+                LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
+                    planetName, centricityType, longitudeType, referenceDt,
+                    desiredDeltaDegrees, maxErrorTd)
+
+    if False:
+        maxErrorTd = datetime.timedelta(minutes=60)
+        #maxErrorTd = datetime.timedelta(minutes=5)
+        #maxErrorTd = datetime.timedelta(seconds=2)
+
+        print("  Testing G.SunTrueSouthNode moving 360 rev., 3 times, with maxErrorTd={}".\
+              format(maxErrorTd))
+
+        startTime = time.time()
+
+        for i in range(3):
+            planetName="SunTrueSouthNode"
+            centricityType="geocentric"
+            longitudeType="tropical"
+            referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
+            desiredDeltaDegrees = -360 * 360
+
+            resultDts = \
+                LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
+                    planetName, centricityType, longitudeType, referenceDt,
+                    desiredDeltaDegrees, maxErrorTd)
+
+    if False:
+        maxErrorTd = datetime.timedelta(minutes=60)
+        #maxErrorTd = datetime.timedelta(minutes=5)
+        #maxErrorTd = datetime.timedelta(seconds=2)
+
+        print("  Testing G.MoonTrueNorthNode moving 360 rev., 3 times, with maxErrorTd={}".\
+              format(maxErrorTd))
+
+        startTime = time.time()
+
+        for i in range(3):
+            planetName="MoonTrueNorthNode"
+            centricityType="geocentric"
+            longitudeType="tropical"
+            referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
+            desiredDeltaDegrees = -360 * 360
+
+            resultDts = \
+                LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
+                    planetName, centricityType, longitudeType, referenceDt,
+                    desiredDeltaDegrees, maxErrorTd)
+
+    if False:
+        maxErrorTd = datetime.timedelta(minutes=60)
+        #maxErrorTd = datetime.timedelta(minutes=5)
+        #maxErrorTd = datetime.timedelta(seconds=2)
+
+        print("  Testing G.MoonTrueSouthNode moving 360 rev., 3 times, with maxErrorTd={}".\
+              format(maxErrorTd))
+
+        startTime = time.time()
+
+        for i in range(3):
+            planetName="MoonTrueSouthNode"
+            centricityType="geocentric"
+            longitudeType="tropical"
+            referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
+            desiredDeltaDegrees = -360 * 360
+
+            resultDts = \
+                LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
+                    planetName, centricityType, longitudeType, referenceDt,
+                    desiredDeltaDegrees, maxErrorTd)
 
     if False:
         maxErrorTd = datetime.timedelta(minutes=60)

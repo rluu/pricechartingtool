@@ -2172,6 +2172,154 @@ class SettingsKeys():
 
 
 
+    # QSettings key for the planet glyph unicode of the SunTrueNorthNode.
+    planetSunTrueNorthNodeGlyphUnicodeKey = \
+        "ui/astrology/SunTrueNorthNodeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the SunTrueNorthNode.
+    planetSunTrueNorthNodeGlyphUnicodeDefValue = "SunTrueNorthNode"
+
+    # QSettings key for the planet glyph font size of the SunTrueNorthNode.
+    planetSunTrueNorthNodeGlyphFontSizeKey = \
+        "ui/astrology/SunTrueNorthNodeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the SunTrueNorthNode.
+    planetSunTrueNorthNodeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the SunTrueNorthNode.
+    planetSunTrueNorthNodeAbbreviationKey = \
+        "ui/astrology/SunTrueNorthNodeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the SunTrueNorthNode.
+    planetSunTrueNorthNodeAbbreviationDefValue = "SunTrueNorthNode"
+
+    # QSettings key for the foreground color of the SunTrueNorthNode.
+    planetSunTrueNorthNodeForegroundColorKey = \
+        "ui/astrology/SunTrueNorthNodeForegroundColor"
+
+    # QSettings default value for the foreground color of the SunTrueNorthNode.
+    planetSunTrueNorthNodeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the SunTrueNorthNode.
+    planetSunTrueNorthNodeBackgroundColorKey = \
+        "ui/astrology/SunTrueNorthNodeBackgroundColor"
+
+    # QSettings default value for the background color of the SunTrueNorthNode.
+    planetSunTrueNorthNodeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the SunTrueSouthNode.
+    planetSunTrueSouthNodeGlyphUnicodeKey = \
+        "ui/astrology/SunTrueSouthNodeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the SunTrueSouthNode.
+    planetSunTrueSouthNodeGlyphUnicodeDefValue = "SunTrueSouthNode"
+
+    # QSettings key for the planet glyph font size of the SunTrueSouthNode.
+    planetSunTrueSouthNodeGlyphFontSizeKey = \
+        "ui/astrology/SunTrueSouthNodeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the SunTrueSouthNode.
+    planetSunTrueSouthNodeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the SunTrueSouthNode.
+    planetSunTrueSouthNodeAbbreviationKey = \
+        "ui/astrology/SunTrueSouthNodeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the SunTrueSouthNode.
+    planetSunTrueSouthNodeAbbreviationDefValue = "SunTrueSouthNode"
+
+    # QSettings key for the foreground color of the SunTrueSouthNode.
+    planetSunTrueSouthNodeForegroundColorKey = \
+        "ui/astrology/SunTrueSouthNodeForegroundColor"
+
+    # QSettings default value for the foreground color of the SunTrueSouthNode.
+    planetSunTrueSouthNodeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the SunTrueSouthNode.
+    planetSunTrueSouthNodeBackgroundColorKey = \
+        "ui/astrology/SunTrueSouthNodeBackgroundColor"
+
+    # QSettings default value for the background color of the SunTrueSouthNode.
+    planetSunTrueSouthNodeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MoonTrueNorthNode.
+    planetMoonTrueNorthNodeGlyphUnicodeKey = \
+        "ui/astrology/MoonTrueNorthNodeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MoonTrueNorthNode.
+    planetMoonTrueNorthNodeGlyphUnicodeDefValue = "MoonTrueNorthNode"
+
+    # QSettings key for the planet glyph font size of the MoonTrueNorthNode.
+    planetMoonTrueNorthNodeGlyphFontSizeKey = \
+        "ui/astrology/MoonTrueNorthNodeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MoonTrueNorthNode.
+    planetMoonTrueNorthNodeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MoonTrueNorthNode.
+    planetMoonTrueNorthNodeAbbreviationKey = \
+        "ui/astrology/MoonTrueNorthNodeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MoonTrueNorthNode.
+    planetMoonTrueNorthNodeAbbreviationDefValue = "MoonTrueNorthNode"
+
+    # QSettings key for the foreground color of the MoonTrueNorthNode.
+    planetMoonTrueNorthNodeForegroundColorKey = \
+        "ui/astrology/MoonTrueNorthNodeForegroundColor"
+
+    # QSettings default value for the foreground color of the MoonTrueNorthNode.
+    planetMoonTrueNorthNodeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MoonTrueNorthNode.
+    planetMoonTrueNorthNodeBackgroundColorKey = \
+        "ui/astrology/MoonTrueNorthNodeBackgroundColor"
+
+    # QSettings default value for the background color of the MoonTrueNorthNode.
+    planetMoonTrueNorthNodeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
+    # QSettings key for the planet glyph unicode of the MoonTrueSouthNode.
+    planetMoonTrueSouthNodeGlyphUnicodeKey = \
+        "ui/astrology/MoonTrueSouthNodeGlyphUnicode"
+
+    # QSettings default value for the planet glyph unicode of the MoonTrueSouthNode.
+    planetMoonTrueSouthNodeGlyphUnicodeDefValue = "MoonTrueSouthNode"
+
+    # QSettings key for the planet glyph font size of the MoonTrueSouthNode.
+    planetMoonTrueSouthNodeGlyphFontSizeKey = \
+        "ui/astrology/MoonTrueSouthNodeGlyphFontSize"
+
+    # QSettings default value for the planet glyph font size of the MoonTrueSouthNode.
+    planetMoonTrueSouthNodeGlyphFontSizeDefValue = 10
+
+    # QSettings key for the planet abbreviation of the MoonTrueSouthNode.
+    planetMoonTrueSouthNodeAbbreviationKey = \
+        "ui/astrology/MoonTrueSouthNodeAbbreviation"
+
+    # QSettings default value for the planet abbreviation of the MoonTrueSouthNode.
+    planetMoonTrueSouthNodeAbbreviationDefValue = "MoonTrueSouthNode"
+
+    # QSettings key for the foreground color of the MoonTrueSouthNode.
+    planetMoonTrueSouthNodeForegroundColorKey = \
+        "ui/astrology/MoonTrueSouthNodeForegroundColor"
+
+    # QSettings default value for the foreground color of the MoonTrueSouthNode.
+    planetMoonTrueSouthNodeForegroundColorDefValue = QColor(Qt.black)
+
+    # QSettings key for the background color of the MoonTrueSouthNode.
+    planetMoonTrueSouthNodeBackgroundColorKey = \
+        "ui/astrology/MoonTrueSouthNodeBackgroundColor"
+
+    # QSettings default value for the background color of the MoonTrueSouthNode.
+    planetMoonTrueSouthNodeBackgroundColorDefValue = QColor(Qt.transparent)
+
+
+
     # QSettings key for the planet glyph unicode of the MoSu.
     planetMoSuGlyphUnicodeKey = \
         "ui/astrology/MoSuGlyphUnicode"
@@ -4298,6 +4446,38 @@ class SettingsKeys():
     planetAsMoCalculationsEnabledDefValue = \
         False
 
+    # QSettings key for enabled astrologychart calculations for SunTrueNorthNode.
+    planetSunTrueNorthNodeCalculationsEnabledKey = \
+        "ui/astrology/SunTrueNorthNodeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for SunTrueNorthNode.
+    planetSunTrueNorthNodeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for SunTrueSouthNode.
+    planetSunTrueSouthNodeCalculationsEnabledKey = \
+        "ui/astrology/SunTrueSouthNodeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for SunTrueSouthNode.
+    planetSunTrueSouthNodeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MoonTrueNorthNode.
+    planetMoonTrueNorthNodeCalculationsEnabledKey = \
+        "ui/astrology/MoonTrueNorthNodeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MoonTrueNorthNode.
+    planetMoonTrueNorthNodeCalculationsEnabledDefValue = \
+        False
+
+    # QSettings key for enabled astrologychart calculations for MoonTrueSouthNode.
+    planetMoonTrueSouthNodeCalculationsEnabledKey = \
+        "ui/astrology/MoonTrueSouthNodeCalculationsEnabled"
+
+    # QSettings default value for enabled astrologychart calculations for MoonTrueSouthNode.
+    planetMoonTrueSouthNodeCalculationsEnabledDefValue = \
+        False
+
     # QSettings key for enabled astrologychart calculations for MoSu.
     planetMoSuCalculationsEnabledKey = \
         "ui/astrology/MoSuCalculationsEnabled"
@@ -4914,6 +5094,38 @@ class SettingsKeys():
 
     # QSettings default value for the display flag in PlanetaryInfoTable for AsMo.
     planetAsMoEnabledForPlanetaryInfoTableDefValue = \
+        False
+
+    # QSettings key for the display flag in PlanetaryInfoTable for SunTrueNorthNode.
+    planetSunTrueNorthNodeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/SunTrueNorthNodeEnabledForPlanetaryInfoTable"
+
+    # QSettings default value for the display flag in PlanetaryInfoTable for SunTrueNorthNode.
+    planetSunTrueNorthNodeEnabledForPlanetaryInfoTableDefValue = \
+        False
+
+    # QSettings key for the display flag in PlanetaryInfoTable for SunTrueSouthNode.
+    planetSunTrueSouthNodeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/SunTrueSouthNodeEnabledForPlanetaryInfoTable"
+
+    # QSettings default value for the display flag in PlanetaryInfoTable for SunTrueSouthNode.
+    planetSunTrueSouthNodeEnabledForPlanetaryInfoTableDefValue = \
+        False
+
+    # QSettings key for the display flag in PlanetaryInfoTable for MoonTrueNorthNode.
+    planetMoonTrueNorthNodeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/MoonTrueNorthNodeEnabledForPlanetaryInfoTable"
+
+    # QSettings default value for the display flag in PlanetaryInfoTable for MoonTrueNorthNode.
+    planetMoonTrueNorthNodeEnabledForPlanetaryInfoTableDefValue = \
+        False
+
+    # QSettings key for the display flag in PlanetaryInfoTable for MoonTrueSouthNode.
+    planetMoonTrueSouthNodeEnabledForPlanetaryInfoTableKey = \
+        "ui/astrology/MoonTrueSouthNodeEnabledForPlanetaryInfoTable"
+
+    # QSettings default value for the display flag in PlanetaryInfoTable for MoonTrueSouthNode.
+    planetMoonTrueSouthNodeEnabledForPlanetaryInfoTableDefValue = \
         False
 
     # QSettings key for the display flag in PlanetaryInfoTable for MoSu.
@@ -5534,6 +5746,38 @@ class SettingsKeys():
     planetAsMoEnabledForDeclinationDefValue = \
         False
 
+    # QSettings key for the display flag in Declination for SunTrueNorthNode.
+    planetSunTrueNorthNodeEnabledForDeclinationKey = \
+        "ui/astrology/SunTrueNorthNodeEnabledForDeclination"
+
+    # QSettings default value for the display flag in Declination for SunTrueNorthNode.
+    planetSunTrueNorthNodeEnabledForDeclinationDefValue = \
+        False
+
+    # QSettings key for the display flag in Declination for SunTrueSouthNode.
+    planetSunTrueSouthNodeEnabledForDeclinationKey = \
+        "ui/astrology/SunTrueSouthNodeEnabledForDeclination"
+
+    # QSettings default value for the display flag in Declination for SunTrueSouthNode.
+    planetSunTrueSouthNodeEnabledForDeclinationDefValue = \
+        False
+
+    # QSettings key for the display flag in Declination for MoonTrueNorthNode.
+    planetMoonTrueNorthNodeEnabledForDeclinationKey = \
+        "ui/astrology/MoonTrueNorthNodeEnabledForDeclination"
+
+    # QSettings default value for the display flag in Declination for MoonTrueNorthNode.
+    planetMoonTrueNorthNodeEnabledForDeclinationDefValue = \
+        False
+
+    # QSettings key for the display flag in Declination for MoonTrueSouthNode.
+    planetMoonTrueSouthNodeEnabledForDeclinationKey = \
+        "ui/astrology/MoonTrueSouthNodeEnabledForDeclination"
+
+    # QSettings default value for the display flag in Declination for MoonTrueSouthNode.
+    planetMoonTrueSouthNodeEnabledForDeclinationDefValue = \
+        False
+
     # QSettings key for the display flag in Declination for MoSu.
     planetMoSuEnabledForDeclinationKey = \
         "ui/astrology/MoSuEnabledForDeclination"
@@ -6150,6 +6394,38 @@ class SettingsKeys():
 
     # QSettings default value for the display flag in Latitude for AsMo.
     planetAsMoEnabledForLatitudeDefValue = \
+        False
+
+    # QSettings key for the display flag in Latitude for SunTrueNorthNode.
+    planetSunTrueNorthNodeEnabledForLatitudeKey = \
+        "ui/astrology/SunTrueNorthNodeEnabledForLatitude"
+
+    # QSettings default value for the display flag in Latitude for SunTrueNorthNode.
+    planetSunTrueNorthNodeEnabledForLatitudeDefValue = \
+        False
+
+    # QSettings key for the display flag in Latitude for SunTrueSouthNode.
+    planetSunTrueSouthNodeEnabledForLatitudeKey = \
+        "ui/astrology/SunTrueSouthNodeEnabledForLatitude"
+
+    # QSettings default value for the display flag in Latitude for SunTrueSouthNode.
+    planetSunTrueSouthNodeEnabledForLatitudeDefValue = \
+        False
+
+    # QSettings key for the display flag in Latitude for MoonTrueNorthNode.
+    planetMoonTrueNorthNodeEnabledForLatitudeKey = \
+        "ui/astrology/MoonTrueNorthNodeEnabledForLatitude"
+
+    # QSettings default value for the display flag in Latitude for MoonTrueNorthNode.
+    planetMoonTrueNorthNodeEnabledForLatitudeDefValue = \
+        False
+
+    # QSettings key for the display flag in Latitude for MoonTrueSouthNode.
+    planetMoonTrueSouthNodeEnabledForLatitudeKey = \
+        "ui/astrology/MoonTrueSouthNodeEnabledForLatitude"
+
+    # QSettings default value for the display flag in Latitude for MoonTrueSouthNode.
+    planetMoonTrueSouthNodeEnabledForLatitudeDefValue = \
         False
 
     # QSettings key for the display flag in Latitude for MoSu.
@@ -6770,6 +7046,38 @@ class SettingsKeys():
     planetAsMoEnabledForGeoSidRadixChartDefValue = \
         False
 
+    # QSettings key for the display flag in GeoSidRadixChart for SunTrueNorthNode.
+    planetSunTrueNorthNodeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/SunTrueNorthNodeEnabledForGeoSidRadixChart"
+
+    # QSettings default value for the display flag in GeoSidRadixChart for SunTrueNorthNode.
+    planetSunTrueNorthNodeEnabledForGeoSidRadixChartDefValue = \
+        False
+
+    # QSettings key for the display flag in GeoSidRadixChart for SunTrueSouthNode.
+    planetSunTrueSouthNodeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/SunTrueSouthNodeEnabledForGeoSidRadixChart"
+
+    # QSettings default value for the display flag in GeoSidRadixChart for SunTrueSouthNode.
+    planetSunTrueSouthNodeEnabledForGeoSidRadixChartDefValue = \
+        False
+
+    # QSettings key for the display flag in GeoSidRadixChart for MoonTrueNorthNode.
+    planetMoonTrueNorthNodeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/MoonTrueNorthNodeEnabledForGeoSidRadixChart"
+
+    # QSettings default value for the display flag in GeoSidRadixChart for MoonTrueNorthNode.
+    planetMoonTrueNorthNodeEnabledForGeoSidRadixChartDefValue = \
+        False
+
+    # QSettings key for the display flag in GeoSidRadixChart for MoonTrueSouthNode.
+    planetMoonTrueSouthNodeEnabledForGeoSidRadixChartKey = \
+        "ui/astrology/MoonTrueSouthNodeEnabledForGeoSidRadixChart"
+
+    # QSettings default value for the display flag in GeoSidRadixChart for MoonTrueSouthNode.
+    planetMoonTrueSouthNodeEnabledForGeoSidRadixChartDefValue = \
+        False
+
     # QSettings key for the display flag in GeoSidRadixChart for MoSu.
     planetMoSuEnabledForGeoSidRadixChartKey = \
         "ui/astrology/MoSuEnabledForGeoSidRadixChart"
@@ -7388,6 +7696,38 @@ class SettingsKeys():
     planetAsMoEnabledForGeoTropRadixChartDefValue = \
         False
 
+    # QSettings key for the display flag in GeoTropRadixChart for SunTrueNorthNode.
+    planetSunTrueNorthNodeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/SunTrueNorthNodeEnabledForGeoTropRadixChart"
+
+    # QSettings default value for the display flag in GeoTropRadixChart for SunTrueNorthNode.
+    planetSunTrueNorthNodeEnabledForGeoTropRadixChartDefValue = \
+        False
+
+    # QSettings key for the display flag in GeoTropRadixChart for SunTrueSouthNode.
+    planetSunTrueSouthNodeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/SunTrueSouthNodeEnabledForGeoTropRadixChart"
+
+    # QSettings default value for the display flag in GeoTropRadixChart for SunTrueSouthNode.
+    planetSunTrueSouthNodeEnabledForGeoTropRadixChartDefValue = \
+        False
+
+    # QSettings key for the display flag in GeoTropRadixChart for MoonTrueNorthNode.
+    planetMoonTrueNorthNodeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/MoonTrueNorthNodeEnabledForGeoTropRadixChart"
+
+    # QSettings default value for the display flag in GeoTropRadixChart for MoonTrueNorthNode.
+    planetMoonTrueNorthNodeEnabledForGeoTropRadixChartDefValue = \
+        False
+
+    # QSettings key for the display flag in GeoTropRadixChart for MoonTrueSouthNode.
+    planetMoonTrueSouthNodeEnabledForGeoTropRadixChartKey = \
+        "ui/astrology/MoonTrueSouthNodeEnabledForGeoTropRadixChart"
+
+    # QSettings default value for the display flag in GeoTropRadixChart for MoonTrueSouthNode.
+    planetMoonTrueSouthNodeEnabledForGeoTropRadixChartDefValue = \
+        False
+
     # QSettings key for the display flag in GeoTropRadixChart for MoSu.
     planetMoSuEnabledForGeoTropRadixChartKey = \
         "ui/astrology/MoSuEnabledForGeoTropRadixChart"
@@ -8004,6 +8344,38 @@ class SettingsKeys():
 
     # QSettings default value for the display flag in HelioTropRadixChart for AsMo.
     planetAsMoEnabledForHelioTropRadixChartDefValue = \
+        False
+
+    # QSettings key for the display flag in HelioTropRadixChart for SunTrueNorthNode.
+    planetSunTrueNorthNodeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/SunTrueNorthNodeEnabledForHelioTropRadixChart"
+
+    # QSettings default value for the display flag in HelioTropRadixChart for SunTrueNorthNode.
+    planetSunTrueNorthNodeEnabledForHelioTropRadixChartDefValue = \
+        False
+
+    # QSettings key for the display flag in HelioTropRadixChart for SunTrueSouthNode.
+    planetSunTrueSouthNodeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/SunTrueSouthNodeEnabledForHelioTropRadixChart"
+
+    # QSettings default value for the display flag in HelioTropRadixChart for SunTrueSouthNode.
+    planetSunTrueSouthNodeEnabledForHelioTropRadixChartDefValue = \
+        False
+
+    # QSettings key for the display flag in HelioTropRadixChart for MoonTrueNorthNode.
+    planetMoonTrueNorthNodeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MoonTrueNorthNodeEnabledForHelioTropRadixChart"
+
+    # QSettings default value for the display flag in HelioTropRadixChart for MoonTrueNorthNode.
+    planetMoonTrueNorthNodeEnabledForHelioTropRadixChartDefValue = \
+        False
+
+    # QSettings key for the display flag in HelioTropRadixChart for MoonTrueSouthNode.
+    planetMoonTrueSouthNodeEnabledForHelioTropRadixChartKey = \
+        "ui/astrology/MoonTrueSouthNodeEnabledForHelioTropRadixChart"
+
+    # QSettings default value for the display flag in HelioTropRadixChart for MoonTrueSouthNode.
+    planetMoonTrueSouthNodeEnabledForHelioTropRadixChartDefValue = \
         False
 
     # QSettings key for the display flag in HelioTropRadixChart for MoSu.

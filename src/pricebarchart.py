@@ -8339,6 +8339,18 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag == True:
             self.planetNamesEnabled.append("AsMo")
         if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("SunTrueNorthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("SunTrueSouthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("MoonTrueNorthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("MoonTrueSouthNode")
+        if PriceBarChartSettings.\
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag == True:
             self.planetNamesEnabled.append("MoSu")
         if PriceBarChartSettings.\
@@ -9041,6 +9053,18 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag == True:
             self.planetNamesEnabled.append("AsMo")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("SunTrueNorthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("SunTrueSouthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("MoonTrueNorthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("MoonTrueSouthNode")
         if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag == True:
             self.planetNamesEnabled.append("MoSu")
@@ -9928,6 +9952,14 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.planetNamesEnabled.append("AsSu")
         if self.artifact.getPlanetAsMoEnabledFlag():
             self.planetNamesEnabled.append("AsMo")
+        if self.artifact.getPlanetSunTrueNorthNodeEnabledFlag():
+            self.planetNamesEnabled.append("SunTrueNorthNode")
+        if self.artifact.getPlanetSunTrueSouthNodeEnabledFlag():
+            self.planetNamesEnabled.append("SunTrueSouthNode")
+        if self.artifact.getPlanetMoonTrueNorthNodeEnabledFlag():
+            self.planetNamesEnabled.append("MoonTrueNorthNode")
+        if self.artifact.getPlanetMoonTrueSouthNodeEnabledFlag():
+            self.planetNamesEnabled.append("MoonTrueSouthNode")
         if self.artifact.getPlanetMoSuEnabledFlag():
             self.planetNamesEnabled.append("MoSu")
         if self.artifact.getPlanetMeVeEnabledFlag():
@@ -10259,6 +10291,14 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             "AsSu" in self.planetNamesEnabled)
         self.artifact.setPlanetAsMoEnabledFlag(\
             "AsMo" in self.planetNamesEnabled)
+        self.artifact.setPlanetSunTrueNorthNodeEnabledFlag(\
+            "SunTrueNorthNode" in self.planetNamesEnabled)
+        self.artifact.setPlanetSunTrueSouthNodeEnabledFlag(\
+            "SunTrueSouthNode" in self.planetNamesEnabled)
+        self.artifact.setPlanetMoonTrueNorthNodeEnabledFlag(\
+            "MoonTrueNorthNode" in self.planetNamesEnabled)
+        self.artifact.setPlanetMoonTrueSouthNodeEnabledFlag(\
+            "MoonTrueSouthNode" in self.planetNamesEnabled)
         self.artifact.setPlanetMoSuEnabledFlag(\
             "MoSu" in self.planetNamesEnabled)
         self.artifact.setPlanetMeVeEnabledFlag(\
@@ -41646,11 +41686,8 @@ class PriceBarChartWidget(QWidget):
             geoSunTimestampStr += \
               AstrologyUtils.convertLongitudeToStrWithRasiAbbrev(longitude)
 
-            planetTrueNorthNode = Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
-            longitude = \
-                Util.toNormalizedAngle(\
-                planetSun.geocentric['tropical']['longitude'] - \
-                planetTrueNorthNode.geocentric['tropical']['longitude'])
+            planetSunTrueNorthNode = Ephemeris.getPlanetaryInfo("SunTrueNorthNode", timestamp)
+            longitude = planetSunTrueNorthNode.geocentric['tropical']['longitude']
             geoSunTrueNorthNodeTimestampStr += \
                 "{: >6.2f} deg".format(longitude)
 

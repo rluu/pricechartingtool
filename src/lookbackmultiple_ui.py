@@ -367,8 +367,64 @@ def testLookbackMultiplePanelWidget():
                           tropicalFlag=True,
                           siderealFlag=False)
 
-    lm4 = LookbackMultiple(name="360 deg G.MoSu",
+    lm4 = LookbackMultiple(name="360 deg G.SunTrueNorthNode",
                           description="MyDescription4",
+                          lookbackMultiple=1.0,
+                          baseUnit=360.0,
+                          baseUnitTypeDegreesFlag=True,
+                          baseUnitTypeRevolutionsFlag=False,
+                          color=QColor(Qt.black),
+                          enabled=True,
+                          planetName="SunTrueNorthNode",
+                          geocentricFlag=True,
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
+
+    lm5 = LookbackMultiple(name="360 deg G.SunTrueSouthNode",
+                          description="MyDescription5",
+                          lookbackMultiple=1.0,
+                          baseUnit=360.0,
+                          baseUnitTypeDegreesFlag=True,
+                          baseUnitTypeRevolutionsFlag=False,
+                          color=QColor(Qt.black),
+                          enabled=True,
+                          planetName="SunTrueSouthNode",
+                          geocentricFlag=True,
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
+
+    lm6 = LookbackMultiple(name="360 deg G.MoonTrueNorthNode",
+                          description="MyDescription6",
+                          lookbackMultiple=1.0,
+                          baseUnit=360.0,
+                          baseUnitTypeDegreesFlag=True,
+                          baseUnitTypeRevolutionsFlag=False,
+                          color=QColor(Qt.black),
+                          enabled=True,
+                          planetName="MoonTrueNorthNode",
+                          geocentricFlag=True,
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
+
+    lm7 = LookbackMultiple(name="360 deg G.MoonTrueSouthNode",
+                          description="MyDescription7",
+                          lookbackMultiple=1.0,
+                          baseUnit=360.0,
+                          baseUnitTypeDegreesFlag=True,
+                          baseUnitTypeRevolutionsFlag=False,
+                          color=QColor(Qt.black),
+                          enabled=True,
+                          planetName="MoonTrueSouthNode",
+                          geocentricFlag=True,
+                          heliocentricFlag=False,
+                          tropicalFlag=True,
+                          siderealFlag=False)
+
+    lm8 = LookbackMultiple(name="360 deg G.MoSu",
+                          description="MyDescription8",
                           lookbackMultiple=1.0,
                           baseUnit=360.0,
                           baseUnitTypeDegreesFlag=True,
@@ -381,7 +437,7 @@ def testLookbackMultiplePanelWidget():
                           tropicalFlag=True,
                           siderealFlag=False)
 
-    lookbackMultiples = [lm1, lm2, lm3, lm4]
+    lookbackMultiples = [lm1, lm2, lm3, lm4, lm5, lm6, lm7, lm8]
 
     widget = LookbackMultiplePanelWidget()
     widget.setLookbackMultiples(lookbackMultiples)

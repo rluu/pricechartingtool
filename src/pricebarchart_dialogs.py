@@ -4595,6 +4595,14 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
             QCheckBox("Planet AsSu enabled")
         self.planetAsMoEnabledFlagCheckBox = \
             QCheckBox("Planet AsMo enabled")
+        self.planetSunTrueNorthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet SunTrueNorthNode enabled")
+        self.planetSunTrueSouthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet SunTrueSouthNode enabled")
+        self.planetMoonTrueNorthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet MoonTrueNorthNode enabled")
+        self.planetMoonTrueSouthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet MoonTrueSouthNode enabled")
         self.planetMoSuEnabledFlagCheckBox = \
             QCheckBox("Planet MoSu enabled")
         self.planetMeVeEnabledFlagCheckBox = \
@@ -4648,6 +4656,14 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
             self.planetAsSuEnabledFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.planetAsMoEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetSunTrueNorthNodeEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetSunTrueSouthNodeEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetMoonTrueNorthNodeEnabledFlagCheckBox)
+        showTextCheckBoxesLeftLayout.addWidget(\
+            self.planetMoonTrueSouthNodeEnabledFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
             self.planetMoSuEnabledFlagCheckBox)
         showTextCheckBoxesLeftLayout.addWidget(\
@@ -4895,6 +4911,10 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.planetAvgJuSaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetAsSuEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetAsMoEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetSunTrueNorthNodeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetSunTrueSouthNodeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMoonTrueNorthNodeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
+        self.planetMoonTrueSouthNodeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetMoSuEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetMeVeEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
         self.planetMeEaEnabledFlagCheckBox.setEnabled(not self.readOnlyFlag)
@@ -5602,6 +5622,26 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         else:
             self.planetAsMoEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
 
+        if self.artifact.getPlanetSunTrueNorthNodeEnabledFlag() == True:
+            self.planetSunTrueNorthNodeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSunTrueNorthNodeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetSunTrueSouthNodeEnabledFlag() == True:
+            self.planetSunTrueSouthNodeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSunTrueSouthNodeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetMoonTrueNorthNodeEnabledFlag() == True:
+            self.planetMoonTrueNorthNodeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoonTrueNorthNodeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
+        if self.artifact.getPlanetMoonTrueSouthNodeEnabledFlag() == True:
+            self.planetMoonTrueSouthNodeEnabledFlagCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoonTrueSouthNodeEnabledFlagCheckBox.setCheckState(Qt.Unchecked)
+
         if self.artifact.getPlanetMoSuEnabledFlag() == True:
             self.planetMoSuEnabledFlagCheckBox.setCheckState(Qt.Checked)
         else:
@@ -6119,6 +6159,18 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         planetAsMoEnabledFlag = \
             (self.planetAsMoEnabledFlagCheckBox.\
              checkState() == Qt.Checked)
+        planetSunTrueNorthNodeEnabledFlag = \
+            (self.planetSunTrueNorthNodeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetSunTrueSouthNodeEnabledFlag = \
+            (self.planetSunTrueSouthNodeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMoonTrueNorthNodeEnabledFlag = \
+            (self.planetMoonTrueNorthNodeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
+        planetMoonTrueSouthNodeEnabledFlag = \
+            (self.planetMoonTrueSouthNodeEnabledFlagCheckBox.\
+             checkState() == Qt.Checked)
         planetMoSuEnabledFlag = \
             (self.planetMoSuEnabledFlagCheckBox.\
              checkState() == Qt.Checked)
@@ -6319,6 +6371,10 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifactEditWidget(QWidget)
         self.artifact.setPlanetAvgJuSaEnabledFlag(planetAvgJuSaEnabledFlag)
         self.artifact.setPlanetAsSuEnabledFlag(planetAsSuEnabledFlag)
         self.artifact.setPlanetAsMoEnabledFlag(planetAsMoEnabledFlag)
+        self.artifact.setPlanetSunTrueNorthNodeEnabledFlag(planetSunTrueNorthNodeEnabledFlag)
+        self.artifact.setPlanetSunTrueSouthNodeEnabledFlag(planetSunTrueSouthNodeEnabledFlag)
+        self.artifact.setPlanetMoonTrueNorthNodeEnabledFlag(planetMoonTrueNorthNodeEnabledFlag)
+        self.artifact.setPlanetMoonTrueSouthNodeEnabledFlag(planetMoonTrueSouthNodeEnabledFlag)
         self.artifact.setPlanetMoSuEnabledFlag(planetMoSuEnabledFlag)
         self.artifact.setPlanetMeVeEnabledFlag(planetMeVeEnabledFlag)
         self.artifact.setPlanetMeEaEnabledFlag(planetMeEaEnabledFlag)
