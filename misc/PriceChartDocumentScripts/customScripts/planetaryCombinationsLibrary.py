@@ -10693,8 +10693,9 @@ class PlanetaryCombinationsLibrary:
         """Adds vertical lines to the PriceChartDocumentData object,
         at locations where planet 'planet1Name' and planet
         'planet2Name' are 'degreeDifference' degrees apart,
-        geocentrically.  This includes approaching and separating
-        aspects.
+        geocentrically.
+
+        THIS INCLUDES APPROACHING AND SEPARATING ASPECTS.
 
         For example, if the desired degree difference is 72, and
         planets are Mars and Venus, then it will catch Mars 0 deg

@@ -21,6 +21,7 @@ from PyQt4.QtGui import *
 
 # Include some PriceChartingTool modules.
 from ephemeris import Ephemeris
+from color import Color
 from data_objects import *
 from pricebarchart import PriceBarChartGraphicsScene
 
@@ -223,7 +224,7 @@ def processPCDD(pcdd, tag):
             "Venus", "heliocentric", "tropical",
             "Mars", "heliocentric", "tropical",
             degreeValue, color=QColor(Qt.red))
-    if True:
+    if False:
         degreeValue = 180
         success = PlanetaryCombinationsLibrary.\
             addLongitudeAspectVerticalLines(\
@@ -250,7 +251,8 @@ def processPCDD(pcdd, tag):
             pcdd, startDt, endDt, highPrice, lowPrice,
             "Mercury", "heliocentric", "tropical",
             "Earth", "heliocentric", "tropical",
-            degreeValue, color=QColor(Qt.darkGreen))
+            degreeValue, color=QColor(Qt.darkYellow))
+            #degreeValue, color=QColor(Qt.darkGreen))
 
     if False:
         degreeValue = 0
@@ -305,6 +307,121 @@ def processPCDD(pcdd, tag):
             "Earth", "heliocentric", "tropical",
             "Jupiter", "heliocentric", "tropical",
             degreeValue, color=QColor(Qt.darkCyan))
+
+    ######################################
+
+    if False:
+        for degreeValue in [180]:
+            success = PlanetaryCombinationsLibrary.\
+                addPlanetCrossingLongitudeDegVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "geocentric", "tropical", "Mercury", degreeValue)
+
+    if False:
+        for degreeValue in [180]:
+            success = PlanetaryCombinationsLibrary.\
+                addPlanetCrossingLongitudeDegVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "geocentric", "tropical", "Venus", degreeValue)
+
+    if False:
+        for degreeValue in [180]:
+            success = PlanetaryCombinationsLibrary.\
+                addPlanetCrossingLongitudeDegVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "geocentric", "tropical", "Mars", degreeValue)
+
+    if False:
+        for degreeValue in [0, 90, 180, 270]:
+            success = PlanetaryCombinationsLibrary.\
+                addPlanetCrossingLongitudeDegVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "geocentric", "tropical", "Jupiter", degreeValue)
+
+    if True:
+        if True:
+            degreeValue = 0
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Sun", "geocentric", "tropical",
+                "TrueNorthNode", "geocentric", "tropical",
+                degreeValue, color=Color.darkRed)
+
+            degreeValue = 90
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Sun", "geocentric", "tropical",
+                "TrueNorthNode", "geocentric", "tropical",
+                degreeValue, color=Color.lightRed)
+
+            degreeValue = 180
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Sun", "geocentric", "tropical",
+                "TrueNorthNode", "geocentric", "tropical",
+                degreeValue, color=Color.lightRed)
+
+            degreeValue = 270
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Sun", "geocentric", "tropical",
+                "TrueNorthNode", "geocentric", "tropical",
+                degreeValue, color=Color.lightRed)
+
+        if True:
+            degreeValue = 120
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Sun", "geocentric", "tropical",
+                "TrueNorthNode", "geocentric", "tropical",
+                degreeValue, color=Color.darkBabyBlue)
+
+            degreeValue = 240
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Sun", "geocentric", "tropical",
+                "TrueNorthNode", "geocentric", "tropical",
+                degreeValue, color=Color.lightBabyBlue)
+
+        if True:
+            degreeValue = 33
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Sun", "geocentric", "tropical",
+                "TrueNorthNode", "geocentric", "tropical",
+                degreeValue, color=Color.purple)
+
+            degreeValue = 153
+            success = PlanetaryCombinationsLibrary.\
+                addLongitudeAspectVerticalLines(\
+                pcdd, startDt, endDt, highPrice, lowPrice,
+                "Sun", "geocentric", "tropical",
+                "TrueNorthNode", "geocentric", "tropical",
+                degreeValue, color=Color.lightPurple)
+
+        if True:
+            unit = 360 / 7.0
+            degreeValues = [\
+                    unit * 1,
+                    unit * 2,
+                    unit * 3,
+                    unit * 4,
+                    unit * 5,
+                    unit * 6]
+            for degreeValue in degreeValues:
+                success = PlanetaryCombinationsLibrary.\
+                    addLongitudeAspectVerticalLines(\
+                    pcdd, startDt, endDt, highPrice, lowPrice,
+                    "Sun", "geocentric", "tropical",
+                    "TrueNorthNode", "geocentric", "tropical",
+                    degreeValue, color=Color.veryLightPink)
 
     ######################################
 
