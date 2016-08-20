@@ -4,6 +4,16 @@
 
 TODO:  
 
+    - Change some of my PriceChartDocumentScripts (such as DJIA) to use a
+      different method than 
+      PlanetaryCombinationsLibrary.addLongitudeAspectVerticalLines(), 
+      because that method does both approaching and separating aspects.  
+
+      I should be using 
+      PlanetaryCombinationsLibrary.getLongitudeAspectTimestamps()
+      because that method allows for specification of 
+      uniDirectionalAspectsFlag as True or False.
+
     - Create/Add a tool to calculate and show ratios of planet movements.
     (Harmony between planets).  It would work similar to
     PlanetLongitudeMovementMeasurementTool.  
