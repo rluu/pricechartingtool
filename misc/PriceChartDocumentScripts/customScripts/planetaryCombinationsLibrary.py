@@ -23,6 +23,16 @@
 #     addGeoConjunctionsOfDirectRetrogradeMidpointsVerticalLines()
 #     addGeoLeastMeanGreatConjunctionsOfRetrogradeDirectMidpointsVerticalLines()
 #
+#  These methods were copied from this file to EphemerisUtils and had their pcdd variable removed (Sat Sep  3 10:03:06 EDT 2016):
+#
+#     getLongitudeAspectTimestamps()
+#     getOnePlanetLongitudeAspectTimestamps()
+#     getPlanetCrossingLongitudeDegTimestamps()
+#     getGeoRetrogradeDirectTimestamps()
+#     _getDatetimesOfElapsedLongitudeDegrees()
+#
+#        # TODO_rluu_20160903: I need to replace the old versions of these methods that exist in this planetaryCombinationsLibrary.py file and make all references to the old versions use the version inside EphemerisUtils.  But I need to keep in mind that hte EphemerisUtils version of these methods assume that the Ephemeris is already initialized and has the geographical location set already.  So in this file, I would need to make sure that those things are initialized before calling EphemerisUtils' methods.
+#
 ##############################################################################
 
 import copy
@@ -44,6 +54,7 @@ from PyQt4.QtGui import *
 
 # Include some PriceChartingTool modules.
 from ephemeris import Ephemeris
+from ephemeris_utils import EphemerisUtils
 from data_objects import *
 
 from pricebarchart import LineSegmentGraphicsItem
@@ -5451,8 +5462,9 @@ class PlanetaryCombinationsLibrary:
         color=None,
         maxErrorTd=datetime.timedelta(hours=1)):
         """Adds a vertical line segments whenever a planet's
-        declination changes from increasing to decreasing or
-        decreasing to increasing.
+        declination crosses 0 degrees of declination.  
+        This is when the declination changes from negative to positive or 
+        positive to negative.
 
         Arguments:
         pcdd      - PriceChartDocumentData object that will be modified.
@@ -10693,9 +10705,8 @@ class PlanetaryCombinationsLibrary:
         """Adds vertical lines to the PriceChartDocumentData object,
         at locations where planet 'planet1Name' and planet
         'planet2Name' are 'degreeDifference' degrees apart,
-        geocentrically.
-
-        THIS INCLUDES APPROACHING AND SEPARATING ASPECTS.
+        geocentrically.  This includes approaching and separating
+        aspects.
 
         For example, if the desired degree difference is 72, and
         planets are Mars and Venus, then it will catch Mars 0 deg
@@ -11838,6 +11849,11 @@ class PlanetaryCombinationsLibrary:
 
         Note: Default tag used for the artifacts added is the name of this
         function, without the word 'add' at the beginning.
+
+        TODO_rluu_20160903: There are at least two things wrong with this method:
+          - If startDt is far away earlier compared to planetEpocDt and degreeIncrement is a non-circle-divisible amount, then it could give wrong results.  If I were to do this correctly by refactoring and having a method that is solely to get dates for this stuff, then I probably would want to get rid of the startDt variable and use the planetEpocDt as the startDt?  But then you could not chain multiple calls of this together because of the maxErrorTd.  Also, we would want to add a maxErrorTd parameter (with defaults) to the arguments of this method.
+          
+          - Side effect: The way this algorithm is constructed, if the centricity type is geocentric and a geocentric planet that goes retrograde and direct, the timestamps for the vertical lines will not be in timestmp order (in the event I want to turn this method into something more generic that just returns timestamps).  An example of this is if we ask for G.Mercury 5 degrees for the degreeIncrement.  
 
         Arguments:
         pcdd      - PriceChartDocumentData object that will be modified.
