@@ -4,6 +4,10 @@
 
 TODO:  
 
+    - Convertdate package in the tps directory has some dependencies that are retrieved via pypi.
+    I should download/find these and add them to the tps directory so that
+    I can install/run my app without internet access.
+
     - Change some of my PriceChartDocumentScripts (such as DJIA) to use a
       different method than 
       PlanetaryCombinationsLibrary.addLongitudeAspectVerticalLines(), 

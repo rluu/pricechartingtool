@@ -3,6 +3,13 @@
 import logging
 import logging.config
 
+import inspect
+import datetime
+import copy
+
+import pytz
+
+from util import Util
 from ephemeris import PlanetaryInfo
 from ephemeris import Ephemeris
 
@@ -15,11 +22,12 @@ class EphemerisUtils:
     These methods assume that the Ephemeris is initialized and the
     geographic position is set already.
 
-    TODO_rluu_20160903: The methods in this class were written a while
+    TODO_rluu_20160903: The original methods from which this class was
+    created/based on was written a while
     ago and so they may not have the most optimal step sizes.
-    I may want to add a method to this class like I did 
+    I may want to add a method to this class like I did
     in src/lookbackmultiple_calc.py with method _getOptimalStepSizeTd() or
-    in src/planetlongitudemovementmeasurement_calc.py with method 
+    in src/planetlongitudemovementmeasurement_calc.py with method
     _getOptimalStepSizeTd().
     """
 
@@ -28,7 +36,8 @@ class EphemerisUtils:
 
     @staticmethod
     def getLongitudeAspectTimestamps(\
-        startDt, endDt,
+        startDt,
+        endDt,
         planet1ParamsList,
         planet2ParamsList,
         degreeDifference,
@@ -134,33 +143,33 @@ class EphemerisUtils:
         None is returned.
         """
 
-        log.debug("Entered " + inspect.stack()[0][3] + "()")
+        EphemerisUtils.log.debug("Entered " + inspect.stack()[0][3] + "()")
 
         # List of timestamps of the aspects found.
         aspectTimestamps = []
 
         # Make sure the inputs are valid.
         if endDt < startDt:
-            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            EphemerisUtils.log.error("Invalid input: 'endDt' must be after 'startDt'")
             return None
 
         # Check to make sure planet lists were given.
         if len(planet1ParamsList) == 0:
-            log.error("planet1ParamsList must contain at least 1 tuple.")
+            EphemerisUtils.log.error("planet1ParamsList must contain at least 1 tuple.")
             return None
         if len(planet2ParamsList) == 0:
-            log.error("planet2ParamsList must contain at least 1 tuple.")
+            EphemerisUtils.log.error("planet2ParamsList must contain at least 1 tuple.")
             return None
 
-        log.debug("planet1ParamsList passed in is: {}".\
+        EphemerisUtils.log.debug("planet1ParamsList passed in is: {}".\
                   format(planet1ParamsList))
-        log.debug("planet2ParamsList passed in is: {}".\
+        EphemerisUtils.log.debug("planet2ParamsList passed in is: {}".\
                   format(planet2ParamsList))
 
         # Check for valid inputs in each of the planet parameter lists.
         for planetTuple in planet1ParamsList + planet2ParamsList:
             if len(planetTuple) != 3:
-                log.error("Input error: " + \
+                EphemerisUtils.log.error("Input error: " + \
                           "Not enough values given in planet tuple.")
                 return None
 
@@ -173,7 +182,7 @@ class EphemerisUtils:
                 loweredCentricityType != "topocentric" and \
                 loweredCentricityType != "heliocentric":
 
-                log.error("Invalid input: Centricity type is invalid.  " + \
+                EphemerisUtils.log.error("Invalid input: Centricity type is invalid.  " + \
                       "Value given was: {}".format(centricityType))
                 return None
 
@@ -182,7 +191,7 @@ class EphemerisUtils:
             if loweredLongitudeType != "tropical" and \
                 loweredLongitudeType != "sidereal":
 
-                log.error("Invalid input: Longitude type is invalid.  " + \
+                EphemerisUtils.log.error("Invalid input: Longitude type is invalid.  " + \
                       "Value given was: {}".format(longitudeType))
                 return None
 
@@ -204,7 +213,7 @@ class EphemerisUtils:
                 # smaller aspect sizes.
                 stepSizeTd = datetime.timedelta(hours=3)
 
-        log.debug("Step size is: {}".format(stepSizeTd))
+        EphemerisUtils.log.debug("Step size is: {}".format(stepSizeTd))
 
         # Desired angles.  We need to check for planets at these angles.
         desiredAngleDegList = []
@@ -224,7 +233,7 @@ class EphemerisUtils:
         anglesStr = ""
         for angle in desiredAngleDegList:
             anglesStr += "{} ".format(angle)
-        log.debug("Angles in desiredAngleDegList: " + anglesStr)
+        EphemerisUtils.log.debug("Angles in desiredAngleDegList: " + anglesStr)
 
         # Iterate through, appending to aspectTimestamps list as we go.
         steps = []
@@ -245,7 +254,7 @@ class EphemerisUtils:
             desired.
             """
 
-            log.debug("planetParamsList passed in is: {}".\
+            EphemerisUtils.log.debug("planetParamsList passed in is: {}".\
                       format(planetParamsList))
 
             unAveragedFieldValues = []
@@ -257,7 +266,7 @@ class EphemerisUtils:
 
                 pi = Ephemeris.getPlanetaryInfo(planetName, dt)
 
-                log.debug("Planet {} has geo sid longitude: {}".\
+                EphemerisUtils.log.debug("Planet {} has geo sid longitude: {}".\
                           format(planetName,
                                  pi.geocentric["sidereal"]["longitude"]))
 
@@ -270,13 +279,13 @@ class EphemerisUtils:
                 elif centricityType.lower() == "heliocentric":
                     fieldValue = pi.heliocentric[longitudeType][fieldName]
                 else:
-                    log.error("Unknown centricity type: {}".\
+                    EphemerisUtils.log.error("Unknown centricity type: {}".\
                               format(centricityType))
                     fieldValue = None
 
                 unAveragedFieldValues.append(fieldValue)
 
-            log.debug("unAveragedFieldValues is: {}".\
+            EphemerisUtils.log.debug("unAveragedFieldValues is: {}".\
                       format(unAveragedFieldValues))
 
             # Average the field values.
@@ -285,12 +294,12 @@ class EphemerisUtils:
                 total += v
             averagedFieldValue = total / len(unAveragedFieldValues)
 
-            log.debug("averagedFieldValue is: {}".\
+            EphemerisUtils.log.debug("averagedFieldValue is: {}".\
                       format(averagedFieldValue))
 
             return averagedFieldValue
 
-        log.debug("Stepping through timestamps from {} to {} ...".\
+        EphemerisUtils.log.debug("Stepping through timestamps from {} to {} ...".\
                   format(Ephemeris.datetimeToStr(startDt),
                          Ephemeris.datetimeToStr(endDt)))
 
@@ -302,7 +311,7 @@ class EphemerisUtils:
             currDt = steps[-1]
             prevDt = steps[-2]
 
-            log.debug("Looking at currDt == {} ...".\
+            EphemerisUtils.log.debug("Looking at currDt == {} ...".\
                       format(Ephemeris.datetimeToStr(currDt)))
 
             longitudesP1[-1] = \
@@ -312,18 +321,18 @@ class EphemerisUtils:
                 Util.toNormalizedAngle(\
                 getFieldValue(currDt, planet2ParamsList, fieldName))
 
-            log.debug("{} {} is: {}".\
+            EphemerisUtils.log.debug("{} {} is: {}".\
                       format(planet1ParamsList, fieldName,
                              longitudesP1[-1]))
-            log.debug("{} {} is: {}".\
+            EphemerisUtils.log.debug("{} {} is: {}".\
                       format(planet2ParamsList, fieldName,
                              longitudesP2[-1]))
 
             currDiff = Util.toNormalizedAngle(\
                 longitudesP1[-1] - longitudesP2[-1])
 
-            log.debug("prevDiff == {}".format(prevDiff))
-            log.debug("currDiff == {}".format(currDiff))
+            EphemerisUtils.log.debug("prevDiff == {}".format(prevDiff))
+            EphemerisUtils.log.debug("currDiff == {}".format(currDiff))
 
             if prevDiff != None and \
                    longitudesP1[-2] != None and \
@@ -338,19 +347,19 @@ class EphemerisUtils:
                     else:
                         prevDiff += 360
 
-                    log.debug("After adjustment: prevDiff == {}".\
+                    EphemerisUtils.log.debug("After adjustment: prevDiff == {}".\
                               format(prevDiff))
-                    log.debug("After adjustment: currDiff == {}".\
+                    EphemerisUtils.log.debug("After adjustment: currDiff == {}".\
                               format(currDiff))
 
                 for desiredAngleDeg in desiredAngleDegList:
-                    log.debug("Looking at desiredAngleDeg: {}".\
+                    EphemerisUtils.log.debug("Looking at desiredAngleDeg: {}".\
                               format(desiredAngleDeg))
 
                     desiredDegree = desiredAngleDeg
 
                     if prevDiff < desiredDegree and currDiff >= desiredDegree:
-                        log.debug("Crossed over {} from below to above!".\
+                        EphemerisUtils.log.debug("Crossed over {} from below to above!".\
                                   format(desiredDegree))
 
                         # This is the upper-bound of the error timedelta.
@@ -361,7 +370,7 @@ class EphemerisUtils:
                         # Refine the timestamp until it is less than
                         # the threshold.
                         while currErrorTd > maxErrorTd:
-                            log.debug("Refining between {} and {}".\
+                            EphemerisUtils.log.debug("Refining between {} and {}".\
                                       format(Ephemeris.datetimeToStr(t1),
                                              Ephemeris.datetimeToStr(t2)))
 
@@ -382,8 +391,8 @@ class EphemerisUtils:
                                 Util.toNormalizedAngle(getFieldValue(\
                                 testDt, planet2ParamsList, fieldName))
 
-                            log.debug("testValueP1 == {}".format(testValueP1))
-                            log.debug("testValueP2 == {}".format(testValueP2))
+                            EphemerisUtils.log.debug("testValueP1 == {}".format(testValueP1))
+                            EphemerisUtils.log.debug("testValueP2 == {}".format(testValueP2))
 
                             if longitudesP1[-2] > 240 and testValueP1 < 120:
                                 # Planet 1 hopped over 0 degrees.
@@ -412,7 +421,7 @@ class EphemerisUtils:
                                 if testDiff < 120:
                                     testDiff += 360
 
-                            log.debug("testDiff == {}".format(testDiff))
+                            EphemerisUtils.log.debug("testDiff == {}".format(testDiff))
 
                             if testDiff < desiredDegree:
                                 t1 = testDt
@@ -435,7 +444,7 @@ class EphemerisUtils:
                         aspectTimestamps.append(currDt)
 
                     elif prevDiff > desiredDegree and currDiff <= desiredDegree:
-                        log.debug("Crossed over {} from above to below!".\
+                        EphemerisUtils.log.debug("Crossed over {} from above to below!".\
                                   format(desiredDegree))
 
                         # This is the upper-bound of the error timedelta.
@@ -446,7 +455,7 @@ class EphemerisUtils:
                         # Refine the timestamp until it is less than
                         # the threshold.
                         while currErrorTd > maxErrorTd:
-                            log.debug("Refining between {} and {}".\
+                            EphemerisUtils.log.debug("Refining between {} and {}".\
                                       format(Ephemeris.datetimeToStr(t1),
                                              Ephemeris.datetimeToStr(t2)))
 
@@ -467,8 +476,8 @@ class EphemerisUtils:
                                 Util.toNormalizedAngle(getFieldValue(\
                                 testDt, planet2ParamsList, fieldName))
 
-                            log.debug("testValueP1 == {}".format(testValueP1))
-                            log.debug("testValueP2 == {}".format(testValueP2))
+                            EphemerisUtils.log.debug("testValueP1 == {}".format(testValueP1))
+                            EphemerisUtils.log.debug("testValueP2 == {}".format(testValueP2))
 
                             if longitudesP1[-2] > 240 and testValueP1 < 120:
                                 # Planet 1 hopped over 0 degrees.
@@ -497,7 +506,7 @@ class EphemerisUtils:
                                 if testDiff < 120:
                                     testDiff += 360
 
-                            log.debug("testDiff == {}".format(testDiff))
+                            EphemerisUtils.log.debug("testDiff == {}".format(testDiff))
 
                             if testDiff > desiredDegree:
                                 t1 = testDt
@@ -520,9 +529,9 @@ class EphemerisUtils:
                         aspectTimestamps.append(currDt)
 
             # Prepare for the next iteration.
-            log.debug("steps[-1] is: {}".\
+            EphemerisUtils.log.debug("steps[-1] is: {}".\
                       format(Ephemeris.datetimeToStr(steps[-1])))
-            log.debug("stepSizeTd is: {}".format(stepSizeTd))
+            EphemerisUtils.log.debug("stepSizeTd is: {}".format(stepSizeTd))
 
             steps.append(copy.deepcopy(steps[-1]) + stepSizeTd)
             del steps[0]
@@ -534,16 +543,17 @@ class EphemerisUtils:
             # Update prevDiff as the currDiff.
             prevDiff = Util.toNormalizedAngle(currDiff)
 
-        log.info("Number of timestamps obtained: {}".\
+        EphemerisUtils.log.info("Number of timestamps obtained: {}".\
                  format(len(aspectTimestamps)))
 
-        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        EphemerisUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return aspectTimestamps
 
 
     @staticmethod
     def getOnePlanetLongitudeAspectTimestamps(\
-        startDt, endDt,
+        startDt,
+        endDt,
         planet1Params,
         fixedDegree,
         degreeDifference,
@@ -609,30 +619,30 @@ class EphemerisUtils:
         rluu_20130926: This function needs to be tested.  It was copy-and-pasted from another script I wrote this function for, and that original script when I wrote it had some syntax errors, which I believe I applied the fixes to this code copied here.  So... this function 'should' work.  It shouldn't be hard to test and confirm, but I haven't done it.
         """
 
-        log.debug("Entered " + inspect.stack()[0][3] + "()")
+        EphemerisUtils.log.debug("Entered " + inspect.stack()[0][3] + "()")
 
         # List of timestamps of the aspects found.
         aspectTimestamps = []
 
         # Make sure the inputs are valid.
         if endDt < startDt:
-            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            EphemerisUtils.log.error("Invalid input: 'endDt' must be after 'startDt'")
             return None
 
         # Check to make sure planet params were given.
         if len(planet1Params) != 3:
-            log.error("planet1Params must be a tuple with 3 elements.")
+            EphemerisUtils.log.error("planet1Params must be a tuple with 3 elements.")
             return None
         if not isinstance(fixedDegree, (int, float, complex)):
-            log.error("fixedDegree must be a number.")
+            EphemerisUtils.log.error("fixedDegree must be a number.")
             return None
 
         # Normalize the fixed degree.
         fixedDegree = Util.toNormalizedAngle(fixedDegree)
 
-        log.debug("planet1Params passed in is: {}".\
+        EphemerisUtils.log.debug("planet1Params passed in is: {}".\
                   format(planet1Params))
-        log.debug("fixedDegree passed in is: {}".\
+        EphemerisUtils.log.debug("fixedDegree passed in is: {}".\
                   format(fixedDegree))
 
         # Check inputs of planet parameters.
@@ -646,7 +656,7 @@ class EphemerisUtils:
             loweredCentricityType != "topocentric" and \
             loweredCentricityType != "heliocentric":
 
-            log.error("Invalid input: Centricity type is invalid.  " + \
+            EphemerisUtils.log.error("Invalid input: Centricity type is invalid.  " + \
                       "Value given was: {}".format(centricityType))
             return None
 
@@ -655,7 +665,7 @@ class EphemerisUtils:
         if loweredLongitudeType != "tropical" and \
             loweredLongitudeType != "sidereal":
 
-            log.error("Invalid input: Longitude type is invalid.  " + \
+            EphemerisUtils.log.error("Invalid input: Longitude type is invalid.  " + \
                       "Value given was: {}".format(longitudeType))
             return None
 
@@ -677,7 +687,7 @@ class EphemerisUtils:
             # smaller aspect sizes.
             stepSizeTd = datetime.timedelta(hours=3)
 
-        log.debug("Step size is: {}".format(stepSizeTd))
+        EphemerisUtils.log.debug("Step size is: {}".format(stepSizeTd))
 
         # Desired angles.  We need to check for planets at these angles.
         desiredAngleDegList = []
@@ -697,7 +707,7 @@ class EphemerisUtils:
         anglesStr = ""
         for angle in desiredAngleDegList:
             anglesStr += "{} ".format(angle)
-        log.debug("Angles in desiredAngleDegList: " + anglesStr)
+        EphemerisUtils.log.debug("Angles in desiredAngleDegList: " + anglesStr)
 
         # Iterate through, appending to aspectTimestamps list as we go.
         steps = []
@@ -718,7 +728,7 @@ class EphemerisUtils:
             desired.
             """
 
-            log.debug("planetParams passed in is: {}".\
+            EphemerisUtils.log.debug("planetParams passed in is: {}".\
                       format(planetParams))
             t = planetParams
 
@@ -728,7 +738,7 @@ class EphemerisUtils:
 
             pi = Ephemeris.getPlanetaryInfo(planetName, dt)
 
-            log.debug("Planet {} has geo sid longitude: {}".\
+            EphemerisUtils.log.debug("Planet {} has geo sid longitude: {}".\
                       format(planetName,
                              pi.geocentric["sidereal"]["longitude"]))
 
@@ -741,13 +751,13 @@ class EphemerisUtils:
             elif centricityType.lower() == "heliocentric":
                 fieldValue = pi.heliocentric[longitudeType][fieldName]
             else:
-                log.error("Unknown centricity type: {}".\
+                EphemerisUtils.log.error("Unknown centricity type: {}".\
                           format(centricityType))
                 fieldValue = None
 
             return fieldValue
 
-        log.debug("Stepping through timestamps from {} to {} ...".\
+        EphemerisUtils.log.debug("Stepping through timestamps from {} to {} ...".\
                   format(Ephemeris.datetimeToStr(startDt),
                          Ephemeris.datetimeToStr(endDt)))
 
@@ -759,7 +769,7 @@ class EphemerisUtils:
             currDt = steps[-1]
             prevDt = steps[-2]
 
-            log.debug("Looking at currDt == {} ...".\
+            EphemerisUtils.log.debug("Looking at currDt == {} ...".\
                       format(Ephemeris.datetimeToStr(currDt)))
 
             longitudesP1[-1] = \
@@ -768,16 +778,16 @@ class EphemerisUtils:
 
             longitudesP2[-1] = fixedDegree
 
-            log.debug("{} {} is: {}".\
+            EphemerisUtils.log.debug("{} {} is: {}".\
                       format(planet1Params, fieldName,
                              longitudesP1[-1]))
-            log.debug("fixedDegree is: {}".format(longitudesP2[-1]))
+            EphemerisUtils.log.debug("fixedDegree is: {}".format(longitudesP2[-1]))
 
             currDiff = Util.toNormalizedAngle(\
                 longitudesP1[-1] - longitudesP2[-1])
 
-            log.debug("prevDiff == {}".format(prevDiff))
-            log.debug("currDiff == {}".format(currDiff))
+            EphemerisUtils.log.debug("prevDiff == {}".format(prevDiff))
+            EphemerisUtils.log.debug("currDiff == {}".format(currDiff))
 
             if prevDiff != None and \
                    longitudesP1[-2] != None and \
@@ -792,19 +802,19 @@ class EphemerisUtils:
                     else:
                         prevDiff += 360
 
-                    log.debug("After adjustment: prevDiff == {}".\
+                    EphemerisUtils.log.debug("After adjustment: prevDiff == {}".\
                               format(prevDiff))
-                    log.debug("After adjustment: currDiff == {}".\
+                    EphemerisUtils.log.debug("After adjustment: currDiff == {}".\
                               format(currDiff))
 
                 for desiredAngleDeg in desiredAngleDegList:
-                    log.debug("Looking at desiredAngleDeg: {}".\
+                    EphemerisUtils.log.debug("Looking at desiredAngleDeg: {}".\
                               format(desiredAngleDeg))
 
                     desiredDegree = desiredAngleDeg
 
                     if prevDiff < desiredDegree and currDiff >= desiredDegree:
-                        log.debug("Crossed over {} from below to above!".\
+                        EphemerisUtils.log.debug("Crossed over {} from below to above!".\
                                   format(desiredDegree))
 
                         # This is the upper-bound of the error timedelta.
@@ -815,7 +825,7 @@ class EphemerisUtils:
                         # Refine the timestamp until it is less than
                         # the threshold.
                         while currErrorTd > maxErrorTd:
-                            log.debug("Refining between {} and {}".\
+                            EphemerisUtils.log.debug("Refining between {} and {}".\
                                       format(Ephemeris.datetimeToStr(t1),
                                              Ephemeris.datetimeToStr(t2)))
 
@@ -835,8 +845,8 @@ class EphemerisUtils:
                             testValueP2 = \
                                 Util.toNormalizedAngle(fixedDegree)
 
-                            log.debug("testValueP1 == {}".format(testValueP1))
-                            log.debug("testValueP2 == {}".format(testValueP2))
+                            EphemerisUtils.log.debug("testValueP1 == {}".format(testValueP1))
+                            EphemerisUtils.log.debug("testValueP2 == {}".format(testValueP2))
 
                             if longitudesP1[-2] > 240 and testValueP1 < 120:
                                 # Planet 1 hopped over 0 degrees.
@@ -865,7 +875,7 @@ class EphemerisUtils:
                                 if testDiff < 120:
                                     testDiff += 360
 
-                            log.debug("testDiff == {}".format(testDiff))
+                            EphemerisUtils.log.debug("testDiff == {}".format(testDiff))
 
                             if testDiff < desiredDegree:
                                 t1 = testDt
@@ -888,7 +898,7 @@ class EphemerisUtils:
                         aspectTimestamps.append(currDt)
 
                     elif prevDiff > desiredDegree and currDiff <= desiredDegree:
-                        log.debug("Crossed over {} from above to below!".\
+                        EphemerisUtils.log.debug("Crossed over {} from above to below!".\
                                   format(desiredDegree))
 
                         # This is the upper-bound of the error timedelta.
@@ -899,7 +909,7 @@ class EphemerisUtils:
                         # Refine the timestamp until it is less than
                         # the threshold.
                         while currErrorTd > maxErrorTd:
-                            log.debug("Refining between {} and {}".\
+                            EphemerisUtils.log.debug("Refining between {} and {}".\
                                       format(Ephemeris.datetimeToStr(t1),
                                              Ephemeris.datetimeToStr(t2)))
 
@@ -919,8 +929,8 @@ class EphemerisUtils:
                             testValueP2 = \
                                 Util.toNormalizedAngle(fixedDegree)
 
-                            log.debug("testValueP1 == {}".format(testValueP1))
-                            log.debug("testValueP2 == {}".format(testValueP2))
+                            EphemerisUtils.log.debug("testValueP1 == {}".format(testValueP1))
+                            EphemerisUtils.log.debug("testValueP2 == {}".format(testValueP2))
 
                             if longitudesP1[-2] > 240 and testValueP1 < 120:
                                 # Planet 1 hopped over 0 degrees.
@@ -949,7 +959,7 @@ class EphemerisUtils:
                                 if testDiff < 120:
                                     testDiff += 360
 
-                            log.debug("testDiff == {}".format(testDiff))
+                            EphemerisUtils.log.debug("testDiff == {}".format(testDiff))
 
                             if testDiff > desiredDegree:
                                 t1 = testDt
@@ -972,9 +982,9 @@ class EphemerisUtils:
                         aspectTimestamps.append(currDt)
 
             # Prepare for the next iteration.
-            log.debug("steps[-1] is: {}".\
+            EphemerisUtils.log.debug("steps[-1] is: {}".\
                       format(Ephemeris.datetimeToStr(steps[-1])))
-            log.debug("stepSizeTd is: {}".format(stepSizeTd))
+            EphemerisUtils.log.debug("stepSizeTd is: {}".format(stepSizeTd))
 
             steps.append(copy.deepcopy(steps[-1]) + stepSizeTd)
             del steps[0]
@@ -986,17 +996,21 @@ class EphemerisUtils:
             # Update prevDiff as the currDiff.
             prevDiff = Util.toNormalizedAngle(currDiff)
 
-        log.info("Number of timestamps obtained: {}".\
+        EphemerisUtils.log.info("Number of timestamps obtained: {}".\
                  format(len(aspectTimestamps)))
 
-        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        EphemerisUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return aspectTimestamps
 
 
     @staticmethod
     def getPlanetCrossingLongitudeDegTimestamps(\
-        startDt, endDt,
-        centricityType, longitudeType, planetName, degree,
+        startDt,
+        endDt,
+        planetName,
+        centricityType,
+        longitudeType,
+        degree,
         maxErrorTd=datetime.timedelta(seconds=2)):
         """Returns a list of datetimes of when a certain planet crosses
         a certain degree of longitude.
@@ -1035,14 +1049,14 @@ class EphemerisUtils:
         """
 
 
-        log.debug("Entered " + inspect.stack()[0][3] + "()")
+        EphemerisUtils.log.debug("Entered " + inspect.stack()[0][3] + "()")
 
         # Return value.
         rv = []
 
         # Make sure the inputs are valid.
         if endDt < startDt:
-            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            EphemerisUtils.log.error("Invalid input: 'endDt' must be after 'startDt'")
             return None
 
         centricityTypeOrig = centricityType
@@ -1051,7 +1065,7 @@ class EphemerisUtils:
            centricityType != "topocentric" and \
            centricityType != "heliocentric":
 
-            log.error("Invalid input: centricityType is invalid.  " + \
+            EphemerisUtils.log.error("Invalid input: centricityType is invalid.  " + \
                       "Value given was: {}".format(centricityTypeOrig))
             return None
 
@@ -1060,7 +1074,7 @@ class EphemerisUtils:
         if longitudeType != "tropical" and \
            longitudeType != "sidereal":
 
-            log.error("Invalid input: longitudeType is invalid.  " + \
+            EphemerisUtils.log.error("Invalid input: longitudeType is invalid.  " + \
                       "Value given was: {}".format(longitudeTypeOrig))
             return None
 
@@ -1095,13 +1109,13 @@ class EphemerisUtils:
             elif centricityType.lower() == "heliocentric":
                 fieldValue = pi.heliocentric[longitudeType][fieldName]
             else:
-                log.error("Unknown centricity type.")
+                EphemerisUtils.log.error("Unknown centricity type.")
                 fieldValue = None
 
             return fieldValue
 
 
-        log.debug("Stepping through timestamps from {} to {} ...".\
+        EphemerisUtils.log.debug("Stepping through timestamps from {} to {} ...".\
                   format(Ephemeris.datetimeToStr(startDt),
                          Ephemeris.datetimeToStr(endDt)))
 
@@ -1109,14 +1123,14 @@ class EphemerisUtils:
             currDt = steps[-1]
             prevDt = steps[-2]
 
-            log.debug("Looking at currDt == {} ...".\
+            EphemerisUtils.log.debug("Looking at currDt == {} ...".\
                       format(Ephemeris.datetimeToStr(currDt)))
 
             p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
 
             longitudes[-1] = getFieldValue(p1, fieldName)
 
-            log.debug("{} {} {} {} is: {}".\
+            EphemerisUtils.log.debug("{} {} {} {} is: {}".\
                       format(p1.name, centricityType, longitudeType, fieldName,
                              getFieldValue(p1, fieldName)))
 
@@ -1149,7 +1163,7 @@ class EphemerisUtils:
                     crossedOverZeroDegrees = False
 
                 if prevValue < desiredDegree and currValue >= desiredDegree:
-                    log.debug("Crossed over from below to above!")
+                    EphemerisUtils.log.debug("Crossed over from below to above!")
 
                     # This is the upper-bound of the error timedelta.
                     t1 = prevDt
@@ -1158,7 +1172,7 @@ class EphemerisUtils:
 
                     # Refine the timestamp until it is less than the threshold.
                     while currErrorTd > maxErrorTd:
-                        log.debug("Refining between {} and {}".\
+                        EphemerisUtils.log.debug("Refining between {} and {}".\
                                   format(Ephemeris.datetimeToStr(t1),
                                          Ephemeris.datetimeToStr(t2)))
 
@@ -1197,7 +1211,7 @@ class EphemerisUtils:
                     rv.append(currDt)
 
                 elif prevValue >= desiredDegree and currValue < desiredDegree:
-                    log.debug("Crossed over from above to below!")
+                    EphemerisUtils.log.debug("Crossed over from above to below!")
 
                     # This is the upper-bound of the error timedelta.
                     t1 = prevDt
@@ -1206,7 +1220,7 @@ class EphemerisUtils:
 
                     # Refine the timestamp until it is less than the threshold.
                     while currErrorTd > maxErrorTd:
-                        log.debug("Refining between {} and {}".\
+                        EphemerisUtils.log.debug("Refining between {} and {}".\
                                   format(Ephemeris.datetimeToStr(t1),
                                          Ephemeris.datetimeToStr(t2)))
 
@@ -1250,15 +1264,16 @@ class EphemerisUtils:
             longitudes.append(None)
             del longitudes[0]
 
-        log.info("Number of datetimes found: {}".format(len(rv)))
+        EphemerisUtils.log.info("Number of datetimes found: {}".format(len(rv)))
 
-        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        EphemerisUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
 
-        
+
     @staticmethod
     def getGeoRetrogradeDirectTimestamps(\
-        startDt, endDt,
+        startDt,
+        endDt,
         planetName,
         maxErrorTd=datetime.timedelta(seconds=2)):
         """Obtains a list of tuples containing data describing
@@ -1297,8 +1312,8 @@ class EphemerisUtils:
         In the event of an error, the reference None is returned.
         """
 
-        log.debug("Entered " + inspect.stack()[0][3] + "()")
-        log.debug("startDt=" + Ephemeris.datetimeToDayStr(startDt) + ", " +
+        EphemerisUtils.log.debug("Entered " + inspect.stack()[0][3] + "()")
+        EphemerisUtils.log.debug("startDt=" + Ephemeris.datetimeToDayStr(startDt) + ", " +
                   "endDt=" + Ephemeris.datetimeToDayStr(endDt) +  ", " +
                   "planetName=" + planetName + ", " +
                   "maxErrorTd=" + str(maxErrorTd))
@@ -1308,7 +1323,7 @@ class EphemerisUtils:
 
         # Make sure the inputs are valid.
         if endDt < startDt:
-            log.error("Invalid input: 'endDt' must be after 'startDt'")
+            EphemerisUtils.log.error("Invalid input: 'endDt' must be after 'startDt'")
             return None
 
         # Set the step size.
@@ -1328,10 +1343,7 @@ class EphemerisUtils:
         tag = inspect.stack()[0][3]
         if tag.startswith("add") and len(tag) > 3:
             tag = tag[3:] + "_" + planetName
-        log.debug("tag == '{}'".format(tag))
-
-        # Now, in UTC.
-        now = datetime.datetime.now(pytz.utc)
+        EphemerisUtils.log.debug("tag == '{}'".format(tag))
 
         # Timestamp steps saved (list of datetime.datetime).
         steps = []
@@ -1354,33 +1366,33 @@ class EphemerisUtils:
             elif centricityType.lower() == "heliocentric":
                 fieldValue = pi.heliocentric[longitudeType][fieldName]
             else:
-                log.error("Unknown centricity type.")
+                EphemerisUtils.log.error("Unknown centricity type.")
                 fieldValue = None
 
             return fieldValue
 
         # Iterate through, creating artfacts and adding them as we go.
-        log.debug("Stepping through timestamps from {} to {} ...".\
+        EphemerisUtils.log.debug("Stepping through timestamps from {} to {} ...".\
                   format(Ephemeris.datetimeToStr(startDt),
                          Ephemeris.datetimeToStr(endDt)))
 
         while steps[-1] < endDt:
             currDt = steps[-1]
-            log.debug("Looking at currDt == {} ...".\
+            EphemerisUtils.log.debug("Looking at currDt == {} ...".\
                       format(Ephemeris.datetimeToStr(currDt)))
 
             p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
 
             velocitys[-1] = getFieldValue(p1, fieldName)
 
-            log.debug("{} velocity is: {}".\
+            EphemerisUtils.log.debug("{} velocity is: {}".\
                       format(p1.name, velocitys[-1]))
 
             for i in range(len(steps)):
-                log.debug("steps[{}] == {}".\
+                EphemerisUtils.log.debug("steps[{}] == {}".\
                           format(i, Ephemeris.datetimeToStr(steps[i])))
             for i in range(len(velocitys)):
-                log.debug("velocitys[{}] == {}".format(i, velocitys[i]))
+                EphemerisUtils.log.debug("velocitys[{}] == {}".format(i, velocitys[i]))
 
 
             if velocitys[-2] != None:
@@ -1392,7 +1404,7 @@ class EphemerisUtils:
                 desiredVelocity = 0
 
                 if prevValue < desiredVelocity and currValue >= desiredVelocity:
-                    log.debug("Went from Retrograde to Direct!")
+                    EphemerisUtils.log.debug("Went from Retrograde to Direct!")
 
                     # This is the upper-bound of the error timedelta.
                     t1 = prevDt
@@ -1401,7 +1413,7 @@ class EphemerisUtils:
 
                     # Refine the timestamp until it is less than the threshold.
                     while currErrorTd > maxErrorTd:
-                        log.debug("Refining between {} and {}".\
+                        EphemerisUtils.log.debug("Refining between {} and {}".\
                                   format(Ephemeris.datetimeToStr(t1),
                                          Ephemeris.datetimeToStr(t2)))
 
@@ -1438,7 +1450,7 @@ class EphemerisUtils:
                     rv.append(tup)
 
                 elif prevValue >= desiredVelocity and currValue < desiredVelocity:
-                    log.debug("Went from Direct to Retrograde!")
+                    EphemerisUtils.log.debug("Went from Direct to Retrograde!")
 
                     # This is the upper-bound of the error timedelta.
                     t1 = prevDt
@@ -1447,7 +1459,7 @@ class EphemerisUtils:
 
                     # Refine the timestamp until it is less than the threshold.
                     while currErrorTd > maxErrorTd:
-                        log.debug("Refining between {} and {}".\
+                        EphemerisUtils.log.debug("Refining between {} and {}".\
                                   format(Ephemeris.datetimeToStr(t1),
                                          Ephemeris.datetimeToStr(t2)))
 
@@ -1489,10 +1501,10 @@ class EphemerisUtils:
             velocitys.append(None)
             del velocitys[0]
 
-        log.info("Number of geo retrograde or direct planet timestamps: {}".\
+        EphemerisUtils.log.info("Number of geo retrograde or direct planet timestamps: {}".\
                  format(len(rv)))
 
-        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        EphemerisUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
 
     @staticmethod
@@ -1524,6 +1536,8 @@ class EphemerisUtils:
                        this moment in time.
         desiredDegreesElapsed - float value for the number of longitude degrees
                         elapsed from the longitude at 'planetEpocDt'.
+                        This value must be a number >= 0.
+                TODO_rluu_20160915: Made this method work also for negative values of desiredDegreesElapsed.
         maxErrorTd - datetime.timedelta object holding the maximum
                      time difference between the exact planetary
                      combination timestamp, and the one calculated.
@@ -1537,7 +1551,7 @@ class EphemerisUtils:
         'planetEpocDt'.
         """
 
-        log.debug("Entered " + inspect.stack()[0][3] + "()")
+        EphemerisUtils.log.debug("Entered " + inspect.stack()[0][3] + "()")
 
         # Return value.
         rv = []
@@ -1548,7 +1562,7 @@ class EphemerisUtils:
            centricityType != "topocentric" and \
            centricityType != "heliocentric":
 
-            log.error("Invalid input: centricityType is invalid.  " + \
+            EphemerisUtils.log.error("Invalid input: centricityType is invalid.  " + \
                       "Value given was: {}".format(centricityTypeOrig))
             rv = []
             return rv
@@ -1558,7 +1572,7 @@ class EphemerisUtils:
         if longitudeType != "tropical" and \
            longitudeType != "sidereal":
 
-            log.error("Invalid input: longitudeType is invalid.  " + \
+            EphemerisUtils.log.error("Invalid input: longitudeType is invalid.  " + \
                       "Value given was: {}".format(longitudeTypeOrig))
             rv = []
             return rv
@@ -1604,12 +1618,12 @@ class EphemerisUtils:
             elif centricityType.lower() == "heliocentric":
                 fieldValue = pi.heliocentric[longitudeType][fieldName]
             else:
-                log.error("Unknown centricity type.")
+                EphemerisUtils.log.error("Unknown centricity type.")
                 fieldValue = None
 
             return fieldValue
 
-        log.debug("Stepping through timestamps from {} ...".\
+        EphemerisUtils.log.debug("Stepping through timestamps from {} ...".\
                   format(Ephemeris.datetimeToStr(planetEpocDt)))
 
         currDiff = None
@@ -1624,7 +1638,7 @@ class EphemerisUtils:
             currDt = steps[-1]
             prevDt = steps[-2]
 
-            log.debug("Looking at currDt == {} ...".\
+            EphemerisUtils.log.debug("Looking at currDt == {} ...".\
                       format(Ephemeris.datetimeToStr(currDt)))
 
             p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
@@ -1634,20 +1648,20 @@ class EphemerisUtils:
 
             longitudesP1[-1] = getFieldValue(p1, fieldName)
 
-            log.debug("{} {} {} {} is: {}".\
+            EphemerisUtils.log.debug("{} {} {} {} is: {}".\
                       format(p1.name, centricityType, longitudeType, fieldName,
                              getFieldValue(p1, fieldName)))
 
             currDiff = Util.toNormalizedAngle(\
                 longitudesP1[-1] - planetEpocLongitude)
 
-            log.debug("prevDiff == {}".format(prevDiff))
-            log.debug("currDiff == {}".format(currDiff))
+            EphemerisUtils.log.debug("prevDiff == {}".format(prevDiff))
+            EphemerisUtils.log.debug("currDiff == {}".format(currDiff))
 
             if prevDiff != None and longitudesP1[-2] != None:
 
                 if prevDiff > 240 and currDiff < 120:
-                    log.debug("Crossed over epoc longitude {} ".\
+                    EphemerisUtils.log.debug("Crossed over epoc longitude {} ".\
                               format(planetEpocLongitude) + \
                               "from below to above!")
 
@@ -1658,7 +1672,7 @@ class EphemerisUtils:
 
                     # Refine the timestamp until it is less than the threshold.
                     while currErrorTd > maxErrorTd:
-                        log.debug("Refining between {} and {}".\
+                        EphemerisUtils.log.debug("Refining between {} and {}".\
                                   format(Ephemeris.datetimeToStr(t1),
                                          Ephemeris.datetimeToStr(t2)))
 
@@ -1696,7 +1710,7 @@ class EphemerisUtils:
                     numFullCircles += 1
 
                 elif prevDiff < 120 and currDiff > 240:
-                    log.debug("Crossed over epoc longitude {} ".\
+                    EphemerisUtils.log.debug("Crossed over epoc longitude {} ".\
                               format(planetEpocLongitude) + \
                               "from above to below!")
 
@@ -1707,7 +1721,7 @@ class EphemerisUtils:
 
                     # Refine the timestamp until it is less than the threshold.
                     while currErrorTd > maxErrorTd:
-                        log.debug("Refining between {} and {}".\
+                        EphemerisUtils.log.debug("Refining between {} and {}".\
                                   format(Ephemeris.datetimeToStr(t1),
                                          Ephemeris.datetimeToStr(t2)))
 
@@ -1747,8 +1761,8 @@ class EphemerisUtils:
                 # Calculate the total number of degrees elapsed so far.
                 currElapsed = (numFullCircles * 360.0) + currDiff
 
-                log.debug("currElapsed == {}".format(currElapsed))
-                log.debug("desiredDegreesElapsed == {}".\
+                EphemerisUtils.log.debug("currElapsed == {}".format(currElapsed))
+                EphemerisUtils.log.debug("desiredDegreesElapsed == {}".\
                           format(desiredDegreesElapsed))
 
                 if currElapsed > desiredDegreesElapsed:
@@ -1758,7 +1772,7 @@ class EphemerisUtils:
                     # moments in time where the planet is elapsed this
                     # many degrees (in the event that the planet goes
                     # retrograde).
-                    log.debug("Passed the desired number of " + \
+                    EphemerisUtils.log.debug("Passed the desired number of " + \
                               "elapsed degrees from below to above.  " + \
                               "Narrowing down to the exact moment in time ...")
 
@@ -1767,7 +1781,7 @@ class EphemerisUtils:
                         Util.toNormalizedAngle(\
                         planetEpocLongitude + (desiredDegreesElapsed % 360.0))
 
-                    log.debug("desiredDegree == {}".format(desiredDegree))
+                    EphemerisUtils.log.debug("desiredDegree == {}".format(desiredDegree))
 
                     # Check starting from steps[-2] to steps[-1] to
                     # see exactly when it passes this desiredDegree.
@@ -1779,7 +1793,7 @@ class EphemerisUtils:
 
                     # Refine the timestamp until it is less than the threshold.
                     while currErrorTd > maxErrorTd:
-                        log.debug("Refining between {} and {}".\
+                        EphemerisUtils.log.debug("Refining between {} and {}".\
                                   format(Ephemeris.datetimeToStr(t1),
                                          Ephemeris.datetimeToStr(t2)))
 
@@ -1809,7 +1823,7 @@ class EphemerisUtils:
                     # t2 holds the moment in time.
                     rv.append(t2)
 
-                    log.debug("First moment in time found to be: {}".\
+                    EphemerisUtils.log.debug("First moment in time found to be: {}".\
                               format(Ephemeris.datetimeToStr(t2)))
 
                     # Now find the the other elapsed points, if they
@@ -1823,14 +1837,14 @@ class EphemerisUtils:
                         getFieldValue(p1, fieldName) - desiredDegree)
                     currDiff = None
 
-                    log.debug("desiredDegree == {}".format(desiredDegree))
+                    EphemerisUtils.log.debug("desiredDegree == {}".format(desiredDegree))
 
                     while prevDiff <= 120 or prevDiff > 240:
                         p1 = Ephemeris.getPlanetaryInfo(planetName, currDt)
                         currDiff = Util.toNormalizedAngle(\
                             getFieldValue(p1, fieldName) - desiredDegree)
 
-                        log.debug("currDt == {}, ".\
+                        EphemerisUtils.log.debug("currDt == {}, ".\
                                   format(Ephemeris.datetimeToStr(currDt)) +
                                   "longitude == {}, ".\
                                   format(getFieldValue(p1, fieldName)) + \
@@ -1838,7 +1852,7 @@ class EphemerisUtils:
                                   format(currDiff))
 
                         if prevDiff > 240 and currDiff < 120:
-                            log.debug("Passed the desired number of " + \
+                            EphemerisUtils.log.debug("Passed the desired number of " + \
                                       "elapsed degrees from " + \
                                       "below to above.  " + \
                                       "Narrowing down to the exact moment " + \
@@ -1852,7 +1866,7 @@ class EphemerisUtils:
                             # Refine the timestamp until it is less
                             # than the threshold.
                             while currErrorTd > maxErrorTd:
-                                log.debug("Refining between {} and {}".\
+                                EphemerisUtils.log.debug("Refining between {} and {}".\
                                           format(Ephemeris.datetimeToStr(t1),
                                                  Ephemeris.datetimeToStr(t2)))
 
@@ -1886,12 +1900,12 @@ class EphemerisUtils:
 
 
                             # currDt holds the moment in time.
-                            log.debug("Appending moment in time: {}".\
+                            EphemerisUtils.log.debug("Appending moment in time: {}".\
                                       format(Ephemeris.datetimeToStr(currDt)))
                             rv.append(currDt)
 
                         elif prevDiff < 120 and currDiff > 240:
-                            log.debug("Passed the desired number of " + \
+                            EphemerisUtils.log.debug("Passed the desired number of " + \
                                       "elapsed degrees from " + \
                                       "above to below.  " + \
                                       "Narrowing down to the exact moment " + \
@@ -1905,7 +1919,7 @@ class EphemerisUtils:
                             # Refine the timestamp until it is less
                             # than the threshold.
                             while currErrorTd > maxErrorTd:
-                                log.debug("Refining between {} and {}".\
+                                EphemerisUtils.log.debug("Refining between {} and {}".\
                                           format(Ephemeris.datetimeToStr(t1),
                                                  Ephemeris.datetimeToStr(t2)))
 
@@ -1938,7 +1952,7 @@ class EphemerisUtils:
                                 currErrorTd = t2 - t1
 
                             # currDt holds the moment in time.
-                            log.debug("Appending moment in time: {}".\
+                            EphemerisUtils.log.debug("Appending moment in time: {}".\
                                       format(Ephemeris.datetimeToStr(currDt)))
                             rv.append(currDt)
 
@@ -1947,7 +1961,7 @@ class EphemerisUtils:
                         prevDiff = currDiff
                         currDiff = None
 
-                    log.debug("Done searching for timestamps.")
+                    EphemerisUtils.log.debug("Done searching for timestamps.")
 
                     # We have our timestamps, so we are done.
                     done = True
@@ -1961,5 +1975,212 @@ class EphemerisUtils:
             # Update prevDiff as the currDiff.
             prevDiff = currDiff
 
-        log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        EphemerisUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
+
+##############################################################################
+
+def testGetLongitudeAspectTimestamps():
+    print("Running " + inspect.stack()[0][3] + "()")
+
+    eastern = pytz.timezone('US/Eastern')
+    startDt = datetime.datetime(1926, 1, 1, 12, 0, 0, tzinfo=eastern)
+    endDt = datetime.datetime(1940, 12, 30, 12, 0, 0, tzinfo=eastern)
+    planet1Name = "Sun"
+    planet2Name = "TrueNorthNode"
+    centricityType = "geocentric"
+    longitudeType = "tropical"
+    planet1ParamsList = [(planet1Name, centricityType, longitudeType)]
+    planet2ParamsList = [(planet2Name, centricityType, longitudeType)]
+    degreeDifference = 0
+    uniDirectionalAspectsFlag = True
+    maxErrorTd = datetime.timedelta(seconds=1)
+
+    dts = EphemerisUtils.getLongitudeAspectTimestamps(\
+        startDt,
+        endDt,
+        planet1ParamsList,
+        planet2ParamsList,
+        degreeDifference,
+        uniDirectionalAspectsFlag=uniDirectionalAspectsFlag,
+        maxErrorTd=maxErrorTd)
+
+    print("Timestamps between {} and {} for aspect {} deg between planets {} and {} are:".\
+            format(Ephemeris.datetimeToStr(startDt),
+                   Ephemeris.datetimeToStr(endDt),
+                   degreeDifference,
+                   planet1Name,
+                   planet2Name))
+    for dt in dts:
+        print("    {}".format(Ephemeris.datetimeToDayStr(dt)))
+
+def testGetOnePlanetLongitudeAspectTimestamps():
+    print("Running " + inspect.stack()[0][3] + "()")
+
+    eastern = pytz.timezone('US/Eastern')
+    startDt = datetime.datetime(1926, 1, 1, 12, 0, 0, tzinfo=eastern)
+    endDt = datetime.datetime(1940, 12, 30, 12, 0, 0, tzinfo=eastern)
+    planet1Name = "Sun"
+    centricityType = "geocentric"
+    longitudeType = "tropical"
+    planet1ParamsList = (planet1Name, centricityType, longitudeType)
+    fixedDegree = 0
+    degreeDifference = 120
+    uniDirectionalAspectsFlag = True
+    maxErrorTd = datetime.timedelta(seconds=1)
+
+    dts = EphemerisUtils.getOnePlanetLongitudeAspectTimestamps(\
+        startDt,
+        endDt,
+        planet1ParamsList,
+        fixedDegree,
+        degreeDifference,
+        uniDirectionalAspectsFlag=uniDirectionalAspectsFlag,
+        maxErrorTd=maxErrorTd)
+
+    print("Timestamps between {} and {} for planet {} having aspect of {} deg to fixed degree {} are:".\
+            format(Ephemeris.datetimeToStr(startDt),
+                   Ephemeris.datetimeToStr(endDt),
+                   planet1Name,
+                   degreeDifference,
+                   fixedDegree))
+    for dt in dts:
+        print("    {}".format(Ephemeris.datetimeToDayStr(dt)))
+
+def testGetPlanetCrossingLongitudeDegTimestamps():
+    print("Running " + inspect.stack()[0][3] + "()")
+
+    eastern = pytz.timezone('US/Eastern')
+    startDt = datetime.datetime(1926, 1, 1, 12, 0, 0, tzinfo=eastern)
+    endDt = datetime.datetime(1940, 12, 30, 12, 0, 0, tzinfo=eastern)
+    planetName = "Sun"
+    centricityType = "geocentric"
+    longitudeType = "tropical"
+    degree = 120
+    maxErrorTd = datetime.timedelta(seconds=1)
+
+    dts = EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
+        startDt,
+        endDt,
+        planetName,
+        centricityType,
+        longitudeType,
+        degree,
+        maxErrorTd=maxErrorTd)
+
+    print("Timestamps between {} and {} for planet {} crossing {} deg are:".\
+            format(Ephemeris.datetimeToStr(startDt),
+                   Ephemeris.datetimeToStr(endDt),
+                   planetName,
+                   degree))
+    for dt in dts:
+        print("    {}".format(Ephemeris.datetimeToDayStr(dt)))
+
+def testGetGeoRetrogradeDirectTimestamps():
+    print("Running " + inspect.stack()[0][3] + "()")
+
+    eastern = pytz.timezone('US/Eastern')
+    startDt = datetime.datetime(1926, 1, 1, 12, 0, 0, tzinfo=eastern)
+    endDt = datetime.datetime(1940, 12, 30, 12, 0, 0, tzinfo=eastern)
+    planetName = "Mercury"
+    maxErrorTd = datetime.timedelta(seconds=1)
+
+    tuples = EphemerisUtils.getGeoRetrogradeDirectTimestamps(\
+        startDt,
+        endDt,
+        planetName,
+        maxErrorTd=maxErrorTd)
+
+    print("Timestamps between {} and {} for geo planet {} retrograde and direct changes are:".\
+            format(Ephemeris.datetimeToStr(startDt),
+                   Ephemeris.datetimeToStr(endDt),
+                   planetName))
+    for tup in tuples:
+        print("    {} ({})".format(Ephemeris.datetimeToDayStr(tup[0].dt), tup[1]))
+
+def testGetDatetimesOfElapsedLongitudeDegrees():
+    print("Running " + inspect.stack()[0][3] + "()")
+
+    eastern = pytz.timezone('US/Eastern')
+    planetName = "Mercury"
+    centricityType = "geocentric"
+    longitudeType = "tropical"
+    planetEpocDt = datetime.datetime(1926, 3, 15, 3, 56, 50, tzinfo=eastern)
+    desiredDegreesElapsed = 235
+    maxErrorTd = datetime.timedelta(seconds=1)
+
+    dts = EphemerisUtils.getDatetimesOfElapsedLongitudeDegrees(\
+        planetName,
+        centricityType,
+        longitudeType,
+        planetEpocDt,
+        desiredDegreesElapsed,
+        maxErrorTd=maxErrorTd)
+
+    print("Timestamps for planet {} elapsing {} deg are:".\
+            format(planetName,
+                   desiredDegreesElapsed))
+    for dt in dts:
+        print("    {}".format(Ephemeris.datetimeToDayStr(dt)))
+
+##############################################################################
+
+# For debugging the EphemerisUtils class during development.
+if __name__=="__main__":
+    # For timing the calculations.
+    import time
+
+    # For filesystem access for logging.
+    import os
+    import sys
+
+    # Exercising the PlanetaryInfo and Ephemeris classes.
+    print("------------------------")
+
+
+    # Initialize Logging for the Ephemeris class (required).
+    LOG_CONFIG_FILE = os.path.join(sys.path[0], "../conf/logging.conf")
+    logging.config.fileConfig(LOG_CONFIG_FILE)
+
+    # Initialize Ephemeris (required).
+    Ephemeris.initialize()
+
+    # Set the Location (required).
+
+    # Chicago:
+    #lon = -87.627777777777
+    #lat = 41.8819444444444444
+
+    # Chantilly/Arlington:
+    #lon = -77.084444
+    #lat = 38.890277
+
+    # New York City:
+    lon = -74.0064
+    lat = 40.7142
+
+    #Ephemeris.setGeographicPosition(lon, lat, -68)
+    Ephemeris.setGeographicPosition(lon, lat)
+
+    startTime = time.time()
+
+    # Different tests that can be run:
+    #testGetLongitudeAspectTimestamps()
+    #testGetOnePlanetLongitudeAspectTimestamps()
+    #testGetPlanetCrossingLongitudeDegTimestamps()
+    #testGetGeoRetrogradeDirectTimestamps()
+    testGetDatetimesOfElapsedLongitudeDegrees()
+
+    endTime = time.time()
+    print("Calculations took: {} sec".format(endTime - startTime))
+
+    # Close the Ephemeris so it can do necessary cleanups.
+    Ephemeris.closeEphemeris()
+
+    # Shutdown logging so all the file handles get flushed and
+    # cleanup can happen.
+    logging.shutdown()
+
+    print("Exiting.")
+
+##############################################################################
