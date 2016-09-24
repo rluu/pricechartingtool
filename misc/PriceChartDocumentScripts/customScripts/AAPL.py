@@ -21,6 +21,7 @@ from PyQt4.QtGui import *
 
 # Include some PriceChartingTool modules.
 from ephemeris import Ephemeris
+from ephemeris_utils import EphemerisUtils
 from data_objects import *
 from pricebarchart import PriceBarChartGraphicsScene
 
@@ -181,13 +182,17 @@ def processPCDD(pcdd, tag):
         planet2ParamsList = [("TrueNorthNode", "geocentric", "tropical")]
         uniDirectionalAspectsFlag = False
         
+        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                        pcdd.birthInfo.latitudeDegrees,
+                                        pcdd.birthInfo.elevation)
+        
         for aspect in aspectGroup:
             degreeDifference = aspect
             
             # Get the timestamps of the aspect.
             timestamps = \
-                PlanetaryCombinationsLibrary.getLongitudeAspectTimestamps(\
-                pcdd, startDt, endDt,
+                EphemerisUtils.getLongitudeAspectTimestamps(\
+                startDt, endDt,
                 planet1ParamsList,
                 planet2ParamsList,
                 degreeDifference,

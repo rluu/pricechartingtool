@@ -14,6 +14,7 @@
 #   src/astrologychart.py
 #   src/data_objects.py
 #   src/ephemeris.py
+#   src/ephemeris_utils.py
 #
 # Usage:
 # 
@@ -74,6 +75,7 @@ if srcDir not in sys.path:
 
 from astrologychart import AstrologyUtils
 from ephemeris import Ephemeris
+from ephemeris_utils import EphemerisUtils
 from data_objects import *
 
 # Add the customScripts directory so that we can import the
@@ -455,13 +457,17 @@ def processAspectsCalculationTask(pcdd,
     startDt = earliestTimestamp - datetime.timedelta(days=90)
     endDt = latestTimestamp + datetime.timedelta(days=2*365)
     
+    Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                    pcdd.birthInfo.latitudeDegrees,
+                                    pcdd.birthInfo.elevation)
+        
     for aspect in aspectGroup:
         degreeDifference = aspect
 
         # Get the timestamps of the aspect.
         timestamps = \
-            PlanetaryCombinationsLibrary.getLongitudeAspectTimestamps(\
-            pcdd, startDt, endDt,
+            EphemerisUtils.getLongitudeAspectTimestamps(\
+            startDt, endDt,
             planet1ParamsList,
             planet2ParamsList,
             degreeDifference,
