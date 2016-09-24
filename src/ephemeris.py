@@ -312,9 +312,7 @@ class Ephemeris:
             "Neptune",
             "Pluto",
             "MeanNorthNode",
-            "MeanSouthNode",
             "TrueNorthNode",
-            "TrueSouthNode",
             "MeanLunarApogee",
             "OsculatingLunarApogee",
             "InterpolatedLunarApogee",
@@ -353,6 +351,11 @@ class Ephemeris:
             "H10",
             "H11",
             "H12",
+            ]
+
+        customPlanetNonCombinationPlanetNames = [
+            "MeanSouthNode",
+            "TrueSouthNode",
             ]
 
         customPlanetCombinationPlanetNames = [
@@ -395,6 +398,7 @@ class Ephemeris:
           swissEphemerisPlanetNames + \
           ascmcPlanetNames + \
           houseCuspPlanetNames + \
+          customPlanetNonCombinationPlanetNames + \
           customPlanetCombinationPlanetNames
 
         return allPlanetNames

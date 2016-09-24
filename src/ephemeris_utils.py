@@ -1056,27 +1056,39 @@ class EphemerisUtils:
 
         # Make sure the inputs are valid.
         if endDt < startDt:
-            EphemerisUtils.log.error("Invalid input: 'endDt' must be after 'startDt'")
-            return None
+            errMsg = "Invalid input: 'endDt' must be after 'startDt'.  " + \
+              "Values given were: endDt={}, startDt={}".\
+              format(Ephemeris.datetimeToStr(endDt),
+                     Ephemeris.datetimeToStr(startDt))
+            EphemerisUtils.log.error(errMsg)
+            raise ValueError(errMsg)
 
+        if planetName not in Ephemeris.getSupportedPlanetNamesList():
+            errMsg = "Invalid input: planetName is invalid.  " + \
+                      "Value given was: {}".format(planetName)
+            EphemerisUtils.log.error(errMsg)
+            raise ValueError(errMsg)
+            
         centricityTypeOrig = centricityType
         centricityType = centricityType.lower()
         if centricityType != "geocentric" and \
            centricityType != "topocentric" and \
            centricityType != "heliocentric":
 
-            EphemerisUtils.log.error("Invalid input: centricityType is invalid.  " + \
-                      "Value given was: {}".format(centricityTypeOrig))
-            return None
+            errMsg = "Invalid input: centricityType is invalid.  " + \
+                      "Value given was: {}".format(centricityTypeOrig)
+            EphemerisUtils.log.error(errMsg)
+            raise ValueError(errMsg)
 
         longitudeTypeOrig = longitudeType
         longitudeType = longitudeType.lower()
         if longitudeType != "tropical" and \
            longitudeType != "sidereal":
 
-            EphemerisUtils.log.error("Invalid input: longitudeType is invalid.  " + \
-                      "Value given was: {}".format(longitudeTypeOrig))
-            return None
+            errMsg = "Invalid input: longitudeType is invalid.  " + \
+                     "Value given was: {}".format(longitudeTypeOrig)
+            EphemerisUtils.log.error(errMsg)
+            raise ValueError(errMsg)
 
         # Field name we are getting.
         fieldName = "longitude"
@@ -1986,13 +1998,13 @@ def testGetLongitudeAspectTimestamps():
     eastern = pytz.timezone('US/Eastern')
     startDt = datetime.datetime(1926, 1, 1, 12, 0, 0, tzinfo=eastern)
     endDt = datetime.datetime(1940, 12, 30, 12, 0, 0, tzinfo=eastern)
-    planet1Name = "Sun"
-    planet2Name = "TrueNorthNode"
+    planet1Name = "Mercury"
+    planet2Name = "Sun"
     centricityType = "geocentric"
     longitudeType = "tropical"
     planet1ParamsList = [(planet1Name, centricityType, longitudeType)]
     planet2ParamsList = [(planet2Name, centricityType, longitudeType)]
-    degreeDifference = 0
+    degreeDifference = 5
     uniDirectionalAspectsFlag = True
     maxErrorTd = datetime.timedelta(seconds=1)
 
@@ -2117,9 +2129,10 @@ def testGetDatetimesOfElapsedLongitudeDegrees():
         desiredDegreesElapsed,
         maxErrorTd=maxErrorTd)
 
-    print("Timestamps for planet {} elapsing {} deg are:".\
+    print("Timestamps for planet {} elapsing {} deg from its position on {}:".\
             format(planetName,
-                   desiredDegreesElapsed))
+                   desiredDegreesElapsed,
+                   Ephemeris.datetimeToStr(planetEpocDt)))
     for dt in dts:
         print("    {}".format(Ephemeris.datetimeToDayStr(dt)))
 
