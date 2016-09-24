@@ -622,13 +622,26 @@ class Ephemeris:
 
         # Make sure the year is within the min and max year range.
         if year < datetime.MINYEAR:
-            raise ValueError("Year value '{}'".format(year) +
-                             "is less than datetime.MINYEAR value " +
-                             "{}.".format(datetime.MINYEAR))
+            errMsg = "Year value '{}'".format(year) + \
+                     "is less than datetime.MINYEAR value " + \
+                     "{}.  ".format(datetime.MINYEAR)
+            errMsg += "Maybe this jd timestamp is before the " + \
+                      "Gergorian calendar was founded?  "
+            errMsg += "Conversion from jd={} yielded: ".format(jd)
+            errMsg += "year={}, month={}, day={}, hour={}, mins={}, secs={}".\
+                    format(year, month, day, hour, mins, secs)
+            Ephemeris.log.error(errMsg)
+            raise ValueError(errMsg)
         elif year > datetime.MAXYEAR:
-            raise ValueError("Year value '{}'".format(year) +
-                             "is greater than datetime.MAXYEAR value " +
-                             "{}.".format(datetime.MAXYEAR))
+            errMsg = "Year value '{}'".format(year) + \
+                     "is greater than datetime.MAXYEAR value " + \
+                     "{}.".format(datetime.MAXYEAR)
+            errMsg += "Maybe there was a date/timestamp overflow?  "
+            errMsg += "Conversion from jd={} yielded: ".format(jd)
+            errMsg += "year={}, month={}, day={}, hour={}, mins={}, secs={}".\
+                    format(year, month, day, hour, mins, secs)
+            Ephemeris.log.error(errMsg)
+            raise ValueError(errMsg)
 
         # Create a datetime.datetime in UTC.
         dtUtc = datetime.datetime(year, month, day, hour, mins,
