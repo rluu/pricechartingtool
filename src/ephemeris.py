@@ -1021,7 +1021,7 @@ class Ephemeris:
             planetName == "SunTrueNorthNode" or
             planetName == "SunTrueSouthNode" or
             planetName == "MoonTrueNorthNode" or
-            planetName == "MoonTrueNorthNode"):
+            planetName == "MoonTrueSouthNode"):
 
             return True
         else:
@@ -6536,6 +6536,18 @@ def testGetPlanetaryInfos():
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
     p = Ephemeris.getSaUrPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getSunTrueNorthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getSunTrueSouthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getMoonTrueNorthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getMoonTrueSouthNodePlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
 
