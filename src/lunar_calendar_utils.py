@@ -99,10 +99,10 @@ class LunarDate:
         lunarYear - int value representing the lunar year to check.
         """
 
-        if year == None:
-            raise ValueError("'year' argument may not be None")
-        elif not isinstance(year, int):
-            raise ValueError("'year' argument must be of type int")
+        if lunarYear == None:
+            raise ValueError("'lunarYear' argument may not be None")
+        elif not isinstance(lunarYear, int):
+            raise ValueError("'lunarYear' argument must be of type int")
 
         # TODO_rluu: Write code here.
         pass
