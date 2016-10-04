@@ -42,7 +42,7 @@ class EphemerisUtils:
         planet2ParamsList,
         degreeDifference,
         uniDirectionalAspectsFlag=False,
-        maxErrorTd=datetime.timedelta(seconds=2)):
+        maxErrorTd=datetime.timedelta(seconds=1)):
         """Obtains a list of datetime.datetime objects that contain
         the moments when the aspect specified is active.
 
@@ -558,7 +558,7 @@ class EphemerisUtils:
         fixedDegree,
         degreeDifference,
         uniDirectionalAspectsFlag=False,
-        maxErrorTd=datetime.timedelta(seconds=2)):
+        maxErrorTd=datetime.timedelta(seconds=1)):
         """Obtains a list of datetime.datetime objects that contain
         the moments when the aspect specified is active.
         The aspect is measured by formula:
@@ -1011,7 +1011,7 @@ class EphemerisUtils:
         centricityType,
         longitudeType,
         degree,
-        maxErrorTd=datetime.timedelta(seconds=2)):
+        maxErrorTd=datetime.timedelta(seconds=1)):
         """Returns a list of datetimes of when a certain planet crosses
         a certain degree of longitude.
 
@@ -1287,7 +1287,7 @@ class EphemerisUtils:
         startDt,
         endDt,
         planetName,
-        maxErrorTd=datetime.timedelta(seconds=2)):
+        maxErrorTd=datetime.timedelta(seconds=1)):
         """Obtains a list of tuples containing data describing
         the timestamps of when the specified planet is going
         retrograde or direct (i.e. is stationary).
@@ -1526,7 +1526,7 @@ class EphemerisUtils:
         longitudeType,
         planetEpocDt,
         desiredDegreesElapsed,
-        maxErrorTd=datetime.timedelta(seconds=2)):
+        maxErrorTd=datetime.timedelta(seconds=1)):
         """Returns a list of datetime.datetime objects that hold the
         timestamps when the given planet is at 'degreeElapsed'
         longitude degrees from the longitude degrees calculated at
