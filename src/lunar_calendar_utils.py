@@ -426,17 +426,9 @@ class LunarTimeDelta:
                   lunar days.  
                   One lunar day is defined as 1 / 30th of a lunar month.
     
-        Notes and cavets:
-
-          - Polarity of of years, months and days may not be different.
-              Positive values mixing with 0 is okay.
-              Negative values mixing with 0 is okay.
-              Positive values mixing with Negative values is not okay.
-
-        With these caveats and requirements in place, the LunarTimeDelta's
-        internal representation normalizes the number of days to be 
-        in the range: [0, 30), adjusting the lunar months as necessary
-        to be the same equivalent value.
+        The LunarTimeDelta's internal representation normalizes 
+        the number of days to be in the range: (-30, 0] or [0, 30), adjusting 
+        the lunar months as necessary to be the same equivalent value.
         """
 
         # Validate constructor arguments.
@@ -455,34 +447,17 @@ class LunarTimeDelta:
         elif not (isinstance(days, int) or isinstance(days, float)):
             raise ValueError("'days' argument must be of type int or type float")
 
-        validPolarity = False
-        if not ((years >= 0 and months >= 0 and days >= 0) or
-                (years <= 0 and months <= 0 and days <= 0)):
-            errStr = "Invalid LunarTimeDelta: "
-            errStr += "Polarity of of years, months, and days may not be different.  "
-            errStr += "Values were: (years={}, months={}, days={})".\
-                format(years, months, days)
-            LunarTimeDelta.log.error(errStr)
-            raise ValueError(errStr)
-
         self.years = years
         self.months = months
         self.days = days
 
         # Normalize days and adjust the months as needed.
-        if self.days >= 30:
-            while self.days >= 30:
-                self.months += 1
-                self.days -= 30
-        elif self.days <= -30:
-            while self.days <= -30:
-                self.months -= 1
-                self.days += 30
-
-        # All values should be valid now.
-        self.year = year
-        self.month = month
-        self.day = day
+        while self.days >= 30:
+            self.days -= 30
+            self.months += 1
+        while self.days <= -30:
+            self.days += 30
+            self.months -= 1
 
         if LunarTimeDelta.log.isEnabledFor(logging.DEBUG):
             LunarTimeDelta.log.debug("Final normalized values: {}".format(self.toString()))
@@ -497,9 +472,19 @@ class LunarTimeDelta:
             errStr = "'other' argument must be of type LunarTimeDelta"
             LunarTimeDelta.log.debug(errStr)
             raise ValueError(errStr)
-        
-        # TODO_rluu: Write code here.
-        pass
+
+        totalYears = self.years + other.years
+        totalMonths = self.months + other.months
+        totalDays = self.days + other.days
+
+        while totalDays >= 30:
+            totalDays -= 30
+            totalMonths += 1
+        while totalDays <= 30:
+            totalDays += 30
+            totalMonths -= 1
+
+        return LunarTimeDelta(years=totalYears, months=totalMonths, days=totalDays)
         
     def __sub__(self, other):
         """
@@ -512,8 +497,18 @@ class LunarTimeDelta:
             LunarTimeDelta.log.debug(errStr)
             raise ValueError(errStr)
 
-        # TODO_rluu: Write code here.
-        pass
+        totalYears = self.years - other.years
+        totalMonths = self.months - other.months
+        totalDays = self.days - other.days
+
+        while totalDays >= 30:
+            totalDays -= 30
+            totalMonths += 1
+        while totalDays <= 30:
+            totalDays += 30
+            totalMonths -= 1
+
+        return LunarTimeDelta(years=totalYears, months=totalMonths, days=totalDays)
         
     def __str__(self):
         """Returns a string representation of this object."""
