@@ -336,17 +336,69 @@ class LunarDate:
         """
         This method takes the given LunarTimeDelta and adds it to LunarDate self, 
         returning the resulting LunarDate.
+
+        WARNING / Caveats! : 
+
+        This method has scenarios which will not yield intuitive/correct results.  
+        For example, the following addition would give the result:
+        
+        TODO_rluu: verify example.  Example assumes that lunar year 2000 is a leap year.  
+
+           LunarDate(2000, 13, 5) + LunarTimeDelta(years=1, months=0, days=0)
+             = LunarDate(2002, 1, 5)
+        
+        according to this method's algorithm.  
+        
+        Normally, adding a lunar year should not cause the lunar year of the 
+        lunar date to move 2 years.  But the technically correct result 
+        would be an invalid lunar date because resulting year of just
+        adding 1 lunar year has no leap month 13.  I considered perhaps 
+        returning None in this situation, but it is really impossible to 
+        work out all the scenarios where this could happen for all kinds 
+        of LunarTimeDelta that could be possibly added to a LunarDate.
         """
 
         if not isinstance(lunarTimeDelta, LunarTimeDelta):
             errStr = "'lunarTimeDelta' argument must be of type LunarTimeDelta"
             raise ValueError(errStr)
-        
-        # TODO_rluu: Write code here.
 
-        # TODO_rluu: Make sure to handle case to return if lunar date in the 13th month + lunar year,
-        # then should None be returned?
-        pass
+        year = self.year + lunarTimeDelta.years
+        month = self.month + lunarTimeDelta.months
+        day = self.day + lunarTimeDelta.days
+        
+        # Normalize days and adjust the months as needed.
+        while day >= 30:
+            day -= 30
+            month += 1
+        while day <= 0:
+            day += 30
+            month -= 1
+
+        # Normalize months, based on whether it is a leap year.
+        while ((LunarDate.isLunarLeapYear(year) and month > 13) or \
+               (not LunarDate.isLunarLeapYear(year) and month > 12)):
+              
+            if LunarDate.isLunarLeapYear(year) and month > 13:
+                month -= 13
+                year += 1
+            elif not LunarDate.isLunarLeapYear(year) and month > 12:
+                month -= 12
+                year += 1
+                
+        while month < 1:
+            if LunarDate.isLunarLeapYear(year - 1) and month < 1:
+                month += 13
+                year -= 1
+            elif not LunarDate.isLunarLeapYear(year - 1) and month < 1:
+                month += 12
+                year -= 1
+
+        rv = LunarDate(year, month, day)
+
+        if LunarDate.log.isEnabledFor(logging.DEBUG):
+            LunarDate.log.debug("{} + {} = {}".format(self, lunarTimeDelta, rv)
+            
+        return rv
         
     def __sub__(self, lunarTimeDelta):
         """
@@ -358,8 +410,17 @@ class LunarDate:
             errStr = "'lunarTimeDelta' argument must be of type LunarTimeDelta"
             raise ValueError(errStr)
 
-        # TODO_rluu: Write code here.
-        pass
+        invertedLunarTimeDelta = \
+            LunarTimeDelta(lunarTimeDelta.years * -1,
+                           lunarTimeDelta.months * -1,
+                           lunarTimeDelta.days * -1)
+
+        rv = self + invertedLunarTimeDelta
+        
+        if LunarDate.log.isEnabledFor(logging.DEBUG):
+            LunarDate.log.debug("{} - {} = {}".format(self, lunarTimeDelta, rv)
+
+        return rv
         
     def __str__(self):
         """Returns a string representation of this object."""
