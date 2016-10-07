@@ -153,22 +153,32 @@ class LunarDate:
                     LunarDate.log.debug("  " + Ephemeris.datetimeToDayStr(newMoonDt))
     
             if len(newMoonDts) == 0:
-                LunarDate.log.error("Did not find any new moons in the time period specified: " +
+                errMsg = \
+                    "Did not find any new moons in the time period specified: " +
                     "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) +
-                    ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt))
+                    ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt)
+                LunarDate.log.error(errMsg)
+                raise AssertionError(errMsg)
             elif len(newMoonDts) > 2:
-                LunarDate.log.error("Found too many new moons in the time period specified: " +
+                errMsg = \
+                    "Found too many new moons in the time period specified: " +
                     "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) +
-                    ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt))
+                    ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt)
+                LunarDate.log.error(errMsg)
+                raise AssertionError(errMsg)
             else:
                 # Append the latest timestamp.
                 newMoonDt = newMoonDts[-1]
                 nisan1Dts.append(newMoonDt)
 
         if len(nisan1Dts != 2):
-            LunarDate.log.error("Did not find the expected number of new moons!")
+            errMsg = "Did not find the expected number of new moons!"
+            LunarDate.log.error(errMsg)
+            raise AssertionError(errMsg)
         if nisan1Dts[-1] < nisan1Dts[-2]:
-            LunarDate.log.error("Datetimes for Nisan 1 are not ordered as expected!")
+            errMsg = "Datetimes for Nisan 1 are not ordered as expected!"
+            LunarDate.log.error(errMsg)
+            raise AssertionError(errMsg)
 
         # Calculate the time difference from Nisan 1 to Nisan 1.
         # This should be a positive timedelta.
@@ -531,7 +541,7 @@ class LunarTimeDelta:
 
         if not isinstance(other, LunarTimeDelta):
             errStr = "'other' argument must be of type LunarTimeDelta"
-            LunarTimeDelta.log.debug(errStr)
+            LunarTimeDelta.log.error(errStr)
             raise ValueError(errStr)
 
         totalYears = self.years + other.years
@@ -555,7 +565,7 @@ class LunarTimeDelta:
         
         if not isinstance(other, LunarTimeDelta):
             errStr = "'other' argument must be of type LunarTimeDelta"
-            LunarTimeDelta.log.debug(errStr)
+            LunarTimeDelta.log.error(errStr)
             raise ValueError(errStr)
 
         totalYears = self.years - other.years
@@ -594,6 +604,9 @@ class LunarCalendarUtils:
     the LunarDate class.
     """
     
+    # Logger object for this class.
+    log = logging.getLogger("lunar_calendar_utils.LunarCalendarUtils")
+
     @staticmethod
     def datetimeToLunarDate(dt):
         """
@@ -618,10 +631,122 @@ class LunarCalendarUtils:
         datetime.datetime object representing the same moment in time as the 
         given LunarDate object.
         """
-        # TODO_rluu: Write code here.
-        pass
 
+        # Algorithm here is as follows:
+        # 1) Get the Nisan 1 date for the year in question.
+        # 2) Get the degrees of G.MoSu that needs to be elapsed.
+        # 3) Get the datetime of that many degrees of G.MoSu elapsed.
+        # 4) Convert the datetime to the localized timezone for return.
 
+        springEquinoxSearchStartDate = datetime.datetime(lunarDate.year, 3, 18, 12, 0, 0, tzInfo=pytz.utc)
+        springEquinoxSearchEndDate = datetime.datetime(lunarDate.year, 3, 25, 12, 0, 0, tzInfo=pytz.utc)
+
+        # Get the Spring Equinox date.  This method call should return 1 datetime.
+        springEquinoxDts = EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
+                springEquinoxSearchStartDate,
+                springEquinoxSearchEndDate,
+                "Sun",
+                "geocentric",
+                "tropical",
+                0,
+                maxErrorTd=datetime.timedelta(seconds=1))
+        
+        nisan1Dts = []
+
+        for springEquinoxDt in springEquinoxDts:
+            newMoonSearchStartDt = springEquinoxDt - datetime.timedelta(days=35)
+            newMoonSearchEndDt = springEquinoxDt
+            
+            if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+                LunarCalendarUtils.log.debug("Searching for new moons between " +
+                    Ephemeris.datetimeToStr(newMoonSearchStartDt) + " and " +
+                    Ephemeris.datetimeToStr(newMoonSearchEndDt))
+            
+            newMoonDts = EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
+                newMoonSearchStartDt,
+                newMoonSearchEndDt,
+                "MoSu",
+                "geocentric",
+                "tropical",
+                0,
+                maxErrorTd=datetime.timedelta(seconds=1))
+    
+            if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+                LunarCalendarUtils.log.debug("Got the following timestamps for G.MoSu crossing "
+                    + "0 degrees between the given start and end timestamps for "
+                    + "this year: ")
+                for newMoonDt in newMoonDts:
+                    LunarCalendarUtils.log.debug("  " + Ephemeris.datetimeToDayStr(newMoonDt))
+    
+            if len(newMoonDts) == 0:
+                errMsg = \
+                    "Did not find any new moons in the time period specified: " +
+                    "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) +
+                    ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt)
+                LunarCalendarUtils.log.error(errMsg)
+                raise AssertionError(errMsg)
+            elif len(newMoonDts) > 2:
+                errMsg = \
+                    "Found too many new moons in the time period specified: " +
+                    "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) +
+                    ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt)                
+                LunarCalendarUtils.log.error(errMsg)
+                raise AssertionError(errMsg)
+            else:
+                # Append the latest timestamp.
+                newMoonDt = newMoonDts[-1]
+                nisan1Dts.append(newMoonDt)
+
+        if len(nisan1Dts) != 1:
+            errMsg = "Did not find the expected number of new moons!"
+            LunarCalendarUtils.log.error(errMsg)
+            raise AssertionError(errMsg)
+            
+        nisan1Dt = nisan1Dts[0]
+
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug("nisan1Dt == " + Ephemeris.datetimeToDayStr(nisan1Dt))
+
+        desiredDegreesElapsed = ((lunarDate.month - 1) * 360) + (lunarDate.day * 12)
+
+        # This is the desired datetime, but in UTC timezone.
+        dtUtc = None
+        
+        # For G.MoSu, if desiredDegreesElapsed is 0, then there's no
+        # need to do the ephemeris calculation because the user is looking for
+        # the Nisan 1 datetime, which we've already calculated.
+        if desiredDegreesElapsed == 0.0:
+            dtUtc = nisan1Dt
+        else:
+            dts = EphemerisUtils.getDatetimesOfElapsedLongitudeDegrees(\
+                "MoSu",
+                "geocentric",
+                "tropical",
+                nisan1Dt,
+                desiredDegreesElapsed,
+                maxErrorTd=datetime.timedelta(seconds=1))
+    
+            if len(dts) != 1:
+                errMsg = "Did not find the expected number of datetimes!"
+                LunarCalendarUtils.log.error(errMsg)
+                raise AssertionError(errMsg)
+    
+            dtUtc = dts[0]
+
+        # Convert to the timezone specified.
+        rv = tzInfo.normalize(dtUtc.astimezone(tzInfo))
+        
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            debugStr = "{} converted to UTC datetime is: {}".\
+                format(lunarDate, Ephemeris.datetimeToDayStr(dtUtc))
+            LunarCalendarUtils.log.debug(debugStr)
+            
+            debugStr = "{} converted to localized datetime is: {}".\
+                format(lunarDate, Ephemeris.datetimeToDayStr(rv))
+            LunarCalendarUtils.log.debug(debugStr)
+
+        return rv
+        
     @staticmethod
     def isLunarLeapYear(lunarYear):
         """

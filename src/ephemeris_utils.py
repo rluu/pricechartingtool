@@ -150,16 +150,19 @@ class EphemerisUtils:
 
         # Make sure the inputs are valid.
         if endDt < startDt:
-            EphemerisUtils.log.error("Invalid input: 'endDt' must be after 'startDt'")
-            return None
+            errMsg = "Invalid input: 'endDt' must be after 'startDt'"
+            EphemerisUtils.log.error(errMsg)
+            raise ValueError(errMsg)
 
         # Check to make sure planet lists were given.
         if len(planet1ParamsList) == 0:
-            EphemerisUtils.log.error("planet1ParamsList must contain at least 1 tuple.")
-            return None
+            errMsg = "planet1ParamsList must contain at least 1 tuple."
+            EphemerisUtils.log.error(errMsg)
+            raise ValueError(errMsg)
         if len(planet2ParamsList) == 0:
-            EphemerisUtils.log.error("planet2ParamsList must contain at least 1 tuple.")
-            return None
+            errMsg = "planet2ParamsList must contain at least 1 tuple."
+            EphemerisUtils.log.error(errMsg)
+            raise ValueError(errMsg)
 
         EphemerisUtils.log.debug("planet1ParamsList passed in is: {}".\
                   format(planet1ParamsList))
@@ -169,9 +172,10 @@ class EphemerisUtils:
         # Check for valid inputs in each of the planet parameter lists.
         for planetTuple in planet1ParamsList + planet2ParamsList:
             if len(planetTuple) != 3:
-                EphemerisUtils.log.error("Input error: " + \
-                          "Not enough values given in planet tuple.")
-                return None
+                errMsg = "Input error: " + \
+                          "Not enough values given in planet tuple."
+                EphemerisUtils.log.error(errMsg)
+                raise ValueError(errMsg)
 
             planetName = planetTuple[0]
             centricityType = planetTuple[1]
@@ -182,18 +186,20 @@ class EphemerisUtils:
                 loweredCentricityType != "topocentric" and \
                 loweredCentricityType != "heliocentric":
 
-                EphemerisUtils.log.error("Invalid input: Centricity type is invalid.  " + \
-                      "Value given was: {}".format(centricityType))
-                return None
+                errMsg = "Invalid input: Centricity type is invalid.  " + \
+                    "Value given was: {}".format(centricityType)
+                EphemerisUtils.log.error(errMsg)
+                raise ValueError(errMsg)
 
             # Check inputs for longitude type.
             loweredLongitudeType = longitudeType.lower()
             if loweredLongitudeType != "tropical" and \
                 loweredLongitudeType != "sidereal":
 
-                EphemerisUtils.log.error("Invalid input: Longitude type is invalid.  " + \
-                      "Value given was: {}".format(longitudeType))
-                return None
+                errMsg = "Invalid input: Longitude type is invalid.  " + \
+                    "Value given was: {}".format(longitudeType)
+                EphemerisUtils.log.error(errMsg)
+                raise ValueError(errMsg)
 
         # Field name we are getting.
         fieldName = "longitude"
@@ -626,16 +632,19 @@ class EphemerisUtils:
 
         # Make sure the inputs are valid.
         if endDt < startDt:
-            EphemerisUtils.log.error("Invalid input: 'endDt' must be after 'startDt'")
-            return None
+            errMsg = "Invalid input: 'endDt' must be after 'startDt'"
+            EphemerisUtils.log.error(errMsg)
+            raise ValueError(errMsg)
 
         # Check to make sure planet params were given.
         if len(planet1Params) != 3:
-            EphemerisUtils.log.error("planet1Params must be a tuple with 3 elements.")
-            return None
+            errMsg = "planet1Params must be a tuple with 3 elements."
+            EphemerisUtils.log.error(errMsg)
+            raise ValueError(errMsg)
         if not isinstance(fixedDegree, (int, float, complex)):
-            EphemerisUtils.log.error("fixedDegree must be a number.")
-            return None
+            errMsg = "fixedDegree must be a number."
+            EphemerisUtils.log.error(errMsg)
+            raise ValueError(errMsg)
 
         # Normalize the fixed degree.
         fixedDegree = Util.toNormalizedAngle(fixedDegree)
@@ -656,18 +665,20 @@ class EphemerisUtils:
             loweredCentricityType != "topocentric" and \
             loweredCentricityType != "heliocentric":
 
-            EphemerisUtils.log.error("Invalid input: Centricity type is invalid.  " + \
-                      "Value given was: {}".format(centricityType))
-            return None
+            errMsg = "Invalid input: Centricity type is invalid.  " + \
+                "Value given was: {}".format(centricityType)
+            EphemerisUtils.log.error(errMsg)
+            raise ValueError(errMsg)
 
         # Check inputs for longitude type.
         loweredLongitudeType = longitudeType.lower()
         if loweredLongitudeType != "tropical" and \
             loweredLongitudeType != "sidereal":
 
-            EphemerisUtils.log.error("Invalid input: Longitude type is invalid.  " + \
-                      "Value given was: {}".format(longitudeType))
-            return None
+            errMsg = "Invalid input: Longitude type is invalid.  " + \
+                "Value given was: {}".format(longitudeType)
+            EphemerisUtils.log.error(errMsg)
+            raise ValueError(errMsg)
 
         # Field name we are getting.
         fieldName = "longitude"
@@ -1335,8 +1346,9 @@ class EphemerisUtils:
 
         # Make sure the inputs are valid.
         if endDt < startDt:
-            EphemerisUtils.log.error("Invalid input: 'endDt' must be after 'startDt'")
-            return None
+            errMsg = "Invalid input: 'endDt' must be after 'startDt'"
+            EphemerisUtils.log.error(errMsg)
+            raise ValueError(errMsg)
 
         # Set the step size.
         stepSizeTd = datetime.timedelta(days=1)
@@ -1574,20 +1586,20 @@ class EphemerisUtils:
            centricityType != "topocentric" and \
            centricityType != "heliocentric":
 
-            EphemerisUtils.log.error("Invalid input: centricityType is invalid.  " + \
-                      "Value given was: {}".format(centricityTypeOrig))
-            rv = []
-            return rv
+            errMsg = "Invalid input: centricityType is invalid.  " + \
+                "Value given was: {}".format(centricityTypeOrig)
+            EphemerisUtils.log.error(errMsg)
+            raise ValueError(errMsg)
 
         longitudeTypeOrig = longitudeType
         longitudeType = longitudeType.lower()
         if longitudeType != "tropical" and \
            longitudeType != "sidereal":
 
-            EphemerisUtils.log.error("Invalid input: longitudeType is invalid.  " + \
-                      "Value given was: {}".format(longitudeTypeOrig))
-            rv = []
-            return rv
+            errMsg = "Invalid input: longitudeType is invalid.  " + \
+                "Value given was: {}".format(longitudeTypeOrig)
+            EphemerisUtils.log.error(errMsg)
+            raise ValueError(errMsg)
 
         # Field name we are getting.
         fieldName = "longitude"
