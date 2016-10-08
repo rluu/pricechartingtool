@@ -9922,7 +9922,7 @@ def testStudyingEpact():
 
 ##############################################################################
 
-# For debugging the Ephemeris class during development.
+# For debugging the classes in this module during development.
 if __name__=="__main__":
     # For timing the calculations.
     import time

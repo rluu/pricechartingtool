@@ -5,6 +5,7 @@ import logging.config
 
 from functools import lru_cache
 
+import math
 import inspect
 import datetime
 import copy
@@ -616,8 +617,105 @@ class LunarCalendarUtils:
         LunarDate object representing the same moment in time as the 
         given datetime.datetime object.
         """
-        # TODO_rluu: Write code here.
-        pass
+
+        if dt == None:
+            errMsg = "Input 'dt' must not be None."
+            LunarCalendarUtils.log.error(errMsg)
+            raise ValueError(errMsg)
+            
+        if dt.tzInfo == None:
+            errMsg = "Input 'dt' must have a tzInfo specified.  " + \
+                "dt was: {}".format(Ephemeris.datetimeToStr(dt))
+            LunarCalendarUtils.log.error(errMsg)
+            raise ValueError(errMsg)
+
+        # Determine what lunar year 'dt' falls under.
+        
+        # Get the Nisan 1 timestamp in the form of a datetime
+        # for the same datetime.year and the year before, 
+        # then test those dates with datetime 'dt'.
+        nisan1DtA = getNisan1DatetimeForYear(dt.year - 1, dt.tzInfo)
+        nisan1DtB = getNisan1DatetimeForYear(dt.year, dt.tzInfo)
+        nisan1Dt = None
+        
+        if dt >= nisan1DtB:
+            nisan1Dt = nisan1DtB
+        else:
+            nisan1Dt = nisan1DtA
+
+        lunarYear = nisan1Dt.year
+        LunarCalendarUtils.log.debug("lunarYear == {}".format(lunarYear))
+        
+        isLeapYear = LunarDate.isLunarLeapYear(lunarYear)
+        LunarCalendarUtils.log.debug("isLeapYear == {}".format(isLeapYear))
+        
+        numMonths = None
+        if isLeapYear:
+            numMonths = 13
+        else:
+            numMonths = 12
+
+        # Determine what lunar month 'dt' falls under.
+        
+        # Use an approximation of the lunar month to determine
+        # what lunar month to begin testing from.
+        diffTd = dt - nisan1Dt
+        
+        # Divide by 29.535, which is the average lunation
+        # amount of days.
+        startingMonth = math.floor(diffTd.days / 29.535)
+        if startingMonth < 1:
+            startingMonth = 1
+
+        lunarMonth = None
+        for i in range(startingMonth, numMonths + 1):
+            if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+                LunarCalendarUtils.log.debug("i == {}".format(i))
+
+            testLunarDate = LunarDate(nisan1Dt.year, i, 0)
+            testDt = LunarCalendarUtils.lunarDateToDatetime(testLunarDate, dt.tzInfo)
+
+            if dt > testDt:
+               lunarMonth = i
+            else:
+                break
+
+        LunarCalendarUtils.log.debug("lunarMonth == {}".format(lunarMonth))
+
+        # Determine what lunar day 'dt' falls under.
+        pi = Ephemeris.getPlanetaryInfo("MoSu", dt)
+        longitude = pi.geocentric['tropical']['longitude']
+        lunarDay = longitude / 12.0
+        LunarCalendarUtils.log.debug("lunarDay == {}".format(lunarDay))
+
+        rv = LunarDate(lunarYear, lunarMonth, lunarDay)
+        LunarCalendarUtils.log.debug("rv == {}".format(rv))
+
+        return rv
+
+    @staticmethod
+    @lru_cache(maxsize=2048)
+    def getNisan1DatetimeForYear(year, tzInfo=pytz.utc):
+        """Returns the datetime.datetime for the timestamp of
+        the first new moon before the Spring equinox of the 
+        gregorian year specified.
+        
+        Returns:
+        datetime.datetime representing the Nisan 1 astronomical date.
+        The timestamp will be in the timezone indicated by tzInfo, 
+        or UTC if none is specified.
+        """
+
+        # Validate arguments.
+        if year == None:
+            raise ValueError("'year' argument must not be None")
+        elif not isinstance(year, int):
+            raise ValueError("'year' argument must be of type int")
+        
+        lunarDate = LunarDate(year, 1, 0)
+        rv = LunarCalendarUtils.lunarDateToDatetime(lunarDate, tzInfo)
+        
+        return rv
 
     @staticmethod
     def lunarDateToDatetime(lunarDate, tzInfo=pytz.utc):
@@ -784,4 +882,62 @@ class LunarCalendarUtils:
         pass
 
     
+##############################################################################
+
+##############################################################################
+
+# For debugging the classes in this module during development.
+if __name__=="__main__":
+    # For timing the calculations.
+    import time
+
+    # For filesystem access for logging.
+    import os
+    import sys
+
+    print("------------------------")
+
+
+    # Initialize Logging for the Ephemeris class (required).
+    LOG_CONFIG_FILE = os.path.join(sys.path[0], "../conf/logging.conf")
+    logging.config.fileConfig(LOG_CONFIG_FILE)
+
+    # Initialize Ephemeris (required).
+    Ephemeris.initialize()
+
+    # Set the Location (required).
+
+    # Chicago:
+    #lon = -87.627777777777
+    #lat = 41.8819444444444444
+
+    # Chantilly/Arlington:
+    #lon = -77.084444
+    #lat = 38.890277
+
+    # New York City:
+    lon = -74.0064
+    lat = 40.7142
+
+    #Ephemeris.setGeographicPosition(lon, lat, -68)
+    Ephemeris.setGeographicPosition(lon, lat)
+
+    startTime = time.time()
+
+    # Different tests that can be run:
+    # TODO_rluu: Add some tests here.
+
+    endTime = time.time()
+    print("Calculations took: {} sec".format(endTime - startTime))
+
+    # Close the Ephemeris so it can do necessary cleanups.
+    Ephemeris.closeEphemeris()
+
+    # Shutdown logging so all the file handles get flushed and
+    # cleanup can happen.
+    logging.shutdown()
+
+    print("Exiting.")
+
+##############################################################################
     

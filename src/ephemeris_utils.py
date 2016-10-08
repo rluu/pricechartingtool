@@ -2150,7 +2150,7 @@ def testGetDatetimesOfElapsedLongitudeDegrees():
 
 ##############################################################################
 
-# For debugging the EphemerisUtils class during development.
+# For debugging the classes in this module during development.
 if __name__=="__main__":
     # For timing the calculations.
     import time
@@ -2159,7 +2159,6 @@ if __name__=="__main__":
     import os
     import sys
 
-    # Exercising the PlanetaryInfo and Ephemeris classes.
     print("------------------------")
 
 
