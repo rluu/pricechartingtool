@@ -562,8 +562,13 @@ class Ephemeris:
         # Get the Julian Day as calculated by Swiss Ephemeris.
         cal = swisseph.GREG_CAL
         (jd_et, jd_ut) = \
-                swisseph.utc_to_jd(dtUtc.year, dtUtc.month, dtUtc.day,
-                              dtUtc.hour, dtUtc.minute, dtUtc.second,
+                swisseph.utc_to_jd(\
+                              dtUtc.year,
+                              dtUtc.month,
+                              dtUtc.day,
+                              dtUtc.hour,
+                              dtUtc.minute,
+                              dtUtc.second + (dtUtc.microsecond / 1000000),
                               cal)
 
         # We use the Julian Day for Universal Time (UT).
@@ -5062,7 +5067,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        # Get the information for MeanNorthNode first, then make 
+        # Get the information for MeanNorthNode first, then make
         # the necessary modifications to that so that the data is for
         # MeanSouthNode.
         pi = Ephemeris.getPlanetaryInfo("MeanNorthNode", timestamp)
@@ -5126,7 +5131,7 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        # Get the information for TrueNorthNode first, then make 
+        # Get the information for TrueNorthNode first, then make
         # the necessary modifications to that so that the data is for
         # TrueSouthNode.
         pi = Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)

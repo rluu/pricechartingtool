@@ -6,7 +6,6 @@ import logging.config
 from functools import lru_cache
 
 import math
-import inspect
 import datetime
 import copy
 
@@ -15,20 +14,21 @@ import pytz
 from util import Util
 from ephemeris import PlanetaryInfo
 from ephemeris import Ephemeris
+from ephemeris_utils import EphemerisUtils
 
 class LunarDate:
     """
     Representation of a lunar date.
-    
+
     Terms and Definitions used:
-    
+
     The first lunar month of a year is the first new moon before the
     solar Spring equinox.
 
-    The year for a given lunar date is defined as the Gregorian calendar year 
+    The year for a given lunar date is defined as the Gregorian calendar year
     which is active at the moment of the first lunar month of that year.
 
-    The first month of a lunar year is lunar month 1, 
+    The first month of a lunar year is lunar month 1,
     which begins at the moment of the first new moon before the
     solar Spring equinox.
 
@@ -47,13 +47,13 @@ class LunarDate:
 
         Arguments:
 
-        year   - int value containing the lunar year as defined in the 
+        year   - int value containing the lunar year as defined in the
                  class comments for class LunarDate.
 
-        month  - int value containing the lunar month as defined in the 
+        month  - int value containing the lunar month as defined in the
                  class comments for class LunarDate.
 
-        day    - float value containing the lunar day as defined in the 
+        day    - float value containing the lunar day as defined in the
                  class comments for class LunarDate.
         """
 
@@ -62,14 +62,14 @@ class LunarDate:
             raise ValueError("'year' argument may not be None")
         elif not isinstance(year, int):
             raise ValueError("'year' argument must be of type int")
-        
+
         if month == None:
             raise ValueError("'month' argument may not be None")
         elif not isinstance(month, int):
             raise ValueError("'month' argument must be of type int")
         elif month < 1 or month > 13:
             raise ValueError("'month' argument is out of range [1, 13]")
-        
+
         if day == None:
             raise ValueError("'day' argument may not be None")
         elif not (isinstance(day, int) or isinstance(day, float)):
@@ -94,7 +94,7 @@ class LunarDate:
     @lru_cache(maxsize=2048)
     def isLunarLeapYear(lunarYear):
         """
-        Returns True if the given lunar calendar year has 13 months 
+        Returns True if the given lunar calendar year has 13 months
         (i.e. it is a lunar leap year), otherwise False is returned.
 
         Arguments:
@@ -113,8 +113,22 @@ class LunarDate:
         # 4) If the difference in number of calendar days is closer to
         #    13 lunations, then True is returned.  Otherwise False is returned.
 
-        springEquinoxSearchStartDate = datetime.datetime(lunarYear, 3, 18, 12, 0, 0, tzInfo=pytz.utc)
-        springEquinoxSearchEndDate = datetime.datetime(lunarYear + 1, 3, 25, 12, 0, 0, tzInfo=pytz.utc)
+        springEquinoxSearchStartDate = \
+            datetime.datetime(year=lunarYear,
+                              month=3,
+                              day=18,
+                              hour=12,
+                              minute=0,
+                              second=0,
+                              tzinfo=pytz.utc)
+        springEquinoxSearchEndDate = \
+            datetime.datetime(year=lunarYear + 1,
+                              month=3,
+                              day=25,
+                              hour=12,
+                              minute=0,
+                              second=0,
+                              tzinfo=pytz.utc)
 
         # Get the Spring Equinox dates.  This method call should return 2 datetimes.
         springEquinoxDts = EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
@@ -125,18 +139,18 @@ class LunarDate:
                 "tropical",
                 0,
                 maxErrorTd=datetime.timedelta(seconds=1))
-        
+
         nisan1Dts = []
 
         for springEquinoxDt in springEquinoxDts:
             newMoonSearchStartDt = springEquinoxDt - datetime.timedelta(days=35)
             newMoonSearchEndDt = springEquinoxDt
-            
+
             if LunarDate.log.isEnabledFor(logging.DEBUG):
                 LunarDate.log.debug("Searching for new moons between " +
                     Ephemeris.datetimeToStr(newMoonSearchStartDt) + " and " +
                     Ephemeris.datetimeToStr(newMoonSearchEndDt))
-            
+
             newMoonDts = EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
                 newMoonSearchStartDt,
                 newMoonSearchEndDt,
@@ -145,25 +159,25 @@ class LunarDate:
                 "tropical",
                 0,
                 maxErrorTd=datetime.timedelta(seconds=1))
-    
+
             if LunarDate.log.isEnabledFor(logging.DEBUG):
                 LunarDate.log.debug("Got the following timestamps for G.MoSu crossing "
                     + "0 degrees between the given start and end timestamps for "
                     + "this year: ")
                 for newMoonDt in newMoonDts:
                     LunarDate.log.debug("  " + Ephemeris.datetimeToDayStr(newMoonDt))
-    
+
             if len(newMoonDts) == 0:
                 errMsg = \
-                    "Did not find any new moons in the time period specified: " +
-                    "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) +
+                    "Did not find any new moons in the time period specified: " + \
+                    "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) + \
                     ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt)
                 LunarDate.log.error(errMsg)
                 raise AssertionError(errMsg)
             elif len(newMoonDts) > 2:
                 errMsg = \
-                    "Found too many new moons in the time period specified: " +
-                    "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) +
+                    "Found too many new moons in the time period specified: " + \
+                    "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) + \
                     ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt)
                 LunarDate.log.error(errMsg)
                 raise AssertionError(errMsg)
@@ -172,7 +186,7 @@ class LunarDate:
                 newMoonDt = newMoonDts[-1]
                 nisan1Dts.append(newMoonDt)
 
-        if len(nisan1Dts != 2):
+        if len(nisan1Dts) != 2:
             errMsg = "Did not find the expected number of new moons!"
             LunarDate.log.error(errMsg)
             raise AssertionError(errMsg)
@@ -187,14 +201,14 @@ class LunarDate:
 
         if LunarDate.log.isEnabledFor(logging.DEBUG):
             LunarDate.log.debug("diffTimeDelta == " + diffTimeDelta)
-            
+
         if diffTimeDelta.days > 370:
             # 13 lunar months.
             return True
         else:
             # 12 lunar months.
             return False
-        
+
     def __lt__(self, other):
         """
         Returns True if LunarDate self is earlier in time than LunarDate other,
@@ -203,7 +217,7 @@ class LunarDate:
 
         if not isinstance(other, LunarDate):
             raise ValueError("'other' argument must be of type LunarDate")
-        
+
         if self.year < other.year:
             return True
         elif self.year > other.year:
@@ -233,7 +247,7 @@ class LunarDate:
 
         if not isinstance(other, LunarDate):
             raise ValueError("'other' argument must be of type LunarDate")
-        
+
         if self.year < other.year:
             return True
         elif self.year > other.year:
@@ -268,7 +282,7 @@ class LunarDate:
             return True
         else:
             return False
-        
+
     def __ne__(self, other):
         """
         Returns True if LunarDate self is not equal in time to LunarDate other,
@@ -285,7 +299,7 @@ class LunarDate:
             return True
         else:
             return False
-        
+
     def __gt__(self, other):
         """
         Returns True if LunarDate self is later in time than LunarDate other,
@@ -294,7 +308,7 @@ class LunarDate:
 
         if not isinstance(other, LunarDate):
             raise ValueError("'other' argument must be of type LunarDate")
-        
+
         if self.year < other.year:
             return False
         elif self.year > other.year:
@@ -324,7 +338,7 @@ class LunarDate:
 
         if not isinstance(other, LunarDate):
             raise ValueError("'other' argument must be of type LunarDate")
-        
+
         if self.year < other.year:
             return False
         elif self.year > other.year:
@@ -345,27 +359,27 @@ class LunarDate:
 
     def __add__(self, lunarTimeDelta):
         """
-        This method takes the given LunarTimeDelta and adds it to LunarDate self, 
+        This method takes the given LunarTimeDelta and adds it to LunarDate self,
         returning the resulting LunarDate.
 
-        WARNING / Caveats! : 
+        WARNING / Caveats! :
 
-        This method has scenarios which will not yield intuitive/correct results.  
+        This method has scenarios which will not yield intuitive/correct results.
         For example, the following addition would give the result:
-        
-        TODO_rluu: verify example.  Example assumes that lunar year 2000 is a leap year.  
+
+        TODO_rluu: verify example.  Example assumes that lunar year 2000 is a leap year.
 
            LunarDate(2000, 13, 5) + LunarTimeDelta(years=1, months=0, days=0)
              = LunarDate(2002, 1, 5)
-        
-        according to this method's algorithm.  
-        
-        Normally, adding a lunar year should not cause the lunar year of the 
-        lunar date to move 2 years.  But the technically correct result 
+
+        according to this method's algorithm.
+
+        Normally, adding a lunar year should not cause the lunar year of the
+        lunar date to move 2 years.  But the technically correct result
         would be an invalid lunar date because resulting year of just
-        adding 1 lunar year has no leap month 13.  I considered perhaps 
-        returning None in this situation, but it is really impossible to 
-        work out all the scenarios where this could happen for all kinds 
+        adding 1 lunar year has no leap month 13.  I considered perhaps
+        returning None in this situation, but it is really impossible to
+        work out all the scenarios where this could happen for all kinds
         of LunarTimeDelta that could be possibly added to a LunarDate.
         """
 
@@ -376,7 +390,7 @@ class LunarDate:
         year = self.year + lunarTimeDelta.years
         month = self.month + lunarTimeDelta.months
         day = self.day + lunarTimeDelta.days
-        
+
         # Normalize days and adjust the months as needed.
         while day >= 30:
             day -= 30
@@ -388,14 +402,14 @@ class LunarDate:
         # Normalize months, based on whether it is a leap year.
         while ((LunarDate.isLunarLeapYear(year) and month > 13) or \
                (not LunarDate.isLunarLeapYear(year) and month > 12)):
-              
+
             if LunarDate.isLunarLeapYear(year) and month > 13:
                 month -= 13
                 year += 1
             elif not LunarDate.isLunarLeapYear(year) and month > 12:
                 month -= 12
                 year += 1
-                
+
         while month < 1:
             if LunarDate.isLunarLeapYear(year - 1) and month < 1:
                 month += 13
@@ -407,16 +421,16 @@ class LunarDate:
         rv = LunarDate(year, month, day)
 
         if LunarDate.log.isEnabledFor(logging.DEBUG):
-            LunarDate.log.debug("{} + {} = {}".format(self, lunarTimeDelta, rv)
-            
+            LunarDate.log.debug("{} + {} = {}".format(self, lunarTimeDelta, rv))
+
         return rv
-        
+
     def __sub__(self, lunarTimeDelta):
         """
-        This method takes the given LunarTimeDelta and subtracts it from LunarDate self, 
+        This method takes the given LunarTimeDelta and subtracts it from LunarDate self,
         returning the resulting LunarDate.
         """
-        
+
         if not isinstance(lunarTimeDelta, LunarTimeDelta):
             errStr = "'lunarTimeDelta' argument must be of type LunarTimeDelta"
             raise ValueError(errStr)
@@ -427,12 +441,12 @@ class LunarDate:
                            lunarTimeDelta.days * -1)
 
         rv = self + invertedLunarTimeDelta
-        
+
         if LunarDate.log.isEnabledFor(logging.DEBUG):
-            LunarDate.log.debug("{} - {} = {}".format(self, lunarTimeDelta, rv)
+            LunarDate.log.debug("{} - {} = {}".format(self, lunarTimeDelta, rv))
 
         return rv
-        
+
     def __str__(self):
         """Returns a string representation of this object."""
 
@@ -453,19 +467,19 @@ class LunarTimeDelta:
     When adding a LunarTimeDelta to a LunarDate, the years gets added first,
     then the months and then the days.
 
-    Note: 
+    Note:
     A lot of care must be taken if this class is used.
     The reason is that adding LunarTimeDeltas can yield unexpected results
     if operations are not done with care.
 
     For example:
-      LunarTimeDelta(years=1, months=8, days=20) + 
+      LunarTimeDelta(years=1, months=8, days=20) +
       LunarTimeDelta(years=1, months=9, days=15)
         = LunarTimeDelta(years=2, months=18, days=5)
-    
+
     This class does not convert any amount of months into years!!!!!!!
 
-    This is because lunars years can have either 12 lunar months or 
+    This is because lunars years can have either 12 lunar months or
     13 lunar months.
 
     Note also that LunarTimeDeltas cannot be compared to each other.
@@ -474,7 +488,7 @@ class LunarTimeDelta:
 
     For example, there is no clear way to evalulate an expression like this:
 
-      LunarTimeDelta(years=2, months=1, days=20) < 
+      LunarTimeDelta(years=2, months=1, days=20) <
       LunarTimeDelta(years=0, months=59, days=15)
 
     """
@@ -488,18 +502,18 @@ class LunarTimeDelta:
         Arguments:
 
         years   - int value containing the amount of lunar years.
-        
-        months  - int or float value containing the amount of 
+
+        months  - int or float value containing the amount of
                   lunar months.
-                  One lunar month is defined as 360 degrees traversal of 
+                  One lunar month is defined as 360 degrees traversal of
                   (Geocentric Moon - Geocentric Sun).
 
-        days    - int or float value containing the amount of 
-                  lunar days.  
+        days    - int or float value containing the amount of
+                  lunar days.
                   One lunar day is defined as 1 / 30th of a lunar month.
-    
-        The LunarTimeDelta's internal representation normalizes 
-        the number of days to be in the range: (-30, 0] or [0, 30), adjusting 
+
+        The LunarTimeDelta's internal representation normalizes
+        the number of days to be in the range: (-30, 0] or [0, 30), adjusting
         the lunar months as necessary to be the same equivalent value.
         """
 
@@ -508,12 +522,12 @@ class LunarTimeDelta:
             raise ValueError("'years' argument must not be None")
         elif not isinstance(years, int):
             raise ValueError("'years' argument must be of type int")
-        
+
         if months == None:
             raise ValueError("'months' argument may not be None")
-        elif not (isinstance(month, int) or isinstance(month, float)):
+        elif not (isinstance(months, int) or isinstance(months, float)):
             raise ValueError("'months' argument must be of type int or type float")
-        
+
         if days == None:
             raise ValueError("'days' argument may not be None")
         elif not (isinstance(days, int) or isinstance(days, float)):
@@ -536,7 +550,7 @@ class LunarTimeDelta:
 
     def __add__(self, other):
         """
-        This method takes the LunarTimeDelta other and adds it to 
+        This method takes the LunarTimeDelta other and adds it to
         LunarTimeDelta self, returning the resulting LunarTimeDelta.
         """
 
@@ -557,13 +571,13 @@ class LunarTimeDelta:
             totalMonths -= 1
 
         return LunarTimeDelta(years=totalYears, months=totalMonths, days=totalDays)
-        
+
     def __sub__(self, other):
         """
         This method takes the LunarTimeDelta other and subtracts it from
         LunarTimeDelta self, returning the resulting LunarTimeDelta.
         """
-        
+
         if not isinstance(other, LunarTimeDelta):
             errStr = "'other' argument must be of type LunarTimeDelta"
             LunarTimeDelta.log.error(errStr)
@@ -581,7 +595,7 @@ class LunarTimeDelta:
             totalMonths -= 1
 
         return LunarTimeDelta(years=totalYears, months=totalMonths, days=totalDays)
-        
+
     def __str__(self):
         """Returns a string representation of this object."""
 
@@ -597,14 +611,14 @@ class LunarTimeDelta:
 
 class LunarCalendarUtils:
     """
-    Contains some methods to help work between Gregorian calendar dates and 
-    astronomical lunar calendar dates.  
-    
+    Contains some methods to help work between Gregorian calendar dates and
+    astronomical lunar calendar dates.
+
     For definitions of the terms used (e.g. 'year', 'month', 'day', etc.)
-    relative to lunar dates, please see the class comment for 
+    relative to lunar dates, please see the class comment for
     the LunarDate class.
     """
-    
+
     # Logger object for this class.
     log = logging.getLogger("lunar_calendar_utils.LunarCalendarUtils")
 
@@ -614,7 +628,7 @@ class LunarCalendarUtils:
         Converts the given datetime.datetime to a LunarDate object.
 
         Returns:
-        LunarDate object representing the same moment in time as the 
+        LunarDate object representing the same moment in time as the
         given datetime.datetime object.
         """
 
@@ -622,7 +636,7 @@ class LunarCalendarUtils:
             errMsg = "Input 'dt' must not be None."
             LunarCalendarUtils.log.error(errMsg)
             raise ValueError(errMsg)
-            
+
         if dt.tzInfo == None:
             errMsg = "Input 'dt' must have a tzInfo specified.  " + \
                 "dt was: {}".format(Ephemeris.datetimeToStr(dt))
@@ -630,14 +644,14 @@ class LunarCalendarUtils:
             raise ValueError(errMsg)
 
         # Determine what lunar year 'dt' falls under.
-        
+
         # Get the Nisan 1 timestamp in the form of a datetime
-        # for the same datetime.year and the year before, 
+        # for the same datetime.year and the year before,
         # then test those dates with datetime 'dt'.
         nisan1DtA = getNisan1DatetimeForYear(dt.year - 1, dt.tzInfo)
         nisan1DtB = getNisan1DatetimeForYear(dt.year, dt.tzInfo)
         nisan1Dt = None
-        
+
         if dt >= nisan1DtB:
             nisan1Dt = nisan1DtB
         else:
@@ -645,10 +659,10 @@ class LunarCalendarUtils:
 
         lunarYear = nisan1Dt.year
         LunarCalendarUtils.log.debug("lunarYear == {}".format(lunarYear))
-        
+
         isLeapYear = LunarDate.isLunarLeapYear(lunarYear)
         LunarCalendarUtils.log.debug("isLeapYear == {}".format(isLeapYear))
-        
+
         numMonths = None
         if isLeapYear:
             numMonths = 13
@@ -656,11 +670,11 @@ class LunarCalendarUtils:
             numMonths = 12
 
         # Determine what lunar month 'dt' falls under.
-        
+
         # Use an approximation of the lunar month to determine
         # what lunar month to begin testing from.
         diffTd = dt - nisan1Dt
-        
+
         # Divide by 29.535, which is the average lunation
         # amount of days.
         startingMonth = math.floor(diffTd.days / 29.535)
@@ -697,12 +711,12 @@ class LunarCalendarUtils:
     @lru_cache(maxsize=2048)
     def getNisan1DatetimeForYear(year, tzInfo=pytz.utc):
         """Returns the datetime.datetime for the timestamp of
-        the first new moon before the Spring equinox of the 
+        the first new moon before the Spring equinox of the
         gregorian year specified.
-        
+
         Returns:
         datetime.datetime representing the Nisan 1 astronomical date.
-        The timestamp will be in the timezone indicated by tzInfo, 
+        The timestamp will be in the timezone indicated by tzInfo,
         or UTC if none is specified.
         """
 
@@ -711,10 +725,10 @@ class LunarCalendarUtils:
             raise ValueError("'year' argument must not be None")
         elif not isinstance(year, int):
             raise ValueError("'year' argument must be of type int")
-        
+
         lunarDate = LunarDate(year, 1, 0)
         rv = LunarCalendarUtils.lunarDateToDatetime(lunarDate, tzInfo)
-        
+
         return rv
 
     @staticmethod
@@ -723,10 +737,10 @@ class LunarCalendarUtils:
         Converts the given LunarDate object to a datetime.datetime.
         The returned datetime object is created
         with the timestamp in the timezone specified (or UTC by default if the
-        argument is not specified).        
+        argument is not specified).
 
         Returns:
-        datetime.datetime object representing the same moment in time as the 
+        datetime.datetime object representing the same moment in time as the
         given LunarDate object.
         """
 
@@ -736,8 +750,22 @@ class LunarCalendarUtils:
         # 3) Get the datetime of that many degrees of G.MoSu elapsed.
         # 4) Convert the datetime to the localized timezone for return.
 
-        springEquinoxSearchStartDate = datetime.datetime(lunarDate.year, 3, 18, 12, 0, 0, tzInfo=pytz.utc)
-        springEquinoxSearchEndDate = datetime.datetime(lunarDate.year, 3, 25, 12, 0, 0, tzInfo=pytz.utc)
+        springEquinoxSearchStartDate = \
+            datetime.datetime(year=lunarDate.year,
+                              month=3,
+                              day=18,
+                              hour=12,
+                              minute=0,
+                              second=0,
+                              tzinfo=pytz.utc)
+        springEquinoxSearchEndDate = \
+            datetime.datetime(year=lunarDate.year,
+                              month=3,
+                              day=25,
+                              hour=12,
+                              minute=0,
+                              second=0,
+                              tzinfo=pytz.utc)
 
         # Get the Spring Equinox date.  This method call should return 1 datetime.
         springEquinoxDts = EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
@@ -748,18 +776,18 @@ class LunarCalendarUtils:
                 "tropical",
                 0,
                 maxErrorTd=datetime.timedelta(seconds=1))
-        
+
         nisan1Dts = []
 
         for springEquinoxDt in springEquinoxDts:
             newMoonSearchStartDt = springEquinoxDt - datetime.timedelta(days=35)
             newMoonSearchEndDt = springEquinoxDt
-            
+
             if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
                 LunarCalendarUtils.log.debug("Searching for new moons between " +
                     Ephemeris.datetimeToStr(newMoonSearchStartDt) + " and " +
                     Ephemeris.datetimeToStr(newMoonSearchEndDt))
-            
+
             newMoonDts = EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
                 newMoonSearchStartDt,
                 newMoonSearchEndDt,
@@ -768,26 +796,26 @@ class LunarCalendarUtils:
                 "tropical",
                 0,
                 maxErrorTd=datetime.timedelta(seconds=1))
-    
+
             if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
                 LunarCalendarUtils.log.debug("Got the following timestamps for G.MoSu crossing "
                     + "0 degrees between the given start and end timestamps for "
                     + "this year: ")
                 for newMoonDt in newMoonDts:
                     LunarCalendarUtils.log.debug("  " + Ephemeris.datetimeToDayStr(newMoonDt))
-    
+
             if len(newMoonDts) == 0:
                 errMsg = \
-                    "Did not find any new moons in the time period specified: " +
-                    "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) +
+                    "Did not find any new moons in the time period specified: " + \
+                    "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) + \
                     ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt)
                 LunarCalendarUtils.log.error(errMsg)
                 raise AssertionError(errMsg)
             elif len(newMoonDts) > 2:
                 errMsg = \
-                    "Found too many new moons in the time period specified: " +
-                    "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) +
-                    ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt)                
+                    "Found too many new moons in the time period specified: " + \
+                    "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) + \
+                    ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt)
                 LunarCalendarUtils.log.error(errMsg)
                 raise AssertionError(errMsg)
             else:
@@ -799,7 +827,7 @@ class LunarCalendarUtils:
             errMsg = "Did not find the expected number of new moons!"
             LunarCalendarUtils.log.error(errMsg)
             raise AssertionError(errMsg)
-            
+
         nisan1Dt = nisan1Dts[0]
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
@@ -809,7 +837,7 @@ class LunarCalendarUtils:
 
         # This is the desired datetime, but in UTC timezone.
         dtUtc = None
-        
+
         # For G.MoSu, if desiredDegreesElapsed is 0, then there's no
         # need to do the ephemeris calculation because the user is looking for
         # the Nisan 1 datetime, which we've already calculated.
@@ -823,32 +851,32 @@ class LunarCalendarUtils:
                 nisan1Dt,
                 desiredDegreesElapsed,
                 maxErrorTd=datetime.timedelta(seconds=1))
-    
+
             if len(dts) != 1:
                 errMsg = "Did not find the expected number of datetimes!"
                 LunarCalendarUtils.log.error(errMsg)
                 raise AssertionError(errMsg)
-    
+
             dtUtc = dts[0]
 
         # Convert to the timezone specified.
         rv = tzInfo.normalize(dtUtc.astimezone(tzInfo))
-        
+
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
             debugStr = "{} converted to UTC datetime is: {}".\
                 format(lunarDate, Ephemeris.datetimeToDayStr(dtUtc))
             LunarCalendarUtils.log.debug(debugStr)
-            
+
             debugStr = "{} converted to localized datetime is: {}".\
                 format(lunarDate, Ephemeris.datetimeToDayStr(rv))
             LunarCalendarUtils.log.debug(debugStr)
 
         return rv
-        
+
     @staticmethod
     def isLunarLeapYear(lunarYear):
         """
-        Returns True if the given lunar calendar year has 13 months 
+        Returns True if the given lunar calendar year has 13 months
         (i.e. it is a lunar leap year), otherwise False is returned.
 
         Arguments:
@@ -881,63 +909,5 @@ class LunarCalendarUtils:
         # TODO_rluu: Write code here.
         pass
 
-    
 ##############################################################################
 
-##############################################################################
-
-# For debugging the classes in this module during development.
-if __name__=="__main__":
-    # For timing the calculations.
-    import time
-
-    # For filesystem access for logging.
-    import os
-    import sys
-
-    print("------------------------")
-
-
-    # Initialize Logging for the Ephemeris class (required).
-    LOG_CONFIG_FILE = os.path.join(sys.path[0], "../conf/logging.conf")
-    logging.config.fileConfig(LOG_CONFIG_FILE)
-
-    # Initialize Ephemeris (required).
-    Ephemeris.initialize()
-
-    # Set the Location (required).
-
-    # Chicago:
-    #lon = -87.627777777777
-    #lat = 41.8819444444444444
-
-    # Chantilly/Arlington:
-    #lon = -77.084444
-    #lat = 38.890277
-
-    # New York City:
-    lon = -74.0064
-    lat = 40.7142
-
-    #Ephemeris.setGeographicPosition(lon, lat, -68)
-    Ephemeris.setGeographicPosition(lon, lat)
-
-    startTime = time.time()
-
-    # Different tests that can be run:
-    # TODO_rluu: Add some tests here.
-
-    endTime = time.time()
-    print("Calculations took: {} sec".format(endTime - startTime))
-
-    # Close the Ephemeris so it can do necessary cleanups.
-    Ephemeris.closeEphemeris()
-
-    # Shutdown logging so all the file handles get flushed and
-    # cleanup can happen.
-    logging.shutdown()
-
-    print("Exiting.")
-
-##############################################################################
-    
