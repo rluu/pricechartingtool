@@ -779,32 +779,8 @@ class LunarCalendarUtils:
         elif not isinstance(year, int):
             raise ValueError("'year' argument must be of type int")
 
-        lunarDate = LunarDate(year, 1, 0)
-        rv = LunarCalendarUtils.lunarDateToDatetime(lunarDate, tzInfo)
-
-        return rv
-
-    @staticmethod
-    def lunarDateToDatetime(lunarDate, tzInfo=pytz.utc):
-        """
-        Converts the given LunarDate object to a datetime.datetime.
-        The returned datetime object is created
-        with the timestamp in the timezone specified (or UTC by default if the
-        argument is not specified).
-
-        Returns:
-        datetime.datetime object representing the same moment in time as the
-        given LunarDate object.
-        """
-
-        # Algorithm here is as follows:
-        # 1) Get the Nisan 1 date for the year in question.
-        # 2) Get the degrees of G.MoSu that needs to be elapsed.
-        # 3) Get the datetime of that many degrees of G.MoSu elapsed.
-        # 4) Convert the datetime to the localized timezone for return.
-
         springEquinoxSearchStartDate = \
-            datetime.datetime(year=lunarDate.year,
+            datetime.datetime(year=year,
                               month=3,
                               day=18,
                               hour=12,
@@ -812,7 +788,7 @@ class LunarCalendarUtils:
                               second=0,
                               tzinfo=pytz.utc)
         springEquinoxSearchEndDate = \
-            datetime.datetime(year=lunarDate.year,
+            datetime.datetime(year=year,
                               month=3,
                               day=25,
                               hour=12,
@@ -886,16 +862,48 @@ class LunarCalendarUtils:
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
             LunarCalendarUtils.log.debug("nisan1Dt == " + Ephemeris.datetimeToDayStr(nisan1Dt))
 
+        # Convert to the timezone specified.
+        rv = tzInfo.normalize(nisan1Dt.astimezone(tzInfo))
+
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug("rv == " + Ephemeris.datetimeToDayStr(rv))
+
+        return rv
+
+    @staticmethod
+    def lunarDateToDatetime(lunarDate, tzInfo=pytz.utc):
+        """
+        Converts the given LunarDate object to a datetime.datetime.
+        The returned datetime object is created
+        with the timestamp in the timezone specified (or UTC by default if the
+        argument is not specified).
+
+        Returns:
+        datetime.datetime object representing the same moment in time as the
+        given LunarDate object.
+        """
+
+        # Algorithm here is as follows:
+        # 1) Get the Nisan 1 date for the year in question.
+        # 2) Get the degrees of G.MoSu that needs to be elapsed.
+        # 3) Get the datetime of that many degrees of G.MoSu elapsed.
+        # 4) Convert the datetime to the localized timezone for return.
+
+        nisan1Dt = LunarCalendarUtils.getNisan1DatetimeForYear(lunarDate.year, tzInfo)
+
         desiredDegreesElapsed = ((lunarDate.month - 1) * 360) + (lunarDate.day * 12)
 
-        # This is the desired datetime, but in UTC timezone.
+        # This is the desired datetime to return, but in UTC timezone.
         dtUtc = None
+
+        # This is the desired datetime to return, but in the the tzInfo timezone.
+        rv = None
 
         # For G.MoSu, if desiredDegreesElapsed is 0, then there's no
         # need to do the ephemeris calculation because the user is looking for
         # the Nisan 1 datetime, which we've already calculated.
         if desiredDegreesElapsed == 0.0:
-            dtUtc = nisan1Dt
+            rv = nisan1Dt
         else:
             dts = EphemerisUtils.getDatetimesOfElapsedLongitudeDegrees(\
                 "MoSu",
@@ -912,13 +920,14 @@ class LunarCalendarUtils:
 
             dtUtc = dts[0]
 
-        # Convert to the timezone specified.
-        rv = tzInfo.normalize(dtUtc.astimezone(tzInfo))
+            # Convert to the timezone specified.
+            rv = tzInfo.normalize(dtUtc.astimezone(tzInfo))
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
-            debugStr = "{} converted to UTC datetime is: {}".\
-                format(lunarDate, Ephemeris.datetimeToDayStr(dtUtc))
-            LunarCalendarUtils.log.debug(debugStr)
+            if dtUtc != None:
+                debugStr = "{} converted to UTC datetime is: {}".\
+                    format(lunarDate, Ephemeris.datetimeToDayStr(dtUtc))
+                LunarCalendarUtils.log.debug(debugStr)
 
             debugStr = "{} converted to localized datetime is: {}".\
                 format(lunarDate, Ephemeris.datetimeToDayStr(rv))
