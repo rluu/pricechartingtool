@@ -448,12 +448,12 @@ class LunarDate:
             days = self.day - other.day
 
             # Normalize days and adjust the months as needed.
-            while self.days >= 30:
-                self.days -= 30
-                self.months += 1
-            while self.days <= -30:
-                self.days += 30
-                self.months -= 1
+            while days >= 30:
+                days -= 30
+                months += 1
+            while days <= -30:
+                days += 30
+                months -= 1
 
             rv = LunarTimeDelta(years, months, days)
 

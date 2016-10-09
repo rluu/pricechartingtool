@@ -118,7 +118,7 @@ class LunarDateTestCase(unittest.TestCase):
         result = lunarDate + lunarTimeDelta
         self.assertEqual(result, LunarDate(2018, 4, 15))
 
-        # This is showing that adding can result in wrapping 
+        # This is showing that adding can result in wrapping
         # of an extra lunar year.
         lunarDate = LunarDate(2017, 13, 5)
         lunarTimeDelta = LunarTimeDelta(years=1)
@@ -131,7 +131,7 @@ class LunarDateTestCase(unittest.TestCase):
         result = lunarDate + lunarTimeDelta
         self.assertEqual(result, LunarDate(2016, 12, 7))
 
-    def testSubtraction(self):
+    def testSubtractionWithLunarTimeDelta(self):
         lunarDate = LunarDate(2017, 13, 5)
         lunarTimeDelta = LunarTimeDelta(months=5, days=3)
         result = lunarDate - lunarTimeDelta
@@ -154,6 +154,35 @@ class LunarDateTestCase(unittest.TestCase):
         lunarTimeDelta = LunarTimeDelta(years=0, months=-13, days=2)
         result = lunarDate - lunarTimeDelta
         self.assertEqual(result, LunarDate(2019, 1, 3))
+
+    def testSubtractionWithLunarDate(self):
+        lunarDateA = LunarDate(2017, 13, 5)
+        lunarDateB = LunarDate(2016, 12, 5)
+        lunarTimeDelta = lunarDateA - lunarDateB
+        self.assertEqual(lunarTimeDelta, LunarTimeDelta(years=1, months=1, days=0))
+
+        # Test wraping months.
+        lunarDateA = LunarDate(2018, 1, 5)
+        lunarDateB = LunarDate(2016, 12, 5)
+        lunarTimeDelta = lunarDateA - lunarDateB
+        self.assertEqual(lunarTimeDelta, LunarTimeDelta(years=2, months=-11, days=0))
+
+        lunarDateA = LunarDate(2018, 1, 5)
+        lunarDateB = LunarDate(2016, 12, 9)
+        lunarTimeDelta = lunarDateA - lunarDateB
+        self.assertEqual(lunarTimeDelta, LunarTimeDelta(years=2, months=-11, days=-4))
+
+        # Test wraping years.
+        lunarDateA = LunarDate(2016, 3, 5)
+        lunarDateB = LunarDate(2018, 5, 5)
+        lunarTimeDelta = lunarDateA - lunarDateB
+        self.assertEqual(lunarTimeDelta, LunarTimeDelta(years=-2, months=-2, days=0))
+
+        # Test not wrapping anything.
+        lunarDateA = LunarDate(2018, 5, 5)
+        lunarDateB = LunarDate(2016, 3, 5)
+        lunarTimeDelta = lunarDateA - lunarDateB
+        self.assertEqual(lunarTimeDelta, LunarTimeDelta(years=2, months=2, days=0))
 
     def testEquals(self):
         lunarDateA = LunarDate(2017, 13, 5.0)
