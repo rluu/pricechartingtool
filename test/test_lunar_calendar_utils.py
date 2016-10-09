@@ -267,17 +267,17 @@ class LunarTimeDeltaTestCase(unittest.TestCase):
         lunarTimeDeltaA = LunarTimeDelta(years=1, months=2, days=3)
         lunarTimeDeltaB = LunarTimeDelta(years=1, months=3, days=29)
         resultTimeDelta = lunarTimeDeltaA - lunarTimeDeltaB
-        self.assertTrue(resultTimeDelta == LunarTimeDelta(years=0, months=-2, days=4))
+        self.assertTrue(resultTimeDelta == LunarTimeDelta(years=0, months=-1, days=-26))
 
         lunarTimeDeltaA = LunarTimeDelta(years=1, months=2, days=3)
         lunarTimeDeltaB = LunarTimeDelta(years=0, months=3, days=4)
         resultTimeDelta = lunarTimeDeltaA - lunarTimeDeltaB
-        self.assertTrue(resultTimeDelta == LunarTimeDelta(years=1, months=-2, days=29))
+        self.assertTrue(resultTimeDelta == LunarTimeDelta(years=1, months=-1, days=-1))
 
         lunarTimeDeltaA = LunarTimeDelta(years=5, months=5, days=3)
         lunarTimeDeltaB = LunarTimeDelta(years=0, months=4, days=4)
         resultTimeDelta = lunarTimeDeltaA - lunarTimeDeltaB
-        self.assertTrue(resultTimeDelta == LunarTimeDelta(years=5, months=0, days=29))
+        self.assertTrue(resultTimeDelta == LunarTimeDelta(years=5, months=1, days=-1))
 
         # Test many months, not wrapping years.
         lunarTimeDeltaA = LunarTimeDelta(years=1, months=11, days=3)

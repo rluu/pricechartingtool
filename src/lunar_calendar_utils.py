@@ -423,25 +423,46 @@ class LunarDate:
 
         return rv
 
-    def __sub__(self, lunarTimeDelta):
+    def __sub__(self, other):
         """
         This method takes the given LunarTimeDelta and subtracts it from LunarDate self,
         returning the resulting LunarDate.
         """
 
-        if not isinstance(lunarTimeDelta, LunarTimeDelta):
-            errStr = "'lunarTimeDelta' argument must be of type LunarTimeDelta"
+        rv = None
+
+        if isinstance(other, LunarTimeDelta):
+            invertedLunarTimeDelta = \
+                LunarTimeDelta(other.years * -1,
+                               other.months * -1,
+                               other.days * -1)
+
+            rv = self + invertedLunarTimeDelta
+
+            if LunarDate.log.isEnabledFor(logging.DEBUG):
+                LunarDate.log.debug("{} - {} = {}".format(self, other, rv))
+
+        elif isinstance(other, LunarDate):
+            years = self.year - other.year
+            months = self.month - other.month
+            days = self.day - other.day
+
+            # Normalize days and adjust the months as needed.
+            while self.days >= 30:
+                self.days -= 30
+                self.months += 1
+            while self.days <= -30:
+                self.days += 30
+                self.months -= 1
+
+            rv = LunarTimeDelta(years, months, days)
+
+            if LunarDate.log.isEnabledFor(logging.DEBUG):
+                LunarDate.log.debug("{} - {} = {}".format(self, other, rv))
+
+        else:
+            errStr = "'lunarTimeDelta' argument must be of type LunarDate or type LunarTimeDelta"
             raise ValueError(errStr)
-
-        invertedLunarTimeDelta = \
-            LunarTimeDelta(lunarTimeDelta.years * -1,
-                           lunarTimeDelta.months * -1,
-                           lunarTimeDelta.days * -1)
-
-        rv = self + invertedLunarTimeDelta
-
-        if LunarDate.log.isEnabledFor(logging.DEBUG):
-            LunarDate.log.debug("{} - {} = {}".format(self, lunarTimeDelta, rv))
 
         return rv
 
@@ -564,7 +585,7 @@ class LunarTimeDelta:
         while totalDays >= 30:
             totalDays -= 30
             totalMonths += 1
-        while totalDays <= 30:
+        while totalDays <= -30:
             totalDays += 30
             totalMonths -= 1
 
@@ -588,7 +609,7 @@ class LunarTimeDelta:
         while totalDays >= 30:
             totalDays -= 30
             totalMonths += 1
-        while totalDays <= 30:
+        while totalDays <= -30:
             totalDays += 30
             totalMonths -= 1
 
