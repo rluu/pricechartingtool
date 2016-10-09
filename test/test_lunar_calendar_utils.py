@@ -118,12 +118,18 @@ class LunarDateTestCase(unittest.TestCase):
         result = lunarDate + lunarTimeDelta
         self.assertEqual(result, LunarDate(2018, 4, 15))
 
-        # This is showing that adding can cause wrapping of an
-        # extra lunar year.
+        # This is showing that adding can result in wrapping 
+        # of an extra lunar year.
         lunarDate = LunarDate(2017, 13, 5)
         lunarTimeDelta = LunarTimeDelta(years=1)
         result = lunarDate + lunarTimeDelta
         self.assertEqual(result, LunarDate(2019, 1, 5))
+
+        # Adding negative LunarTimeDelta values.
+        lunarDate = LunarDate(2017, 13, 5)
+        lunarTimeDelta = LunarTimeDelta(years=0, months=-13, days=2)
+        result = lunarDate + lunarTimeDelta
+        self.assertEqual(result, LunarDate(2016, 12, 7))
 
     def testSubtraction(self):
         lunarDate = LunarDate(2017, 13, 5)
@@ -142,6 +148,12 @@ class LunarDateTestCase(unittest.TestCase):
         lunarTimeDelta = LunarTimeDelta(months=13)
         result = lunarDate - lunarTimeDelta
         self.assertEqual(result, LunarDate(2016, 12, 5))
+
+        # Subtracting negative LunarTimeDelta values.
+        lunarDate = LunarDate(2017, 13, 5)
+        lunarTimeDelta = LunarTimeDelta(years=0, months=-13, days=2)
+        result = lunarDate - lunarTimeDelta
+        self.assertEqual(result, LunarDate(2019, 1, 3))
 
     def testEquals(self):
         lunarDateA = LunarDate(2017, 13, 5.0)
@@ -238,12 +250,40 @@ class LunarTimeDeltaTestCase(unittest.TestCase):
         Ephemeris.closeEphemeris()
 
     def testAdditionWithLunarTimeDelta(self):
-        # TODO_rluu: Write this method.
-        pass
+        # Test wrapping months.
+        lunarTimeDeltaA = LunarTimeDelta(years=1, months=2, days=3)
+        lunarTimeDeltaB = LunarTimeDelta(years=1, months=3, days=29)
+        resultTimeDelta = lunarTimeDeltaA + lunarTimeDeltaB
+        self.assertTrue(resultTimeDelta == LunarTimeDelta(years=2, months=6, days=2))
+
+        # Test many months, not wrapping years.
+        lunarTimeDeltaA = LunarTimeDelta(years=1, months=11, days=3)
+        lunarTimeDeltaB = LunarTimeDelta(years=1, months=5, days=29)
+        resultTimeDelta = lunarTimeDeltaA + lunarTimeDeltaB
+        self.assertTrue(resultTimeDelta == LunarTimeDelta(years=2, months=17, days=2))
 
     def testSubtractionWithLunarTimeDelta(self):
-        # TODO_rluu: Write this method.
-        pass
+        # Test wrapping months.
+        lunarTimeDeltaA = LunarTimeDelta(years=1, months=2, days=3)
+        lunarTimeDeltaB = LunarTimeDelta(years=1, months=3, days=29)
+        resultTimeDelta = lunarTimeDeltaA - lunarTimeDeltaB
+        self.assertTrue(resultTimeDelta == LunarTimeDelta(years=0, months=-2, days=4))
+
+        lunarTimeDeltaA = LunarTimeDelta(years=1, months=2, days=3)
+        lunarTimeDeltaB = LunarTimeDelta(years=0, months=3, days=4)
+        resultTimeDelta = lunarTimeDeltaA - lunarTimeDeltaB
+        self.assertTrue(resultTimeDelta == LunarTimeDelta(years=1, months=-2, days=29))
+
+        lunarTimeDeltaA = LunarTimeDelta(years=5, months=5, days=3)
+        lunarTimeDeltaB = LunarTimeDelta(years=0, months=4, days=4)
+        resultTimeDelta = lunarTimeDeltaA - lunarTimeDeltaB
+        self.assertTrue(resultTimeDelta == LunarTimeDelta(years=5, months=0, days=29))
+
+        # Test many months, not wrapping years.
+        lunarTimeDeltaA = LunarTimeDelta(years=1, months=11, days=3)
+        lunarTimeDeltaB = LunarTimeDelta(years=0, months=50, days=1)
+        resultTimeDelta = lunarTimeDeltaA - lunarTimeDeltaB
+        self.assertTrue(resultTimeDelta == LunarTimeDelta(years=1, months=-39, days=2))
 
 class LunarCalendarUtilsTestCase(unittest.TestCase):
     def setUp(self):

@@ -367,10 +367,8 @@ class LunarDate:
         This method has scenarios which will not yield intuitive/correct results.
         For example, the following addition would give the result:
 
-        TODO_rluu: verify example.  Example assumes that lunar year 2000 is a leap year.
-
-           LunarDate(2000, 13, 5) + LunarTimeDelta(years=1, months=0, days=0)
-             = LunarDate(2002, 1, 5)
+           LunarDate(2017, 13, 5) + LunarTimeDelta(years=1, months=0, days=0)
+             = LunarDate(2019, 1, 5)
 
         according to this method's algorithm.
 
@@ -596,6 +594,40 @@ class LunarTimeDelta:
 
         return LunarTimeDelta(years=totalYears, months=totalMonths, days=totalDays)
 
+    def __eq__(self, other):
+        """
+        Returns True if LunarTimeDelta self is equal to
+        LunarTimeDelta other, otherwise False is returned.
+        """
+
+        if not isinstance(other, LunarTimeDelta):
+            raise ValueError("'other' argument must be of type LunarTimeDelta")
+
+        if self.years == other.years and \
+            self.months == other.months and \
+            self.days == other.days:
+
+            return True
+        else:
+            return False
+
+    def __ne__(self, other):
+        """
+        Returns True if LunarTimeDelta self is not equal in time to
+        LunarTimeDelta other, otherwise False is returned.
+        """
+
+        if not isinstance(other, LunarTimeDelta):
+            raise ValueError("'other' argument must be of type LunarTimeDelta")
+
+        if self.years != other.years or \
+            self.months != other.months or \
+            self.days != other.days:
+
+            return True
+        else:
+            return False
+
     def __str__(self):
         """Returns a string representation of this object."""
 
@@ -637,8 +669,8 @@ class LunarCalendarUtils:
             LunarCalendarUtils.log.error(errMsg)
             raise ValueError(errMsg)
 
-        if dt.tzInfo == None:
-            errMsg = "Input 'dt' must have a tzInfo specified.  " + \
+        if dt.tzinfo == None:
+            errMsg = "Input 'dt' must have a tzinfo specified.  " + \
                 "dt was: {}".format(Ephemeris.datetimeToStr(dt))
             LunarCalendarUtils.log.error(errMsg)
             raise ValueError(errMsg)
@@ -648,8 +680,8 @@ class LunarCalendarUtils:
         # Get the Nisan 1 timestamp in the form of a datetime
         # for the same datetime.year and the year before,
         # then test those dates with datetime 'dt'.
-        nisan1DtA = getNisan1DatetimeForYear(dt.year - 1, dt.tzInfo)
-        nisan1DtB = getNisan1DatetimeForYear(dt.year, dt.tzInfo)
+        nisan1DtA = getNisan1DatetimeForYear(dt.year - 1, dt.tzinfo)
+        nisan1DtB = getNisan1DatetimeForYear(dt.year, dt.tzinfo)
         nisan1Dt = None
 
         if dt >= nisan1DtB:
@@ -687,7 +719,7 @@ class LunarCalendarUtils:
                 LunarCalendarUtils.log.debug("i == {}".format(i))
 
             testLunarDate = LunarDate(nisan1Dt.year, i, 0)
-            testDt = LunarCalendarUtils.lunarDateToDatetime(testLunarDate, dt.tzInfo)
+            testDt = LunarCalendarUtils.lunarDateToDatetime(testLunarDate, dt.tzinfo)
 
             if dt > testDt:
                lunarMonth = i
