@@ -675,6 +675,7 @@ class LunarCalendarUtils:
     # Logger object for this class.
     log = logging.getLogger("lunar_calendar_utils.LunarCalendarUtils")
 
+    @lru_cache(maxsize=4194304)
     @staticmethod
     def datetimeToLunarDate(dt):
         """
@@ -713,10 +714,12 @@ class LunarCalendarUtils:
             nisan1Dt = nisan1DtA
 
         lunarYear = nisan1Dt.year
-        LunarCalendarUtils.log.debug("lunarYear == {}".format(lunarYear))
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug("lunarYear == {}".format(lunarYear))
 
         isLeapYear = LunarDate.isLunarLeapYear(lunarYear)
-        LunarCalendarUtils.log.debug("isLeapYear == {}".format(isLeapYear))
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug("isLeapYear == {}".format(isLeapYear))
 
         numMonths = None
         if isLeapYear:
@@ -763,7 +766,7 @@ class LunarCalendarUtils:
         return rv
 
     @staticmethod
-    @lru_cache(maxsize=2048)
+    @lru_cache(maxsize=8192)
     def getNisan1DatetimeForYear(year, tzInfo=pytz.utc):
         """Returns the datetime.datetime for the timestamp of
         the first new moon before the Spring equinox of the
