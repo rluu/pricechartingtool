@@ -200,7 +200,7 @@ class LunarDate:
         diffTimeDelta = nisan1Dts[-1] - nisan1Dts[-2]
 
         if LunarDate.log.isEnabledFor(logging.DEBUG):
-            LunarDate.log.debug("diffTimeDelta == " + diffTimeDelta)
+            LunarDate.log.debug("diffTimeDelta == {}".format(diffTimeDelta))
 
         if diffTimeDelta.days > 370:
             # 13 lunar months.
@@ -701,8 +701,10 @@ class LunarCalendarUtils:
         # Get the Nisan 1 timestamp in the form of a datetime
         # for the same datetime.year and the year before,
         # then test those dates with datetime 'dt'.
-        nisan1DtA = getNisan1DatetimeForYear(dt.year - 1, dt.tzinfo)
-        nisan1DtB = getNisan1DatetimeForYear(dt.year, dt.tzinfo)
+        nisan1DtA = \
+            LunarCalendarUtils.getNisan1DatetimeForYear(dt.year - 1, dt.tzinfo)
+        nisan1DtB = \
+            LunarCalendarUtils.getNisan1DatetimeForYear(dt.year, dt.tzinfo)
         nisan1Dt = None
 
         if dt >= nisan1DtB:
@@ -867,7 +869,7 @@ class LunarCalendarUtils:
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
             LunarCalendarUtils.log.debug("rv == " + Ephemeris.datetimeToDayStr(rv))
-
+            
         return rv
 
     @staticmethod
@@ -946,30 +948,6 @@ class LunarCalendarUtils:
         """
 
         return LunarDate.isLunarLeapYear(lunarYear)
-
-    @staticmethod
-    def isSolarEclipse(lunarDate):
-        """
-        Returns True if the given LunarDate is taking place during a
-        Solar eclipse, otherwise False is returned.
-
-        Arguments:
-        lunarDate - LunarDate object holding the timestamp to check.
-        """
-        # TODO_rluu: Write code here.
-        pass
-
-    @staticmethod
-    def isLunarEclipse(lunarDate):
-        """
-        Returns True if the given LunarDate is taking place during a
-        Lunar eclipse, otherwise False is returned.
-
-        Arguments:
-        lunarDate - LunarDate object holding the timestamp to check.
-        """
-        # TODO_rluu: Write code here.
-        pass
 
 ##############################################################################
 

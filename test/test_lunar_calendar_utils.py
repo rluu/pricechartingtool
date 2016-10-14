@@ -1,7 +1,9 @@
 import unittest
 
+import datetime
 import os
 import sys
+import pytz
 
 # Include some PriceChartingTool modules.
 # This assumes that the relative directory from this script is: ../src
@@ -15,6 +17,7 @@ from ephemeris import Ephemeris
 from lunar_calendar_utils import LunarDate
 from lunar_calendar_utils import LunarTimeDelta
 from lunar_calendar_utils import LunarCalendarUtils
+
 
 ##############################################################################
 
@@ -341,28 +344,75 @@ class LunarCalendarUtilsTestCase(unittest.TestCase):
         Ephemeris.closeEphemeris()
 
     def testDatetimeToLunarDate(self):
-        # TODO_rluu: Write this method.
-        pass
+        dt = datetime.datetime(2016, 5, 21, 21, 16, 0, tzinfo=pytz.utc)
+        lunarDt = LunarCalendarUtils.datetimeToLunarDate(dt)
+        self.assertEqual(lunarDt.year, 2016)
+        self.assertEqual(lunarDt.month, 3)
+        self.assertTrue(Util.fuzzyIsEqual(lunarDt.day, 15, maxDiff=0.001))
+
+        eastern = pytz.timezone('US/Eastern')
+        dt = datetime.datetime(2016, 5, 21, 21, 16, 0, tzinfo=eastern)
+        lunarDt = LunarCalendarUtils.datetimeToLunarDate(dt)
+        self.assertEqual(lunarDt.year, 2016)
+        self.assertEqual(lunarDt.month, 3)
+        self.assertTrue(Util.fuzzyIsEqual(lunarDt.day, 15.191, maxDiff=0.001))
 
     def testGetNisan1DatetimeForYear(self):
-        # TODO_rluu: Write this method.
-        pass
+        nisan1Dt = \
+            LunarCalendarUtils.getNisan1DatetimeForYear(2004)
+        self.assertEqual(nisan1Dt.year, 2004)
+        self.assertEqual(nisan1Dt.month, 2)
+        self.assertEqual(nisan1Dt.day, 20)
+        self.assertEqual(nisan1Dt.hour, 9)
+        self.assertEqual(nisan1Dt.minute, 18)
+        
+        eastern = pytz.timezone('US/Eastern')
+        nisan1Dt = \
+            LunarCalendarUtils.getNisan1DatetimeForYear(2004, tzInfo=eastern)
+        self.assertEqual(nisan1Dt.year, 2004)
+        self.assertEqual(nisan1Dt.month, 2)
+        self.assertEqual(nisan1Dt.day, 20)
+        self.assertEqual(nisan1Dt.hour, 4)
+        self.assertEqual(nisan1Dt.minute, 18)
 
     def testLunarDateToDatetime(self):
-        # TODO_rluu: Write this method.
-        pass
-
-    def testIsSolarEclipse(self):
-        # TODO_rluu: Write this method.
-        pass
-
-    def testIsLunarEclipse(self):
-        # TODO_rluu: Write this method.
-        pass
-
+        lunarDt = LunarDate(2002, 4, 15)
+        dt = LunarCalendarUtils.lunarDateToDatetime(lunarDt)
+        self.assertEqual(dt.year, 2002)
+        self.assertEqual(dt.month, 6)
+        self.assertEqual(dt.day, 24)
+        self.assertEqual(dt.hour, 21)
+        self.assertEqual(dt.minute, 42)
+        
+        eastern = pytz.timezone('US/Eastern')
+        lunarDt = LunarDate(2002, 4, 15)
+        dt = LunarCalendarUtils.lunarDateToDatetime(lunarDt, tzInfo=eastern)
+        self.assertEqual(dt.year, 2002)
+        self.assertEqual(dt.month, 6)
+        self.assertEqual(dt.day, 24)
+        self.assertEqual(dt.hour, 17)
+        self.assertEqual(dt.minute, 42)
+        
 ##############################################################################
 
 if __name__ == "__main__":
+
+    # Set to True for enabled logging.
+    loggingEnabled = False
+    
+    if loggingEnabled:
+        import logging
+        import sys
+        moduleName = "lunar_calendar_utils"
+        logger = logging.getLogger(moduleName)
+        logger.setLevel(logging.DEBUG)
+        ch = logging.StreamHandler(sys.stdout)
+        ch.setLevel(logging.DEBUG)
+        formatStr = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        formatter = logging.Formatter(formatStr)
+        ch.setFormatter(formatter)
+        logger.addHandler(ch)
+
     unittest.main()
 
 ##############################################################################
