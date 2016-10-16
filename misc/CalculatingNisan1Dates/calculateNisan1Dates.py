@@ -190,6 +190,9 @@ def getNisan1DatesRelativeToBeforeSpringEquinox():
     Returns a list of the datetimes of the Nisan 1 dates, according to the
     standard method of calculating, astronomically.
 
+    TODO_rluu_20161016: This algorithm is not correct.  Fix it.
+    It is actually the first new moon before the first full moon after solar Spring equinox.
+
     Nisan 1 is the first new moon before the G.Sun crosses the spring
     equinox.
     """

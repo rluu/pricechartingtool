@@ -3,7 +3,8 @@
 import logging
 import logging.config
 
-from functools import lru_cache
+# TODO_rluu_20161015: Commenting out usages of @lru_cache because it does not work when used with @staticmethod.
+#from functools import lru_cache
 
 import math
 import datetime
@@ -23,14 +24,14 @@ class LunarDate:
     Terms and Definitions used:
 
     The first lunar month of a year is the first new moon before the
-    solar Spring equinox.
+    first full moon that occurs after the solar Spring equinox.
 
     The year for a given lunar date is defined as the Gregorian calendar year
     which is active at the moment of the first lunar month of that year.
 
     The first month of a lunar year is lunar month 1,
     which begins at the moment of the first new moon before the
-    solar Spring equinox.
+    first full moon that occurs after the solar Spring equinox.
 
     The month in a LunarDate has range of values: [1, 13]
 
@@ -90,8 +91,8 @@ class LunarDate:
         self.month = month
         self.day = day
 
+    #@lru_cache(maxsize=2048)
     @staticmethod
-    @lru_cache(maxsize=2048)
     def isLunarLeapYear(lunarYear):
         """
         Returns True if the given lunar calendar year has 13 months
@@ -675,7 +676,7 @@ class LunarCalendarUtils:
     # Logger object for this class.
     log = logging.getLogger("lunar_calendar_utils.LunarCalendarUtils")
 
-    @lru_cache(maxsize=4194304)
+    #@lru_cache(maxsize=4194304)
     @staticmethod
     def datetimeToLunarDate(dt):
         """
@@ -765,12 +766,14 @@ class LunarCalendarUtils:
 
         return rv
 
+    #@lru_cache(maxsize=8192)
     @staticmethod
-    @lru_cache(maxsize=8192)
     def getNisan1DatetimeForYear(year, tzInfo=pytz.utc):
         """Returns the datetime.datetime for the timestamp of
-        the first new moon before the Spring equinox of the
-        gregorian year specified.
+        the moment of the first new moon before the
+        first full moon that occurs after the solar Spring equinox.
+        
+        TODO_rluu_20161016: Look through the code and fix the algorithm to match the above definition of Nisan 1.  And then make sure it's correct everywhere else in this method.  Then update the test code in testGetNisan1DatetimeForYear().  Other tests may now fail also, so those need to be updated.
 
         Returns:
         datetime.datetime representing the Nisan 1 astronomical date.

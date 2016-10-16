@@ -358,6 +358,15 @@ class LunarCalendarUtilsTestCase(unittest.TestCase):
         self.assertTrue(Util.fuzzyIsEqual(lunarDt.day, 15.191, maxDiff=0.001))
 
     def testGetNisan1DatetimeForYear(self):
+        # This Nisan 1 happens to be a new moon in Aries.
+        nisan1Dt = \
+            LunarCalendarUtils.getNisan1DatetimeForYear(1897)
+        self.assertEqual(nisan1Dt.year, 1897)
+        self.assertEqual(nisan1Dt.month, 4)
+        self.assertEqual(nisan1Dt.day, 2)
+        self.assertEqual(nisan1Dt.hour, 6)
+        #self.assertEqual(nisan1Dt.minute, 50) # TODO_rluu: What minute does it fall?
+
         nisan1Dt = \
             LunarCalendarUtils.getNisan1DatetimeForYear(2004)
         self.assertEqual(nisan1Dt.year, 2004)

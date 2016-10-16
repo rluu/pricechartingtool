@@ -549,7 +549,7 @@ class EphemerisUtils:
             # Update prevDiff as the currDiff.
             prevDiff = Util.toNormalizedAngle(currDiff)
 
-        EphemerisUtils.log.info("Number of timestamps obtained: {}".\
+        EphemerisUtils.log.debug("Number of timestamps obtained: {}".\
                  format(len(aspectTimestamps)))
 
         EphemerisUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
@@ -1007,7 +1007,7 @@ class EphemerisUtils:
             # Update prevDiff as the currDiff.
             prevDiff = Util.toNormalizedAngle(currDiff)
 
-        EphemerisUtils.log.info("Number of timestamps obtained: {}".\
+        EphemerisUtils.log.debug("Number of timestamps obtained: {}".\
                  format(len(aspectTimestamps)))
 
         EphemerisUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
@@ -1287,7 +1287,7 @@ class EphemerisUtils:
             longitudes.append(None)
             del longitudes[0]
 
-        EphemerisUtils.log.info("Number of datetimes found: {}".format(len(rv)))
+            EphemerisUtils.log.debug("Number of datetimes found: {}".format(len(rv)))
 
         EphemerisUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
@@ -1525,7 +1525,7 @@ class EphemerisUtils:
             velocitys.append(None)
             del velocitys[0]
 
-        EphemerisUtils.log.info("Number of geo retrograde or direct planet timestamps: {}".\
+        EphemerisUtils.log.debug("Number of geo retrograde or direct planet timestamps: {}".\
                  format(len(rv)))
 
         EphemerisUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")

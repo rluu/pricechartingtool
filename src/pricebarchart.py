@@ -53,6 +53,8 @@ from util import Util
 
 # For calendar conversions, and display methods.
 from hebrew_calendar_utils import HebrewCalendarUtils
+from lunar_calendar_utils import LunarDate
+from lunar_calendar_utils import LunarCalendarUtils
 
 # For conversions from julian day to datetime.datetime and vice versa.
 from ephemeris import Ephemeris
@@ -41411,28 +41413,28 @@ class PriceBarChartWidget(QWidget):
         self.lastPriceBarTimestampLabel = QLabel("")
         self.numPriceBarsLabel = QLabel("")
 
-        localizedTimestampStr = "Mouse time: "
-        utcTimestampStr       = "Mouse time: "
-        hebrewTimestampStr    = "Mouse time: "
-        geoSunTimestampStr    = "Mouse time: "
-        geoSunTrueNorthNodeTimestampStr   = "Mouse time: "
-        geoMoSuTimestampStr   = "Mouse time: "
-        jdTimestampStr        = "Mouse jd:   "
-        priceStr = "Mouse price: "
+        localizedTimestampStr = "Mouse time:  "
+        utcTimestampStr       = "Mouse time:  "
+        hebrewTimestampStr    = "Mouse time:  "
+        lunarDateTimestampStr = "Mouse time:  "
+        geoSunTimestampStr    = "Mouse time:  "
+        geoSunTrueNorthNodeTimestampStr   = "Mouse time:  "
+        geoMoSuTimestampStr   = "Mouse time:  "
+        priceStr              = "Mouse price: "
         self.cursorLocalizedTimestampLabel = \
             QLabel(localizedTimestampStr)
         self.cursorUtcTimestampLabel = \
             QLabel(utcTimestampStr)
         self.cursorHebrewTimestampLabel = \
             QLabel(hebrewTimestampStr)
+        self.cursorLunarDateTimestampLabel = \
+            QLabel(lunarDateTimestampStr)
         self.cursorGeoSunTimestampLabel = \
             QLabel(geoSunTimestampStr)
         self.cursorGeoSunTrueNorthNodeTimestampLabel = \
             QLabel(geoSunTrueNorthNodeTimestampStr)
         self.cursorGeoMoSuTimestampLabel = \
             QLabel(geoMoSuTimestampStr)
-        self.cursorJdTimestampLabel = \
-            QLabel(jdTimestampStr)
         self.cursorPriceLabel = \
             QLabel(priceStr)
 
@@ -41472,10 +41474,10 @@ class PriceBarChartWidget(QWidget):
         self.cursorLocalizedTimestampLabel.setFont(smallMonospacedFont)
         self.cursorUtcTimestampLabel.setFont(smallMonospacedFont)
         self.cursorHebrewTimestampLabel.setFont(smallMonospacedFont)
+        self.cursorLunarDateTimestampLabel.setFont(smallMonospacedFont)
         self.cursorGeoSunTimestampLabel.setFont(smallMonospacedFont)
         self.cursorGeoSunTrueNorthNodeTimestampLabel.setFont(smallMonospacedFont)
         self.cursorGeoMoSuTimestampLabel.setFont(smallMonospacedFont)
-        self.cursorJdTimestampLabel.setFont(smallMonospacedFont)
         self.cursorPriceLabel.setFont(smallMonospacedFont)
 
         # Create the QGraphicsView and QGraphicsScene for the display portion.
@@ -41502,13 +41504,13 @@ class PriceBarChartWidget(QWidget):
         col3.addWidget(self.selectedPriceBarLowPriceLabel)
 
         col4 = QVBoxLayout()
-        col4.addWidget(self.cursorJdTimestampLabel)
         col4.addWidget(self.cursorPriceLabel)
 
         col5 = QVBoxLayout()
-        col5.addWidget(self.cursorLocalizedTimestampLabel)
         col5.addWidget(self.cursorUtcTimestampLabel)
+        col5.addWidget(self.cursorLocalizedTimestampLabel)
         col5.addWidget(self.cursorHebrewTimestampLabel)
+        col5.addWidget(self.cursorLunarDateTimestampLabel)
 
         col6 = QVBoxLayout()
         col6.addWidget(self.cursorGeoSunTimestampLabel)
@@ -41657,10 +41659,10 @@ class PriceBarChartWidget(QWidget):
         localizedTimestampStr = "Mouse time: "
         utcTimestampStr       = "Mouse time: "
         hebrewTimestampStr    = "Mouse time: "
+        lunarDateTimestampStr = "Mouse time: "
         geoSunTimestampStr    = "Mouse time: G.Sun:  "
         geoSunTrueNorthNodeTimestampStr = "Mouse time: G.SunTrueNorthNode:  "
         geoMoSuTimestampStr   = "Mouse time: G.MoSu: "
-        jdTimestampStr        = "Mouse jd:   "
         priceStr = "Mouse price: "
 
         # Set the values if the X and Y positions are valid.
@@ -41681,6 +41683,14 @@ class PriceBarChartWidget(QWidget):
                 HebrewCalendarUtils.datetimeToHebrewDateStr(timestamp),
                     HebrewCalendarUtils.datetimeToHebrewMonthDayStr(timestamp))
 
+            # TODO_rluu: Uncomment once a cache is used in LunarCalendarUtils.
+            lunarDate = LunarCalendarUtils.datetimeToLunarDate(timestamp)
+            lunarDateTimestampStr += \
+                "[ {: >4}, {: >2}, {: >5.2f} ]".\
+                format(lunarDate.year,
+                       lunarDate.month,
+                        lunarDate.day)
+            
             planetSun = Ephemeris.getPlanetaryInfo("Sun", timestamp)
             longitude = planetSun.geocentric['tropical']['longitude']
             geoSunTimestampStr += \
@@ -41698,19 +41708,16 @@ class PriceBarChartWidget(QWidget):
                 "{: >6.2f} deg.  [ Phase {: >5.2f} ]".\
                 format(longitude, synodicPhase)
 
-            jdTimestampStr += \
-                str(Ephemeris.datetimeToJulianDay(timestamp))
-
             priceStr += "{}".format(price)
 
         # Actually set the text to the widgets.
         self.cursorLocalizedTimestampLabel.setText(localizedTimestampStr)
         self.cursorUtcTimestampLabel.setText(utcTimestampStr)
         self.cursorHebrewTimestampLabel.setText(hebrewTimestampStr)
+        self.cursorLunarDateTimestampLabel.setText(lunarDateTimestampStr)
         self.cursorGeoSunTimestampLabel.setText(geoSunTimestampStr)
         self.cursorGeoSunTrueNorthNodeTimestampLabel.setText(geoSunTrueNorthNodeTimestampStr)
         self.cursorGeoMoSuTimestampLabel.setText(geoMoSuTimestampStr)
-        self.cursorJdTimestampLabel.setText(jdTimestampStr)
         self.cursorPriceLabel.setText(priceStr)
 
     def updateSelectedPriceBarLabels(self, priceBar=None):
