@@ -773,8 +773,6 @@ class LunarCalendarUtils:
         the moment of the first new moon before the
         first full moon that occurs after the solar Spring equinox.
         
-        TODO_rluu_20161016: Look through the code and fix the algorithm to match the above definition of Nisan 1.  And then make sure it's correct everywhere else in this method.  Then update the test code in testGetNisan1DatetimeForYear().  Other tests may now fail also, so those need to be updated.
-
         Returns:
         datetime.datetime representing the Nisan 1 astronomical date.
         The timestamp will be in the timezone indicated by tzInfo,
@@ -814,58 +812,87 @@ class LunarCalendarUtils:
                 0,
                 maxErrorTd=datetime.timedelta(seconds=1))
 
-        nisan1Dts = []
-
-        for springEquinoxDt in springEquinoxDts:
-            newMoonSearchStartDt = springEquinoxDt - datetime.timedelta(days=35)
-            newMoonSearchEndDt = springEquinoxDt
-
-            if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
-                LunarCalendarUtils.log.debug("Searching for new moons between " +
-                    Ephemeris.datetimeToStr(newMoonSearchStartDt) + " and " +
-                    Ephemeris.datetimeToStr(newMoonSearchEndDt))
-
-            newMoonDts = EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
-                newMoonSearchStartDt,
-                newMoonSearchEndDt,
-                "MoSu",
-                "geocentric",
-                "tropical",
-                0,
-                maxErrorTd=datetime.timedelta(seconds=1))
-
-            if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
-                LunarCalendarUtils.log.debug("Got the following timestamps for G.MoSu crossing "
-                    + "0 degrees between the given start and end timestamps for "
-                    + "this year: ")
-                for newMoonDt in newMoonDts:
-                    LunarCalendarUtils.log.debug("  " + Ephemeris.datetimeToDayStr(newMoonDt))
-
-            if len(newMoonDts) == 0:
-                errMsg = \
-                    "Did not find any new moons in the time period specified: " + \
-                    "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) + \
-                    ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt)
-                LunarCalendarUtils.log.error(errMsg)
-                raise AssertionError(errMsg)
-            elif len(newMoonDts) > 2:
-                errMsg = \
-                    "Found too many new moons in the time period specified: " + \
-                    "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) + \
-                    ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt)
-                LunarCalendarUtils.log.error(errMsg)
-                raise AssertionError(errMsg)
-            else:
-                # Append the latest timestamp.
-                newMoonDt = newMoonDts[-1]
-                nisan1Dts.append(newMoonDt)
-
-        if len(nisan1Dts) != 1:
-            errMsg = "Did not find the expected number of new moons!"
+        if len(springEquinoxDts) != 1:
+            errMsg = "Unexpected number of Spring Equinox dt's found.  "
+            errMsg += "Expected only 1.  springEquinoxDts == {}".\
+                format(springEquinoxDts)
             LunarCalendarUtils.log.error(errMsg)
             raise AssertionError(errMsg)
+        
+        springEquinoxDt = springEquinoxDts[0]
+            
+        easterFullMoonDt = None
+        fullMoonSearchStartDt = springEquinoxDt
+        fullMoonSearchEndDt = springEquinoxDt + datetime.timedelta(days=35)
+        
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug("Searching for full moons between " +
+                Ephemeris.datetimeToStr(fullMoonSearchStartDt) + " and " +
+                Ephemeris.datetimeToStr(fullMoonSearchEndDt))
+            
+        fullMoonDts = EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
+            fullMoonSearchStartDt,
+            fullMoonSearchEndDt,
+            "MoSu",
+            "geocentric",
+            "tropical",
+            180,
+            maxErrorTd=datetime.timedelta(seconds=1))
 
-        nisan1Dt = nisan1Dts[0]
+        if len(fullMoonDts) == 0:
+            errMsg = \
+                "Did not find any full moons in the time period specified: " + \
+                "fullMoonSearchStartDt=" + Ephemeris.datetimeToStr(fullMoonSearchStartDt) + \
+                ", fullMoonSearchEndDt="+ Ephemeris.datetimeToStr(fullMoonSearchEndDt)
+            LunarCalendarUtils.log.error(errMsg)
+            raise AssertionError(errMsg)
+        elif len(fullMoonDts) > 2:
+            errMsg = \
+                "Found too many full moons in the time period specified: " + \
+                "fullMoonSearchStartDt=" + Ephemeris.datetimeToStr(fullMoonSearchStartDt) + \
+                ", fullMoonSearchEndDt="+ Ephemeris.datetimeToStr(fullMoonSearchEndDt)
+            LunarCalendarUtils.log.error(errMsg)
+            raise AssertionError(errMsg)
+        else:
+            # Use the first timestamp as the Easter full moon.
+            easterFullMoonDt = fullMoonDts[0]
+
+            
+        nisan1Dt = None
+        newMoonSearchStartDt = easterFullMoonDt - datetime.timedelta(days=35)
+        newMoonSearchEndDt = easterFullMoonDt
+            
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug("Searching for new moons between " +
+                Ephemeris.datetimeToStr(newMoonSearchStartDt) + " and " +
+                Ephemeris.datetimeToStr(newMoonSearchEndDt))
+
+        newMoonDts = EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
+            newMoonSearchStartDt,
+            newMoonSearchEndDt,
+            "MoSu",
+            "geocentric",
+            "tropical",
+            0,
+            maxErrorTd=datetime.timedelta(seconds=1))
+
+        if len(newMoonDts) == 0:
+            errMsg = \
+                "Did not find any new moons in the time period specified: " + \
+                "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) + \
+                ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt)
+            LunarCalendarUtils.log.error(errMsg)
+            raise AssertionError(errMsg)
+        elif len(newMoonDts) > 2:
+            errMsg = \
+                "Found too many new moons in the time period specified: " + \
+                "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) + \
+                ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt)
+            LunarCalendarUtils.log.error(errMsg)
+            raise AssertionError(errMsg)
+        else:
+            # Set the last timestamp as the Nisan 1 datetime.
+            nisan1Dt = newMoonDts[-1]
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
             LunarCalendarUtils.log.debug("nisan1Dt == " + Ephemeris.datetimeToDayStr(nisan1Dt))

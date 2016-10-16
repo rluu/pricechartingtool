@@ -49,6 +49,7 @@ if srcDir not in sys.path:
     sys.path.insert(0, srcDir)
 from ephemeris import Ephemeris
 from ephemeris_utils import EphemerisUtils
+from lunar_calendar_utils import LunarCalendarUtils
 from data_objects import *
 
 ##############################################################################
@@ -180,75 +181,21 @@ def getNisan1DatesStandard():
     Returns a list of the datetimes of the Nisan 1 dates, according to the
     standard method of calculating, astronomically.
 
-    Nisan 1 is the first new moon before the G.Sun crosses the spring
-    equinox.
-    """
-    return getNisan1DatesRelativeToBeforeSpringEquinox()
-
-def getNisan1DatesRelativeToBeforeSpringEquinox():
-    """
-    Returns a list of the datetimes of the Nisan 1 dates, according to the
-    standard method of calculating, astronomically.
-
-    TODO_rluu_20161016: This algorithm is not correct.  Fix it.
-    It is actually the first new moon before the first full moon after solar Spring equinox.
-
-    Nisan 1 is the first new moon before the G.Sun crosses the spring
-    equinox.
+    Nisan 1 is the timestamp of the moment of the first new moon before the
+    first full moon that occurs after the solar Spring equinox.
     """
 
-    resultDts = []
+    startYear = startDt.year
+    endYear = endDt.year
 
-    dts = EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
-            startDt,
-            endDt,
-            "Sun",
-            "geocentric",
-            "tropical",
-            0,
-            maxErrorTd=datetime.timedelta(seconds=1))
-
-    if log.isEnabledFor(logging.DEBUG):
-        log.debug("Got the following timestamps for G.Sun crossing 0 degrees: ")
-        for dt in dts:
-            log.debug("  " + Ephemeris.datetimeToDayStr(dt))
-
-    for dt in dts:
-        newMoonSearchStartDt = dt - datetime.timedelta(days=35)
-        newMoonSearchEndDt = dt
-        log.debug("Searching for new moons between " +
-                Ephemeris.datetimeToStr(newMoonSearchStartDt) + " and " +
-                Ephemeris.datetimeToStr(newMoonSearchEndDt))
-        newMoonDts = EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
-            newMoonSearchStartDt,
-            newMoonSearchEndDt,
-            "MoSu",
-            "geocentric",
-            "tropical",
-            0,
-            maxErrorTd=datetime.timedelta(seconds=1))
-
-        if log.isEnabledFor(logging.DEBUG):
-            log.debug("Got the following timestamps for G.MoSu crossing "
-                + "0 degrees between the given start and end timestamps for "
-                + "this year: ")
-            for newMoonDt in newMoonDts:
-                log.debug("  " + Ephemeris.datetimeToDayStr(newMoonDt))
-
-        if len(newMoonDts) == 0:
-            log.error("Did not find any new moons in the time period specified: " +
-                "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) +
-                ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt))
-        elif len(newMoonDts) > 2:
-            log.error("Found too many new moons in the time period specified: " +
-                "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) +
-                ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt))
-        else:
-            # Append the latest timestamp.
-            newMoonDt = newMoonDts[-1]
-            resultDts.append(newMoonDt)
-
-    return resultDts
+    nisan1Dts = []
+    for year in range(startYear, endYear + 1):
+        print("DEBUG: Doing year: {}".format(year))
+        nisan1Dt = LunarCalendarUtils.getNisan1DatetimeForYear(year)
+        if startDt <= nisan1Dt <= endDt:
+            nisan1Dts.append(nisan1Dt)
+        
+    return nisan1Dts
 
 def getNisan1DatesRelativeToAfterSunTrueNorthNodeConjunction():
     """

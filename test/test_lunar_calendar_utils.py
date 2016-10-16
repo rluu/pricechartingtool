@@ -364,25 +364,25 @@ class LunarCalendarUtilsTestCase(unittest.TestCase):
         self.assertEqual(nisan1Dt.year, 1897)
         self.assertEqual(nisan1Dt.month, 4)
         self.assertEqual(nisan1Dt.day, 2)
-        self.assertEqual(nisan1Dt.hour, 6)
-        #self.assertEqual(nisan1Dt.minute, 50) # TODO_rluu: What minute does it fall?
+        self.assertEqual(nisan1Dt.hour, 4)
+        self.assertEqual(nisan1Dt.minute, 24)
 
         nisan1Dt = \
             LunarCalendarUtils.getNisan1DatetimeForYear(2004)
         self.assertEqual(nisan1Dt.year, 2004)
-        self.assertEqual(nisan1Dt.month, 2)
+        self.assertEqual(nisan1Dt.month, 3)
         self.assertEqual(nisan1Dt.day, 20)
-        self.assertEqual(nisan1Dt.hour, 9)
-        self.assertEqual(nisan1Dt.minute, 18)
+        self.assertEqual(nisan1Dt.hour, 22)
+        self.assertEqual(nisan1Dt.minute, 42)
         
         eastern = pytz.timezone('US/Eastern')
         nisan1Dt = \
             LunarCalendarUtils.getNisan1DatetimeForYear(2004, tzInfo=eastern)
         self.assertEqual(nisan1Dt.year, 2004)
-        self.assertEqual(nisan1Dt.month, 2)
+        self.assertEqual(nisan1Dt.month, 3)
         self.assertEqual(nisan1Dt.day, 20)
-        self.assertEqual(nisan1Dt.hour, 4)
-        self.assertEqual(nisan1Dt.minute, 18)
+        self.assertEqual(nisan1Dt.hour, 17)
+        self.assertEqual(nisan1Dt.minute, 42)
 
     def testLunarDateToDatetime(self):
         lunarDt = LunarDate(2002, 4, 15)
