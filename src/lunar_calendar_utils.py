@@ -3,8 +3,7 @@
 import logging
 import logging.config
 
-# TODO_rluu_20161015: Commenting out usages of @lru_cache because it does not work when used with @staticmethod.
-#from functools import lru_cache
+from cachetools import LRUCache
 
 import math
 import datetime
@@ -78,7 +77,7 @@ class LunarDate:
         elif day < 0.0 or day >= 30:
             raise ValueError("'day' argument is out of range [0.0, 30)")
 
-        if month == 13 and not LunarDate.isLunarLeapYear(year):
+        if month == 13 and not LunarCalendarUtils.isLunarLeapYear(year):
             errStr = "Invalid LunarDate: " + \
               "'month' argument cannot be 13 in a year that " + \
                 "is not a lunar leap year.  " + \
@@ -90,125 +89,6 @@ class LunarDate:
         self.year = year
         self.month = month
         self.day = day
-
-    #@lru_cache(maxsize=2048)
-    @staticmethod
-    def isLunarLeapYear(lunarYear):
-        """
-        Returns True if the given lunar calendar year has 13 months
-        (i.e. it is a lunar leap year), otherwise False is returned.
-
-        Arguments:
-        lunarYear - int value representing the lunar year to check.
-        """
-
-        if lunarYear == None:
-            raise ValueError("'lunarYear' argument may not be None")
-        elif not isinstance(lunarYear, int):
-            raise ValueError("'lunarYear' argument must be of type int")
-
-        # Algorithm here is as follows:
-        # 1) Get the Nisan 1 date for the year in question.
-        # 2) Get the Nisan 1 date for the year following.
-        # 3) Find the difference in number of calendar days between the two.
-        # 4) If the difference in number of calendar days is closer to
-        #    13 lunations, then True is returned.  Otherwise False is returned.
-
-        springEquinoxSearchStartDate = \
-            datetime.datetime(year=lunarYear,
-                              month=3,
-                              day=18,
-                              hour=12,
-                              minute=0,
-                              second=0,
-                              tzinfo=pytz.utc)
-        springEquinoxSearchEndDate = \
-            datetime.datetime(year=lunarYear + 1,
-                              month=3,
-                              day=25,
-                              hour=12,
-                              minute=0,
-                              second=0,
-                              tzinfo=pytz.utc)
-
-        # Get the Spring Equinox dates.  This method call should return 2 datetimes.
-        springEquinoxDts = EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
-                springEquinoxSearchStartDate,
-                springEquinoxSearchEndDate,
-                "Sun",
-                "geocentric",
-                "tropical",
-                0,
-                maxErrorTd=datetime.timedelta(seconds=1))
-
-        nisan1Dts = []
-
-        for springEquinoxDt in springEquinoxDts:
-            newMoonSearchStartDt = springEquinoxDt - datetime.timedelta(days=35)
-            newMoonSearchEndDt = springEquinoxDt
-
-            if LunarDate.log.isEnabledFor(logging.DEBUG):
-                LunarDate.log.debug("Searching for new moons between " +
-                    Ephemeris.datetimeToStr(newMoonSearchStartDt) + " and " +
-                    Ephemeris.datetimeToStr(newMoonSearchEndDt))
-
-            newMoonDts = EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
-                newMoonSearchStartDt,
-                newMoonSearchEndDt,
-                "MoSu",
-                "geocentric",
-                "tropical",
-                0,
-                maxErrorTd=datetime.timedelta(seconds=1))
-
-            if LunarDate.log.isEnabledFor(logging.DEBUG):
-                LunarDate.log.debug("Got the following timestamps for G.MoSu crossing "
-                    + "0 degrees between the given start and end timestamps for "
-                    + "this year: ")
-                for newMoonDt in newMoonDts:
-                    LunarDate.log.debug("  " + Ephemeris.datetimeToDayStr(newMoonDt))
-
-            if len(newMoonDts) == 0:
-                errMsg = \
-                    "Did not find any new moons in the time period specified: " + \
-                    "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) + \
-                    ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt)
-                LunarDate.log.error(errMsg)
-                raise AssertionError(errMsg)
-            elif len(newMoonDts) > 2:
-                errMsg = \
-                    "Found too many new moons in the time period specified: " + \
-                    "newMoonSearchStartDt=" + Ephemeris.datetimeToStr(newMoonSearchStartDt) + \
-                    ", newMoonSearchEndDt="+ Ephemeris.datetimeToStr(newMoonSearchEndDt)
-                LunarDate.log.error(errMsg)
-                raise AssertionError(errMsg)
-            else:
-                # Append the latest timestamp.
-                newMoonDt = newMoonDts[-1]
-                nisan1Dts.append(newMoonDt)
-
-        if len(nisan1Dts) != 2:
-            errMsg = "Did not find the expected number of new moons!"
-            LunarDate.log.error(errMsg)
-            raise AssertionError(errMsg)
-        if nisan1Dts[-1] < nisan1Dts[-2]:
-            errMsg = "Datetimes for Nisan 1 are not ordered as expected!"
-            LunarDate.log.error(errMsg)
-            raise AssertionError(errMsg)
-
-        # Calculate the time difference from Nisan 1 to Nisan 1.
-        # This should be a positive timedelta.
-        diffTimeDelta = nisan1Dts[-1] - nisan1Dts[-2]
-
-        if LunarDate.log.isEnabledFor(logging.DEBUG):
-            LunarDate.log.debug("diffTimeDelta == {}".format(diffTimeDelta))
-
-        if diffTimeDelta.days > 370:
-            # 13 lunar months.
-            return True
-        else:
-            # 12 lunar months.
-            return False
 
     def __lt__(self, other):
         """
@@ -273,6 +153,11 @@ class LunarDate:
         otherwise False is returned.
         """
 
+        if self is None and other is None:
+            return True
+        elif self is not None and other is None:
+            return False
+
         if not isinstance(other, LunarDate):
             raise ValueError("'other' argument must be of type LunarDate")
 
@@ -289,6 +174,11 @@ class LunarDate:
         Returns True if LunarDate self is not equal in time to LunarDate other,
         otherwise False is returned.
         """
+
+        if self is None and other is None:
+            return False
+        elif self is not None and other is None:
+            return True
 
         if not isinstance(other, LunarDate):
             raise ValueError("'other' argument must be of type LunarDate")
@@ -399,21 +289,21 @@ class LunarDate:
             month -= 1
 
         # Normalize months, based on whether it is a leap year.
-        while ((LunarDate.isLunarLeapYear(year) and month > 13) or \
-               (not LunarDate.isLunarLeapYear(year) and month > 12)):
+        while ((LunarCalendarUtils.isLunarLeapYear(year) and month > 13) or \
+               (not LunarCalendarUtils.isLunarLeapYear(year) and month > 12)):
 
-            if LunarDate.isLunarLeapYear(year) and month > 13:
+            if LunarCalendarUtils.isLunarLeapYear(year) and month > 13:
                 month -= 13
                 year += 1
-            elif not LunarDate.isLunarLeapYear(year) and month > 12:
+            elif not LunarCalendarUtils.isLunarLeapYear(year) and month > 12:
                 month -= 12
                 year += 1
 
         while month < 1:
-            if LunarDate.isLunarLeapYear(year - 1) and month < 1:
+            if LunarCalendarUtils.isLunarLeapYear(year - 1) and month < 1:
                 month += 13
                 year -= 1
-            elif not LunarDate.isLunarLeapYear(year - 1) and month < 1:
+            elif not LunarCalendarUtils.isLunarLeapYear(year - 1) and month < 1:
                 month += 12
                 year -= 1
 
@@ -622,6 +512,11 @@ class LunarTimeDelta:
         LunarTimeDelta other, otherwise False is returned.
         """
 
+        if self is None and other is None:
+            return True
+        elif self is not None and other is None:
+            return False
+
         if not isinstance(other, LunarTimeDelta):
             raise ValueError("'other' argument must be of type LunarTimeDelta")
 
@@ -638,6 +533,11 @@ class LunarTimeDelta:
         Returns True if LunarTimeDelta self is not equal in time to
         LunarTimeDelta other, otherwise False is returned.
         """
+
+        if self is None and other is None:
+            return False
+        elif self is not None and other is None:
+            return True
 
         if not isinstance(other, LunarTimeDelta):
             raise ValueError("'other' argument must be of type LunarTimeDelta")
@@ -676,7 +576,9 @@ class LunarCalendarUtils:
     # Logger object for this class.
     log = logging.getLogger("lunar_calendar_utils.LunarCalendarUtils")
 
-    #@lru_cache(maxsize=4194304)
+    # Cache used for staticmethod: datetimeToLunarDate().
+    datetimeToLunarDateCache = LRUCache(maxsize=4194304)
+
     @staticmethod
     def datetimeToLunarDate(dt):
         """
@@ -698,6 +600,27 @@ class LunarCalendarUtils:
             LunarCalendarUtils.log.error(errMsg)
             raise ValueError(errMsg)
 
+        rv = None
+
+        # Check the cache for previously computed solution.
+        cache = LunarCalendarUtils.datetimeToLunarDateCache
+        cacheKey = (dt)
+        cacheValue = cache.get(cacheKey)
+        if cacheValue != None:
+            if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+                LunarCalendarUtils.log.debug("Get: Key found in cache (key={}, value={}).".\
+                    format(cacheKey, cacheValue))
+                LunarCalendarUtils.log.debug("currsize of cache is: {}".\
+                    format(cache.currsize))
+            rv = cacheValue
+            return rv
+
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug("Get: Key not found in cache (key={}).".\
+                    format(cacheKey))
+            LunarCalendarUtils.log.debug("currsize of cache is: {}".\
+                format(cache.currsize))
+
         # Determine what lunar year 'dt' falls under.
 
         # Get the Nisan 1 timestamp in the form of a datetime
@@ -718,7 +641,7 @@ class LunarCalendarUtils:
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
             LunarCalendarUtils.log.debug("lunarYear == {}".format(lunarYear))
 
-        isLeapYear = LunarDate.isLunarLeapYear(lunarYear)
+        isLeapYear = LunarCalendarUtils.isLunarLeapYear(lunarYear)
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
             LunarCalendarUtils.log.debug("isLeapYear == {}".format(isLeapYear))
 
@@ -764,15 +687,23 @@ class LunarCalendarUtils:
         rv = LunarDate(lunarYear, lunarMonth, lunarDay)
         LunarCalendarUtils.log.debug("rv == {}".format(rv))
 
+        # Store the computed result in the cache.
+        cache[cacheKey] = rv
+
+        LunarCalendarUtils.log.debug("Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
+        LunarCalendarUtils.log.debug("currsize of cache is: {}".format(cache.currsize))
+
         return rv
 
-    #@lru_cache(maxsize=8192)
+    # Cache used for staticmethod: getNisan1DatetimeForYear().
+    getNisan1DatetimeForYearCache = LRUCache(maxsize=8192)
+
     @staticmethod
     def getNisan1DatetimeForYear(year, tzInfo=pytz.utc):
         """Returns the datetime.datetime for the timestamp of
         the moment of the first new moon before the
         first full moon that occurs after the solar Spring equinox.
-        
+
         Returns:
         datetime.datetime representing the Nisan 1 astronomical date.
         The timestamp will be in the timezone indicated by tzInfo,
@@ -784,6 +715,27 @@ class LunarCalendarUtils:
             raise ValueError("'year' argument must not be None")
         elif not isinstance(year, int):
             raise ValueError("'year' argument must be of type int")
+
+        rv = None
+
+        # Check the cache for previously computed solution.
+        cache = LunarCalendarUtils.getNisan1DatetimeForYearCache
+        cacheKey = (year, tzInfo)
+        cacheValue = cache.get(cacheKey)
+        if cacheValue != None:
+            if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+                LunarCalendarUtils.log.debug("Get: Key found in cache (key={}, value={}).".\
+                    format(cacheKey, cacheValue))
+                LunarCalendarUtils.log.debug("currsize of cache is: {}".\
+                    format(cache.currsize))
+            rv = cacheValue
+            return rv
+
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug("Get: Key not found in cache (key={}).".\
+                    format(cacheKey))
+            LunarCalendarUtils.log.debug("currsize of cache is: {}".\
+                format(cache.currsize))
 
         springEquinoxSearchStartDate = \
             datetime.datetime(year=year,
@@ -818,18 +770,18 @@ class LunarCalendarUtils:
                 format(springEquinoxDts)
             LunarCalendarUtils.log.error(errMsg)
             raise AssertionError(errMsg)
-        
+
         springEquinoxDt = springEquinoxDts[0]
-            
+
         easterFullMoonDt = None
         fullMoonSearchStartDt = springEquinoxDt
         fullMoonSearchEndDt = springEquinoxDt + datetime.timedelta(days=35)
-        
+
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
             LunarCalendarUtils.log.debug("Searching for full moons between " +
                 Ephemeris.datetimeToStr(fullMoonSearchStartDt) + " and " +
                 Ephemeris.datetimeToStr(fullMoonSearchEndDt))
-            
+
         fullMoonDts = EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
             fullMoonSearchStartDt,
             fullMoonSearchEndDt,
@@ -857,11 +809,11 @@ class LunarCalendarUtils:
             # Use the first timestamp as the Easter full moon.
             easterFullMoonDt = fullMoonDts[0]
 
-            
+
         nisan1Dt = None
         newMoonSearchStartDt = easterFullMoonDt - datetime.timedelta(days=35)
         newMoonSearchEndDt = easterFullMoonDt
-            
+
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
             LunarCalendarUtils.log.debug("Searching for new moons between " +
                 Ephemeris.datetimeToStr(newMoonSearchStartDt) + " and " +
@@ -902,8 +854,17 @@ class LunarCalendarUtils:
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
             LunarCalendarUtils.log.debug("rv == " + Ephemeris.datetimeToDayStr(rv))
-            
+
+        # Store the computed result in the cache.
+        cache[cacheKey] = rv
+
+        LunarCalendarUtils.log.debug("Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
+        LunarCalendarUtils.log.debug("currsize of cache is: {}".format(cache.currsize))
+
         return rv
+
+    # Cache used for staticmethod: lunarDateToDatetime().
+    lunarDateToDatetimeCache = LRUCache(maxsize=1048576)
 
     @staticmethod
     def lunarDateToDatetime(lunarDate, tzInfo=pytz.utc):
@@ -917,6 +878,30 @@ class LunarCalendarUtils:
         datetime.datetime object representing the same moment in time as the
         given LunarDate object.
         """
+
+        if not isinstance(lunarDate, LunarDate):
+            raise ValueError("'lunarDate' argument must be of type LunarDate")
+
+        rv = None
+
+        # Check the cache for previously computed solution.
+        cache = LunarCalendarUtils.lunarDateToDatetimeCache
+        cacheKey = (lunarDate.year, lunarDate.month, lunarDate.day, tzInfo)
+        cacheValue = cache.get(cacheKey)
+        if cacheValue != None:
+            if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+                LunarCalendarUtils.log.debug("Get: Key found in cache (key={}, value={}).".\
+                    format(cacheKey, cacheValue))
+                LunarCalendarUtils.log.debug("currsize of cache is: {}".\
+                    format(cache.currsize))
+            rv = cacheValue
+            return rv
+
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug("Get: Key not found in cache (key={}).".\
+                    format(cacheKey))
+            LunarCalendarUtils.log.debug("currsize of cache is: {}".\
+                format(cache.currsize))
 
         # Algorithm here is as follows:
         # 1) Get the Nisan 1 date for the year in question.
@@ -968,7 +953,16 @@ class LunarCalendarUtils:
                 format(lunarDate, Ephemeris.datetimeToDayStr(rv))
             LunarCalendarUtils.log.debug(debugStr)
 
+        # Store the computed result in the cache.
+        cache[cacheKey] = rv
+
+        LunarCalendarUtils.log.debug("Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
+        LunarCalendarUtils.log.debug("currsize of cache is: {}".format(cache.currsize))
+
         return rv
+
+    # Cache used for staticmethod: isLunarLeapYear().
+    isLunarLeapYearCache = LRUCache(maxsize=2048)
 
     @staticmethod
     def isLunarLeapYear(lunarYear):
@@ -980,7 +974,67 @@ class LunarCalendarUtils:
         lunarYear - int value representing the lunar year to check.
         """
 
-        return LunarDate.isLunarLeapYear(lunarYear)
+        if lunarYear == None:
+            raise ValueError("'lunarYear' argument may not be None")
+        elif not isinstance(lunarYear, int):
+            raise ValueError("'lunarYear' argument must be of type int")
+
+        rv = None
+
+        # Check the cache for previously computed solution.
+        cache = LunarCalendarUtils.isLunarLeapYearCache
+        cacheKey = (lunarYear)
+        cacheValue = cache.get(cacheKey)
+        if cacheValue != None:
+            if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+                LunarCalendarUtils.log.debug("Get: Key found in cache (key={}, value={}).".\
+                    format(cacheKey, cacheValue))
+                LunarCalendarUtils.log.debug("currsize of cache is: {}".\
+                    format(cache.currsize))
+            rv = cacheValue
+            return rv
+
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug("Get: Key not found in cache (key={}).".\
+                    format(cacheKey))
+            LunarCalendarUtils.log.debug("currsize of cache is: {}".\
+                format(cache.currsize))
+
+        # Algorithm here is as follows:
+        # 1) Get the Nisan 1 date for the year in question.
+        # 2) Get the Nisan 1 date for the year following.
+        # 3) Find the difference in number of calendar days between the two.
+        # 4) If the difference in number of calendar days is closer to
+        #    13 lunations, then True is returned.  Otherwise False is returned.
+
+        nisan1DtA = \
+            LunarCalendarUtils.getNisan1DatetimeForYear(lunarYear, pytz.utc)
+        nisan1DtB = \
+            LunarCalendarUtils.getNisan1DatetimeForYear(lunarYear + 1, pytz.utc)
+
+        # Calculate the time difference from Nisan 1 to Nisan 1.
+        # This should be a positive timedelta.
+        diffTimeDelta = nisan1DtB - nisan1DtA
+
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug("nisan1DtA == {}".format(Ephemeris.datetimeToDayStr(nisan1DtA)))
+            LunarCalendarUtils.log.debug("nisan1DtB == {}".format(Ephemeris.datetimeToDayStr(nisan1DtB)))
+            LunarCalendarUtils.log.debug("diffTimeDelta == {}".format(diffTimeDelta))
+
+        if diffTimeDelta.days > 370:
+            # 13 lunar months.
+            rv = True
+        else:
+            # 12 lunar months.
+            rv = False
+
+        # Store the computed result in the cache.
+        cache[cacheKey] = rv
+
+        LunarCalendarUtils.log.debug("Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
+        LunarCalendarUtils.log.debug("currsize of cache is: {}".format(cache.currsize))
+
+        return rv
 
 ##############################################################################
 

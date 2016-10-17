@@ -41,6 +41,7 @@ tps/pyqt/4.11.3/PyQt-win-gpl-4.11.3/*
 tps/pyqt/4.11.3/PyQt-x11-gpl-4.11.3/*
 tps/pyqt/4.11.3/sip-4.16.5/*
 tps/pyswisseph/pyswisseph-1.77.00-0/*
+tps/cachetools/cachetools-2.0.0/*
 tps/pytz/pytz-2014.9/*
 
 # Ignore the virtualenv directory name I typically use.

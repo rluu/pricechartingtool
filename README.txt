@@ -43,6 +43,7 @@ Dependencies to build/run this project are:
       (Uses Swiss Ephemeris version 1.77.00, which was released Jan. 26, 2010)
   - pytz 2014.9           [Included in tps directory]
   - convertdate 2.0.5     [Included in tps directory]
+  - cachetools 2.0.0      [Included in tps directory]
 
 ##############################################################################
 
@@ -74,6 +75,8 @@ Notes for running on the Windows platform (relevant for PyQt4;
    this working.
    
    6) Install convertdate.
+   
+   7) Install cachetools.
    
    7) Run pricechartingtool source code.
 
