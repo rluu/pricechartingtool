@@ -197,26 +197,33 @@ def loadCachesFromShelve():
     with calculations that should be the same from run to run.
     """
 
+    log = logging.getLogger("main")
+    
     if os.path.isfile(SHELVED_CACHE_FILE):
         # Shelve exists.  Open it.
         cacheDict = shelve.open(SHELVED_CACHE_FILE)
+        log.debug("Shelve file opened for loading: " + SHELVED_CACHE_FILE)
 
         # Retrieve a copy of each of the caches, and store them
         # for use in the application.
         key = "LunarCalendarUtils.datetimeToLunarDateCache"
         if key in cacheDict:
+            log.debug("Loading cache '" + key + "' from shelve ...")
             LunarCalendarUtils.datetimeToLunarDateCache = cacheDict[key]
 
         key = "LunarCalendarUtils.getNisan1DatetimeForYearCache"
         if key in cacheDict:
+            log.debug("Loading cache '" + key + "' from shelve ...")
             LunarCalendarUtils.getNisan1DatetimeForYearCache = cacheDict[key]
 
         key = "LunarCalendarUtils.lunarDateToDatetimeCache"
         if key in cacheDict:
+            log.debug("Loading cache '" + key + "' from shelve ...")
             LunarCalendarUtils.lunarDateToDatetimeCache = cacheDict[key]
         
         key = "LunarCalendarUtils.isLunarLeapYearCache"
         if key in cacheDict:
+            log.debug("Loading cache '" + key + "' from shelve ...")
             LunarCalendarUtils.isLunarLeapYearCache = cacheDict[key]
 
         cacheDict.close()
@@ -227,20 +234,35 @@ def saveCachesToShelve():
     the next time we open the application.
     """
 
-    with shelve.open(SHELVED_CACHE_FILE) as cacheDict:
+    cacheDict = shelve.open(SHELVED_CACHE_FILE)
+    log.debug("Shelve file opened for saving: " + SHELVED_CACHE_FILE)
+
     
-        cacheDict["LunarCalendarUtils.datetimeToLunarDateCache"] = \
-            LunarCalendarUtils.datetimeToLunarDateCache = \
+    key = "LunarCalendarUtils.datetimeToLunarDateCache"
+    log.debug("Saving cache '" + key + "' to shelve ...")
+    cacheDict[key] = \
+        LunarCalendarUtils.datetimeToLunarDateCache
 
-        cacheDict["LunarCalendarUtils.getNisan1DatetimeForYearCache"] = \
-            LunarCalendarUtils.getNisan1DatetimeForYearCache = \
+    key = "LunarCalendarUtils.getNisan1DatetimeForYearCache"
+    log.debug("Saving cache '" + key + "' to shelve ...")
+    cacheDict[key] = \
+        LunarCalendarUtils.getNisan1DatetimeForYearCache
 
-        cacheDict["LunarCalendarUtils.lunarDateToDatetimeCache"] = \
-            LunarCalendarUtils.lunarDateToDatetimeCache = \
+    key = "LunarCalendarUtils.lunarDateToDatetimeCache"
+    log.debug("Saving cache '" + key + "' to shelve ...")
+    cacheDict[key] = \
+        LunarCalendarUtils.lunarDateToDatetimeCache
         
-        cacheDict["LunarCalendarUtils.isLunarLeapYearCache"] = \
-            LunarCalendarUtils.isLunarLeapYearCache = \
+    key = "LunarCalendarUtils.isLunarLeapYearCache"
+    log.debug("Saving cache '" + key + "' to shelve ...")
+    cacheDict[key] = \
+        LunarCalendarUtils.isLunarLeapYearCache
 
+        
+    log.debug("Closing shelve ...")
+    cacheDict.close()
+    log.debug("Shelve closed.")
+            
 
 ##############################################################################
 
