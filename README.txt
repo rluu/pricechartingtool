@@ -45,6 +45,11 @@ Dependencies to build/run this project are:
   - convertdate 2.0.5     [Included in tps directory]
   - cachetools 2.0.0      [Included in tps directory]
 
+System packages on Linux:
+
+  - libgdbm4              (GNU dbm key/data database)
+  - python3-dbm           (Python Interface to the GDBM Library)
+
 ##############################################################################
 
 Notes for building on the Linux platform (relevant for PyQt4 only):
