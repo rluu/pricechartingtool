@@ -7,11 +7,11 @@ data/*
 # Ignore everything in the logs directory.
 logs/*
 # Don't ignore the .gitignore file, which is there to ensure the
-# logs directory remains in Git.
+# logs directory and the data cache directory remains in Git.
 !logs/.gitignore
+!data/cache/.gitignore
 
 # Ignore some generated CSV files and spreadsheets.
-
 misc/CalculatingPlanetDirectAndRetrograde/*.csv
 misc/CalculatingPlanetDirectAndRetrograde/*.ods
 misc/EphemerisGeneration/cycleHuntingGeneric/*.csv
