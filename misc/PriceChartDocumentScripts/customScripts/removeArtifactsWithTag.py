@@ -64,6 +64,8 @@ def processPCDD(pcdd, tag):
         rv = 1
         return rv
 
+    log.info("Processing tag: " + tag)
+
     
     numArtifacts = len(pcdd.priceBarChartArtifacts)
     log.info("Number of artifacts in this pcdd beforehand: {}".\

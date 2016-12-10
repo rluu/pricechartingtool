@@ -83,4 +83,5 @@ class Color():
     lightOrange = QColor(255, 153, 51)
     veryLightOrange = QColor(255, 178, 102)
 
+    # TODO_rluu: Add brown.
 
