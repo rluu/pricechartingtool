@@ -4,6 +4,87 @@
 
 TODO:
 
+    - Create/Add a tool to calculate and show ratios of planet movements.
+    (Harmony between planets).  It would work similar to
+    PlanetLongitudeMovementMeasurementTool.  
+
+    1.5000  0.6666
+    (3/2)   (2/3)    <---- Should I try to show these whole number
+                           numerical relationships?  It would make it
+                           easier to recognize harmonies/musical intervals.
+
+        UPDATE_20160717: 
+            Consider augmenting PlanetLongitudeMovementMeasurementTool,
+            since it's a natural place for this to belong, and so that more
+            measurements can be shown on the same measurement graphics item 
+            without cluttering up the chart with multiple time measurement spans 
+            for the same start-end period.
+
+        Checkboxes would say:
+            [ ] Planet Ratio MeVe enabled
+
+        Data objects variables would be like: 
+            self.planetRatioMeVeEnabledFlag
+
+        What combinations does it make sense to do in Geocentric?  
+            AsSu may not make sense?  
+            Does MeSu make sense? 
+            Does VeSu make sense? 
+
+        Planets not implemented yet:
+	
+	    AsTrueNorthNode
+	    AsTrueSouthNode
+	    AsMe
+	    AsVe
+	    AsMa
+	    AsJu
+	    AsSa
+	    AsUr
+	    
+	    MoMe
+	    MoVe
+	    MoMa
+	    MoJu
+	    MoSa
+	    MoUr
+	    
+        MeVe - EXISTS
+	    MeSu
+	    MeMa - EXISTS
+	    MeJu - EXISTS
+	    MeSa - EXISTS
+	    MeUr - EXISTS
+
+	    VeSu
+	    VeMa - EXISTS
+	    VeJu - EXISTS
+	    VeSa - EXISTS
+	    VeUr - EXISTS
+
+	    SuMa
+	    SuJu
+	    SuSa
+	    SuUr
+	    
+	    MeTrueNorthNode
+	    MeTrueSouthNode
+
+	    VeTrueNorthNode
+	    VeTrueSouthNode
+
+	    MaTrueNorthNode
+	    MaTrueSouthNode
+
+	    JuTrueNorthNode
+	    JuTrueSouthNode
+
+	    SaTrueNorthNode
+	    SaTrueSouthNode
+
+	    UrTrueNorthNode
+	    UrTrueSouthNode
+ 
     Implement these two methods in lunar_calendar_utils.py and write the corresponding test in test_lunar_calendar_utils.py.
 
     @staticmethod
@@ -54,33 +135,6 @@ TODO:
       PlanetaryCombinationsLibrary.getLongitudeAspectTimestamps()
       because that method allows for specification of 
       uniDirectionalAspectsFlag as True or False.
-
-    - Create/Add a tool to calculate and show ratios of planet movements.
-    (Harmony between planets).  It would work similar to
-    PlanetLongitudeMovementMeasurementTool.  
-
-    1.5000  0.6666
-    (3/2)   (2/3)    <---- Should I try to show these whole number
-                           numerical relationships?  It would make it
-                           easier to recognize harmonies/musical intervals.
-
-        UPDATE_20160717: 
-            Consider augmenting PlanetLongitudeMovementMeasurementTool,
-            since it's a natural place for this to belong, and so that more
-            measurements can be shown on the same measurement graphics item 
-            without cluttering up the chart with multiple time measurement spans 
-            for the same start-end period.
-
-        Checkboxes would say:
-            [ ] Planet Ratio MeVe enabled
-
-        Data objects variables would be like: 
-            self.planetRatioMeVeEnabledFlag
-
-        What combinations does it make sense to do in Geocentric?  
-            AsSu may not make sense?  
-            Does MeSu make sense? 
-            Does VeSu make sense? 
 
   - PriceChartDocumentScripts changes/additions:
 

@@ -776,6 +776,66 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetAsMoGlyphUnicodeKey,
                                 SettingsKeys.planetAsMoGlyphUnicodeDefValue,
                                 type=str)
+        elif planetName == "AsMe":
+            rv = settings.value(SettingsKeys.planetAsMeGlyphUnicodeKey,
+                                SettingsKeys.planetAsMeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "AsVe":
+            rv = settings.value(SettingsKeys.planetAsVeGlyphUnicodeKey,
+                                SettingsKeys.planetAsVeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "AsMa":
+            rv = settings.value(SettingsKeys.planetAsMaGlyphUnicodeKey,
+                                SettingsKeys.planetAsMaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "AsJu":
+            rv = settings.value(SettingsKeys.planetAsJuGlyphUnicodeKey,
+                                SettingsKeys.planetAsJuGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "AsSa":
+            rv = settings.value(SettingsKeys.planetAsSaGlyphUnicodeKey,
+                                SettingsKeys.planetAsSaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "AsUr":
+            rv = settings.value(SettingsKeys.planetAsUrGlyphUnicodeKey,
+                                SettingsKeys.planetAsUrGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MoSu":
+            rv = settings.value(SettingsKeys.planetMoSuGlyphUnicodeKey,
+                                SettingsKeys.planetMoSuGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MoMe":
+            rv = settings.value(SettingsKeys.planetMoMeGlyphUnicodeKey,
+                                SettingsKeys.planetMoMeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MoVe":
+            rv = settings.value(SettingsKeys.planetMoVeGlyphUnicodeKey,
+                                SettingsKeys.planetMoVeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MoMa":
+            rv = settings.value(SettingsKeys.planetMoMaGlyphUnicodeKey,
+                                SettingsKeys.planetMoMaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MoJu":
+            rv = settings.value(SettingsKeys.planetMoJuGlyphUnicodeKey,
+                                SettingsKeys.planetMoJuGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MoSa":
+            rv = settings.value(SettingsKeys.planetMoSaGlyphUnicodeKey,
+                                SettingsKeys.planetMoSaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MoUr":
+            rv = settings.value(SettingsKeys.planetMoUrGlyphUnicodeKey,
+                                SettingsKeys.planetMoUrGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "AsTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetAsTrueNorthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetAsTrueNorthNodeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "AsTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetAsTrueSouthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetAsTrueSouthNodeGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "SunTrueNorthNode":
             rv = settings.value(SettingsKeys.planetSunTrueNorthNodeGlyphUnicodeKey,
                                 SettingsKeys.planetSunTrueNorthNodeGlyphUnicodeDefValue,
@@ -792,13 +852,61 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetMoonTrueSouthNodeGlyphUnicodeKey,
                                 SettingsKeys.planetMoonTrueSouthNodeGlyphUnicodeDefValue,
                                 type=str)
-        elif planetName == "MoSu":
-            rv = settings.value(SettingsKeys.planetMoSuGlyphUnicodeKey,
-                                SettingsKeys.planetMoSuGlyphUnicodeDefValue,
+        elif planetName == "MeTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetMeTrueNorthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetMeTrueNorthNodeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MeTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetMeTrueSouthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetMeTrueSouthNodeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "VeTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetVeTrueNorthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetVeTrueNorthNodeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "VeTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetVeTrueSouthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetVeTrueSouthNodeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MaTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetMaTrueNorthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetMaTrueNorthNodeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MaTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetMaTrueSouthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetMaTrueSouthNodeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "JuTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetJuTrueNorthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetJuTrueNorthNodeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "JuTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetJuTrueSouthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetJuTrueSouthNodeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "SaTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetSaTrueNorthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetSaTrueNorthNodeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "SaTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetSaTrueSouthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetSaTrueSouthNodeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "UrTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetUrTrueNorthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetUrTrueNorthNodeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "UrTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetUrTrueSouthNodeGlyphUnicodeKey,
+                                SettingsKeys.planetUrTrueSouthNodeGlyphUnicodeDefValue,
                                 type=str)
         elif planetName == "MeVe":
             rv = settings.value(SettingsKeys.planetMeVeGlyphUnicodeKey,
                                 SettingsKeys.planetMeVeGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "MeSu":
+            rv = settings.value(SettingsKeys.planetMeSuGlyphUnicodeKey,
+                                SettingsKeys.planetMeSuGlyphUnicodeDefValue,
                                 type=str)
         elif planetName == "MeEa":
             rv = settings.value(SettingsKeys.planetMeEaGlyphUnicodeKey,
@@ -820,6 +928,10 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetMeUrGlyphUnicodeKey,
                                 SettingsKeys.planetMeUrGlyphUnicodeDefValue,
                                 type=str)
+        elif planetName == "VeSu":
+            rv = settings.value(SettingsKeys.planetVeSuGlyphUnicodeKey,
+                                SettingsKeys.planetVeSuGlyphUnicodeDefValue,
+                                type=str)
         elif planetName == "VeEa":
             rv = settings.value(SettingsKeys.planetVeEaGlyphUnicodeKey,
                                 SettingsKeys.planetVeEaGlyphUnicodeDefValue,
@@ -839,6 +951,22 @@ class AstrologyUtils:
         elif planetName == "VeUr":
             rv = settings.value(SettingsKeys.planetVeUrGlyphUnicodeKey,
                                 SettingsKeys.planetVeUrGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "SuMa":
+            rv = settings.value(SettingsKeys.planetSuMaGlyphUnicodeKey,
+                                SettingsKeys.planetSuMaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "SuJu":
+            rv = settings.value(SettingsKeys.planetSuJuGlyphUnicodeKey,
+                                SettingsKeys.planetSuJuGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "SuSa":
+            rv = settings.value(SettingsKeys.planetSuSaGlyphUnicodeKey,
+                                SettingsKeys.planetSuSaGlyphUnicodeDefValue,
+                                type=str)
+        elif planetName == "SuUr":
+            rv = settings.value(SettingsKeys.planetSuUrGlyphUnicodeKey,
+                                SettingsKeys.planetSuUrGlyphUnicodeDefValue,
                                 type=str)
         elif planetName == "EaMa":
             rv = settings.value(SettingsKeys.planetEaMaGlyphUnicodeKey,
@@ -1124,6 +1252,66 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetAsMoGlyphFontSizeKey,
                                 SettingsKeys.planetAsMoGlyphFontSizeDefValue,
                                 type=float)
+        elif planetName == "AsMe":
+            rv = settings.value(SettingsKeys.planetAsMeGlyphFontSizeKey,
+                                SettingsKeys.planetAsMeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "AsVe":
+            rv = settings.value(SettingsKeys.planetAsVeGlyphFontSizeKey,
+                                SettingsKeys.planetAsVeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "AsMa":
+            rv = settings.value(SettingsKeys.planetAsMaGlyphFontSizeKey,
+                                SettingsKeys.planetAsMaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "AsJu":
+            rv = settings.value(SettingsKeys.planetAsJuGlyphFontSizeKey,
+                                SettingsKeys.planetAsJuGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "AsSa":
+            rv = settings.value(SettingsKeys.planetAsSaGlyphFontSizeKey,
+                                SettingsKeys.planetAsSaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "AsUr":
+            rv = settings.value(SettingsKeys.planetAsUrGlyphFontSizeKey,
+                                SettingsKeys.planetAsUrGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MoSu":
+            rv = settings.value(SettingsKeys.planetMoSuGlyphFontSizeKey,
+                                SettingsKeys.planetMoSuGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MoMe":
+            rv = settings.value(SettingsKeys.planetMoMeGlyphFontSizeKey,
+                                SettingsKeys.planetMoMeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MoVe":
+            rv = settings.value(SettingsKeys.planetMoVeGlyphFontSizeKey,
+                                SettingsKeys.planetMoVeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MoMa":
+            rv = settings.value(SettingsKeys.planetMoMaGlyphFontSizeKey,
+                                SettingsKeys.planetMoMaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MoJu":
+            rv = settings.value(SettingsKeys.planetMoJuGlyphFontSizeKey,
+                                SettingsKeys.planetMoJuGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MoSa":
+            rv = settings.value(SettingsKeys.planetMoSaGlyphFontSizeKey,
+                                SettingsKeys.planetMoSaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MoUr":
+            rv = settings.value(SettingsKeys.planetMoUrGlyphFontSizeKey,
+                                SettingsKeys.planetMoUrGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "AsTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetAsTrueNorthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetAsTrueNorthNodeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "AsTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetAsTrueSouthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetAsTrueSouthNodeGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "SunTrueNorthNode":
             rv = settings.value(SettingsKeys.planetSunTrueNorthNodeGlyphFontSizeKey,
                                 SettingsKeys.planetSunTrueNorthNodeGlyphFontSizeDefValue,
@@ -1140,13 +1328,61 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetMoonTrueSouthNodeGlyphFontSizeKey,
                                 SettingsKeys.planetMoonTrueSouthNodeGlyphFontSizeDefValue,
                                 type=float)
-        elif planetName == "MoSu":
-            rv = settings.value(SettingsKeys.planetMoSuGlyphFontSizeKey,
-                                SettingsKeys.planetMoSuGlyphFontSizeDefValue,
+        elif planetName == "MeTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetMeTrueNorthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetMeTrueNorthNodeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MeTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetMeTrueSouthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetMeTrueSouthNodeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "VeTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetVeTrueNorthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetVeTrueNorthNodeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "VeTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetVeTrueSouthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetVeTrueSouthNodeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MaTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetMaTrueNorthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetMaTrueNorthNodeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MaTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetMaTrueSouthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetMaTrueSouthNodeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "JuTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetJuTrueNorthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetJuTrueNorthNodeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "JuTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetJuTrueSouthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetJuTrueSouthNodeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "SaTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetSaTrueNorthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetSaTrueNorthNodeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "SaTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetSaTrueSouthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetSaTrueSouthNodeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "UrTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetUrTrueNorthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetUrTrueNorthNodeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "UrTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetUrTrueSouthNodeGlyphFontSizeKey,
+                                SettingsKeys.planetUrTrueSouthNodeGlyphFontSizeDefValue,
                                 type=float)
         elif planetName == "MeVe":
             rv = settings.value(SettingsKeys.planetMeVeGlyphFontSizeKey,
                                 SettingsKeys.planetMeVeGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "MeSu":
+            rv = settings.value(SettingsKeys.planetMeSuGlyphFontSizeKey,
+                                SettingsKeys.planetMeSuGlyphFontSizeDefValue,
                                 type=float)
         elif planetName == "MeEa":
             rv = settings.value(SettingsKeys.planetMeEaGlyphFontSizeKey,
@@ -1168,6 +1404,10 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetMeUrGlyphFontSizeKey,
                                 SettingsKeys.planetMeUrGlyphFontSizeDefValue,
                                 type=float)
+        elif planetName == "VeSu":
+            rv = settings.value(SettingsKeys.planetVeSuGlyphFontSizeKey,
+                                SettingsKeys.planetVeSuGlyphFontSizeDefValue,
+                                type=float)
         elif planetName == "VeEa":
             rv = settings.value(SettingsKeys.planetVeEaGlyphFontSizeKey,
                                 SettingsKeys.planetVeEaGlyphFontSizeDefValue,
@@ -1187,6 +1427,22 @@ class AstrologyUtils:
         elif planetName == "VeUr":
             rv = settings.value(SettingsKeys.planetVeUrGlyphFontSizeKey,
                                 SettingsKeys.planetVeUrGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "SuMa":
+            rv = settings.value(SettingsKeys.planetSuMaGlyphFontSizeKey,
+                                SettingsKeys.planetSuMaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "SuJu":
+            rv = settings.value(SettingsKeys.planetSuJuGlyphFontSizeKey,
+                                SettingsKeys.planetSuJuGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "SuSa":
+            rv = settings.value(SettingsKeys.planetSuSaGlyphFontSizeKey,
+                                SettingsKeys.planetSuSaGlyphFontSizeDefValue,
+                                type=float)
+        elif planetName == "SuUr":
+            rv = settings.value(SettingsKeys.planetSuUrGlyphFontSizeKey,
+                                SettingsKeys.planetSuUrGlyphFontSizeDefValue,
                                 type=float)
         elif planetName == "EaMa":
             rv = settings.value(SettingsKeys.planetEaMaGlyphFontSizeKey,
@@ -1473,6 +1729,66 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetAsMoAbbreviationKey,
                                 SettingsKeys.planetAsMoAbbreviationDefValue,
                                 type=str)
+        elif planetName == "AsMe":
+            rv = settings.value(SettingsKeys.planetAsMeAbbreviationKey,
+                                SettingsKeys.planetAsMeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "AsVe":
+            rv = settings.value(SettingsKeys.planetAsVeAbbreviationKey,
+                                SettingsKeys.planetAsVeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "AsMa":
+            rv = settings.value(SettingsKeys.planetAsMaAbbreviationKey,
+                                SettingsKeys.planetAsMaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "AsJu":
+            rv = settings.value(SettingsKeys.planetAsJuAbbreviationKey,
+                                SettingsKeys.planetAsJuAbbreviationDefValue,
+                                type=str)
+        elif planetName == "AsSa":
+            rv = settings.value(SettingsKeys.planetAsSaAbbreviationKey,
+                                SettingsKeys.planetAsSaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "AsUr":
+            rv = settings.value(SettingsKeys.planetAsUrAbbreviationKey,
+                                SettingsKeys.planetAsUrAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MoSu":
+            rv = settings.value(SettingsKeys.planetMoSuAbbreviationKey,
+                                SettingsKeys.planetMoSuAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MoMe":
+            rv = settings.value(SettingsKeys.planetMoMeAbbreviationKey,
+                                SettingsKeys.planetMoMeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MoVe":
+            rv = settings.value(SettingsKeys.planetMoVeAbbreviationKey,
+                                SettingsKeys.planetMoVeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MoMa":
+            rv = settings.value(SettingsKeys.planetMoMaAbbreviationKey,
+                                SettingsKeys.planetMoMaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MoJu":
+            rv = settings.value(SettingsKeys.planetMoJuAbbreviationKey,
+                                SettingsKeys.planetMoJuAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MoSa":
+            rv = settings.value(SettingsKeys.planetMoSaAbbreviationKey,
+                                SettingsKeys.planetMoSaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MoUr":
+            rv = settings.value(SettingsKeys.planetMoUrAbbreviationKey,
+                                SettingsKeys.planetMoUrAbbreviationDefValue,
+                                type=str)
+        elif planetName == "AsTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetAsTrueNorthNodeAbbreviationKey,
+                                SettingsKeys.planetAsTrueNorthNodeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "AsTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetAsTrueSouthNodeAbbreviationKey,
+                                SettingsKeys.planetAsTrueSouthNodeAbbreviationDefValue,
+                                type=str)
         elif planetName == "SunTrueNorthNode":
             rv = settings.value(SettingsKeys.planetSunTrueNorthNodeAbbreviationKey,
                                 SettingsKeys.planetSunTrueNorthNodeAbbreviationDefValue,
@@ -1489,13 +1805,61 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetMoonTrueSouthNodeAbbreviationKey,
                                 SettingsKeys.planetMoonTrueSouthNodeAbbreviationDefValue,
                                 type=str)
-        elif planetName == "MoSu":
-            rv = settings.value(SettingsKeys.planetMoSuAbbreviationKey,
-                                SettingsKeys.planetMoSuAbbreviationDefValue,
+        elif planetName == "MeTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetMeTrueNorthNodeAbbreviationKey,
+                                SettingsKeys.planetMeTrueNorthNodeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MeTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetMeTrueSouthNodeAbbreviationKey,
+                                SettingsKeys.planetMeTrueSouthNodeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "VeTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetVeTrueNorthNodeAbbreviationKey,
+                                SettingsKeys.planetVeTrueNorthNodeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "VeTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetVeTrueSouthNodeAbbreviationKey,
+                                SettingsKeys.planetVeTrueSouthNodeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MaTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetMaTrueNorthNodeAbbreviationKey,
+                                SettingsKeys.planetMaTrueNorthNodeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MaTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetMaTrueSouthNodeAbbreviationKey,
+                                SettingsKeys.planetMaTrueSouthNodeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "JuTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetJuTrueNorthNodeAbbreviationKey,
+                                SettingsKeys.planetJuTrueNorthNodeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "JuTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetJuTrueSouthNodeAbbreviationKey,
+                                SettingsKeys.planetJuTrueSouthNodeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "SaTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetSaTrueNorthNodeAbbreviationKey,
+                                SettingsKeys.planetSaTrueNorthNodeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "SaTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetSaTrueSouthNodeAbbreviationKey,
+                                SettingsKeys.planetSaTrueSouthNodeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "UrTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetUrTrueNorthNodeAbbreviationKey,
+                                SettingsKeys.planetUrTrueNorthNodeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "UrTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetUrTrueSouthNodeAbbreviationKey,
+                                SettingsKeys.planetUrTrueSouthNodeAbbreviationDefValue,
                                 type=str)
         elif planetName == "MeVe":
             rv = settings.value(SettingsKeys.planetMeVeAbbreviationKey,
                                 SettingsKeys.planetMeVeAbbreviationDefValue,
+                                type=str)
+        elif planetName == "MeSu":
+            rv = settings.value(SettingsKeys.planetMeSuAbbreviationKey,
+                                SettingsKeys.planetMeSuAbbreviationDefValue,
                                 type=str)
         elif planetName == "MeEa":
             rv = settings.value(SettingsKeys.planetMeEaAbbreviationKey,
@@ -1517,6 +1881,10 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetMeUrAbbreviationKey,
                                 SettingsKeys.planetMeUrAbbreviationDefValue,
                                 type=str)
+        elif planetName == "VeSu":
+            rv = settings.value(SettingsKeys.planetVeSuAbbreviationKey,
+                                SettingsKeys.planetVeSuAbbreviationDefValue,
+                                type=str)
         elif planetName == "VeEa":
             rv = settings.value(SettingsKeys.planetVeEaAbbreviationKey,
                                 SettingsKeys.planetVeEaAbbreviationDefValue,
@@ -1536,6 +1904,22 @@ class AstrologyUtils:
         elif planetName == "VeUr":
             rv = settings.value(SettingsKeys.planetVeUrAbbreviationKey,
                                 SettingsKeys.planetVeUrAbbreviationDefValue,
+                                type=str)
+        elif planetName == "SuMa":
+            rv = settings.value(SettingsKeys.planetSuMaAbbreviationKey,
+                                SettingsKeys.planetSuMaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "SuJu":
+            rv = settings.value(SettingsKeys.planetSuJuAbbreviationKey,
+                                SettingsKeys.planetSuJuAbbreviationDefValue,
+                                type=str)
+        elif planetName == "SuSa":
+            rv = settings.value(SettingsKeys.planetSuSaAbbreviationKey,
+                                SettingsKeys.planetSuSaAbbreviationDefValue,
+                                type=str)
+        elif planetName == "SuUr":
+            rv = settings.value(SettingsKeys.planetSuUrAbbreviationKey,
+                                SettingsKeys.planetSuUrAbbreviationDefValue,
                                 type=str)
         elif planetName == "EaMa":
             rv = settings.value(SettingsKeys.planetEaMaAbbreviationKey,
@@ -1822,6 +2206,66 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetAsMoForegroundColorKey,
                                 SettingsKeys.planetAsMoForegroundColorDefValue,\
                                 type=QColor)
+        elif planetName == "AsMe":
+            rv = settings.value(SettingsKeys.planetAsMeForegroundColorKey,
+                                SettingsKeys.planetAsMeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsVe":
+            rv = settings.value(SettingsKeys.planetAsVeForegroundColorKey,
+                                SettingsKeys.planetAsVeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsMa":
+            rv = settings.value(SettingsKeys.planetAsMaForegroundColorKey,
+                                SettingsKeys.planetAsMaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsJu":
+            rv = settings.value(SettingsKeys.planetAsJuForegroundColorKey,
+                                SettingsKeys.planetAsJuForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsSa":
+            rv = settings.value(SettingsKeys.planetAsSaForegroundColorKey,
+                                SettingsKeys.planetAsSaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsUr":
+            rv = settings.value(SettingsKeys.planetAsUrForegroundColorKey,
+                                SettingsKeys.planetAsUrForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MoSu":
+            rv = settings.value(SettingsKeys.planetMoSuForegroundColorKey,
+                                SettingsKeys.planetMoSuForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MoMe":
+            rv = settings.value(SettingsKeys.planetMoMeForegroundColorKey,
+                                SettingsKeys.planetMoMeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MoVe":
+            rv = settings.value(SettingsKeys.planetMoVeForegroundColorKey,
+                                SettingsKeys.planetMoVeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MoMa":
+            rv = settings.value(SettingsKeys.planetMoMaForegroundColorKey,
+                                SettingsKeys.planetMoMaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MoJu":
+            rv = settings.value(SettingsKeys.planetMoJuForegroundColorKey,
+                                SettingsKeys.planetMoJuForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MoSa":
+            rv = settings.value(SettingsKeys.planetMoSaForegroundColorKey,
+                                SettingsKeys.planetMoSaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MoUr":
+            rv = settings.value(SettingsKeys.planetMoUrForegroundColorKey,
+                                SettingsKeys.planetMoUrForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetAsTrueNorthNodeForegroundColorKey,
+                                SettingsKeys.planetAsTrueNorthNodeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetAsTrueSouthNodeForegroundColorKey,
+                                SettingsKeys.planetAsTrueSouthNodeForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "SunTrueNorthNode":
             rv = settings.value(SettingsKeys.planetSunTrueNorthNodeForegroundColorKey,
                                 SettingsKeys.planetSunTrueNorthNodeForegroundColorDefValue,\
@@ -1838,13 +2282,61 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetMoonTrueSouthNodeForegroundColorKey,
                                 SettingsKeys.planetMoonTrueSouthNodeForegroundColorDefValue,\
                                 type=QColor)
-        elif planetName == "MoSu":
-            rv = settings.value(SettingsKeys.planetMoSuForegroundColorKey,
-                                SettingsKeys.planetMoSuForegroundColorDefValue,\
+        elif planetName == "MeTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetMeTrueNorthNodeForegroundColorKey,
+                                SettingsKeys.planetMeTrueNorthNodeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetMeTrueSouthNodeForegroundColorKey,
+                                SettingsKeys.planetMeTrueSouthNodeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetVeTrueNorthNodeForegroundColorKey,
+                                SettingsKeys.planetVeTrueNorthNodeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetVeTrueSouthNodeForegroundColorKey,
+                                SettingsKeys.planetVeTrueSouthNodeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MaTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetMaTrueNorthNodeForegroundColorKey,
+                                SettingsKeys.planetMaTrueNorthNodeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MaTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetMaTrueSouthNodeForegroundColorKey,
+                                SettingsKeys.planetMaTrueSouthNodeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "JuTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetJuTrueNorthNodeForegroundColorKey,
+                                SettingsKeys.planetJuTrueNorthNodeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "JuTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetJuTrueSouthNodeForegroundColorKey,
+                                SettingsKeys.planetJuTrueSouthNodeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "SaTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetSaTrueNorthNodeForegroundColorKey,
+                                SettingsKeys.planetSaTrueNorthNodeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "SaTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetSaTrueSouthNodeForegroundColorKey,
+                                SettingsKeys.planetSaTrueSouthNodeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "UrTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetUrTrueNorthNodeForegroundColorKey,
+                                SettingsKeys.planetUrTrueNorthNodeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "UrTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetUrTrueSouthNodeForegroundColorKey,
+                                SettingsKeys.planetUrTrueSouthNodeForegroundColorDefValue,\
                                 type=QColor)
         elif planetName == "MeVe":
             rv = settings.value(SettingsKeys.planetMeVeForegroundColorKey,
                                 SettingsKeys.planetMeVeForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeSu":
+            rv = settings.value(SettingsKeys.planetMeSuForegroundColorKey,
+                                SettingsKeys.planetMeSuForegroundColorDefValue,\
                                 type=QColor)
         elif planetName == "MeEa":
             rv = settings.value(SettingsKeys.planetMeEaForegroundColorKey,
@@ -1866,6 +2358,10 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetMeUrForegroundColorKey,
                                 SettingsKeys.planetMeUrForegroundColorDefValue,\
                                 type=QColor)
+        elif planetName == "VeSu":
+            rv = settings.value(SettingsKeys.planetVeSuForegroundColorKey,
+                                SettingsKeys.planetVeSuForegroundColorDefValue,\
+                                type=QColor)
         elif planetName == "VeEa":
             rv = settings.value(SettingsKeys.planetVeEaForegroundColorKey,
                                 SettingsKeys.planetVeEaForegroundColorDefValue,\
@@ -1885,6 +2381,22 @@ class AstrologyUtils:
         elif planetName == "VeUr":
             rv = settings.value(SettingsKeys.planetVeUrForegroundColorKey,
                                 SettingsKeys.planetVeUrForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "SuMa":
+            rv = settings.value(SettingsKeys.planetSuMaForegroundColorKey,
+                                SettingsKeys.planetSuMaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "SuJu":
+            rv = settings.value(SettingsKeys.planetSuJuForegroundColorKey,
+                                SettingsKeys.planetSuJuForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "SuSa":
+            rv = settings.value(SettingsKeys.planetSuSaForegroundColorKey,
+                                SettingsKeys.planetSuSaForegroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "SuUr":
+            rv = settings.value(SettingsKeys.planetSuUrForegroundColorKey,
+                                SettingsKeys.planetSuUrForegroundColorDefValue,\
                                 type=QColor)
         elif planetName == "EaMa":
             rv = settings.value(SettingsKeys.planetEaMaForegroundColorKey,
@@ -2175,6 +2687,66 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetAsMoBackgroundColorKey,
                                 SettingsKeys.planetAsMoBackgroundColorDefValue,\
                                 type=QColor)
+        elif planetName == "AsMe":
+            rv = settings.value(SettingsKeys.planetAsMeBackgroundColorKey,
+                                SettingsKeys.planetAsMeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsVe":
+            rv = settings.value(SettingsKeys.planetAsVeBackgroundColorKey,
+                                SettingsKeys.planetAsVeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsMa":
+            rv = settings.value(SettingsKeys.planetAsMaBackgroundColorKey,
+                                SettingsKeys.planetAsMaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsJu":
+            rv = settings.value(SettingsKeys.planetAsJuBackgroundColorKey,
+                                SettingsKeys.planetAsJuBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsSa":
+            rv = settings.value(SettingsKeys.planetAsSaBackgroundColorKey,
+                                SettingsKeys.planetAsSaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsUr":
+            rv = settings.value(SettingsKeys.planetAsUrBackgroundColorKey,
+                                SettingsKeys.planetAsUrBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MoSu":
+            rv = settings.value(SettingsKeys.planetMoSuBackgroundColorKey,
+                                SettingsKeys.planetMoSuBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MoMe":
+            rv = settings.value(SettingsKeys.planetMoMeBackgroundColorKey,
+                                SettingsKeys.planetMoMeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MoVe":
+            rv = settings.value(SettingsKeys.planetMoVeBackgroundColorKey,
+                                SettingsKeys.planetMoVeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MoMa":
+            rv = settings.value(SettingsKeys.planetMoMaBackgroundColorKey,
+                                SettingsKeys.planetMoMaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MoJu":
+            rv = settings.value(SettingsKeys.planetMoJuBackgroundColorKey,
+                                SettingsKeys.planetMoJuBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MoSa":
+            rv = settings.value(SettingsKeys.planetMoSaBackgroundColorKey,
+                                SettingsKeys.planetMoSaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MoUr":
+            rv = settings.value(SettingsKeys.planetMoUrBackgroundColorKey,
+                                SettingsKeys.planetMoUrBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetAsTrueNorthNodeBackgroundColorKey,
+                                SettingsKeys.planetAsTrueNorthNodeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "AsTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetAsTrueSouthNodeBackgroundColorKey,
+                                SettingsKeys.planetAsTrueSouthNodeBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "SunTrueNorthNode":
             rv = settings.value(SettingsKeys.planetSunTrueNorthNodeBackgroundColorKey,
                                 SettingsKeys.planetSunTrueNorthNodeBackgroundColorDefValue,\
@@ -2191,13 +2763,61 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetMoonTrueSouthNodeBackgroundColorKey,
                                 SettingsKeys.planetMoonTrueSouthNodeBackgroundColorDefValue,\
                                 type=QColor)
-        elif planetName == "MoSu":
-            rv = settings.value(SettingsKeys.planetMoSuBackgroundColorKey,
-                                SettingsKeys.planetMoSuBackgroundColorDefValue,\
+        elif planetName == "MeTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetMeTrueNorthNodeBackgroundColorKey,
+                                SettingsKeys.planetMeTrueNorthNodeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetMeTrueSouthNodeBackgroundColorKey,
+                                SettingsKeys.planetMeTrueSouthNodeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetVeTrueNorthNodeBackgroundColorKey,
+                                SettingsKeys.planetVeTrueNorthNodeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "VeTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetVeTrueSouthNodeBackgroundColorKey,
+                                SettingsKeys.planetVeTrueSouthNodeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MaTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetMaTrueNorthNodeBackgroundColorKey,
+                                SettingsKeys.planetMaTrueNorthNodeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MaTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetMaTrueSouthNodeBackgroundColorKey,
+                                SettingsKeys.planetMaTrueSouthNodeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "JuTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetJuTrueNorthNodeBackgroundColorKey,
+                                SettingsKeys.planetJuTrueNorthNodeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "JuTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetJuTrueSouthNodeBackgroundColorKey,
+                                SettingsKeys.planetJuTrueSouthNodeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "SaTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetSaTrueNorthNodeBackgroundColorKey,
+                                SettingsKeys.planetSaTrueNorthNodeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "SaTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetSaTrueSouthNodeBackgroundColorKey,
+                                SettingsKeys.planetSaTrueSouthNodeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "UrTrueNorthNode":
+            rv = settings.value(SettingsKeys.planetUrTrueNorthNodeBackgroundColorKey,
+                                SettingsKeys.planetUrTrueNorthNodeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "UrTrueSouthNode":
+            rv = settings.value(SettingsKeys.planetUrTrueSouthNodeBackgroundColorKey,
+                                SettingsKeys.planetUrTrueSouthNodeBackgroundColorDefValue,\
                                 type=QColor)
         elif planetName == "MeVe":
             rv = settings.value(SettingsKeys.planetMeVeBackgroundColorKey,
                                 SettingsKeys.planetMeVeBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "MeSu":
+            rv = settings.value(SettingsKeys.planetMeSuBackgroundColorKey,
+                                SettingsKeys.planetMeSuBackgroundColorDefValue,\
                                 type=QColor)
         elif planetName == "MeEa":
             rv = settings.value(SettingsKeys.planetMeEaBackgroundColorKey,
@@ -2219,6 +2839,10 @@ class AstrologyUtils:
             rv = settings.value(SettingsKeys.planetMeUrBackgroundColorKey,
                                 SettingsKeys.planetMeUrBackgroundColorDefValue,\
                                 type=QColor)
+        elif planetName == "VeSu":
+            rv = settings.value(SettingsKeys.planetVeSuBackgroundColorKey,
+                                SettingsKeys.planetVeSuBackgroundColorDefValue,\
+                                type=QColor)
         elif planetName == "VeEa":
             rv = settings.value(SettingsKeys.planetVeEaBackgroundColorKey,
                                 SettingsKeys.planetVeEaBackgroundColorDefValue,\
@@ -2238,6 +2862,22 @@ class AstrologyUtils:
         elif planetName == "VeUr":
             rv = settings.value(SettingsKeys.planetVeUrBackgroundColorKey,
                                 SettingsKeys.planetVeUrBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "SuMa":
+            rv = settings.value(SettingsKeys.planetSuMaBackgroundColorKey,
+                                SettingsKeys.planetSuMaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "SuJu":
+            rv = settings.value(SettingsKeys.planetSuJuBackgroundColorKey,
+                                SettingsKeys.planetSuJuBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "SuSa":
+            rv = settings.value(SettingsKeys.planetSuSaBackgroundColorKey,
+                                SettingsKeys.planetSuSaBackgroundColorDefValue,\
+                                type=QColor)
+        elif planetName == "SuUr":
+            rv = settings.value(SettingsKeys.planetSuUrBackgroundColorKey,
+                                SettingsKeys.planetSuUrBackgroundColorDefValue,\
                                 type=QColor)
         elif planetName == "EaMa":
             rv = settings.value(SettingsKeys.planetEaMaBackgroundColorKey,
@@ -6342,6 +6982,111 @@ class PlanetaryInfoTableWidget(QTableWidget):
             enabledPlanetNames.append("AsMo")
 
         if settings.value(\
+            SettingsKeys.planetAsMeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetAsMeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMe")
+
+        if settings.value(\
+            SettingsKeys.planetAsVeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetAsVeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsVe")
+
+        if settings.value(\
+            SettingsKeys.planetAsMaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetAsMaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMa")
+
+        if settings.value(\
+            SettingsKeys.planetAsJuEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetAsJuEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsJu")
+
+        if settings.value(\
+            SettingsKeys.planetAsSaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetAsSaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsSa")
+
+        if settings.value(\
+            SettingsKeys.planetAsUrEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetAsUrEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsUr")
+
+        if settings.value(\
+            SettingsKeys.planetMoSuEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMoSuEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoSu")
+
+        if settings.value(\
+            SettingsKeys.planetMoMeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMoMeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoMe")
+
+        if settings.value(\
+            SettingsKeys.planetMoVeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMoVeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoVe")
+
+        if settings.value(\
+            SettingsKeys.planetMoMaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMoMaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoMa")
+
+        if settings.value(\
+            SettingsKeys.planetMoJuEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMoJuEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoJu")
+
+        if settings.value(\
+            SettingsKeys.planetMoSaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMoSaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoSa")
+
+        if settings.value(\
+            SettingsKeys.planetMoUrEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMoUrEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoUr")
+
+        if settings.value(\
+            SettingsKeys.planetAsTrueNorthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetAsTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetAsTrueSouthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetAsTrueSouthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsTrueSouthNode")
+
+        if settings.value(\
             SettingsKeys.planetSunTrueNorthNodeEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetSunTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
             type=bool):
@@ -6370,11 +7115,88 @@ class PlanetaryInfoTableWidget(QTableWidget):
             enabledPlanetNames.append("MoonTrueSouthNode")
 
         if settings.value(\
-            SettingsKeys.planetMoSuEnabledForPlanetaryInfoTableKey, \
-            SettingsKeys.planetMoSuEnabledForPlanetaryInfoTableDefValue,
+            SettingsKeys.planetMeTrueNorthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMeTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
             type=bool):
 
-            enabledPlanetNames.append("MoSu")
+            enabledPlanetNames.append("MeTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMeTrueSouthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMeTrueSouthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetVeTrueNorthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetVeTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetVeTrueSouthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetVeTrueSouthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMaTrueNorthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMaTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMaTrueSouthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMaTrueSouthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetJuTrueNorthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetJuTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetJuTrueSouthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetJuTrueSouthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetSaTrueNorthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetSaTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetSaTrueSouthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetSaTrueSouthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetUrTrueNorthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetUrTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("UrTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetUrTrueSouthNodeEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetUrTrueSouthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("UrTrueSouthNode")
 
         if settings.value(\
             SettingsKeys.planetMeVeEnabledForPlanetaryInfoTableKey, \
@@ -6382,6 +7204,13 @@ class PlanetaryInfoTableWidget(QTableWidget):
             type=bool):
 
             enabledPlanetNames.append("MeVe")
+
+        if settings.value(\
+            SettingsKeys.planetMeSuEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetMeSuEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeSu")
 
         if settings.value(\
             SettingsKeys.planetMeEaEnabledForPlanetaryInfoTableKey, \
@@ -6419,6 +7248,13 @@ class PlanetaryInfoTableWidget(QTableWidget):
             enabledPlanetNames.append("MeUr")
 
         if settings.value(\
+            SettingsKeys.planetVeSuEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetVeSuEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeSu")
+
+        if settings.value(\
             SettingsKeys.planetVeEaEnabledForPlanetaryInfoTableKey, \
             SettingsKeys.planetVeEaEnabledForPlanetaryInfoTableDefValue,
             type=bool):
@@ -6452,6 +7288,34 @@ class PlanetaryInfoTableWidget(QTableWidget):
             type=bool):
 
             enabledPlanetNames.append("VeUr")
+
+        if settings.value(\
+            SettingsKeys.planetSuMaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetSuMaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuMa")
+
+        if settings.value(\
+            SettingsKeys.planetSuJuEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetSuJuEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuJu")
+
+        if settings.value(\
+            SettingsKeys.planetSuSaEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetSuSaEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuSa")
+
+        if settings.value(\
+            SettingsKeys.planetSuUrEnabledForPlanetaryInfoTableKey, \
+            SettingsKeys.planetSuUrEnabledForPlanetaryInfoTableDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuUr")
 
         if settings.value(\
             SettingsKeys.planetEaMaEnabledForPlanetaryInfoTableKey, \
@@ -7755,6 +8619,111 @@ class AstrologyChartWidget(QWidget):
             planets.append(Ephemeris.getAsMoPlanetaryInfo(dt))
 
         if settings.value(\
+            SettingsKeys.planetAsMeCalculationsEnabledKey, \
+            SettingsKeys.planetAsMeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getAsMePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetAsVeCalculationsEnabledKey, \
+            SettingsKeys.planetAsVeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getAsVePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetAsMaCalculationsEnabledKey, \
+            SettingsKeys.planetAsMaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getAsMaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetAsJuCalculationsEnabledKey, \
+            SettingsKeys.planetAsJuCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getAsJuPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetAsSaCalculationsEnabledKey, \
+            SettingsKeys.planetAsSaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getAsSaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetAsUrCalculationsEnabledKey, \
+            SettingsKeys.planetAsUrCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getAsUrPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMoSuCalculationsEnabledKey, \
+            SettingsKeys.planetMoSuCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMoSuPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMoMeCalculationsEnabledKey, \
+            SettingsKeys.planetMoMeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMoMePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMoVeCalculationsEnabledKey, \
+            SettingsKeys.planetMoVeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMoVePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMoMaCalculationsEnabledKey, \
+            SettingsKeys.planetMoMaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMoMaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMoJuCalculationsEnabledKey, \
+            SettingsKeys.planetMoJuCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMoJuPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMoSaCalculationsEnabledKey, \
+            SettingsKeys.planetMoSaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMoSaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMoUrCalculationsEnabledKey, \
+            SettingsKeys.planetMoUrCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMoUrPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetAsTrueNorthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetAsTrueNorthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getAsTrueNorthNodePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetAsTrueSouthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetAsTrueSouthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getAsTrueSouthNodePlanetaryInfo(dt))
+
+        if settings.value(\
             SettingsKeys.planetSunTrueNorthNodeCalculationsEnabledKey, \
             SettingsKeys.planetSunTrueNorthNodeCalculationsEnabledDefValue,
             type=bool):
@@ -7783,11 +8752,88 @@ class AstrologyChartWidget(QWidget):
             planets.append(Ephemeris.getMoonTrueSouthNodePlanetaryInfo(dt))
 
         if settings.value(\
-            SettingsKeys.planetMoSuCalculationsEnabledKey, \
-            SettingsKeys.planetMoSuCalculationsEnabledDefValue,
+            SettingsKeys.planetMeTrueNorthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetMeTrueNorthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMoSuPlanetaryInfo(dt))
+            planets.append(Ephemeris.getMeTrueNorthNodePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMeTrueSouthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetMeTrueSouthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMeTrueSouthNodePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetVeTrueNorthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetVeTrueNorthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getVeTrueNorthNodePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetVeTrueSouthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetVeTrueSouthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getVeTrueSouthNodePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMaTrueNorthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetMaTrueNorthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMaTrueNorthNodePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMaTrueSouthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetMaTrueSouthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMaTrueSouthNodePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetJuTrueNorthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetJuTrueNorthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getJuTrueNorthNodePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetJuTrueSouthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetJuTrueSouthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getJuTrueSouthNodePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetSaTrueNorthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetSaTrueNorthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getSaTrueNorthNodePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetSaTrueSouthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetSaTrueSouthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getSaTrueSouthNodePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetUrTrueNorthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetUrTrueNorthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getUrTrueNorthNodePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetUrTrueSouthNodeCalculationsEnabledKey, \
+            SettingsKeys.planetUrTrueSouthNodeCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getUrTrueSouthNodePlanetaryInfo(dt))
 
         if settings.value(\
             SettingsKeys.planetMeVeCalculationsEnabledKey, \
@@ -7795,6 +8841,13 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             planets.append(Ephemeris.getMeVePlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetMeSuCalculationsEnabledKey, \
+            SettingsKeys.planetMeSuCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getMeSuPlanetaryInfo(dt))
 
         if settings.value(\
             SettingsKeys.planetMeEaCalculationsEnabledKey, \
@@ -7832,6 +8885,13 @@ class AstrologyChartWidget(QWidget):
             planets.append(Ephemeris.getMeUrPlanetaryInfo(dt))
 
         if settings.value(\
+            SettingsKeys.planetVeSuCalculationsEnabledKey, \
+            SettingsKeys.planetVeSuCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getVeSuPlanetaryInfo(dt))
+
+        if settings.value(\
             SettingsKeys.planetVeEaCalculationsEnabledKey, \
             SettingsKeys.planetVeEaCalculationsEnabledDefValue,
             type=bool):
@@ -7865,6 +8925,34 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             planets.append(Ephemeris.getVeUrPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetSuMaCalculationsEnabledKey, \
+            SettingsKeys.planetSuMaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getSuMaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetSuJuCalculationsEnabledKey, \
+            SettingsKeys.planetSuJuCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getSuJuPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetSuSaCalculationsEnabledKey, \
+            SettingsKeys.planetSuSaCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getSuSaPlanetaryInfo(dt))
+
+        if settings.value(\
+            SettingsKeys.planetSuUrCalculationsEnabledKey, \
+            SettingsKeys.planetSuUrCalculationsEnabledDefValue,
+            type=bool):
+
+            planets.append(Ephemeris.getSuUrPlanetaryInfo(dt))
 
         if settings.value(\
             SettingsKeys.planetEaMaCalculationsEnabledKey, \
@@ -8337,6 +9425,111 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("AsMo")
 
         if settings.value(\
+            SettingsKeys.planetAsMeEnabledForDeclinationKey, \
+            SettingsKeys.planetAsMeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMe")
+
+        if settings.value(\
+            SettingsKeys.planetAsVeEnabledForDeclinationKey, \
+            SettingsKeys.planetAsVeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsVe")
+
+        if settings.value(\
+            SettingsKeys.planetAsMaEnabledForDeclinationKey, \
+            SettingsKeys.planetAsMaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMa")
+
+        if settings.value(\
+            SettingsKeys.planetAsJuEnabledForDeclinationKey, \
+            SettingsKeys.planetAsJuEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsJu")
+
+        if settings.value(\
+            SettingsKeys.planetAsSaEnabledForDeclinationKey, \
+            SettingsKeys.planetAsSaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsSa")
+
+        if settings.value(\
+            SettingsKeys.planetAsUrEnabledForDeclinationKey, \
+            SettingsKeys.planetAsUrEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsUr")
+
+        if settings.value(\
+            SettingsKeys.planetMoSuEnabledForDeclinationKey, \
+            SettingsKeys.planetMoSuEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoSu")
+
+        if settings.value(\
+            SettingsKeys.planetMoMeEnabledForDeclinationKey, \
+            SettingsKeys.planetMoMeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoMe")
+
+        if settings.value(\
+            SettingsKeys.planetMoVeEnabledForDeclinationKey, \
+            SettingsKeys.planetMoVeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoVe")
+
+        if settings.value(\
+            SettingsKeys.planetMoMaEnabledForDeclinationKey, \
+            SettingsKeys.planetMoMaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoMa")
+
+        if settings.value(\
+            SettingsKeys.planetMoJuEnabledForDeclinationKey, \
+            SettingsKeys.planetMoJuEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoJu")
+
+        if settings.value(\
+            SettingsKeys.planetMoSaEnabledForDeclinationKey, \
+            SettingsKeys.planetMoSaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoSa")
+
+        if settings.value(\
+            SettingsKeys.planetMoUrEnabledForDeclinationKey, \
+            SettingsKeys.planetMoUrEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoUr")
+
+        if settings.value(\
+            SettingsKeys.planetAsTrueNorthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetAsTrueNorthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetAsTrueSouthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetAsTrueSouthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsTrueSouthNode")
+
+        if settings.value(\
             SettingsKeys.planetSunTrueNorthNodeEnabledForDeclinationKey, \
             SettingsKeys.planetSunTrueNorthNodeEnabledForDeclinationDefValue,
             type=bool):
@@ -8365,11 +9558,88 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("MoonTrueSouthNode")
 
         if settings.value(\
-            SettingsKeys.planetMoSuEnabledForDeclinationKey, \
-            SettingsKeys.planetMoSuEnabledForDeclinationDefValue,
+            SettingsKeys.planetMeTrueNorthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetMeTrueNorthNodeEnabledForDeclinationDefValue,
             type=bool):
 
-            enabledPlanetNames.append("MoSu")
+            enabledPlanetNames.append("MeTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMeTrueSouthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetMeTrueSouthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetVeTrueNorthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetVeTrueNorthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetVeTrueSouthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetVeTrueSouthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMaTrueNorthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetMaTrueNorthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMaTrueSouthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetMaTrueSouthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetJuTrueNorthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetJuTrueNorthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetJuTrueSouthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetJuTrueSouthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetSaTrueNorthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetSaTrueNorthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetSaTrueSouthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetSaTrueSouthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetUrTrueNorthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetUrTrueNorthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("UrTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetUrTrueSouthNodeEnabledForDeclinationKey, \
+            SettingsKeys.planetUrTrueSouthNodeEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("UrTrueSouthNode")
 
         if settings.value(\
             SettingsKeys.planetMeVeEnabledForDeclinationKey, \
@@ -8377,6 +9647,13 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("MeVe")
+
+        if settings.value(\
+            SettingsKeys.planetMeSuEnabledForDeclinationKey, \
+            SettingsKeys.planetMeSuEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeSu")
 
         if settings.value(\
             SettingsKeys.planetMeEaEnabledForDeclinationKey, \
@@ -8414,6 +9691,13 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("MeUr")
 
         if settings.value(\
+            SettingsKeys.planetVeSuEnabledForDeclinationKey, \
+            SettingsKeys.planetVeSuEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeSu")
+
+        if settings.value(\
             SettingsKeys.planetVeEaEnabledForDeclinationKey, \
             SettingsKeys.planetVeEaEnabledForDeclinationDefValue,
             type=bool):
@@ -8447,6 +9731,34 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("VeUr")
+
+        if settings.value(\
+            SettingsKeys.planetSuMaEnabledForDeclinationKey, \
+            SettingsKeys.planetSuMaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuMa")
+
+        if settings.value(\
+            SettingsKeys.planetSuJuEnabledForDeclinationKey, \
+            SettingsKeys.planetSuJuEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuJu")
+
+        if settings.value(\
+            SettingsKeys.planetSuSaEnabledForDeclinationKey, \
+            SettingsKeys.planetSuSaEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuSa")
+
+        if settings.value(\
+            SettingsKeys.planetSuUrEnabledForDeclinationKey, \
+            SettingsKeys.planetSuUrEnabledForDeclinationDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuUr")
 
         if settings.value(\
             SettingsKeys.planetEaMaEnabledForDeclinationKey, \
@@ -8919,6 +10231,111 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("AsMo")
 
         if settings.value(\
+            SettingsKeys.planetAsMeEnabledForLatitudeKey, \
+            SettingsKeys.planetAsMeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMe")
+
+        if settings.value(\
+            SettingsKeys.planetAsVeEnabledForLatitudeKey, \
+            SettingsKeys.planetAsVeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsVe")
+
+        if settings.value(\
+            SettingsKeys.planetAsMaEnabledForLatitudeKey, \
+            SettingsKeys.planetAsMaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMa")
+
+        if settings.value(\
+            SettingsKeys.planetAsJuEnabledForLatitudeKey, \
+            SettingsKeys.planetAsJuEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsJu")
+
+        if settings.value(\
+            SettingsKeys.planetAsSaEnabledForLatitudeKey, \
+            SettingsKeys.planetAsSaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsSa")
+
+        if settings.value(\
+            SettingsKeys.planetAsUrEnabledForLatitudeKey, \
+            SettingsKeys.planetAsUrEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsUr")
+
+        if settings.value(\
+            SettingsKeys.planetMoSuEnabledForLatitudeKey, \
+            SettingsKeys.planetMoSuEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoSu")
+
+        if settings.value(\
+            SettingsKeys.planetMoMeEnabledForLatitudeKey, \
+            SettingsKeys.planetMoMeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoMe")
+
+        if settings.value(\
+            SettingsKeys.planetMoVeEnabledForLatitudeKey, \
+            SettingsKeys.planetMoVeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoVe")
+
+        if settings.value(\
+            SettingsKeys.planetMoMaEnabledForLatitudeKey, \
+            SettingsKeys.planetMoMaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoMa")
+
+        if settings.value(\
+            SettingsKeys.planetMoJuEnabledForLatitudeKey, \
+            SettingsKeys.planetMoJuEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoJu")
+
+        if settings.value(\
+            SettingsKeys.planetMoSaEnabledForLatitudeKey, \
+            SettingsKeys.planetMoSaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoSa")
+
+        if settings.value(\
+            SettingsKeys.planetMoUrEnabledForLatitudeKey, \
+            SettingsKeys.planetMoUrEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoUr")
+
+        if settings.value(\
+            SettingsKeys.planetAsTrueNorthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetAsTrueNorthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetAsTrueSouthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetAsTrueSouthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsTrueSouthNode")
+
+        if settings.value(\
             SettingsKeys.planetSunTrueNorthNodeEnabledForLatitudeKey, \
             SettingsKeys.planetSunTrueNorthNodeEnabledForLatitudeDefValue,
             type=bool):
@@ -8947,11 +10364,88 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("MoonTrueSouthNode")
 
         if settings.value(\
-            SettingsKeys.planetMoSuEnabledForLatitudeKey, \
-            SettingsKeys.planetMoSuEnabledForLatitudeDefValue,
+            SettingsKeys.planetMeTrueNorthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetMeTrueNorthNodeEnabledForLatitudeDefValue,
             type=bool):
 
-            enabledPlanetNames.append("MoSu")
+            enabledPlanetNames.append("MeTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMeTrueSouthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetMeTrueSouthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetVeTrueNorthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetVeTrueNorthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetVeTrueSouthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetVeTrueSouthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMaTrueNorthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetMaTrueNorthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMaTrueSouthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetMaTrueSouthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetJuTrueNorthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetJuTrueNorthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetJuTrueSouthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetJuTrueSouthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetSaTrueNorthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetSaTrueNorthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetSaTrueSouthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetSaTrueSouthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetUrTrueNorthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetUrTrueNorthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("UrTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetUrTrueSouthNodeEnabledForLatitudeKey, \
+            SettingsKeys.planetUrTrueSouthNodeEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("UrTrueSouthNode")
 
         if settings.value(\
             SettingsKeys.planetMeVeEnabledForLatitudeKey, \
@@ -8959,6 +10453,13 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("MeVe")
+
+        if settings.value(\
+            SettingsKeys.planetMeSuEnabledForLatitudeKey, \
+            SettingsKeys.planetMeSuEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeSu")
 
         if settings.value(\
             SettingsKeys.planetMeEaEnabledForLatitudeKey, \
@@ -8996,6 +10497,13 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("MeUr")
 
         if settings.value(\
+            SettingsKeys.planetVeSuEnabledForLatitudeKey, \
+            SettingsKeys.planetVeSuEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeSu")
+
+        if settings.value(\
             SettingsKeys.planetVeEaEnabledForLatitudeKey, \
             SettingsKeys.planetVeEaEnabledForLatitudeDefValue,
             type=bool):
@@ -9029,6 +10537,34 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("VeUr")
+
+        if settings.value(\
+            SettingsKeys.planetSuMaEnabledForLatitudeKey, \
+            SettingsKeys.planetSuMaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuMa")
+
+        if settings.value(\
+            SettingsKeys.planetSuJuEnabledForLatitudeKey, \
+            SettingsKeys.planetSuJuEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuJu")
+
+        if settings.value(\
+            SettingsKeys.planetSuSaEnabledForLatitudeKey, \
+            SettingsKeys.planetSuSaEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuSa")
+
+        if settings.value(\
+            SettingsKeys.planetSuUrEnabledForLatitudeKey, \
+            SettingsKeys.planetSuUrEnabledForLatitudeDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuUr")
 
         if settings.value(\
             SettingsKeys.planetEaMaEnabledForLatitudeKey, \
@@ -9501,6 +11037,111 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("AsMo")
 
         if settings.value(\
+            SettingsKeys.planetAsMeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetAsMeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMe")
+
+        if settings.value(\
+            SettingsKeys.planetAsVeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetAsVeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsVe")
+
+        if settings.value(\
+            SettingsKeys.planetAsMaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetAsMaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMa")
+
+        if settings.value(\
+            SettingsKeys.planetAsJuEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetAsJuEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsJu")
+
+        if settings.value(\
+            SettingsKeys.planetAsSaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetAsSaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsSa")
+
+        if settings.value(\
+            SettingsKeys.planetAsUrEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetAsUrEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsUr")
+
+        if settings.value(\
+            SettingsKeys.planetMoSuEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMoSuEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoSu")
+
+        if settings.value(\
+            SettingsKeys.planetMoMeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMoMeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoMe")
+
+        if settings.value(\
+            SettingsKeys.planetMoVeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMoVeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoVe")
+
+        if settings.value(\
+            SettingsKeys.planetMoMaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMoMaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoMa")
+
+        if settings.value(\
+            SettingsKeys.planetMoJuEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMoJuEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoJu")
+
+        if settings.value(\
+            SettingsKeys.planetMoSaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMoSaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoSa")
+
+        if settings.value(\
+            SettingsKeys.planetMoUrEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMoUrEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoUr")
+
+        if settings.value(\
+            SettingsKeys.planetAsTrueNorthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetAsTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetAsTrueSouthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetAsTrueSouthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsTrueSouthNode")
+
+        if settings.value(\
             SettingsKeys.planetSunTrueNorthNodeEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetSunTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
             type=bool):
@@ -9529,11 +11170,88 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("MoonTrueSouthNode")
 
         if settings.value(\
-            SettingsKeys.planetMoSuEnabledForGeoSidRadixChartKey, \
-            SettingsKeys.planetMoSuEnabledForGeoSidRadixChartDefValue,
+            SettingsKeys.planetMeTrueNorthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMeTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
             type=bool):
 
-            enabledPlanetNames.append("MoSu")
+            enabledPlanetNames.append("MeTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMeTrueSouthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMeTrueSouthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetVeTrueNorthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetVeTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetVeTrueSouthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetVeTrueSouthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMaTrueNorthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMaTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMaTrueSouthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMaTrueSouthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetJuTrueNorthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetJuTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetJuTrueSouthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetJuTrueSouthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetSaTrueNorthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetSaTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetSaTrueSouthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetSaTrueSouthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetUrTrueNorthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetUrTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("UrTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetUrTrueSouthNodeEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetUrTrueSouthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("UrTrueSouthNode")
 
         if settings.value(\
             SettingsKeys.planetMeVeEnabledForGeoSidRadixChartKey, \
@@ -9541,6 +11259,13 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("MeVe")
+
+        if settings.value(\
+            SettingsKeys.planetMeSuEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetMeSuEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeSu")
 
         if settings.value(\
             SettingsKeys.planetMeEaEnabledForGeoSidRadixChartKey, \
@@ -9578,6 +11303,13 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("MeUr")
 
         if settings.value(\
+            SettingsKeys.planetVeSuEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetVeSuEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeSu")
+
+        if settings.value(\
             SettingsKeys.planetVeEaEnabledForGeoSidRadixChartKey, \
             SettingsKeys.planetVeEaEnabledForGeoSidRadixChartDefValue,
             type=bool):
@@ -9611,6 +11343,34 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("VeUr")
+
+        if settings.value(\
+            SettingsKeys.planetSuMaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetSuMaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuMa")
+
+        if settings.value(\
+            SettingsKeys.planetSuJuEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetSuJuEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuJu")
+
+        if settings.value(\
+            SettingsKeys.planetSuSaEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetSuSaEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuSa")
+
+        if settings.value(\
+            SettingsKeys.planetSuUrEnabledForGeoSidRadixChartKey, \
+            SettingsKeys.planetSuUrEnabledForGeoSidRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuUr")
 
         if settings.value(\
             SettingsKeys.planetEaMaEnabledForGeoSidRadixChartKey, \
@@ -10083,6 +11843,111 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("AsMo")
 
         if settings.value(\
+            SettingsKeys.planetAsMeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetAsMeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMe")
+
+        if settings.value(\
+            SettingsKeys.planetAsVeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetAsVeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsVe")
+
+        if settings.value(\
+            SettingsKeys.planetAsMaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetAsMaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMa")
+
+        if settings.value(\
+            SettingsKeys.planetAsJuEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetAsJuEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsJu")
+
+        if settings.value(\
+            SettingsKeys.planetAsSaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetAsSaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsSa")
+
+        if settings.value(\
+            SettingsKeys.planetAsUrEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetAsUrEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsUr")
+
+        if settings.value(\
+            SettingsKeys.planetMoSuEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMoSuEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoSu")
+
+        if settings.value(\
+            SettingsKeys.planetMoMeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMoMeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoMe")
+
+        if settings.value(\
+            SettingsKeys.planetMoVeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMoVeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoVe")
+
+        if settings.value(\
+            SettingsKeys.planetMoMaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMoMaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoMa")
+
+        if settings.value(\
+            SettingsKeys.planetMoJuEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMoJuEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoJu")
+
+        if settings.value(\
+            SettingsKeys.planetMoSaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMoSaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoSa")
+
+        if settings.value(\
+            SettingsKeys.planetMoUrEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMoUrEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoUr")
+
+        if settings.value(\
+            SettingsKeys.planetAsTrueNorthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetAsTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetAsTrueSouthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetAsTrueSouthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsTrueSouthNode")
+
+        if settings.value(\
             SettingsKeys.planetSunTrueNorthNodeEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetSunTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
             type=bool):
@@ -10111,11 +11976,88 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("MoonTrueSouthNode")
 
         if settings.value(\
-            SettingsKeys.planetMoSuEnabledForGeoTropRadixChartKey, \
-            SettingsKeys.planetMoSuEnabledForGeoTropRadixChartDefValue,
+            SettingsKeys.planetMeTrueNorthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMeTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
             type=bool):
 
-            enabledPlanetNames.append("MoSu")
+            enabledPlanetNames.append("MeTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMeTrueSouthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMeTrueSouthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetVeTrueNorthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetVeTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetVeTrueSouthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetVeTrueSouthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMaTrueNorthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMaTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMaTrueSouthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMaTrueSouthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetJuTrueNorthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetJuTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetJuTrueSouthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetJuTrueSouthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetSaTrueNorthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetSaTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetSaTrueSouthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetSaTrueSouthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetUrTrueNorthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetUrTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("UrTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetUrTrueSouthNodeEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetUrTrueSouthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("UrTrueSouthNode")
 
         if settings.value(\
             SettingsKeys.planetMeVeEnabledForGeoTropRadixChartKey, \
@@ -10123,6 +12065,13 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("MeVe")
+
+        if settings.value(\
+            SettingsKeys.planetMeSuEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetMeSuEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeSu")
 
         if settings.value(\
             SettingsKeys.planetMeEaEnabledForGeoTropRadixChartKey, \
@@ -10160,6 +12109,13 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("MeUr")
 
         if settings.value(\
+            SettingsKeys.planetVeSuEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetVeSuEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeSu")
+
+        if settings.value(\
             SettingsKeys.planetVeEaEnabledForGeoTropRadixChartKey, \
             SettingsKeys.planetVeEaEnabledForGeoTropRadixChartDefValue,
             type=bool):
@@ -10193,6 +12149,34 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("VeUr")
+
+        if settings.value(\
+            SettingsKeys.planetSuMaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetSuMaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuMa")
+
+        if settings.value(\
+            SettingsKeys.planetSuJuEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetSuJuEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuJu")
+
+        if settings.value(\
+            SettingsKeys.planetSuSaEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetSuSaEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuSa")
+
+        if settings.value(\
+            SettingsKeys.planetSuUrEnabledForGeoTropRadixChartKey, \
+            SettingsKeys.planetSuUrEnabledForGeoTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuUr")
 
         if settings.value(\
             SettingsKeys.planetEaMaEnabledForGeoTropRadixChartKey, \
@@ -10665,6 +12649,111 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("AsMo")
 
         if settings.value(\
+            SettingsKeys.planetAsMeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetAsMeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMe")
+
+        if settings.value(\
+            SettingsKeys.planetAsVeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetAsVeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsVe")
+
+        if settings.value(\
+            SettingsKeys.planetAsMaEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetAsMaEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsMa")
+
+        if settings.value(\
+            SettingsKeys.planetAsJuEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetAsJuEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsJu")
+
+        if settings.value(\
+            SettingsKeys.planetAsSaEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetAsSaEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsSa")
+
+        if settings.value(\
+            SettingsKeys.planetAsUrEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetAsUrEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsUr")
+
+        if settings.value(\
+            SettingsKeys.planetMoSuEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetMoSuEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoSu")
+
+        if settings.value(\
+            SettingsKeys.planetMoMeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetMoMeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoMe")
+
+        if settings.value(\
+            SettingsKeys.planetMoVeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetMoVeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoVe")
+
+        if settings.value(\
+            SettingsKeys.planetMoMaEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetMoMaEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoMa")
+
+        if settings.value(\
+            SettingsKeys.planetMoJuEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetMoJuEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoJu")
+
+        if settings.value(\
+            SettingsKeys.planetMoSaEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetMoSaEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoSa")
+
+        if settings.value(\
+            SettingsKeys.planetMoUrEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetMoUrEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MoUr")
+
+        if settings.value(\
+            SettingsKeys.planetAsTrueNorthNodeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetAsTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetAsTrueSouthNodeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetAsTrueSouthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("AsTrueSouthNode")
+
+        if settings.value(\
             SettingsKeys.planetSunTrueNorthNodeEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetSunTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
             type=bool):
@@ -10693,11 +12782,88 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("MoonTrueSouthNode")
 
         if settings.value(\
-            SettingsKeys.planetMoSuEnabledForHelioTropRadixChartKey, \
-            SettingsKeys.planetMoSuEnabledForHelioTropRadixChartDefValue,
+            SettingsKeys.planetMeTrueNorthNodeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetMeTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
             type=bool):
 
-            enabledPlanetNames.append("MoSu")
+            enabledPlanetNames.append("MeTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMeTrueSouthNodeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetMeTrueSouthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetVeTrueNorthNodeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetVeTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetVeTrueSouthNodeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetVeTrueSouthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMaTrueNorthNodeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetMaTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetMaTrueSouthNodeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetMaTrueSouthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MaTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetJuTrueNorthNodeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetJuTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetJuTrueSouthNodeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetJuTrueSouthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("JuTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetSaTrueNorthNodeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetSaTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetSaTrueSouthNodeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetSaTrueSouthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SaTrueSouthNode")
+
+        if settings.value(\
+            SettingsKeys.planetUrTrueNorthNodeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetUrTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("UrTrueNorthNode")
+
+        if settings.value(\
+            SettingsKeys.planetUrTrueSouthNodeEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetUrTrueSouthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("UrTrueSouthNode")
 
         if settings.value(\
             SettingsKeys.planetMeVeEnabledForHelioTropRadixChartKey, \
@@ -10705,6 +12871,13 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("MeVe")
+
+        if settings.value(\
+            SettingsKeys.planetMeSuEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetMeSuEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("MeSu")
 
         if settings.value(\
             SettingsKeys.planetMeEaEnabledForHelioTropRadixChartKey, \
@@ -10742,6 +12915,13 @@ class AstrologyChartWidget(QWidget):
             enabledPlanetNames.append("MeUr")
 
         if settings.value(\
+            SettingsKeys.planetVeSuEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetVeSuEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("VeSu")
+
+        if settings.value(\
             SettingsKeys.planetVeEaEnabledForHelioTropRadixChartKey, \
             SettingsKeys.planetVeEaEnabledForHelioTropRadixChartDefValue,
             type=bool):
@@ -10775,6 +12955,34 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             enabledPlanetNames.append("VeUr")
+
+        if settings.value(\
+            SettingsKeys.planetSuMaEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetSuMaEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuMa")
+
+        if settings.value(\
+            SettingsKeys.planetSuJuEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetSuJuEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuJu")
+
+        if settings.value(\
+            SettingsKeys.planetSuSaEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetSuSaEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuSa")
+
+        if settings.value(\
+            SettingsKeys.planetSuUrEnabledForHelioTropRadixChartKey, \
+            SettingsKeys.planetSuUrEnabledForHelioTropRadixChartDefValue,
+            type=bool):
+
+            enabledPlanetNames.append("SuUr")
 
         if settings.value(\
             SettingsKeys.planetEaMaEnabledForHelioTropRadixChartKey, \

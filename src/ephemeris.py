@@ -366,22 +366,54 @@ class Ephemeris:
             "AvgJuSa",
             "AsSu",
             "AsMo",
+            "AsMe",
+            "AsVe",
+            "AsMa",
+            "AsJu",
+            "AsSa",
+            "AsUr",
             "MoSu",
+            "MoMe",
+            "MoVe",
+            "MoMa",
+            "MoJu",
+            "MoSa",
+            "MoUr",
+            "AsTrueNorthNode",
+            "AsTrueSouthNode",
             "SunTrueNorthNode",
             "SunTrueSouthNode",
             "MoonTrueNorthNode",
             "MoonTrueSouthNode",
+            "MeTrueNorthNode",
+            "MeTrueSouthNode",
+            "VeTrueNorthNode",
+            "VeTrueSouthNode",
+            "MaTrueNorthNode",
+            "MaTrueSouthNode",
+            "JuTrueNorthNode",
+            "JuTrueSouthNode",
+            "SaTrueNorthNode",
+            "SaTrueSouthNode",
+            "UrTrueNorthNode",
+            "UrTrueSouthNode",
             "MeVe",
+            "MeSu",
             "MeEa",
             "MeMa",
             "MeJu",
             "MeSa",
             "MeUr",
+            "VeSu",
             "VeEa",
             "VeMa",
             "VeJu",
             "VeSa",
             "VeUr",
+            "SuMa",
+            "SuJu",
+            "SuSa",
+            "SuUr",
             "EaMa",
             "EaJu",
             "EaSa",
@@ -959,6 +991,14 @@ class Ephemeris:
                         PolarAscendant
                         AsSu
                         AsMo
+                        AsMe
+                        AsVe
+                        AsMa
+                        AsJu
+                        AsSa
+                        AsUr
+                        AsTrueNorthNode
+                        AsTrueSouthNode
 
         Arguments:
         planetName - str for the planet name to analyze.
@@ -982,6 +1022,14 @@ class Ephemeris:
             "PolarAscendant",        # "Polar ascendant" (M. Munkasey)
             "AsSu",
             "AsMo",
+            "AsMe",
+            "AsVe",
+            "AsMa",
+            "AsJu",
+            "AsSa",
+            "AsUr",
+            "AsTrueNorthNode",
+            "AsTrueSouthNode",
             ]
 
 
@@ -1012,6 +1060,8 @@ class Ephemeris:
                  Ephemeris.isHouseCuspPlanetName(planetName) or
                  Ephemeris.isAscmcPlanetName(planetName) or
                  planetName == "MoSu" or
+                 planetName == "AsTrueNorthNode" or
+                 planetName == "AsTrueSouthNode" or
                  planetName == "SunTrueNorthNode" or
                  planetName == "SunTrueSouthNode" or
                  planetName == "MoonTrueNorthNode" or
@@ -1039,11 +1089,45 @@ class Ephemeris:
             planetName == "TrueSouthNode" or
             Ephemeris.isHouseCuspPlanetName(planetName) or
             Ephemeris.isAscmcPlanetName(planetName) or
+            planetName == "AsSu" or
+            planetName == "AsMo" or
+            planetName == "AsMe" or
+            planetName == "AsVe" or
+            planetName == "AsMa" or
+            planetName == "AsJu" or
+            planetName == "AsSa" or
+            planetName == "AsUr" or
             planetName == "MoSu" or
+            planetName == "MoMe" or
+            planetName == "MoVe" or
+            planetName == "MoMa" or
+            planetName == "MoJu" or
+            planetName == "MoSa" or
+            planetName == "MoUr" or
+            planetName == "AsTrueNorthNode" or
+            planetName == "AsTrueSouthNode" or
             planetName == "SunTrueNorthNode" or
             planetName == "SunTrueSouthNode" or
             planetName == "MoonTrueNorthNode" or
-            planetName == "MoonTrueSouthNode"):
+            planetName == "MoonTrueSouthNode" or
+            planetName == "MeTrueNorthNode" or
+            planetName == "MeTrueSouthNode" or
+            planetName == "VeTrueNorthNode" or
+            planetName == "VeTrueSouthNode" or
+            planetName == "MaTrueNorthNode" or
+            planetName == "MaTrueSouthNode" or
+            planetName == "JuTrueNorthNode" or
+            planetName == "JuTrueSouthNode" or
+            planetName == "SaTrueNorthNode" or
+            planetName == "SaTrueSouthNode" or
+            planetName == "UrTrueNorthNode" or
+            planetName == "UrTrueSouthNode" or
+            planetName == "MeSu" or
+            planetName == "VeSu" or
+            planetName == "SuMa" or
+            planetName == "SuJu" or
+            planetName == "SuSa" or
+            planetName == "SuUr"):
 
             return True
         else:
@@ -3530,8 +3614,36 @@ class Ephemeris:
                 return Ephemeris.getAsSuPlanetaryInfo(dt)
             elif planetName == "AsMo":
                 return Ephemeris.getAsMoPlanetaryInfo(dt)
+            elif planetName == "AsMe":
+                return Ephemeris.getAsMePlanetaryInfo(dt)
+            elif planetName == "AsVe":
+                return Ephemeris.getAsVePlanetaryInfo(dt)
+            elif planetName == "AsMa":
+                return Ephemeris.getAsMaPlanetaryInfo(dt)
+            elif planetName == "AsJu":
+                return Ephemeris.getAsJuPlanetaryInfo(dt)
+            elif planetName == "AsSa":
+                return Ephemeris.getAsSaPlanetaryInfo(dt)
+            elif planetName == "AsUr":
+                return Ephemeris.getAsUrPlanetaryInfo(dt)
             elif planetName == "MoSu":
-                return Ephemeris.getMoSuPlanetaryInfo(dt)
+                return Ephemeris.getAsUrPlanetaryInfo(dt)
+            elif planetName == "MoMe":
+                return Ephemeris.getAsUrPlanetaryInfo(dt)
+            elif planetName == "MoVe":
+                return Ephemeris.getAsUrPlanetaryInfo(dt)
+            elif planetName == "MoMa":
+                return Ephemeris.getAsUrPlanetaryInfo(dt)
+            elif planetName == "MoJu":
+                return Ephemeris.getAsUrPlanetaryInfo(dt)
+            elif planetName == "MoSa":
+                return Ephemeris.getAsUrPlanetaryInfo(dt)
+            elif planetName == "MoUr":
+                return Ephemeris.getAsUrPlanetaryInfo(dt)
+            elif planetName == "AsTrueNorthNode":
+                return Ephemeris.getAsTrueNorthNodePlanetaryInfo(dt)
+            elif planetName == "AsTrueSouthNode":
+                return Ephemeris.getAsTrueSouthNodePlanetaryInfo(dt)
             elif planetName == "SunTrueNorthNode":
                 return Ephemeris.getSunTrueNorthNodePlanetaryInfo(dt)
             elif planetName == "SunTrueSouthNode":
@@ -5619,6 +5731,174 @@ class Ephemeris:
         return rv
 
     @staticmethod
+    def getAsMePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Ascendant - Mercury) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
+        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(ascendantPI)
+        planetaryInfos.append(mercuryPI)
+
+        planetName = "AsMe"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getAsVePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Ascendant - Venus) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
+        venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(ascendantPI)
+        planetaryInfos.append(venusPI)
+
+        planetName = "AsVe"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getAsMaPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Ascendant - Mars) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
+        marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(ascendantPI)
+        planetaryInfos.append(marsPI)
+
+        planetName = "AsMa"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getAsJuPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Ascendant - Jupiter) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
+        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(ascendantPI)
+        planetaryInfos.append(jupiterPI)
+
+        planetName = "AsJu"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getAsSaPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Ascendant - Saturn) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
+        saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(ascendantPI)
+        planetaryInfos.append(saturnPI)
+
+        planetName = "AsSa"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getAsUrPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Ascendant - Uranus) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
+        uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(ascendantPI)
+        planetaryInfos.append(uranusPI)
+
+        planetName = "AsUr"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
     def getMoSuPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Moon - Sun) at the given timestamp.
@@ -5641,6 +5921,230 @@ class Ephemeris:
         planetaryInfos.append(sunPI)
 
         planetName = "MoSu"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getMoMePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Moon - Mercury) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
+        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(moonPI)
+        planetaryInfos.append(mercuryPI)
+
+        planetName = "MoMe"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getMoVePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Moon - Venus) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
+        venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(moonPI)
+        planetaryInfos.append(venusPI)
+
+        planetName = "MoVe"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getMoMaPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Moon - Mars) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
+        marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(moonPI)
+        planetaryInfos.append(marsPI)
+
+        planetName = "MoMa"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getMoJuPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Moon - Jupiter) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
+        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(moonPI)
+        planetaryInfos.append(jupiterPI)
+
+        planetName = "MoJu"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getMoSaPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Moon - Saturn) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
+        saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(moonPI)
+        planetaryInfos.append(saturnPI)
+
+        planetName = "MoSa"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getMoUrPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Moon - Uranus) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
+        uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(moonPI)
+        planetaryInfos.append(uranusPI)
+
+        planetName = "MoUr"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getAsTrueNorthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Ascendant - TrueNorthNode) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
+        trueNorthNodePI = Ephemeris.getTrueNorthNodePlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(ascendantPI)
+        planetaryInfos.append(trueNorthNodePI)
+
+        planetName = "AsTrueNorthNode"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getAsTrueSouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Ascendant - TrueSouthNode) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
+        trueSouthNodePI = Ephemeris.getTrueSouthNodePlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(ascendantPI)
+        planetaryInfos.append(trueSouthNodePI)
+
+        planetName = "AsTrueSouthNode"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
 
@@ -5759,6 +6263,342 @@ class Ephemeris:
         return rv
 
     @staticmethod
+    def getMeTrueNorthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Mercury - TrueNorthNode) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
+        trueNorthNodePI = Ephemeris.getTrueNorthNodePlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(mercuryPI)
+        planetaryInfos.append(trueNorthNodePI)
+
+        planetName = "MeTrueNorthNode"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getMeTrueSouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Mercury - TrueSouthNode) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
+        trueSouthNodePI = Ephemeris.getTrueSouthNodePlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(mercuryPI)
+        planetaryInfos.append(trueSouthNodePI)
+
+        planetName = "MeTrueSouthNode"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getVeTrueNorthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Venus - TrueNorthNode) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
+        trueNorthNodePI = Ephemeris.getTrueNorthNodePlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(venusPI)
+        planetaryInfos.append(trueNorthNodePI)
+
+        planetName = "VeTrueNorthNode"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getVeTrueSouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Venus - TrueSouthNode) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
+        trueSouthNodePI = Ephemeris.getTrueSouthNodePlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(venusPI)
+        planetaryInfos.append(trueSouthNodePI)
+
+        planetName = "VeTrueSouthNode"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getMaTrueNorthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Mars - TrueNorthNode) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
+        trueNorthNodePI = Ephemeris.getTrueNorthNodePlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(marsPI)
+        planetaryInfos.append(trueNorthNodePI)
+
+        planetName = "MaTrueNorthNode"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getMaTrueSouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Mars - TrueSouthNode) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
+        trueSouthNodePI = Ephemeris.getTrueSouthNodePlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(marsPI)
+        planetaryInfos.append(trueSouthNodePI)
+
+        planetName = "MaTrueSouthNode"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getJuTrueNorthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Jupiter - TrueNorthNode) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+        trueNorthNodePI = Ephemeris.getTrueNorthNodePlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(jupiterPI)
+        planetaryInfos.append(trueNorthNodePI)
+
+        planetName = "JuTrueNorthNode"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getJuTrueSouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Jupiter - TrueSouthNode) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+        trueSouthNodePI = Ephemeris.getTrueSouthNodePlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(jupiterPI)
+        planetaryInfos.append(trueSouthNodePI)
+
+        planetName = "JuTrueSouthNode"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getSaTrueNorthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Saturn - TrueNorthNode) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+        trueNorthNodePI = Ephemeris.getTrueNorthNodePlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(saturnPI)
+        planetaryInfos.append(trueNorthNodePI)
+
+        planetName = "SaTrueNorthNode"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getSaTrueSouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Saturn - TrueSouthNode) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+        trueSouthNodePI = Ephemeris.getTrueSouthNodePlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(saturnPI)
+        planetaryInfos.append(trueSouthNodePI)
+
+        planetName = "SaTrueSouthNode"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getUrTrueNorthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Uranus - TrueNorthNode) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
+        trueNorthNodePI = Ephemeris.getTrueNorthNodePlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(uranusPI)
+        planetaryInfos.append(trueNorthNodePI)
+
+        planetName = "UrTrueNorthNode"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getUrTrueSouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Uranus - TrueSouthNode) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
+        trueSouthNodePI = Ephemeris.getTrueSouthNodePlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(uranusPI)
+        planetaryInfos.append(trueSouthNodePI)
+
+        planetName = "UrTrueSouthNode"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
     def getMeVePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Mercury - Venus) at the given timestamp.
@@ -5781,6 +6621,34 @@ class Ephemeris:
         planetaryInfos.append(venusPI)
 
         planetName = "MeVe"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getMeSuPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Mercury - Sun) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
+        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(mercuryPI)
+        planetaryInfos.append(sunPI)
+
+        planetName = "MeSu"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
 
@@ -5927,6 +6795,34 @@ class Ephemeris:
         return rv
 
     @staticmethod
+    def getVeSuPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Venus - Sun) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
+        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(venusPI)
+        planetaryInfos.append(sunPI)
+
+        planetName = "VeSu"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
     def getVeEaPlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about the
         (Venus - Earth) at the given timestamp.
@@ -6061,6 +6957,118 @@ class Ephemeris:
         planetaryInfos.append(uranusPI)
 
         planetName = "VeUr"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getSuMaPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Sun - Mars) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
+        marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(sunPI)
+        planetaryInfos.append(marsPI)
+
+        planetName = "SuMa"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getSuJuPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Sun - Jupiter) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
+        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(sunPI)
+        planetaryInfos.append(jupiterPI)
+
+        planetName = "SuJu"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getSuSaPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Sun - Saturn) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
+        saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(sunPI)
+        planetaryInfos.append(saturnPI)
+
+        planetName = "SuSa"
+        rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
+                                                      planetaryInfos)
+
+        return rv
+
+    @staticmethod
+    def getSuUrPlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about the
+        (Sun - Uranus) at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which
+                    to do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
+        uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
+
+        planetaryInfos = []
+        planetaryInfos.append(sunPI)
+        planetaryInfos.append(uranusPI)
+
+        planetName = "SuUr"
         rv = Ephemeris.createCombinationPlanetaryInfo(planetName,
                                                       planetaryInfos)
 
@@ -6494,7 +7502,49 @@ def testGetPlanetaryInfos():
     p = Ephemeris.getAsMoPlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
+    p = Ephemeris.getAsMePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getAsVePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getAsMaPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getAsJuPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getAsSaPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getAsUrPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getMoSuPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getMoMePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getMoVePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getMoMaPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getMoJuPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getMoSaPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getMoUrPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getAsTrueNorthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getAsTrueSouthNodePlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
     p = Ephemeris.getSunTrueNorthNodePlanetaryInfo(now)
@@ -6509,7 +7559,46 @@ def testGetPlanetaryInfos():
     p = Ephemeris.getMoonTrueSouthNodePlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
+    p = Ephemeris.getMeTrueNorthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getMeTrueSouthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getVeTrueNorthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getVeTrueSouthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getMaTrueNorthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getMaTrueSouthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getJuTrueNorthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getJuTrueSouthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getSaTrueNorthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getSaTrueSouthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getUrTrueNorthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getUrTrueSouthNodePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getMeVePlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getMeSuPlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
     p = Ephemeris.getMeEaPlanetaryInfo(now)
@@ -6527,6 +7616,9 @@ def testGetPlanetaryInfos():
     p = Ephemeris.getMeUrPlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
+    p = Ephemeris.getVeSuPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
     p = Ephemeris.getVeEaPlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
@@ -6540,6 +7632,18 @@ def testGetPlanetaryInfos():
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
     p = Ephemeris.getVeUrPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getSuMaPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getSuJuPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getSuSaPlanetaryInfo(now)
+    print("    At {}, planet '{}' has the following info: \n{}".\
+            format(now, p.name, p.toString()))
+    p = Ephemeris.getSuUrPlanetaryInfo(now)
     print("    At {}, planet '{}' has the following info: \n{}".\
             format(now, p.name, p.toString()))
     p = Ephemeris.getEaMaPlanetaryInfo(now)
