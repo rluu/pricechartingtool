@@ -2208,6 +2208,126 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetAsMoCalculationsEnabledLabel,
                    self.planetAsMoCalculationsEnabledCheckBox)
 
+        self.planetAsMeCalculationsEnabledLabel = \
+            QLabel("AsMe enabled:")
+        self.planetAsMeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetAsMeCalculationsEnabledLabel,
+                   self.planetAsMeCalculationsEnabledCheckBox)
+
+        self.planetAsVeCalculationsEnabledLabel = \
+            QLabel("AsVe enabled:")
+        self.planetAsVeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetAsVeCalculationsEnabledLabel,
+                   self.planetAsVeCalculationsEnabledCheckBox)
+
+        self.planetAsMaCalculationsEnabledLabel = \
+            QLabel("AsMa enabled:")
+        self.planetAsMaCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetAsMaCalculationsEnabledLabel,
+                   self.planetAsMaCalculationsEnabledCheckBox)
+
+        self.planetAsJuCalculationsEnabledLabel = \
+            QLabel("AsJu enabled:")
+        self.planetAsJuCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetAsJuCalculationsEnabledLabel,
+                   self.planetAsJuCalculationsEnabledCheckBox)
+
+        self.planetAsSaCalculationsEnabledLabel = \
+            QLabel("AsSa enabled:")
+        self.planetAsSaCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetAsSaCalculationsEnabledLabel,
+                   self.planetAsSaCalculationsEnabledCheckBox)
+
+        self.planetAsUrCalculationsEnabledLabel = \
+            QLabel("AsUr enabled:")
+        self.planetAsUrCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetAsUrCalculationsEnabledLabel,
+                   self.planetAsUrCalculationsEnabledCheckBox)
+
+        self.planetMoSuCalculationsEnabledLabel = \
+            QLabel("MoSu enabled:")
+        self.planetMoSuCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetMoSuCalculationsEnabledLabel,
+                   self.planetMoSuCalculationsEnabledCheckBox)
+
+        self.planetMoMeCalculationsEnabledLabel = \
+            QLabel("MoMe enabled:")
+        self.planetMoMeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetMoMeCalculationsEnabledLabel,
+                   self.planetMoMeCalculationsEnabledCheckBox)
+
+        self.planetMoVeCalculationsEnabledLabel = \
+            QLabel("MoVe enabled:")
+        self.planetMoVeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetMoVeCalculationsEnabledLabel,
+                   self.planetMoVeCalculationsEnabledCheckBox)
+
+        self.planetMoMaCalculationsEnabledLabel = \
+            QLabel("MoMa enabled:")
+        self.planetMoMaCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetMoMaCalculationsEnabledLabel,
+                   self.planetMoMaCalculationsEnabledCheckBox)
+
+        self.planetMoJuCalculationsEnabledLabel = \
+            QLabel("MoJu enabled:")
+        self.planetMoJuCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetMoJuCalculationsEnabledLabel,
+                   self.planetMoJuCalculationsEnabledCheckBox)
+
+        self.planetMoSaCalculationsEnabledLabel = \
+            QLabel("MoSa enabled:")
+        self.planetMoSaCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetMoSaCalculationsEnabledLabel,
+                   self.planetMoSaCalculationsEnabledCheckBox)
+
+        self.planetMoUrCalculationsEnabledLabel = \
+            QLabel("MoUr enabled:")
+        self.planetMoUrCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetMoUrCalculationsEnabledLabel,
+                   self.planetMoUrCalculationsEnabledCheckBox)
+
+        self.planetAsTrueNorthNodeCalculationsEnabledLabel = \
+            QLabel("AsTrueNorthNode enabled:")
+        self.planetAsTrueNorthNodeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetAsTrueNorthNodeCalculationsEnabledLabel,
+                   self.planetAsTrueNorthNodeCalculationsEnabledCheckBox)
+
+        self.planetAsTrueSouthNodeCalculationsEnabledLabel = \
+            QLabel("AsTrueSouthNode enabled:")
+        self.planetAsTrueSouthNodeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetAsTrueSouthNodeCalculationsEnabledLabel,
+                   self.planetAsTrueSouthNodeCalculationsEnabledCheckBox)
+
         self.planetSunTrueNorthNodeCalculationsEnabledLabel = \
             QLabel("SunTrueNorthNode enabled:")
         self.planetSunTrueNorthNodeCalculationsEnabledCheckBox = \
@@ -2240,27 +2360,123 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetMoonTrueSouthNodeCalculationsEnabledLabel,
                    self.planetMoonTrueSouthNodeCalculationsEnabledCheckBox)
 
-        self.planetMoSuCalculationsEnabledLabel = \
-            QLabel("MoSu enabled:")
-        self.planetMoSuCalculationsEnabledCheckBox = \
+        self.planetMeTrueNorthNodeCalculationsEnabledLabel = \
+            QLabel("MeTrueNorthNode enabled:")
+        self.planetMeTrueNorthNodeCalculationsEnabledCheckBox = \
             QCheckBox()
         planetCalculationsEnabledMidRightFormLayout.\
-            addRow(self.planetMoSuCalculationsEnabledLabel,
-                   self.planetMoSuCalculationsEnabledCheckBox)
+            addRow(self.planetMeTrueNorthNodeCalculationsEnabledLabel,
+                   self.planetMeTrueNorthNodeCalculationsEnabledCheckBox)
+
+        self.planetMeTrueSouthNodeCalculationsEnabledLabel = \
+            QLabel("MeTrueSouthNode enabled:")
+        self.planetMeTrueSouthNodeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetMeTrueSouthNodeCalculationsEnabledLabel,
+                   self.planetMeTrueSouthNodeCalculationsEnabledCheckBox)
+
+        self.planetVeTrueNorthNodeCalculationsEnabledLabel = \
+            QLabel("VeTrueNorthNode enabled:")
+        self.planetVeTrueNorthNodeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetVeTrueNorthNodeCalculationsEnabledLabel,
+                   self.planetVeTrueNorthNodeCalculationsEnabledCheckBox)
+
+        self.planetVeTrueSouthNodeCalculationsEnabledLabel = \
+            QLabel("VeTrueSouthNode enabled:")
+        self.planetVeTrueSouthNodeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetVeTrueSouthNodeCalculationsEnabledLabel,
+                   self.planetVeTrueSouthNodeCalculationsEnabledCheckBox)
+
+        self.planetMaTrueNorthNodeCalculationsEnabledLabel = \
+            QLabel("MaTrueNorthNode enabled:")
+        self.planetMaTrueNorthNodeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetMaTrueNorthNodeCalculationsEnabledLabel,
+                   self.planetMaTrueNorthNodeCalculationsEnabledCheckBox)
+
+        self.planetMaTrueSouthNodeCalculationsEnabledLabel = \
+            QLabel("MaTrueSouthNode enabled:")
+        self.planetMaTrueSouthNodeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetMaTrueSouthNodeCalculationsEnabledLabel,
+                   self.planetMaTrueSouthNodeCalculationsEnabledCheckBox)
+
+        self.planetJuTrueNorthNodeCalculationsEnabledLabel = \
+            QLabel("JuTrueNorthNode enabled:")
+        self.planetJuTrueNorthNodeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetJuTrueNorthNodeCalculationsEnabledLabel,
+                   self.planetJuTrueNorthNodeCalculationsEnabledCheckBox)
+
+        self.planetJuTrueSouthNodeCalculationsEnabledLabel = \
+            QLabel("JuTrueSouthNode enabled:")
+        self.planetJuTrueSouthNodeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetJuTrueSouthNodeCalculationsEnabledLabel,
+                   self.planetJuTrueSouthNodeCalculationsEnabledCheckBox)
+
+        self.planetSaTrueNorthNodeCalculationsEnabledLabel = \
+            QLabel("SaTrueNorthNode enabled:")
+        self.planetSaTrueNorthNodeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetSaTrueNorthNodeCalculationsEnabledLabel,
+                   self.planetSaTrueNorthNodeCalculationsEnabledCheckBox)
+
+        self.planetSaTrueSouthNodeCalculationsEnabledLabel = \
+            QLabel("SaTrueSouthNode enabled:")
+        self.planetSaTrueSouthNodeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetSaTrueSouthNodeCalculationsEnabledLabel,
+                   self.planetSaTrueSouthNodeCalculationsEnabledCheckBox)
+
+        self.planetUrTrueNorthNodeCalculationsEnabledLabel = \
+            QLabel("UrTrueNorthNode enabled:")
+        self.planetUrTrueNorthNodeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetUrTrueNorthNodeCalculationsEnabledLabel,
+                   self.planetUrTrueNorthNodeCalculationsEnabledCheckBox)
+
+        self.planetUrTrueSouthNodeCalculationsEnabledLabel = \
+            QLabel("UrTrueSouthNode enabled:")
+        self.planetUrTrueSouthNodeCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledMidRightFormLayout.\
+            addRow(self.planetUrTrueSouthNodeCalculationsEnabledLabel,
+                   self.planetUrTrueSouthNodeCalculationsEnabledCheckBox)
 
         self.planetMeVeCalculationsEnabledLabel = \
             QLabel("MeVe enabled:")
         self.planetMeVeCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetMeVeCalculationsEnabledLabel,
                    self.planetMeVeCalculationsEnabledCheckBox)
+
+        self.planetMeSuCalculationsEnabledLabel = \
+            QLabel("MeSu enabled:")
+        self.planetMeSuCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledFarRightFormLayout.\
+            addRow(self.planetMeSuCalculationsEnabledLabel,
+                   self.planetMeSuCalculationsEnabledCheckBox)
 
         self.planetMeEaCalculationsEnabledLabel = \
             QLabel("MeEa enabled:")
         self.planetMeEaCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetMeEaCalculationsEnabledLabel,
                    self.planetMeEaCalculationsEnabledCheckBox)
 
@@ -2268,7 +2484,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeMa enabled:")
         self.planetMeMaCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetMeMaCalculationsEnabledLabel,
                    self.planetMeMaCalculationsEnabledCheckBox)
 
@@ -2276,7 +2492,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeJu enabled:")
         self.planetMeJuCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetMeJuCalculationsEnabledLabel,
                    self.planetMeJuCalculationsEnabledCheckBox)
 
@@ -2284,7 +2500,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeSa enabled:")
         self.planetMeSaCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetMeSaCalculationsEnabledLabel,
                    self.planetMeSaCalculationsEnabledCheckBox)
 
@@ -2292,15 +2508,23 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeUr enabled:")
         self.planetMeUrCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetMeUrCalculationsEnabledLabel,
                    self.planetMeUrCalculationsEnabledCheckBox)
+
+        self.planetVeSuCalculationsEnabledLabel = \
+            QLabel("VeSu enabled:")
+        self.planetVeSuCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledFarRightFormLayout.\
+            addRow(self.planetVeSuCalculationsEnabledLabel,
+                   self.planetVeSuCalculationsEnabledCheckBox)
 
         self.planetVeEaCalculationsEnabledLabel = \
             QLabel("VeEa enabled:")
         self.planetVeEaCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetVeEaCalculationsEnabledLabel,
                    self.planetVeEaCalculationsEnabledCheckBox)
 
@@ -2308,7 +2532,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeMa enabled:")
         self.planetVeMaCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetVeMaCalculationsEnabledLabel,
                    self.planetVeMaCalculationsEnabledCheckBox)
 
@@ -2316,7 +2540,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeJu enabled:")
         self.planetVeJuCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetVeJuCalculationsEnabledLabel,
                    self.planetVeJuCalculationsEnabledCheckBox)
 
@@ -2324,7 +2548,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeSa enabled:")
         self.planetVeSaCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetVeSaCalculationsEnabledLabel,
                    self.planetVeSaCalculationsEnabledCheckBox)
 
@@ -2332,15 +2556,47 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeUr enabled:")
         self.planetVeUrCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetVeUrCalculationsEnabledLabel,
                    self.planetVeUrCalculationsEnabledCheckBox)
+
+        self.planetSuMaCalculationsEnabledLabel = \
+            QLabel("SuMa enabled:")
+        self.planetSuMaCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledFarRightFormLayout.\
+            addRow(self.planetSuMaCalculationsEnabledLabel,
+                   self.planetSuMaCalculationsEnabledCheckBox)
+
+        self.planetSuJuCalculationsEnabledLabel = \
+            QLabel("SuJu enabled:")
+        self.planetSuJuCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledFarRightFormLayout.\
+            addRow(self.planetSuJuCalculationsEnabledLabel,
+                   self.planetSuJuCalculationsEnabledCheckBox)
+
+        self.planetSuSaCalculationsEnabledLabel = \
+            QLabel("SuSa enabled:")
+        self.planetSuSaCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledFarRightFormLayout.\
+            addRow(self.planetSuSaCalculationsEnabledLabel,
+                   self.planetSuSaCalculationsEnabledCheckBox)
+
+        self.planetSuUrCalculationsEnabledLabel = \
+            QLabel("SuUr enabled:")
+        self.planetSuUrCalculationsEnabledCheckBox = \
+            QCheckBox()
+        planetCalculationsEnabledFarRightFormLayout.\
+            addRow(self.planetSuUrCalculationsEnabledLabel,
+                   self.planetSuUrCalculationsEnabledCheckBox)
 
         self.planetEaMaCalculationsEnabledLabel = \
             QLabel("EaMa enabled:")
         self.planetEaMaCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetEaMaCalculationsEnabledLabel,
                    self.planetEaMaCalculationsEnabledCheckBox)
 
@@ -2348,7 +2604,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaJu enabled:")
         self.planetEaJuCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetEaJuCalculationsEnabledLabel,
                    self.planetEaJuCalculationsEnabledCheckBox)
 
@@ -2356,7 +2612,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaSa enabled:")
         self.planetEaSaCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetEaSaCalculationsEnabledLabel,
                    self.planetEaSaCalculationsEnabledCheckBox)
 
@@ -2364,7 +2620,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaUr enabled:")
         self.planetEaUrCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetEaUrCalculationsEnabledLabel,
                    self.planetEaUrCalculationsEnabledCheckBox)
 
@@ -2372,7 +2628,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaJu enabled:")
         self.planetMaJuCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetMaJuCalculationsEnabledLabel,
                    self.planetMaJuCalculationsEnabledCheckBox)
 
@@ -2380,7 +2636,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaSa enabled:")
         self.planetMaSaCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetMaSaCalculationsEnabledLabel,
                    self.planetMaSaCalculationsEnabledCheckBox)
 
@@ -2388,7 +2644,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaUr enabled:")
         self.planetMaUrCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetMaUrCalculationsEnabledLabel,
                    self.planetMaUrCalculationsEnabledCheckBox)
 
@@ -2396,7 +2652,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("JuSa enabled:")
         self.planetJuSaCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetJuSaCalculationsEnabledLabel,
                    self.planetJuSaCalculationsEnabledCheckBox)
 
@@ -2404,7 +2660,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("JuUr enabled:")
         self.planetJuUrCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetJuUrCalculationsEnabledLabel,
                    self.planetJuUrCalculationsEnabledCheckBox)
 
@@ -2412,7 +2668,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("SaUr enabled:")
         self.planetSaUrCalculationsEnabledCheckBox = \
             QCheckBox()
-        planetCalculationsEnabledMidRightFormLayout.\
+        planetCalculationsEnabledFarRightFormLayout.\
             addRow(self.planetSaUrCalculationsEnabledLabel,
                    self.planetSaUrCalculationsEnabledCheckBox)
 
@@ -2930,6 +3186,126 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetAsMoEnabledForPlanetaryInfoTableLabel,
                    self.planetAsMoEnabledForPlanetaryInfoTableCheckBox)
 
+        self.planetAsMeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("AsMe enabled:")
+        self.planetAsMeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetAsMeEnabledForPlanetaryInfoTableLabel,
+                   self.planetAsMeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetAsVeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("AsVe enabled:")
+        self.planetAsVeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetAsVeEnabledForPlanetaryInfoTableLabel,
+                   self.planetAsVeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetAsMaEnabledForPlanetaryInfoTableLabel = \
+            QLabel("AsMa enabled:")
+        self.planetAsMaEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetAsMaEnabledForPlanetaryInfoTableLabel,
+                   self.planetAsMaEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetAsJuEnabledForPlanetaryInfoTableLabel = \
+            QLabel("AsJu enabled:")
+        self.planetAsJuEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetAsJuEnabledForPlanetaryInfoTableLabel,
+                   self.planetAsJuEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetAsSaEnabledForPlanetaryInfoTableLabel = \
+            QLabel("AsSa enabled:")
+        self.planetAsSaEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetAsSaEnabledForPlanetaryInfoTableLabel,
+                   self.planetAsSaEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetAsUrEnabledForPlanetaryInfoTableLabel = \
+            QLabel("AsUr enabled:")
+        self.planetAsUrEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetAsUrEnabledForPlanetaryInfoTableLabel,
+                   self.planetAsUrEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetMoSuEnabledForPlanetaryInfoTableLabel = \
+            QLabel("MoSu enabled:")
+        self.planetMoSuEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetMoSuEnabledForPlanetaryInfoTableLabel,
+                   self.planetMoSuEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetMoMeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("MoMe enabled:")
+        self.planetMoMeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetMoMeEnabledForPlanetaryInfoTableLabel,
+                   self.planetMoMeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetMoVeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("MoVe enabled:")
+        self.planetMoVeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetMoVeEnabledForPlanetaryInfoTableLabel,
+                   self.planetMoVeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetMoMaEnabledForPlanetaryInfoTableLabel = \
+            QLabel("MoMa enabled:")
+        self.planetMoMaEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetMoMaEnabledForPlanetaryInfoTableLabel,
+                   self.planetMoMaEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetMoJuEnabledForPlanetaryInfoTableLabel = \
+            QLabel("MoJu enabled:")
+        self.planetMoJuEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetMoJuEnabledForPlanetaryInfoTableLabel,
+                   self.planetMoJuEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetMoSaEnabledForPlanetaryInfoTableLabel = \
+            QLabel("MoSa enabled:")
+        self.planetMoSaEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetMoSaEnabledForPlanetaryInfoTableLabel,
+                   self.planetMoSaEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetMoUrEnabledForPlanetaryInfoTableLabel = \
+            QLabel("MoUr enabled:")
+        self.planetMoUrEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetMoUrEnabledForPlanetaryInfoTableLabel,
+                   self.planetMoUrEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetAsTrueNorthNodeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("AsTrueNorthNode enabled:")
+        self.planetAsTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetAsTrueNorthNodeEnabledForPlanetaryInfoTableLabel,
+                   self.planetAsTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetAsTrueSouthNodeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("AsTrueSouthNode enabled:")
+        self.planetAsTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetAsTrueSouthNodeEnabledForPlanetaryInfoTableLabel,
+                   self.planetAsTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox)
+
         self.planetSunTrueNorthNodeEnabledForPlanetaryInfoTableLabel = \
             QLabel("SunTrueNorthNode enabled:")
         self.planetSunTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox = \
@@ -2962,27 +3338,123 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetMoonTrueSouthNodeEnabledForPlanetaryInfoTableLabel,
                    self.planetMoonTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox)
 
-        self.planetMoSuEnabledForPlanetaryInfoTableLabel = \
-            QLabel("MoSu enabled:")
-        self.planetMoSuEnabledForPlanetaryInfoTableCheckBox = \
+        self.planetMeTrueNorthNodeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("MeTrueNorthNode enabled:")
+        self.planetMeTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
         planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
-            addRow(self.planetMoSuEnabledForPlanetaryInfoTableLabel,
-                   self.planetMoSuEnabledForPlanetaryInfoTableCheckBox)
+            addRow(self.planetMeTrueNorthNodeEnabledForPlanetaryInfoTableLabel,
+                   self.planetMeTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetMeTrueSouthNodeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("MeTrueSouthNode enabled:")
+        self.planetMeTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetMeTrueSouthNodeEnabledForPlanetaryInfoTableLabel,
+                   self.planetMeTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetVeTrueNorthNodeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("VeTrueNorthNode enabled:")
+        self.planetVeTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetVeTrueNorthNodeEnabledForPlanetaryInfoTableLabel,
+                   self.planetVeTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetVeTrueSouthNodeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("VeTrueSouthNode enabled:")
+        self.planetVeTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetVeTrueSouthNodeEnabledForPlanetaryInfoTableLabel,
+                   self.planetVeTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetMaTrueNorthNodeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("MaTrueNorthNode enabled:")
+        self.planetMaTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetMaTrueNorthNodeEnabledForPlanetaryInfoTableLabel,
+                   self.planetMaTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetMaTrueSouthNodeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("MaTrueSouthNode enabled:")
+        self.planetMaTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetMaTrueSouthNodeEnabledForPlanetaryInfoTableLabel,
+                   self.planetMaTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetJuTrueNorthNodeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("JuTrueNorthNode enabled:")
+        self.planetJuTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetJuTrueNorthNodeEnabledForPlanetaryInfoTableLabel,
+                   self.planetJuTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetJuTrueSouthNodeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("JuTrueSouthNode enabled:")
+        self.planetJuTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetJuTrueSouthNodeEnabledForPlanetaryInfoTableLabel,
+                   self.planetJuTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetSaTrueNorthNodeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("SaTrueNorthNode enabled:")
+        self.planetSaTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetSaTrueNorthNodeEnabledForPlanetaryInfoTableLabel,
+                   self.planetSaTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetSaTrueSouthNodeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("SaTrueSouthNode enabled:")
+        self.planetSaTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetSaTrueSouthNodeEnabledForPlanetaryInfoTableLabel,
+                   self.planetSaTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetUrTrueNorthNodeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("UrTrueNorthNode enabled:")
+        self.planetUrTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetUrTrueNorthNodeEnabledForPlanetaryInfoTableLabel,
+                   self.planetUrTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetUrTrueSouthNodeEnabledForPlanetaryInfoTableLabel = \
+            QLabel("UrTrueSouthNode enabled:")
+        self.planetUrTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+            addRow(self.planetUrTrueSouthNodeEnabledForPlanetaryInfoTableLabel,
+                   self.planetUrTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox)
 
         self.planetMeVeEnabledForPlanetaryInfoTableLabel = \
             QLabel("MeVe enabled:")
         self.planetMeVeEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetMeVeEnabledForPlanetaryInfoTableLabel,
                    self.planetMeVeEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetMeSuEnabledForPlanetaryInfoTableLabel = \
+            QLabel("MeSu enabled:")
+        self.planetMeSuEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
+            addRow(self.planetMeSuEnabledForPlanetaryInfoTableLabel,
+                   self.planetMeSuEnabledForPlanetaryInfoTableCheckBox)
 
         self.planetMeEaEnabledForPlanetaryInfoTableLabel = \
             QLabel("MeEa enabled:")
         self.planetMeEaEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetMeEaEnabledForPlanetaryInfoTableLabel,
                    self.planetMeEaEnabledForPlanetaryInfoTableCheckBox)
 
@@ -2990,7 +3462,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeMa enabled:")
         self.planetMeMaEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetMeMaEnabledForPlanetaryInfoTableLabel,
                    self.planetMeMaEnabledForPlanetaryInfoTableCheckBox)
 
@@ -2998,7 +3470,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeJu enabled:")
         self.planetMeJuEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetMeJuEnabledForPlanetaryInfoTableLabel,
                    self.planetMeJuEnabledForPlanetaryInfoTableCheckBox)
 
@@ -3006,7 +3478,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeSa enabled:")
         self.planetMeSaEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetMeSaEnabledForPlanetaryInfoTableLabel,
                    self.planetMeSaEnabledForPlanetaryInfoTableCheckBox)
 
@@ -3014,15 +3486,23 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeUr enabled:")
         self.planetMeUrEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetMeUrEnabledForPlanetaryInfoTableLabel,
                    self.planetMeUrEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetVeSuEnabledForPlanetaryInfoTableLabel = \
+            QLabel("VeSu enabled:")
+        self.planetVeSuEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
+            addRow(self.planetVeSuEnabledForPlanetaryInfoTableLabel,
+                   self.planetVeSuEnabledForPlanetaryInfoTableCheckBox)
 
         self.planetVeEaEnabledForPlanetaryInfoTableLabel = \
             QLabel("VeEa enabled:")
         self.planetVeEaEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetVeEaEnabledForPlanetaryInfoTableLabel,
                    self.planetVeEaEnabledForPlanetaryInfoTableCheckBox)
 
@@ -3030,7 +3510,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeMa enabled:")
         self.planetVeMaEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetVeMaEnabledForPlanetaryInfoTableLabel,
                    self.planetVeMaEnabledForPlanetaryInfoTableCheckBox)
 
@@ -3038,7 +3518,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeJu enabled:")
         self.planetVeJuEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetVeJuEnabledForPlanetaryInfoTableLabel,
                    self.planetVeJuEnabledForPlanetaryInfoTableCheckBox)
 
@@ -3046,7 +3526,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeSa enabled:")
         self.planetVeSaEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetVeSaEnabledForPlanetaryInfoTableLabel,
                    self.planetVeSaEnabledForPlanetaryInfoTableCheckBox)
 
@@ -3054,15 +3534,47 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeUr enabled:")
         self.planetVeUrEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetVeUrEnabledForPlanetaryInfoTableLabel,
                    self.planetVeUrEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetSuMaEnabledForPlanetaryInfoTableLabel = \
+            QLabel("SuMa enabled:")
+        self.planetSuMaEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
+            addRow(self.planetSuMaEnabledForPlanetaryInfoTableLabel,
+                   self.planetSuMaEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetSuJuEnabledForPlanetaryInfoTableLabel = \
+            QLabel("SuJu enabled:")
+        self.planetSuJuEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
+            addRow(self.planetSuJuEnabledForPlanetaryInfoTableLabel,
+                   self.planetSuJuEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetSuSaEnabledForPlanetaryInfoTableLabel = \
+            QLabel("SuSa enabled:")
+        self.planetSuSaEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
+            addRow(self.planetSuSaEnabledForPlanetaryInfoTableLabel,
+                   self.planetSuSaEnabledForPlanetaryInfoTableCheckBox)
+
+        self.planetSuUrEnabledForPlanetaryInfoTableLabel = \
+            QLabel("SuUr enabled:")
+        self.planetSuUrEnabledForPlanetaryInfoTableCheckBox = \
+            QCheckBox()
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
+            addRow(self.planetSuUrEnabledForPlanetaryInfoTableLabel,
+                   self.planetSuUrEnabledForPlanetaryInfoTableCheckBox)
 
         self.planetEaMaEnabledForPlanetaryInfoTableLabel = \
             QLabel("EaMa enabled:")
         self.planetEaMaEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetEaMaEnabledForPlanetaryInfoTableLabel,
                    self.planetEaMaEnabledForPlanetaryInfoTableCheckBox)
 
@@ -3070,7 +3582,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaJu enabled:")
         self.planetEaJuEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetEaJuEnabledForPlanetaryInfoTableLabel,
                    self.planetEaJuEnabledForPlanetaryInfoTableCheckBox)
 
@@ -3078,7 +3590,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaSa enabled:")
         self.planetEaSaEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetEaSaEnabledForPlanetaryInfoTableLabel,
                    self.planetEaSaEnabledForPlanetaryInfoTableCheckBox)
 
@@ -3086,7 +3598,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaUr enabled:")
         self.planetEaUrEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetEaUrEnabledForPlanetaryInfoTableLabel,
                    self.planetEaUrEnabledForPlanetaryInfoTableCheckBox)
 
@@ -3094,7 +3606,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaJu enabled:")
         self.planetMaJuEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetMaJuEnabledForPlanetaryInfoTableLabel,
                    self.planetMaJuEnabledForPlanetaryInfoTableCheckBox)
 
@@ -3102,7 +3614,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaSa enabled:")
         self.planetMaSaEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetMaSaEnabledForPlanetaryInfoTableLabel,
                    self.planetMaSaEnabledForPlanetaryInfoTableCheckBox)
 
@@ -3110,7 +3622,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaUr enabled:")
         self.planetMaUrEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetMaUrEnabledForPlanetaryInfoTableLabel,
                    self.planetMaUrEnabledForPlanetaryInfoTableCheckBox)
 
@@ -3118,7 +3630,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("JuSa enabled:")
         self.planetJuSaEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetJuSaEnabledForPlanetaryInfoTableLabel,
                    self.planetJuSaEnabledForPlanetaryInfoTableCheckBox)
 
@@ -3126,7 +3638,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("JuUr enabled:")
         self.planetJuUrEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetJuUrEnabledForPlanetaryInfoTableLabel,
                    self.planetJuUrEnabledForPlanetaryInfoTableCheckBox)
 
@@ -3134,7 +3646,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("SaUr enabled:")
         self.planetSaUrEnabledForPlanetaryInfoTableCheckBox = \
             QCheckBox()
-        planetEnabledForPlanetaryInfoTableMidRightFormLayout.\
+        planetEnabledForPlanetaryInfoTableFarRightFormLayout.\
             addRow(self.planetSaUrEnabledForPlanetaryInfoTableLabel,
                    self.planetSaUrEnabledForPlanetaryInfoTableCheckBox)
 
@@ -3652,6 +4164,126 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetAsMoEnabledForDeclinationLabel,
                    self.planetAsMoEnabledForDeclinationCheckBox)
 
+        self.planetAsMeEnabledForDeclinationLabel = \
+            QLabel("AsMe enabled:")
+        self.planetAsMeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetAsMeEnabledForDeclinationLabel,
+                   self.planetAsMeEnabledForDeclinationCheckBox)
+
+        self.planetAsVeEnabledForDeclinationLabel = \
+            QLabel("AsVe enabled:")
+        self.planetAsVeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetAsVeEnabledForDeclinationLabel,
+                   self.planetAsVeEnabledForDeclinationCheckBox)
+
+        self.planetAsMaEnabledForDeclinationLabel = \
+            QLabel("AsMa enabled:")
+        self.planetAsMaEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetAsMaEnabledForDeclinationLabel,
+                   self.planetAsMaEnabledForDeclinationCheckBox)
+
+        self.planetAsJuEnabledForDeclinationLabel = \
+            QLabel("AsJu enabled:")
+        self.planetAsJuEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetAsJuEnabledForDeclinationLabel,
+                   self.planetAsJuEnabledForDeclinationCheckBox)
+
+        self.planetAsSaEnabledForDeclinationLabel = \
+            QLabel("AsSa enabled:")
+        self.planetAsSaEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetAsSaEnabledForDeclinationLabel,
+                   self.planetAsSaEnabledForDeclinationCheckBox)
+
+        self.planetAsUrEnabledForDeclinationLabel = \
+            QLabel("AsUr enabled:")
+        self.planetAsUrEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetAsUrEnabledForDeclinationLabel,
+                   self.planetAsUrEnabledForDeclinationCheckBox)
+
+        self.planetMoSuEnabledForDeclinationLabel = \
+            QLabel("MoSu enabled:")
+        self.planetMoSuEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetMoSuEnabledForDeclinationLabel,
+                   self.planetMoSuEnabledForDeclinationCheckBox)
+
+        self.planetMoMeEnabledForDeclinationLabel = \
+            QLabel("MoMe enabled:")
+        self.planetMoMeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetMoMeEnabledForDeclinationLabel,
+                   self.planetMoMeEnabledForDeclinationCheckBox)
+
+        self.planetMoVeEnabledForDeclinationLabel = \
+            QLabel("MoVe enabled:")
+        self.planetMoVeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetMoVeEnabledForDeclinationLabel,
+                   self.planetMoVeEnabledForDeclinationCheckBox)
+
+        self.planetMoMaEnabledForDeclinationLabel = \
+            QLabel("MoMa enabled:")
+        self.planetMoMaEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetMoMaEnabledForDeclinationLabel,
+                   self.planetMoMaEnabledForDeclinationCheckBox)
+
+        self.planetMoJuEnabledForDeclinationLabel = \
+            QLabel("MoJu enabled:")
+        self.planetMoJuEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetMoJuEnabledForDeclinationLabel,
+                   self.planetMoJuEnabledForDeclinationCheckBox)
+
+        self.planetMoSaEnabledForDeclinationLabel = \
+            QLabel("MoSa enabled:")
+        self.planetMoSaEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetMoSaEnabledForDeclinationLabel,
+                   self.planetMoSaEnabledForDeclinationCheckBox)
+
+        self.planetMoUrEnabledForDeclinationLabel = \
+            QLabel("MoUr enabled:")
+        self.planetMoUrEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetMoUrEnabledForDeclinationLabel,
+                   self.planetMoUrEnabledForDeclinationCheckBox)
+
+        self.planetAsTrueNorthNodeEnabledForDeclinationLabel = \
+            QLabel("AsTrueNorthNode enabled:")
+        self.planetAsTrueNorthNodeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetAsTrueNorthNodeEnabledForDeclinationLabel,
+                   self.planetAsTrueNorthNodeEnabledForDeclinationCheckBox)
+
+        self.planetAsTrueSouthNodeEnabledForDeclinationLabel = \
+            QLabel("AsTrueSouthNode enabled:")
+        self.planetAsTrueSouthNodeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetAsTrueSouthNodeEnabledForDeclinationLabel,
+                   self.planetAsTrueSouthNodeEnabledForDeclinationCheckBox)
+
         self.planetSunTrueNorthNodeEnabledForDeclinationLabel = \
             QLabel("SunTrueNorthNode enabled:")
         self.planetSunTrueNorthNodeEnabledForDeclinationCheckBox = \
@@ -3684,27 +4316,123 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetMoonTrueSouthNodeEnabledForDeclinationLabel,
                    self.planetMoonTrueSouthNodeEnabledForDeclinationCheckBox)
 
-        self.planetMoSuEnabledForDeclinationLabel = \
-            QLabel("MoSu enabled:")
-        self.planetMoSuEnabledForDeclinationCheckBox = \
+        self.planetMeTrueNorthNodeEnabledForDeclinationLabel = \
+            QLabel("MeTrueNorthNode enabled:")
+        self.planetMeTrueNorthNodeEnabledForDeclinationCheckBox = \
             QCheckBox()
         planetEnabledForDeclinationMidRightFormLayout.\
-            addRow(self.planetMoSuEnabledForDeclinationLabel,
-                   self.planetMoSuEnabledForDeclinationCheckBox)
+            addRow(self.planetMeTrueNorthNodeEnabledForDeclinationLabel,
+                   self.planetMeTrueNorthNodeEnabledForDeclinationCheckBox)
+
+        self.planetMeTrueSouthNodeEnabledForDeclinationLabel = \
+            QLabel("MeTrueSouthNode enabled:")
+        self.planetMeTrueSouthNodeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetMeTrueSouthNodeEnabledForDeclinationLabel,
+                   self.planetMeTrueSouthNodeEnabledForDeclinationCheckBox)
+
+        self.planetVeTrueNorthNodeEnabledForDeclinationLabel = \
+            QLabel("VeTrueNorthNode enabled:")
+        self.planetVeTrueNorthNodeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetVeTrueNorthNodeEnabledForDeclinationLabel,
+                   self.planetVeTrueNorthNodeEnabledForDeclinationCheckBox)
+
+        self.planetVeTrueSouthNodeEnabledForDeclinationLabel = \
+            QLabel("VeTrueSouthNode enabled:")
+        self.planetVeTrueSouthNodeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetVeTrueSouthNodeEnabledForDeclinationLabel,
+                   self.planetVeTrueSouthNodeEnabledForDeclinationCheckBox)
+
+        self.planetMaTrueNorthNodeEnabledForDeclinationLabel = \
+            QLabel("MaTrueNorthNode enabled:")
+        self.planetMaTrueNorthNodeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetMaTrueNorthNodeEnabledForDeclinationLabel,
+                   self.planetMaTrueNorthNodeEnabledForDeclinationCheckBox)
+
+        self.planetMaTrueSouthNodeEnabledForDeclinationLabel = \
+            QLabel("MaTrueSouthNode enabled:")
+        self.planetMaTrueSouthNodeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetMaTrueSouthNodeEnabledForDeclinationLabel,
+                   self.planetMaTrueSouthNodeEnabledForDeclinationCheckBox)
+
+        self.planetJuTrueNorthNodeEnabledForDeclinationLabel = \
+            QLabel("JuTrueNorthNode enabled:")
+        self.planetJuTrueNorthNodeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetJuTrueNorthNodeEnabledForDeclinationLabel,
+                   self.planetJuTrueNorthNodeEnabledForDeclinationCheckBox)
+
+        self.planetJuTrueSouthNodeEnabledForDeclinationLabel = \
+            QLabel("JuTrueSouthNode enabled:")
+        self.planetJuTrueSouthNodeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetJuTrueSouthNodeEnabledForDeclinationLabel,
+                   self.planetJuTrueSouthNodeEnabledForDeclinationCheckBox)
+
+        self.planetSaTrueNorthNodeEnabledForDeclinationLabel = \
+            QLabel("SaTrueNorthNode enabled:")
+        self.planetSaTrueNorthNodeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetSaTrueNorthNodeEnabledForDeclinationLabel,
+                   self.planetSaTrueNorthNodeEnabledForDeclinationCheckBox)
+
+        self.planetSaTrueSouthNodeEnabledForDeclinationLabel = \
+            QLabel("SaTrueSouthNode enabled:")
+        self.planetSaTrueSouthNodeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetSaTrueSouthNodeEnabledForDeclinationLabel,
+                   self.planetSaTrueSouthNodeEnabledForDeclinationCheckBox)
+
+        self.planetUrTrueNorthNodeEnabledForDeclinationLabel = \
+            QLabel("UrTrueNorthNode enabled:")
+        self.planetUrTrueNorthNodeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetUrTrueNorthNodeEnabledForDeclinationLabel,
+                   self.planetUrTrueNorthNodeEnabledForDeclinationCheckBox)
+
+        self.planetUrTrueSouthNodeEnabledForDeclinationLabel = \
+            QLabel("UrTrueSouthNode enabled:")
+        self.planetUrTrueSouthNodeEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationMidRightFormLayout.\
+            addRow(self.planetUrTrueSouthNodeEnabledForDeclinationLabel,
+                   self.planetUrTrueSouthNodeEnabledForDeclinationCheckBox)
 
         self.planetMeVeEnabledForDeclinationLabel = \
             QLabel("MeVe enabled:")
         self.planetMeVeEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetMeVeEnabledForDeclinationLabel,
                    self.planetMeVeEnabledForDeclinationCheckBox)
+
+        self.planetMeSuEnabledForDeclinationLabel = \
+            QLabel("MeSu enabled:")
+        self.planetMeSuEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationFarRightFormLayout.\
+            addRow(self.planetMeSuEnabledForDeclinationLabel,
+                   self.planetMeSuEnabledForDeclinationCheckBox)
 
         self.planetMeEaEnabledForDeclinationLabel = \
             QLabel("MeEa enabled:")
         self.planetMeEaEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetMeEaEnabledForDeclinationLabel,
                    self.planetMeEaEnabledForDeclinationCheckBox)
 
@@ -3712,7 +4440,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeMa enabled:")
         self.planetMeMaEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetMeMaEnabledForDeclinationLabel,
                    self.planetMeMaEnabledForDeclinationCheckBox)
 
@@ -3720,7 +4448,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeJu enabled:")
         self.planetMeJuEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetMeJuEnabledForDeclinationLabel,
                    self.planetMeJuEnabledForDeclinationCheckBox)
 
@@ -3728,7 +4456,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeSa enabled:")
         self.planetMeSaEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetMeSaEnabledForDeclinationLabel,
                    self.planetMeSaEnabledForDeclinationCheckBox)
 
@@ -3736,15 +4464,23 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeUr enabled:")
         self.planetMeUrEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetMeUrEnabledForDeclinationLabel,
                    self.planetMeUrEnabledForDeclinationCheckBox)
+
+        self.planetVeSuEnabledForDeclinationLabel = \
+            QLabel("VeSu enabled:")
+        self.planetVeSuEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationFarRightFormLayout.\
+            addRow(self.planetVeSuEnabledForDeclinationLabel,
+                   self.planetVeSuEnabledForDeclinationCheckBox)
 
         self.planetVeEaEnabledForDeclinationLabel = \
             QLabel("VeEa enabled:")
         self.planetVeEaEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetVeEaEnabledForDeclinationLabel,
                    self.planetVeEaEnabledForDeclinationCheckBox)
 
@@ -3752,7 +4488,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeMa enabled:")
         self.planetVeMaEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetVeMaEnabledForDeclinationLabel,
                    self.planetVeMaEnabledForDeclinationCheckBox)
 
@@ -3760,7 +4496,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeJu enabled:")
         self.planetVeJuEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetVeJuEnabledForDeclinationLabel,
                    self.planetVeJuEnabledForDeclinationCheckBox)
 
@@ -3768,7 +4504,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeSa enabled:")
         self.planetVeSaEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetVeSaEnabledForDeclinationLabel,
                    self.planetVeSaEnabledForDeclinationCheckBox)
 
@@ -3776,15 +4512,47 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeUr enabled:")
         self.planetVeUrEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetVeUrEnabledForDeclinationLabel,
                    self.planetVeUrEnabledForDeclinationCheckBox)
+
+        self.planetSuMaEnabledForDeclinationLabel = \
+            QLabel("SuMa enabled:")
+        self.planetSuMaEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationFarRightFormLayout.\
+            addRow(self.planetSuMaEnabledForDeclinationLabel,
+                   self.planetSuMaEnabledForDeclinationCheckBox)
+
+        self.planetSuJuEnabledForDeclinationLabel = \
+            QLabel("SuJu enabled:")
+        self.planetSuJuEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationFarRightFormLayout.\
+            addRow(self.planetSuJuEnabledForDeclinationLabel,
+                   self.planetSuJuEnabledForDeclinationCheckBox)
+
+        self.planetSuSaEnabledForDeclinationLabel = \
+            QLabel("SuSa enabled:")
+        self.planetSuSaEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationFarRightFormLayout.\
+            addRow(self.planetSuSaEnabledForDeclinationLabel,
+                   self.planetSuSaEnabledForDeclinationCheckBox)
+
+        self.planetSuUrEnabledForDeclinationLabel = \
+            QLabel("SuUr enabled:")
+        self.planetSuUrEnabledForDeclinationCheckBox = \
+            QCheckBox()
+        planetEnabledForDeclinationFarRightFormLayout.\
+            addRow(self.planetSuUrEnabledForDeclinationLabel,
+                   self.planetSuUrEnabledForDeclinationCheckBox)
 
         self.planetEaMaEnabledForDeclinationLabel = \
             QLabel("EaMa enabled:")
         self.planetEaMaEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetEaMaEnabledForDeclinationLabel,
                    self.planetEaMaEnabledForDeclinationCheckBox)
 
@@ -3792,7 +4560,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaJu enabled:")
         self.planetEaJuEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetEaJuEnabledForDeclinationLabel,
                    self.planetEaJuEnabledForDeclinationCheckBox)
 
@@ -3800,7 +4568,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaSa enabled:")
         self.planetEaSaEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetEaSaEnabledForDeclinationLabel,
                    self.planetEaSaEnabledForDeclinationCheckBox)
 
@@ -3808,7 +4576,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaUr enabled:")
         self.planetEaUrEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetEaUrEnabledForDeclinationLabel,
                    self.planetEaUrEnabledForDeclinationCheckBox)
 
@@ -3816,7 +4584,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaJu enabled:")
         self.planetMaJuEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetMaJuEnabledForDeclinationLabel,
                    self.planetMaJuEnabledForDeclinationCheckBox)
 
@@ -3824,7 +4592,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaSa enabled:")
         self.planetMaSaEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetMaSaEnabledForDeclinationLabel,
                    self.planetMaSaEnabledForDeclinationCheckBox)
 
@@ -3832,7 +4600,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaUr enabled:")
         self.planetMaUrEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetMaUrEnabledForDeclinationLabel,
                    self.planetMaUrEnabledForDeclinationCheckBox)
 
@@ -3840,7 +4608,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("JuSa enabled:")
         self.planetJuSaEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetJuSaEnabledForDeclinationLabel,
                    self.planetJuSaEnabledForDeclinationCheckBox)
 
@@ -3848,7 +4616,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("JuUr enabled:")
         self.planetJuUrEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetJuUrEnabledForDeclinationLabel,
                    self.planetJuUrEnabledForDeclinationCheckBox)
 
@@ -3856,7 +4624,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("SaUr enabled:")
         self.planetSaUrEnabledForDeclinationCheckBox = \
             QCheckBox()
-        planetEnabledForDeclinationMidRightFormLayout.\
+        planetEnabledForDeclinationFarRightFormLayout.\
             addRow(self.planetSaUrEnabledForDeclinationLabel,
                    self.planetSaUrEnabledForDeclinationCheckBox)
 
@@ -4374,6 +5142,126 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetAsMoEnabledForLatitudeLabel,
                    self.planetAsMoEnabledForLatitudeCheckBox)
 
+        self.planetAsMeEnabledForLatitudeLabel = \
+            QLabel("AsMe enabled:")
+        self.planetAsMeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetAsMeEnabledForLatitudeLabel,
+                   self.planetAsMeEnabledForLatitudeCheckBox)
+
+        self.planetAsVeEnabledForLatitudeLabel = \
+            QLabel("AsVe enabled:")
+        self.planetAsVeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetAsVeEnabledForLatitudeLabel,
+                   self.planetAsVeEnabledForLatitudeCheckBox)
+
+        self.planetAsMaEnabledForLatitudeLabel = \
+            QLabel("AsMa enabled:")
+        self.planetAsMaEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetAsMaEnabledForLatitudeLabel,
+                   self.planetAsMaEnabledForLatitudeCheckBox)
+
+        self.planetAsJuEnabledForLatitudeLabel = \
+            QLabel("AsJu enabled:")
+        self.planetAsJuEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetAsJuEnabledForLatitudeLabel,
+                   self.planetAsJuEnabledForLatitudeCheckBox)
+
+        self.planetAsSaEnabledForLatitudeLabel = \
+            QLabel("AsSa enabled:")
+        self.planetAsSaEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetAsSaEnabledForLatitudeLabel,
+                   self.planetAsSaEnabledForLatitudeCheckBox)
+
+        self.planetAsUrEnabledForLatitudeLabel = \
+            QLabel("AsUr enabled:")
+        self.planetAsUrEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetAsUrEnabledForLatitudeLabel,
+                   self.planetAsUrEnabledForLatitudeCheckBox)
+
+        self.planetMoSuEnabledForLatitudeLabel = \
+            QLabel("MoSu enabled:")
+        self.planetMoSuEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetMoSuEnabledForLatitudeLabel,
+                   self.planetMoSuEnabledForLatitudeCheckBox)
+
+        self.planetMoMeEnabledForLatitudeLabel = \
+            QLabel("MoMe enabled:")
+        self.planetMoMeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetMoMeEnabledForLatitudeLabel,
+                   self.planetMoMeEnabledForLatitudeCheckBox)
+
+        self.planetMoVeEnabledForLatitudeLabel = \
+            QLabel("MoVe enabled:")
+        self.planetMoVeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetMoVeEnabledForLatitudeLabel,
+                   self.planetMoVeEnabledForLatitudeCheckBox)
+
+        self.planetMoMaEnabledForLatitudeLabel = \
+            QLabel("MoMa enabled:")
+        self.planetMoMaEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetMoMaEnabledForLatitudeLabel,
+                   self.planetMoMaEnabledForLatitudeCheckBox)
+
+        self.planetMoJuEnabledForLatitudeLabel = \
+            QLabel("MoJu enabled:")
+        self.planetMoJuEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetMoJuEnabledForLatitudeLabel,
+                   self.planetMoJuEnabledForLatitudeCheckBox)
+
+        self.planetMoSaEnabledForLatitudeLabel = \
+            QLabel("MoSa enabled:")
+        self.planetMoSaEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetMoSaEnabledForLatitudeLabel,
+                   self.planetMoSaEnabledForLatitudeCheckBox)
+
+        self.planetMoUrEnabledForLatitudeLabel = \
+            QLabel("MoUr enabled:")
+        self.planetMoUrEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetMoUrEnabledForLatitudeLabel,
+                   self.planetMoUrEnabledForLatitudeCheckBox)
+
+        self.planetAsTrueNorthNodeEnabledForLatitudeLabel = \
+            QLabel("AsTrueNorthNode enabled:")
+        self.planetAsTrueNorthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetAsTrueNorthNodeEnabledForLatitudeLabel,
+                   self.planetAsTrueNorthNodeEnabledForLatitudeCheckBox)
+
+        self.planetAsTrueSouthNodeEnabledForLatitudeLabel = \
+            QLabel("AsTrueSouthNode enabled:")
+        self.planetAsTrueSouthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetAsTrueSouthNodeEnabledForLatitudeLabel,
+                   self.planetAsTrueSouthNodeEnabledForLatitudeCheckBox)
+
         self.planetSunTrueNorthNodeEnabledForLatitudeLabel = \
             QLabel("SunTrueNorthNode enabled:")
         self.planetSunTrueNorthNodeEnabledForLatitudeCheckBox = \
@@ -4406,27 +5294,123 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetMoonTrueSouthNodeEnabledForLatitudeLabel,
                    self.planetMoonTrueSouthNodeEnabledForLatitudeCheckBox)
 
-        self.planetMoSuEnabledForLatitudeLabel = \
-            QLabel("MoSu enabled:")
-        self.planetMoSuEnabledForLatitudeCheckBox = \
+        self.planetMeTrueNorthNodeEnabledForLatitudeLabel = \
+            QLabel("MeTrueNorthNode enabled:")
+        self.planetMeTrueNorthNodeEnabledForLatitudeCheckBox = \
             QCheckBox()
         planetEnabledForLatitudeMidRightFormLayout.\
-            addRow(self.planetMoSuEnabledForLatitudeLabel,
-                   self.planetMoSuEnabledForLatitudeCheckBox)
+            addRow(self.planetMeTrueNorthNodeEnabledForLatitudeLabel,
+                   self.planetMeTrueNorthNodeEnabledForLatitudeCheckBox)
+
+        self.planetMeTrueSouthNodeEnabledForLatitudeLabel = \
+            QLabel("MeTrueSouthNode enabled:")
+        self.planetMeTrueSouthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetMeTrueSouthNodeEnabledForLatitudeLabel,
+                   self.planetMeTrueSouthNodeEnabledForLatitudeCheckBox)
+
+        self.planetVeTrueNorthNodeEnabledForLatitudeLabel = \
+            QLabel("VeTrueNorthNode enabled:")
+        self.planetVeTrueNorthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetVeTrueNorthNodeEnabledForLatitudeLabel,
+                   self.planetVeTrueNorthNodeEnabledForLatitudeCheckBox)
+
+        self.planetVeTrueSouthNodeEnabledForLatitudeLabel = \
+            QLabel("VeTrueSouthNode enabled:")
+        self.planetVeTrueSouthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetVeTrueSouthNodeEnabledForLatitudeLabel,
+                   self.planetVeTrueSouthNodeEnabledForLatitudeCheckBox)
+
+        self.planetMaTrueNorthNodeEnabledForLatitudeLabel = \
+            QLabel("MaTrueNorthNode enabled:")
+        self.planetMaTrueNorthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetMaTrueNorthNodeEnabledForLatitudeLabel,
+                   self.planetMaTrueNorthNodeEnabledForLatitudeCheckBox)
+
+        self.planetMaTrueSouthNodeEnabledForLatitudeLabel = \
+            QLabel("MaTrueSouthNode enabled:")
+        self.planetMaTrueSouthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetMaTrueSouthNodeEnabledForLatitudeLabel,
+                   self.planetMaTrueSouthNodeEnabledForLatitudeCheckBox)
+
+        self.planetJuTrueNorthNodeEnabledForLatitudeLabel = \
+            QLabel("JuTrueNorthNode enabled:")
+        self.planetJuTrueNorthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetJuTrueNorthNodeEnabledForLatitudeLabel,
+                   self.planetJuTrueNorthNodeEnabledForLatitudeCheckBox)
+
+        self.planetJuTrueSouthNodeEnabledForLatitudeLabel = \
+            QLabel("JuTrueSouthNode enabled:")
+        self.planetJuTrueSouthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetJuTrueSouthNodeEnabledForLatitudeLabel,
+                   self.planetJuTrueSouthNodeEnabledForLatitudeCheckBox)
+
+        self.planetSaTrueNorthNodeEnabledForLatitudeLabel = \
+            QLabel("SaTrueNorthNode enabled:")
+        self.planetSaTrueNorthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetSaTrueNorthNodeEnabledForLatitudeLabel,
+                   self.planetSaTrueNorthNodeEnabledForLatitudeCheckBox)
+
+        self.planetSaTrueSouthNodeEnabledForLatitudeLabel = \
+            QLabel("SaTrueSouthNode enabled:")
+        self.planetSaTrueSouthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetSaTrueSouthNodeEnabledForLatitudeLabel,
+                   self.planetSaTrueSouthNodeEnabledForLatitudeCheckBox)
+
+        self.planetUrTrueNorthNodeEnabledForLatitudeLabel = \
+            QLabel("UrTrueNorthNode enabled:")
+        self.planetUrTrueNorthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetUrTrueNorthNodeEnabledForLatitudeLabel,
+                   self.planetUrTrueNorthNodeEnabledForLatitudeCheckBox)
+
+        self.planetUrTrueSouthNodeEnabledForLatitudeLabel = \
+            QLabel("UrTrueSouthNode enabled:")
+        self.planetUrTrueSouthNodeEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeMidRightFormLayout.\
+            addRow(self.planetUrTrueSouthNodeEnabledForLatitudeLabel,
+                   self.planetUrTrueSouthNodeEnabledForLatitudeCheckBox)
 
         self.planetMeVeEnabledForLatitudeLabel = \
             QLabel("MeVe enabled:")
         self.planetMeVeEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetMeVeEnabledForLatitudeLabel,
                    self.planetMeVeEnabledForLatitudeCheckBox)
+
+        self.planetMeSuEnabledForLatitudeLabel = \
+            QLabel("MeSu enabled:")
+        self.planetMeSuEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeFarRightFormLayout.\
+            addRow(self.planetMeSuEnabledForLatitudeLabel,
+                   self.planetMeSuEnabledForLatitudeCheckBox)
 
         self.planetMeEaEnabledForLatitudeLabel = \
             QLabel("MeEa enabled:")
         self.planetMeEaEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetMeEaEnabledForLatitudeLabel,
                    self.planetMeEaEnabledForLatitudeCheckBox)
 
@@ -4434,7 +5418,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeMa enabled:")
         self.planetMeMaEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetMeMaEnabledForLatitudeLabel,
                    self.planetMeMaEnabledForLatitudeCheckBox)
 
@@ -4442,7 +5426,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeJu enabled:")
         self.planetMeJuEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetMeJuEnabledForLatitudeLabel,
                    self.planetMeJuEnabledForLatitudeCheckBox)
 
@@ -4450,7 +5434,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeSa enabled:")
         self.planetMeSaEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetMeSaEnabledForLatitudeLabel,
                    self.planetMeSaEnabledForLatitudeCheckBox)
 
@@ -4458,15 +5442,23 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeUr enabled:")
         self.planetMeUrEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetMeUrEnabledForLatitudeLabel,
                    self.planetMeUrEnabledForLatitudeCheckBox)
+
+        self.planetVeSuEnabledForLatitudeLabel = \
+            QLabel("VeSu enabled:")
+        self.planetVeSuEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeFarRightFormLayout.\
+            addRow(self.planetVeSuEnabledForLatitudeLabel,
+                   self.planetVeSuEnabledForLatitudeCheckBox)
 
         self.planetVeEaEnabledForLatitudeLabel = \
             QLabel("VeEa enabled:")
         self.planetVeEaEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetVeEaEnabledForLatitudeLabel,
                    self.planetVeEaEnabledForLatitudeCheckBox)
 
@@ -4474,7 +5466,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeMa enabled:")
         self.planetVeMaEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetVeMaEnabledForLatitudeLabel,
                    self.planetVeMaEnabledForLatitudeCheckBox)
 
@@ -4482,7 +5474,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeJu enabled:")
         self.planetVeJuEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetVeJuEnabledForLatitudeLabel,
                    self.planetVeJuEnabledForLatitudeCheckBox)
 
@@ -4490,7 +5482,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeSa enabled:")
         self.planetVeSaEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetVeSaEnabledForLatitudeLabel,
                    self.planetVeSaEnabledForLatitudeCheckBox)
 
@@ -4498,15 +5490,47 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeUr enabled:")
         self.planetVeUrEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetVeUrEnabledForLatitudeLabel,
                    self.planetVeUrEnabledForLatitudeCheckBox)
+
+        self.planetSuMaEnabledForLatitudeLabel = \
+            QLabel("SuMa enabled:")
+        self.planetSuMaEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeFarRightFormLayout.\
+            addRow(self.planetSuMaEnabledForLatitudeLabel,
+                   self.planetSuMaEnabledForLatitudeCheckBox)
+
+        self.planetSuJuEnabledForLatitudeLabel = \
+            QLabel("SuJu enabled:")
+        self.planetSuJuEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeFarRightFormLayout.\
+            addRow(self.planetSuJuEnabledForLatitudeLabel,
+                   self.planetSuJuEnabledForLatitudeCheckBox)
+
+        self.planetSuSaEnabledForLatitudeLabel = \
+            QLabel("SuSa enabled:")
+        self.planetSuSaEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeFarRightFormLayout.\
+            addRow(self.planetSuSaEnabledForLatitudeLabel,
+                   self.planetSuSaEnabledForLatitudeCheckBox)
+
+        self.planetSuUrEnabledForLatitudeLabel = \
+            QLabel("SuUr enabled:")
+        self.planetSuUrEnabledForLatitudeCheckBox = \
+            QCheckBox()
+        planetEnabledForLatitudeFarRightFormLayout.\
+            addRow(self.planetSuUrEnabledForLatitudeLabel,
+                   self.planetSuUrEnabledForLatitudeCheckBox)
 
         self.planetEaMaEnabledForLatitudeLabel = \
             QLabel("EaMa enabled:")
         self.planetEaMaEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetEaMaEnabledForLatitudeLabel,
                    self.planetEaMaEnabledForLatitudeCheckBox)
 
@@ -4514,7 +5538,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaJu enabled:")
         self.planetEaJuEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetEaJuEnabledForLatitudeLabel,
                    self.planetEaJuEnabledForLatitudeCheckBox)
 
@@ -4522,7 +5546,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaSa enabled:")
         self.planetEaSaEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetEaSaEnabledForLatitudeLabel,
                    self.planetEaSaEnabledForLatitudeCheckBox)
 
@@ -4530,7 +5554,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaUr enabled:")
         self.planetEaUrEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetEaUrEnabledForLatitudeLabel,
                    self.planetEaUrEnabledForLatitudeCheckBox)
 
@@ -4538,7 +5562,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaJu enabled:")
         self.planetMaJuEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetMaJuEnabledForLatitudeLabel,
                    self.planetMaJuEnabledForLatitudeCheckBox)
 
@@ -4546,7 +5570,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaSa enabled:")
         self.planetMaSaEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetMaSaEnabledForLatitudeLabel,
                    self.planetMaSaEnabledForLatitudeCheckBox)
 
@@ -4554,7 +5578,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaUr enabled:")
         self.planetMaUrEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetMaUrEnabledForLatitudeLabel,
                    self.planetMaUrEnabledForLatitudeCheckBox)
 
@@ -4562,7 +5586,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("JuSa enabled:")
         self.planetJuSaEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetJuSaEnabledForLatitudeLabel,
                    self.planetJuSaEnabledForLatitudeCheckBox)
 
@@ -4570,7 +5594,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("JuUr enabled:")
         self.planetJuUrEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetJuUrEnabledForLatitudeLabel,
                    self.planetJuUrEnabledForLatitudeCheckBox)
 
@@ -4578,7 +5602,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("SaUr enabled:")
         self.planetSaUrEnabledForLatitudeCheckBox = \
             QCheckBox()
-        planetEnabledForLatitudeMidRightFormLayout.\
+        planetEnabledForLatitudeFarRightFormLayout.\
             addRow(self.planetSaUrEnabledForLatitudeLabel,
                    self.planetSaUrEnabledForLatitudeCheckBox)
 
@@ -5096,6 +6120,126 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetAsMoEnabledForGeoSidRadixChartLabel,
                    self.planetAsMoEnabledForGeoSidRadixChartCheckBox)
 
+        self.planetAsMeEnabledForGeoSidRadixChartLabel = \
+            QLabel("AsMe enabled:")
+        self.planetAsMeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetAsMeEnabledForGeoSidRadixChartLabel,
+                   self.planetAsMeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetAsVeEnabledForGeoSidRadixChartLabel = \
+            QLabel("AsVe enabled:")
+        self.planetAsVeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetAsVeEnabledForGeoSidRadixChartLabel,
+                   self.planetAsVeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetAsMaEnabledForGeoSidRadixChartLabel = \
+            QLabel("AsMa enabled:")
+        self.planetAsMaEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetAsMaEnabledForGeoSidRadixChartLabel,
+                   self.planetAsMaEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetAsJuEnabledForGeoSidRadixChartLabel = \
+            QLabel("AsJu enabled:")
+        self.planetAsJuEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetAsJuEnabledForGeoSidRadixChartLabel,
+                   self.planetAsJuEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetAsSaEnabledForGeoSidRadixChartLabel = \
+            QLabel("AsSa enabled:")
+        self.planetAsSaEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetAsSaEnabledForGeoSidRadixChartLabel,
+                   self.planetAsSaEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetAsUrEnabledForGeoSidRadixChartLabel = \
+            QLabel("AsUr enabled:")
+        self.planetAsUrEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetAsUrEnabledForGeoSidRadixChartLabel,
+                   self.planetAsUrEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetMoSuEnabledForGeoSidRadixChartLabel = \
+            QLabel("MoSu enabled:")
+        self.planetMoSuEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetMoSuEnabledForGeoSidRadixChartLabel,
+                   self.planetMoSuEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetMoMeEnabledForGeoSidRadixChartLabel = \
+            QLabel("MoMe enabled:")
+        self.planetMoMeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetMoMeEnabledForGeoSidRadixChartLabel,
+                   self.planetMoMeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetMoVeEnabledForGeoSidRadixChartLabel = \
+            QLabel("MoVe enabled:")
+        self.planetMoVeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetMoVeEnabledForGeoSidRadixChartLabel,
+                   self.planetMoVeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetMoMaEnabledForGeoSidRadixChartLabel = \
+            QLabel("MoMa enabled:")
+        self.planetMoMaEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetMoMaEnabledForGeoSidRadixChartLabel,
+                   self.planetMoMaEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetMoJuEnabledForGeoSidRadixChartLabel = \
+            QLabel("MoJu enabled:")
+        self.planetMoJuEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetMoJuEnabledForGeoSidRadixChartLabel,
+                   self.planetMoJuEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetMoSaEnabledForGeoSidRadixChartLabel = \
+            QLabel("MoSa enabled:")
+        self.planetMoSaEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetMoSaEnabledForGeoSidRadixChartLabel,
+                   self.planetMoSaEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetMoUrEnabledForGeoSidRadixChartLabel = \
+            QLabel("MoUr enabled:")
+        self.planetMoUrEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetMoUrEnabledForGeoSidRadixChartLabel,
+                   self.planetMoUrEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetAsTrueNorthNodeEnabledForGeoSidRadixChartLabel = \
+            QLabel("AsTrueNorthNode enabled:")
+        self.planetAsTrueNorthNodeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetAsTrueNorthNodeEnabledForGeoSidRadixChartLabel,
+                   self.planetAsTrueNorthNodeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetAsTrueSouthNodeEnabledForGeoSidRadixChartLabel = \
+            QLabel("AsTrueSouthNode enabled:")
+        self.planetAsTrueSouthNodeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetAsTrueSouthNodeEnabledForGeoSidRadixChartLabel,
+                   self.planetAsTrueSouthNodeEnabledForGeoSidRadixChartCheckBox)
+
         self.planetSunTrueNorthNodeEnabledForGeoSidRadixChartLabel = \
             QLabel("SunTrueNorthNode enabled:")
         self.planetSunTrueNorthNodeEnabledForGeoSidRadixChartCheckBox = \
@@ -5128,27 +6272,123 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetMoonTrueSouthNodeEnabledForGeoSidRadixChartLabel,
                    self.planetMoonTrueSouthNodeEnabledForGeoSidRadixChartCheckBox)
 
-        self.planetMoSuEnabledForGeoSidRadixChartLabel = \
-            QLabel("MoSu enabled:")
-        self.planetMoSuEnabledForGeoSidRadixChartCheckBox = \
+        self.planetMeTrueNorthNodeEnabledForGeoSidRadixChartLabel = \
+            QLabel("MeTrueNorthNode enabled:")
+        self.planetMeTrueNorthNodeEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
         planetEnabledForGeoSidRadixChartMidRightFormLayout.\
-            addRow(self.planetMoSuEnabledForGeoSidRadixChartLabel,
-                   self.planetMoSuEnabledForGeoSidRadixChartCheckBox)
+            addRow(self.planetMeTrueNorthNodeEnabledForGeoSidRadixChartLabel,
+                   self.planetMeTrueNorthNodeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetMeTrueSouthNodeEnabledForGeoSidRadixChartLabel = \
+            QLabel("MeTrueSouthNode enabled:")
+        self.planetMeTrueSouthNodeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetMeTrueSouthNodeEnabledForGeoSidRadixChartLabel,
+                   self.planetMeTrueSouthNodeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetVeTrueNorthNodeEnabledForGeoSidRadixChartLabel = \
+            QLabel("VeTrueNorthNode enabled:")
+        self.planetVeTrueNorthNodeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetVeTrueNorthNodeEnabledForGeoSidRadixChartLabel,
+                   self.planetVeTrueNorthNodeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetVeTrueSouthNodeEnabledForGeoSidRadixChartLabel = \
+            QLabel("VeTrueSouthNode enabled:")
+        self.planetVeTrueSouthNodeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetVeTrueSouthNodeEnabledForGeoSidRadixChartLabel,
+                   self.planetVeTrueSouthNodeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetMaTrueNorthNodeEnabledForGeoSidRadixChartLabel = \
+            QLabel("MaTrueNorthNode enabled:")
+        self.planetMaTrueNorthNodeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetMaTrueNorthNodeEnabledForGeoSidRadixChartLabel,
+                   self.planetMaTrueNorthNodeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetMaTrueSouthNodeEnabledForGeoSidRadixChartLabel = \
+            QLabel("MaTrueSouthNode enabled:")
+        self.planetMaTrueSouthNodeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetMaTrueSouthNodeEnabledForGeoSidRadixChartLabel,
+                   self.planetMaTrueSouthNodeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetJuTrueNorthNodeEnabledForGeoSidRadixChartLabel = \
+            QLabel("JuTrueNorthNode enabled:")
+        self.planetJuTrueNorthNodeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetJuTrueNorthNodeEnabledForGeoSidRadixChartLabel,
+                   self.planetJuTrueNorthNodeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetJuTrueSouthNodeEnabledForGeoSidRadixChartLabel = \
+            QLabel("JuTrueSouthNode enabled:")
+        self.planetJuTrueSouthNodeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetJuTrueSouthNodeEnabledForGeoSidRadixChartLabel,
+                   self.planetJuTrueSouthNodeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetSaTrueNorthNodeEnabledForGeoSidRadixChartLabel = \
+            QLabel("SaTrueNorthNode enabled:")
+        self.planetSaTrueNorthNodeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetSaTrueNorthNodeEnabledForGeoSidRadixChartLabel,
+                   self.planetSaTrueNorthNodeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetSaTrueSouthNodeEnabledForGeoSidRadixChartLabel = \
+            QLabel("SaTrueSouthNode enabled:")
+        self.planetSaTrueSouthNodeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetSaTrueSouthNodeEnabledForGeoSidRadixChartLabel,
+                   self.planetSaTrueSouthNodeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetUrTrueNorthNodeEnabledForGeoSidRadixChartLabel = \
+            QLabel("UrTrueNorthNode enabled:")
+        self.planetUrTrueNorthNodeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetUrTrueNorthNodeEnabledForGeoSidRadixChartLabel,
+                   self.planetUrTrueNorthNodeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetUrTrueSouthNodeEnabledForGeoSidRadixChartLabel = \
+            QLabel("UrTrueSouthNode enabled:")
+        self.planetUrTrueSouthNodeEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+            addRow(self.planetUrTrueSouthNodeEnabledForGeoSidRadixChartLabel,
+                   self.planetUrTrueSouthNodeEnabledForGeoSidRadixChartCheckBox)
 
         self.planetMeVeEnabledForGeoSidRadixChartLabel = \
             QLabel("MeVe enabled:")
         self.planetMeVeEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetMeVeEnabledForGeoSidRadixChartLabel,
                    self.planetMeVeEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetMeSuEnabledForGeoSidRadixChartLabel = \
+            QLabel("MeSu enabled:")
+        self.planetMeSuEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
+            addRow(self.planetMeSuEnabledForGeoSidRadixChartLabel,
+                   self.planetMeSuEnabledForGeoSidRadixChartCheckBox)
 
         self.planetMeEaEnabledForGeoSidRadixChartLabel = \
             QLabel("MeEa enabled:")
         self.planetMeEaEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetMeEaEnabledForGeoSidRadixChartLabel,
                    self.planetMeEaEnabledForGeoSidRadixChartCheckBox)
 
@@ -5156,7 +6396,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeMa enabled:")
         self.planetMeMaEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetMeMaEnabledForGeoSidRadixChartLabel,
                    self.planetMeMaEnabledForGeoSidRadixChartCheckBox)
 
@@ -5164,7 +6404,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeJu enabled:")
         self.planetMeJuEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetMeJuEnabledForGeoSidRadixChartLabel,
                    self.planetMeJuEnabledForGeoSidRadixChartCheckBox)
 
@@ -5172,7 +6412,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeSa enabled:")
         self.planetMeSaEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetMeSaEnabledForGeoSidRadixChartLabel,
                    self.planetMeSaEnabledForGeoSidRadixChartCheckBox)
 
@@ -5180,15 +6420,23 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeUr enabled:")
         self.planetMeUrEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetMeUrEnabledForGeoSidRadixChartLabel,
                    self.planetMeUrEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetVeSuEnabledForGeoSidRadixChartLabel = \
+            QLabel("VeSu enabled:")
+        self.planetVeSuEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
+            addRow(self.planetVeSuEnabledForGeoSidRadixChartLabel,
+                   self.planetVeSuEnabledForGeoSidRadixChartCheckBox)
 
         self.planetVeEaEnabledForGeoSidRadixChartLabel = \
             QLabel("VeEa enabled:")
         self.planetVeEaEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetVeEaEnabledForGeoSidRadixChartLabel,
                    self.planetVeEaEnabledForGeoSidRadixChartCheckBox)
 
@@ -5196,7 +6444,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeMa enabled:")
         self.planetVeMaEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetVeMaEnabledForGeoSidRadixChartLabel,
                    self.planetVeMaEnabledForGeoSidRadixChartCheckBox)
 
@@ -5204,7 +6452,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeJu enabled:")
         self.planetVeJuEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetVeJuEnabledForGeoSidRadixChartLabel,
                    self.planetVeJuEnabledForGeoSidRadixChartCheckBox)
 
@@ -5212,7 +6460,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeSa enabled:")
         self.planetVeSaEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetVeSaEnabledForGeoSidRadixChartLabel,
                    self.planetVeSaEnabledForGeoSidRadixChartCheckBox)
 
@@ -5220,15 +6468,47 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeUr enabled:")
         self.planetVeUrEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetVeUrEnabledForGeoSidRadixChartLabel,
                    self.planetVeUrEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetSuMaEnabledForGeoSidRadixChartLabel = \
+            QLabel("SuMa enabled:")
+        self.planetSuMaEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
+            addRow(self.planetSuMaEnabledForGeoSidRadixChartLabel,
+                   self.planetSuMaEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetSuJuEnabledForGeoSidRadixChartLabel = \
+            QLabel("SuJu enabled:")
+        self.planetSuJuEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
+            addRow(self.planetSuJuEnabledForGeoSidRadixChartLabel,
+                   self.planetSuJuEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetSuSaEnabledForGeoSidRadixChartLabel = \
+            QLabel("SuSa enabled:")
+        self.planetSuSaEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
+            addRow(self.planetSuSaEnabledForGeoSidRadixChartLabel,
+                   self.planetSuSaEnabledForGeoSidRadixChartCheckBox)
+
+        self.planetSuUrEnabledForGeoSidRadixChartLabel = \
+            QLabel("SuUr enabled:")
+        self.planetSuUrEnabledForGeoSidRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
+            addRow(self.planetSuUrEnabledForGeoSidRadixChartLabel,
+                   self.planetSuUrEnabledForGeoSidRadixChartCheckBox)
 
         self.planetEaMaEnabledForGeoSidRadixChartLabel = \
             QLabel("EaMa enabled:")
         self.planetEaMaEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetEaMaEnabledForGeoSidRadixChartLabel,
                    self.planetEaMaEnabledForGeoSidRadixChartCheckBox)
 
@@ -5236,7 +6516,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaJu enabled:")
         self.planetEaJuEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetEaJuEnabledForGeoSidRadixChartLabel,
                    self.planetEaJuEnabledForGeoSidRadixChartCheckBox)
 
@@ -5244,7 +6524,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaSa enabled:")
         self.planetEaSaEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetEaSaEnabledForGeoSidRadixChartLabel,
                    self.planetEaSaEnabledForGeoSidRadixChartCheckBox)
 
@@ -5252,7 +6532,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaUr enabled:")
         self.planetEaUrEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetEaUrEnabledForGeoSidRadixChartLabel,
                    self.planetEaUrEnabledForGeoSidRadixChartCheckBox)
 
@@ -5260,7 +6540,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaJu enabled:")
         self.planetMaJuEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetMaJuEnabledForGeoSidRadixChartLabel,
                    self.planetMaJuEnabledForGeoSidRadixChartCheckBox)
 
@@ -5268,7 +6548,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaSa enabled:")
         self.planetMaSaEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetMaSaEnabledForGeoSidRadixChartLabel,
                    self.planetMaSaEnabledForGeoSidRadixChartCheckBox)
 
@@ -5276,7 +6556,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaUr enabled:")
         self.planetMaUrEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetMaUrEnabledForGeoSidRadixChartLabel,
                    self.planetMaUrEnabledForGeoSidRadixChartCheckBox)
 
@@ -5284,7 +6564,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("JuSa enabled:")
         self.planetJuSaEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetJuSaEnabledForGeoSidRadixChartLabel,
                    self.planetJuSaEnabledForGeoSidRadixChartCheckBox)
 
@@ -5292,7 +6572,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("JuUr enabled:")
         self.planetJuUrEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetJuUrEnabledForGeoSidRadixChartLabel,
                    self.planetJuUrEnabledForGeoSidRadixChartCheckBox)
 
@@ -5300,7 +6580,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("SaUr enabled:")
         self.planetSaUrEnabledForGeoSidRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoSidRadixChartMidRightFormLayout.\
+        planetEnabledForGeoSidRadixChartFarRightFormLayout.\
             addRow(self.planetSaUrEnabledForGeoSidRadixChartLabel,
                    self.planetSaUrEnabledForGeoSidRadixChartCheckBox)
 
@@ -5818,6 +7098,126 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetAsMoEnabledForGeoTropRadixChartLabel,
                    self.planetAsMoEnabledForGeoTropRadixChartCheckBox)
 
+        self.planetAsMeEnabledForGeoTropRadixChartLabel = \
+            QLabel("AsMe enabled:")
+        self.planetAsMeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsMeEnabledForGeoTropRadixChartLabel,
+                   self.planetAsMeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetAsVeEnabledForGeoTropRadixChartLabel = \
+            QLabel("AsVe enabled:")
+        self.planetAsVeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsVeEnabledForGeoTropRadixChartLabel,
+                   self.planetAsVeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetAsMaEnabledForGeoTropRadixChartLabel = \
+            QLabel("AsMa enabled:")
+        self.planetAsMaEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsMaEnabledForGeoTropRadixChartLabel,
+                   self.planetAsMaEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetAsJuEnabledForGeoTropRadixChartLabel = \
+            QLabel("AsJu enabled:")
+        self.planetAsJuEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsJuEnabledForGeoTropRadixChartLabel,
+                   self.planetAsJuEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetAsSaEnabledForGeoTropRadixChartLabel = \
+            QLabel("AsSa enabled:")
+        self.planetAsSaEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsSaEnabledForGeoTropRadixChartLabel,
+                   self.planetAsSaEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetAsUrEnabledForGeoTropRadixChartLabel = \
+            QLabel("AsUr enabled:")
+        self.planetAsUrEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsUrEnabledForGeoTropRadixChartLabel,
+                   self.planetAsUrEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetMoSuEnabledForGeoTropRadixChartLabel = \
+            QLabel("MoSu enabled:")
+        self.planetMoSuEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMoSuEnabledForGeoTropRadixChartLabel,
+                   self.planetMoSuEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetMoMeEnabledForGeoTropRadixChartLabel = \
+            QLabel("MoMe enabled:")
+        self.planetMoMeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMoMeEnabledForGeoTropRadixChartLabel,
+                   self.planetMoMeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetMoVeEnabledForGeoTropRadixChartLabel = \
+            QLabel("MoVe enabled:")
+        self.planetMoVeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMoVeEnabledForGeoTropRadixChartLabel,
+                   self.planetMoVeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetMoMaEnabledForGeoTropRadixChartLabel = \
+            QLabel("MoMa enabled:")
+        self.planetMoMaEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMoMaEnabledForGeoTropRadixChartLabel,
+                   self.planetMoMaEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetMoJuEnabledForGeoTropRadixChartLabel = \
+            QLabel("MoJu enabled:")
+        self.planetMoJuEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMoJuEnabledForGeoTropRadixChartLabel,
+                   self.planetMoJuEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetMoSaEnabledForGeoTropRadixChartLabel = \
+            QLabel("MoSa enabled:")
+        self.planetMoSaEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMoSaEnabledForGeoTropRadixChartLabel,
+                   self.planetMoSaEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetMoUrEnabledForGeoTropRadixChartLabel = \
+            QLabel("MoUr enabled:")
+        self.planetMoUrEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMoUrEnabledForGeoTropRadixChartLabel,
+                   self.planetMoUrEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetAsTrueNorthNodeEnabledForGeoTropRadixChartLabel = \
+            QLabel("AsTrueNorthNode enabled:")
+        self.planetAsTrueNorthNodeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsTrueNorthNodeEnabledForGeoTropRadixChartLabel,
+                   self.planetAsTrueNorthNodeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetAsTrueSouthNodeEnabledForGeoTropRadixChartLabel = \
+            QLabel("AsTrueSouthNode enabled:")
+        self.planetAsTrueSouthNodeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsTrueSouthNodeEnabledForGeoTropRadixChartLabel,
+                   self.planetAsTrueSouthNodeEnabledForGeoTropRadixChartCheckBox)
+
         self.planetSunTrueNorthNodeEnabledForGeoTropRadixChartLabel = \
             QLabel("SunTrueNorthNode enabled:")
         self.planetSunTrueNorthNodeEnabledForGeoTropRadixChartCheckBox = \
@@ -5850,27 +7250,123 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetMoonTrueSouthNodeEnabledForGeoTropRadixChartLabel,
                    self.planetMoonTrueSouthNodeEnabledForGeoTropRadixChartCheckBox)
 
-        self.planetMoSuEnabledForGeoTropRadixChartLabel = \
-            QLabel("MoSu enabled:")
-        self.planetMoSuEnabledForGeoTropRadixChartCheckBox = \
+        self.planetMeTrueNorthNodeEnabledForGeoTropRadixChartLabel = \
+            QLabel("MeTrueNorthNode enabled:")
+        self.planetMeTrueNorthNodeEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
         planetEnabledForGeoTropRadixChartMidRightFormLayout.\
-            addRow(self.planetMoSuEnabledForGeoTropRadixChartLabel,
-                   self.planetMoSuEnabledForGeoTropRadixChartCheckBox)
+            addRow(self.planetMeTrueNorthNodeEnabledForGeoTropRadixChartLabel,
+                   self.planetMeTrueNorthNodeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetMeTrueSouthNodeEnabledForGeoTropRadixChartLabel = \
+            QLabel("MeTrueSouthNode enabled:")
+        self.planetMeTrueSouthNodeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMeTrueSouthNodeEnabledForGeoTropRadixChartLabel,
+                   self.planetMeTrueSouthNodeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetVeTrueNorthNodeEnabledForGeoTropRadixChartLabel = \
+            QLabel("VeTrueNorthNode enabled:")
+        self.planetVeTrueNorthNodeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetVeTrueNorthNodeEnabledForGeoTropRadixChartLabel,
+                   self.planetVeTrueNorthNodeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetVeTrueSouthNodeEnabledForGeoTropRadixChartLabel = \
+            QLabel("VeTrueSouthNode enabled:")
+        self.planetVeTrueSouthNodeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetVeTrueSouthNodeEnabledForGeoTropRadixChartLabel,
+                   self.planetVeTrueSouthNodeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetMaTrueNorthNodeEnabledForGeoTropRadixChartLabel = \
+            QLabel("MaTrueNorthNode enabled:")
+        self.planetMaTrueNorthNodeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMaTrueNorthNodeEnabledForGeoTropRadixChartLabel,
+                   self.planetMaTrueNorthNodeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetMaTrueSouthNodeEnabledForGeoTropRadixChartLabel = \
+            QLabel("MaTrueSouthNode enabled:")
+        self.planetMaTrueSouthNodeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMaTrueSouthNodeEnabledForGeoTropRadixChartLabel,
+                   self.planetMaTrueSouthNodeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetJuTrueNorthNodeEnabledForGeoTropRadixChartLabel = \
+            QLabel("JuTrueNorthNode enabled:")
+        self.planetJuTrueNorthNodeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetJuTrueNorthNodeEnabledForGeoTropRadixChartLabel,
+                   self.planetJuTrueNorthNodeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetJuTrueSouthNodeEnabledForGeoTropRadixChartLabel = \
+            QLabel("JuTrueSouthNode enabled:")
+        self.planetJuTrueSouthNodeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetJuTrueSouthNodeEnabledForGeoTropRadixChartLabel,
+                   self.planetJuTrueSouthNodeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetSaTrueNorthNodeEnabledForGeoTropRadixChartLabel = \
+            QLabel("SaTrueNorthNode enabled:")
+        self.planetSaTrueNorthNodeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetSaTrueNorthNodeEnabledForGeoTropRadixChartLabel,
+                   self.planetSaTrueNorthNodeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetSaTrueSouthNodeEnabledForGeoTropRadixChartLabel = \
+            QLabel("SaTrueSouthNode enabled:")
+        self.planetSaTrueSouthNodeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetSaTrueSouthNodeEnabledForGeoTropRadixChartLabel,
+                   self.planetSaTrueSouthNodeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetUrTrueNorthNodeEnabledForGeoTropRadixChartLabel = \
+            QLabel("UrTrueNorthNode enabled:")
+        self.planetUrTrueNorthNodeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetUrTrueNorthNodeEnabledForGeoTropRadixChartLabel,
+                   self.planetUrTrueNorthNodeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetUrTrueSouthNodeEnabledForGeoTropRadixChartLabel = \
+            QLabel("UrTrueSouthNode enabled:")
+        self.planetUrTrueSouthNodeEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+            addRow(self.planetUrTrueSouthNodeEnabledForGeoTropRadixChartLabel,
+                   self.planetUrTrueSouthNodeEnabledForGeoTropRadixChartCheckBox)
 
         self.planetMeVeEnabledForGeoTropRadixChartLabel = \
             QLabel("MeVe enabled:")
         self.planetMeVeEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetMeVeEnabledForGeoTropRadixChartLabel,
                    self.planetMeVeEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetMeSuEnabledForGeoTropRadixChartLabel = \
+            QLabel("MeSu enabled:")
+        self.planetMeSuEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
+            addRow(self.planetMeSuEnabledForGeoTropRadixChartLabel,
+                   self.planetMeSuEnabledForGeoTropRadixChartCheckBox)
 
         self.planetMeEaEnabledForGeoTropRadixChartLabel = \
             QLabel("MeEa enabled:")
         self.planetMeEaEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetMeEaEnabledForGeoTropRadixChartLabel,
                    self.planetMeEaEnabledForGeoTropRadixChartCheckBox)
 
@@ -5878,7 +7374,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeMa enabled:")
         self.planetMeMaEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetMeMaEnabledForGeoTropRadixChartLabel,
                    self.planetMeMaEnabledForGeoTropRadixChartCheckBox)
 
@@ -5886,7 +7382,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeJu enabled:")
         self.planetMeJuEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetMeJuEnabledForGeoTropRadixChartLabel,
                    self.planetMeJuEnabledForGeoTropRadixChartCheckBox)
 
@@ -5894,7 +7390,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeSa enabled:")
         self.planetMeSaEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetMeSaEnabledForGeoTropRadixChartLabel,
                    self.planetMeSaEnabledForGeoTropRadixChartCheckBox)
 
@@ -5902,15 +7398,23 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeUr enabled:")
         self.planetMeUrEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetMeUrEnabledForGeoTropRadixChartLabel,
                    self.planetMeUrEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetVeSuEnabledForGeoTropRadixChartLabel = \
+            QLabel("VeSu enabled:")
+        self.planetVeSuEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
+            addRow(self.planetVeSuEnabledForGeoTropRadixChartLabel,
+                   self.planetVeSuEnabledForGeoTropRadixChartCheckBox)
 
         self.planetVeEaEnabledForGeoTropRadixChartLabel = \
             QLabel("VeEa enabled:")
         self.planetVeEaEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetVeEaEnabledForGeoTropRadixChartLabel,
                    self.planetVeEaEnabledForGeoTropRadixChartCheckBox)
 
@@ -5918,7 +7422,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeMa enabled:")
         self.planetVeMaEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetVeMaEnabledForGeoTropRadixChartLabel,
                    self.planetVeMaEnabledForGeoTropRadixChartCheckBox)
 
@@ -5926,7 +7430,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeJu enabled:")
         self.planetVeJuEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetVeJuEnabledForGeoTropRadixChartLabel,
                    self.planetVeJuEnabledForGeoTropRadixChartCheckBox)
 
@@ -5934,7 +7438,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeSa enabled:")
         self.planetVeSaEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetVeSaEnabledForGeoTropRadixChartLabel,
                    self.planetVeSaEnabledForGeoTropRadixChartCheckBox)
 
@@ -5942,15 +7446,47 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeUr enabled:")
         self.planetVeUrEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetVeUrEnabledForGeoTropRadixChartLabel,
                    self.planetVeUrEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetSuMaEnabledForGeoTropRadixChartLabel = \
+            QLabel("SuMa enabled:")
+        self.planetSuMaEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
+            addRow(self.planetSuMaEnabledForGeoTropRadixChartLabel,
+                   self.planetSuMaEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetSuJuEnabledForGeoTropRadixChartLabel = \
+            QLabel("SuJu enabled:")
+        self.planetSuJuEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
+            addRow(self.planetSuJuEnabledForGeoTropRadixChartLabel,
+                   self.planetSuJuEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetSuSaEnabledForGeoTropRadixChartLabel = \
+            QLabel("SuSa enabled:")
+        self.planetSuSaEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
+            addRow(self.planetSuSaEnabledForGeoTropRadixChartLabel,
+                   self.planetSuSaEnabledForGeoTropRadixChartCheckBox)
+
+        self.planetSuUrEnabledForGeoTropRadixChartLabel = \
+            QLabel("SuUr enabled:")
+        self.planetSuUrEnabledForGeoTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
+            addRow(self.planetSuUrEnabledForGeoTropRadixChartLabel,
+                   self.planetSuUrEnabledForGeoTropRadixChartCheckBox)
 
         self.planetEaMaEnabledForGeoTropRadixChartLabel = \
             QLabel("EaMa enabled:")
         self.planetEaMaEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetEaMaEnabledForGeoTropRadixChartLabel,
                    self.planetEaMaEnabledForGeoTropRadixChartCheckBox)
 
@@ -5958,7 +7494,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaJu enabled:")
         self.planetEaJuEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetEaJuEnabledForGeoTropRadixChartLabel,
                    self.planetEaJuEnabledForGeoTropRadixChartCheckBox)
 
@@ -5966,7 +7502,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaSa enabled:")
         self.planetEaSaEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetEaSaEnabledForGeoTropRadixChartLabel,
                    self.planetEaSaEnabledForGeoTropRadixChartCheckBox)
 
@@ -5974,7 +7510,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaUr enabled:")
         self.planetEaUrEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetEaUrEnabledForGeoTropRadixChartLabel,
                    self.planetEaUrEnabledForGeoTropRadixChartCheckBox)
 
@@ -5982,7 +7518,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaJu enabled:")
         self.planetMaJuEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetMaJuEnabledForGeoTropRadixChartLabel,
                    self.planetMaJuEnabledForGeoTropRadixChartCheckBox)
 
@@ -5990,7 +7526,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaSa enabled:")
         self.planetMaSaEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetMaSaEnabledForGeoTropRadixChartLabel,
                    self.planetMaSaEnabledForGeoTropRadixChartCheckBox)
 
@@ -5998,7 +7534,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaUr enabled:")
         self.planetMaUrEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetMaUrEnabledForGeoTropRadixChartLabel,
                    self.planetMaUrEnabledForGeoTropRadixChartCheckBox)
 
@@ -6006,7 +7542,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("JuSa enabled:")
         self.planetJuSaEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetJuSaEnabledForGeoTropRadixChartLabel,
                    self.planetJuSaEnabledForGeoTropRadixChartCheckBox)
 
@@ -6014,7 +7550,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("JuUr enabled:")
         self.planetJuUrEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetJuUrEnabledForGeoTropRadixChartLabel,
                    self.planetJuUrEnabledForGeoTropRadixChartCheckBox)
 
@@ -6022,7 +7558,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("SaUr enabled:")
         self.planetSaUrEnabledForGeoTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForGeoTropRadixChartMidRightFormLayout.\
+        planetEnabledForGeoTropRadixChartFarRightFormLayout.\
             addRow(self.planetSaUrEnabledForGeoTropRadixChartLabel,
                    self.planetSaUrEnabledForGeoTropRadixChartCheckBox)
 
@@ -6540,6 +8076,126 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetAsMoEnabledForHelioTropRadixChartLabel,
                    self.planetAsMoEnabledForHelioTropRadixChartCheckBox)
 
+        self.planetAsMeEnabledForHelioTropRadixChartLabel = \
+            QLabel("AsMe enabled:")
+        self.planetAsMeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsMeEnabledForHelioTropRadixChartLabel,
+                   self.planetAsMeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetAsVeEnabledForHelioTropRadixChartLabel = \
+            QLabel("AsVe enabled:")
+        self.planetAsVeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsVeEnabledForHelioTropRadixChartLabel,
+                   self.planetAsVeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetAsMaEnabledForHelioTropRadixChartLabel = \
+            QLabel("AsMa enabled:")
+        self.planetAsMaEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsMaEnabledForHelioTropRadixChartLabel,
+                   self.planetAsMaEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetAsJuEnabledForHelioTropRadixChartLabel = \
+            QLabel("AsJu enabled:")
+        self.planetAsJuEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsJuEnabledForHelioTropRadixChartLabel,
+                   self.planetAsJuEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetAsSaEnabledForHelioTropRadixChartLabel = \
+            QLabel("AsSa enabled:")
+        self.planetAsSaEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsSaEnabledForHelioTropRadixChartLabel,
+                   self.planetAsSaEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetAsUrEnabledForHelioTropRadixChartLabel = \
+            QLabel("AsUr enabled:")
+        self.planetAsUrEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsUrEnabledForHelioTropRadixChartLabel,
+                   self.planetAsUrEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetMoSuEnabledForHelioTropRadixChartLabel = \
+            QLabel("MoSu enabled:")
+        self.planetMoSuEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMoSuEnabledForHelioTropRadixChartLabel,
+                   self.planetMoSuEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetMoMeEnabledForHelioTropRadixChartLabel = \
+            QLabel("MoMe enabled:")
+        self.planetMoMeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMoMeEnabledForHelioTropRadixChartLabel,
+                   self.planetMoMeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetMoVeEnabledForHelioTropRadixChartLabel = \
+            QLabel("MoVe enabled:")
+        self.planetMoVeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMoVeEnabledForHelioTropRadixChartLabel,
+                   self.planetMoVeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetMoMaEnabledForHelioTropRadixChartLabel = \
+            QLabel("MoMa enabled:")
+        self.planetMoMaEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMoMaEnabledForHelioTropRadixChartLabel,
+                   self.planetMoMaEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetMoJuEnabledForHelioTropRadixChartLabel = \
+            QLabel("MoJu enabled:")
+        self.planetMoJuEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMoJuEnabledForHelioTropRadixChartLabel,
+                   self.planetMoJuEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetMoSaEnabledForHelioTropRadixChartLabel = \
+            QLabel("MoSa enabled:")
+        self.planetMoSaEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMoSaEnabledForHelioTropRadixChartLabel,
+                   self.planetMoSaEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetMoUrEnabledForHelioTropRadixChartLabel = \
+            QLabel("MoUr enabled:")
+        self.planetMoUrEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMoUrEnabledForHelioTropRadixChartLabel,
+                   self.planetMoUrEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetAsTrueNorthNodeEnabledForHelioTropRadixChartLabel = \
+            QLabel("AsTrueNorthNode enabled:")
+        self.planetAsTrueNorthNodeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsTrueNorthNodeEnabledForHelioTropRadixChartLabel,
+                   self.planetAsTrueNorthNodeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetAsTrueSouthNodeEnabledForHelioTropRadixChartLabel = \
+            QLabel("AsTrueSouthNode enabled:")
+        self.planetAsTrueSouthNodeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetAsTrueSouthNodeEnabledForHelioTropRadixChartLabel,
+                   self.planetAsTrueSouthNodeEnabledForHelioTropRadixChartCheckBox)
+
         self.planetSunTrueNorthNodeEnabledForHelioTropRadixChartLabel = \
             QLabel("SunTrueNorthNode enabled:")
         self.planetSunTrueNorthNodeEnabledForHelioTropRadixChartCheckBox = \
@@ -6572,27 +8228,123 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetMoonTrueSouthNodeEnabledForHelioTropRadixChartLabel,
                    self.planetMoonTrueSouthNodeEnabledForHelioTropRadixChartCheckBox)
 
-        self.planetMoSuEnabledForHelioTropRadixChartLabel = \
-            QLabel("MoSu enabled:")
-        self.planetMoSuEnabledForHelioTropRadixChartCheckBox = \
+        self.planetMeTrueNorthNodeEnabledForHelioTropRadixChartLabel = \
+            QLabel("MeTrueNorthNode enabled:")
+        self.planetMeTrueNorthNodeEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
         planetEnabledForHelioTropRadixChartMidRightFormLayout.\
-            addRow(self.planetMoSuEnabledForHelioTropRadixChartLabel,
-                   self.planetMoSuEnabledForHelioTropRadixChartCheckBox)
+            addRow(self.planetMeTrueNorthNodeEnabledForHelioTropRadixChartLabel,
+                   self.planetMeTrueNorthNodeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetMeTrueSouthNodeEnabledForHelioTropRadixChartLabel = \
+            QLabel("MeTrueSouthNode enabled:")
+        self.planetMeTrueSouthNodeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMeTrueSouthNodeEnabledForHelioTropRadixChartLabel,
+                   self.planetMeTrueSouthNodeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetVeTrueNorthNodeEnabledForHelioTropRadixChartLabel = \
+            QLabel("VeTrueNorthNode enabled:")
+        self.planetVeTrueNorthNodeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetVeTrueNorthNodeEnabledForHelioTropRadixChartLabel,
+                   self.planetVeTrueNorthNodeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetVeTrueSouthNodeEnabledForHelioTropRadixChartLabel = \
+            QLabel("VeTrueSouthNode enabled:")
+        self.planetVeTrueSouthNodeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetVeTrueSouthNodeEnabledForHelioTropRadixChartLabel,
+                   self.planetVeTrueSouthNodeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetMaTrueNorthNodeEnabledForHelioTropRadixChartLabel = \
+            QLabel("MaTrueNorthNode enabled:")
+        self.planetMaTrueNorthNodeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMaTrueNorthNodeEnabledForHelioTropRadixChartLabel,
+                   self.planetMaTrueNorthNodeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetMaTrueSouthNodeEnabledForHelioTropRadixChartLabel = \
+            QLabel("MaTrueSouthNode enabled:")
+        self.planetMaTrueSouthNodeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetMaTrueSouthNodeEnabledForHelioTropRadixChartLabel,
+                   self.planetMaTrueSouthNodeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetJuTrueNorthNodeEnabledForHelioTropRadixChartLabel = \
+            QLabel("JuTrueNorthNode enabled:")
+        self.planetJuTrueNorthNodeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetJuTrueNorthNodeEnabledForHelioTropRadixChartLabel,
+                   self.planetJuTrueNorthNodeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetJuTrueSouthNodeEnabledForHelioTropRadixChartLabel = \
+            QLabel("JuTrueSouthNode enabled:")
+        self.planetJuTrueSouthNodeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetJuTrueSouthNodeEnabledForHelioTropRadixChartLabel,
+                   self.planetJuTrueSouthNodeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetSaTrueNorthNodeEnabledForHelioTropRadixChartLabel = \
+            QLabel("SaTrueNorthNode enabled:")
+        self.planetSaTrueNorthNodeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetSaTrueNorthNodeEnabledForHelioTropRadixChartLabel,
+                   self.planetSaTrueNorthNodeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetSaTrueSouthNodeEnabledForHelioTropRadixChartLabel = \
+            QLabel("SaTrueSouthNode enabled:")
+        self.planetSaTrueSouthNodeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetSaTrueSouthNodeEnabledForHelioTropRadixChartLabel,
+                   self.planetSaTrueSouthNodeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetUrTrueNorthNodeEnabledForHelioTropRadixChartLabel = \
+            QLabel("UrTrueNorthNode enabled:")
+        self.planetUrTrueNorthNodeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetUrTrueNorthNodeEnabledForHelioTropRadixChartLabel,
+                   self.planetUrTrueNorthNodeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetUrTrueSouthNodeEnabledForHelioTropRadixChartLabel = \
+            QLabel("UrTrueSouthNode enabled:")
+        self.planetUrTrueSouthNodeEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+            addRow(self.planetUrTrueSouthNodeEnabledForHelioTropRadixChartLabel,
+                   self.planetUrTrueSouthNodeEnabledForHelioTropRadixChartCheckBox)
 
         self.planetMeVeEnabledForHelioTropRadixChartLabel = \
             QLabel("MeVe enabled:")
         self.planetMeVeEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetMeVeEnabledForHelioTropRadixChartLabel,
                    self.planetMeVeEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetMeSuEnabledForHelioTropRadixChartLabel = \
+            QLabel("MeSu enabled:")
+        self.planetMeSuEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
+            addRow(self.planetMeSuEnabledForHelioTropRadixChartLabel,
+                   self.planetMeSuEnabledForHelioTropRadixChartCheckBox)
 
         self.planetMeEaEnabledForHelioTropRadixChartLabel = \
             QLabel("MeEa enabled:")
         self.planetMeEaEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetMeEaEnabledForHelioTropRadixChartLabel,
                    self.planetMeEaEnabledForHelioTropRadixChartCheckBox)
 
@@ -6600,7 +8352,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeMa enabled:")
         self.planetMeMaEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetMeMaEnabledForHelioTropRadixChartLabel,
                    self.planetMeMaEnabledForHelioTropRadixChartCheckBox)
 
@@ -6608,7 +8360,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeJu enabled:")
         self.planetMeJuEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetMeJuEnabledForHelioTropRadixChartLabel,
                    self.planetMeJuEnabledForHelioTropRadixChartCheckBox)
 
@@ -6616,7 +8368,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeSa enabled:")
         self.planetMeSaEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetMeSaEnabledForHelioTropRadixChartLabel,
                    self.planetMeSaEnabledForHelioTropRadixChartCheckBox)
 
@@ -6624,15 +8376,23 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MeUr enabled:")
         self.planetMeUrEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetMeUrEnabledForHelioTropRadixChartLabel,
                    self.planetMeUrEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetVeSuEnabledForHelioTropRadixChartLabel = \
+            QLabel("VeSu enabled:")
+        self.planetVeSuEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
+            addRow(self.planetVeSuEnabledForHelioTropRadixChartLabel,
+                   self.planetVeSuEnabledForHelioTropRadixChartCheckBox)
 
         self.planetVeEaEnabledForHelioTropRadixChartLabel = \
             QLabel("VeEa enabled:")
         self.planetVeEaEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetVeEaEnabledForHelioTropRadixChartLabel,
                    self.planetVeEaEnabledForHelioTropRadixChartCheckBox)
 
@@ -6640,7 +8400,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeMa enabled:")
         self.planetVeMaEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetVeMaEnabledForHelioTropRadixChartLabel,
                    self.planetVeMaEnabledForHelioTropRadixChartCheckBox)
 
@@ -6648,7 +8408,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeJu enabled:")
         self.planetVeJuEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetVeJuEnabledForHelioTropRadixChartLabel,
                    self.planetVeJuEnabledForHelioTropRadixChartCheckBox)
 
@@ -6656,7 +8416,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeSa enabled:")
         self.planetVeSaEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetVeSaEnabledForHelioTropRadixChartLabel,
                    self.planetVeSaEnabledForHelioTropRadixChartCheckBox)
 
@@ -6664,15 +8424,47 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("VeUr enabled:")
         self.planetVeUrEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetVeUrEnabledForHelioTropRadixChartLabel,
                    self.planetVeUrEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetSuMaEnabledForHelioTropRadixChartLabel = \
+            QLabel("SuMa enabled:")
+        self.planetSuMaEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
+            addRow(self.planetSuMaEnabledForHelioTropRadixChartLabel,
+                   self.planetSuMaEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetSuJuEnabledForHelioTropRadixChartLabel = \
+            QLabel("SuJu enabled:")
+        self.planetSuJuEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
+            addRow(self.planetSuJuEnabledForHelioTropRadixChartLabel,
+                   self.planetSuJuEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetSuSaEnabledForHelioTropRadixChartLabel = \
+            QLabel("SuSa enabled:")
+        self.planetSuSaEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
+            addRow(self.planetSuSaEnabledForHelioTropRadixChartLabel,
+                   self.planetSuSaEnabledForHelioTropRadixChartCheckBox)
+
+        self.planetSuUrEnabledForHelioTropRadixChartLabel = \
+            QLabel("SuUr enabled:")
+        self.planetSuUrEnabledForHelioTropRadixChartCheckBox = \
+            QCheckBox()
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
+            addRow(self.planetSuUrEnabledForHelioTropRadixChartLabel,
+                   self.planetSuUrEnabledForHelioTropRadixChartCheckBox)
 
         self.planetEaMaEnabledForHelioTropRadixChartLabel = \
             QLabel("EaMa enabled:")
         self.planetEaMaEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetEaMaEnabledForHelioTropRadixChartLabel,
                    self.planetEaMaEnabledForHelioTropRadixChartCheckBox)
 
@@ -6680,7 +8472,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaJu enabled:")
         self.planetEaJuEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetEaJuEnabledForHelioTropRadixChartLabel,
                    self.planetEaJuEnabledForHelioTropRadixChartCheckBox)
 
@@ -6688,7 +8480,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaSa enabled:")
         self.planetEaSaEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetEaSaEnabledForHelioTropRadixChartLabel,
                    self.planetEaSaEnabledForHelioTropRadixChartCheckBox)
 
@@ -6696,7 +8488,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("EaUr enabled:")
         self.planetEaUrEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetEaUrEnabledForHelioTropRadixChartLabel,
                    self.planetEaUrEnabledForHelioTropRadixChartCheckBox)
 
@@ -6704,7 +8496,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaJu enabled:")
         self.planetMaJuEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetMaJuEnabledForHelioTropRadixChartLabel,
                    self.planetMaJuEnabledForHelioTropRadixChartCheckBox)
 
@@ -6712,7 +8504,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaSa enabled:")
         self.planetMaSaEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetMaSaEnabledForHelioTropRadixChartLabel,
                    self.planetMaSaEnabledForHelioTropRadixChartCheckBox)
 
@@ -6720,7 +8512,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("MaUr enabled:")
         self.planetMaUrEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetMaUrEnabledForHelioTropRadixChartLabel,
                    self.planetMaUrEnabledForHelioTropRadixChartCheckBox)
 
@@ -6728,7 +8520,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("JuSa enabled:")
         self.planetJuSaEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetJuSaEnabledForHelioTropRadixChartLabel,
                    self.planetJuSaEnabledForHelioTropRadixChartCheckBox)
 
@@ -6736,7 +8528,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("JuUr enabled:")
         self.planetJuUrEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetJuUrEnabledForHelioTropRadixChartLabel,
                    self.planetJuUrEnabledForHelioTropRadixChartCheckBox)
 
@@ -6744,7 +8536,7 @@ class AppPreferencesEditWidget(QWidget):
             QLabel("SaUr enabled:")
         self.planetSaUrEnabledForHelioTropRadixChartCheckBox = \
             QCheckBox()
-        planetEnabledForHelioTropRadixChartMidRightFormLayout.\
+        planetEnabledForHelioTropRadixChartFarRightFormLayout.\
             addRow(self.planetSaUrEnabledForHelioTropRadixChartLabel,
                    self.planetSaUrEnabledForHelioTropRadixChartCheckBox)
 
@@ -8044,6 +9836,606 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetAsMoBackgroundColorLabel,
                    self.planetAsMoBackgroundColorEditButton)
 
+        # AsMe
+        self.planetAsMeGlyphUnicodeLabel = \
+            QLabel("AsMe unicode glyph:")
+        self.planetAsMeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsMeGlyphUnicodeLabel,
+                   self.planetAsMeGlyphUnicodeLineEdit)
+        self.planetAsMeGlyphFontSizeLabel = \
+            QLabel("AsMe glyph font size:")
+        self.planetAsMeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetAsMeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetAsMeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetAsMeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetAsMeGlyphFontSizeLabel,
+                   self.planetAsMeGlyphFontSizeSpinBox)
+        self.planetAsMeAbbreviationLabel = \
+            QLabel("AsMe abbreviation:")
+        self.planetAsMeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsMeAbbreviationLabel,
+                   self.planetAsMeAbbreviationLineEdit)
+        self.planetAsMeForegroundColorLabel = \
+            QLabel("AsMe foreground color:")
+        self.planetAsMeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsMeForegroundColorLabel,
+                   self.planetAsMeForegroundColorEditButton)
+        self.planetAsMeBackgroundColorLabel = \
+            QLabel("AsMe background color:")
+        self.planetAsMeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsMeBackgroundColorLabel,
+                   self.planetAsMeBackgroundColorEditButton)
+
+        # AsVe
+        self.planetAsVeGlyphUnicodeLabel = \
+            QLabel("AsVe unicode glyph:")
+        self.planetAsVeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsVeGlyphUnicodeLabel,
+                   self.planetAsVeGlyphUnicodeLineEdit)
+        self.planetAsVeGlyphFontSizeLabel = \
+            QLabel("AsVe glyph font size:")
+        self.planetAsVeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetAsVeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetAsVeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetAsVeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetAsVeGlyphFontSizeLabel,
+                   self.planetAsVeGlyphFontSizeSpinBox)
+        self.planetAsVeAbbreviationLabel = \
+            QLabel("AsVe abbreviation:")
+        self.planetAsVeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsVeAbbreviationLabel,
+                   self.planetAsVeAbbreviationLineEdit)
+        self.planetAsVeForegroundColorLabel = \
+            QLabel("AsVe foreground color:")
+        self.planetAsVeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsVeForegroundColorLabel,
+                   self.planetAsVeForegroundColorEditButton)
+        self.planetAsVeBackgroundColorLabel = \
+            QLabel("AsVe background color:")
+        self.planetAsVeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsVeBackgroundColorLabel,
+                   self.planetAsVeBackgroundColorEditButton)
+
+        # AsMa
+        self.planetAsMaGlyphUnicodeLabel = \
+            QLabel("AsMa unicode glyph:")
+        self.planetAsMaGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsMaGlyphUnicodeLabel,
+                   self.planetAsMaGlyphUnicodeLineEdit)
+        self.planetAsMaGlyphFontSizeLabel = \
+            QLabel("AsMa glyph font size:")
+        self.planetAsMaGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetAsMaGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetAsMaGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetAsMaGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetAsMaGlyphFontSizeLabel,
+                   self.planetAsMaGlyphFontSizeSpinBox)
+        self.planetAsMaAbbreviationLabel = \
+            QLabel("AsMa abbreviation:")
+        self.planetAsMaAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsMaAbbreviationLabel,
+                   self.planetAsMaAbbreviationLineEdit)
+        self.planetAsMaForegroundColorLabel = \
+            QLabel("AsMa foreground color:")
+        self.planetAsMaForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsMaForegroundColorLabel,
+                   self.planetAsMaForegroundColorEditButton)
+        self.planetAsMaBackgroundColorLabel = \
+            QLabel("AsMa background color:")
+        self.planetAsMaBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsMaBackgroundColorLabel,
+                   self.planetAsMaBackgroundColorEditButton)
+
+        # AsJu
+        self.planetAsJuGlyphUnicodeLabel = \
+            QLabel("AsJu unicode glyph:")
+        self.planetAsJuGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsJuGlyphUnicodeLabel,
+                   self.planetAsJuGlyphUnicodeLineEdit)
+        self.planetAsJuGlyphFontSizeLabel = \
+            QLabel("AsJu glyph font size:")
+        self.planetAsJuGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetAsJuGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetAsJuGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetAsJuGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetAsJuGlyphFontSizeLabel,
+                   self.planetAsJuGlyphFontSizeSpinBox)
+        self.planetAsJuAbbreviationLabel = \
+            QLabel("AsJu abbreviation:")
+        self.planetAsJuAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsJuAbbreviationLabel,
+                   self.planetAsJuAbbreviationLineEdit)
+        self.planetAsJuForegroundColorLabel = \
+            QLabel("AsJu foreground color:")
+        self.planetAsJuForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsJuForegroundColorLabel,
+                   self.planetAsJuForegroundColorEditButton)
+        self.planetAsJuBackgroundColorLabel = \
+            QLabel("AsJu background color:")
+        self.planetAsJuBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsJuBackgroundColorLabel,
+                   self.planetAsJuBackgroundColorEditButton)
+
+        # AsSa
+        self.planetAsSaGlyphUnicodeLabel = \
+            QLabel("AsSa unicode glyph:")
+        self.planetAsSaGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsSaGlyphUnicodeLabel,
+                   self.planetAsSaGlyphUnicodeLineEdit)
+        self.planetAsSaGlyphFontSizeLabel = \
+            QLabel("AsSa glyph font size:")
+        self.planetAsSaGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetAsSaGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetAsSaGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetAsSaGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetAsSaGlyphFontSizeLabel,
+                   self.planetAsSaGlyphFontSizeSpinBox)
+        self.planetAsSaAbbreviationLabel = \
+            QLabel("AsSa abbreviation:")
+        self.planetAsSaAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsSaAbbreviationLabel,
+                   self.planetAsSaAbbreviationLineEdit)
+        self.planetAsSaForegroundColorLabel = \
+            QLabel("AsSa foreground color:")
+        self.planetAsSaForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsSaForegroundColorLabel,
+                   self.planetAsSaForegroundColorEditButton)
+        self.planetAsSaBackgroundColorLabel = \
+            QLabel("AsSa background color:")
+        self.planetAsSaBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsSaBackgroundColorLabel,
+                   self.planetAsSaBackgroundColorEditButton)
+
+        # AsUr
+        self.planetAsUrGlyphUnicodeLabel = \
+            QLabel("AsUr unicode glyph:")
+        self.planetAsUrGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsUrGlyphUnicodeLabel,
+                   self.planetAsUrGlyphUnicodeLineEdit)
+        self.planetAsUrGlyphFontSizeLabel = \
+            QLabel("AsUr glyph font size:")
+        self.planetAsUrGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetAsUrGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetAsUrGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetAsUrGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetAsUrGlyphFontSizeLabel,
+                   self.planetAsUrGlyphFontSizeSpinBox)
+        self.planetAsUrAbbreviationLabel = \
+            QLabel("AsUr abbreviation:")
+        self.planetAsUrAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsUrAbbreviationLabel,
+                   self.planetAsUrAbbreviationLineEdit)
+        self.planetAsUrForegroundColorLabel = \
+            QLabel("AsUr foreground color:")
+        self.planetAsUrForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsUrForegroundColorLabel,
+                   self.planetAsUrForegroundColorEditButton)
+        self.planetAsUrBackgroundColorLabel = \
+            QLabel("AsUr background color:")
+        self.planetAsUrBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsUrBackgroundColorLabel,
+                   self.planetAsUrBackgroundColorEditButton)
+
+        # MoSu
+        self.planetMoSuGlyphUnicodeLabel = \
+            QLabel("MoSu unicode glyph:")
+        self.planetMoSuGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMoSuGlyphUnicodeLabel,
+                   self.planetMoSuGlyphUnicodeLineEdit)
+        self.planetMoSuGlyphFontSizeLabel = \
+            QLabel("MoSu glyph font size:")
+        self.planetMoSuGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMoSuGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetMoSuGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMoSuGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMoSuGlyphFontSizeLabel,
+                   self.planetMoSuGlyphFontSizeSpinBox)
+        self.planetMoSuAbbreviationLabel = \
+            QLabel("MoSu abbreviation:")
+        self.planetMoSuAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMoSuAbbreviationLabel,
+                   self.planetMoSuAbbreviationLineEdit)
+        self.planetMoSuForegroundColorLabel = \
+            QLabel("MoSu foreground color:")
+        self.planetMoSuForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMoSuForegroundColorLabel,
+                   self.planetMoSuForegroundColorEditButton)
+        self.planetMoSuBackgroundColorLabel = \
+            QLabel("MoSu background color:")
+        self.planetMoSuBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMoSuBackgroundColorLabel,
+                   self.planetMoSuBackgroundColorEditButton)
+
+        # MoMe
+        self.planetMoMeGlyphUnicodeLabel = \
+            QLabel("MoMe unicode glyph:")
+        self.planetMoMeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMoMeGlyphUnicodeLabel,
+                   self.planetMoMeGlyphUnicodeLineEdit)
+        self.planetMoMeGlyphFontSizeLabel = \
+            QLabel("MoMe glyph font size:")
+        self.planetMoMeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMoMeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetMoMeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMoMeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMoMeGlyphFontSizeLabel,
+                   self.planetMoMeGlyphFontSizeSpinBox)
+        self.planetMoMeAbbreviationLabel = \
+            QLabel("MoMe abbreviation:")
+        self.planetMoMeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMoMeAbbreviationLabel,
+                   self.planetMoMeAbbreviationLineEdit)
+        self.planetMoMeForegroundColorLabel = \
+            QLabel("MoMe foreground color:")
+        self.planetMoMeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMoMeForegroundColorLabel,
+                   self.planetMoMeForegroundColorEditButton)
+        self.planetMoMeBackgroundColorLabel = \
+            QLabel("MoMe background color:")
+        self.planetMoMeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMoMeBackgroundColorLabel,
+                   self.planetMoMeBackgroundColorEditButton)
+
+        # MoVe
+        self.planetMoVeGlyphUnicodeLabel = \
+            QLabel("MoVe unicode glyph:")
+        self.planetMoVeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMoVeGlyphUnicodeLabel,
+                   self.planetMoVeGlyphUnicodeLineEdit)
+        self.planetMoVeGlyphFontSizeLabel = \
+            QLabel("MoVe glyph font size:")
+        self.planetMoVeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMoVeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetMoVeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMoVeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMoVeGlyphFontSizeLabel,
+                   self.planetMoVeGlyphFontSizeSpinBox)
+        self.planetMoVeAbbreviationLabel = \
+            QLabel("MoVe abbreviation:")
+        self.planetMoVeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMoVeAbbreviationLabel,
+                   self.planetMoVeAbbreviationLineEdit)
+        self.planetMoVeForegroundColorLabel = \
+            QLabel("MoVe foreground color:")
+        self.planetMoVeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMoVeForegroundColorLabel,
+                   self.planetMoVeForegroundColorEditButton)
+        self.planetMoVeBackgroundColorLabel = \
+            QLabel("MoVe background color:")
+        self.planetMoVeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMoVeBackgroundColorLabel,
+                   self.planetMoVeBackgroundColorEditButton)
+
+        # MoMa
+        self.planetMoMaGlyphUnicodeLabel = \
+            QLabel("MoMa unicode glyph:")
+        self.planetMoMaGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMoMaGlyphUnicodeLabel,
+                   self.planetMoMaGlyphUnicodeLineEdit)
+        self.planetMoMaGlyphFontSizeLabel = \
+            QLabel("MoMa glyph font size:")
+        self.planetMoMaGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMoMaGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetMoMaGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMoMaGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMoMaGlyphFontSizeLabel,
+                   self.planetMoMaGlyphFontSizeSpinBox)
+        self.planetMoMaAbbreviationLabel = \
+            QLabel("MoMa abbreviation:")
+        self.planetMoMaAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMoMaAbbreviationLabel,
+                   self.planetMoMaAbbreviationLineEdit)
+        self.planetMoMaForegroundColorLabel = \
+            QLabel("MoMa foreground color:")
+        self.planetMoMaForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMoMaForegroundColorLabel,
+                   self.planetMoMaForegroundColorEditButton)
+        self.planetMoMaBackgroundColorLabel = \
+            QLabel("MoMa background color:")
+        self.planetMoMaBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMoMaBackgroundColorLabel,
+                   self.planetMoMaBackgroundColorEditButton)
+
+        # MoJu
+        self.planetMoJuGlyphUnicodeLabel = \
+            QLabel("MoJu unicode glyph:")
+        self.planetMoJuGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMoJuGlyphUnicodeLabel,
+                   self.planetMoJuGlyphUnicodeLineEdit)
+        self.planetMoJuGlyphFontSizeLabel = \
+            QLabel("MoJu glyph font size:")
+        self.planetMoJuGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMoJuGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetMoJuGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMoJuGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMoJuGlyphFontSizeLabel,
+                   self.planetMoJuGlyphFontSizeSpinBox)
+        self.planetMoJuAbbreviationLabel = \
+            QLabel("MoJu abbreviation:")
+        self.planetMoJuAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMoJuAbbreviationLabel,
+                   self.planetMoJuAbbreviationLineEdit)
+        self.planetMoJuForegroundColorLabel = \
+            QLabel("MoJu foreground color:")
+        self.planetMoJuForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMoJuForegroundColorLabel,
+                   self.planetMoJuForegroundColorEditButton)
+        self.planetMoJuBackgroundColorLabel = \
+            QLabel("MoJu background color:")
+        self.planetMoJuBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMoJuBackgroundColorLabel,
+                   self.planetMoJuBackgroundColorEditButton)
+
+        # MoSa
+        self.planetMoSaGlyphUnicodeLabel = \
+            QLabel("MoSa unicode glyph:")
+        self.planetMoSaGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMoSaGlyphUnicodeLabel,
+                   self.planetMoSaGlyphUnicodeLineEdit)
+        self.planetMoSaGlyphFontSizeLabel = \
+            QLabel("MoSa glyph font size:")
+        self.planetMoSaGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMoSaGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetMoSaGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMoSaGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMoSaGlyphFontSizeLabel,
+                   self.planetMoSaGlyphFontSizeSpinBox)
+        self.planetMoSaAbbreviationLabel = \
+            QLabel("MoSa abbreviation:")
+        self.planetMoSaAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMoSaAbbreviationLabel,
+                   self.planetMoSaAbbreviationLineEdit)
+        self.planetMoSaForegroundColorLabel = \
+            QLabel("MoSa foreground color:")
+        self.planetMoSaForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMoSaForegroundColorLabel,
+                   self.planetMoSaForegroundColorEditButton)
+        self.planetMoSaBackgroundColorLabel = \
+            QLabel("MoSa background color:")
+        self.planetMoSaBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMoSaBackgroundColorLabel,
+                   self.planetMoSaBackgroundColorEditButton)
+
+        # MoUr
+        self.planetMoUrGlyphUnicodeLabel = \
+            QLabel("MoUr unicode glyph:")
+        self.planetMoUrGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMoUrGlyphUnicodeLabel,
+                   self.planetMoUrGlyphUnicodeLineEdit)
+        self.planetMoUrGlyphFontSizeLabel = \
+            QLabel("MoUr glyph font size:")
+        self.planetMoUrGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMoUrGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetMoUrGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMoUrGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMoUrGlyphFontSizeLabel,
+                   self.planetMoUrGlyphFontSizeSpinBox)
+        self.planetMoUrAbbreviationLabel = \
+            QLabel("MoUr abbreviation:")
+        self.planetMoUrAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMoUrAbbreviationLabel,
+                   self.planetMoUrAbbreviationLineEdit)
+        self.planetMoUrForegroundColorLabel = \
+            QLabel("MoUr foreground color:")
+        self.planetMoUrForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMoUrForegroundColorLabel,
+                   self.planetMoUrForegroundColorEditButton)
+        self.planetMoUrBackgroundColorLabel = \
+            QLabel("MoUr background color:")
+        self.planetMoUrBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMoUrBackgroundColorLabel,
+                   self.planetMoUrBackgroundColorEditButton)
+
+        # AsTrueNorthNode
+        self.planetAsTrueNorthNodeGlyphUnicodeLabel = \
+            QLabel("AsTrueNorthNode unicode glyph:")
+        self.planetAsTrueNorthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsTrueNorthNodeGlyphUnicodeLabel,
+                   self.planetAsTrueNorthNodeGlyphUnicodeLineEdit)
+        self.planetAsTrueNorthNodeGlyphFontSizeLabel = \
+            QLabel("AsTrueNorthNode glyph font size:")
+        self.planetAsTrueNorthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetAsTrueNorthNodeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetAsTrueNorthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetAsTrueNorthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetAsTrueNorthNodeGlyphFontSizeLabel,
+                   self.planetAsTrueNorthNodeGlyphFontSizeSpinBox)
+        self.planetAsTrueNorthNodeAbbreviationLabel = \
+            QLabel("AsTrueNorthNode abbreviation:")
+        self.planetAsTrueNorthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsTrueNorthNodeAbbreviationLabel,
+                   self.planetAsTrueNorthNodeAbbreviationLineEdit)
+        self.planetAsTrueNorthNodeForegroundColorLabel = \
+            QLabel("AsTrueNorthNode foreground color:")
+        self.planetAsTrueNorthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsTrueNorthNodeForegroundColorLabel,
+                   self.planetAsTrueNorthNodeForegroundColorEditButton)
+        self.planetAsTrueNorthNodeBackgroundColorLabel = \
+            QLabel("AsTrueNorthNode background color:")
+        self.planetAsTrueNorthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsTrueNorthNodeBackgroundColorLabel,
+                   self.planetAsTrueNorthNodeBackgroundColorEditButton)
+
+        # AsTrueSouthNode
+        self.planetAsTrueSouthNodeGlyphUnicodeLabel = \
+            QLabel("AsTrueSouthNode unicode glyph:")
+        self.planetAsTrueSouthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsTrueSouthNodeGlyphUnicodeLabel,
+                   self.planetAsTrueSouthNodeGlyphUnicodeLineEdit)
+        self.planetAsTrueSouthNodeGlyphFontSizeLabel = \
+            QLabel("AsTrueSouthNode glyph font size:")
+        self.planetAsTrueSouthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetAsTrueSouthNodeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetAsTrueSouthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetAsTrueSouthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetAsTrueSouthNodeGlyphFontSizeLabel,
+                   self.planetAsTrueSouthNodeGlyphFontSizeSpinBox)
+        self.planetAsTrueSouthNodeAbbreviationLabel = \
+            QLabel("AsTrueSouthNode abbreviation:")
+        self.planetAsTrueSouthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetAsTrueSouthNodeAbbreviationLabel,
+                   self.planetAsTrueSouthNodeAbbreviationLineEdit)
+        self.planetAsTrueSouthNodeForegroundColorLabel = \
+            QLabel("AsTrueSouthNode foreground color:")
+        self.planetAsTrueSouthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsTrueSouthNodeForegroundColorLabel,
+                   self.planetAsTrueSouthNodeForegroundColorEditButton)
+        self.planetAsTrueSouthNodeBackgroundColorLabel = \
+            QLabel("AsTrueSouthNode background color:")
+        self.planetAsTrueSouthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetAsTrueSouthNodeBackgroundColorLabel,
+                   self.planetAsTrueSouthNodeBackgroundColorEditButton)
+
         # SunTrueNorthNode
         self.planetSunTrueNorthNodeGlyphUnicodeLabel = \
             QLabel("SunTrueNorthNode unicode glyph:")
@@ -8204,45 +10596,485 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetMoonTrueSouthNodeBackgroundColorLabel,
                    self.planetMoonTrueSouthNodeBackgroundColorEditButton)
 
-        # MoSu
-        self.planetMoSuGlyphUnicodeLabel = \
-            QLabel("MoSu unicode glyph:")
-        self.planetMoSuGlyphUnicodeLineEdit = \
+        # MeTrueNorthNode
+        self.planetMeTrueNorthNodeGlyphUnicodeLabel = \
+            QLabel("MeTrueNorthNode unicode glyph:")
+        self.planetMeTrueNorthNodeGlyphUnicodeLineEdit = \
             QLineEdit()
         formLayout.\
-            addRow(self.planetMoSuGlyphUnicodeLabel,
-                   self.planetMoSuGlyphUnicodeLineEdit)
-        self.planetMoSuGlyphFontSizeLabel = \
-            QLabel("MoSu glyph font size:")
-        self.planetMoSuGlyphFontSizeSpinBox = \
+            addRow(self.planetMeTrueNorthNodeGlyphUnicodeLabel,
+                   self.planetMeTrueNorthNodeGlyphUnicodeLineEdit)
+        self.planetMeTrueNorthNodeGlyphFontSizeLabel = \
+            QLabel("MeTrueNorthNode glyph font size:")
+        self.planetMeTrueNorthNodeGlyphFontSizeSpinBox = \
             QDoubleSpinBox()
-        self.planetMoSuGlyphFontSizeSpinBox.setDecimals(4)
-        self.planetMoSuGlyphFontSizeSpinBox.setMinimum(0.01)
-        self.planetMoSuGlyphFontSizeSpinBox.setMaximum(1000)
+        self.planetMeTrueNorthNodeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetMeTrueNorthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMeTrueNorthNodeGlyphFontSizeSpinBox.setMaximum(1000)
         formLayout.\
-            addRow(self.planetMoSuGlyphFontSizeLabel,
-                   self.planetMoSuGlyphFontSizeSpinBox)
-        self.planetMoSuAbbreviationLabel = \
-            QLabel("MoSu abbreviation:")
-        self.planetMoSuAbbreviationLineEdit = \
+            addRow(self.planetMeTrueNorthNodeGlyphFontSizeLabel,
+                   self.planetMeTrueNorthNodeGlyphFontSizeSpinBox)
+        self.planetMeTrueNorthNodeAbbreviationLabel = \
+            QLabel("MeTrueNorthNode abbreviation:")
+        self.planetMeTrueNorthNodeAbbreviationLineEdit = \
             QLineEdit()
         formLayout.\
-            addRow(self.planetMoSuAbbreviationLabel,
-                   self.planetMoSuAbbreviationLineEdit)
-        self.planetMoSuForegroundColorLabel = \
-            QLabel("MoSu foreground color:")
-        self.planetMoSuForegroundColorEditButton = \
+            addRow(self.planetMeTrueNorthNodeAbbreviationLabel,
+                   self.planetMeTrueNorthNodeAbbreviationLineEdit)
+        self.planetMeTrueNorthNodeForegroundColorLabel = \
+            QLabel("MeTrueNorthNode foreground color:")
+        self.planetMeTrueNorthNodeForegroundColorEditButton = \
             ColorEditPushButton()
         formLayout.\
-            addRow(self.planetMoSuForegroundColorLabel,
-                   self.planetMoSuForegroundColorEditButton)
-        self.planetMoSuBackgroundColorLabel = \
-            QLabel("MoSu background color:")
-        self.planetMoSuBackgroundColorEditButton = \
+            addRow(self.planetMeTrueNorthNodeForegroundColorLabel,
+                   self.planetMeTrueNorthNodeForegroundColorEditButton)
+        self.planetMeTrueNorthNodeBackgroundColorLabel = \
+            QLabel("MeTrueNorthNode background color:")
+        self.planetMeTrueNorthNodeBackgroundColorEditButton = \
             ColorEditPushButton()
         formLayout.\
-            addRow(self.planetMoSuBackgroundColorLabel,
-                   self.planetMoSuBackgroundColorEditButton)
+            addRow(self.planetMeTrueNorthNodeBackgroundColorLabel,
+                   self.planetMeTrueNorthNodeBackgroundColorEditButton)
+
+        # MeTrueSouthNode
+        self.planetMeTrueSouthNodeGlyphUnicodeLabel = \
+            QLabel("MeTrueSouthNode unicode glyph:")
+        self.planetMeTrueSouthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMeTrueSouthNodeGlyphUnicodeLabel,
+                   self.planetMeTrueSouthNodeGlyphUnicodeLineEdit)
+        self.planetMeTrueSouthNodeGlyphFontSizeLabel = \
+            QLabel("MeTrueSouthNode glyph font size:")
+        self.planetMeTrueSouthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMeTrueSouthNodeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetMeTrueSouthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMeTrueSouthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMeTrueSouthNodeGlyphFontSizeLabel,
+                   self.planetMeTrueSouthNodeGlyphFontSizeSpinBox)
+        self.planetMeTrueSouthNodeAbbreviationLabel = \
+            QLabel("MeTrueSouthNode abbreviation:")
+        self.planetMeTrueSouthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMeTrueSouthNodeAbbreviationLabel,
+                   self.planetMeTrueSouthNodeAbbreviationLineEdit)
+        self.planetMeTrueSouthNodeForegroundColorLabel = \
+            QLabel("MeTrueSouthNode foreground color:")
+        self.planetMeTrueSouthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMeTrueSouthNodeForegroundColorLabel,
+                   self.planetMeTrueSouthNodeForegroundColorEditButton)
+        self.planetMeTrueSouthNodeBackgroundColorLabel = \
+            QLabel("MeTrueSouthNode background color:")
+        self.planetMeTrueSouthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMeTrueSouthNodeBackgroundColorLabel,
+                   self.planetMeTrueSouthNodeBackgroundColorEditButton)
+
+        # VeTrueNorthNode
+        self.planetVeTrueNorthNodeGlyphUnicodeLabel = \
+            QLabel("VeTrueNorthNode unicode glyph:")
+        self.planetVeTrueNorthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetVeTrueNorthNodeGlyphUnicodeLabel,
+                   self.planetVeTrueNorthNodeGlyphUnicodeLineEdit)
+        self.planetVeTrueNorthNodeGlyphFontSizeLabel = \
+            QLabel("VeTrueNorthNode glyph font size:")
+        self.planetVeTrueNorthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetVeTrueNorthNodeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetVeTrueNorthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetVeTrueNorthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetVeTrueNorthNodeGlyphFontSizeLabel,
+                   self.planetVeTrueNorthNodeGlyphFontSizeSpinBox)
+        self.planetVeTrueNorthNodeAbbreviationLabel = \
+            QLabel("VeTrueNorthNode abbreviation:")
+        self.planetVeTrueNorthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetVeTrueNorthNodeAbbreviationLabel,
+                   self.planetVeTrueNorthNodeAbbreviationLineEdit)
+        self.planetVeTrueNorthNodeForegroundColorLabel = \
+            QLabel("VeTrueNorthNode foreground color:")
+        self.planetVeTrueNorthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetVeTrueNorthNodeForegroundColorLabel,
+                   self.planetVeTrueNorthNodeForegroundColorEditButton)
+        self.planetVeTrueNorthNodeBackgroundColorLabel = \
+            QLabel("VeTrueNorthNode background color:")
+        self.planetVeTrueNorthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetVeTrueNorthNodeBackgroundColorLabel,
+                   self.planetVeTrueNorthNodeBackgroundColorEditButton)
+
+        # VeTrueSouthNode
+        self.planetVeTrueSouthNodeGlyphUnicodeLabel = \
+            QLabel("VeTrueSouthNode unicode glyph:")
+        self.planetVeTrueSouthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetVeTrueSouthNodeGlyphUnicodeLabel,
+                   self.planetVeTrueSouthNodeGlyphUnicodeLineEdit)
+        self.planetVeTrueSouthNodeGlyphFontSizeLabel = \
+            QLabel("VeTrueSouthNode glyph font size:")
+        self.planetVeTrueSouthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetVeTrueSouthNodeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetVeTrueSouthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetVeTrueSouthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetVeTrueSouthNodeGlyphFontSizeLabel,
+                   self.planetVeTrueSouthNodeGlyphFontSizeSpinBox)
+        self.planetVeTrueSouthNodeAbbreviationLabel = \
+            QLabel("VeTrueSouthNode abbreviation:")
+        self.planetVeTrueSouthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetVeTrueSouthNodeAbbreviationLabel,
+                   self.planetVeTrueSouthNodeAbbreviationLineEdit)
+        self.planetVeTrueSouthNodeForegroundColorLabel = \
+            QLabel("VeTrueSouthNode foreground color:")
+        self.planetVeTrueSouthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetVeTrueSouthNodeForegroundColorLabel,
+                   self.planetVeTrueSouthNodeForegroundColorEditButton)
+        self.planetVeTrueSouthNodeBackgroundColorLabel = \
+            QLabel("VeTrueSouthNode background color:")
+        self.planetVeTrueSouthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetVeTrueSouthNodeBackgroundColorLabel,
+                   self.planetVeTrueSouthNodeBackgroundColorEditButton)
+
+        # MaTrueNorthNode
+        self.planetMaTrueNorthNodeGlyphUnicodeLabel = \
+            QLabel("MaTrueNorthNode unicode glyph:")
+        self.planetMaTrueNorthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMaTrueNorthNodeGlyphUnicodeLabel,
+                   self.planetMaTrueNorthNodeGlyphUnicodeLineEdit)
+        self.planetMaTrueNorthNodeGlyphFontSizeLabel = \
+            QLabel("MaTrueNorthNode glyph font size:")
+        self.planetMaTrueNorthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMaTrueNorthNodeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetMaTrueNorthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMaTrueNorthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMaTrueNorthNodeGlyphFontSizeLabel,
+                   self.planetMaTrueNorthNodeGlyphFontSizeSpinBox)
+        self.planetMaTrueNorthNodeAbbreviationLabel = \
+            QLabel("MaTrueNorthNode abbreviation:")
+        self.planetMaTrueNorthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMaTrueNorthNodeAbbreviationLabel,
+                   self.planetMaTrueNorthNodeAbbreviationLineEdit)
+        self.planetMaTrueNorthNodeForegroundColorLabel = \
+            QLabel("MaTrueNorthNode foreground color:")
+        self.planetMaTrueNorthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMaTrueNorthNodeForegroundColorLabel,
+                   self.planetMaTrueNorthNodeForegroundColorEditButton)
+        self.planetMaTrueNorthNodeBackgroundColorLabel = \
+            QLabel("MaTrueNorthNode background color:")
+        self.planetMaTrueNorthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMaTrueNorthNodeBackgroundColorLabel,
+                   self.planetMaTrueNorthNodeBackgroundColorEditButton)
+
+        # MaTrueSouthNode
+        self.planetMaTrueSouthNodeGlyphUnicodeLabel = \
+            QLabel("MaTrueSouthNode unicode glyph:")
+        self.planetMaTrueSouthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMaTrueSouthNodeGlyphUnicodeLabel,
+                   self.planetMaTrueSouthNodeGlyphUnicodeLineEdit)
+        self.planetMaTrueSouthNodeGlyphFontSizeLabel = \
+            QLabel("MaTrueSouthNode glyph font size:")
+        self.planetMaTrueSouthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMaTrueSouthNodeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetMaTrueSouthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMaTrueSouthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMaTrueSouthNodeGlyphFontSizeLabel,
+                   self.planetMaTrueSouthNodeGlyphFontSizeSpinBox)
+        self.planetMaTrueSouthNodeAbbreviationLabel = \
+            QLabel("MaTrueSouthNode abbreviation:")
+        self.planetMaTrueSouthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMaTrueSouthNodeAbbreviationLabel,
+                   self.planetMaTrueSouthNodeAbbreviationLineEdit)
+        self.planetMaTrueSouthNodeForegroundColorLabel = \
+            QLabel("MaTrueSouthNode foreground color:")
+        self.planetMaTrueSouthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMaTrueSouthNodeForegroundColorLabel,
+                   self.planetMaTrueSouthNodeForegroundColorEditButton)
+        self.planetMaTrueSouthNodeBackgroundColorLabel = \
+            QLabel("MaTrueSouthNode background color:")
+        self.planetMaTrueSouthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMaTrueSouthNodeBackgroundColorLabel,
+                   self.planetMaTrueSouthNodeBackgroundColorEditButton)
+
+        # JuTrueNorthNode
+        self.planetJuTrueNorthNodeGlyphUnicodeLabel = \
+            QLabel("JuTrueNorthNode unicode glyph:")
+        self.planetJuTrueNorthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetJuTrueNorthNodeGlyphUnicodeLabel,
+                   self.planetJuTrueNorthNodeGlyphUnicodeLineEdit)
+        self.planetJuTrueNorthNodeGlyphFontSizeLabel = \
+            QLabel("JuTrueNorthNode glyph font size:")
+        self.planetJuTrueNorthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetJuTrueNorthNodeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetJuTrueNorthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetJuTrueNorthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetJuTrueNorthNodeGlyphFontSizeLabel,
+                   self.planetJuTrueNorthNodeGlyphFontSizeSpinBox)
+        self.planetJuTrueNorthNodeAbbreviationLabel = \
+            QLabel("JuTrueNorthNode abbreviation:")
+        self.planetJuTrueNorthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetJuTrueNorthNodeAbbreviationLabel,
+                   self.planetJuTrueNorthNodeAbbreviationLineEdit)
+        self.planetJuTrueNorthNodeForegroundColorLabel = \
+            QLabel("JuTrueNorthNode foreground color:")
+        self.planetJuTrueNorthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetJuTrueNorthNodeForegroundColorLabel,
+                   self.planetJuTrueNorthNodeForegroundColorEditButton)
+        self.planetJuTrueNorthNodeBackgroundColorLabel = \
+            QLabel("JuTrueNorthNode background color:")
+        self.planetJuTrueNorthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetJuTrueNorthNodeBackgroundColorLabel,
+                   self.planetJuTrueNorthNodeBackgroundColorEditButton)
+
+        # JuTrueSouthNode
+        self.planetJuTrueSouthNodeGlyphUnicodeLabel = \
+            QLabel("JuTrueSouthNode unicode glyph:")
+        self.planetJuTrueSouthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetJuTrueSouthNodeGlyphUnicodeLabel,
+                   self.planetJuTrueSouthNodeGlyphUnicodeLineEdit)
+        self.planetJuTrueSouthNodeGlyphFontSizeLabel = \
+            QLabel("JuTrueSouthNode glyph font size:")
+        self.planetJuTrueSouthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetJuTrueSouthNodeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetJuTrueSouthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetJuTrueSouthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetJuTrueSouthNodeGlyphFontSizeLabel,
+                   self.planetJuTrueSouthNodeGlyphFontSizeSpinBox)
+        self.planetJuTrueSouthNodeAbbreviationLabel = \
+            QLabel("JuTrueSouthNode abbreviation:")
+        self.planetJuTrueSouthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetJuTrueSouthNodeAbbreviationLabel,
+                   self.planetJuTrueSouthNodeAbbreviationLineEdit)
+        self.planetJuTrueSouthNodeForegroundColorLabel = \
+            QLabel("JuTrueSouthNode foreground color:")
+        self.planetJuTrueSouthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetJuTrueSouthNodeForegroundColorLabel,
+                   self.planetJuTrueSouthNodeForegroundColorEditButton)
+        self.planetJuTrueSouthNodeBackgroundColorLabel = \
+            QLabel("JuTrueSouthNode background color:")
+        self.planetJuTrueSouthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetJuTrueSouthNodeBackgroundColorLabel,
+                   self.planetJuTrueSouthNodeBackgroundColorEditButton)
+
+        # SaTrueNorthNode
+        self.planetSaTrueNorthNodeGlyphUnicodeLabel = \
+            QLabel("SaTrueNorthNode unicode glyph:")
+        self.planetSaTrueNorthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSaTrueNorthNodeGlyphUnicodeLabel,
+                   self.planetSaTrueNorthNodeGlyphUnicodeLineEdit)
+        self.planetSaTrueNorthNodeGlyphFontSizeLabel = \
+            QLabel("SaTrueNorthNode glyph font size:")
+        self.planetSaTrueNorthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetSaTrueNorthNodeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetSaTrueNorthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetSaTrueNorthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetSaTrueNorthNodeGlyphFontSizeLabel,
+                   self.planetSaTrueNorthNodeGlyphFontSizeSpinBox)
+        self.planetSaTrueNorthNodeAbbreviationLabel = \
+            QLabel("SaTrueNorthNode abbreviation:")
+        self.planetSaTrueNorthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSaTrueNorthNodeAbbreviationLabel,
+                   self.planetSaTrueNorthNodeAbbreviationLineEdit)
+        self.planetSaTrueNorthNodeForegroundColorLabel = \
+            QLabel("SaTrueNorthNode foreground color:")
+        self.planetSaTrueNorthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSaTrueNorthNodeForegroundColorLabel,
+                   self.planetSaTrueNorthNodeForegroundColorEditButton)
+        self.planetSaTrueNorthNodeBackgroundColorLabel = \
+            QLabel("SaTrueNorthNode background color:")
+        self.planetSaTrueNorthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSaTrueNorthNodeBackgroundColorLabel,
+                   self.planetSaTrueNorthNodeBackgroundColorEditButton)
+
+        # SaTrueSouthNode
+        self.planetSaTrueSouthNodeGlyphUnicodeLabel = \
+            QLabel("SaTrueSouthNode unicode glyph:")
+        self.planetSaTrueSouthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSaTrueSouthNodeGlyphUnicodeLabel,
+                   self.planetSaTrueSouthNodeGlyphUnicodeLineEdit)
+        self.planetSaTrueSouthNodeGlyphFontSizeLabel = \
+            QLabel("SaTrueSouthNode glyph font size:")
+        self.planetSaTrueSouthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetSaTrueSouthNodeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetSaTrueSouthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetSaTrueSouthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetSaTrueSouthNodeGlyphFontSizeLabel,
+                   self.planetSaTrueSouthNodeGlyphFontSizeSpinBox)
+        self.planetSaTrueSouthNodeAbbreviationLabel = \
+            QLabel("SaTrueSouthNode abbreviation:")
+        self.planetSaTrueSouthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSaTrueSouthNodeAbbreviationLabel,
+                   self.planetSaTrueSouthNodeAbbreviationLineEdit)
+        self.planetSaTrueSouthNodeForegroundColorLabel = \
+            QLabel("SaTrueSouthNode foreground color:")
+        self.planetSaTrueSouthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSaTrueSouthNodeForegroundColorLabel,
+                   self.planetSaTrueSouthNodeForegroundColorEditButton)
+        self.planetSaTrueSouthNodeBackgroundColorLabel = \
+            QLabel("SaTrueSouthNode background color:")
+        self.planetSaTrueSouthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSaTrueSouthNodeBackgroundColorLabel,
+                   self.planetSaTrueSouthNodeBackgroundColorEditButton)
+
+        # UrTrueNorthNode
+        self.planetUrTrueNorthNodeGlyphUnicodeLabel = \
+            QLabel("UrTrueNorthNode unicode glyph:")
+        self.planetUrTrueNorthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetUrTrueNorthNodeGlyphUnicodeLabel,
+                   self.planetUrTrueNorthNodeGlyphUnicodeLineEdit)
+        self.planetUrTrueNorthNodeGlyphFontSizeLabel = \
+            QLabel("UrTrueNorthNode glyph font size:")
+        self.planetUrTrueNorthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetUrTrueNorthNodeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetUrTrueNorthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetUrTrueNorthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetUrTrueNorthNodeGlyphFontSizeLabel,
+                   self.planetUrTrueNorthNodeGlyphFontSizeSpinBox)
+        self.planetUrTrueNorthNodeAbbreviationLabel = \
+            QLabel("UrTrueNorthNode abbreviation:")
+        self.planetUrTrueNorthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetUrTrueNorthNodeAbbreviationLabel,
+                   self.planetUrTrueNorthNodeAbbreviationLineEdit)
+        self.planetUrTrueNorthNodeForegroundColorLabel = \
+            QLabel("UrTrueNorthNode foreground color:")
+        self.planetUrTrueNorthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetUrTrueNorthNodeForegroundColorLabel,
+                   self.planetUrTrueNorthNodeForegroundColorEditButton)
+        self.planetUrTrueNorthNodeBackgroundColorLabel = \
+            QLabel("UrTrueNorthNode background color:")
+        self.planetUrTrueNorthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetUrTrueNorthNodeBackgroundColorLabel,
+                   self.planetUrTrueNorthNodeBackgroundColorEditButton)
+
+        # UrTrueSouthNode
+        self.planetUrTrueSouthNodeGlyphUnicodeLabel = \
+            QLabel("UrTrueSouthNode unicode glyph:")
+        self.planetUrTrueSouthNodeGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetUrTrueSouthNodeGlyphUnicodeLabel,
+                   self.planetUrTrueSouthNodeGlyphUnicodeLineEdit)
+        self.planetUrTrueSouthNodeGlyphFontSizeLabel = \
+            QLabel("UrTrueSouthNode glyph font size:")
+        self.planetUrTrueSouthNodeGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetUrTrueSouthNodeGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetUrTrueSouthNodeGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetUrTrueSouthNodeGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetUrTrueSouthNodeGlyphFontSizeLabel,
+                   self.planetUrTrueSouthNodeGlyphFontSizeSpinBox)
+        self.planetUrTrueSouthNodeAbbreviationLabel = \
+            QLabel("UrTrueSouthNode abbreviation:")
+        self.planetUrTrueSouthNodeAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetUrTrueSouthNodeAbbreviationLabel,
+                   self.planetUrTrueSouthNodeAbbreviationLineEdit)
+        self.planetUrTrueSouthNodeForegroundColorLabel = \
+            QLabel("UrTrueSouthNode foreground color:")
+        self.planetUrTrueSouthNodeForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetUrTrueSouthNodeForegroundColorLabel,
+                   self.planetUrTrueSouthNodeForegroundColorEditButton)
+        self.planetUrTrueSouthNodeBackgroundColorLabel = \
+            QLabel("UrTrueSouthNode background color:")
+        self.planetUrTrueSouthNodeBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetUrTrueSouthNodeBackgroundColorLabel,
+                   self.planetUrTrueSouthNodeBackgroundColorEditButton)
 
         # MeVe
         self.planetMeVeGlyphUnicodeLabel = \
@@ -8283,6 +11115,46 @@ class AppPreferencesEditWidget(QWidget):
         formLayout.\
             addRow(self.planetMeVeBackgroundColorLabel,
                    self.planetMeVeBackgroundColorEditButton)
+
+        # MeSu
+        self.planetMeSuGlyphUnicodeLabel = \
+            QLabel("MeSu unicode glyph:")
+        self.planetMeSuGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMeSuGlyphUnicodeLabel,
+                   self.planetMeSuGlyphUnicodeLineEdit)
+        self.planetMeSuGlyphFontSizeLabel = \
+            QLabel("MeSu glyph font size:")
+        self.planetMeSuGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetMeSuGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetMeSuGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetMeSuGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetMeSuGlyphFontSizeLabel,
+                   self.planetMeSuGlyphFontSizeSpinBox)
+        self.planetMeSuAbbreviationLabel = \
+            QLabel("MeSu abbreviation:")
+        self.planetMeSuAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetMeSuAbbreviationLabel,
+                   self.planetMeSuAbbreviationLineEdit)
+        self.planetMeSuForegroundColorLabel = \
+            QLabel("MeSu foreground color:")
+        self.planetMeSuForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMeSuForegroundColorLabel,
+                   self.planetMeSuForegroundColorEditButton)
+        self.planetMeSuBackgroundColorLabel = \
+            QLabel("MeSu background color:")
+        self.planetMeSuBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetMeSuBackgroundColorLabel,
+                   self.planetMeSuBackgroundColorEditButton)
 
         # MeEa
         self.planetMeEaGlyphUnicodeLabel = \
@@ -8484,6 +11356,46 @@ class AppPreferencesEditWidget(QWidget):
             addRow(self.planetMeUrBackgroundColorLabel,
                    self.planetMeUrBackgroundColorEditButton)
 
+        # VeSu
+        self.planetVeSuGlyphUnicodeLabel = \
+            QLabel("VeSu unicode glyph:")
+        self.planetVeSuGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetVeSuGlyphUnicodeLabel,
+                   self.planetVeSuGlyphUnicodeLineEdit)
+        self.planetVeSuGlyphFontSizeLabel = \
+            QLabel("VeSu glyph font size:")
+        self.planetVeSuGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetVeSuGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetVeSuGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetVeSuGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetVeSuGlyphFontSizeLabel,
+                   self.planetVeSuGlyphFontSizeSpinBox)
+        self.planetVeSuAbbreviationLabel = \
+            QLabel("VeSu abbreviation:")
+        self.planetVeSuAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetVeSuAbbreviationLabel,
+                   self.planetVeSuAbbreviationLineEdit)
+        self.planetVeSuForegroundColorLabel = \
+            QLabel("VeSu foreground color:")
+        self.planetVeSuForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetVeSuForegroundColorLabel,
+                   self.planetVeSuForegroundColorEditButton)
+        self.planetVeSuBackgroundColorLabel = \
+            QLabel("VeSu background color:")
+        self.planetVeSuBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetVeSuBackgroundColorLabel,
+                   self.planetVeSuBackgroundColorEditButton)
+
         # VeEa
         self.planetVeEaGlyphUnicodeLabel = \
             QLabel("VeEa unicode glyph:")
@@ -8683,6 +11595,166 @@ class AppPreferencesEditWidget(QWidget):
         formLayout.\
             addRow(self.planetVeUrBackgroundColorLabel,
                    self.planetVeUrBackgroundColorEditButton)
+
+        # SuMa
+        self.planetSuMaGlyphUnicodeLabel = \
+            QLabel("SuMa unicode glyph:")
+        self.planetSuMaGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSuMaGlyphUnicodeLabel,
+                   self.planetSuMaGlyphUnicodeLineEdit)
+        self.planetSuMaGlyphFontSizeLabel = \
+            QLabel("SuMa glyph font size:")
+        self.planetSuMaGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetSuMaGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetSuMaGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetSuMaGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetSuMaGlyphFontSizeLabel,
+                   self.planetSuMaGlyphFontSizeSpinBox)
+        self.planetSuMaAbbreviationLabel = \
+            QLabel("SuMa abbreviation:")
+        self.planetSuMaAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSuMaAbbreviationLabel,
+                   self.planetSuMaAbbreviationLineEdit)
+        self.planetSuMaForegroundColorLabel = \
+            QLabel("SuMa foreground color:")
+        self.planetSuMaForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSuMaForegroundColorLabel,
+                   self.planetSuMaForegroundColorEditButton)
+        self.planetSuMaBackgroundColorLabel = \
+            QLabel("SuMa background color:")
+        self.planetSuMaBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSuMaBackgroundColorLabel,
+                   self.planetSuMaBackgroundColorEditButton)
+
+        # SuJu
+        self.planetSuJuGlyphUnicodeLabel = \
+            QLabel("SuJu unicode glyph:")
+        self.planetSuJuGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSuJuGlyphUnicodeLabel,
+                   self.planetSuJuGlyphUnicodeLineEdit)
+        self.planetSuJuGlyphFontSizeLabel = \
+            QLabel("SuJu glyph font size:")
+        self.planetSuJuGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetSuJuGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetSuJuGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetSuJuGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetSuJuGlyphFontSizeLabel,
+                   self.planetSuJuGlyphFontSizeSpinBox)
+        self.planetSuJuAbbreviationLabel = \
+            QLabel("SuJu abbreviation:")
+        self.planetSuJuAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSuJuAbbreviationLabel,
+                   self.planetSuJuAbbreviationLineEdit)
+        self.planetSuJuForegroundColorLabel = \
+            QLabel("SuJu foreground color:")
+        self.planetSuJuForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSuJuForegroundColorLabel,
+                   self.planetSuJuForegroundColorEditButton)
+        self.planetSuJuBackgroundColorLabel = \
+            QLabel("SuJu background color:")
+        self.planetSuJuBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSuJuBackgroundColorLabel,
+                   self.planetSuJuBackgroundColorEditButton)
+
+        # SuSa
+        self.planetSuSaGlyphUnicodeLabel = \
+            QLabel("SuSa unicode glyph:")
+        self.planetSuSaGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSuSaGlyphUnicodeLabel,
+                   self.planetSuSaGlyphUnicodeLineEdit)
+        self.planetSuSaGlyphFontSizeLabel = \
+            QLabel("SuSa glyph font size:")
+        self.planetSuSaGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetSuSaGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetSuSaGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetSuSaGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetSuSaGlyphFontSizeLabel,
+                   self.planetSuSaGlyphFontSizeSpinBox)
+        self.planetSuSaAbbreviationLabel = \
+            QLabel("SuSa abbreviation:")
+        self.planetSuSaAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSuSaAbbreviationLabel,
+                   self.planetSuSaAbbreviationLineEdit)
+        self.planetSuSaForegroundColorLabel = \
+            QLabel("SuSa foreground color:")
+        self.planetSuSaForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSuSaForegroundColorLabel,
+                   self.planetSuSaForegroundColorEditButton)
+        self.planetSuSaBackgroundColorLabel = \
+            QLabel("SuSa background color:")
+        self.planetSuSaBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSuSaBackgroundColorLabel,
+                   self.planetSuSaBackgroundColorEditButton)
+
+        # SuUr
+        self.planetSuUrGlyphUnicodeLabel = \
+            QLabel("SuUr unicode glyph:")
+        self.planetSuUrGlyphUnicodeLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSuUrGlyphUnicodeLabel,
+                   self.planetSuUrGlyphUnicodeLineEdit)
+        self.planetSuUrGlyphFontSizeLabel = \
+            QLabel("SuUr glyph font size:")
+        self.planetSuUrGlyphFontSizeSpinBox = \
+            QDoubleSpinBox()
+        self.planetSuUrGlyphFontSizeSpinBox.setDecimals(4)
+        self.planetSuUrGlyphFontSizeSpinBox.setMinimum(0.01)
+        self.planetSuUrGlyphFontSizeSpinBox.setMaximum(1000)
+        formLayout.\
+            addRow(self.planetSuUrGlyphFontSizeLabel,
+                   self.planetSuUrGlyphFontSizeSpinBox)
+        self.planetSuUrAbbreviationLabel = \
+            QLabel("SuUr abbreviation:")
+        self.planetSuUrAbbreviationLineEdit = \
+            QLineEdit()
+        formLayout.\
+            addRow(self.planetSuUrAbbreviationLabel,
+                   self.planetSuUrAbbreviationLineEdit)
+        self.planetSuUrForegroundColorLabel = \
+            QLabel("SuUr foreground color:")
+        self.planetSuUrForegroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSuUrForegroundColorLabel,
+                   self.planetSuUrForegroundColorEditButton)
+        self.planetSuUrBackgroundColorLabel = \
+            QLabel("SuUr background color:")
+        self.planetSuUrBackgroundColorEditButton = \
+            ColorEditPushButton()
+        formLayout.\
+            addRow(self.planetSuUrBackgroundColorLabel,
+                   self.planetSuUrBackgroundColorEditButton)
 
         # EaMa
         self.planetEaMaGlyphUnicodeLabel = \
@@ -11808,6 +14880,141 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAsMoCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetAsMeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsVeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsVeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsVeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsVeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsMaCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMaCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMaCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMaCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsJuCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsJuCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsJuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsJuCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsSaCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSaCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsSaCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSaCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsUrCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsUrCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsUrCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsUrCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoSuCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSuCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoSuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSuCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoMeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoMeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoVeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoVeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoVeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoVeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoMaCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMaCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoMaCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMaCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoJuCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoJuCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoJuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoJuCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoSaCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSaCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoSaCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSaCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoUrCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoUrCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoUrCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoUrCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsTrueNorthNodeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueNorthNodeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsTrueSouthNodeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueSouthNodeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetSunTrueNorthNodeCalculationsEnabledKey
         value = settings.value(key, \
             SettingsKeys.planetSunTrueNorthNodeCalculationsEnabledDefValue,
@@ -11844,14 +15051,113 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMoonTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
-        key = SettingsKeys.planetMoSuCalculationsEnabledKey
+        key = SettingsKeys.planetMeTrueNorthNodeCalculationsEnabledKey
         value = settings.value(key, \
-            SettingsKeys.planetMoSuCalculationsEnabledDefValue,
+            SettingsKeys.planetMeTrueNorthNodeCalculationsEnabledDefValue,
             type=bool)
         if value == True:
-            self.planetMoSuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+            self.planetMeTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
         else:
-            self.planetMoSuCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+            self.planetMeTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeTrueSouthNodeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeTrueSouthNodeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVeTrueNorthNodeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueNorthNodeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVeTrueSouthNodeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueSouthNodeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMaTrueNorthNodeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueNorthNodeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetMaTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMaTrueSouthNodeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueSouthNodeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetMaTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetJuTrueNorthNodeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueNorthNodeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetJuTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetJuTrueSouthNodeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueSouthNodeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetJuTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSaTrueNorthNodeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueNorthNodeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetSaTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSaTrueSouthNodeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueSouthNodeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetSaTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetUrTrueNorthNodeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueNorthNodeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetUrTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetUrTrueSouthNodeCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueSouthNodeCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetUrTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMeVeCalculationsEnabledKey
         value = settings.value(key, \
@@ -11861,6 +15167,15 @@ class AppPreferencesEditWidget(QWidget):
             self.planetMeVeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetMeVeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeSuCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeSuCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeSuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeSuCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMeEaCalculationsEnabledKey
         value = settings.value(key, \
@@ -11907,6 +15222,15 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMeUrCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetVeSuCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeSuCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeSuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeSuCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetVeEaCalculationsEnabledKey
         value = settings.value(key, \
             SettingsKeys.planetVeEaCalculationsEnabledDefValue,
@@ -11951,6 +15275,42 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVeUrCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVeUrCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuMaCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuMaCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuMaCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuMaCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuJuCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuJuCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuJuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuJuCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuSaCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuSaCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuSaCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuSaCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuUrCalculationsEnabledKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuUrCalculationsEnabledDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuUrCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuUrCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetEaMaCalculationsEnabledKey
         value = settings.value(key, \
@@ -12551,6 +15911,141 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAsMoEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetAsMeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsVeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsVeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsVeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsVeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsMaEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMaEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsJuEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsJuEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsJuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsJuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsSaEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSaEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsSaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsUrEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsUrEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoSuEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSuEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoMeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoMeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoVeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoVeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoVeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoVeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoMaEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMaEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoMaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoJuEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoJuEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoJuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoJuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoSaEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSaEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoSaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoUrEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoUrEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsTrueNorthNodeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsTrueSouthNodeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueSouthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetSunTrueNorthNodeEnabledForPlanetaryInfoTableKey
         value = settings.value(key, \
             SettingsKeys.planetSunTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
@@ -12587,14 +16082,113 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMoonTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
-        key = SettingsKeys.planetMoSuEnabledForPlanetaryInfoTableKey
+        key = SettingsKeys.planetMeTrueNorthNodeEnabledForPlanetaryInfoTableKey
         value = settings.value(key, \
-            SettingsKeys.planetMoSuEnabledForPlanetaryInfoTableDefValue,
+            SettingsKeys.planetMeTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
             type=bool)
         if value == True:
-            self.planetMoSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+            self.planetMeTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
         else:
-            self.planetMoSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+            self.planetMeTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeTrueSouthNodeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeTrueSouthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVeTrueNorthNodeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVeTrueSouthNodeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueSouthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMaTrueNorthNodeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetMaTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMaTrueSouthNodeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueSouthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetMaTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetJuTrueNorthNodeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetJuTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetJuTrueSouthNodeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueSouthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetJuTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSaTrueNorthNodeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetSaTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSaTrueSouthNodeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueSouthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetSaTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetUrTrueNorthNodeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueNorthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetUrTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetUrTrueSouthNodeEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueSouthNodeEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetUrTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMeVeEnabledForPlanetaryInfoTableKey
         value = settings.value(key, \
@@ -12604,6 +16198,15 @@ class AppPreferencesEditWidget(QWidget):
             self.planetMeVeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetMeVeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeSuEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeSuEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMeEaEnabledForPlanetaryInfoTableKey
         value = settings.value(key, \
@@ -12650,6 +16253,15 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMeUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetVeSuEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeSuEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetVeEaEnabledForPlanetaryInfoTableKey
         value = settings.value(key, \
             SettingsKeys.planetVeEaEnabledForPlanetaryInfoTableDefValue,
@@ -12694,6 +16306,42 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVeUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVeUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuMaEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuMaEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuMaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuMaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuJuEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuJuEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuJuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuJuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuSaEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuSaEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuSaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuSaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuUrEnabledForPlanetaryInfoTableKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuUrEnabledForPlanetaryInfoTableDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetEaMaEnabledForPlanetaryInfoTableKey
         value = settings.value(key, \
@@ -13294,6 +16942,141 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAsMoEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetAsMeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsVeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsVeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsVeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsVeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsMaEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMaEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsJuEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsJuEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsJuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsJuEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsSaEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSaEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsSaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsUrEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsUrEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsUrEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsUrEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoSuEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSuEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoSuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSuEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoMeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoMeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoVeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoVeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoVeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoVeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoMaEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMaEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoMaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoJuEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoJuEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoJuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoJuEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoSaEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSaEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoSaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoUrEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoUrEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoUrEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoUrEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsTrueNorthNodeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueNorthNodeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsTrueSouthNodeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueSouthNodeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetSunTrueNorthNodeEnabledForDeclinationKey
         value = settings.value(key, \
             SettingsKeys.planetSunTrueNorthNodeEnabledForDeclinationDefValue,
@@ -13330,14 +17113,113 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMoonTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
-        key = SettingsKeys.planetMoSuEnabledForDeclinationKey
+        key = SettingsKeys.planetMeTrueNorthNodeEnabledForDeclinationKey
         value = settings.value(key, \
-            SettingsKeys.planetMoSuEnabledForDeclinationDefValue,
+            SettingsKeys.planetMeTrueNorthNodeEnabledForDeclinationDefValue,
             type=bool)
         if value == True:
-            self.planetMoSuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+            self.planetMeTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
         else:
-            self.planetMoSuEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+            self.planetMeTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeTrueSouthNodeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeTrueSouthNodeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVeTrueNorthNodeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueNorthNodeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVeTrueSouthNodeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueSouthNodeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMaTrueNorthNodeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueNorthNodeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetMaTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMaTrueSouthNodeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueSouthNodeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetMaTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetJuTrueNorthNodeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueNorthNodeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetJuTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetJuTrueSouthNodeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueSouthNodeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetJuTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSaTrueNorthNodeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueNorthNodeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetSaTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSaTrueSouthNodeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueSouthNodeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetSaTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetUrTrueNorthNodeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueNorthNodeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetUrTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetUrTrueSouthNodeEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueSouthNodeEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetUrTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMeVeEnabledForDeclinationKey
         value = settings.value(key, \
@@ -13347,6 +17229,15 @@ class AppPreferencesEditWidget(QWidget):
             self.planetMeVeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetMeVeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeSuEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeSuEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeSuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeSuEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMeEaEnabledForDeclinationKey
         value = settings.value(key, \
@@ -13393,6 +17284,15 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMeUrEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetVeSuEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeSuEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeSuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeSuEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetVeEaEnabledForDeclinationKey
         value = settings.value(key, \
             SettingsKeys.planetVeEaEnabledForDeclinationDefValue,
@@ -13437,6 +17337,42 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVeUrEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVeUrEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuMaEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuMaEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuMaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuMaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuJuEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuJuEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuJuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuJuEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuSaEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuSaEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuSaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuSaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuUrEnabledForDeclinationKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuUrEnabledForDeclinationDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuUrEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuUrEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetEaMaEnabledForDeclinationKey
         value = settings.value(key, \
@@ -14037,6 +17973,141 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAsMoEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetAsMeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsVeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsVeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsVeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsVeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsMaEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMaEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsJuEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsJuEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsJuEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsJuEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsSaEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSaEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsSaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsUrEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsUrEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsUrEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsUrEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoSuEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSuEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoSuEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSuEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoMeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoMeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoVeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoVeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoVeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoVeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoMaEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMaEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoMaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoJuEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoJuEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoJuEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoJuEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoSaEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSaEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoSaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoUrEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoUrEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoUrEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoUrEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsTrueNorthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueNorthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsTrueSouthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueSouthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetSunTrueNorthNodeEnabledForLatitudeKey
         value = settings.value(key, \
             SettingsKeys.planetSunTrueNorthNodeEnabledForLatitudeDefValue,
@@ -14073,14 +18144,113 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMoonTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
-        key = SettingsKeys.planetMoSuEnabledForLatitudeKey
+        key = SettingsKeys.planetMeTrueNorthNodeEnabledForLatitudeKey
         value = settings.value(key, \
-            SettingsKeys.planetMoSuEnabledForLatitudeDefValue,
+            SettingsKeys.planetMeTrueNorthNodeEnabledForLatitudeDefValue,
             type=bool)
         if value == True:
-            self.planetMoSuEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+            self.planetMeTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
         else:
-            self.planetMoSuEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+            self.planetMeTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeTrueSouthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeTrueSouthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVeTrueNorthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueNorthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVeTrueSouthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueSouthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMaTrueNorthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueNorthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMaTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMaTrueSouthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueSouthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMaTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetJuTrueNorthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueNorthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetJuTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetJuTrueSouthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueSouthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetJuTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSaTrueNorthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueNorthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetSaTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSaTrueSouthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueSouthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetSaTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetUrTrueNorthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueNorthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetUrTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetUrTrueSouthNodeEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueSouthNodeEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetUrTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMeVeEnabledForLatitudeKey
         value = settings.value(key, \
@@ -14090,6 +18260,15 @@ class AppPreferencesEditWidget(QWidget):
             self.planetMeVeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetMeVeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeSuEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeSuEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeSuEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeSuEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMeEaEnabledForLatitudeKey
         value = settings.value(key, \
@@ -14136,6 +18315,15 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMeUrEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetVeSuEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeSuEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeSuEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeSuEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetVeEaEnabledForLatitudeKey
         value = settings.value(key, \
             SettingsKeys.planetVeEaEnabledForLatitudeDefValue,
@@ -14180,6 +18368,42 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVeUrEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVeUrEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuMaEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuMaEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuMaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuMaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuJuEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuJuEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuJuEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuJuEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuSaEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuSaEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuSaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuSaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuUrEnabledForLatitudeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuUrEnabledForLatitudeDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuUrEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuUrEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetEaMaEnabledForLatitudeKey
         value = settings.value(key, \
@@ -14780,6 +19004,141 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAsMoEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetAsMeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsVeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsVeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsVeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsVeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsMaEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMaEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsJuEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsJuEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsJuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsJuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsSaEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSaEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsSaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsUrEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsUrEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoSuEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSuEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoMeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoMeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoVeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoVeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoVeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoVeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoMaEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMaEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoMaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoJuEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoJuEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoJuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoJuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoSaEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSaEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoSaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoUrEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoUrEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsTrueNorthNodeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsTrueSouthNodeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueSouthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetSunTrueNorthNodeEnabledForGeoSidRadixChartKey
         value = settings.value(key, \
             SettingsKeys.planetSunTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
@@ -14816,14 +19175,113 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMoonTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
-        key = SettingsKeys.planetMoSuEnabledForGeoSidRadixChartKey
+        key = SettingsKeys.planetMeTrueNorthNodeEnabledForGeoSidRadixChartKey
         value = settings.value(key, \
-            SettingsKeys.planetMoSuEnabledForGeoSidRadixChartDefValue,
+            SettingsKeys.planetMeTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
             type=bool)
         if value == True:
-            self.planetMoSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+            self.planetMeTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
-            self.planetMoSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+            self.planetMeTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeTrueSouthNodeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeTrueSouthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVeTrueNorthNodeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVeTrueSouthNodeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueSouthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMaTrueNorthNodeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMaTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMaTrueSouthNodeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueSouthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMaTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetJuTrueNorthNodeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetJuTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetJuTrueSouthNodeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueSouthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetJuTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSaTrueNorthNodeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSaTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSaTrueSouthNodeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueSouthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSaTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetUrTrueNorthNodeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueNorthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetUrTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetUrTrueSouthNodeEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueSouthNodeEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetUrTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMeVeEnabledForGeoSidRadixChartKey
         value = settings.value(key, \
@@ -14833,6 +19291,15 @@ class AppPreferencesEditWidget(QWidget):
             self.planetMeVeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetMeVeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeSuEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeSuEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMeEaEnabledForGeoSidRadixChartKey
         value = settings.value(key, \
@@ -14879,6 +19346,15 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMeUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetVeSuEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeSuEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetVeEaEnabledForGeoSidRadixChartKey
         value = settings.value(key, \
             SettingsKeys.planetVeEaEnabledForGeoSidRadixChartDefValue,
@@ -14923,6 +19399,42 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVeUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVeUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuMaEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuMaEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuMaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuMaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuJuEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuJuEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuJuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuJuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuSaEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuSaEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuSaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuSaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuUrEnabledForGeoSidRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuUrEnabledForGeoSidRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetEaMaEnabledForGeoSidRadixChartKey
         value = settings.value(key, \
@@ -15523,6 +20035,141 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAsMoEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetAsMeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsVeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsVeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsVeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsVeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsMaEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMaEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsJuEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsJuEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsJuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsJuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsSaEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSaEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsSaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsUrEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsUrEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoSuEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSuEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoMeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoMeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoVeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoVeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoVeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoVeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoMaEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMaEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoMaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoJuEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoJuEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoJuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoJuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoSaEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSaEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoSaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoUrEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoUrEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsTrueNorthNodeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsTrueSouthNodeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueSouthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetSunTrueNorthNodeEnabledForGeoTropRadixChartKey
         value = settings.value(key, \
             SettingsKeys.planetSunTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
@@ -15559,14 +20206,113 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMoonTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
-        key = SettingsKeys.planetMoSuEnabledForGeoTropRadixChartKey
+        key = SettingsKeys.planetMeTrueNorthNodeEnabledForGeoTropRadixChartKey
         value = settings.value(key, \
-            SettingsKeys.planetMoSuEnabledForGeoTropRadixChartDefValue,
+            SettingsKeys.planetMeTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
             type=bool)
         if value == True:
-            self.planetMoSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+            self.planetMeTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
-            self.planetMoSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+            self.planetMeTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeTrueSouthNodeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeTrueSouthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVeTrueNorthNodeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVeTrueSouthNodeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueSouthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMaTrueNorthNodeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMaTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMaTrueSouthNodeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueSouthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMaTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetJuTrueNorthNodeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetJuTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetJuTrueSouthNodeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueSouthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetJuTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSaTrueNorthNodeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSaTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSaTrueSouthNodeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueSouthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSaTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetUrTrueNorthNodeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueNorthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetUrTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetUrTrueSouthNodeEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueSouthNodeEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetUrTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMeVeEnabledForGeoTropRadixChartKey
         value = settings.value(key, \
@@ -15576,6 +20322,15 @@ class AppPreferencesEditWidget(QWidget):
             self.planetMeVeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetMeVeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeSuEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeSuEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMeEaEnabledForGeoTropRadixChartKey
         value = settings.value(key, \
@@ -15622,6 +20377,15 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMeUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetVeSuEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeSuEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetVeEaEnabledForGeoTropRadixChartKey
         value = settings.value(key, \
             SettingsKeys.planetVeEaEnabledForGeoTropRadixChartDefValue,
@@ -15666,6 +20430,42 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVeUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVeUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuMaEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuMaEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuMaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuMaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuJuEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuJuEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuJuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuJuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuSaEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuSaEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuSaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuSaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuUrEnabledForGeoTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuUrEnabledForGeoTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetEaMaEnabledForGeoTropRadixChartKey
         value = settings.value(key, \
@@ -16266,6 +21066,141 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAsMoEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetAsMeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsVeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsVeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsVeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsVeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsMaEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMaEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsMaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsJuEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsJuEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsJuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsJuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsSaEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSaEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsSaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsUrEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsUrEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoSuEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSuEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoMeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoMeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoVeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoVeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoVeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoVeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoMaEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMaEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoMaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoJuEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoJuEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoJuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoJuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoSaEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSaEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoSaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMoUrEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoUrEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMoUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsTrueNorthNodeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetAsTrueSouthNodeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueSouthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetAsTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetSunTrueNorthNodeEnabledForHelioTropRadixChartKey
         value = settings.value(key, \
             SettingsKeys.planetSunTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
@@ -16302,14 +21237,113 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMoonTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
-        key = SettingsKeys.planetMoSuEnabledForHelioTropRadixChartKey
+        key = SettingsKeys.planetMeTrueNorthNodeEnabledForHelioTropRadixChartKey
         value = settings.value(key, \
-            SettingsKeys.planetMoSuEnabledForHelioTropRadixChartDefValue,
+            SettingsKeys.planetMeTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
             type=bool)
         if value == True:
-            self.planetMoSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+            self.planetMeTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
-            self.planetMoSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+            self.planetMeTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeTrueSouthNodeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeTrueSouthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVeTrueNorthNodeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetVeTrueSouthNodeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueSouthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMaTrueNorthNodeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMaTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMaTrueSouthNodeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueSouthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMaTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetJuTrueNorthNodeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetJuTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetJuTrueSouthNodeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueSouthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetJuTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSaTrueNorthNodeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSaTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSaTrueSouthNodeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueSouthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSaTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetUrTrueNorthNodeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueNorthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetUrTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetUrTrueSouthNodeEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueSouthNodeEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetUrTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMeVeEnabledForHelioTropRadixChartKey
         value = settings.value(key, \
@@ -16319,6 +21353,15 @@ class AppPreferencesEditWidget(QWidget):
             self.planetMeVeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetMeVeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetMeSuEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeSuEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetMeSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetMeEaEnabledForHelioTropRadixChartKey
         value = settings.value(key, \
@@ -16365,6 +21408,15 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMeUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        key = SettingsKeys.planetVeSuEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeSuEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetVeSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         key = SettingsKeys.planetVeEaEnabledForHelioTropRadixChartKey
         value = settings.value(key, \
             SettingsKeys.planetVeEaEnabledForHelioTropRadixChartDefValue,
@@ -16409,6 +21461,42 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVeUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVeUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuMaEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuMaEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuMaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuMaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuJuEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuJuEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuJuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuJuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuSaEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuSaEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuSaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuSaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        key = SettingsKeys.planetSuUrEnabledForHelioTropRadixChartKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuUrEnabledForHelioTropRadixChartDefValue,
+            type=bool)
+        if value == True:
+            self.planetSuUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         key = SettingsKeys.planetEaMaEnabledForHelioTropRadixChartKey
         value = settings.value(key, \
@@ -17629,6 +22717,546 @@ class AppPreferencesEditWidget(QWidget):
         self.planetAsMoBackgroundColorEditButton.\
             setColor(value)
 
+        # AsMe
+        key = SettingsKeys.planetAsMeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMeGlyphUnicodeDefValue,
+            type=str)
+        self.planetAsMeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsMeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMeGlyphFontSizeDefValue,
+            type=float)
+        self.planetAsMeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetAsMeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMeAbbreviationDefValue,
+            type=str)
+        self.planetAsMeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsMeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMeForegroundColorDefValue,
+            type=QColor)
+        self.planetAsMeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetAsMeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMeBackgroundColorDefValue,
+            type=QColor)
+        self.planetAsMeBackgroundColorEditButton.\
+            setColor(value)
+
+        # AsVe
+        key = SettingsKeys.planetAsVeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsVeGlyphUnicodeDefValue,
+            type=str)
+        self.planetAsVeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsVeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsVeGlyphFontSizeDefValue,
+            type=float)
+        self.planetAsVeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetAsVeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsVeAbbreviationDefValue,
+            type=str)
+        self.planetAsVeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsVeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsVeForegroundColorDefValue,
+            type=QColor)
+        self.planetAsVeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetAsVeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsVeBackgroundColorDefValue,
+            type=QColor)
+        self.planetAsVeBackgroundColorEditButton.\
+            setColor(value)
+
+        # AsMa
+        key = SettingsKeys.planetAsMaGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMaGlyphUnicodeDefValue,
+            type=str)
+        self.planetAsMaGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsMaGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMaGlyphFontSizeDefValue,
+            type=float)
+        self.planetAsMaGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetAsMaAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMaAbbreviationDefValue,
+            type=str)
+        self.planetAsMaAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsMaForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMaForegroundColorDefValue,
+            type=QColor)
+        self.planetAsMaForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetAsMaBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsMaBackgroundColorDefValue,
+            type=QColor)
+        self.planetAsMaBackgroundColorEditButton.\
+            setColor(value)
+
+        # AsJu
+        key = SettingsKeys.planetAsJuGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsJuGlyphUnicodeDefValue,
+            type=str)
+        self.planetAsJuGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsJuGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsJuGlyphFontSizeDefValue,
+            type=float)
+        self.planetAsJuGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetAsJuAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsJuAbbreviationDefValue,
+            type=str)
+        self.planetAsJuAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsJuForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsJuForegroundColorDefValue,
+            type=QColor)
+        self.planetAsJuForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetAsJuBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsJuBackgroundColorDefValue,
+            type=QColor)
+        self.planetAsJuBackgroundColorEditButton.\
+            setColor(value)
+
+        # AsSa
+        key = SettingsKeys.planetAsSaGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSaGlyphUnicodeDefValue,
+            type=str)
+        self.planetAsSaGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsSaGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSaGlyphFontSizeDefValue,
+            type=float)
+        self.planetAsSaGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetAsSaAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSaAbbreviationDefValue,
+            type=str)
+        self.planetAsSaAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsSaForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSaForegroundColorDefValue,
+            type=QColor)
+        self.planetAsSaForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetAsSaBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsSaBackgroundColorDefValue,
+            type=QColor)
+        self.planetAsSaBackgroundColorEditButton.\
+            setColor(value)
+
+        # AsUr
+        key = SettingsKeys.planetAsUrGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsUrGlyphUnicodeDefValue,
+            type=str)
+        self.planetAsUrGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsUrGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsUrGlyphFontSizeDefValue,
+            type=float)
+        self.planetAsUrGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetAsUrAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsUrAbbreviationDefValue,
+            type=str)
+        self.planetAsUrAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsUrForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsUrForegroundColorDefValue,
+            type=QColor)
+        self.planetAsUrForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetAsUrBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsUrBackgroundColorDefValue,
+            type=QColor)
+        self.planetAsUrBackgroundColorEditButton.\
+            setColor(value)
+
+        # MoSu
+        key = SettingsKeys.planetMoSuGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSuGlyphUnicodeDefValue,
+            type=str)
+        self.planetMoSuGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMoSuGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSuGlyphFontSizeDefValue,
+            type=float)
+        self.planetMoSuGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMoSuAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSuAbbreviationDefValue,
+            type=str)
+        self.planetMoSuAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMoSuForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSuForegroundColorDefValue,
+            type=QColor)
+        self.planetMoSuForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMoSuBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSuBackgroundColorDefValue,
+            type=QColor)
+        self.planetMoSuBackgroundColorEditButton.\
+            setColor(value)
+
+        # MoMe
+        key = SettingsKeys.planetMoMeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMeGlyphUnicodeDefValue,
+            type=str)
+        self.planetMoMeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMoMeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMeGlyphFontSizeDefValue,
+            type=float)
+        self.planetMoMeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMoMeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMeAbbreviationDefValue,
+            type=str)
+        self.planetMoMeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMoMeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMeForegroundColorDefValue,
+            type=QColor)
+        self.planetMoMeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMoMeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMeBackgroundColorDefValue,
+            type=QColor)
+        self.planetMoMeBackgroundColorEditButton.\
+            setColor(value)
+
+        # MoVe
+        key = SettingsKeys.planetMoVeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoVeGlyphUnicodeDefValue,
+            type=str)
+        self.planetMoVeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMoVeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoVeGlyphFontSizeDefValue,
+            type=float)
+        self.planetMoVeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMoVeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoVeAbbreviationDefValue,
+            type=str)
+        self.planetMoVeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMoVeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoVeForegroundColorDefValue,
+            type=QColor)
+        self.planetMoVeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMoVeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoVeBackgroundColorDefValue,
+            type=QColor)
+        self.planetMoVeBackgroundColorEditButton.\
+            setColor(value)
+
+        # MoMa
+        key = SettingsKeys.planetMoMaGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMaGlyphUnicodeDefValue,
+            type=str)
+        self.planetMoMaGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMoMaGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMaGlyphFontSizeDefValue,
+            type=float)
+        self.planetMoMaGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMoMaAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMaAbbreviationDefValue,
+            type=str)
+        self.planetMoMaAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMoMaForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMaForegroundColorDefValue,
+            type=QColor)
+        self.planetMoMaForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMoMaBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoMaBackgroundColorDefValue,
+            type=QColor)
+        self.planetMoMaBackgroundColorEditButton.\
+            setColor(value)
+
+        # MoJu
+        key = SettingsKeys.planetMoJuGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoJuGlyphUnicodeDefValue,
+            type=str)
+        self.planetMoJuGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMoJuGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoJuGlyphFontSizeDefValue,
+            type=float)
+        self.planetMoJuGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMoJuAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoJuAbbreviationDefValue,
+            type=str)
+        self.planetMoJuAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMoJuForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoJuForegroundColorDefValue,
+            type=QColor)
+        self.planetMoJuForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMoJuBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoJuBackgroundColorDefValue,
+            type=QColor)
+        self.planetMoJuBackgroundColorEditButton.\
+            setColor(value)
+
+        # MoSa
+        key = SettingsKeys.planetMoSaGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSaGlyphUnicodeDefValue,
+            type=str)
+        self.planetMoSaGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMoSaGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSaGlyphFontSizeDefValue,
+            type=float)
+        self.planetMoSaGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMoSaAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSaAbbreviationDefValue,
+            type=str)
+        self.planetMoSaAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMoSaForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSaForegroundColorDefValue,
+            type=QColor)
+        self.planetMoSaForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMoSaBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoSaBackgroundColorDefValue,
+            type=QColor)
+        self.planetMoSaBackgroundColorEditButton.\
+            setColor(value)
+
+        # MoUr
+        key = SettingsKeys.planetMoUrGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoUrGlyphUnicodeDefValue,
+            type=str)
+        self.planetMoUrGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMoUrGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoUrGlyphFontSizeDefValue,
+            type=float)
+        self.planetMoUrGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMoUrAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoUrAbbreviationDefValue,
+            type=str)
+        self.planetMoUrAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMoUrForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoUrForegroundColorDefValue,
+            type=QColor)
+        self.planetMoUrForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMoUrBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMoUrBackgroundColorDefValue,
+            type=QColor)
+        self.planetMoUrBackgroundColorEditButton.\
+            setColor(value)
+
+        # AsTrueNorthNode
+        key = SettingsKeys.planetAsTrueNorthNodeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueNorthNodeGlyphUnicodeDefValue,
+            type=str)
+        self.planetAsTrueNorthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsTrueNorthNodeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueNorthNodeGlyphFontSizeDefValue,
+            type=float)
+        self.planetAsTrueNorthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetAsTrueNorthNodeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueNorthNodeAbbreviationDefValue,
+            type=str)
+        self.planetAsTrueNorthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsTrueNorthNodeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueNorthNodeForegroundColorDefValue,
+            type=QColor)
+        self.planetAsTrueNorthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetAsTrueNorthNodeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueNorthNodeBackgroundColorDefValue,
+            type=QColor)
+        self.planetAsTrueNorthNodeBackgroundColorEditButton.\
+            setColor(value)
+
+        # AsTrueSouthNode
+        key = SettingsKeys.planetAsTrueSouthNodeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueSouthNodeGlyphUnicodeDefValue,
+            type=str)
+        self.planetAsTrueSouthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsTrueSouthNodeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueSouthNodeGlyphFontSizeDefValue,
+            type=float)
+        self.planetAsTrueSouthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetAsTrueSouthNodeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueSouthNodeAbbreviationDefValue,
+            type=str)
+        self.planetAsTrueSouthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetAsTrueSouthNodeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueSouthNodeForegroundColorDefValue,
+            type=QColor)
+        self.planetAsTrueSouthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetAsTrueSouthNodeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetAsTrueSouthNodeBackgroundColorDefValue,
+            type=QColor)
+        self.planetAsTrueSouthNodeBackgroundColorEditButton.\
+            setColor(value)
+
         # SunTrueNorthNode
         key = SettingsKeys.planetSunTrueNorthNodeGlyphUnicodeKey
         value = settings.value(key, \
@@ -17773,40 +23401,436 @@ class AppPreferencesEditWidget(QWidget):
         self.planetMoonTrueSouthNodeBackgroundColorEditButton.\
             setColor(value)
 
-        # MoSu
-        key = SettingsKeys.planetMoSuGlyphUnicodeKey
+        # MeTrueNorthNode
+        key = SettingsKeys.planetMeTrueNorthNodeGlyphUnicodeKey
         value = settings.value(key, \
-            SettingsKeys.planetMoSuGlyphUnicodeDefValue,
+            SettingsKeys.planetMeTrueNorthNodeGlyphUnicodeDefValue,
             type=str)
-        self.planetMoSuGlyphUnicodeLineEdit.\
+        self.planetMeTrueNorthNodeGlyphUnicodeLineEdit.\
             setText(value)
 
-        key = SettingsKeys.planetMoSuGlyphFontSizeKey
+        key = SettingsKeys.planetMeTrueNorthNodeGlyphFontSizeKey
         value = settings.value(key, \
-            SettingsKeys.planetMoSuGlyphFontSizeDefValue,
+            SettingsKeys.planetMeTrueNorthNodeGlyphFontSizeDefValue,
             type=float)
-        self.planetMoSuGlyphFontSizeSpinBox.\
+        self.planetMeTrueNorthNodeGlyphFontSizeSpinBox.\
             setValue(value)
 
-        key = SettingsKeys.planetMoSuAbbreviationKey
+        key = SettingsKeys.planetMeTrueNorthNodeAbbreviationKey
         value = settings.value(key, \
-            SettingsKeys.planetMoSuAbbreviationDefValue,
+            SettingsKeys.planetMeTrueNorthNodeAbbreviationDefValue,
             type=str)
-        self.planetMoSuAbbreviationLineEdit.\
+        self.planetMeTrueNorthNodeAbbreviationLineEdit.\
             setText(value)
 
-        key = SettingsKeys.planetMoSuForegroundColorKey
+        key = SettingsKeys.planetMeTrueNorthNodeForegroundColorKey
         value = settings.value(key, \
-            SettingsKeys.planetMoSuForegroundColorDefValue,
+            SettingsKeys.planetMeTrueNorthNodeForegroundColorDefValue,
             type=QColor)
-        self.planetMoSuForegroundColorEditButton.\
+        self.planetMeTrueNorthNodeForegroundColorEditButton.\
             setColor(value)
 
-        key = SettingsKeys.planetMoSuBackgroundColorKey
+        key = SettingsKeys.planetMeTrueNorthNodeBackgroundColorKey
         value = settings.value(key, \
-            SettingsKeys.planetMoSuBackgroundColorDefValue,
+            SettingsKeys.planetMeTrueNorthNodeBackgroundColorDefValue,
             type=QColor)
-        self.planetMoSuBackgroundColorEditButton.\
+        self.planetMeTrueNorthNodeBackgroundColorEditButton.\
+            setColor(value)
+
+        # MeTrueSouthNode
+        key = SettingsKeys.planetMeTrueSouthNodeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeTrueSouthNodeGlyphUnicodeDefValue,
+            type=str)
+        self.planetMeTrueSouthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMeTrueSouthNodeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeTrueSouthNodeGlyphFontSizeDefValue,
+            type=float)
+        self.planetMeTrueSouthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMeTrueSouthNodeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeTrueSouthNodeAbbreviationDefValue,
+            type=str)
+        self.planetMeTrueSouthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMeTrueSouthNodeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeTrueSouthNodeForegroundColorDefValue,
+            type=QColor)
+        self.planetMeTrueSouthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMeTrueSouthNodeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeTrueSouthNodeBackgroundColorDefValue,
+            type=QColor)
+        self.planetMeTrueSouthNodeBackgroundColorEditButton.\
+            setColor(value)
+
+        # VeTrueNorthNode
+        key = SettingsKeys.planetVeTrueNorthNodeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueNorthNodeGlyphUnicodeDefValue,
+            type=str)
+        self.planetVeTrueNorthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetVeTrueNorthNodeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueNorthNodeGlyphFontSizeDefValue,
+            type=float)
+        self.planetVeTrueNorthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetVeTrueNorthNodeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueNorthNodeAbbreviationDefValue,
+            type=str)
+        self.planetVeTrueNorthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetVeTrueNorthNodeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueNorthNodeForegroundColorDefValue,
+            type=QColor)
+        self.planetVeTrueNorthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetVeTrueNorthNodeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueNorthNodeBackgroundColorDefValue,
+            type=QColor)
+        self.planetVeTrueNorthNodeBackgroundColorEditButton.\
+            setColor(value)
+
+        # VeTrueSouthNode
+        key = SettingsKeys.planetVeTrueSouthNodeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueSouthNodeGlyphUnicodeDefValue,
+            type=str)
+        self.planetVeTrueSouthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetVeTrueSouthNodeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueSouthNodeGlyphFontSizeDefValue,
+            type=float)
+        self.planetVeTrueSouthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetVeTrueSouthNodeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueSouthNodeAbbreviationDefValue,
+            type=str)
+        self.planetVeTrueSouthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetVeTrueSouthNodeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueSouthNodeForegroundColorDefValue,
+            type=QColor)
+        self.planetVeTrueSouthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetVeTrueSouthNodeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeTrueSouthNodeBackgroundColorDefValue,
+            type=QColor)
+        self.planetVeTrueSouthNodeBackgroundColorEditButton.\
+            setColor(value)
+
+        # MaTrueNorthNode
+        key = SettingsKeys.planetMaTrueNorthNodeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueNorthNodeGlyphUnicodeDefValue,
+            type=str)
+        self.planetMaTrueNorthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMaTrueNorthNodeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueNorthNodeGlyphFontSizeDefValue,
+            type=float)
+        self.planetMaTrueNorthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMaTrueNorthNodeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueNorthNodeAbbreviationDefValue,
+            type=str)
+        self.planetMaTrueNorthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMaTrueNorthNodeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueNorthNodeForegroundColorDefValue,
+            type=QColor)
+        self.planetMaTrueNorthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMaTrueNorthNodeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueNorthNodeBackgroundColorDefValue,
+            type=QColor)
+        self.planetMaTrueNorthNodeBackgroundColorEditButton.\
+            setColor(value)
+
+        # MaTrueSouthNode
+        key = SettingsKeys.planetMaTrueSouthNodeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueSouthNodeGlyphUnicodeDefValue,
+            type=str)
+        self.planetMaTrueSouthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMaTrueSouthNodeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueSouthNodeGlyphFontSizeDefValue,
+            type=float)
+        self.planetMaTrueSouthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMaTrueSouthNodeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueSouthNodeAbbreviationDefValue,
+            type=str)
+        self.planetMaTrueSouthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMaTrueSouthNodeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueSouthNodeForegroundColorDefValue,
+            type=QColor)
+        self.planetMaTrueSouthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMaTrueSouthNodeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMaTrueSouthNodeBackgroundColorDefValue,
+            type=QColor)
+        self.planetMaTrueSouthNodeBackgroundColorEditButton.\
+            setColor(value)
+
+        # JuTrueNorthNode
+        key = SettingsKeys.planetJuTrueNorthNodeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueNorthNodeGlyphUnicodeDefValue,
+            type=str)
+        self.planetJuTrueNorthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetJuTrueNorthNodeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueNorthNodeGlyphFontSizeDefValue,
+            type=float)
+        self.planetJuTrueNorthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetJuTrueNorthNodeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueNorthNodeAbbreviationDefValue,
+            type=str)
+        self.planetJuTrueNorthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetJuTrueNorthNodeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueNorthNodeForegroundColorDefValue,
+            type=QColor)
+        self.planetJuTrueNorthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetJuTrueNorthNodeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueNorthNodeBackgroundColorDefValue,
+            type=QColor)
+        self.planetJuTrueNorthNodeBackgroundColorEditButton.\
+            setColor(value)
+
+        # JuTrueSouthNode
+        key = SettingsKeys.planetJuTrueSouthNodeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueSouthNodeGlyphUnicodeDefValue,
+            type=str)
+        self.planetJuTrueSouthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetJuTrueSouthNodeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueSouthNodeGlyphFontSizeDefValue,
+            type=float)
+        self.planetJuTrueSouthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetJuTrueSouthNodeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueSouthNodeAbbreviationDefValue,
+            type=str)
+        self.planetJuTrueSouthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetJuTrueSouthNodeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueSouthNodeForegroundColorDefValue,
+            type=QColor)
+        self.planetJuTrueSouthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetJuTrueSouthNodeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetJuTrueSouthNodeBackgroundColorDefValue,
+            type=QColor)
+        self.planetJuTrueSouthNodeBackgroundColorEditButton.\
+            setColor(value)
+
+        # SaTrueNorthNode
+        key = SettingsKeys.planetSaTrueNorthNodeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueNorthNodeGlyphUnicodeDefValue,
+            type=str)
+        self.planetSaTrueNorthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetSaTrueNorthNodeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueNorthNodeGlyphFontSizeDefValue,
+            type=float)
+        self.planetSaTrueNorthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetSaTrueNorthNodeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueNorthNodeAbbreviationDefValue,
+            type=str)
+        self.planetSaTrueNorthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetSaTrueNorthNodeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueNorthNodeForegroundColorDefValue,
+            type=QColor)
+        self.planetSaTrueNorthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetSaTrueNorthNodeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueNorthNodeBackgroundColorDefValue,
+            type=QColor)
+        self.planetSaTrueNorthNodeBackgroundColorEditButton.\
+            setColor(value)
+
+        # SaTrueSouthNode
+        key = SettingsKeys.planetSaTrueSouthNodeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueSouthNodeGlyphUnicodeDefValue,
+            type=str)
+        self.planetSaTrueSouthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetSaTrueSouthNodeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueSouthNodeGlyphFontSizeDefValue,
+            type=float)
+        self.planetSaTrueSouthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetSaTrueSouthNodeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueSouthNodeAbbreviationDefValue,
+            type=str)
+        self.planetSaTrueSouthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetSaTrueSouthNodeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueSouthNodeForegroundColorDefValue,
+            type=QColor)
+        self.planetSaTrueSouthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetSaTrueSouthNodeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetSaTrueSouthNodeBackgroundColorDefValue,
+            type=QColor)
+        self.planetSaTrueSouthNodeBackgroundColorEditButton.\
+            setColor(value)
+
+        # UrTrueNorthNode
+        key = SettingsKeys.planetUrTrueNorthNodeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueNorthNodeGlyphUnicodeDefValue,
+            type=str)
+        self.planetUrTrueNorthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetUrTrueNorthNodeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueNorthNodeGlyphFontSizeDefValue,
+            type=float)
+        self.planetUrTrueNorthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetUrTrueNorthNodeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueNorthNodeAbbreviationDefValue,
+            type=str)
+        self.planetUrTrueNorthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetUrTrueNorthNodeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueNorthNodeForegroundColorDefValue,
+            type=QColor)
+        self.planetUrTrueNorthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetUrTrueNorthNodeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueNorthNodeBackgroundColorDefValue,
+            type=QColor)
+        self.planetUrTrueNorthNodeBackgroundColorEditButton.\
+            setColor(value)
+
+        # UrTrueSouthNode
+        key = SettingsKeys.planetUrTrueSouthNodeGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueSouthNodeGlyphUnicodeDefValue,
+            type=str)
+        self.planetUrTrueSouthNodeGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetUrTrueSouthNodeGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueSouthNodeGlyphFontSizeDefValue,
+            type=float)
+        self.planetUrTrueSouthNodeGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetUrTrueSouthNodeAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueSouthNodeAbbreviationDefValue,
+            type=str)
+        self.planetUrTrueSouthNodeAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetUrTrueSouthNodeForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueSouthNodeForegroundColorDefValue,
+            type=QColor)
+        self.planetUrTrueSouthNodeForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetUrTrueSouthNodeBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetUrTrueSouthNodeBackgroundColorDefValue,
+            type=QColor)
+        self.planetUrTrueSouthNodeBackgroundColorEditButton.\
             setColor(value)
 
         # MeVe
@@ -17843,6 +23867,42 @@ class AppPreferencesEditWidget(QWidget):
             SettingsKeys.planetMeVeBackgroundColorDefValue,
             type=QColor)
         self.planetMeVeBackgroundColorEditButton.\
+            setColor(value)
+
+        # MeSu
+        key = SettingsKeys.planetMeSuGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeSuGlyphUnicodeDefValue,
+            type=str)
+        self.planetMeSuGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMeSuGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeSuGlyphFontSizeDefValue,
+            type=float)
+        self.planetMeSuGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetMeSuAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeSuAbbreviationDefValue,
+            type=str)
+        self.planetMeSuAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetMeSuForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeSuForegroundColorDefValue,
+            type=QColor)
+        self.planetMeSuForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetMeSuBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetMeSuBackgroundColorDefValue,
+            type=QColor)
+        self.planetMeSuBackgroundColorEditButton.\
             setColor(value)
 
         # MeEa
@@ -18025,6 +24085,42 @@ class AppPreferencesEditWidget(QWidget):
         self.planetMeUrBackgroundColorEditButton.\
             setColor(value)
 
+        # VeSu
+        key = SettingsKeys.planetVeSuGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeSuGlyphUnicodeDefValue,
+            type=str)
+        self.planetVeSuGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetVeSuGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeSuGlyphFontSizeDefValue,
+            type=float)
+        self.planetVeSuGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetVeSuAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeSuAbbreviationDefValue,
+            type=str)
+        self.planetVeSuAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetVeSuForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeSuForegroundColorDefValue,
+            type=QColor)
+        self.planetVeSuForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetVeSuBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetVeSuBackgroundColorDefValue,
+            type=QColor)
+        self.planetVeSuBackgroundColorEditButton.\
+            setColor(value)
+
         # VeEa
         key = SettingsKeys.planetVeEaGlyphUnicodeKey
         value = settings.value(key, \
@@ -18203,6 +24299,150 @@ class AppPreferencesEditWidget(QWidget):
             SettingsKeys.planetVeUrBackgroundColorDefValue,
             type=QColor)
         self.planetVeUrBackgroundColorEditButton.\
+            setColor(value)
+
+        # SuMa
+        key = SettingsKeys.planetSuMaGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuMaGlyphUnicodeDefValue,
+            type=str)
+        self.planetSuMaGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetSuMaGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuMaGlyphFontSizeDefValue,
+            type=float)
+        self.planetSuMaGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetSuMaAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuMaAbbreviationDefValue,
+            type=str)
+        self.planetSuMaAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetSuMaForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuMaForegroundColorDefValue,
+            type=QColor)
+        self.planetSuMaForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetSuMaBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuMaBackgroundColorDefValue,
+            type=QColor)
+        self.planetSuMaBackgroundColorEditButton.\
+            setColor(value)
+
+        # SuJu
+        key = SettingsKeys.planetSuJuGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuJuGlyphUnicodeDefValue,
+            type=str)
+        self.planetSuJuGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetSuJuGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuJuGlyphFontSizeDefValue,
+            type=float)
+        self.planetSuJuGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetSuJuAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuJuAbbreviationDefValue,
+            type=str)
+        self.planetSuJuAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetSuJuForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuJuForegroundColorDefValue,
+            type=QColor)
+        self.planetSuJuForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetSuJuBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuJuBackgroundColorDefValue,
+            type=QColor)
+        self.planetSuJuBackgroundColorEditButton.\
+            setColor(value)
+
+        # SuSa
+        key = SettingsKeys.planetSuSaGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuSaGlyphUnicodeDefValue,
+            type=str)
+        self.planetSuSaGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetSuSaGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuSaGlyphFontSizeDefValue,
+            type=float)
+        self.planetSuSaGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetSuSaAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuSaAbbreviationDefValue,
+            type=str)
+        self.planetSuSaAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetSuSaForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuSaForegroundColorDefValue,
+            type=QColor)
+        self.planetSuSaForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetSuSaBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuSaBackgroundColorDefValue,
+            type=QColor)
+        self.planetSuSaBackgroundColorEditButton.\
+            setColor(value)
+
+        # SuUr
+        key = SettingsKeys.planetSuUrGlyphUnicodeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuUrGlyphUnicodeDefValue,
+            type=str)
+        self.planetSuUrGlyphUnicodeLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetSuUrGlyphFontSizeKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuUrGlyphFontSizeDefValue,
+            type=float)
+        self.planetSuUrGlyphFontSizeSpinBox.\
+            setValue(value)
+
+        key = SettingsKeys.planetSuUrAbbreviationKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuUrAbbreviationDefValue,
+            type=str)
+        self.planetSuUrAbbreviationLineEdit.\
+            setText(value)
+
+        key = SettingsKeys.planetSuUrForegroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuUrForegroundColorDefValue,
+            type=QColor)
+        self.planetSuUrForegroundColorEditButton.\
+            setColor(value)
+
+        key = SettingsKeys.planetSuUrBackgroundColorKey
+        value = settings.value(key, \
+            SettingsKeys.planetSuUrBackgroundColorDefValue,
+            type=QColor)
+        self.planetSuUrBackgroundColorEditButton.\
             setColor(value)
 
         # EaMa
@@ -21128,6 +27368,201 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetAsMeCalculationsEnabledKey
+        newValue = \
+            self.planetAsMeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsVeCalculationsEnabledKey
+        newValue = \
+            self.planetAsVeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMaCalculationsEnabledKey
+        newValue = \
+            self.planetAsMaCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsJuCalculationsEnabledKey
+        newValue = \
+            self.planetAsJuCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsSaCalculationsEnabledKey
+        newValue = \
+            self.planetAsSaCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsUrCalculationsEnabledKey
+        newValue = \
+            self.planetAsUrCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSuCalculationsEnabledKey
+        newValue = \
+            self.planetMoSuCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMeCalculationsEnabledKey
+        newValue = \
+            self.planetMoMeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoVeCalculationsEnabledKey
+        newValue = \
+            self.planetMoVeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMaCalculationsEnabledKey
+        newValue = \
+            self.planetMoMaCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoJuCalculationsEnabledKey
+        newValue = \
+            self.planetMoJuCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSaCalculationsEnabledKey
+        newValue = \
+            self.planetMoSaCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoUrCalculationsEnabledKey
+        newValue = \
+            self.planetMoUrCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueNorthNodeCalculationsEnabledKey
+        newValue = \
+            self.planetAsTrueNorthNodeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueSouthNodeCalculationsEnabledKey
+        newValue = \
+            self.planetAsTrueSouthNodeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetSunTrueNorthNodeCalculationsEnabledKey
         newValue = \
             self.planetSunTrueNorthNodeCalculationsEnabledCheckBox.\
@@ -21180,9 +27615,152 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetMoSuCalculationsEnabledKey
+        key = SettingsKeys.planetMeTrueNorthNodeCalculationsEnabledKey
         newValue = \
-            self.planetMoSuCalculationsEnabledCheckBox.\
+            self.planetMeTrueNorthNodeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeTrueSouthNodeCalculationsEnabledKey
+        newValue = \
+            self.planetMeTrueSouthNodeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueNorthNodeCalculationsEnabledKey
+        newValue = \
+            self.planetVeTrueNorthNodeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueSouthNodeCalculationsEnabledKey
+        newValue = \
+            self.planetVeTrueSouthNodeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueNorthNodeCalculationsEnabledKey
+        newValue = \
+            self.planetMaTrueNorthNodeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueSouthNodeCalculationsEnabledKey
+        newValue = \
+            self.planetMaTrueSouthNodeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueNorthNodeCalculationsEnabledKey
+        newValue = \
+            self.planetJuTrueNorthNodeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueSouthNodeCalculationsEnabledKey
+        newValue = \
+            self.planetJuTrueSouthNodeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueNorthNodeCalculationsEnabledKey
+        newValue = \
+            self.planetSaTrueNorthNodeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueSouthNodeCalculationsEnabledKey
+        newValue = \
+            self.planetSaTrueSouthNodeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueNorthNodeCalculationsEnabledKey
+        newValue = \
+            self.planetUrTrueNorthNodeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueSouthNodeCalculationsEnabledKey
+        newValue = \
+            self.planetUrTrueSouthNodeCalculationsEnabledCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -21196,6 +27774,19 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetMeVeCalculationsEnabledKey
         newValue = \
             self.planetMeVeCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeSuCalculationsEnabledKey
+        newValue = \
+            self.planetMeSuCalculationsEnabledCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -21271,6 +27862,19 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetVeSuCalculationsEnabledKey
+        newValue = \
+            self.planetVeSuCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetVeEaCalculationsEnabledKey
         newValue = \
             self.planetVeEaCalculationsEnabledCheckBox.\
@@ -21326,6 +27930,58 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetVeUrCalculationsEnabledKey
         newValue = \
             self.planetVeUrCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuMaCalculationsEnabledKey
+        newValue = \
+            self.planetSuMaCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuJuCalculationsEnabledKey
+        newValue = \
+            self.planetSuJuCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuSaCalculationsEnabledKey
+        newValue = \
+            self.planetSuSaCalculationsEnabledCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuUrCalculationsEnabledKey
+        newValue = \
+            self.planetSuUrCalculationsEnabledCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -22198,6 +28854,201 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetAsMeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetAsMeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsVeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetAsVeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMaEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetAsMaEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsJuEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetAsJuEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsSaEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetAsSaEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsUrEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetAsUrEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSuEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetMoSuEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetMoMeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoVeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetMoVeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMaEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetMoMaEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoJuEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetMoJuEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSaEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetMoSaEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoUrEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetMoUrEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueNorthNodeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetAsTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueSouthNodeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetAsTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetSunTrueNorthNodeEnabledForPlanetaryInfoTableKey
         newValue = \
             self.planetSunTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.\
@@ -22250,9 +29101,152 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetMoSuEnabledForPlanetaryInfoTableKey
+        key = SettingsKeys.planetMeTrueNorthNodeEnabledForPlanetaryInfoTableKey
         newValue = \
-            self.planetMoSuEnabledForPlanetaryInfoTableCheckBox.\
+            self.planetMeTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeTrueSouthNodeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetMeTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueNorthNodeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetVeTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueSouthNodeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetVeTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueNorthNodeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetMaTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueSouthNodeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetMaTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueNorthNodeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetJuTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueSouthNodeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetJuTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueNorthNodeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetSaTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueSouthNodeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetSaTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueNorthNodeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetUrTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueSouthNodeEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetUrTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -22266,6 +29260,19 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetMeVeEnabledForPlanetaryInfoTableKey
         newValue = \
             self.planetMeVeEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeSuEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetMeSuEnabledForPlanetaryInfoTableCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -22341,6 +29348,19 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetVeSuEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetVeSuEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetVeEaEnabledForPlanetaryInfoTableKey
         newValue = \
             self.planetVeEaEnabledForPlanetaryInfoTableCheckBox.\
@@ -22396,6 +29416,58 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetVeUrEnabledForPlanetaryInfoTableKey
         newValue = \
             self.planetVeUrEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuMaEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetSuMaEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuJuEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetSuJuEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuSaEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetSuSaEnabledForPlanetaryInfoTableCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuUrEnabledForPlanetaryInfoTableKey
+        newValue = \
+            self.planetSuUrEnabledForPlanetaryInfoTableCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -23268,6 +30340,201 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetAsMeEnabledForDeclinationKey
+        newValue = \
+            self.planetAsMeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsVeEnabledForDeclinationKey
+        newValue = \
+            self.planetAsVeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMaEnabledForDeclinationKey
+        newValue = \
+            self.planetAsMaEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsJuEnabledForDeclinationKey
+        newValue = \
+            self.planetAsJuEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsSaEnabledForDeclinationKey
+        newValue = \
+            self.planetAsSaEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsUrEnabledForDeclinationKey
+        newValue = \
+            self.planetAsUrEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSuEnabledForDeclinationKey
+        newValue = \
+            self.planetMoSuEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMeEnabledForDeclinationKey
+        newValue = \
+            self.planetMoMeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoVeEnabledForDeclinationKey
+        newValue = \
+            self.planetMoVeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMaEnabledForDeclinationKey
+        newValue = \
+            self.planetMoMaEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoJuEnabledForDeclinationKey
+        newValue = \
+            self.planetMoJuEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSaEnabledForDeclinationKey
+        newValue = \
+            self.planetMoSaEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoUrEnabledForDeclinationKey
+        newValue = \
+            self.planetMoUrEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueNorthNodeEnabledForDeclinationKey
+        newValue = \
+            self.planetAsTrueNorthNodeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueSouthNodeEnabledForDeclinationKey
+        newValue = \
+            self.planetAsTrueSouthNodeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetSunTrueNorthNodeEnabledForDeclinationKey
         newValue = \
             self.planetSunTrueNorthNodeEnabledForDeclinationCheckBox.\
@@ -23320,9 +30587,152 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetMoSuEnabledForDeclinationKey
+        key = SettingsKeys.planetMeTrueNorthNodeEnabledForDeclinationKey
         newValue = \
-            self.planetMoSuEnabledForDeclinationCheckBox.\
+            self.planetMeTrueNorthNodeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeTrueSouthNodeEnabledForDeclinationKey
+        newValue = \
+            self.planetMeTrueSouthNodeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueNorthNodeEnabledForDeclinationKey
+        newValue = \
+            self.planetVeTrueNorthNodeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueSouthNodeEnabledForDeclinationKey
+        newValue = \
+            self.planetVeTrueSouthNodeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueNorthNodeEnabledForDeclinationKey
+        newValue = \
+            self.planetMaTrueNorthNodeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueSouthNodeEnabledForDeclinationKey
+        newValue = \
+            self.planetMaTrueSouthNodeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueNorthNodeEnabledForDeclinationKey
+        newValue = \
+            self.planetJuTrueNorthNodeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueSouthNodeEnabledForDeclinationKey
+        newValue = \
+            self.planetJuTrueSouthNodeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueNorthNodeEnabledForDeclinationKey
+        newValue = \
+            self.planetSaTrueNorthNodeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueSouthNodeEnabledForDeclinationKey
+        newValue = \
+            self.planetSaTrueSouthNodeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueNorthNodeEnabledForDeclinationKey
+        newValue = \
+            self.planetUrTrueNorthNodeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueSouthNodeEnabledForDeclinationKey
+        newValue = \
+            self.planetUrTrueSouthNodeEnabledForDeclinationCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -23336,6 +30746,19 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetMeVeEnabledForDeclinationKey
         newValue = \
             self.planetMeVeEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeSuEnabledForDeclinationKey
+        newValue = \
+            self.planetMeSuEnabledForDeclinationCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -23411,6 +30834,19 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetVeSuEnabledForDeclinationKey
+        newValue = \
+            self.planetVeSuEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetVeEaEnabledForDeclinationKey
         newValue = \
             self.planetVeEaEnabledForDeclinationCheckBox.\
@@ -23466,6 +30902,58 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetVeUrEnabledForDeclinationKey
         newValue = \
             self.planetVeUrEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuMaEnabledForDeclinationKey
+        newValue = \
+            self.planetSuMaEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuJuEnabledForDeclinationKey
+        newValue = \
+            self.planetSuJuEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuSaEnabledForDeclinationKey
+        newValue = \
+            self.planetSuSaEnabledForDeclinationCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuUrEnabledForDeclinationKey
+        newValue = \
+            self.planetSuUrEnabledForDeclinationCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -24338,6 +31826,201 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetAsMeEnabledForLatitudeKey
+        newValue = \
+            self.planetAsMeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsVeEnabledForLatitudeKey
+        newValue = \
+            self.planetAsVeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMaEnabledForLatitudeKey
+        newValue = \
+            self.planetAsMaEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsJuEnabledForLatitudeKey
+        newValue = \
+            self.planetAsJuEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsSaEnabledForLatitudeKey
+        newValue = \
+            self.planetAsSaEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsUrEnabledForLatitudeKey
+        newValue = \
+            self.planetAsUrEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSuEnabledForLatitudeKey
+        newValue = \
+            self.planetMoSuEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMeEnabledForLatitudeKey
+        newValue = \
+            self.planetMoMeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoVeEnabledForLatitudeKey
+        newValue = \
+            self.planetMoVeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMaEnabledForLatitudeKey
+        newValue = \
+            self.planetMoMaEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoJuEnabledForLatitudeKey
+        newValue = \
+            self.planetMoJuEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSaEnabledForLatitudeKey
+        newValue = \
+            self.planetMoSaEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoUrEnabledForLatitudeKey
+        newValue = \
+            self.planetMoUrEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueNorthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetAsTrueNorthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueSouthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetAsTrueSouthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetSunTrueNorthNodeEnabledForLatitudeKey
         newValue = \
             self.planetSunTrueNorthNodeEnabledForLatitudeCheckBox.\
@@ -24390,9 +32073,152 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetMoSuEnabledForLatitudeKey
+        key = SettingsKeys.planetMeTrueNorthNodeEnabledForLatitudeKey
         newValue = \
-            self.planetMoSuEnabledForLatitudeCheckBox.\
+            self.planetMeTrueNorthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeTrueSouthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetMeTrueSouthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueNorthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetVeTrueNorthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueSouthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetVeTrueSouthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueNorthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetMaTrueNorthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueSouthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetMaTrueSouthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueNorthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetJuTrueNorthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueSouthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetJuTrueSouthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueNorthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetSaTrueNorthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueSouthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetSaTrueSouthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueNorthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetUrTrueNorthNodeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueSouthNodeEnabledForLatitudeKey
+        newValue = \
+            self.planetUrTrueSouthNodeEnabledForLatitudeCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -24406,6 +32232,19 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetMeVeEnabledForLatitudeKey
         newValue = \
             self.planetMeVeEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeSuEnabledForLatitudeKey
+        newValue = \
+            self.planetMeSuEnabledForLatitudeCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -24481,6 +32320,19 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetVeSuEnabledForLatitudeKey
+        newValue = \
+            self.planetVeSuEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetVeEaEnabledForLatitudeKey
         newValue = \
             self.planetVeEaEnabledForLatitudeCheckBox.\
@@ -24536,6 +32388,58 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetVeUrEnabledForLatitudeKey
         newValue = \
             self.planetVeUrEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuMaEnabledForLatitudeKey
+        newValue = \
+            self.planetSuMaEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuJuEnabledForLatitudeKey
+        newValue = \
+            self.planetSuJuEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuSaEnabledForLatitudeKey
+        newValue = \
+            self.planetSuSaEnabledForLatitudeCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuUrEnabledForLatitudeKey
+        newValue = \
+            self.planetSuUrEnabledForLatitudeCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -25408,6 +33312,201 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetAsMeEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetAsMeEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsVeEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetAsVeEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMaEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetAsMaEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsJuEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetAsJuEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsSaEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetAsSaEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsUrEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetAsUrEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSuEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetMoSuEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMeEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetMoMeEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoVeEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetMoVeEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMaEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetMoMaEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoJuEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetMoJuEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSaEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetMoSaEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoUrEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetMoUrEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueNorthNodeEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetAsTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueSouthNodeEnabledForGeoSidRadixChartKey
+        newValue = \
+            self.planetAsTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetSunTrueNorthNodeEnabledForGeoSidRadixChartKey
         newValue = \
             self.planetSunTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.\
@@ -25450,19 +33549,6 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetMoonTrueSouthNodeEnabledForGeoSidRadixChartKey
         newValue = \
             self.planetMoonTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.\
-            checkState() == Qt.Checked
-        if settings.contains(key):
-            oldValue = settings.value(key, type=bool)
-            if oldValue != newValue:
-                settings.setValue(key, newValue)
-        else:
-            self.log.debug("Saving value {} to key {}".\
-                           format(newValue, key))
-            settings.setValue(key, newValue)
-
-        key = SettingsKeys.planetMoSuEnabledForGeoSidRadixChartKey
-        newValue = \
-            self.planetMoSuEnabledForGeoSidRadixChartCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -26478,6 +34564,201 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetAsMeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetAsMeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsVeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetAsVeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMaEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetAsMaEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsJuEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetAsJuEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsSaEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetAsSaEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsUrEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetAsUrEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSuEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetMoSuEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetMoMeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoVeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetMoVeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMaEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetMoMaEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoJuEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetMoJuEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSaEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetMoSaEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoUrEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetMoUrEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueNorthNodeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetAsTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueSouthNodeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetAsTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetSunTrueNorthNodeEnabledForGeoTropRadixChartKey
         newValue = \
             self.planetSunTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.\
@@ -26530,9 +34811,152 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetMoSuEnabledForGeoTropRadixChartKey
+        key = SettingsKeys.planetMeTrueNorthNodeEnabledForGeoTropRadixChartKey
         newValue = \
-            self.planetMoSuEnabledForGeoTropRadixChartCheckBox.\
+            self.planetMeTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeTrueSouthNodeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetMeTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueNorthNodeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetVeTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueSouthNodeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetVeTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueNorthNodeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetMaTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueSouthNodeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetMaTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueNorthNodeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetJuTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueSouthNodeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetJuTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueNorthNodeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetSaTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueSouthNodeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetSaTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueNorthNodeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetUrTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueSouthNodeEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetUrTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -26546,6 +34970,19 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetMeVeEnabledForGeoTropRadixChartKey
         newValue = \
             self.planetMeVeEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeSuEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetMeSuEnabledForGeoTropRadixChartCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -26621,6 +35058,19 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetVeSuEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetVeSuEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetVeEaEnabledForGeoTropRadixChartKey
         newValue = \
             self.planetVeEaEnabledForGeoTropRadixChartCheckBox.\
@@ -26676,6 +35126,58 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetVeUrEnabledForGeoTropRadixChartKey
         newValue = \
             self.planetVeUrEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuMaEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetSuMaEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuJuEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetSuJuEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuSaEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetSuSaEnabledForGeoTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuUrEnabledForGeoTropRadixChartKey
+        newValue = \
+            self.planetSuUrEnabledForGeoTropRadixChartCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -27548,6 +36050,201 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetAsMeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetAsMeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsVeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetAsVeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMaEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetAsMaEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsJuEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetAsJuEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsSaEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetAsSaEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsUrEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetAsUrEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSuEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetMoSuEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetMoMeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoVeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetMoVeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMaEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetMoMaEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoJuEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetMoJuEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSaEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetMoSaEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoUrEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetMoUrEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueNorthNodeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetAsTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueSouthNodeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetAsTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetSunTrueNorthNodeEnabledForHelioTropRadixChartKey
         newValue = \
             self.planetSunTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.\
@@ -27600,9 +36297,152 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetMoSuEnabledForHelioTropRadixChartKey
+        key = SettingsKeys.planetMeTrueNorthNodeEnabledForHelioTropRadixChartKey
         newValue = \
-            self.planetMoSuEnabledForHelioTropRadixChartCheckBox.\
+            self.planetMeTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeTrueSouthNodeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetMeTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueNorthNodeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetVeTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueSouthNodeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetVeTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueNorthNodeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetMaTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueSouthNodeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetMaTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueNorthNodeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetJuTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueSouthNodeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetJuTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueNorthNodeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetSaTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueSouthNodeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetSaTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueNorthNodeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetUrTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueSouthNodeEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetUrTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -27616,6 +36456,19 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetMeVeEnabledForHelioTropRadixChartKey
         newValue = \
             self.planetMeVeEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeSuEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetMeSuEnabledForHelioTropRadixChartCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -27691,6 +36544,19 @@ class AppPreferencesEditWidget(QWidget):
                            format(newValue, key))
             settings.setValue(key, newValue)
 
+        key = SettingsKeys.planetVeSuEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetVeSuEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
         key = SettingsKeys.planetVeEaEnabledForHelioTropRadixChartKey
         newValue = \
             self.planetVeEaEnabledForHelioTropRadixChartCheckBox.\
@@ -27746,6 +36612,58 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetVeUrEnabledForHelioTropRadixChartKey
         newValue = \
             self.planetVeUrEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuMaEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetSuMaEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuJuEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetSuJuEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuSaEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetSuSaEnabledForHelioTropRadixChartCheckBox.\
+            checkState() == Qt.Checked
+        if settings.contains(key):
+            oldValue = settings.value(key, type=bool)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            self.log.debug("Saving value {} to key {}".\
+                           format(newValue, key))
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuUrEnabledForHelioTropRadixChartKey
+        newValue = \
+            self.planetSuUrEnabledForHelioTropRadixChartCheckBox.\
             checkState() == Qt.Checked
         if settings.contains(key):
             oldValue = settings.value(key, type=bool)
@@ -29483,6 +38401,771 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
+        # AsMe
+        key = SettingsKeys.planetAsMeGlyphUnicodeKey
+        newValue = \
+            self.planetAsMeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMeGlyphFontSizeKey
+        newValue = \
+            self.planetAsMeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMeAbbreviationKey
+        newValue = \
+            self.planetAsMeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMeForegroundColorKey
+        newValue = \
+            self.planetAsMeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMeBackgroundColorKey
+        newValue = \
+            self.planetAsMeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # AsVe
+        key = SettingsKeys.planetAsVeGlyphUnicodeKey
+        newValue = \
+            self.planetAsVeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsVeGlyphFontSizeKey
+        newValue = \
+            self.planetAsVeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsVeAbbreviationKey
+        newValue = \
+            self.planetAsVeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsVeForegroundColorKey
+        newValue = \
+            self.planetAsVeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsVeBackgroundColorKey
+        newValue = \
+            self.planetAsVeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # AsMa
+        key = SettingsKeys.planetAsMaGlyphUnicodeKey
+        newValue = \
+            self.planetAsMaGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMaGlyphFontSizeKey
+        newValue = \
+            self.planetAsMaGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMaAbbreviationKey
+        newValue = \
+            self.planetAsMaAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMaForegroundColorKey
+        newValue = \
+            self.planetAsMaForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsMaBackgroundColorKey
+        newValue = \
+            self.planetAsMaBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # AsJu
+        key = SettingsKeys.planetAsJuGlyphUnicodeKey
+        newValue = \
+            self.planetAsJuGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsJuGlyphFontSizeKey
+        newValue = \
+            self.planetAsJuGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsJuAbbreviationKey
+        newValue = \
+            self.planetAsJuAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsJuForegroundColorKey
+        newValue = \
+            self.planetAsJuForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsJuBackgroundColorKey
+        newValue = \
+            self.planetAsJuBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # AsSa
+        key = SettingsKeys.planetAsSaGlyphUnicodeKey
+        newValue = \
+            self.planetAsSaGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsSaGlyphFontSizeKey
+        newValue = \
+            self.planetAsSaGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsSaAbbreviationKey
+        newValue = \
+            self.planetAsSaAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsSaForegroundColorKey
+        newValue = \
+            self.planetAsSaForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsSaBackgroundColorKey
+        newValue = \
+            self.planetAsSaBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # AsUr
+        key = SettingsKeys.planetAsUrGlyphUnicodeKey
+        newValue = \
+            self.planetAsUrGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsUrGlyphFontSizeKey
+        newValue = \
+            self.planetAsUrGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsUrAbbreviationKey
+        newValue = \
+            self.planetAsUrAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsUrForegroundColorKey
+        newValue = \
+            self.planetAsUrForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsUrBackgroundColorKey
+        newValue = \
+            self.planetAsUrBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # MoSu
+        key = SettingsKeys.planetMoSuGlyphUnicodeKey
+        newValue = \
+            self.planetMoSuGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSuGlyphFontSizeKey
+        newValue = \
+            self.planetMoSuGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSuAbbreviationKey
+        newValue = \
+            self.planetMoSuAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSuForegroundColorKey
+        newValue = \
+            self.planetMoSuForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSuBackgroundColorKey
+        newValue = \
+            self.planetMoSuBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # MoMe
+        key = SettingsKeys.planetMoMeGlyphUnicodeKey
+        newValue = \
+            self.planetMoMeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMeGlyphFontSizeKey
+        newValue = \
+            self.planetMoMeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMeAbbreviationKey
+        newValue = \
+            self.planetMoMeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMeForegroundColorKey
+        newValue = \
+            self.planetMoMeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMeBackgroundColorKey
+        newValue = \
+            self.planetMoMeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # MoVe
+        key = SettingsKeys.planetMoVeGlyphUnicodeKey
+        newValue = \
+            self.planetMoVeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoVeGlyphFontSizeKey
+        newValue = \
+            self.planetMoVeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoVeAbbreviationKey
+        newValue = \
+            self.planetMoVeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoVeForegroundColorKey
+        newValue = \
+            self.planetMoVeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoVeBackgroundColorKey
+        newValue = \
+            self.planetMoVeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # MoMa
+        key = SettingsKeys.planetMoMaGlyphUnicodeKey
+        newValue = \
+            self.planetMoMaGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMaGlyphFontSizeKey
+        newValue = \
+            self.planetMoMaGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMaAbbreviationKey
+        newValue = \
+            self.planetMoMaAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMaForegroundColorKey
+        newValue = \
+            self.planetMoMaForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoMaBackgroundColorKey
+        newValue = \
+            self.planetMoMaBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # MoJu
+        key = SettingsKeys.planetMoJuGlyphUnicodeKey
+        newValue = \
+            self.planetMoJuGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoJuGlyphFontSizeKey
+        newValue = \
+            self.planetMoJuGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoJuAbbreviationKey
+        newValue = \
+            self.planetMoJuAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoJuForegroundColorKey
+        newValue = \
+            self.planetMoJuForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoJuBackgroundColorKey
+        newValue = \
+            self.planetMoJuBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # MoSa
+        key = SettingsKeys.planetMoSaGlyphUnicodeKey
+        newValue = \
+            self.planetMoSaGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSaGlyphFontSizeKey
+        newValue = \
+            self.planetMoSaGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSaAbbreviationKey
+        newValue = \
+            self.planetMoSaAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSaForegroundColorKey
+        newValue = \
+            self.planetMoSaForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoSaBackgroundColorKey
+        newValue = \
+            self.planetMoSaBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # MoUr
+        key = SettingsKeys.planetMoUrGlyphUnicodeKey
+        newValue = \
+            self.planetMoUrGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoUrGlyphFontSizeKey
+        newValue = \
+            self.planetMoUrGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoUrAbbreviationKey
+        newValue = \
+            self.planetMoUrAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoUrForegroundColorKey
+        newValue = \
+            self.planetMoUrForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMoUrBackgroundColorKey
+        newValue = \
+            self.planetMoUrBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # AsTrueNorthNode
+        key = SettingsKeys.planetAsTrueNorthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetAsTrueNorthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueNorthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetAsTrueNorthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueNorthNodeAbbreviationKey
+        newValue = \
+            self.planetAsTrueNorthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueNorthNodeForegroundColorKey
+        newValue = \
+            self.planetAsTrueNorthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueNorthNodeBackgroundColorKey
+        newValue = \
+            self.planetAsTrueNorthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # AsTrueSouthNode
+        key = SettingsKeys.planetAsTrueSouthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetAsTrueSouthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueSouthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetAsTrueSouthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueSouthNodeAbbreviationKey
+        newValue = \
+            self.planetAsTrueSouthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueSouthNodeForegroundColorKey
+        newValue = \
+            self.planetAsTrueSouthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetAsTrueSouthNodeBackgroundColorKey
+        newValue = \
+            self.planetAsTrueSouthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
         # SunTrueNorthNode
         key = SettingsKeys.planetSunTrueNorthNodeGlyphUnicodeKey
         newValue = \
@@ -29687,10 +39370,10 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        # MoSu
-        key = SettingsKeys.planetMoSuGlyphUnicodeKey
+        # MeTrueNorthNode
+        key = SettingsKeys.planetMeTrueNorthNodeGlyphUnicodeKey
         newValue = \
-            self.planetMoSuGlyphUnicodeLineEdit.text()
+            self.planetMeTrueNorthNodeGlyphUnicodeLineEdit.text()
         if settings.contains(key):
             oldValue = settings.value(key, type=str)
             if oldValue != newValue:
@@ -29698,9 +39381,9 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetMoSuGlyphFontSizeKey
+        key = SettingsKeys.planetMeTrueNorthNodeGlyphFontSizeKey
         newValue = \
-            self.planetMoSuGlyphFontSizeSpinBox.value()
+            self.planetMeTrueNorthNodeGlyphFontSizeSpinBox.value()
         if settings.contains(key):
             oldValue = settings.value(key, type=float)
             if oldValue != newValue:
@@ -29708,9 +39391,9 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetMoSuAbbreviationKey
+        key = SettingsKeys.planetMeTrueNorthNodeAbbreviationKey
         newValue = \
-            self.planetMoSuAbbreviationLineEdit.text()
+            self.planetMeTrueNorthNodeAbbreviationLineEdit.text()
         if settings.contains(key):
             oldValue = settings.value(key, type=str)
             if oldValue != newValue:
@@ -29718,9 +39401,9 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetMoSuForegroundColorKey
+        key = SettingsKeys.planetMeTrueNorthNodeForegroundColorKey
         newValue = \
-            self.planetMoSuForegroundColorEditButton.getColor()
+            self.planetMeTrueNorthNodeForegroundColorEditButton.getColor()
         if settings.contains(key):
             oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
@@ -29728,9 +39411,570 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
-        key = SettingsKeys.planetMoSuBackgroundColorKey
+        key = SettingsKeys.planetMeTrueNorthNodeBackgroundColorKey
         newValue = \
-            self.planetMoSuBackgroundColorEditButton.getColor()
+            self.planetMeTrueNorthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # MeTrueSouthNode
+        key = SettingsKeys.planetMeTrueSouthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetMeTrueSouthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeTrueSouthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetMeTrueSouthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeTrueSouthNodeAbbreviationKey
+        newValue = \
+            self.planetMeTrueSouthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeTrueSouthNodeForegroundColorKey
+        newValue = \
+            self.planetMeTrueSouthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeTrueSouthNodeBackgroundColorKey
+        newValue = \
+            self.planetMeTrueSouthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # VeTrueNorthNode
+        key = SettingsKeys.planetVeTrueNorthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetVeTrueNorthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueNorthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetVeTrueNorthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueNorthNodeAbbreviationKey
+        newValue = \
+            self.planetVeTrueNorthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueNorthNodeForegroundColorKey
+        newValue = \
+            self.planetVeTrueNorthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueNorthNodeBackgroundColorKey
+        newValue = \
+            self.planetVeTrueNorthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # VeTrueSouthNode
+        key = SettingsKeys.planetVeTrueSouthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetVeTrueSouthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueSouthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetVeTrueSouthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueSouthNodeAbbreviationKey
+        newValue = \
+            self.planetVeTrueSouthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueSouthNodeForegroundColorKey
+        newValue = \
+            self.planetVeTrueSouthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeTrueSouthNodeBackgroundColorKey
+        newValue = \
+            self.planetVeTrueSouthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # MaTrueNorthNode
+        key = SettingsKeys.planetMaTrueNorthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetMaTrueNorthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueNorthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetMaTrueNorthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueNorthNodeAbbreviationKey
+        newValue = \
+            self.planetMaTrueNorthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueNorthNodeForegroundColorKey
+        newValue = \
+            self.planetMaTrueNorthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueNorthNodeBackgroundColorKey
+        newValue = \
+            self.planetMaTrueNorthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # MaTrueSouthNode
+        key = SettingsKeys.planetMaTrueSouthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetMaTrueSouthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueSouthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetMaTrueSouthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueSouthNodeAbbreviationKey
+        newValue = \
+            self.planetMaTrueSouthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueSouthNodeForegroundColorKey
+        newValue = \
+            self.planetMaTrueSouthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMaTrueSouthNodeBackgroundColorKey
+        newValue = \
+            self.planetMaTrueSouthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # JuTrueNorthNode
+        key = SettingsKeys.planetJuTrueNorthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetJuTrueNorthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueNorthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetJuTrueNorthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueNorthNodeAbbreviationKey
+        newValue = \
+            self.planetJuTrueNorthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueNorthNodeForegroundColorKey
+        newValue = \
+            self.planetJuTrueNorthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueNorthNodeBackgroundColorKey
+        newValue = \
+            self.planetJuTrueNorthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # JuTrueSouthNode
+        key = SettingsKeys.planetJuTrueSouthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetJuTrueSouthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueSouthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetJuTrueSouthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueSouthNodeAbbreviationKey
+        newValue = \
+            self.planetJuTrueSouthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueSouthNodeForegroundColorKey
+        newValue = \
+            self.planetJuTrueSouthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetJuTrueSouthNodeBackgroundColorKey
+        newValue = \
+            self.planetJuTrueSouthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # SaTrueNorthNode
+        key = SettingsKeys.planetSaTrueNorthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetSaTrueNorthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueNorthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetSaTrueNorthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueNorthNodeAbbreviationKey
+        newValue = \
+            self.planetSaTrueNorthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueNorthNodeForegroundColorKey
+        newValue = \
+            self.planetSaTrueNorthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueNorthNodeBackgroundColorKey
+        newValue = \
+            self.planetSaTrueNorthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # SaTrueSouthNode
+        key = SettingsKeys.planetSaTrueSouthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetSaTrueSouthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueSouthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetSaTrueSouthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueSouthNodeAbbreviationKey
+        newValue = \
+            self.planetSaTrueSouthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueSouthNodeForegroundColorKey
+        newValue = \
+            self.planetSaTrueSouthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSaTrueSouthNodeBackgroundColorKey
+        newValue = \
+            self.planetSaTrueSouthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # UrTrueNorthNode
+        key = SettingsKeys.planetUrTrueNorthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetUrTrueNorthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueNorthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetUrTrueNorthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueNorthNodeAbbreviationKey
+        newValue = \
+            self.planetUrTrueNorthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueNorthNodeForegroundColorKey
+        newValue = \
+            self.planetUrTrueNorthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueNorthNodeBackgroundColorKey
+        newValue = \
+            self.planetUrTrueNorthNodeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # UrTrueSouthNode
+        key = SettingsKeys.planetUrTrueSouthNodeGlyphUnicodeKey
+        newValue = \
+            self.planetUrTrueSouthNodeGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueSouthNodeGlyphFontSizeKey
+        newValue = \
+            self.planetUrTrueSouthNodeGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueSouthNodeAbbreviationKey
+        newValue = \
+            self.planetUrTrueSouthNodeAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueSouthNodeForegroundColorKey
+        newValue = \
+            self.planetUrTrueSouthNodeForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetUrTrueSouthNodeBackgroundColorKey
+        newValue = \
+            self.planetUrTrueSouthNodeBackgroundColorEditButton.getColor()
         if settings.contains(key):
             oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
@@ -29782,6 +40026,57 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetMeVeBackgroundColorKey
         newValue = \
             self.planetMeVeBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # MeSu
+        key = SettingsKeys.planetMeSuGlyphUnicodeKey
+        newValue = \
+            self.planetMeSuGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeSuGlyphFontSizeKey
+        newValue = \
+            self.planetMeSuGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeSuAbbreviationKey
+        newValue = \
+            self.planetMeSuAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeSuForegroundColorKey
+        newValue = \
+            self.planetMeSuForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetMeSuBackgroundColorKey
+        newValue = \
+            self.planetMeSuBackgroundColorEditButton.getColor()
         if settings.contains(key):
             oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
@@ -30044,6 +40339,57 @@ class AppPreferencesEditWidget(QWidget):
         else:
             settings.setValue(key, newValue)
 
+        # VeSu
+        key = SettingsKeys.planetVeSuGlyphUnicodeKey
+        newValue = \
+            self.planetVeSuGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeSuGlyphFontSizeKey
+        newValue = \
+            self.planetVeSuGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeSuAbbreviationKey
+        newValue = \
+            self.planetVeSuAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeSuForegroundColorKey
+        newValue = \
+            self.planetVeSuForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetVeSuBackgroundColorKey
+        newValue = \
+            self.planetVeSuBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
         # VeEa
         key = SettingsKeys.planetVeEaGlyphUnicodeKey
         newValue = \
@@ -30292,6 +40638,210 @@ class AppPreferencesEditWidget(QWidget):
         key = SettingsKeys.planetVeUrBackgroundColorKey
         newValue = \
             self.planetVeUrBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # SuMa
+        key = SettingsKeys.planetSuMaGlyphUnicodeKey
+        newValue = \
+            self.planetSuMaGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuMaGlyphFontSizeKey
+        newValue = \
+            self.planetSuMaGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuMaAbbreviationKey
+        newValue = \
+            self.planetSuMaAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuMaForegroundColorKey
+        newValue = \
+            self.planetSuMaForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuMaBackgroundColorKey
+        newValue = \
+            self.planetSuMaBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # SuJu
+        key = SettingsKeys.planetSuJuGlyphUnicodeKey
+        newValue = \
+            self.planetSuJuGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuJuGlyphFontSizeKey
+        newValue = \
+            self.planetSuJuGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuJuAbbreviationKey
+        newValue = \
+            self.planetSuJuAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuJuForegroundColorKey
+        newValue = \
+            self.planetSuJuForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuJuBackgroundColorKey
+        newValue = \
+            self.planetSuJuBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # SuSa
+        key = SettingsKeys.planetSuSaGlyphUnicodeKey
+        newValue = \
+            self.planetSuSaGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuSaGlyphFontSizeKey
+        newValue = \
+            self.planetSuSaGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuSaAbbreviationKey
+        newValue = \
+            self.planetSuSaAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuSaForegroundColorKey
+        newValue = \
+            self.planetSuSaForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuSaBackgroundColorKey
+        newValue = \
+            self.planetSuSaBackgroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        # SuUr
+        key = SettingsKeys.planetSuUrGlyphUnicodeKey
+        newValue = \
+            self.planetSuUrGlyphUnicodeLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuUrGlyphFontSizeKey
+        newValue = \
+            self.planetSuUrGlyphFontSizeSpinBox.value()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=float)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuUrAbbreviationKey
+        newValue = \
+            self.planetSuUrAbbreviationLineEdit.text()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=str)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuUrForegroundColorKey
+        newValue = \
+            self.planetSuUrForegroundColorEditButton.getColor()
+        if settings.contains(key):
+            oldValue = settings.value(key, type=QColor)
+            if oldValue != newValue:
+                settings.setValue(key, newValue)
+        else:
+            settings.setValue(key, newValue)
+
+        key = SettingsKeys.planetSuUrBackgroundColorKey
+        newValue = \
+            self.planetSuUrBackgroundColorEditButton.getColor()
         if settings.contains(key):
             oldValue = settings.value(key, type=QColor)
             if oldValue != newValue:
@@ -33630,6 +44180,96 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAsMoCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetAsMeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetAsMeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsVeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetAsVeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsVeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsMaCalculationsEnabledDefValue)
+        if value == True:
+            self.planetAsMaCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMaCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsJuCalculationsEnabledDefValue)
+        if value == True:
+            self.planetAsJuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsJuCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsSaCalculationsEnabledDefValue)
+        if value == True:
+            self.planetAsSaCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSaCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsUrCalculationsEnabledDefValue)
+        if value == True:
+            self.planetAsUrCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsUrCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoSuCalculationsEnabledDefValue)
+        if value == True:
+            self.planetMoSuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSuCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoMeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetMoMeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoVeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetMoVeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoVeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoMaCalculationsEnabledDefValue)
+        if value == True:
+            self.planetMoMaCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMaCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoJuCalculationsEnabledDefValue)
+        if value == True:
+            self.planetMoJuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoJuCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoSaCalculationsEnabledDefValue)
+        if value == True:
+            self.planetMoSaCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSaCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoUrCalculationsEnabledDefValue)
+        if value == True:
+            self.planetMoUrCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoUrCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsTrueNorthNodeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetAsTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsTrueSouthNodeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetAsTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetSunTrueNorthNodeCalculationsEnabledDefValue)
         if value == True:
             self.planetSunTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
@@ -33654,17 +44294,89 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMoonTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
-        value = bool(SettingsKeys.planetMoSuCalculationsEnabledDefValue)
+        value = bool(SettingsKeys.planetMeTrueNorthNodeCalculationsEnabledDefValue)
         if value == True:
-            self.planetMoSuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+            self.planetMeTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
         else:
-            self.planetMoSuCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+            self.planetMeTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeTrueSouthNodeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetMeTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVeTrueNorthNodeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetVeTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVeTrueSouthNodeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetVeTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMaTrueNorthNodeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetMaTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMaTrueSouthNodeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetMaTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetJuTrueNorthNodeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetJuTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetJuTrueSouthNodeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetJuTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSaTrueNorthNodeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetSaTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSaTrueSouthNodeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetSaTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetUrTrueNorthNodeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetUrTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueNorthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetUrTrueSouthNodeCalculationsEnabledDefValue)
+        if value == True:
+            self.planetUrTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueSouthNodeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMeVeCalculationsEnabledDefValue)
         if value == True:
             self.planetMeVeCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetMeVeCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeSuCalculationsEnabledDefValue)
+        if value == True:
+            self.planetMeSuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeSuCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMeEaCalculationsEnabledDefValue)
         if value == True:
@@ -33696,6 +44408,12 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMeUrCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetVeSuCalculationsEnabledDefValue)
+        if value == True:
+            self.planetVeSuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeSuCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetVeEaCalculationsEnabledDefValue)
         if value == True:
             self.planetVeEaCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
@@ -33725,6 +44443,30 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVeUrCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVeUrCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuMaCalculationsEnabledDefValue)
+        if value == True:
+            self.planetSuMaCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuMaCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuJuCalculationsEnabledDefValue)
+        if value == True:
+            self.planetSuJuCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuJuCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuSaCalculationsEnabledDefValue)
+        if value == True:
+            self.planetSuSaCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuSaCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuUrCalculationsEnabledDefValue)
+        if value == True:
+            self.planetSuUrCalculationsEnabledCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuUrCalculationsEnabledCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetEaMaCalculationsEnabledDefValue)
         if value == True:
@@ -34125,6 +44867,96 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAsMoEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetAsMeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetAsMeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsVeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetAsVeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsVeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsMaEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetAsMaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsJuEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetAsJuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsJuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsSaEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetAsSaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsUrEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetAsUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoSuEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetMoSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoMeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetMoMeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoVeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetMoVeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoVeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoMaEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetMoMaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoJuEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetMoJuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoJuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoSaEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetMoSaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoUrEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetMoUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsTrueNorthNodeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetAsTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsTrueSouthNodeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetAsTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetSunTrueNorthNodeEnabledForPlanetaryInfoTableDefValue)
         if value == True:
             self.planetSunTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
@@ -34149,17 +44981,89 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMoonTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
-        value = bool(SettingsKeys.planetMoSuEnabledForPlanetaryInfoTableDefValue)
+        value = bool(SettingsKeys.planetMeTrueNorthNodeEnabledForPlanetaryInfoTableDefValue)
         if value == True:
-            self.planetMoSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+            self.planetMeTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
         else:
-            self.planetMoSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+            self.planetMeTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeTrueSouthNodeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetMeTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVeTrueNorthNodeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetVeTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVeTrueSouthNodeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetVeTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMaTrueNorthNodeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetMaTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMaTrueSouthNodeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetMaTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetJuTrueNorthNodeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetJuTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetJuTrueSouthNodeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetJuTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSaTrueNorthNodeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetSaTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSaTrueSouthNodeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetSaTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetUrTrueNorthNodeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetUrTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueNorthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetUrTrueSouthNodeEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetUrTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueSouthNodeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMeVeEnabledForPlanetaryInfoTableDefValue)
         if value == True:
             self.planetMeVeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetMeVeEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeSuEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetMeSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMeEaEnabledForPlanetaryInfoTableDefValue)
         if value == True:
@@ -34191,6 +45095,12 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMeUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetVeSuEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetVeSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeSuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetVeEaEnabledForPlanetaryInfoTableDefValue)
         if value == True:
             self.planetVeEaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
@@ -34220,6 +45130,30 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVeUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVeUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuMaEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetSuMaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuMaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuJuEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetSuJuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuJuEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuSaEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetSuSaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuSaEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuUrEnabledForPlanetaryInfoTableDefValue)
+        if value == True:
+            self.planetSuUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuUrEnabledForPlanetaryInfoTableCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetEaMaEnabledForPlanetaryInfoTableDefValue)
         if value == True:
@@ -34620,6 +45554,96 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAsMoEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetAsMeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetAsMeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsVeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetAsVeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsVeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsMaEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetAsMaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsJuEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetAsJuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsJuEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsSaEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetAsSaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsUrEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetAsUrEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsUrEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoSuEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetMoSuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSuEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoMeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetMoMeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoVeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetMoVeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoVeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoMaEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetMoMaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoJuEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetMoJuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoJuEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoSaEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetMoSaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoUrEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetMoUrEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoUrEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsTrueNorthNodeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetAsTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsTrueSouthNodeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetAsTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetSunTrueNorthNodeEnabledForDeclinationDefValue)
         if value == True:
             self.planetSunTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
@@ -34644,17 +45668,89 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMoonTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
-        value = bool(SettingsKeys.planetMoSuEnabledForDeclinationDefValue)
+        value = bool(SettingsKeys.planetMeTrueNorthNodeEnabledForDeclinationDefValue)
         if value == True:
-            self.planetMoSuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+            self.planetMeTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
         else:
-            self.planetMoSuEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+            self.planetMeTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeTrueSouthNodeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetMeTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVeTrueNorthNodeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetVeTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVeTrueSouthNodeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetVeTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMaTrueNorthNodeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetMaTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMaTrueSouthNodeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetMaTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetJuTrueNorthNodeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetJuTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetJuTrueSouthNodeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetJuTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSaTrueNorthNodeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetSaTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSaTrueSouthNodeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetSaTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetUrTrueNorthNodeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetUrTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueNorthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetUrTrueSouthNodeEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetUrTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueSouthNodeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMeVeEnabledForDeclinationDefValue)
         if value == True:
             self.planetMeVeEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetMeVeEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeSuEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetMeSuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeSuEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMeEaEnabledForDeclinationDefValue)
         if value == True:
@@ -34686,6 +45782,12 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMeUrEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetVeSuEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetVeSuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeSuEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetVeEaEnabledForDeclinationDefValue)
         if value == True:
             self.planetVeEaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
@@ -34715,6 +45817,30 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVeUrEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVeUrEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuMaEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetSuMaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuMaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuJuEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetSuJuEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuJuEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuSaEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetSuSaEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuSaEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuUrEnabledForDeclinationDefValue)
+        if value == True:
+            self.planetSuUrEnabledForDeclinationCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuUrEnabledForDeclinationCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetEaMaEnabledForDeclinationDefValue)
         if value == True:
@@ -35115,6 +46241,96 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAsMoEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetAsMeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetAsMeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsVeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetAsVeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsVeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsMaEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetAsMaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsJuEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetAsJuEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsJuEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsSaEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetAsSaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsUr3EnabledForLatitudeDefValue)
+        if value == True:
+            self.planetAsUr3EnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsUr3EnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoSuEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMoSuEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSuEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoMeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMoMeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoVeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMoVeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoVeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoMaEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMoMaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoJuEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMoJuEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoJuEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoSaEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMoSaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoUrEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMoUrEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoUrEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsTrueNorthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetAsTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsTrueSouthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetAsTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetSunTrueNorthNodeEnabledForLatitudeDefValue)
         if value == True:
             self.planetSunTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
@@ -35139,17 +46355,89 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMoonTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
-        value = bool(SettingsKeys.planetMoSuEnabledForLatitudeDefValue)
+        value = bool(SettingsKeys.planetMeTrueNorthNodeEnabledForLatitudeDefValue)
         if value == True:
-            self.planetMoSuEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+            self.planetMeTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
         else:
-            self.planetMoSuEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+            self.planetMeTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeTrueSouthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMeTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVeTrueNorthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetVeTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVeTrueSouthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetVeTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMaTrueNorthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMaTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMaTrueSouthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMaTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetJuTrueNorthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetJuTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetJuTrueSouthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetJuTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSaTrueNorthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetSaTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSaTrueSouthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetSaTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetUrTrueNorthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetUrTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueNorthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetUrTrueSouthNodeEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetUrTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueSouthNodeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMeVeEnabledForLatitudeDefValue)
         if value == True:
             self.planetMeVeEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetMeVeEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeSuEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetMeSuEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeSuEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMeEaEnabledForLatitudeDefValue)
         if value == True:
@@ -35181,6 +46469,12 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMeUrEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetVeSuEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetVeSuEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeSuEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetVeEaEnabledForLatitudeDefValue)
         if value == True:
             self.planetVeEaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
@@ -35210,6 +46504,30 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVeUrEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVeUrEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuMaEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetSuMaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuMaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuJuEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetSuJuEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuJuEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuSaEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetSuSaEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuSaEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuUrEnabledForLatitudeDefValue)
+        if value == True:
+            self.planetSuUrEnabledForLatitudeCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuUrEnabledForLatitudeCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetEaMaEnabledForLatitudeDefValue)
         if value == True:
@@ -35610,6 +46928,96 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAsMoEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetAsMeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetAsMeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsVeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetAsVeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsVeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsMaEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetAsMaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsJuEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetAsJuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsJuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsSaEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetAsSaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsUrEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetAsUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoSuEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetMoSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoMeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetMoMeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoVeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetMoVeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoVeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoMaEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetMoMaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoJuEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetMoJuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoJuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoSaEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetMoSaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoUrEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetMoUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsTrueNorthNodeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetAsTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsTrueSouthNodeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetAsTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetSunTrueNorthNodeEnabledForGeoSidRadixChartDefValue)
         if value == True:
             self.planetSunTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
@@ -35634,17 +47042,89 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMoonTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
-        value = bool(SettingsKeys.planetMoSuEnabledForGeoSidRadixChartDefValue)
+        value = bool(SettingsKeys.planetMeTrueNorthNodeEnabledForGeoSidRadixChartDefValue)
         if value == True:
-            self.planetMoSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+            self.planetMeTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
-            self.planetMoSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+            self.planetMeTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeTrueSouthNodeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetMeTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVeTrueNorthNodeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetVeTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVeTrueSouthNodeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetVeTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMaTrueNorthNodeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetMaTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMaTrueSouthNodeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetMaTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetJuTrueNorthNodeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetJuTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetJuTrueSouthNodeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetJuTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSaTrueNorthNodeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetSaTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSaTrueSouthNodeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetSaTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetUrTrueNorthNodeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetUrTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueNorthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetUrTrueSouthNodeEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetUrTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueSouthNodeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMeVeEnabledForGeoSidRadixChartDefValue)
         if value == True:
             self.planetMeVeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetMeVeEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeSuEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetMeSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMeEaEnabledForGeoSidRadixChartDefValue)
         if value == True:
@@ -35676,6 +47156,12 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMeUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetVeSuEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetVeSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeSuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetVeEaEnabledForGeoSidRadixChartDefValue)
         if value == True:
             self.planetVeEaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
@@ -35705,6 +47191,30 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVeUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVeUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuMaEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetSuMaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuMaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuJuEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetSuJuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuJuEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuSaEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetSuSaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuSaEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuUrEnabledForGeoSidRadixChartDefValue)
+        if value == True:
+            self.planetSuUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuUrEnabledForGeoSidRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetEaMaEnabledForGeoSidRadixChartDefValue)
         if value == True:
@@ -36105,6 +47615,96 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAsMoEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetAsMeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetAsMeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsVeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetAsVeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsVeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsMaEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetAsMaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsJuEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetAsJuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsJuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsSaEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetAsSaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsUrEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetAsUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoSuEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetMoSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoMeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetMoMeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoVeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetMoVeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoVeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoMaEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetMoMaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoJuEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetMoJuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoJuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoSaEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetMoSaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoUrEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetMoUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsTrueNorthNodeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetAsTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsTrueSouthNodeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetAsTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetSunTrueNorthNodeEnabledForGeoTropRadixChartDefValue)
         if value == True:
             self.planetSunTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
@@ -36129,17 +47729,89 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMoonTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
-        value = bool(SettingsKeys.planetMoSuEnabledForGeoTropRadixChartDefValue)
+        value = bool(SettingsKeys.planetMeTrueNorthNodeEnabledForGeoTropRadixChartDefValue)
         if value == True:
-            self.planetMoSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+            self.planetMeTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
-            self.planetMoSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+            self.planetMeTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeTrueSouthNodeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetMeTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVeTrueNorthNodeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetVeTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVeTrueSouthNodeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetVeTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMaTrueNorthNodeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetMaTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMaTrueSouthNodeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetMaTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetJuTrueNorthNodeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetJuTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetJuTrueSouthNodeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetJuTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSaTrueNorthNodeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetSaTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSaTrueSouthNodeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetSaTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetUrTrueNorthNodeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetUrTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueNorthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetUrTrueSouthNodeEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetUrTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueSouthNodeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMeVeEnabledForGeoTropRadixChartDefValue)
         if value == True:
             self.planetMeVeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetMeVeEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeSuEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetMeSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMeEaEnabledForGeoTropRadixChartDefValue)
         if value == True:
@@ -36171,6 +47843,12 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMeUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetVeSuEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetVeSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeSuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetVeEaEnabledForGeoTropRadixChartDefValue)
         if value == True:
             self.planetVeEaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
@@ -36200,6 +47878,30 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVeUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVeUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuMaEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetSuMaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuMaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuJuEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetSuJuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuJuEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuSaEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetSuSaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuSaEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuUrEnabledForGeoTropRadixChartDefValue)
+        if value == True:
+            self.planetSuUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuUrEnabledForGeoTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetEaMaEnabledForGeoTropRadixChartDefValue)
         if value == True:
@@ -36600,6 +48302,96 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetAsMoEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetAsMeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetAsMeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsVeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetAsVeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsVeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsMaEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetAsMaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsMaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsJuEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetAsJuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsJuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsSaEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetAsSaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsSaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsUrEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetAsUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoSuEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetMoSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoMeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetMoMeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoVeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetMoVeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoVeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoMaEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetMoMaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoMaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoJuEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetMoJuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoJuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoSaEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetMoSaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoSaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMoUrEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetMoUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMoUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsTrueNorthNodeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetAsTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetAsTrueSouthNodeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetAsTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetAsTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetSunTrueNorthNodeEnabledForHelioTropRadixChartDefValue)
         if value == True:
             self.planetSunTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
@@ -36624,17 +48416,89 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMoonTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
-        value = bool(SettingsKeys.planetMoSuEnabledForHelioTropRadixChartDefValue)
+        value = bool(SettingsKeys.planetMeTrueNorthNodeEnabledForHelioTropRadixChartDefValue)
         if value == True:
-            self.planetMoSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+            self.planetMeTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
-            self.planetMoSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+            self.planetMeTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeTrueSouthNodeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetMeTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVeTrueNorthNodeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetVeTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetVeTrueSouthNodeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetVeTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMaTrueNorthNodeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetMaTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMaTrueSouthNodeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetMaTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMaTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetJuTrueNorthNodeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetJuTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetJuTrueSouthNodeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetJuTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetJuTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSaTrueNorthNodeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetSaTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSaTrueSouthNodeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetSaTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSaTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetUrTrueNorthNodeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetUrTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueNorthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetUrTrueSouthNodeEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetUrTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetUrTrueSouthNodeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMeVeEnabledForHelioTropRadixChartDefValue)
         if value == True:
             self.planetMeVeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetMeVeEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetMeSuEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetMeSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetMeSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetMeEaEnabledForHelioTropRadixChartDefValue)
         if value == True:
@@ -36666,6 +48530,12 @@ class AppPreferencesEditWidget(QWidget):
         else:
             self.planetMeUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
+        value = bool(SettingsKeys.planetVeSuEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetVeSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetVeSuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
         value = bool(SettingsKeys.planetVeEaEnabledForHelioTropRadixChartDefValue)
         if value == True:
             self.planetVeEaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
@@ -36695,6 +48565,30 @@ class AppPreferencesEditWidget(QWidget):
             self.planetVeUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
         else:
             self.planetVeUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuMaEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetSuMaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuMaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuJuEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetSuJuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuJuEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuSaEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetSuSaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuSaEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
+
+        value = bool(SettingsKeys.planetSuUrEnabledForHelioTropRadixChartDefValue)
+        if value == True:
+            self.planetSuUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Checked)
+        else:
+            self.planetSuUrEnabledForHelioTropRadixChartCheckBox.setCheckState(Qt.Unchecked)
 
         value = bool(SettingsKeys.planetEaMaEnabledForHelioTropRadixChartDefValue)
         if value == True:
@@ -37136,6 +49030,186 @@ class AppPreferencesEditWidget(QWidget):
         self.planetAsMoBackgroundColorEditButton.\
             setColor(SettingsKeys.planetAsMoBackgroundColorDefValue)
 
+        # AsMe
+        self.planetAsMeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetAsMeGlyphUnicodeDefValue)
+        self.planetAsMeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetAsMeGlyphFontSizeDefValue)
+        self.planetAsMeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetAsMeAbbreviationDefValue)
+        self.planetAsMeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetAsMeForegroundColorDefValue)
+        self.planetAsMeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetAsMeBackgroundColorDefValue)
+
+        # AsVe
+        self.planetAsVeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetAsVeGlyphUnicodeDefValue)
+        self.planetAsVeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetAsVeGlyphFontSizeDefValue)
+        self.planetAsVeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetAsVeAbbreviationDefValue)
+        self.planetAsVeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetAsVeForegroundColorDefValue)
+        self.planetAsVeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetAsVeBackgroundColorDefValue)
+
+        # AsMa
+        self.planetAsMaGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetAsMaGlyphUnicodeDefValue)
+        self.planetAsMaGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetAsMaGlyphFontSizeDefValue)
+        self.planetAsMaAbbreviationLineEdit.\
+            setText(SettingsKeys.planetAsMaAbbreviationDefValue)
+        self.planetAsMaForegroundColorEditButton.\
+            setColor(SettingsKeys.planetAsMaForegroundColorDefValue)
+        self.planetAsMaBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetAsMaBackgroundColorDefValue)
+
+        # AsJu
+        self.planetAsJuGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetAsJuGlyphUnicodeDefValue)
+        self.planetAsJuGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetAsJuGlyphFontSizeDefValue)
+        self.planetAsJuAbbreviationLineEdit.\
+            setText(SettingsKeys.planetAsJuAbbreviationDefValue)
+        self.planetAsJuForegroundColorEditButton.\
+            setColor(SettingsKeys.planetAsJuForegroundColorDefValue)
+        self.planetAsJuBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetAsJuBackgroundColorDefValue)
+
+        # AsSa
+        self.planetAsSaGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetAsSaGlyphUnicodeDefValue)
+        self.planetAsSaGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetAsSaGlyphFontSizeDefValue)
+        self.planetAsSaAbbreviationLineEdit.\
+            setText(SettingsKeys.planetAsSaAbbreviationDefValue)
+        self.planetAsSaForegroundColorEditButton.\
+            setColor(SettingsKeys.planetAsSaForegroundColorDefValue)
+        self.planetAsSaBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetAsSaBackgroundColorDefValue)
+
+        # AsUr
+        self.planetAsUrGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetAsUrGlyphUnicodeDefValue)
+        self.planetAsUrGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetAsUrGlyphFontSizeDefValue)
+        self.planetAsUrAbbreviationLineEdit.\
+            setText(SettingsKeys.planetAsUrAbbreviationDefValue)
+        self.planetAsUrForegroundColorEditButton.\
+            setColor(SettingsKeys.planetAsUrForegroundColorDefValue)
+        self.planetAsUrBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetAsUrBackgroundColorDefValue)
+
+        # MoSu
+        self.planetMoSuGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMoSuGlyphUnicodeDefValue)
+        self.planetMoSuGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMoSuGlyphFontSizeDefValue)
+        self.planetMoSuAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMoSuAbbreviationDefValue)
+        self.planetMoSuForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMoSuForegroundColorDefValue)
+        self.planetMoSuBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMoSuBackgroundColorDefValue)
+
+        # MoMe
+        self.planetMoMeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMoMeGlyphUnicodeDefValue)
+        self.planetMoMeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMoMeGlyphFontSizeDefValue)
+        self.planetMoMeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMoMeAbbreviationDefValue)
+        self.planetMoMeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMoMeForegroundColorDefValue)
+        self.planetMoMeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMoMeBackgroundColorDefValue)
+
+        # MoVe
+        self.planetMoVeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMoVeGlyphUnicodeDefValue)
+        self.planetMoVeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMoVeGlyphFontSizeDefValue)
+        self.planetMoVeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMoVeAbbreviationDefValue)
+        self.planetMoVeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMoVeForegroundColorDefValue)
+        self.planetMoVeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMoVeBackgroundColorDefValue)
+
+        # MoMa
+        self.planetMoMaGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMoMaGlyphUnicodeDefValue)
+        self.planetMoMaGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMoMaGlyphFontSizeDefValue)
+        self.planetMoMaAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMoMaAbbreviationDefValue)
+        self.planetMoMaForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMoMaForegroundColorDefValue)
+        self.planetMoMaBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMoMaBackgroundColorDefValue)
+
+        # MoJu
+        self.planetMoJuGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMoJuGlyphUnicodeDefValue)
+        self.planetMoJuGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMoJuGlyphFontSizeDefValue)
+        self.planetMoJuAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMoJuAbbreviationDefValue)
+        self.planetMoJuForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMoJuForegroundColorDefValue)
+        self.planetMoJuBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMoJuBackgroundColorDefValue)
+
+        # MoSa
+        self.planetMoSaGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMoSaGlyphUnicodeDefValue)
+        self.planetMoSaGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMoSaGlyphFontSizeDefValue)
+        self.planetMoSaAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMoSaAbbreviationDefValue)
+        self.planetMoSaForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMoSaForegroundColorDefValue)
+        self.planetMoSaBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMoSaBackgroundColorDefValue)
+
+        # MoUr
+        self.planetMoUrGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMoUrGlyphUnicodeDefValue)
+        self.planetMoUrGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMoUrGlyphFontSizeDefValue)
+        self.planetMoUrAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMoUrAbbreviationDefValue)
+        self.planetMoUrForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMoUrForegroundColorDefValue)
+        self.planetMoUrBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMoUrBackgroundColorDefValue)
+
+        # AsTrueNorthNode
+        self.planetAsTrueNorthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetAsTrueNorthNodeGlyphUnicodeDefValue)
+        self.planetAsTrueNorthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetAsTrueNorthNodeGlyphFontSizeDefValue)
+        self.planetAsTrueNorthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetAsTrueNorthNodeAbbreviationDefValue)
+        self.planetAsTrueNorthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetAsTrueNorthNodeForegroundColorDefValue)
+        self.planetAsTrueNorthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetAsTrueNorthNodeBackgroundColorDefValue)
+
+        # AsTrueSouthNode
+        self.planetAsTrueSouthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetAsTrueSouthNodeGlyphUnicodeDefValue)
+        self.planetAsTrueSouthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetAsTrueSouthNodeGlyphFontSizeDefValue)
+        self.planetAsTrueSouthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetAsTrueSouthNodeAbbreviationDefValue)
+        self.planetAsTrueSouthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetAsTrueSouthNodeForegroundColorDefValue)
+        self.planetAsTrueSouthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetAsTrueSouthNodeBackgroundColorDefValue)
+
         # SunTrueNorthNode
         self.planetSunTrueNorthNodeGlyphUnicodeLineEdit.\
             setText(SettingsKeys.planetSunTrueNorthNodeGlyphUnicodeDefValue)
@@ -37184,17 +49258,149 @@ class AppPreferencesEditWidget(QWidget):
         self.planetMoonTrueSouthNodeBackgroundColorEditButton.\
             setColor(SettingsKeys.planetMoonTrueSouthNodeBackgroundColorDefValue)
 
-        # MoSu
-        self.planetMoSuGlyphUnicodeLineEdit.\
-            setText(SettingsKeys.planetMoSuGlyphUnicodeDefValue)
-        self.planetMoSuGlyphFontSizeSpinBox.\
-            setValue(SettingsKeys.planetMoSuGlyphFontSizeDefValue)
-        self.planetMoSuAbbreviationLineEdit.\
-            setText(SettingsKeys.planetMoSuAbbreviationDefValue)
-        self.planetMoSuForegroundColorEditButton.\
-            setColor(SettingsKeys.planetMoSuForegroundColorDefValue)
-        self.planetMoSuBackgroundColorEditButton.\
-            setColor(SettingsKeys.planetMoSuBackgroundColorDefValue)
+        # MeTrueNorthNode
+        self.planetMeTrueNorthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMeTrueNorthNodeGlyphUnicodeDefValue)
+        self.planetMeTrueNorthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMeTrueNorthNodeGlyphFontSizeDefValue)
+        self.planetMeTrueNorthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMeTrueNorthNodeAbbreviationDefValue)
+        self.planetMeTrueNorthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMeTrueNorthNodeForegroundColorDefValue)
+        self.planetMeTrueNorthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMeTrueNorthNodeBackgroundColorDefValue)
+
+        # MeTrueSouthNode
+        self.planetMeTrueSouthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMeTrueSouthNodeGlyphUnicodeDefValue)
+        self.planetMeTrueSouthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMeTrueSouthNodeGlyphFontSizeDefValue)
+        self.planetMeTrueSouthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMeTrueSouthNodeAbbreviationDefValue)
+        self.planetMeTrueSouthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMeTrueSouthNodeForegroundColorDefValue)
+        self.planetMeTrueSouthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMeTrueSouthNodeBackgroundColorDefValue)
+
+        # VeTrueNorthNode
+        self.planetVeTrueNorthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetVeTrueNorthNodeGlyphUnicodeDefValue)
+        self.planetVeTrueNorthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetVeTrueNorthNodeGlyphFontSizeDefValue)
+        self.planetVeTrueNorthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetVeTrueNorthNodeAbbreviationDefValue)
+        self.planetVeTrueNorthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetVeTrueNorthNodeForegroundColorDefValue)
+        self.planetVeTrueNorthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetVeTrueNorthNodeBackgroundColorDefValue)
+
+        # VeTrueSouthNode
+        self.planetVeTrueSouthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetVeTrueSouthNodeGlyphUnicodeDefValue)
+        self.planetVeTrueSouthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetVeTrueSouthNodeGlyphFontSizeDefValue)
+        self.planetVeTrueSouthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetVeTrueSouthNodeAbbreviationDefValue)
+        self.planetVeTrueSouthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetVeTrueSouthNodeForegroundColorDefValue)
+        self.planetVeTrueSouthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetVeTrueSouthNodeBackgroundColorDefValue)
+
+        # MaTrueNorthNode
+        self.planetMaTrueNorthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMaTrueNorthNodeGlyphUnicodeDefValue)
+        self.planetMaTrueNorthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMaTrueNorthNodeGlyphFontSizeDefValue)
+        self.planetMaTrueNorthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMaTrueNorthNodeAbbreviationDefValue)
+        self.planetMaTrueNorthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMaTrueNorthNodeForegroundColorDefValue)
+        self.planetMaTrueNorthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMaTrueNorthNodeBackgroundColorDefValue)
+
+        # MaTrueSouthNode
+        self.planetMaTrueSouthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMaTrueSouthNodeGlyphUnicodeDefValue)
+        self.planetMaTrueSouthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMaTrueSouthNodeGlyphFontSizeDefValue)
+        self.planetMaTrueSouthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMaTrueSouthNodeAbbreviationDefValue)
+        self.planetMaTrueSouthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMaTrueSouthNodeForegroundColorDefValue)
+        self.planetMaTrueSouthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMaTrueSouthNodeBackgroundColorDefValue)
+
+        # JuTrueNorthNode
+        self.planetJuTrueNorthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetJuTrueNorthNodeGlyphUnicodeDefValue)
+        self.planetJuTrueNorthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetJuTrueNorthNodeGlyphFontSizeDefValue)
+        self.planetJuTrueNorthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetJuTrueNorthNodeAbbreviationDefValue)
+        self.planetJuTrueNorthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetJuTrueNorthNodeForegroundColorDefValue)
+        self.planetJuTrueNorthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetJuTrueNorthNodeBackgroundColorDefValue)
+
+        # JuTrueSouthNode
+        self.planetJuTrueSouthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetJuTrueSouthNodeGlyphUnicodeDefValue)
+        self.planetJuTrueSouthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetJuTrueSouthNodeGlyphFontSizeDefValue)
+        self.planetJuTrueSouthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetJuTrueSouthNodeAbbreviationDefValue)
+        self.planetJuTrueSouthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetJuTrueSouthNodeForegroundColorDefValue)
+        self.planetJuTrueSouthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetJuTrueSouthNodeBackgroundColorDefValue)
+
+        # SaTrueNorthNode
+        self.planetSaTrueNorthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetSaTrueNorthNodeGlyphUnicodeDefValue)
+        self.planetSaTrueNorthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetSaTrueNorthNodeGlyphFontSizeDefValue)
+        self.planetSaTrueNorthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetSaTrueNorthNodeAbbreviationDefValue)
+        self.planetSaTrueNorthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetSaTrueNorthNodeForegroundColorDefValue)
+        self.planetSaTrueNorthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetSaTrueNorthNodeBackgroundColorDefValue)
+
+        # SaTrueSouthNode
+        self.planetSaTrueSouthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetSaTrueSouthNodeGlyphUnicodeDefValue)
+        self.planetSaTrueSouthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetSaTrueSouthNodeGlyphFontSizeDefValue)
+        self.planetSaTrueSouthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetSaTrueSouthNodeAbbreviationDefValue)
+        self.planetSaTrueSouthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetSaTrueSouthNodeForegroundColorDefValue)
+        self.planetSaTrueSouthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetSaTrueSouthNodeBackgroundColorDefValue)
+
+        # UrTrueNorthNode
+        self.planetUrTrueNorthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetUrTrueNorthNodeGlyphUnicodeDefValue)
+        self.planetUrTrueNorthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetUrTrueNorthNodeGlyphFontSizeDefValue)
+        self.planetUrTrueNorthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetUrTrueNorthNodeAbbreviationDefValue)
+        self.planetUrTrueNorthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetUrTrueNorthNodeForegroundColorDefValue)
+        self.planetUrTrueNorthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetUrTrueNorthNodeBackgroundColorDefValue)
+
+        # UrTrueSouthNode
+        self.planetUrTrueSouthNodeGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetUrTrueSouthNodeGlyphUnicodeDefValue)
+        self.planetUrTrueSouthNodeGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetUrTrueSouthNodeGlyphFontSizeDefValue)
+        self.planetUrTrueSouthNodeAbbreviationLineEdit.\
+            setText(SettingsKeys.planetUrTrueSouthNodeAbbreviationDefValue)
+        self.planetUrTrueSouthNodeForegroundColorEditButton.\
+            setColor(SettingsKeys.planetUrTrueSouthNodeForegroundColorDefValue)
+        self.planetUrTrueSouthNodeBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetUrTrueSouthNodeBackgroundColorDefValue)
 
         # MeVe
         self.planetMeVeGlyphUnicodeLineEdit.\
@@ -37207,6 +49413,18 @@ class AppPreferencesEditWidget(QWidget):
             setColor(SettingsKeys.planetMeVeForegroundColorDefValue)
         self.planetMeVeBackgroundColorEditButton.\
             setColor(SettingsKeys.planetMeVeBackgroundColorDefValue)
+
+        # MeSu
+        self.planetMeSuGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetMeSuGlyphUnicodeDefValue)
+        self.planetMeSuGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetMeSuGlyphFontSizeDefValue)
+        self.planetMeSuAbbreviationLineEdit.\
+            setText(SettingsKeys.planetMeSuAbbreviationDefValue)
+        self.planetMeSuForegroundColorEditButton.\
+            setColor(SettingsKeys.planetMeSuForegroundColorDefValue)
+        self.planetMeSuBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetMeSuBackgroundColorDefValue)
 
         # MeEa
         self.planetMeEaGlyphUnicodeLineEdit.\
@@ -37268,6 +49486,18 @@ class AppPreferencesEditWidget(QWidget):
         self.planetMeUrBackgroundColorEditButton.\
             setColor(SettingsKeys.planetMeUrBackgroundColorDefValue)
 
+        # VeSu
+        self.planetVeSuGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetVeSuGlyphUnicodeDefValue)
+        self.planetVeSuGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetVeSuGlyphFontSizeDefValue)
+        self.planetVeSuAbbreviationLineEdit.\
+            setText(SettingsKeys.planetVeSuAbbreviationDefValue)
+        self.planetVeSuForegroundColorEditButton.\
+            setColor(SettingsKeys.planetVeSuForegroundColorDefValue)
+        self.planetVeSuBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetVeSuBackgroundColorDefValue)
+
         # VeEa
         self.planetVeEaGlyphUnicodeLineEdit.\
             setText(SettingsKeys.planetVeEaGlyphUnicodeDefValue)
@@ -37327,6 +49557,54 @@ class AppPreferencesEditWidget(QWidget):
             setColor(SettingsKeys.planetVeUrForegroundColorDefValue)
         self.planetVeUrBackgroundColorEditButton.\
             setColor(SettingsKeys.planetVeUrBackgroundColorDefValue)
+
+        # SuMa
+        self.planetSuMaGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetSuMaGlyphUnicodeDefValue)
+        self.planetSuMaGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetSuMaGlyphFontSizeDefValue)
+        self.planetSuMaAbbreviationLineEdit.\
+            setText(SettingsKeys.planetSuMaAbbreviationDefValue)
+        self.planetSuMaForegroundColorEditButton.\
+            setColor(SettingsKeys.planetSuMaForegroundColorDefValue)
+        self.planetSuMaBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetSuMaBackgroundColorDefValue)
+
+        # SuJu
+        self.planetSuJuGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetSuJuGlyphUnicodeDefValue)
+        self.planetSuJuGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetSuJuGlyphFontSizeDefValue)
+        self.planetSuJuAbbreviationLineEdit.\
+            setText(SettingsKeys.planetSuJuAbbreviationDefValue)
+        self.planetSuJuForegroundColorEditButton.\
+            setColor(SettingsKeys.planetSuJuForegroundColorDefValue)
+        self.planetSuJuBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetSuJuBackgroundColorDefValue)
+
+        # SuSa
+        self.planetSuSaGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetSuSaGlyphUnicodeDefValue)
+        self.planetSuSaGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetSuSaGlyphFontSizeDefValue)
+        self.planetSuSaAbbreviationLineEdit.\
+            setText(SettingsKeys.planetSuSaAbbreviationDefValue)
+        self.planetSuSaForegroundColorEditButton.\
+            setColor(SettingsKeys.planetSuSaForegroundColorDefValue)
+        self.planetSuSaBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetSuSaBackgroundColorDefValue)
+
+        # SuUr
+        self.planetSuUrGlyphUnicodeLineEdit.\
+            setText(SettingsKeys.planetSuUrGlyphUnicodeDefValue)
+        self.planetSuUrGlyphFontSizeSpinBox.\
+            setValue(SettingsKeys.planetSuUrGlyphFontSizeDefValue)
+        self.planetSuUrAbbreviationLineEdit.\
+            setText(SettingsKeys.planetSuUrAbbreviationDefValue)
+        self.planetSuUrForegroundColorEditButton.\
+            setColor(SettingsKeys.planetSuUrForegroundColorDefValue)
+        self.planetSuUrBackgroundColorEditButton.\
+            setColor(SettingsKeys.planetSuUrBackgroundColorDefValue)
 
         # EaMa
         self.planetEaMaGlyphUnicodeLineEdit.\
@@ -40944,11 +53222,37 @@ class LookbackMultipleEditWidget(QWidget):
             "MC",
             "AsSu",
             "AsMo",
+            "AsMe",
+            "AsVe",
+            "AsMa",
+            "AsJu",
+            "AsSa",
+            "AsUr",
+            "MoSu",
+            "MoMe",
+            "MoVe",
+            "MoMa",
+            "MoJu",
+            "MoSa",
+            "MoUr",
+            "AsTrueNorthNode",
+            "AsTrueSouthNode",
             "SunTrueNorthNode",
             "SunTrueSouthNode",
             "MoonTrueNorthNode",
             "MoonTrueSouthNode",
-            "MoSu",
+            "MeTrueNorthNode",
+            "MeTrueSouthNode",
+            "VeTrueNorthNode",
+            "VeTrueSouthNode",
+            "MaTrueNorthNode",
+            "MaTrueSouthNode",
+            "JuTrueNorthNode",
+            "JuTrueSouthNode",
+            "SaTrueNorthNode",
+            "SaTrueSouthNode",
+            "UrTrueNorthNode",
+            "UrTrueSouthNode",
             "MeVe",
             "MeEa",
             "MeMa",
@@ -40960,6 +53264,10 @@ class LookbackMultipleEditWidget(QWidget):
             "VeJu",
             "VeSa",
             "VeUr",
+            "SuMa",
+            "SuJu",
+            "SuSa",
+            "SuUr",
             "EaMa",
             "EaJu",
             "EaSa",
@@ -45430,6 +57738,96 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsMeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMeEnabledFlagCheckBox = \
+            QCheckBox("Planet AsMe enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsVeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsVeEnabledFlagCheckBox = \
+            QCheckBox("Planet AsVe enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsVeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsMaEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMaEnabledFlagCheckBox = \
+            QCheckBox("Planet AsMa enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMaEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsJuEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsJuEnabledFlagCheckBox = \
+            QCheckBox("Planet AsJu enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsJuEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsSaEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSaEnabledFlagCheckBox = \
+            QCheckBox("Planet AsSa enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSaEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsUrEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsUrEnabledFlagCheckBox = \
+            QCheckBox("Planet AsUr enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsUrEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlagCheckBox = \
+            QCheckBox("Planet MoSu enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoMeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoMeEnabledFlagCheckBox = \
+            QCheckBox("Planet MoMe enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoMeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoVeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoVeEnabledFlagCheckBox = \
+            QCheckBox("Planet MoVe enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoVeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoMaEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoMaEnabledFlagCheckBox = \
+            QCheckBox("Planet MoMa enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoMaEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoJuEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoJuEnabledFlagCheckBox = \
+            QCheckBox("Planet MoJu enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoJuEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoSaEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSaEnabledFlagCheckBox = \
+            QCheckBox("Planet MoSa enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSaEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoUrEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoUrEnabledFlagCheckBox = \
+            QCheckBox("Planet MoUr enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoUrEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueNorthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueNorthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet AsTrueNorthNode enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueNorthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueSouthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueSouthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet AsTrueSouthNode enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueSouthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlagCheckBox = \
             QCheckBox("Planet SunTrueNorthNode enabled")
@@ -45454,16 +57852,88 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
-        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag (bool).
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlagCheckBox = \
-            QCheckBox("Planet MoSu enabled")
-        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlagCheckBox.\
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueNorthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueNorthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet MeTrueNorthNode enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueNorthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueSouthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueSouthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet MeTrueSouthNode enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueSouthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueNorthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueNorthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet VeTrueNorthNode enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueNorthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueSouthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueSouthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet VeTrueSouthNode enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueSouthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueNorthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueNorthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet MaTrueNorthNode enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueNorthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueSouthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueSouthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet MaTrueSouthNode enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueSouthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueNorthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueNorthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet JuTrueNorthNode enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueNorthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueSouthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueSouthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet JuTrueSouthNode enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueSouthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueNorthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueNorthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet SaTrueNorthNode enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueNorthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueSouthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueSouthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet SaTrueSouthNode enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueSouthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueNorthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueNorthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet UrTrueNorthNode enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueNorthNodeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueSouthNodeEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueSouthNodeEnabledFlagCheckBox = \
+            QCheckBox("Planet UrTrueSouthNode enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueSouthNodeEnabledFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlagCheckBox = \
             QCheckBox("Planet MeVe enabled")
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeSuEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeSuEnabledFlagCheckBox = \
+            QCheckBox("Planet MeSu enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeSuEnabledFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag (bool).
@@ -45496,6 +57966,12 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVeSuEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeSuEnabledFlagCheckBox = \
+            QCheckBox("Planet VeSu enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeSuEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag (bool).
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlagCheckBox = \
             QCheckBox("Planet VeEa enabled")
@@ -45524,6 +58000,30 @@ class PriceBarChartSettingsEditWidget(QWidget):
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlagCheckBox = \
             QCheckBox("Planet VeUr enabled")
         self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSuMaEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuMaEnabledFlagCheckBox = \
+            QCheckBox("Planet SuMa enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuMaEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSuJuEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuJuEnabledFlagCheckBox = \
+            QCheckBox("Planet SuJu enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuJuEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSuSaEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuSaEnabledFlagCheckBox = \
+            QCheckBox("Planet SuSa enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuSaEnabledFlagCheckBox.\
+            setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSuUrEnabledFlag (bool).
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuUrEnabledFlagCheckBox = \
+            QCheckBox("Planet SuUr enabled")
+        self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuUrEnabledFlagCheckBox.\
             setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag (bool).
@@ -45713,6 +58213,36 @@ class PriceBarChartSettingsEditWidget(QWidget):
         midRightLayout.addWidget(\
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlagCheckBox)
         midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMeEnabledFlagCheckBox)
+        midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsVeEnabledFlagCheckBox)
+        midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMaEnabledFlagCheckBox)
+        midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsJuEnabledFlagCheckBox)
+        midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSaEnabledFlagCheckBox)
+        midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsUrEnabledFlagCheckBox)
+        midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlagCheckBox)
+        midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoMeEnabledFlagCheckBox)
+        midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoVeEnabledFlagCheckBox)
+        midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoMaEnabledFlagCheckBox)
+        midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoJuEnabledFlagCheckBox)
+        midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSaEnabledFlagCheckBox)
+        midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoUrEnabledFlagCheckBox)
+        midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueNorthNodeEnabledFlagCheckBox)
+        midRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueSouthNodeEnabledFlagCheckBox)
+        midRightLayout.addWidget(\
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlagCheckBox)
         midRightLayout.addWidget(\
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueSouthNodeEnabledFlagCheckBox)
@@ -45721,56 +58251,97 @@ class PriceBarChartSettingsEditWidget(QWidget):
         midRightLayout.addWidget(\
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlagCheckBox)
         midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlagCheckBox)
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueNorthNodeEnabledFlagCheckBox)
         midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlagCheckBox)
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueSouthNodeEnabledFlagCheckBox)
         midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlagCheckBox)
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueNorthNodeEnabledFlagCheckBox)
         midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeMaEnabledFlagCheckBox)
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueSouthNodeEnabledFlagCheckBox)
         midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeJuEnabledFlagCheckBox)
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueNorthNodeEnabledFlagCheckBox)
         midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeSaEnabledFlagCheckBox)
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueSouthNodeEnabledFlagCheckBox)
         midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlagCheckBox)
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueNorthNodeEnabledFlagCheckBox)
         midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlagCheckBox)
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueSouthNodeEnabledFlagCheckBox)
         midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEnabledFlagCheckBox)
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueNorthNodeEnabledFlagCheckBox)
         midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeJuEnabledFlagCheckBox)
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueSouthNodeEnabledFlagCheckBox)
         midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeSaEnabledFlagCheckBox)
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueNorthNodeEnabledFlagCheckBox)
         midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlagCheckBox)
-        midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlagCheckBox)
-        midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuEnabledFlagCheckBox)
-        midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaEnabledFlagCheckBox)
-        midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaUrEnabledFlagCheckBox)
-        midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEnabledFlagCheckBox)
-        midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaSaEnabledFlagCheckBox)
-        midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaUrEnabledFlagCheckBox)
-        midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlagCheckBox)
-        midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlagCheckBox)
-        midRightLayout.addWidget(\
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlagCheckBox)
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueSouthNodeEnabledFlagCheckBox)
 
         midRightLayout.addStretch()
+
+        # Layout on the far right side.
+        farRightLayout = QVBoxLayout()
+
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeSuEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeMaEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeJuEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeSaEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeSuEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeMaEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeJuEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeSaEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuMaEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuJuEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuSaEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuUrEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaJuEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaSaEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaUrEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaJuEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaSaEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaUrEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuSaEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuUrEnabledFlagCheckBox)
+        farRightLayout.addWidget(\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaUrEnabledFlagCheckBox)
+
+        farRightLayout.addStretch()
 
         groupBox3Layout = QHBoxLayout()
         groupBox3Layout.addLayout(farLeftLayout)
         groupBox3Layout.addLayout(midLeftLayout)
         groupBox3Layout.addLayout(midRightLayout)
+        groupBox3Layout.addLayout(farRightLayout)
 
         self.planetLongitudeMovementMeasurementGraphicsItemGroupBox3.setLayout(groupBox3Layout)
 
@@ -52420,6 +64991,156 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsMeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetAsMeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsVeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetAsVeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsVeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsVeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsMaEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetAsMaEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMaEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMaEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsJuEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetAsJuEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsJuEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsJuEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsSaEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetAsSaEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSaEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSaEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsUrEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetAsUrEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsUrEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsUrEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoMeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMoMeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoMeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoMeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoVeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMoVeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoVeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoVeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoMaEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMoMaEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoMaEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoMaEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoJuEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMoJuEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoJuEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoJuEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoSaEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMoSaEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSaEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSaEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoUrEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMoUrEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoUrEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoUrEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueNorthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueNorthNodeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueSouthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueSouthNodeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag (bool).
         if self.priceBarChartSettings.\
            planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag == True:
@@ -52460,14 +65181,124 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
-        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag (bool).
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueNorthNodeEnabledFlag (bool).
         if self.priceBarChartSettings.\
-           planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag == True:
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueNorthNodeEnabledFlag == True:
 
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlagCheckBox.\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueNorthNodeEnabledFlagCheckBox.\
                 setCheckState(Qt.Checked)
         else:
-            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlagCheckBox.\
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueSouthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueSouthNodeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueNorthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueNorthNodeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueSouthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueSouthNodeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueNorthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueNorthNodeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueSouthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueSouthNodeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueNorthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueNorthNodeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueSouthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueSouthNodeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueNorthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueNorthNodeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueSouthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueSouthNodeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueNorthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueNorthNodeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueNorthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueSouthNodeEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueSouthNodeEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueSouthNodeEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueSouthNodeEnabledFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag (bool).
@@ -52478,6 +65309,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 setCheckState(Qt.Checked)
         else:
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeSuEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetMeSuEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeSuEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeSuEnabledFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag (bool).
@@ -52530,6 +65371,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVeSuEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetVeSuEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeSuEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeSuEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
         # planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag (bool).
         if self.priceBarChartSettings.\
            planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag == True:
@@ -52578,6 +65429,46 @@ class PriceBarChartSettingsEditWidget(QWidget):
                 setCheckState(Qt.Checked)
         else:
             self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSuMaEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetSuMaEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuMaEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuMaEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSuJuEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetSuJuEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuJuEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuJuEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSuSaEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetSuSaEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuSaEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuSaEnabledFlagCheckBox.\
+                setCheckState(Qt.Unchecked)
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSuUrEnabledFlag (bool).
+        if self.priceBarChartSettings.\
+           planetLongitudeMovementMeasurementGraphicsItemPlanetSuUrEnabledFlag == True:
+
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuUrEnabledFlagCheckBox.\
+                setCheckState(Qt.Checked)
+        else:
+            self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuUrEnabledFlagCheckBox.\
                 setCheckState(Qt.Unchecked)
 
         # planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag (bool).
@@ -55663,6 +68554,156 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag = False
 
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsMeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsMeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsMeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsVeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsVeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsVeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsVeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsMaEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsMaEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsMaEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsMaEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsJuEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsJuEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsJuEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsJuEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsSaEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsSaEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsSaEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsSaEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsUrEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsUrEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsUrEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsUrEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoMeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoMeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMoMeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMoMeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoVeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoVeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMoVeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMoVeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoMaEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoMaEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMoMaEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMoMaEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoJuEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoJuEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMoJuEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMoJuEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoSaEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSaEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMoSaEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMoSaEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoUrEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoUrEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMoUrEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMoUrEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueNorthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueNorthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueNorthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueNorthNodeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueSouthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueSouthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueSouthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueSouthNodeEnabledFlag = False
+
         # planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlagCheckBox.\
            checkState() == Qt.Checked:
@@ -55703,15 +68744,125 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlag = False
 
-        # planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag (bool).
-        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlagCheckBox.\
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueNorthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueNorthNodeEnabledFlagCheckBox.\
            checkState() == Qt.Checked:
 
             self.priceBarChartSettings.\
-                planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag = True
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueNorthNodeEnabledFlag = True
         else:
             self.priceBarChartSettings.\
-                planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag = False
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueNorthNodeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueSouthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueSouthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueSouthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueSouthNodeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueNorthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueNorthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueNorthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueNorthNodeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueSouthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueSouthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueSouthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueSouthNodeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueNorthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueNorthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueNorthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueNorthNodeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueSouthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueSouthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueSouthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueSouthNodeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueNorthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueNorthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueNorthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueNorthNodeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueSouthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueSouthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueSouthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueSouthNodeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueNorthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueNorthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueNorthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueNorthNodeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueSouthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueSouthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueSouthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueSouthNodeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueNorthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueNorthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueNorthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueNorthNodeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueSouthNodeEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueSouthNodeEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueSouthNodeEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueSouthNodeEnabledFlag = False
 
         # planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlagCheckBox.\
@@ -55722,6 +68873,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetMeSuEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeSuEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMeSuEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetMeSuEnabledFlag = False
 
         # planetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlagCheckBox.\
@@ -55773,6 +68934,16 @@ class PriceBarChartSettingsEditWidget(QWidget):
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag = False
 
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetVeSuEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeSuEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetVeSuEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetVeSuEnabledFlag = False
+
         # planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlagCheckBox.\
            checkState() == Qt.Checked:
@@ -55822,6 +68993,46 @@ class PriceBarChartSettingsEditWidget(QWidget):
         else:
             self.priceBarChartSettings.\
                 planetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSuMaEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuMaEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetSuMaEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetSuMaEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSuJuEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuJuEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetSuJuEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetSuJuEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSuSaEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuSaEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetSuSaEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetSuSaEnabledFlag = False
+
+        # planetLongitudeMovementMeasurementGraphicsItemPlanetSuUrEnabledFlag (bool).
+        if self.planetLongitudeMovementMeasurementGraphicsItemPlanetSuUrEnabledFlagCheckBox.\
+           checkState() == Qt.Checked:
+
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetSuUrEnabledFlag = True
+        else:
+            self.priceBarChartSettings.\
+                planetLongitudeMovementMeasurementGraphicsItemPlanetSuUrEnabledFlag = False
 
         # planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag (bool).
         if self.planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlagCheckBox.\

@@ -8341,6 +8341,51 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag == True:
             self.planetNamesEnabled.append("AsMo")
         if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMeEnabledFlag == True:
+            self.planetNamesEnabled.append("AsMe")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsVeEnabledFlag == True:
+            self.planetNamesEnabled.append("AsVe")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsMaEnabledFlag == True:
+            self.planetNamesEnabled.append("AsMa")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsJuEnabledFlag == True:
+            self.planetNamesEnabled.append("AsJu")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsSaEnabledFlag == True:
+            self.planetNamesEnabled.append("AsSa")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsUrEnabledFlag == True:
+            self.planetNamesEnabled.append("AsUr")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag == True:
+            self.planetNamesEnabled.append("MoSu")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoMeEnabledFlag == True:
+            self.planetNamesEnabled.append("MoMe")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoVeEnabledFlag == True:
+            self.planetNamesEnabled.append("MoVe")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoMaEnabledFlag == True:
+            self.planetNamesEnabled.append("MoMa")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoJuEnabledFlag == True:
+            self.planetNamesEnabled.append("MoJu")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSaEnabledFlag == True:
+            self.planetNamesEnabled.append("MoSa")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoUrEnabledFlag == True:
+            self.planetNamesEnabled.append("MoUr")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("AsTrueNorthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("AsTrueSouthNode")
+        if PriceBarChartSettings.\
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag == True:
             self.planetNamesEnabled.append("SunTrueNorthNode")
         if PriceBarChartSettings.\
@@ -8353,11 +8398,47 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlag == True:
             self.planetNamesEnabled.append("MoonTrueSouthNode")
         if PriceBarChartSettings.\
-               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag == True:
-            self.planetNamesEnabled.append("MoSu")
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("MeTrueNorthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("MeTrueSouthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("VeTrueNorthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("VeTrueSouthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("MaTrueNorthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("MaTrueSouthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("JuTrueNorthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("JuTrueSouthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("SaTrueNorthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("SaTrueSouthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("UrTrueNorthNode")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("UrTrueSouthNode")
         if PriceBarChartSettings.\
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag == True:
             self.planetNamesEnabled.append("MeVe")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeSuEnabledFlag == True:
+            self.planetNamesEnabled.append("MeSu")
         if PriceBarChartSettings.\
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag == True:
             self.planetNamesEnabled.append("MeEa")
@@ -8374,6 +8455,9 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag == True:
             self.planetNamesEnabled.append("MeUr")
         if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeSuEnabledFlag == True:
+            self.planetNamesEnabled.append("VeSu")
+        if PriceBarChartSettings.\
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag == True:
             self.planetNamesEnabled.append("VeEa")
         if PriceBarChartSettings.\
@@ -8388,6 +8472,18 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         if PriceBarChartSettings.\
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag == True:
             self.planetNamesEnabled.append("VeUr")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSuMaEnabledFlag == True:
+            self.planetNamesEnabled.append("SuMa")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSuJuEnabledFlag == True:
+            self.planetNamesEnabled.append("SuJu")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSuSaEnabledFlag == True:
+            self.planetNamesEnabled.append("SuSa")
+        if PriceBarChartSettings.\
+               defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetSuUrEnabledFlag == True:
+            self.planetNamesEnabled.append("SuUr")
         if PriceBarChartSettings.\
                defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag == True:
             self.planetNamesEnabled.append("EaMa")
@@ -9056,6 +9152,51 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                planetLongitudeMovementMeasurementGraphicsItemPlanetAsMoEnabledFlag == True:
             self.planetNamesEnabled.append("AsMo")
         if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetAsMeEnabledFlag == True:
+            self.planetNamesEnabled.append("AsMe")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetAsVeEnabledFlag == True:
+            self.planetNamesEnabled.append("AsVe")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetAsMaEnabledFlag == True:
+            self.planetNamesEnabled.append("AsMa")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetAsJuEnabledFlag == True:
+            self.planetNamesEnabled.append("AsJu")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetAsSaEnabledFlag == True:
+            self.planetNamesEnabled.append("AsSa")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetAsUrEnabledFlag == True:
+            self.planetNamesEnabled.append("AsUr")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag == True:
+            self.planetNamesEnabled.append("MoSu")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMoMeEnabledFlag == True:
+            self.planetNamesEnabled.append("MoMe")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMoVeEnabledFlag == True:
+            self.planetNamesEnabled.append("MoVe")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMoMaEnabledFlag == True:
+            self.planetNamesEnabled.append("MoMa")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMoJuEnabledFlag == True:
+            self.planetNamesEnabled.append("MoJu")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMoSaEnabledFlag == True:
+            self.planetNamesEnabled.append("MoSa")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMoUrEnabledFlag == True:
+            self.planetNamesEnabled.append("MoUr")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("AsTrueNorthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetAsTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("AsTrueSouthNode")
+        if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetSunTrueNorthNodeEnabledFlag == True:
             self.planetNamesEnabled.append("SunTrueNorthNode")
         if priceBarChartSettings.\
@@ -9068,11 +9209,47 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                planetLongitudeMovementMeasurementGraphicsItemPlanetMoonTrueSouthNodeEnabledFlag == True:
             self.planetNamesEnabled.append("MoonTrueSouthNode")
         if priceBarChartSettings.\
-               planetLongitudeMovementMeasurementGraphicsItemPlanetMoSuEnabledFlag == True:
-            self.planetNamesEnabled.append("MoSu")
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("MeTrueNorthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMeTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("MeTrueSouthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("VeTrueNorthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetVeTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("VeTrueSouthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("MaTrueNorthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMaTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("MaTrueSouthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("JuTrueNorthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetJuTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("JuTrueSouthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("SaTrueNorthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetSaTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("SaTrueSouthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueNorthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("UrTrueNorthNode")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetUrTrueSouthNodeEnabledFlag == True:
+            self.planetNamesEnabled.append("UrTrueSouthNode")
         if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetMeVeEnabledFlag == True:
             self.planetNamesEnabled.append("MeVe")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetMeSuEnabledFlag == True:
+            self.planetNamesEnabled.append("MeSu")
         if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetMeEaEnabledFlag == True:
             self.planetNamesEnabled.append("MeEa")
@@ -9089,6 +9266,9 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                planetLongitudeMovementMeasurementGraphicsItemPlanetMeUrEnabledFlag == True:
             self.planetNamesEnabled.append("MeUr")
         if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetVeSuEnabledFlag == True:
+            self.planetNamesEnabled.append("VeSu")
+        if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetVeEaEnabledFlag == True:
             self.planetNamesEnabled.append("VeEa")
         if priceBarChartSettings.\
@@ -9103,6 +9283,18 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
         if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetVeUrEnabledFlag == True:
             self.planetNamesEnabled.append("VeUr")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetSuMaEnabledFlag == True:
+            self.planetNamesEnabled.append("SuMa")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetSuJuEnabledFlag == True:
+            self.planetNamesEnabled.append("SuJu")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetSuSaEnabledFlag == True:
+            self.planetNamesEnabled.append("SuSa")
+        if priceBarChartSettings.\
+               planetLongitudeMovementMeasurementGraphicsItemPlanetSuUrEnabledFlag == True:
+            self.planetNamesEnabled.append("SuUr")
         if priceBarChartSettings.\
                planetLongitudeMovementMeasurementGraphicsItemPlanetEaMaEnabledFlag == True:
             self.planetNamesEnabled.append("EaMa")
@@ -9954,6 +10146,36 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.planetNamesEnabled.append("AsSu")
         if self.artifact.getPlanetAsMoEnabledFlag():
             self.planetNamesEnabled.append("AsMo")
+        if self.artifact.getPlanetAsMeEnabledFlag():
+            self.planetNamesEnabled.append("AsMe")
+        if self.artifact.getPlanetAsVeEnabledFlag():
+            self.planetNamesEnabled.append("AsVe")
+        if self.artifact.getPlanetAsMaEnabledFlag():
+            self.planetNamesEnabled.append("AsMa")
+        if self.artifact.getPlanetAsJuEnabledFlag():
+            self.planetNamesEnabled.append("AsJu")
+        if self.artifact.getPlanetAsSaEnabledFlag():
+            self.planetNamesEnabled.append("AsSa")
+        if self.artifact.getPlanetAsUrEnabledFlag():
+            self.planetNamesEnabled.append("AsUr")
+        if self.artifact.getPlanetMoSuEnabledFlag():
+            self.planetNamesEnabled.append("MoSu")
+        if self.artifact.getPlanetMoMeEnabledFlag():
+            self.planetNamesEnabled.append("MoMe")
+        if self.artifact.getPlanetMoVeEnabledFlag():
+            self.planetNamesEnabled.append("MoVe")
+        if self.artifact.getPlanetMoMaEnabledFlag():
+            self.planetNamesEnabled.append("MoMa")
+        if self.artifact.getPlanetMoJuEnabledFlag():
+            self.planetNamesEnabled.append("MoJu")
+        if self.artifact.getPlanetMoSaEnabledFlag():
+            self.planetNamesEnabled.append("MoSa")
+        if self.artifact.getPlanetMoUrEnabledFlag():
+            self.planetNamesEnabled.append("MoUr")
+        if self.artifact.getPlanetAsTrueNorthNodeEnabledFlag():
+            self.planetNamesEnabled.append("AsTrueNorthNode")
+        if self.artifact.getPlanetAsTrueSouthNodeEnabledFlag():
+            self.planetNamesEnabled.append("AsTrueSouthNode")
         if self.artifact.getPlanetSunTrueNorthNodeEnabledFlag():
             self.planetNamesEnabled.append("SunTrueNorthNode")
         if self.artifact.getPlanetSunTrueSouthNodeEnabledFlag():
@@ -9962,10 +10184,34 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.planetNamesEnabled.append("MoonTrueNorthNode")
         if self.artifact.getPlanetMoonTrueSouthNodeEnabledFlag():
             self.planetNamesEnabled.append("MoonTrueSouthNode")
-        if self.artifact.getPlanetMoSuEnabledFlag():
-            self.planetNamesEnabled.append("MoSu")
+        if self.artifact.getPlanetMeTrueNorthNodeEnabledFlag():
+            self.planetNamesEnabled.append("MeTrueNorthNode")
+        if self.artifact.getPlanetMeTrueSouthNodeEnabledFlag():
+            self.planetNamesEnabled.append("MeTrueSouthNode")
+        if self.artifact.getPlanetVeTrueNorthNodeEnabledFlag():
+            self.planetNamesEnabled.append("VeTrueNorthNode")
+        if self.artifact.getPlanetVeTrueSouthNodeEnabledFlag():
+            self.planetNamesEnabled.append("VeTrueSouthNode")
+        if self.artifact.getPlanetMaTrueNorthNodeEnabledFlag():
+            self.planetNamesEnabled.append("MaTrueNorthNode")
+        if self.artifact.getPlanetMaTrueSouthNodeEnabledFlag():
+            self.planetNamesEnabled.append("MaTrueSouthNode")
+        if self.artifact.getPlanetJuTrueNorthNodeEnabledFlag():
+            self.planetNamesEnabled.append("JuTrueNorthNode")
+        if self.artifact.getPlanetJuTrueSouthNodeEnabledFlag():
+            self.planetNamesEnabled.append("JuTrueSouthNode")
+        if self.artifact.getPlanetSaTrueNorthNodeEnabledFlag():
+            self.planetNamesEnabled.append("SaTrueNorthNode")
+        if self.artifact.getPlanetSaTrueSouthNodeEnabledFlag():
+            self.planetNamesEnabled.append("SaTrueSouthNode")
+        if self.artifact.getPlanetUrTrueNorthNodeEnabledFlag():
+            self.planetNamesEnabled.append("UrTrueNorthNode")
+        if self.artifact.getPlanetUrTrueSouthNodeEnabledFlag():
+            self.planetNamesEnabled.append("UrTrueSouthNode")
         if self.artifact.getPlanetMeVeEnabledFlag():
             self.planetNamesEnabled.append("MeVe")
+        if self.artifact.getPlanetMeSuEnabledFlag():
+            self.planetNamesEnabled.append("MeSu")
         if self.artifact.getPlanetMeEaEnabledFlag():
             self.planetNamesEnabled.append("MeEa")
         if self.artifact.getPlanetMeMaEnabledFlag():
@@ -9976,6 +10222,8 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.planetNamesEnabled.append("MeSa")
         if self.artifact.getPlanetMeUrEnabledFlag():
             self.planetNamesEnabled.append("MeUr")
+        if self.artifact.getPlanetVeSuEnabledFlag():
+            self.planetNamesEnabled.append("VeSu")
         if self.artifact.getPlanetVeEaEnabledFlag():
             self.planetNamesEnabled.append("VeEa")
         if self.artifact.getPlanetVeMaEnabledFlag():
@@ -9986,6 +10234,14 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             self.planetNamesEnabled.append("VeSa")
         if self.artifact.getPlanetVeUrEnabledFlag():
             self.planetNamesEnabled.append("VeUr")
+        if self.artifact.getPlanetSuMaEnabledFlag():
+            self.planetNamesEnabled.append("SuMa")
+        if self.artifact.getPlanetSuJuEnabledFlag():
+            self.planetNamesEnabled.append("SuJu")
+        if self.artifact.getPlanetSuSaEnabledFlag():
+            self.planetNamesEnabled.append("SuSa")
+        if self.artifact.getPlanetSuUrEnabledFlag():
+            self.planetNamesEnabled.append("SuUr")
         if self.artifact.getPlanetEaMaEnabledFlag():
             self.planetNamesEnabled.append("EaMa")
         if self.artifact.getPlanetEaJuEnabledFlag():
@@ -10293,6 +10549,36 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             "AsSu" in self.planetNamesEnabled)
         self.artifact.setPlanetAsMoEnabledFlag(\
             "AsMo" in self.planetNamesEnabled)
+        self.artifact.setPlanetAsMeEnabledFlag(\
+            "AsMe" in self.planetNamesEnabled)
+        self.artifact.setPlanetAsVeEnabledFlag(\
+            "AsVe" in self.planetNamesEnabled)
+        self.artifact.setPlanetAsMaEnabledFlag(\
+            "AsMa" in self.planetNamesEnabled)
+        self.artifact.setPlanetAsJuEnabledFlag(\
+            "AsJu" in self.planetNamesEnabled)
+        self.artifact.setPlanetAsSaEnabledFlag(\
+            "AsSa" in self.planetNamesEnabled)
+        self.artifact.setPlanetAsUrEnabledFlag(\
+            "AsUr" in self.planetNamesEnabled)
+        self.artifact.setPlanetMoSuEnabledFlag(\
+            "MoSu" in self.planetNamesEnabled)
+        self.artifact.setPlanetMoMeEnabledFlag(\
+            "MoMe" in self.planetNamesEnabled)
+        self.artifact.setPlanetMoVeEnabledFlag(\
+            "MoVe" in self.planetNamesEnabled)
+        self.artifact.setPlanetMoMaEnabledFlag(\
+            "MoMa" in self.planetNamesEnabled)
+        self.artifact.setPlanetMoJuEnabledFlag(\
+            "MoJu" in self.planetNamesEnabled)
+        self.artifact.setPlanetMoSaEnabledFlag(\
+            "MoSa" in self.planetNamesEnabled)
+        self.artifact.setPlanetMoUrEnabledFlag(\
+            "MoUr" in self.planetNamesEnabled)
+        self.artifact.setPlanetAsTrueNorthNodeEnabledFlag(\
+            "AsTrueNorthNode" in self.planetNamesEnabled)
+        self.artifact.setPlanetAsTrueSouthNodeEnabledFlag(\
+            "AsTrueSouthNode" in self.planetNamesEnabled)
         self.artifact.setPlanetSunTrueNorthNodeEnabledFlag(\
             "SunTrueNorthNode" in self.planetNamesEnabled)
         self.artifact.setPlanetSunTrueSouthNodeEnabledFlag(\
@@ -10301,10 +10587,34 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             "MoonTrueNorthNode" in self.planetNamesEnabled)
         self.artifact.setPlanetMoonTrueSouthNodeEnabledFlag(\
             "MoonTrueSouthNode" in self.planetNamesEnabled)
-        self.artifact.setPlanetMoSuEnabledFlag(\
-            "MoSu" in self.planetNamesEnabled)
+        self.artifact.setPlanetMeTrueNorthNodeEnabledFlag(\
+            "MeTrueNorthNode" in self.planetNamesEnabled)
+        self.artifact.setPlanetMeTrueSouthNodeEnabledFlag(\
+            "MeTrueSouthNode" in self.planetNamesEnabled)
+        self.artifact.setPlanetVeTrueNorthNodeEnabledFlag(\
+            "VeTrueNorthNode" in self.planetNamesEnabled)
+        self.artifact.setPlanetVeTrueSouthNodeEnabledFlag(\
+            "VeTrueSouthNode" in self.planetNamesEnabled)
+        self.artifact.setPlanetMaTrueNorthNodeEnabledFlag(\
+            "MaTrueNorthNode" in self.planetNamesEnabled)
+        self.artifact.setPlanetMaTrueSouthNodeEnabledFlag(\
+            "MaTrueSouthNode" in self.planetNamesEnabled)
+        self.artifact.setPlanetJuTrueNorthNodeEnabledFlag(\
+            "JuTrueNorthNode" in self.planetNamesEnabled)
+        self.artifact.setPlanetJuTrueSouthNodeEnabledFlag(\
+            "JuTrueSouthNode" in self.planetNamesEnabled)
+        self.artifact.setPlanetSaTrueNorthNodeEnabledFlag(\
+            "SaTrueNorthNode" in self.planetNamesEnabled)
+        self.artifact.setPlanetSaTrueSouthNodeEnabledFlag(\
+            "SaTrueSouthNode" in self.planetNamesEnabled)
+        self.artifact.setPlanetUrTrueNorthNodeEnabledFlag(\
+            "UrTrueNorthNode" in self.planetNamesEnabled)
+        self.artifact.setPlanetUrTrueSouthNodeEnabledFlag(\
+            "UrTrueSouthNode" in self.planetNamesEnabled)
         self.artifact.setPlanetMeVeEnabledFlag(\
             "MeVe" in self.planetNamesEnabled)
+        self.artifact.setPlanetMeSuEnabledFlag(\
+            "MeSu" in self.planetNamesEnabled)
         self.artifact.setPlanetMeEaEnabledFlag(\
             "MeEa" in self.planetNamesEnabled)
         self.artifact.setPlanetMeMaEnabledFlag(\
@@ -10315,6 +10625,8 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             "MeSa" in self.planetNamesEnabled)
         self.artifact.setPlanetMeUrEnabledFlag(\
             "MeUr" in self.planetNamesEnabled)
+        self.artifact.setPlanetVeSuEnabledFlag(\
+            "VeSu" in self.planetNamesEnabled)
         self.artifact.setPlanetVeEaEnabledFlag(\
             "VeEa" in self.planetNamesEnabled)
         self.artifact.setPlanetVeMaEnabledFlag(\
@@ -10325,6 +10637,14 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
             "VeSa" in self.planetNamesEnabled)
         self.artifact.setPlanetVeUrEnabledFlag(\
             "VeUr" in self.planetNamesEnabled)
+        self.artifact.setPlanetSuMaEnabledFlag(\
+            "SuMa" in self.planetNamesEnabled)
+        self.artifact.setPlanetSuJuEnabledFlag(\
+            "SuJu" in self.planetNamesEnabled)
+        self.artifact.setPlanetSuSaEnabledFlag(\
+            "SuSa" in self.planetNamesEnabled)
+        self.artifact.setPlanetSuUrEnabledFlag(\
+            "SuUr" in self.planetNamesEnabled)
         self.artifact.setPlanetEaMaEnabledFlag(\
             "EaMa" in self.planetNamesEnabled)
         self.artifact.setPlanetEaJuEnabledFlag(\

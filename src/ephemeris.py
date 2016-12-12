@@ -3627,19 +3627,19 @@ class Ephemeris:
             elif planetName == "AsUr":
                 return Ephemeris.getAsUrPlanetaryInfo(dt)
             elif planetName == "MoSu":
-                return Ephemeris.getAsUrPlanetaryInfo(dt)
+                return Ephemeris.getMoSuPlanetaryInfo(dt)
             elif planetName == "MoMe":
-                return Ephemeris.getAsUrPlanetaryInfo(dt)
+                return Ephemeris.getMoMePlanetaryInfo(dt)
             elif planetName == "MoVe":
-                return Ephemeris.getAsUrPlanetaryInfo(dt)
+                return Ephemeris.getMoVePlanetaryInfo(dt)
             elif planetName == "MoMa":
-                return Ephemeris.getAsUrPlanetaryInfo(dt)
+                return Ephemeris.getMoMaPlanetaryInfo(dt)
             elif planetName == "MoJu":
-                return Ephemeris.getAsUrPlanetaryInfo(dt)
+                return Ephemeris.getMoJuPlanetaryInfo(dt)
             elif planetName == "MoSa":
-                return Ephemeris.getAsUrPlanetaryInfo(dt)
+                return Ephemeris.getMoSaPlanetaryInfo(dt)
             elif planetName == "MoUr":
-                return Ephemeris.getAsUrPlanetaryInfo(dt)
+                return Ephemeris.getMoUrPlanetaryInfo(dt)
             elif planetName == "AsTrueNorthNode":
                 return Ephemeris.getAsTrueNorthNodePlanetaryInfo(dt)
             elif planetName == "AsTrueSouthNode":
@@ -3652,8 +3652,34 @@ class Ephemeris:
                 return Ephemeris.getMoonTrueNorthNodePlanetaryInfo(dt)
             elif planetName == "MoonTrueSouthNode":
                 return Ephemeris.getMoonTrueSouthNodePlanetaryInfo(dt)
+            elif planetName == "MeTrueNorthNode":
+                return Ephemeris.getMeTrueNorthNodePlanetaryInfo(dt)
+            elif planetName == "MeTrueSouthNode":
+                return Ephemeris.getMeTrueSouthNodePlanetaryInfo(dt)
+            elif planetName == "VeTrueNorthNode":
+                return Ephemeris.getVeTrueNorthNodePlanetaryInfo(dt)
+            elif planetName == "VeTrueSouthNode":
+                return Ephemeris.getVeTrueSouthNodePlanetaryInfo(dt)
+            elif planetName == "MaTrueNorthNode":
+                return Ephemeris.getMaTrueNorthNodePlanetaryInfo(dt)
+            elif planetName == "MaTrueSouthNode":
+                return Ephemeris.getMaTrueSouthNodePlanetaryInfo(dt)
+            elif planetName == "JuTrueNorthNode":
+                return Ephemeris.getJuTrueNorthNodePlanetaryInfo(dt)
+            elif planetName == "JuTrueSouthNode":
+                return Ephemeris.getJuTrueSouthNodePlanetaryInfo(dt)
+            elif planetName == "SaTrueNorthNode":
+                return Ephemeris.getSaTrueNorthNodePlanetaryInfo(dt)
+            elif planetName == "SaTrueSouthNode":
+                return Ephemeris.getSaTrueSouthNodePlanetaryInfo(dt)
+            elif planetName == "UrTrueNorthNode":
+                return Ephemeris.getUrTrueNorthNodePlanetaryInfo(dt)
+            elif planetName == "UrTrueSouthNode":
+                return Ephemeris.getUrTrueSouthNodePlanetaryInfo(dt)
             elif planetName == "MeVe":
                 return Ephemeris.getMeVePlanetaryInfo(dt)
+            elif planetName == "MeSu":
+                return Ephemeris.getMeSuPlanetaryInfo(dt)
             elif planetName == "MeEa":
                 return Ephemeris.getMeEaPlanetaryInfo(dt)
             elif planetName == "MeMa":
@@ -3664,6 +3690,8 @@ class Ephemeris:
                 return Ephemeris.getMeSaPlanetaryInfo(dt)
             elif planetName == "MeUr":
                 return Ephemeris.getMeUrPlanetaryInfo(dt)
+            elif planetName == "VeSu":
+                return Ephemeris.getVeSuPlanetaryInfo(dt)
             elif planetName == "VeEa":
                 return Ephemeris.getVeEaPlanetaryInfo(dt)
             elif planetName == "VeMa":
@@ -3674,6 +3702,14 @@ class Ephemeris:
                 return Ephemeris.getVeSaPlanetaryInfo(dt)
             elif planetName == "VeUr":
                 return Ephemeris.getVeUrPlanetaryInfo(dt)
+            elif planetName == "SuMa":
+                return Ephemeris.getSuMaPlanetaryInfo(dt)
+            elif planetName == "SuJu":
+                return Ephemeris.getSuJuPlanetaryInfo(dt)
+            elif planetName == "SuSa":
+                return Ephemeris.getSuSaPlanetaryInfo(dt)
+            elif planetName == "SuUr":
+                return Ephemeris.getSuUrPlanetaryInfo(dt)
             elif planetName == "EaMa":
                 return Ephemeris.getEaMaPlanetaryInfo(dt)
             elif planetName == "EaJu":
