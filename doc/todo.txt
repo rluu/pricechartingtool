@@ -4,6 +4,20 @@
 
 TODO:
 
+    - Fix bug with Declination not showing up for a bunch of the 2-planet
+      combination planets.
+
+    - Test Latitude with the 2-planet combination planets.
+
+    - Increase the size of the Declination ruler in astrologychart.py
+      because 2-planet combination planets can have a much larger range
+      (approximately double the range).
+
+    - Increase the size of the Heliocentric Latitude ruler in astrologychart.py
+      because 2-planet combination planets can have a much larger range
+      (approximately double the range).
+
+
     - Create/Add a tool to calculate and show ratios of planet movements.
     (Harmony between planets).  It would work similar to
     PlanetLongitudeMovementMeasurementTool.
