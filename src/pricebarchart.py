@@ -11366,13 +11366,14 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             # without time.
             text = text[:16] + os.linesep
 
-            text += "t=[{}]".\
-                format(HebrewCalendarUtils.datetimeToHebrewDateStr(dt)) + \
-                os.linesep
-
-            text += "t={}".\
-                format(HebrewCalendarUtils.datetimeToHebrewMonthDayStr(dt)) + \
-                os.linesep
+            # Uncomment these next few lines if you want the hebrew date
+            # using the convertdate external library.
+            #text += "t=[{}]".\
+            #    format(HebrewCalendarUtils.datetimeToHebrewDateStr(dt)) + \
+            #    os.linesep
+            #text += "t={}".\
+            #    format(HebrewCalendarUtils.datetimeToHebrewMonthDayStr(dt)) + \
+            #    os.linesep
 
         if self.artifact.getShowPriceFlag():
             text += "p={:.4f}".format(price) + os.linesep

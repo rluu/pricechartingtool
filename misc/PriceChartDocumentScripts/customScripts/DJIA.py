@@ -46,25 +46,25 @@ log.setLevel(logLevel)
 
 # Start and ending timestamps for drawing.
 
-#startDt = datetime.datetime(year=1979, month=1, day=1,
-#                            hour=0, minute=0, second=0,
-#                            tzinfo=pytz.utc)
+startDt = datetime.datetime(year=1979, month=1, day=1,
+                            hour=0, minute=0, second=0,
+                            tzinfo=pytz.utc)
 #startDt = datetime.datetime(year=1995, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-#endDt = datetime.datetime(year=2018, month=1, day=1,
-#                            hour=0, minute=0, second=0,
-#                            tzinfo=pytz.utc)
-
-startDt = datetime.datetime(year=1905, month=1, day=1,
+endDt = datetime.datetime(year=2018, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
+
+#startDt = datetime.datetime(year=1905, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
 #endDt   = datetime.datetime(year=1936, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-endDt   = datetime.datetime(year=1941, month=1, day=1,
-                            hour=0, minute=0, second=0,
-                            tzinfo=pytz.utc)
+#endDt   = datetime.datetime(year=1941, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
 
 # High and low price limits for drawing the vertical lines.
 highPrice = 22000.0
@@ -122,11 +122,76 @@ def processPCDD(pcdd, tag):
     success = True
 
     if False:
-        for i in [0, 90, 180, 270]:
-            planetName = "Jupiter"
-            centricityType = "geocentric"
+        planet1Name = "Earth"
+        planet2Name = "Mars"
+        centricityType = "heliocentric"
+        longitudeType = "tropical"
+        planet1ParamsList = [(planet1Name, centricityType, longitudeType)]
+        planet2ParamsList = [(planet2Name, centricityType, longitudeType)]
+        degreeDifference = 47
+        uniDirectionalAspectsFlag = True
+        maxErrorTd = datetime.timedelta(minutes=1)
+
+        origPlanetName = planet1Name + planet2Name
+        origCentricityType = centricityType
+        desiredDegree = degreeDifference
+            
+        crossingsDts = EphemerisUtils.getLongitudeAspectTimestamps(\
+            startDt,
+            endDt,
+            planet1ParamsList,
+            planet2ParamsList,
+            degreeDifference,
+            uniDirectionalAspectsFlag=uniDirectionalAspectsFlag,
+            maxErrorTd=maxErrorTd)
+
+        for crossingsDt in crossingsDts:
+            tag = \
+              origCentricityType + "_" + origPlanetName + \
+              "_crossing_" + str(desiredDegree) + \
+              "_degrees"
+
+            color = Color.darkRed
+
+            PlanetaryCombinationsLibrary.addVerticalLine(\
+                                                             pcdd, crossingsDt, highPrice, lowPrice, tag, color)
+        
+    if False:
+        for i in [216]:
+            planetName = "Mars"
+            centricityType = "heliocentric"
             longitudeType = "tropical"
             desiredDegree = Util.toNormalizedAngle(45 + i)
+            maxErrorTd = datetime.timedelta(minutes=1)
+
+            origPlanetName = planetName
+            origCentricityType = centricityType
+            
+            dts = \
+                EphemerisUtils.\
+                getPlanetCrossingLongitudeDegTimestamps(\
+                    startDt, endDt,
+                    planetName,
+                    centricityType, longitudeType, 
+                    desiredDegree, maxErrorTd)
+
+            tag = \
+              origCentricityType + "_" + origPlanetName + \
+              "_crossing_" + str(desiredDegree)
+              
+            color = Color.darkRed
+            
+            for dt in dts:
+                PlanetaryCombinationsLibrary.addVerticalLine(\
+                    pcdd, dt, highPrice, lowPrice, tag, color)
+        
+    
+    if True:
+        for i in [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330]:
+            planetName = "Jupiter"
+            centricityType = "heliocentric"
+            longitudeType = "tropical"
+            desiredDegree = Util.toNormalizedAngle(i)
             maxErrorTd = datetime.timedelta(minutes=1)
 
             origPlanetName = planetName
@@ -953,12 +1018,29 @@ def processPCDD(pcdd, tag):
             "heliocentric", "tropical", "Venus", degreeValue)
         
     if False:
+        degreeValue = 0
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Earth", "heliocentric", "tropical",
+            "Mars", "heliocentric", "tropical",
+            degreeValue, color=Color.lightRed)
+
+        degreeValue = 180
+        success = PlanetaryCombinationsLibrary.\
+            addLongitudeAspectVerticalLines(\
+            pcdd, startDt, endDt, highPrice, lowPrice,
+            "Earth", "heliocentric", "tropical",
+            "Mars", "heliocentric", "tropical",
+            degreeValue, color=Color.darkRed)
+
+    if False:
         success = PlanetaryCombinationsLibrary.\
         addGeoLongitudeVelocityPolarityChangeVerticalLines(\
         pcdd, startDt, endDt, highPrice, lowPrice,
         "Mercury")
 
-    if True:
+    if False:
         success = PlanetaryCombinationsLibrary.\
         addGeoLongitudeVelocityPolarityChangeVerticalLines(\
         pcdd, startDt, endDt, highPrice, lowPrice,
@@ -1084,7 +1166,7 @@ def processPCDD(pcdd, tag):
 
     ######################################
 
-    if True:
+    if False:
         degreeValue = 0
         success = PlanetaryCombinationsLibrary.\
             addLongitudeAspectVerticalLines(\

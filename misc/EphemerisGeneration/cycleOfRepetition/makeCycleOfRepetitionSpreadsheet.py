@@ -71,8 +71,8 @@ import logging
 #
 #
 # Directory: cycleHuntingGeneric:
-#ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/master/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
-ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/master/misc/EphemerisGeneration/cycleHuntingGeneric/master_2p_ephemeris_nyc_noon.csv"
+#ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/qt4/misc/EphemerisGeneration/cycleHuntingGeneric/master_3p_ephemeris_nyc_noon.csv"
+ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/qt4/misc/EphemerisGeneration/cycleHuntingGeneric/master_2p_ephemeris_nyc_noon.csv"
 #
 # Directory: TTTA/ephemeris_studies:
 #ephemerisInputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/master_3p_ephemeris_nyc_noon.csv"
@@ -116,7 +116,7 @@ ephemerisInputFileTimestampColumn = 0
 #ephemerisInputFileLongitudeColumn = 129 # 129 corresponds to column "DZ", H.Mars.
 #ephemerisInputFileLongitudeColumn = 130 # 130 corresponds to column "EA", H.Jupiter.
 #ephemerisInputFileLongitudeColumn = 131 # 131 corresponds to column "EB", H.Saturn.
-ephemerisInputFileLongitudeColumn = 139 # 139 corresponds to column "EJ", G.Moon/G.Sun.
+#ephemerisInputFileLongitudeColumn = 139 # 139 corresponds to column "EJ", G.Moon/G.Sun.
 #ephemerisInputFileLongitudeColumn = 200 # 200 corresponds to column "GS", H.Mercury/H.Venus.
 #ephemerisInputFileLongitudeColumn = 201 # 201 corresponds to column "GT", H.Mercury/H.Earth.
 #ephemerisInputFileLongitudeColumn = 202 # 202 corresponds to column "GU", H.Mercury/H.Mars.
@@ -124,7 +124,7 @@ ephemerisInputFileLongitudeColumn = 139 # 139 corresponds to column "EJ", G.Moon
 #ephemerisInputFileLongitudeColumn = 210 # 210 corresponds to column "HC", H.Venus/H.Mars.
 #ephemerisInputFileLongitudeColumn = 211 # 211 corresponds to column "HD", H.Venus/H.Jupiter.
 #ephemerisInputFileLongitudeColumn = 213 # 213 corresponds to column "HF", H.Venus/H.Saturn.
-#ephemerisInputFileLongitudeColumn = 217 # 217 corresponds to column "HJ", H.Earth/H.Mars.
+ephemerisInputFileLongitudeColumn = 217 # 217 corresponds to column "HJ", H.Earth/H.Mars.
 #ephemerisInputFileLongitudeColumn = 218 # 218 corresponds to column "HK", H.Earth/H.Jupiter.
 #ephemerisInputFileLongitudeColumn = 224 # 224 corresponds to column "HQ", H.Mars/H.Jupiter.
 #ephemerisInputFileLongitudeColumn = 226 # 226 corresponds to column "HS", H.Mars/H.Saturn.
@@ -137,7 +137,7 @@ ephemerisInputFileLongitudeColumn = 139 # 139 corresponds to column "EJ", G.Moon
 
 # Filename location of the market data input CSV file.
 # This is optional.  If the below path is "", then this parameter is ignored.
-#marketDataInputFilename = ""
+marketDataInputFilename = ""
 #marketDataInputFilename = "/home/rluu/download/trading/data/data_45YearsOnWallStreet/djia_page_57/djia.txt"
 #marketDataInputFilename = "/home/rluu/programming/pricechartingtool/data/pricebars/stocks/DJIA/tdow_various_pivots_marked_up_for_ttta_analysis_in_CORS_1895_to_1933.txt"
 #marketDataInputFilename = "/home/rluu/download/trading/data/data_45YearsOnWallStreet/djia_page_66/djia.txt"
@@ -176,7 +176,7 @@ ephemerisInputFileLongitudeColumn = 139 # 139 corresponds to column "EJ", G.Moon
 #marketDataInputFilename = "/home/rluu/download/trading/data/futuresData_TradingCharts/EODFutures/Wheat/July/Wheat_CBOT_Pit_And_Electronic_combined/Wheat_July_CBOT_Pit_And_Electronic_combined_1970_to_2014.txt"
 
 # Gold - June contract (GC_M).
-#marketDataInputFilename = "/home/rluu/programming/pricechartingtool/master/data/pricebars/futures/GC/GCM.txt"
+#marketDataInputFilename = "/home/rluu/programming/pricechartingtool/qt4/data/pricebars/futures/GC/GCM.txt"
 
 
 # Column number for the timestamp.  The timestamp in this column is
@@ -254,7 +254,7 @@ startingLongitude = 360  # Good starting longitude for all planets.
 # Number of degrees elapsed for each repeat.  A new set of columns in the
 # output file will be created after this amount of degrees has been elapsed.
 #numDegreesElapsedForRepeat = 360
-#numDegreesElapsedForRepeat = 180
+numDegreesElapsedForRepeat = 180
 #numDegreesElapsedForRepeat = 588
 #numDegreesElapsedForRepeat = 850
 #numDegreesElapsedForRepeat = 1000
@@ -370,7 +370,7 @@ startingLongitude = 360  # Good starting longitude for all planets.
 #numDegreesElapsedForRepeat = 60 # For G.Mars
 
 
-numDegreesElapsedForRepeat = 37 * 1 # For G.Moon/G.Sun.
+#numDegreesElapsedForRepeat = 37 * 1 # For G.Moon/G.Sun.
 #numDegreesElapsedForRepeat = 37 * 2 # For G.Moon/G.Sun.
 #numDegreesElapsedForRepeat = 37 * 3 # For G.Moon/G.Sun.
 #numDegreesElapsedForRepeat = 37 * 4 # For G.Moon/G.Sun.
@@ -385,6 +385,7 @@ numDegreesElapsedForRepeat = 37 * 1 # For G.Moon/G.Sun.
 #numDegreesElapsedForRepeat = 37 * 30 # For G.Moon/G.Sun.
 
 # Ouptut CSV file.  
+outputFilename = "/tmp/H.Earth_H.Mars_180_deg_repeats.csv"
 #outputFilename = "/home/rluu/programming/pricechartingtool/doc/notes/TTTA/ephemeris_studies/CountingWheelsFrom_19060609/H.Mars_180_deg_repeats.csv"
 #outputFilename = "/home/rluu/programming/pricechartingtool/doc/research/stocks/DJIA/G.Moon_15840_deg_repeats_or_sheet_of_44.csv"
 #outputFilename = "/home/rluu/programming/pricechartingtool/doc/G.Sun_7_degree_repeats_1776_to_1935.csv"
@@ -516,7 +517,7 @@ numDegreesElapsedForRepeat = 37 * 1 # For G.Moon/G.Sun.
 
 
 # Gold - June contract (GC_M).
-outputFilename = "/home/rluu/programming/pricechartingtool/master/misc/EphemerisGeneration/cycleOfRepetition/G.Mars_60_deg_repeats_June_Gold_GC_M.csv"
+#outputFilename = "/home/rluu/programming/pricechartingtool/qt4/misc/EphemerisGeneration/cycleOfRepetition/G.Mars_60_deg_repeats_June_Gold_GC_M.csv"
 
 
 # TDW

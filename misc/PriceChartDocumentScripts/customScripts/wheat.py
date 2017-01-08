@@ -110,7 +110,7 @@ def processPCDD(pcdd, tag):
     #lowPrice = 600.0
     #lowPrice = 300.0
 
-    if True:
+    if False:
         degreeValue = 0
         success = PlanetaryCombinationsLibrary.\
             addLongitudeAspectVerticalLines(\
@@ -119,7 +119,7 @@ def processPCDD(pcdd, tag):
             "Sun", "geocentric", "tropical",
             degreeValue, color=QColor(Qt.blue))
     
-    if True:
+    if False:
         degreeValue = 180
         success = PlanetaryCombinationsLibrary.\
             addLongitudeAspectVerticalLines(\
