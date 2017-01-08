@@ -76,8 +76,6 @@ class EphemerisUtils:
                     to do the calculations for artifacts.
         endDt     - datetime.datetime object for the ending timestamp
                     to do the calculations for artifacts.
-        highPrice - float value for the high price to end the vertical line.
-        lowPrice  - float value for the low price to end the vertical line.
 
         planet1ParamsList - List of tuples that will be used as parameters
                       for planet1.  Each tuple contained in this list
