@@ -21886,7 +21886,7 @@ class PriceBarChartSettings:
 
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # showGeocentricRetroAsNegativeTextFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag = True
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemShowGeocentricRetroAsNegativeTextFlag = False
 
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # showHeliocentricTextFlag (bool).
@@ -21906,7 +21906,7 @@ class PriceBarChartSettings:
 
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # measurementUnitCirclesEnabled (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled = True
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnitCirclesEnabled = False
 
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # measurementUnitBiblicalCirclesEnabled (bool).
@@ -22250,7 +22250,7 @@ class PriceBarChartSettings:
 
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetMercuryEnabledFlag (bool).
-    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag = True
+    defaultPlanetLongitudeMovementMeasurementGraphicsItemPlanetMercuryEnabledFlag = False
 
     # Default value for the PlanetLongitudeMovementMeasurementGraphicsItem
     # planetVenusEnabledFlag (bool).

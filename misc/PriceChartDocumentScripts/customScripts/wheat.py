@@ -22,11 +22,14 @@ from PyQt4.QtGui import *
 
 # Include some PriceChartingTool modules.
 from ephemeris import Ephemeris
+from ephemeris_utils import EphemerisUtils
+from color import Color
 from data_objects import *
 from pricebarchart import PriceBarChartGraphicsScene
 
 # Holds functions for adding artifacts for various aspects.
 from planetaryCombinationsLibrary import PlanetaryCombinationsLibrary
+
 
 ##############################################################################
 # Global variables
@@ -87,7 +90,7 @@ def processPCDD(pcdd, tag):
     relevant to the Wheat chart.  The tag str used for the created
     artifacts is based the name of the function that is being called,
     without the 'add' string at the beginning.
-    
+
     Arguments:
     pcdd - PriceChartDocumentData object that will be modified.
     tag  - str containing the tag.
@@ -100,7 +103,7 @@ def processPCDD(pcdd, tag):
 
     global highPrice
     global lowPrice
-    
+
     # Return value.
     rv = 0
 
@@ -118,7 +121,7 @@ def processPCDD(pcdd, tag):
             "Moon", "geocentric", "tropical",
             "Sun", "geocentric", "tropical",
             degreeValue, color=QColor(Qt.blue))
-    
+
     if False:
         degreeValue = 180
         success = PlanetaryCombinationsLibrary.\
@@ -127,6 +130,154 @@ def processPCDD(pcdd, tag):
             "Moon", "geocentric", "tropical",
             "Sun", "geocentric", "tropical",
             degreeValue, color=QColor(Qt.red))
+
+    if False:
+        planetA = ("Mars", "heliocentric", "tropical")
+        planetB = ("Saturn", "heliocentric", "tropical")
+        degreeDifference = 0
+        uniDirectionalAspectsFlag = True
+        planetAAndBAspectDts = \
+            EphemerisUtils.getLongitudeAspectTimestamps(startDt,
+                                                        endDt,
+                                                        [planetA],
+                                                        [planetB],
+                                                        degreeDifference,
+                                                        uniDirectionalAspectsFlag)
+
+        for aspectDt in planetAAndBAspectDts:
+            log.debug("Looking at aspectDt: " +
+                    Ephemeris.datetimeToDayStr(aspectDt) +
+                    ", where {} has a {} degree aspect to {}".\
+                            format("{} {}".format(planetA[1], planetA[0]),
+                                degreeDifference,
+                                "{} {}".format(planetB[1], planetB[0])))
+
+            # Draw a vertical line here on the chart.
+            tag = "{}_{}_{}_deg_aspect_to_{}_{}".format(
+                planetA[1], planetA[0],
+                degreeDifference,
+                planetB[1], planetB[0])
+            color = Color.darkRed
+            PlanetaryCombinationsLibrary.\
+                addVerticalLine(pcdd, aspectDt, highPrice, lowPrice, tag, color):
+
+            # At this moment in time get all the planets' positions.
+            mercuryPI = Ephemeris.getPlanetaryInfo("Mercury", aspectDt)
+            venusPI = Ephemeris.getPlanetaryInfo("Venus", aspectDt)
+            earthPI = Ephemeris.getPlanetaryInfo("Earth", aspectDt)
+            sunPI = Ephemeris.getPlanetaryInfo("Sun", aspectDt)
+            marsPI = Ephemeris.getPlanetaryInfo("Mars", aspectDt)
+            jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", aspectDt)
+            saturnPI = Ephemeris.getPlanetaryInfo("Saturn", aspectDt)
+            avgJuSaPI = Ephemeris.getPlanetaryInfo("AvgJuSa", aspectDt)
+
+            log.debug("H.Earth is at {} degrees.".\
+                    format(earthPI.heliocentric['tropical']['longitude']))
+            log.debug("H.Mars is at {} degrees.".\
+                    format(marsPI.heliocentric['tropical']['longitude']))
+
+            helioMarsToHelioEarthDegrees = \
+                Utils.toNormalizedAngle(\
+                    earthPI.heliocentric['tropical']['longitude'] -
+                    marsPI.heliocentric['tropical']['longitude'])
+
+            log.debug("H.Earth is {} degrees ahead of H.Mars.".\
+                    format(helioMarsToHelioEarthDegrees))
+
+            # Get the timestamp that H.Mars returns to this location.
+            helioMarsReturnDt = \
+                EphemerisUtils.getOnePlanetLongitudeAspectTimestamps(\
+                startDt=aspectDt,
+                endDt=endDt + datetime.timedelta(days=720), # Something a little more than a full H.Mars revolution.
+                planet1Params=("Mars", "heliocentric", "tropical"),
+                fixedDegree=marsPI.heliocentric['tropical']['longitude'],
+                degreeDifference=360,
+                uniDirectionalAspectsFlag=True)[0]
+
+            log.debug("One H.Mars revolution from aspectDt {} would be at {}".\
+                    format(Ephemeris.datetimeToDayStr(aspectDt),
+                        Ephemeris.datetimeToDayStr(helioMarsReturnDt)))
+
+            # Get the next timestamp that transiting H.Mars crosses
+            # H.Earth's longitude, at the conjunction timestamp.
+            helioMarsAtPrevHelioEarthPosDuringImageDt = \
+                EphemerisUtils.getDatetimesOfElapsedLongitudeDegrees(\
+                    planetName=planetA[0],
+                    centricityType=planetA[1],
+                    longitudeType=planetA[2],
+                    planetEpocDt=aspectDt,
+                    desiredDegreesElasped=helioMarsToHelioEarthDegrees)[0]
+
+            log.debug("helioMarsAtPrevHelioEarthPosDuringImageDt == {}".\
+                format(Ephemeris.datetimeToDayStr(\
+                            helioMarsAtPrevHelioEarthPosDuringImageDt)))
+
+            # Draw a vertical line here on the chart.
+            tag = "helioMarsAtPrevHelioEarthPosDuringImageDt"
+            color = Color.darkOrange
+            PlanetaryCombinationsLibrary.\
+                addVerticalLine(pcdd, helioMarsAtPrevHelioEarthPosDuringImageDt,
+                        highPrice, lowPrice, tag, color):
+
+            # Take some measurements from here.
+            longitudeTraversalMeasurements = \
+                [30, 60, 84, 108, 120, 168, 216, 450]
+
+            for traversalMeasurement in longitudeTraversalMeasurements:
+                dt = \
+                    EphemerisUtils.getDatetimesOfElapsedLongitudeDegrees(\
+                        planetName=planetA[0],
+                        centricityType=planetA[1],
+                        longitudeType=planetA[2],
+                        planetEpocDt=helioMarsAtPrevHelioEarthPosDuringImageDt,
+                        desiredDegreesElasped=traversalMovement)[0]
+
+                log.debug("{} {} moving {} deg from {} is: {}".format(\
+                        planetA[1], planetA[0],
+                        traversalMovement,
+                        Ephemeris.datetimeToDayStr(\
+                            helioMarsAtPrevHelioEarthPosDuringImageDt),
+                        Ephemeris.datetimeToDayStr(dt)))
+
+                avgHighLowPrice = (highPrice + lowPrice) / 2
+                y = \
+                    PlanetaryCombinationsLibrary.scene.priceToSceneYPos(avgHighLowPrice)
+                startX = \
+                    PlanetaryCombinationsLibrary.scene.datetimeToSceneXPos(\
+                        helioMarsAtPrevHelioEarthPosDuringImageDt)
+                endX = \
+                    PlanetaryCombinationsLibrary.scene.datetimeToSceneXPos(dt)
+
+                PriceBarChartPlanetLongitudeMovementMeasurementArtifact artifact = \
+                    PriceBarChartPlanetLongitudeMovementMeasurementArtifact()
+                artifact.setStartPointF(QPointF(startX, y))
+                artifact.setEndPointF(QPointF(endX, y))
+                artifact.showHeliocentricTextFlag = True
+                artifact.tropicalZodiacFlag = True
+                artifact.measurementUnitDegreesEnabled = True
+                artifact.measurementUnitCirclesEnabled = False
+                artifact.measurementUnitBiblicalCirclesEnabled = False
+                artifact.planetMarsEnabledFlag = True
+                artifact.addTag("H.Mars_moves_{}_deg".format(traversalMovement))
+        success = True
+
+    #if True:
+    #    degreeValue = 0
+    #    success = PlanetaryCombinationsLibrary.\
+    #        addLongitudeAspectVerticalLines(\
+    #        pcdd, startDt, endDt, highPrice, lowPrice,
+    #        "Moon", "geocentric", "tropical",
+    #        "Sun", "geocentric", "tropical",
+    #        degreeValue, color=QColor(Qt.blue))
+
+    #if True:
+    #    degreeValue = 180
+    #    success = PlanetaryCombinationsLibrary.\
+    #        addLongitudeAspectVerticalLines(\
+    #        pcdd, startDt, endDt, highPrice, lowPrice,
+    #        "Moon", "geocentric", "tropical",
+    #        "Sun", "geocentric", "tropical",
+    #        degreeValue, color=QColor(Qt.red))
 
     # Works with a high percentage.
     #success = PlanetaryCombinationsLibrary.\
@@ -157,15 +308,15 @@ def processPCDD(pcdd, tag):
     #success = PlanetaryCombinationsLibrary.\
     #    addHelioVenusMars15xVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice)
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addHelioVenusMars90xVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice)
     #success = PlanetaryCombinationsLibrary.\
     #    addHelioVenus265DegVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice)
-    
-    
+
+
     #success = PlanetaryCombinationsLibrary.\
     #    addHelioVenusJupiter120xVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice)
@@ -223,7 +374,7 @@ def processPCDD(pcdd, tag):
     #        "Venus", "geocentric", "sidereal",
     #        "Mars", "geocentric", "sidereal",
     #        degreeValue)
-    
+
     #divisor = 5
     #incrementSize = 72 # 360 / divisor
     #for i in range(divisor):
@@ -236,7 +387,7 @@ def processPCDD(pcdd, tag):
     #        "Venus", "geocentric", "sidereal",
     #        "Mars", "geocentric", "sidereal",
     #        degreeValue)
-    
+
     #divisor = 12
     #incrementSize = 30 # 360 / divisor
     #for i in range(divisor):
@@ -249,7 +400,7 @@ def processPCDD(pcdd, tag):
     #        "Saturn", "geocentric", "sidereal",
     #        "TrueNorthNode", "geocentric", "sidereal",
     #        degreeValue)
-    
+
     #divisor = 12
     #incrementSize = 30 # 360 / divisor
     #for i in range(divisor):
@@ -260,7 +411,7 @@ def processPCDD(pcdd, tag):
     #        "Jupiter", "heliocentric", "sidereal",
     #        "Saturn", "heliocentric", "sidereal",
     #        degreeValue)
-    
+
     #divisor = 9
     #incrementSize = 40 # 360 / divisor
     #for i in range(divisor):
@@ -291,7 +442,7 @@ def processPCDD(pcdd, tag):
     #        "geocentric", "tropical",
     #        "Sun", degreeValue)
 
-    # This needs more investigation. 
+    # This needs more investigation.
     #divisor = 10
     #incrementSize = 36
     #for i in range(divisor):
@@ -371,7 +522,7 @@ def processPCDD(pcdd, tag):
             "Moon", "geocentric", "tropical",
             "Sun", "geocentric", "tropical",
             degreeValue, color=QColor(Qt.blue))
-    
+
     if False:
         degreeValue = 180
         success = PlanetaryCombinationsLibrary.\
@@ -380,7 +531,7 @@ def processPCDD(pcdd, tag):
             "Moon", "geocentric", "tropical",
             "Sun", "geocentric", "tropical",
             degreeValue, color=QColor(Qt.red))
-    
+
     if False:
         degreeValue = 0
         success = PlanetaryCombinationsLibrary.\
@@ -389,7 +540,7 @@ def processPCDD(pcdd, tag):
             "Mercury", "geocentric", "tropical",
             "Sun", "geocentric", "tropical",
             degreeValue, color=None)
-    
+
     if False:
         degreeValue = 0
         success = PlanetaryCombinationsLibrary.\
@@ -398,7 +549,7 @@ def processPCDD(pcdd, tag):
             "Venus", "geocentric", "tropical",
             "Sun", "geocentric", "tropical",
             degreeValue, color=None)
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
@@ -412,7 +563,7 @@ def processPCDD(pcdd, tag):
     #    "Venus", "heliocentric", "sidereal",
     #    "Mars", "heliocentric", "sidereal",
     #    0)
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
@@ -423,7 +574,7 @@ def processPCDD(pcdd, tag):
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    "Mars", "Earth",
     #    "heliocentric", "sidereal", 180)
-    
+
     #step = 15
     #start = 0
     #stop = 180 + step # Add step to make it inclusive.
@@ -434,35 +585,35 @@ def processPCDD(pcdd, tag):
     #        "Venus", "heliocentric", "sidereal",
     #        "Earth", "heliocentric", "sidereal",
     #        degreeDifference)
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    "Jupiter", "heliocentric", "sidereal",
     #    "Uranus", "heliocentric", "sidereal",
     #    0)
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    "Venus", "heliocentric", "sidereal",
     #    "Earth", "heliocentric", "sidereal",
     #    10)
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    "Venus", "geocentric", "sidereal",
     #    "Mars", "geocentric", "sidereal",
     #    17.5)
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    "Venus", "geocentric", "sidereal",
     #    "Sun", "geocentric", "sidereal",
     #    0)
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
@@ -494,7 +645,7 @@ def processPCDD(pcdd, tag):
     #    "Uranus", "geocentric", "sidereal",
     #    "Venus", "geocentric", "sidereal",
     #    288)
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
@@ -537,7 +688,7 @@ def processPCDD(pcdd, tag):
     #    "Venus", "geocentric", "sidereal",
     #    "Uranus", "geocentric", "sidereal",
     #    180)
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addLongitudeAspectVerticalLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
@@ -562,7 +713,7 @@ def processPCDD(pcdd, tag):
     #    "Saturn", "geocentric", "sidereal",
     #    "Pluto", "geocentric", "sidereal",
     #    180)
-    
+
     stepSizeTd = datetime.timedelta(days=3)
     #highPrice = 800.0
     #highPrice = 600.0
@@ -571,71 +722,71 @@ def processPCDD(pcdd, tag):
 
     #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Mercury", 
+    #    planetName="Mercury",
     #    color=None, stepSizeTd=stepSizeTd)
     #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Venus", 
+    #    planetName="Venus",
     #    color=None, stepSizeTd=stepSizeTd)
     #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Mars", 
+    #    planetName="Mars",
     #    color=None, stepSizeTd=stepSizeTd)
     #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Uranus", 
+    #    planetName="Uranus",
     #    color=None, stepSizeTd=stepSizeTd)
     #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Saturn", 
+    #    planetName="Saturn",
     #    color=None, stepSizeTd=stepSizeTd)
     #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="MeanOfFive", 
+    #    planetName="MeanOfFive",
     #    color=None, stepSizeTd=stepSizeTd)
     #success = PlanetaryCombinationsLibrary.addGeoLongitudeVelocityLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="CycleOfEight", 
+    #    planetName="CycleOfEight",
     #    color=None, stepSizeTd=stepSizeTd)
 
     #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice=700, lowPrice=660,
-    #    planetName="Moon", 
+    #    planetName="Moon",
     #    color=None, stepSizeTd=stepSizeTd)
     #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Mercury", 
+    #    planetName="Mercury",
     #    color=None, stepSizeTd=stepSizeTd)
     #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Venus", 
+    #    planetName="Venus",
     #    color=None, stepSizeTd=stepSizeTd)
     #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Mars", 
+    #    planetName="Mars",
     #    color=None, stepSizeTd=stepSizeTd)
     #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Jupiter", 
+    #    planetName="Jupiter",
     #    color=None, stepSizeTd=stepSizeTd)
     #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Saturn", 
+    #    planetName="Saturn",
     #    color=None, stepSizeTd=stepSizeTd)
     #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Uranus", 
+    #    planetName="Uranus",
     #    color=None, stepSizeTd=stepSizeTd)
     #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Neptune", 
+    #    planetName="Neptune",
     #    color=None, stepSizeTd=stepSizeTd)
     #success = PlanetaryCombinationsLibrary.addGeoDeclinationLines(\
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    planetName="Pluto", 
+    #    planetName="Pluto",
     #    color=None, stepSizeTd=stepSizeTd)
 
-    
+
     p = 1000
     #success = PlanetaryCombinationsLibrary.\
     #    addTimeMeasurementAndTiltedTextForNakshatraTransits(
@@ -755,34 +906,34 @@ def processPCDD(pcdd, tag):
     #success = PlanetaryCombinationsLibrary.\
     #    addZeroDeclinationVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice, planetName="Venus")
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addDeclinationVelocityPolarityChangeVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice, planetName="Venus")
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addGeoLongitudeElongationVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice, planetName="Venus")
-     
+
     #success = PlanetaryCombinationsLibrary.\
     #    addGeoLongitudeElongationVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice, planetName="Mercury")
-     
+
     #success = PlanetaryCombinationsLibrary.\
     #    addContraparallelDeclinationAspectVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planet1Name="Venus", planet2Name="Mars")
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addParallelDeclinationAspectVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planet1Name="Venus", planet2Name="Mars")
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addPlanetOOBVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Venus")
-    
+
     #success =  PlanetaryCombinationsLibrary.\
     #    addGeoLatitudeLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
@@ -799,7 +950,7 @@ def processPCDD(pcdd, tag):
     #    addGeoLatitudeLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planetName="Uranus", stepSizeTd=datetime.timedelta(days=7))
-    
+
     #success =  PlanetaryCombinationsLibrary.\
     #    addZeroGeoLatitudeVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
@@ -808,21 +959,21 @@ def processPCDD(pcdd, tag):
     #success = PlanetaryCombinationsLibrary.\
     #    addGeoLatitudeVelocityPolarityChangeVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice, planetName="Venus")
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addContraparallelGeoLatitudeAspectVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planet1Name="Venus", planet2Name="Mars")
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addParallelGeoLatitudeAspectVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
     #    planet1Name="Venus", planet2Name="Mars")
-    
+
     #success = PlanetaryCombinationsLibrary.\
     #    addPlanetLongitudeTraversalIncrementsVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "geocentric", "sidereal", 
+    #    "Venus", "geocentric", "sidereal",
     #    planetEpocDt=datetime.datetime(year=1976, month=4, day=1,
     #                                   hour=13, minute=0, second=0,
     #                                   tzinfo=pytz.utc),
@@ -831,7 +982,7 @@ def processPCDD(pcdd, tag):
     #success = PlanetaryCombinationsLibrary.\
     #    addPlanetLongitudeTraversalIncrementsVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Venus", "heliocentric", "sidereal", 
+    #    "Venus", "heliocentric", "sidereal",
     #    planetEpocDt=datetime.datetime(year=1970, month=3, day=21,
     #                                   hour=0, minute=0, second=0,
     #                                   tzinfo=pytz.utc),
@@ -840,7 +991,7 @@ def processPCDD(pcdd, tag):
     #success = PlanetaryCombinationsLibrary.\
     #    addPlanetLongitudeTraversalIncrementsVerticalLines(
     #    pcdd, startDt, endDt, highPrice, lowPrice,
-    #    "Sun", "geocentric", "tropical", 
+    #    "Sun", "geocentric", "tropical",
     #    planetEpocDt=datetime.datetime(year=1970, month=3, day=21,
     #                                   hour=6, minute=0, second=0,
     #                                   tzinfo=pytz.utc),
@@ -900,7 +1051,7 @@ def processPCDD(pcdd, tag):
             degreeDiff += step
 
     # Aligns with some turns but misses with many others.
-    # Needs some refinement.  
+    # Needs some refinement.
     if False:
         step = 360 / 7.0
         start = 0
@@ -914,7 +1065,7 @@ def processPCDD(pcdd, tag):
                 "Pluto", "geocentric", "tropical",
                 degreeDiff)
             degreeDiff += step
-            
+
     if False:
         step = 360 / 5.0
         start = 0
@@ -928,8 +1079,8 @@ def processPCDD(pcdd, tag):
                 "Pluto", "geocentric", "tropical",
                 degreeDiff)
             degreeDiff += step
-            
-    
+
+
     if False:
         step = 360 / 7.0
         start = 0
@@ -943,7 +1094,7 @@ def processPCDD(pcdd, tag):
                 "Mars", "geocentric", "tropical",
                 degreeDiff)
             degreeDiff += step
-            
+
     if False:
         step = 360 / 7.0
         start = 0
@@ -972,7 +1123,7 @@ def processPCDD(pcdd, tag):
                 "Mars", "geocentric", "tropical",
                 degreeDiff)
             degreeDiff += step
-            
+
     if False:
         step = 360 / 8.0
         start = 0
@@ -986,7 +1137,7 @@ def processPCDD(pcdd, tag):
                 "Mars", "geocentric", "tropical",
                 degreeDiff)
             degreeDiff += step
-            
+
     if success == True:
         log.debug("Success!")
         rv = 0
