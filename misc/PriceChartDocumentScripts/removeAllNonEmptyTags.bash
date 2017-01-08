@@ -26,12 +26,20 @@ PCDFILE=$1
 
 ##############################################################################
 
+# Save the IFS before modifying it so we can restore it later.
+OLDIFS="${IFS}"
+IFS=$'\n'
+
 
 # Just list the unique tags.
-#./modifyPriceChartDocument.py --pcd-file=$PCDFILE --script-file=$ROOTDIR/misc/PriceChartDocumentScripts/customScripts/listUniqueTags.py 2>&1
+#for t in $(./modifyPriceChartDocument.py --pcd-file=$PCDFILE --script-file=$ROOTDIR/misc/PriceChartDocumentScripts/customScripts/listUniqueTags.py 2>&1 | grep "Tag=" | cut -d"'" -f 2); do echo "Tag is: ${t}"; done
+
 
 # Remove all of the artifacts with the non-empty tags.
-for t in `./modifyPriceChartDocument.py --pcd-file=$PCDFILE --script-file=$ROOTDIR/misc/PriceChartDocumentScripts/customScripts/listUniqueTags.py 2>&1 | grep "Tag=" | cut -d"'" -f 2`; do ./modifyPriceChartDocument.py --pcd-file=$PCDFILE --script-file=$ROOTDIR/misc/PriceChartDocumentScripts/customScripts/removeArtifactsWithTag.py --tag=$t; done
+for t in $(./modifyPriceChartDocument.py --pcd-file=$PCDFILE --script-file=$ROOTDIR/misc/PriceChartDocumentScripts/customScripts/listUniqueTags.py 2>&1 | grep "Tag=" | cut -d"'" -f 2); do ./modifyPriceChartDocument.py --pcd-file=$PCDFILE --script-file=$ROOTDIR/misc/PriceChartDocumentScripts/customScripts/removeArtifactsWithTag.py --tag="${t}"; done
 
+
+# Restore the IFS.
+IFS="${OLDIFS}"
 
 ##############################################################################

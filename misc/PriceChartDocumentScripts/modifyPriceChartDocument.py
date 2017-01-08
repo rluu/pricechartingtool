@@ -65,6 +65,12 @@ thisScriptDir = os.path.dirname(os.path.abspath(__file__))
 srcDir = os.path.dirname(os.path.dirname(thisScriptDir)) + os.sep + "src"
 if srcDir not in sys.path:
     sys.path.insert(0, srcDir)
+
+# Include TTTA dates in variables.
+moreFilesDir = os.path.dirname(os.path.dirname(thisScriptDir)) + os.sep + "misc" + os.sep + "CalculatingPlanetLocationAndDifferences"
+if moreFilesDir not in sys.path:
+    sys.path.insert(0, moreFilesDir)
+    
 from ephemeris import Ephemeris
 from data_objects import *
 from pricebarchart import PriceBarChartGraphicsScene
@@ -318,7 +324,7 @@ else:
 
 # Initialize Ephemeris (required).
 Ephemeris.initialize()
-
+    
 # Set application details so the we can use QSettings default
 # constructor later.
 appAuthor = "Ryan Luu"

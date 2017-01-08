@@ -4,35 +4,76 @@
 
 TODO:
 
-    Implement these two methods in lunar_calendar_utils.py and write the corresponding test in test_lunar_calendar_utils.py.
+    - Fix bug with Declination not showing up for a bunch of the 2-planet
+      combination planets.
 
-    @staticmethod
-    def isSolarEclipse(lunarDate):
-        """
-        Returns True if the given LunarDate is taking place during a
-        Solar eclipse, otherwise False is returned.
+    - Test Latitude with the 2-planet combination planets.
 
-        Arguments:
-        lunarDate - LunarDate object holding the timestamp to check.
-        """
-        
-        # TODO_rluu: Write code here, and also add a corresponding test in test_lunar_calendar_utils.py.
-        pass
-        raise NotImplementedError()
+    - Increase the size of the Declination ruler in astrologychart.py
+      because 2-planet combination planets can have a much larger range
+      (approximately double the range).
 
-    @staticmethod
-    def isLunarEclipse(lunarDate):
-        """
-        Returns True if the given LunarDate is taking place during a
-        Lunar eclipse, otherwise False is returned.
+    - Increase the size of the Heliocentric Latitude ruler in astrologychart.py
+      because 2-planet combination planets can have a much larger range
+      (approximately double the range).
 
-        Arguments:
-        lunarDate - LunarDate object holding the timestamp to check.
-        """
 
-        # TODO_rluu: Write code here, and also add a corresponding test in test_lunar_calendar_utils.py.
-        pass
-        raise NotImplementedError()
+    - Create/Add a tool to calculate and show ratios of planet movements.
+    (Harmony between planets).  It would work similar to
+    PlanetLongitudeMovementMeasurementTool.
+
+    1.5000  0.6666
+    (3/2)   (2/3)    <---- Should I try to show these whole number
+                           numerical relationships?  It would make it
+                           easier to recognize harmonies/musical intervals.
+
+        UPDATE_20160717:
+            Consider augmenting PlanetLongitudeMovementMeasurementTool,
+            since it's a natural place for this to belong, and so that more
+            measurements can be shown on the same measurement graphics item
+            without cluttering up the chart with multiple time measurement spans
+            for the same start-end period.
+
+        Checkboxes would say:
+            [ ] Planet Ratio MeVe enabled
+
+        Data objects variables would be like:
+            self.planetRatioMeVeEnabledFlag
+
+        What combinations does it make sense to do in Geocentric?
+            AsSu may not make sense?
+            Does MeSu make sense?
+            Does VeSu make sense?
+
+    - Implement these two methods in lunar_calendar_utils.py and write the corresponding test in test_lunar_calendar_utils.py.
+
+            @staticmethod
+            def isSolarEclipse(lunarDate):
+                """
+                Returns True if the given LunarDate is taking place during a
+                Solar eclipse, otherwise False is returned.
+
+                Arguments:
+                lunarDate - LunarDate object holding the timestamp to check.
+                """
+
+                # TODO_rluu: Write code here, and also add a corresponding test in test_lunar_calendar_utils.py.
+                pass
+                raise NotImplementedError()
+
+            @staticmethod
+            def isLunarEclipse(lunarDate):
+                """
+                Returns True if the given LunarDate is taking place during a
+                Lunar eclipse, otherwise False is returned.
+
+                Arguments:
+                lunarDate - LunarDate object holding the timestamp to check.
+                """
+
+                # TODO_rluu: Write code here, and also add a corresponding test in test_lunar_calendar_utils.py.
+                pass
+                raise NotImplementedError()
 
 
     - Is the Lunar calendar to be base 0 or base 1?
@@ -46,57 +87,30 @@ TODO:
 
 
     - Change some of my PriceChartDocumentScripts (such as DJIA) to use a
-      different method than 
-      PlanetaryCombinationsLibrary.addLongitudeAspectVerticalLines(), 
-      because that method does both approaching and separating aspects.  
+      different method than
+      PlanetaryCombinationsLibrary.addLongitudeAspectVerticalLines(),
+      because that method does both approaching and separating aspects.
 
-      I should be using 
+      I should be using
       PlanetaryCombinationsLibrary.getLongitudeAspectTimestamps()
-      because that method allows for specification of 
+      because that method allows for specification of
       uniDirectionalAspectsFlag as True or False.
-
-    - Create/Add a tool to calculate and show ratios of planet movements.
-    (Harmony between planets).  It would work similar to
-    PlanetLongitudeMovementMeasurementTool.  
-
-    1.5000  0.6666
-    (3/2)   (2/3)    <---- Should I try to show these whole number
-                           numerical relationships?  It would make it
-                           easier to recognize harmonies/musical intervals.
-
-        UPDATE_20160717: 
-            Consider augmenting PlanetLongitudeMovementMeasurementTool,
-            since it's a natural place for this to belong, and so that more
-            measurements can be shown on the same measurement graphics item 
-            without cluttering up the chart with multiple time measurement spans 
-            for the same start-end period.
-
-        Checkboxes would say:
-            [ ] Planet Ratio MeVe enabled
-
-        Data objects variables would be like: 
-            self.planetRatioMeVeEnabledFlag
-
-        What combinations does it make sense to do in Geocentric?  
-            AsSu may not make sense?  
-            Does MeSu make sense? 
-            Does VeSu make sense? 
 
   - PriceChartDocumentScripts changes/additions:
 
     - Plot vertical line segments for Jewish Holiday dates
-      	   - Based on actual moon phases.
-	   - Based on civil calendar dates.
-	   
+       - Based on actual moon phases.
+       - Based on civil calendar dates.
+
     - Plot line segments for elongation-degree-distances-between-two-planets.
-      
+
     - Plot line segments that represent difference in longitude between planet X
       and planet Y.  Make sure to account for straddling 0 Aries.
     - Plot vertical lines for the above at turning points from
       increasing to decreasing or decreasing to increasing.
-  
+
     - Plot line segments that represent difference in latitude between planet X
-      and planet Y.  
+      and planet Y.
     - Plot vertical lines for the above at turning points from
       increasing to decreasing or decreasing to increasing.
 
@@ -152,7 +166,7 @@ TODO:
            1:1.5 and 1:0.666
         or 1.5 and 0.666
 
-           and 
+           and
 
            6:9 and 9:6
 
@@ -160,7 +174,7 @@ TODO:
     manually split up the queries into 15-year chunks, as is the case
     now.  Note: getStockDataFromYahoo.py works as we would like, so
     fixing getStockDataFromGoogle.py is not needed for now.
-    
+
   - Consider adding the following time measurements to the time
     measurement tool:
 
@@ -168,14 +182,14 @@ TODO:
 
              From wikipedia: http://en.wikipedia.org/wiki/Synodic_month
 
-             Month type 	Length in days
-             anomalistic 	27.554549878 − 0.000000010390 × Y
-             sidereal     	27.321661547 + 0.000000001857 × Y
-             tropical     	27.321582241 + 0.000000001506 × Y
-             draconic     	27.212220817 + 0.000000003833 × Y
-             synodic     	29.530588853 + 0.000000002162 × Y
+             Month type     Length in days
+             anomalistic    27.554549878 − 0.000000010390 × Y
+             sidereal       27.321661547 + 0.000000001857 × Y
+             tropical       27.321582241 + 0.000000001506 × Y
+             draconic       27.212220817 + 0.000000003833 × Y
+             synodic        29.530588853 + 0.000000002162 × Y
 
-             - anomalistic month: moon's orbital period measured from 
+             - anomalistic month: moon's orbital period measured from
                  perigee to perigee.
              - sidereal month: moon return to same sidereal longitude
              - tropical month: moon return to same tropical longitude
@@ -187,16 +201,16 @@ TODO:
              - Gregorian calendar year: 365.2425 mean solar days
              - Vernal equinox year: 365.2424 days
              - tropical solar year: 365.24219 days  (this is the mean time)
-             - sidereal solar year: 365.256363004 days (this is the mean time) 
-	     - anomalistic solar year (time for earth to make a 
-               revolution around its apsides): 365.259636 days 
+             - sidereal solar year: 365.256363004 days (this is the mean time)
+         - anomalistic solar year (time for earth to make a
+               revolution around its apsides): 365.259636 days
                (this is the mean time.)
              - draconic year: time for the Sun (as seen from Earth) to
                complete one revolution with respect to the same lunar
                node): 346.620075883 days (this is the mean time).
              - lunar year: 12 full cycles of phases of the moon as
                seen from Earth: Approx. 354.37 days.
-	       
+
 
 - Add panchanga fields and the rulers onto the astro charts.
 
@@ -219,14 +233,14 @@ TODO:
          - Gulika
          - Mandi
 
-      - Note that a trading day in stocks is from 9:30 am to 4:00 pm. 
+      - Note that a trading day in stocks is from 9:30 am to 4:00 pm.
         What are the holidays?  How many trading days a year?
 
         What about for commodities?
         What are the hours per day, and where do they fall?, etc.
         How many holidays?  How many trading days a year?
 
-        - Remember horas have lords.  
+        - Remember horas have lords.
           There is Hora (Satya), and Mahaakaala Hora. --> See JHora options.
 
   - Pi spiral
@@ -242,7 +256,7 @@ TODO:
 
   - Add to the ratio-scripts some of the special numbers from:
        http://en.wikipedia.org/wiki/List_of_numbers
-  
+
        Specifically, pay attention to the:
          - Irrational and suspected irrational numbers
          - Hypercomplex numbers
@@ -268,7 +282,7 @@ TODO:
 
   Indicators:
   - Need to implement indicator (moving lines) for dynamic Octive (interval) ratio measurements as the planets move.
-  - Need to implement indicator (moving) lines for aspect strength 
+  - Need to implement indicator (moving) lines for aspect strength
     (shad bala and ashtakavarga).
 
   - Need to implement the following:
@@ -331,7 +345,7 @@ DONE    to a certain resolution, it will 'jump' the center location of the
 DONE    screen and cut off QGraphicsItems from being in the scrollable
 DONE    area of the view.  It is unknown why it happens this way.
 DONE
-DONE    ---> Done as much as I could for now.  
+DONE    ---> Done as much as I could for now.
 DONE         It appearse it is a float value over-flow from the perspective
 DONE         of the qgraphicsview's internal variables, which was caused by
 DONE         zooming in way too much relative to the scene.  Resolution: I
@@ -342,13 +356,13 @@ DONE    width settings of the timemodalscale and pricemodalscale artifacts.
 DONE
 DONE  - Fix the bug where the Gann Fan lines would sometimes disappear.
 DONE    Currently, it is not known why this happens.
-DONE 
-DONE    ---> Fixed.  Bug was due to two reasons: 
+DONE
+DONE    ---> Fixed.  Bug was due to two reasons:
 DONE         1) Bad infinite-line intersection algorithm used.
-DONE         2) QRectF.contains() function not matching floats that are 
-DONE            on the edge of the rectangle as being contained within 
+DONE         2) QRectF.contains() function not matching floats that are
+DONE            on the edge of the rectangle as being contained within
 DONE            the QRect.
-DONE   
+DONE
 DONE
 DONE  - Add astrology houses to the astrology chart.  Add to the
 DONE    PlanetaryInfoTable as well.
@@ -367,13 +381,13 @@ DONE
 DONE    - Do latitude calculations for what I've done with declination in
 DONE      PriceChartDocumentScripts.
 DONE
-DONE    - Add longitude aspect-between-two-planets vertical lines.  
+DONE    - Add longitude aspect-between-two-planets vertical lines.
 DONE      It should be parameterized so that we have:
-DONE    
+DONE
 DONE          - planet1Name
 DONE          - planet2Name
 DONE          - difference in degrees (approaching and leaving amount)
-DONE    
+DONE
 DONE  - PlanetLongitudeMovementMeasurementTool
 DONE
 DONE    The following files must be edited:
@@ -384,7 +398,7 @@ DONE    - pricebarchart_dialogs.py
 DONE    - ui.py
 DONE
 DONE    Create and add an icon, and set the path of it in the code.
-DONE	
+DONE
 DONE    Calculations need for measurements to be checked and validated to
 DONE    be fully correct before depending on them.
 DONE
@@ -394,21 +408,21 @@ DONE    - Add longitude traversal amounts of a certain planet.  Can
 DONE      specify parameter for whether it is geocentric, heliocentric,
 DONE      etc., and also sidereal/tropical.  Also start time is a
 DONE      parameter, and traversal degree increment amount is a parameter too.
-      
+
 
 WILL_NOT_IMPLEMENT  - Fix MOF, COE, etc. to be calculated properly.
 WILL_NOT_IMPLEMENT
 WILL_NOT_IMPLEMENT  - Add to ephemeris, functions to get HoraLagna, GhatiLagna,
-WILL_NOT_IMPLEMENT    MeanSouthNode, TrueSouthNode.  
+WILL_NOT_IMPLEMENT    MeanSouthNode, TrueSouthNode.
 WILL_NOT_IMPLEMENT    Then fix the TODO's for HoraLagna,
 WILL_NOT_IMPLEMENT    GhatiLagna, MeanSouthNode, TrueSouthNode.
 
 
-WILL_NOT_IMPLEMENT  - LookbackMultiple datetime table.  
+WILL_NOT_IMPLEMENT  - LookbackMultiple datetime table.
 WILL_NOT_IMPLEMENT         (perhaps not implement this?  Is this needed?)
 WILL_NOT_IMPLEMENT - This would display a set datetime (either set manually via
 WILL_NOT_IMPLEMENT   context menu, or via using the current mouse location being
-WILL_NOT_IMPLEMENT   tracked) and also the datetimes for the 
+WILL_NOT_IMPLEMENT   tracked) and also the datetimes for the
 WILL_NOT_IMPLEMENT   LookbackMultiples that are enabled.  See my paper docs.
 WILL_NOT_IMPLEMENT  - Menu items (QActions, perhaps icons for these too):
 WILL_NOT_IMPLEMENT     - Lookback multiple
@@ -417,7 +431,7 @@ WILL_NOT_IMPLEMENT       - Enable LookbackMultiple datetime table mouse tracking
 
 
 DONE      - Edit list of lookback multiples.
-DONE         - Sets dirty flag of the PCD if the edit dialog is accepted 
+DONE         - Sets dirty flag of the PCD if the edit dialog is accepted
 DONE           (i.e. any mods accepted).
 DONE      - Enable LookbackMultiple panel.
 
@@ -427,7 +441,7 @@ DONE    - Reference to the LookbackMultiple.
 
 DONE  - LookbackMultiplePriceBarGraphicsItem
 DONE    - Reference to the underlying LookbackMultiplePriceBar.
-DONE    - Right-click context menu can trigger the edit dialog of 
+DONE    - Right-click context menu can trigger the edit dialog of
 DONE      the underlying LookbackMultiplePriceBar.
 
 DONE  - Add fields to LookbackMultiple:
@@ -441,26 +455,26 @@ DONE    - Update tests of widgets.
 DONE  - LookbackMultiplePriceBar edit and dialog widgets.
 DONE    - List of LookbackMultiples.
 DONE      - Displays enable checkbox. (checking will set dirty flag of the PCD).
-DONE      - Displays short name of the lookback multiple. 
+DONE      - Displays short name of the lookback multiple.
 
 DONE  - LookbackMultiple panel widget:
-DONE    - Apply/Redraw button.  
-DONE      --> Applies the enabled lookback multiples to the pricebars that 
+DONE    - Apply/Redraw button.
+DONE      --> Applies the enabled lookback multiples to the pricebars that
 DONE          are visible in the QGraphicsView.
-DONE             - Removes any existing LookbackMultiplePriceBarGraphicsItems 
+DONE             - Removes any existing LookbackMultiplePriceBarGraphicsItems
 DONE               in the scene.
 DONE             - Creates LookbackMultiplePriceBars
 DONE             - Creates LookbackMultiplePriceBarGraphicsItems
 DONE                 - Has reference to the underlying LookbackMultiplePriceBar.
-DONE                 - These need to have some kind of scaling algorithm 
-DONE                   applied relative to the QGraphicsView before 
-DONE                   being placed in the scene.  
-DONE                   When to apply this scaling algorithm?  
-DONE                   I guess it would need to be after the creation of all 
-DONE                   of them, because I need min and max prices of 
+DONE                 - These need to have some kind of scaling algorithm
+DONE                   applied relative to the QGraphicsView before
+DONE                   being placed in the scene.
+DONE                   When to apply this scaling algorithm?
+DONE                   I guess it would need to be after the creation of all
+DONE                   of them, because I need min and max prices of
 DONE                   this list of pricebars.
 
-DONE  - Add LookbackMultiplePriceBarGraphicsItem snapping 
+DONE  - Add LookbackMultiplePriceBarGraphicsItem snapping
 DONE    to mouse for the following tools:
 DONE         - Line Segment 1
 DONE         - Line Segment 2
@@ -473,11 +487,11 @@ DONE  - For ReadOnlyPointerTool and PointerTool:
 DONE    - shortcut key: V activates vertical dotted line.
 DONE    - shortcut key: H activates horizontal dotted line.
 DONE
-DONE  - Implement a G.AsSu planet:  Ascendant - Sun.  
-DONE  - Implement a G.AsMo planet:  Ascendant - Moon.  
+DONE  - Implement a G.AsSu planet:  Ascendant - Sun.
+DONE  - Implement a G.AsMo planet:  Ascendant - Moon.
 DONE
 
-DONE         - Later: Measurement of all the planetary (heliocentric) 
+DONE         - Later: Measurement of all the planetary (heliocentric)
 DONE                     synodic cycles.
 DONE         - Later: Measurement of all the planetary (geocentric) cycles.
 DONE
@@ -504,7 +518,7 @@ WILL_NOT_DO    squared again to get the timestamp.
 DONE  - Verify PCDs of older versions work fine.
 DONE  - Backup PCDs before merging with PCT.
 DONE  - Merge.
-  
+
 DONE  - Fill in the TODO in the code for creating the default LookbackMultiples
 DONE    in PCD version upgrades, and also new PCD charts.
 DONE
@@ -512,21 +526,21 @@ DONE
 DONE  - Consider setting up the use of virtualenv with cyclehunter.
 DONE
 DONE      - Get README.txt from my EC2 instance.
-  
 
-DONE  - Alorithm or computation is slow for LookbackMultiples.  
+
+DONE  - Alorithm or computation is slow for LookbackMultiples.
 DONE    Consider profiling, or improving design, or using cloud computing.
 DONE    (or all of the above).
 DONE
 DONE      - Make QSettings settings in AppPreferences for whether to run
 DONE        locally or via Amazon?  Or maybe just a flag in my software.
-DONE	Settings options would be:
-DONE	  - Run as multiple processes on local machine.
-DONE	  - Run as distrubted processes on remote machines.
-DONE	    - hostname, port, and authkey.
+DONE    Settings options would be:
+DONE      - Run as multiple processes on local machine.
+DONE      - Run as distrubted processes on remote machines.
+DONE        - hostname, port, and authkey.
 DONE
-DONE	- Handle use cases, such as 'ConnectionRefusedError' (popup dialog notification for the user), 'EOFError' (expected on shutdown of server manager, but if unexpected, then the user should be notified), etc.
-DONE	
+DONE    - Handle use cases, such as 'ConnectionRefusedError' (popup dialog notification for the user), 'EOFError' (expected on shutdown of server manager, but if unexpected, then the user should be notified), etc.
+DONE
 DONE      - Segment out the code so that it can run both as multiple processes
 DONE        and also asa distributed cloud processing method (with manager,
 DONE        workers, and taskers).
@@ -565,4 +579,54 @@ DONE - Conversion method for: Datetime (Gregorian calendar) to lunar calendar.
 DONE - Conversion method for: lunar calendar to datetime (Gregorian calendar).
 DONE - Add isYear [X type of month].  (for leap years for lunar calendar, etc.)
 DONE    Embolismic, etc. whatever the right terminology is.
-    
+
+
+DONE -  Planets not implemented yet:
+DONE -
+DONE -        AsTrueNorthNode
+DONE -        AsTrueSouthNode
+DONE -        AsMe
+DONE -        AsVe
+DONE -        AsMa
+DONE -        AsJu
+DONE -        AsSa
+DONE -        AsUr
+DONE -
+DONE -        MoMe
+DONE -        MoVe
+DONE -        MoMa
+DONE -        MoJu
+DONE -        MoSa
+DONE -        MoUr
+DONE -
+DONE -        MeVe - EXISTS
+DONE -        MeSu
+DONE -        MeMa - EXISTS
+DONE -        MeJu - EXISTS
+DONE -        MeSa - EXISTS
+DONE -        MeUr - EXISTS
+DONE -
+DONE -        VeSu
+DONE -        VeMa - EXISTS
+DONE -        VeJu - EXISTS
+DONE -        VeSa - EXISTS
+DONE -        VeUr - EXISTS
+DONE -
+DONE -        SuMa
+DONE -        SuJu
+DONE -        SuSa
+DONE -        SuUr
+DONE -
+DONE -        MeTrueNorthNode
+DONE -        MeTrueSouthNode
+DONE -        VeTrueNorthNode
+DONE -        VeTrueSouthNode
+DONE -        MaTrueNorthNode
+DONE -        MaTrueSouthNode
+DONE -        JuTrueNorthNode
+DONE -        JuTrueSouthNode
+DONE -        SaTrueNorthNode
+DONE -        SaTrueSouthNode
+DONE -        UrTrueNorthNode
+DONE -        UrTrueSouthNode
+
