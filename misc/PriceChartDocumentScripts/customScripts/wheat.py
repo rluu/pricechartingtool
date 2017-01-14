@@ -23,6 +23,7 @@ from PyQt4.QtGui import *
 # Include some PriceChartingTool modules.
 from ephemeris import Ephemeris
 from ephemeris_utils import EphemerisUtils
+from util import Util
 from color import Color
 from data_objects import *
 from pricebarchart import PriceBarChartGraphicsScene
@@ -47,22 +48,28 @@ log.setLevel(logLevel)
 #startDt = datetime.datetime(year=1508, month=1, day=1,n
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
+#startDt = datetime.datetime(year=1904, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
 #startDt = datetime.datetime(year=1704, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-#startDt = datetime.datetime(year=1968, month=1, day=1,
-#                            hour=0, minute=0, second=0,
-#                            tzinfo=pytz.utc)
+startDt = datetime.datetime(year=1968, month=1, day=1,
+                            hour=0, minute=0, second=0,
+                            tzinfo=pytz.utc)
 #startDt = datetime.datetime(year=2002, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
 #startDt = datetime.datetime(year=2009, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-startDt = datetime.datetime(year=1959, month=1, day=1,
-                            hour=0, minute=0, second=0,
-                            tzinfo=pytz.utc)
+#startDt = datetime.datetime(year=1959, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
 
+#endDt = datetime.datetime(year=1914, month=1, day=1,
+#                            hour=0, minute=0, second=0,
+#                            tzinfo=pytz.utc)
 #endDt   = datetime.datetime(year=2008, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
@@ -81,7 +88,9 @@ endDt   = datetime.datetime(year=2017, month=1, day=1,
 
 # High and low price limits for drawing the vertical lines.
 highPrice = 1200.0
+#highPrice = 200.0
 lowPrice = 100.0
+#lowPrice = 0.0
 
 ##############################################################################
 
@@ -107,6 +116,12 @@ def processPCDD(pcdd, tag):
     # Return value.
     rv = 0
 
+    # Initialize the Ephemeris with the birth location.
+    log.debug("Setting ephemeris location ...")
+    Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
+                                    pcdd.birthInfo.latitudeDegrees,
+                                    pcdd.birthInfo.elevation)
+
     stepSizeTd = datetime.timedelta(days=3)
     #highPrice = 800.0
     #highPrice = 600.0
@@ -131,7 +146,7 @@ def processPCDD(pcdd, tag):
             "Sun", "geocentric", "tropical",
             degreeValue, color=QColor(Qt.red))
 
-    if False:
+    if True:
         planetA = ("Mars", "heliocentric", "tropical")
         planetB = ("Saturn", "heliocentric", "tropical")
         degreeDifference = 0
@@ -159,7 +174,7 @@ def processPCDD(pcdd, tag):
                 planetB[1], planetB[0])
             color = Color.darkRed
             PlanetaryCombinationsLibrary.\
-                addVerticalLine(pcdd, aspectDt, highPrice, lowPrice, tag, color):
+                addVerticalLine(pcdd, aspectDt, highPrice, lowPrice, tag, color)
 
             # At this moment in time get all the planets' positions.
             mercuryPI = Ephemeris.getPlanetaryInfo("Mercury", aspectDt)
@@ -177,7 +192,7 @@ def processPCDD(pcdd, tag):
                     format(marsPI.heliocentric['tropical']['longitude']))
 
             helioMarsToHelioEarthDegrees = \
-                Utils.toNormalizedAngle(\
+                Util.toNormalizedAngle(\
                     earthPI.heliocentric['tropical']['longitude'] -
                     marsPI.heliocentric['tropical']['longitude'])
 
@@ -206,7 +221,7 @@ def processPCDD(pcdd, tag):
                     centricityType=planetA[1],
                     longitudeType=planetA[2],
                     planetEpocDt=aspectDt,
-                    desiredDegreesElasped=helioMarsToHelioEarthDegrees)[0]
+                    desiredDegreesElapsed=helioMarsToHelioEarthDegrees)[0]
 
             log.debug("helioMarsAtPrevHelioEarthPosDuringImageDt == {}".\
                 format(Ephemeris.datetimeToDayStr(\
@@ -217,24 +232,33 @@ def processPCDD(pcdd, tag):
             color = Color.darkOrange
             PlanetaryCombinationsLibrary.\
                 addVerticalLine(pcdd, helioMarsAtPrevHelioEarthPosDuringImageDt,
-                        highPrice, lowPrice, tag, color):
+                        highPrice, lowPrice, tag, color)
 
+            # When Sun is in:
+            # Gemini: 18, 47-48, 57, 141, 
+            # Cancer: 72, 100
+            # Do G.Sun movements of 33, 72, 194?, 500, 900?
+            #77, 122.75, 155, 
+# Do H.Mars movements of 70?, 72 [cancer], 80, 98, 100 [cancer], 120, 122.75, 137, 147, 150, 153, 169?, #
+# 314?, 370?, 441?, 540, 588, 637?
+# Do G.Mars movements of 108?, 112, 140?, 210?, 360, 368.25, 432?, 
+# Do H.Mercury movements of 1000 [cancer], 2000? 4000?
             # Take some measurements from here.
             longitudeTraversalMeasurements = \
-                [30, 60, 84, 108, 120, 168, 216, 450]
+                [72, 80, 98, 100, 120, 137, 147, 150, 153, 169, 314, 370, 441, 540, 588, 637]
 
             for traversalMeasurement in longitudeTraversalMeasurements:
                 dt = \
                     EphemerisUtils.getDatetimesOfElapsedLongitudeDegrees(\
                         planetName=planetA[0],
-                        centricityType=planetA[1],
-                        longitudeType=planetA[2],
+                        centricityType="heliocentric",
+                        longitudeType="tropical",
                         planetEpocDt=helioMarsAtPrevHelioEarthPosDuringImageDt,
-                        desiredDegreesElasped=traversalMovement)[0]
+                        desiredDegreesElapsed=traversalMeasurement)[0]
 
                 log.debug("{} {} moving {} deg from {} is: {}".format(\
                         planetA[1], planetA[0],
-                        traversalMovement,
+                        traversalMeasurement,
                         Ephemeris.datetimeToDayStr(\
                             helioMarsAtPrevHelioEarthPosDuringImageDt),
                         Ephemeris.datetimeToDayStr(dt)))
@@ -248,17 +272,20 @@ def processPCDD(pcdd, tag):
                 endX = \
                     PlanetaryCombinationsLibrary.scene.datetimeToSceneXPos(dt)
 
-                PriceBarChartPlanetLongitudeMovementMeasurementArtifact artifact = \
-                    PriceBarChartPlanetLongitudeMovementMeasurementArtifact()
+                artifact = PriceBarChartPlanetLongitudeMovementMeasurementArtifact()
                 artifact.setStartPointF(QPointF(startX, y))
                 artifact.setEndPointF(QPointF(endX, y))
+                artifact.textXScaling = 2.0
+                artifact.textYScaling = 1.0
                 artifact.showHeliocentricTextFlag = True
                 artifact.tropicalZodiacFlag = True
                 artifact.measurementUnitDegreesEnabled = True
                 artifact.measurementUnitCirclesEnabled = False
                 artifact.measurementUnitBiblicalCirclesEnabled = False
                 artifact.planetMarsEnabledFlag = True
-                artifact.addTag("H.Mars_moves_{}_deg".format(traversalMovement))
+                artifact.addTag("H.Mars_moves_{}_deg".format(traversalMeasurement))
+                pcdd.priceBarChartArtifacts.append(artifact)
+
         success = True
 
     #if True:
