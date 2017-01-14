@@ -5912,6 +5912,11 @@ class PriceBarChartPlanetLongitudeMovementMeasurementArtifact(PriceBarChartArtif
             PriceBarChartSettings.\
             defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit15ersEnabled
 
+        # Flag for displaying measurements in number of 16-degree units.
+        self.measurementUnit16ersEnabled = \
+            PriceBarChartSettings.\
+            defaultPlanetLongitudeMovementMeasurementGraphicsItemMeasurementUnit15ersEnabled
+
         # Flag for displaying measurements in number of 18-degree units.
         self.measurementUnit18ersEnabled = \
             PriceBarChartSettings.\
