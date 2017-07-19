@@ -11375,6 +11375,12 @@ class PriceTimeInfoGraphicsItem(PriceBarChartArtifactGraphicsItem):
             #    format(HebrewCalendarUtils.datetimeToHebrewMonthDayStr(dt)) + \
             #    os.linesep
 
+            # Uncomment these next few lines if you want the lunar date.
+            lunarDate = LunarCalendarUtils.datetimeToLunarDate(dt)
+            lunarDateStr = 't=LD({:04}-{:02}-{:0>5.2f})'.\
+                format(lunarDate.year, lunarDate.month, lunarDate.day)
+            text += lunarDateStr + os.linesep
+
         if self.artifact.getShowPriceFlag():
             text += "p={:.4f}".format(price) + os.linesep
 
