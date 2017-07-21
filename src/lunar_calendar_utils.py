@@ -362,6 +362,16 @@ class LunarDate:
 
         return self.toString()
 
+    def toConciseString(self):
+        """Returns a concise string representation of this object."""
+
+        rv = "[ {: >4}, {: >2}, {: >5.2f} ]".\
+            format(self.year,
+                   self.month,
+                   self.day)
+
+        return rv
+
     def toString(self):
         """Returns a string representation of this object."""
 

@@ -3,6 +3,14 @@
 import os
 import copy
 
+# For determining what system platform we are on.
+# Some possibilities are:
+#   Darwin
+#   Linux
+#   Windows
+#   Java
+import platform
+
 # For coordinate calculations.
 import math
 
@@ -30,9 +38,12 @@ from data_objects import BirthInfo
 # For generic utility helper methods.
 from util import Util
 
+# For calendar conversions, and display methods.
+from lunar_calendar_utils import LunarDate
+from lunar_calendar_utils import LunarCalendarUtils
+
 # For conversions from julian day to datetime.datetime and vice versa.
 from ephemeris import Ephemeris
-
 
 class AstrologyUtils:
     """Contains various functions used in the conversions between
@@ -8066,37 +8077,53 @@ class AstrologyChartWidget(QWidget):
             LongitudeSpeedChartGraphicsItem(maxSpeed=16.0,
                                                 minSpeed=-5.0)
 
+        # Set the labels as being in a monospaced font.
+        monospacedFont = QFont()
+
+        # Here we use the best-looking mono-spaced font for the platform.
+        if platform.system() == "Linux":
+            monospacedFont.setFamily("DejaVu Sans Mono")
+        elif platform.system() == "Darwin":
+            monospacedFont.setFamily("Monaco")
+        else:
+            monospacedFont.setFamily("DejaVu Sans Mono")
+
+        monospacedFont.setPointSize(12)
+
         # Create a label for the location.
         locationString = \
             self.birthInfo.locationName + "(" + \
             str(self.birthInfo.longitudeDegrees) + ", " + \
             str(self.birthInfo.latitudeDegrees) + ")"
-        self.locationLabelWidget = QLabel("Location: " + locationString)
+        self.locationLabelWidget = \
+            QLabel("Birth Location Coordinates: " + locationString)
+        self.locationLabelWidget.setFont(monospacedFont)
         self.locationLabelProxyWidget = QGraphicsProxyWidget()
         self.locationLabelProxyWidget.setWidget(self.locationLabelWidget)
 
         # Create labels for the timestamps of each astro chart.
-        #
-        # Need to use the Ephemeris.datetimeToStr() below because
-        # datetime.strftime() datetime.strftime() does not work on
-        # years less than 1900.
-        self.astroChart1DatetimeLabelWidget = \
-            QLabel("Chart 1:  " +
-                   Ephemeris.datetimeToStr(self.astroChart1Datetime))
+        emptyStrOfExpectedTextWidth = \
+            " " * \
+            len(self.formatAstroChartDatetimeDisplayString(\
+                chartNum=1, dt=self.astroChart1Datetime))
+        
+        self.astroChart1DatetimeLabelWidget = QLabel()
+        self.astroChart1DatetimeLabelWidget.setFont(monospacedFont)
+        self.astroChart1DatetimeLabelWidget.setText(emptyStrOfExpectedTextWidth)
         self.astroChart1DatetimeLabelProxyWidget = QGraphicsProxyWidget()
         self.astroChart1DatetimeLabelProxyWidget.\
             setWidget(self.astroChart1DatetimeLabelWidget)
 
-        self.astroChart2DatetimeLabelWidget = \
-            QLabel("Chart 2:  " +
-                   Ephemeris.datetimeToStr(self.astroChart2Datetime))
+        self.astroChart2DatetimeLabelWidget = QLabel()
+        self.astroChart2DatetimeLabelWidget.setFont(monospacedFont)
+        self.astroChart2DatetimeLabelWidget.setText(emptyStrOfExpectedTextWidth)
         self.astroChart2DatetimeLabelProxyWidget = QGraphicsProxyWidget()
         self.astroChart2DatetimeLabelProxyWidget.\
             setWidget(self.astroChart2DatetimeLabelWidget)
 
-        self.astroChart3DatetimeLabelWidget = \
-            QLabel("Chart 3:  " +
-                   Ephemeris.datetimeToStr(self.astroChart3Datetime))
+        self.astroChart3DatetimeLabelWidget = QLabel()
+        self.astroChart3DatetimeLabelWidget.setFont(monospacedFont)
+        self.astroChart3DatetimeLabelWidget.setText(emptyStrOfExpectedTextWidth)
         self.astroChart3DatetimeLabelProxyWidget = QGraphicsProxyWidget()
         self.astroChart3DatetimeLabelProxyWidget.\
             setWidget(self.astroChart3DatetimeLabelWidget)
@@ -8146,6 +8173,7 @@ class AstrologyChartWidget(QWidget):
         latitudeWidth = 600
         x = declinationStartX + declinationWidth
         y = declinationStartY
+        y += 16 # Move the latitude chart little lower.
         latitudeStartX = x
         latitudeStartY = y
         self.latitudeChartLabel.setPos(latitudeStartX, latitudeStartY)
@@ -13360,6 +13388,18 @@ class AstrologyChartWidget(QWidget):
         self.geoSidRadixChartGraphicsItem.redrawAspects()
         self.geoSidRadixChartGraphicsItem.update()
 
+    def formatAstroChartDatetimeDisplayString(self, chartNum, dt):
+        # Need to use the Ephemeris.datetimeToStr() below because
+        # datetime.strftime() datetime.strftime() does not work on
+        # years less than 1900.
+        prefix = "Chart " + str(chartNum) + ":   "
+        lunarDateTimestampStr = \
+            LunarCalendarUtils.datetimeToLunarDate(dt).toConciseString()
+        localizedTimestampStr = Ephemeris.datetimeToDayStr(dt)
+        text = prefix + localizedTimestampStr + "    " + lunarDateTimestampStr
+
+        return text
+            
     def setAstroChart1Datetime(self, dt):
         """Sets the datetime of astrology chart 1 within the radix chart.
 
@@ -13374,12 +13414,8 @@ class AstrologyChartWidget(QWidget):
 
         # Set the label that shows what datetime is used for this
         # chart.
-        #
-        # Need to use the Ephemeris.datetimeToStr() below because
-        # datetime.strftime() datetime.strftime() does not work on
-        # years less than 1900.
-        self.astroChart1DatetimeLabelWidget.\
-            setText(Ephemeris.datetimeToStr(self.astroChart1Datetime))
+        text = self.formatAstroChartDatetimeDisplayString(chartNum, dt)
+        self.astroChart1DatetimeLabelWidget.setText(text)
 
         # Update the rest of the astro widgets.
         self.setAstroChartXDatetime(chartNum, dt)
@@ -13398,12 +13434,8 @@ class AstrologyChartWidget(QWidget):
 
         # Set the label that shows what datetime is used for this
         # chart.
-        #
-        # Need to use the Ephemeris.datetimeToStr() below because
-        # datetime.strftime() datetime.strftime() does not work on
-        # years less than 1900.
-        self.astroChart2DatetimeLabelWidget.\
-            setText(Ephemeris.datetimeToStr(self.astroChart2Datetime))
+        text = self.formatAstroChartDatetimeDisplayString(chartNum, dt)
+        self.astroChart2DatetimeLabelWidget.setText(text)
 
         # Update the rest of the astro widgets.
         self.setAstroChartXDatetime(chartNum, dt)
@@ -13422,12 +13454,8 @@ class AstrologyChartWidget(QWidget):
 
         # Set the label that shows what datetime is used for this
         # chart.
-        #
-        # Need to use the Ephemeris.datetimeToStr() below because
-        # datetime.strftime() datetime.strftime() does not work on
-        # years less than 1900.
-        self.astroChart3DatetimeLabelWidget.\
-            setText(Ephemeris.datetimeToStr(self.astroChart3Datetime))
+        text = self.formatAstroChartDatetimeDisplayString(chartNum, dt)
+        self.astroChart3DatetimeLabelWidget.setText(text)
 
         # Update the rest of the astro widgets.
         self.setAstroChartXDatetime(chartNum, dt)
