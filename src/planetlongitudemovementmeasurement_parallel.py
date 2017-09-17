@@ -609,7 +609,13 @@ if __name__=="__main__":
     from ephemeris import Ephemeris
 
     # Initialize logging.
-    LOG_CONFIG_FILE = os.path.join(sys.path[0], "../conf/logging.conf")
+    # Logging config file specifies the log filename relative to
+    # the current directory, so we need to chdir to the SRC_DIR
+    # before loading the logging config.
+    SRC_DIR = os.path.abspath(sys.path[0])
+    os.chdir(SRC_DIR)
+    LOG_CONFIG_FILE = \
+        os.path.abspath(os.path.join(SRC_DIR, "../conf/logging.conf"))
     logging.config.fileConfig(LOG_CONFIG_FILE)
     #logging.disable(logging.CRITICAL)
 

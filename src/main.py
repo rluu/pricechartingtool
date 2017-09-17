@@ -111,6 +111,10 @@ def main():
     # addresses this issue.  Until then, only parse the config file if
     # this file is referenced as a .py file.
     if sys.argv[0].split(".")[-1] == "py":
+        # Logging config file specifies the log filename relative to
+        # the current directory, so we need to chdir to the SRC_DIR
+        # before loading the logging config.
+        os.chdir(SRC_DIR)
         logging.config.fileConfig(LOG_CONFIG_FILE)
     log = logging.getLogger("main")
 
