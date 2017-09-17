@@ -185,8 +185,165 @@ def processPCDD(pcdd, tag):
                 PlanetaryCombinationsLibrary.addVerticalLine(\
                     pcdd, dt, highPrice, lowPrice, tag, color)
         
-    
+
     if True:
+        # 20 years cycle.
+        # This is G.Sun conj. G.Mercury, while G.Mercury is going retrograde,
+        # plus 20 G.Sun revolutions.
+        #
+        
+
+        # Search timeframe is an extra year in each direction.
+        searchStartDt = startDt - datetime.timedelta(years=21)
+        searchEndDt = endDt - datetime.timedelta(years=19)
+
+        # Get all H.Mercury opp. H.Earth, which is the equivalent of
+        # G.Sun conj. G.Mercury, while G.Mercury is going retrograde
+        planet1Name = "Mercury"
+        planet2Name = "Earth"
+        centricityType = "heliocentric"
+        longitudeType = "tropical"
+        planet1ParamsList = [(planet1Name, centricityType, longitudeType)]
+        planet2ParamsList = [(planet2Name, centricityType, longitudeType)]
+        degreeDifference = 180
+        uniDirectionalAspectsFlag = True
+        maxErrorTd = datetime.timedelta(minutes=1)
+
+        dts = EphemerisUtils.getLongitudeAspectTimestamps(\
+            searchStartDt,
+            searchEndDt,
+            planet1ParamsList,
+            planet2ParamsList,
+            degreeDifference,
+            uniDirectionalAspectsFlag=uniDirectionalAspectsFlag,
+            maxErrorTd=maxErrorTd)
+        
+        for dt in dts:
+            planetEpocDt = dt
+            desiredRevolutionsElapsed = 20
+            desiredDegreesElapsed = 360 * desiredRevolutionsElapsed
+            
+            lineDt = getDatetimesOfElapsedLongitudeDegrees(\
+                planet2Name,
+                centricityType,
+                longitudeType,
+                planetEpocDt,
+                desiredDegreesElapsed,
+                maxErrorTd=datetime.timedelta(minutes=1))
+            
+                                                               )
+            tag = centricityType + "_" + planet1Name + \
+                "_opp_" + centricityType + "_" + planet2Name + \
+                "_plus_" + centricityType + "_" + planet2Name + \
+                "_" + desiredRevolutionsElapsed + "_revolutions"
+                
+            color = Color.darkRed
+            
+            PlanetaryCombinationsLibrary.addVerticalLine(\
+                pcdd, lineDt, highPrice, lowPrice, tag, color)
+        
+        
+    if True:
+        # 3 years cycle.
+        # This is G.Mercury going retrograde position,
+        # plus 3 G.Sun revolutions.
+        #
+        
+
+        # Search timeframe is an extra year before and after.
+        searchStartDt = startDt - datetime.timedelta(years=21)
+        searchEndDt = endDt - datetime.timedelta(years=19)
+
+        planetName = "Mercury"
+        maxErrorTd = datetime.timedelta(minutes=1)
+        
+        tuples = EphemerisUtils.getGeoRetrogradeDirectTimestamps(\
+            searchStartDt,
+            searchEndDt,
+            planetName,
+            maxErrorTd=maxErrorTd)
+
+        for tup in tuples:
+            p = tup[0]
+            direction = tup[1]
+
+            if direction == "retrograde":
+                
+                planet2Name = "Sun"
+                centricityType = "geocentric"
+                planetEpocDt = p.dt
+                desiredRevolutionsElapsed = 3
+                desiredDegreesElapsed = 360 * desiredRevolutionsElapsed
+                
+                lineDt = getDatetimesOfElapsedLongitudeDegrees(\
+                    planet2Name,
+                    centricityType,
+                    longitudeType,
+                    planetEpocDt,
+                    desiredDegreesElapsed,
+                    maxErrorTd=maxErrorTd)
+            
+                tag = "geocentric_" + planetName + "_start_" + direction
+                    "_plus_" + centricityType + "_" + planet2Name + \
+                    "_" + desiredRevolutionsElapsed + "_revolutions"
+                    
+                color = Color.red
+                
+                PlanetaryCombinationsLibrary.addVerticalLine(\
+                    pcdd, lineDt, highPrice, lowPrice, tag, color)
+        
+        
+    if True:
+        # 3 years cycle.
+        # This is G.Mercury going retrograde position,
+        # plus 3 G.Sun revolutions.
+        #
+        
+
+        # Search timeframe is an extra year before and after.
+        searchStartDt = startDt - datetime.timedelta(years=21)
+        searchEndDt = endDt - datetime.timedelta(years=19)
+
+        planetName = "Mercury"
+        maxErrorTd = datetime.timedelta(minutes=1)
+        
+        tuples = EphemerisUtils.getGeoRetrogradeDirectTimestamps(\
+            searchStartDt,
+            searchEndDt,
+            planetName,
+            maxErrorTd=maxErrorTd)
+
+        for tup in tuples:
+            p = tup[0]
+            direction = tup[1]
+
+            if direction == "retrograde":
+                
+                planet2Name = "Sun"
+                centricityType = "geocentric"
+                planetEpocDt = p.dt
+                desiredRevolutionsElapsed = 3
+                desiredDegreesElapsed = 360 * desiredRevolutionsElapsed
+                
+                lineDt = getDatetimesOfElapsedLongitudeDegrees(\
+                    planet2Name,
+                    centricityType,
+                    longitudeType,
+                    planetEpocDt,
+                    desiredDegreesElapsed,
+                    maxErrorTd=maxErrorTd)
+            
+                tag = "geocentric_" + planetName + "_start_" + direction + 
+                    "_plus_" + centricityType + "_" + planet2Name + \
+                    "_" + desiredRevolutionsElapsed + "_revolutions"
+                    
+                color = Color.red
+                
+                PlanetaryCombinationsLibrary.addVerticalLine(\
+                    pcdd, lineDt, highPrice, lowPrice, tag, color)
+        
+        
+    if False:
         for i in [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330]:
             planetName = "Jupiter"
             centricityType = "heliocentric"
@@ -675,6 +832,20 @@ def processPCDD(pcdd, tag):
                     PlanetaryCombinationsLibrary.addVerticalLine(\
                         pcdd, dt, highPrice, lowPrice, tag, color)
         
+    if False:
+        # Calculate eclipse timestamps.
+        for year in range(1896, 1940):
+            numMonthsInYear = None
+            if LunarCalendarUtils.isLunarLeapYear(year):
+                numMonthsInYear = 13
+            else:
+                numMonthsInYear = 12
+
+            for month in range(numMonthsInYear):
+                
+                
+                
+            
     if False:
         for year in range(1896, 1940):
             if False:
