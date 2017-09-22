@@ -350,46 +350,6 @@ def processPCDD(pcdd, tag):
         # - LD(XXXX, 1, 0) + G.Sun movement of 980 degrees.
         #
 
-        # Get the years in the range of startDt.year - 4 to endDt.year - 2.
-        # This will be our years to get the Nisan 1 datetimes for.
-        years = []
-        for year in range(startDt.year - 4, endDt.year - 2)
-            years.append(year)
-
-        for year in years:
-            nisan1Dt = LunarCalendarUtils.getNisan1DatetimeForYear(year)
-            planetName = "Sun"
-            centricityType = "geocentric"
-            longitudeType = "tropical"
-            maxErrorTd = datetime.timedelta(minutes=1)
-            planetEpocDt = nisan1Dt
-            desiredDegreesElapsedList = [490, 980]
-            
-            for desiredDegreesElapsed in desiredDegreesElapsedList:
-            
-                lineDt = getDatetimesOfElapsedLongitudeDegrees(\
-                        planetName,
-                        centricityType,
-                        longitudeType,
-                        planetEpocDt,
-                        desiredDegreesElapsed,
-                        maxErrorTd=maxErrorTd)
-            
-                tag = "nisan1_plus_" + centricityType + "_" + planetName + \
-                    "_" + desiredDegreesElapsed + "_degrees"
-                    
-                color = Color.blue
-                
-                PlanetaryCombinationsLibrary.addVerticalLine(\
-                    pcdd, lineDt, highPrice, lowPrice, tag, color)
-        
-    if True:
-        # 490 and 980 days cycle from Nisan 1.
-        # These are turns where the timestamp is:
-        # - LD(XXXX, 1, 0) + G.Sun movement of 490 degrees.
-        # - LD(XXXX, 1, 0) + G.Sun movement of 980 degrees.
-        #
-
         # This will be our years to get the desired lunar dates for.
         years = []
         for year in range(startDt.year - 4, endDt.year - 1)
