@@ -295,7 +295,7 @@ def processPCDD(pcdd, tag):
         
     if True:
         # 3 years cycle.
-        # This is G.Mercury going retrograde position,
+        # This is G.Mercury going direct position,
         # plus 3 G.Sun revolutions.
         #
         
@@ -317,7 +317,7 @@ def processPCDD(pcdd, tag):
             p = tup[0]
             direction = tup[1]
 
-            if direction == "retrograde":
+            if direction == "direct":
                 
                 planet2Name = "Sun"
                 centricityType = "geocentric"
@@ -338,6 +338,146 @@ def processPCDD(pcdd, tag):
                     "_" + desiredRevolutionsElapsed + "_revolutions"
                     
                 color = Color.red
+                
+                PlanetaryCombinationsLibrary.addVerticalLine(\
+                    pcdd, lineDt, highPrice, lowPrice, tag, color)
+        
+        
+    if True:
+        # 490 and 980 days cycle from Nisan 1.
+        # These are turns where the timestamp is:
+        # - LD(XXXX, 1, 0) + G.Sun movement of 490 degrees.
+        # - LD(XXXX, 1, 0) + G.Sun movement of 980 degrees.
+        #
+
+        # Get the years in the range of startDt.year - 4 to endDt.year - 2.
+        # This will be our years to get the Nisan 1 datetimes for.
+        years = []
+        for year in range(startDt.year - 4, endDt.year - 2)
+            years.append(year)
+
+        for year in years:
+            nisan1Dt = LunarCalendarUtils.getNisan1DatetimeForYear(year)
+            planetName = "Sun"
+            centricityType = "geocentric"
+            longitudeType = "tropical"
+            maxErrorTd = datetime.timedelta(minutes=1)
+            planetEpocDt = nisan1Dt
+            desiredDegreesElapsedList = [490, 980]
+            
+            for desiredDegreesElapsed in desiredDegreesElapsedList:
+            
+                lineDt = getDatetimesOfElapsedLongitudeDegrees(\
+                        planetName,
+                        centricityType,
+                        longitudeType,
+                        planetEpocDt,
+                        desiredDegreesElapsed,
+                        maxErrorTd=maxErrorTd)
+            
+                tag = "nisan1_plus_" + centricityType + "_" + planetName + \
+                    "_" + desiredDegreesElapsed + "_degrees"
+                    
+                color = Color.blue
+                
+                PlanetaryCombinationsLibrary.addVerticalLine(\
+                    pcdd, lineDt, highPrice, lowPrice, tag, color)
+        
+    if True:
+        # 490 and 980 days cycle from Nisan 1.
+        # These are turns where the timestamp is:
+        # - LD(XXXX, 1, 0) + G.Sun movement of 490 degrees.
+        # - LD(XXXX, 1, 0) + G.Sun movement of 980 degrees.
+        #
+
+        # This will be our years to get the desired lunar dates for.
+        years = []
+        for year in range(startDt.year - 4, endDt.year - 1)
+            years.append(year)
+
+        for year in years:
+            lunarYear = year
+            lunarMonth = 1
+            lunarDay = 0
+
+            lunarDate = LunarDate(lunarYear, lunarMonth, lunarDay)
+
+            dt = LunarCalendarUtils.lunarDateToDatetime(lunarDate,
+                                                        tzInfo=pytz.utc)
+            planetName = "Sun"
+            centricityType = "geocentric"
+            longitudeType = "tropical"
+            maxErrorTd = datetime.timedelta(minutes=1)
+            planetEpocDt = dt
+            desiredDegreesElapsedList = [490, 980]
+            
+            for desiredDegreesElapsed in desiredDegreesElapsedList:
+            
+                lineDt = getDatetimesOfElapsedLongitudeDegrees(\
+                        planetName,
+                        centricityType,
+                        longitudeType,
+                        planetEpocDt,
+                        desiredDegreesElapsed,
+                        maxErrorTd=maxErrorTd)
+            
+                tag = "LD(" + lunarYear + \
+                    ", " + lunarMonth + \
+                    ", " + lunarDay + ")" + \
+                    "_plus_" + centricityType + "_" + planetName + \
+                    "_" + desiredDegreesElapsed + "_degrees"
+                    
+                color = Color.blue
+                
+                PlanetaryCombinationsLibrary.addVerticalLine(\
+                    pcdd, lineDt, highPrice, lowPrice, tag, color)
+        
+        
+    if True:
+        # 490 and 980 days cycle from ???????.
+        # These are turns where the timestamp is:
+        # - LD(XXXX, ?, ?) + G.Sun movement of 490 degrees.
+        # - LD(XXXX, ?, ?) + G.Sun movement of 980 degrees.
+        #
+
+        # This will be our years to get the desired lunar dates for.
+        years = []
+        for year in range(startDt.year - 4, endDt.year - 1)
+            years.append(year)
+
+        for year in years:
+            lunarYear = year
+            lunarMonth = ?
+            lunarDay = ?
+
+            lunarDate = LunarDate(lunarYear, lunarMonth, lunarDay)
+
+            dt = LunarCalendarUtils.lunarDateToDatetime(lunarDate,
+                                                        tzInfo=pytz.utc)
+            planetName = "Sun"
+            centricityType = "geocentric"
+            longitudeType = "tropical"
+            maxErrorTd = datetime.timedelta(minutes=1)
+            planetEpocDt = dt
+            desiredDegreesElapsedList = [490, 980]
+            
+            for desiredDegreesElapsed in desiredDegreesElapsedList:
+            
+                lineDt = getDatetimesOfElapsedLongitudeDegrees(\
+                        planetName,
+                        centricityType,
+                        longitudeType,
+                        planetEpocDt,
+                        desiredDegreesElapsed,
+                        maxErrorTd=maxErrorTd)
+            
+                tag = "LD(" + lunarYear + \
+                    ", " + lunarMonth + \
+                    ", " + lunarDay + ")" + \
+                    "_plus_" + centricityType + "_" + planetName + \
+                    "_" + desiredDegreesElapsed + "_degrees"
+                    
+                color = Color.blue
                 
                 PlanetaryCombinationsLibrary.addVerticalLine(\
                     pcdd, lineDt, highPrice, lowPrice, tag, color)
