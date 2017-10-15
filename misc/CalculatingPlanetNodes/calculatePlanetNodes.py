@@ -65,18 +65,22 @@ locationLatitude = 40.7142
 locationElevation = 0
 
 # Timezone information to use with the Ephemeris.
-timezone = pytz.timezone("US/Eastern")
+#timezone = pytz.timezone("US/Eastern")
+timezone = pytz.utc
 
 # Time of the day to use to whem getting ephemeris measurements.
 hourOfDay = 12
 minuteOfHour = 0
 
 
-startDt = datetime.datetime(year=1890, month=1, day=1,
+startDt = datetime.datetime(year=800, month=1, day=1,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
+#startDt = datetime.datetime(year=2199, month=1, day=1,
+#                            hour=hourOfDay, minute=minuteOfHour,
+#                            tzinfo=timezone)
 
-endDt   = datetime.datetime(year=2100, month=12, day=31,
+endDt   = datetime.datetime(year=2200, month=12, day=31,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
 
@@ -86,7 +90,7 @@ stepSizeTd = datetime.timedelta(days=10)
 
 # Error threshold for calculating timestamps of when a heliocentric
 # planet crosses the ecliptic.
-maxErrorTd = datetime.timedelta(minutes=1)
+maxErrorTd = datetime.timedelta(seconds=1)
 
 # Strings used to indicate North Node and South Node.
 northStr = "N"
@@ -110,8 +114,8 @@ heliocentricPlanetNames = [\
     "Neptune",
     "Pluto",
     #"TrueNorthNode",
-    "Chiron",
-    "Isis"
+    #"Chiron",
+    #"Isis"
     ]
 
 
