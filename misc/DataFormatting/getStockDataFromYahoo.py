@@ -52,6 +52,9 @@ import errno
 # For dates.
 import datetime
 
+# For obtaining the Unix Epoch at the current moment in time.
+import time
+
 # For regular expressions.
 import re
 
@@ -65,6 +68,12 @@ import logging
 import http.cookiejar
 import urllib
 from urllib import *
+
+## For making HTTP requests with the session cookies.
+#import requests
+
+# For having access to timezones with datetime.datetime.
+import pytz
 
 ##############################################################################
 
@@ -95,11 +104,9 @@ endTimestampStr = ""
 # This value is obtained via command-line parameter.
 outputFile = ""
 
-# Url argument string.
-#   Daily:   g=d
-#   Weekly:  g=w
-#   Monthly: g=m
-formattedTimeUnit = "g=d"
+# Url argument string for the time unit interval.
+# "1d" is daily bars.
+formattedTimeUnit = "1d"
 
 # Header line to put as the first line of text in the destination file.
 headerLine = "\"Date\",\"Open\",\"High\",\"Low\",\"Close\",\"Volume\",\"OpenInt\""
@@ -110,16 +117,22 @@ numLinesToSkip = 1
 # Use these types newlines in the output file.
 newline = "\n"
 
+# Timezones to use when converting from/to dates to timestamps in UTC.
+timezoneUSEast = pytz.timezone('US/Eastern')
+timezoneToUse = timezoneUSEast
+
 # Cookie preferences are required for the pricebar data to be returned.
 defaultHttpHeaders = \
         [('User-agent', 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.0.10) Gecko/2009042315 Firefox/3.0.10'),
          ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
          ('Accept-Language', 'en-us,en;q=0.5'),
-         ('Accept-Charset', 'ISO-8859-1,utf-8;q=0.7,*;q=0.7')]
+         ('Accept-Charset', 'ISO-8859-1;q=0.7,*;q=0.7')]
+
+cookieJar = http.cookiejar.CookieJar()
 
 # For logging.
 logging.basicConfig(level=logging.INFO,
-                    format='%(levelname)s: %(message)s')
+                    format='%(asctime)s - %(levelname)s - %(lineno)s - %(funcName)s() - %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
 
@@ -132,32 +145,24 @@ def shutdown(rc):
 
 ##############################################################################
 
-def getTimestampStrForEarliestData(stockSymbol):
-    """Obtains the date of the earliest data we can obtain for the
-    given stock symbol.
-
-    Arguments:
-    stockSymbol - str value holding the stock symbol we want to get
-                  the earliest timestamp of data for.
-    
-    Returns:
-    str holding the date in the format "YYYYMMDD".
+def getCookieDictAndCrumb(stockSymbol):
+    """Obtains the cookies and the value of 'crumb' which is needed as
+    an argument to the URL to get the historical CSV data of the stock.
+    The cookieJar after making this method call will contain a cookie
+    with the key 'B' and value of the cookie.  This value and the crumb
+    must must correspond to each other, and must be provided in all
+    requests for historical data.
     """
 
-    # Here what we are doing is loading the webpage for historical
-    # prices of the stock symbol.  By default, this page loads with
-    # the earliest available data date, as well as the latest
-    # available data date.  We extract the info from the HTML of this
-    # page.
+    url = "https://finance.yahoo.com/quote/{}".format(stockSymbol) + \
+          "?p={}".format(stockSymbol)
+    #url = "https://finance.yahoo.com/quote/{}/history?".format(stockSymbol) + \
+    #      "p={}".format(stockSymbol)
 
-
-    url = "http://finance.yahoo.com/q/hp?" + \
-          "s={}".format(stockSymbol)
-    
-    log.debug("Obtaining earliest data timestamp by accessing URL: {}".\
-              format(url))
-
-    opener = urllib.request.build_opener()
+    # We must use the cookieJar to obtain the 'B' cookie, which needs
+    # to match up with the 'crumb' used in subsequent HTTP requests.
+    cookieProcessor = urllib.request.HTTPCookieProcessor(cookieJar)
+    opener = urllib.request.build_opener(cookieProcessor)
     request = urllib.request.Request(url)
     opener.addheaders = defaultHttpHeaders
 
@@ -165,243 +170,77 @@ def getTimestampStrForEarliestData(stockSymbol):
     response = opener.open(request)
 
     log.debug("Reading HTTP response.")
-    data = response.read().decode()
+    data = response.read().decode('utf8')
+    #log.debug("data is: " + data)
+    lines = data.splitlines()
 
-    log.debug("Processing HTML page ...")
+    # First look for the following string in the response text:
+    #
+    #    CrumbStore":{"crumb":"9q.A4D1c.b9"
+    #
+    # Then extract the crumb value from that string.
+    #
+    crumb = None
+    for line in lines:
+        #log.debug("Looking at line: " + line)
+        crumbStorePos = line.find("CrumbStore")
+        if crumbStorePos != -1:
+            # Found the line containing the CrumbStore.
+            log.debug("Found the line containing the CrumbStore.")
+            endPos = line.find("}", crumbStorePos)
+            crumbStoreLine = line[crumbStorePos:endPos]
+            log.debug("crumbStoreLine == " + crumbStoreLine)
+            
+            subStrWithCrumbInQuotes = crumbStoreLine.split(':')[2]
+            log.debug("subStrWithCrumbInQuotes == " + subStrWithCrumbInQuotes)
+            
+            firstDoubleQuotePos = \
+                subStrWithCrumbInQuotes.find("\"")
+            log.debug("firstDoubleQuotePos == " + str(firstDoubleQuotePos))
+            
+            if firstDoubleQuotePos == -1:
+                log.error("Failed to find the first double-quote position.")
+                shutdown(1)
+                
+            secondDoubleQuotePos = \
+                subStrWithCrumbInQuotes.find("\"", firstDoubleQuotePos + 1)
+            log.debug("secondDoubleQuotePos == " + str(secondDoubleQuotePos))
+                
+            if secondDoubleQuotePos == -1:
+                log.error("Failed to find the second double-quote position.")
+                shutdown(1)
 
-    log.debug(" Data length is: {}".format(len(data)))
-    log.debug(" Data read from {} is: ***{}***".format(url, data))
-
-    # Get the location where the label 'Start Date:' is shown.
-    startDateLabelLoc = data.find("Start Date:")
-    log.debug("startDateLabelLoc == {}".format(startDateLabelLoc))
-    log.debug("type(startDateLabelLoc) == {}".format(type(startDateLabelLoc)))
-    if startDateLabelLoc == -1:
-        log.error("Could not find earliest data timestamp because " + \
-                  "'Start Date:' could not be found in the HTML.")
+            startPos = firstDoubleQuotePos + 1
+            endPos = secondDoubleQuotePos
+            crumb = subStrWithCrumbInQuotes[startPos:endPos]
+    
+    log.debug("crumb == " + str(crumb))
+    
+    if crumb is None:
+        log.error("Failed to find the crumb")
         shutdown(1)
 
-    # Get the location where the label 'End Date:' is shown.
-    endDateLabelLoc = data.find("End Date:")
-    log.debug("endDateLabelLoc == {}".format(endDateLabelLoc))
-    log.debug("type(endDateLabelLoc) == {}".format(type(endDateLabelLoc)))
-    if endDateLabelLoc == -1:
-        log.error("Could not find earliest data timestamp because " + \
-                  "'End Date:' could not be found in the HTML.")
-        shutdown(1)
+    return crumb
 
-    # Get the HTML between these two label locations.
-    htmlStr = data[startDateLabelLoc:endDateLabelLoc]
-    log.debug("htmlStr is: ***{}***".format(htmlStr))
 
-    # Strings that hold the data obtained from the Yahoo HTML page.
-    # Here the month is 0-based, (e.g. January is "00").
-    yahooMonthStr = ""
-    yahooDayStr = ""
-    yahooYearStr = ""
-    
-    # Search through the HTML for the month.
-    log.debug("Searching for the month ...")
-    match = re.search(r"""<option selected value="(.*?)">""", htmlStr)
-    if match:
-        cellText = match.groups()[0]
-
-        log.debug("Cell text is: " + cellText)
-
-        if len(cellText) == 2:
-            yahooMonthStr = cellText
-        else:
-            log.error("Cell text for the month number is not of length 2.")
-            shutdown(1)
-    else:
-        log.error("Could not find earliest data timestamp because " + \
-                  "the month value could not be found in the HTML.")
-        shutdown(1)
-    
-    # Search through the HTML for the day.
-    log.debug("Searching for the day ...")
-    match = re.search(r"""id="startday".*?value="(.*?)".*?>""", htmlStr)
-    if match:
-        cellText = match.groups()[0]
-        log.debug("Cell text is: " + cellText)
-
-        if len(cellText) == 1 or len(cellText) == 2:
-            yahooDayStr = cellText
-        else:
-            log.error("Cell text for the day number is not of length 1 or 2.")
-            shutdown(1)
-    else:
-        log.error("Could not find earliest data timestamp because " + \
-                  "the day value could not be found in the HTML.")
-        shutdown(1)
-    
-    # Search through the HTML for the year.
-    log.debug("Searching for the year ...")
-    match = re.search(r"""id="startyear".*?value="(.*?)".*?>""", htmlStr)
-    if match:
-        cellText = match.groups()[0]
-        log.debug("Cell text is: " + cellText)
-
-        if len(cellText) == 4:
-            yahooYearStr = cellText
-        else:
-            log.error("Cell text for the year number is not of length 4.")
-            shutdown(1)
-    else:
-        log.error("Could not find earliest data timestamp because " + \
-                  "the year value could not be found in the HTML.")
-        shutdown(1)
-
-    log.debug("yahooMonthStr == {}".format(yahooMonthStr))
-    log.debug("yahooDayStr   == {}".format(yahooDayStr))
-    log.debug("yahooYearStr  == {}".format(yahooYearStr))
-    
-    # Convert the obtained values to integers.
-    monthInt = int(yahooMonthStr) + 1
-    dayInt = int(yahooDayStr)
-    yearInt = int(yahooYearStr)
-
-    # Convert the int values to the desired str values.
-    monthStr = "{:02}".format(monthInt)
-    dayStr = "{:02}".format(dayInt)
-    yearStr = "{:04}".format(yearInt)
-
-    rv = "{}{}{}".format(yearStr, monthStr, dayStr)
-
-    log.debug("Returning rv == {}".format(rv))
-    
-    return rv
-
-def getTimestampStrForLatestData(stockSymbol):
-    """Obtains the date of the latest data we can obtain for the given
-    stock symbol.  This implementation always returns the current date.
-
-    Returns:
-    str holding the date in the format "YYYYMMDD".
+def getTimestampStrForEarliestData():
+    """Obtains the Unix Epoch of the earliest possible timestamp.
     """
     
-    # Here what we are doing is loading the webpage for historical
-    # prices of the stock symbol.  By default, this page loads with
-    # the earliest available data date, as well as the latest
-    # available data date.  We extract the info from the HTML of this
-    # page.
+    unixEpochSecs = 0
+    return str(unixEpochSecs)
 
+def getTimestampStrForLatestData():
+    """Obtains the Unix Epoch of the latest possible timestamp.
+    """
 
-    url = "http://finance.yahoo.com/q/hp?" + \
-          "s={}".format(stockSymbol)
-    
-    log.debug("Obtaining latest data timestamp by accessing URL: {}".\
-              format(url))
+    unixEpochSecs = int(time.time())
+    return str(unixEpochSecs)
 
-    opener = urllib.request.build_opener()
-    request = urllib.request.Request(url)
-    opener.addheaders = defaultHttpHeaders
-
-    log.debug("Opening HTTP request.")
-    response = opener.open(request)
-
-    log.debug("Reading HTTP response.")
-    data = response.read().decode()
-
-    log.debug("Processing HTML page ...")
-    log.debug(" Data length is: {}".format(len(data)))
-    log.debug(" Data read from {} is: ***{}***".format(url, data))
-
-    # Get the location where the label 'End Date:' is shown.
-    endDateLabelLoc = data.find("End Date:")
-    if endDateLabelLoc == -1:
-        log.error("Could not find latest data timestamp because " + \
-                  "'End Date:' could not be found in the HTML.")
-        shutdown(1)
-
-    # Get the HTML between the label location and the end of the HTML.
-    htmlStr = data[endDateLabelLoc:]
-    log.debug("htmlStr is: ***{}***".format(htmlStr))
-
-    # Strings that hold the data obtained from the Yahoo HTML page.
-    # Here the month is 0-based, (e.g. January is "00").
-    yahooMonthStr = ""
-    yahooDayStr = ""
-    yahooYearStr = ""
-    
-    # Search through the HTML for the month.
-    log.debug("Searching for the month ...")
-    match = re.search(r"""<option selected value="(.*?)">""", htmlStr)
-    if match:
-        cellText = match.groups()[0]
-
-        log.debug("Cell text is: " + cellText)
-
-        if len(cellText) == 2:
-            yahooMonthStr = cellText
-        else:
-            log.error("Cell text for the month number is not of length 2.")
-            shutdown(1)
-    else:
-        log.error("Could not find latest data timestamp because " + \
-                  "the month value could not be found in the HTML.")
-        shutdown(1)
-    
-    # Search through the HTML for the day.
-    log.debug("Searching for the day ...")
-    match = re.search(r"""id="endday".*?value="(.*?)".*?>""", htmlStr)
-    if match:
-        cellText = match.groups()[0]
-        log.debug("Cell text is: " + cellText)
-
-        if len(cellText) == 1 or len(cellText) == 2:
-            yahooDayStr = cellText
-        else:
-            log.error("Cell text for the day number is not of length 1 or 2.")
-            shutdown(1)
-    else:
-        log.error("Could not find latest data timestamp because " + \
-                  "the day value could not be found in the HTML.")
-        shutdown(1)
-    
-    # Search through the HTML for the year.
-    log.debug("Searching for the year ...")
-    match = re.search(r"""id="endyear".*?value="(.*?)".*?>""", htmlStr)
-    if match:
-        cellText = match.groups()[0]
-        log.debug("Cell text is: " + cellText)
-
-        if len(cellText) == 4:
-            yahooYearStr = cellText
-        else:
-            log.error("Cell text for the year number is not of length 4.")
-            shutdown(1)
-    else:
-        log.error("Could not find latest data timestamp because " + \
-                  "the year value could not be found in the HTML.")
-        shutdown(1)
-
-
-    log.debug("yahooMonthStr == {}".format(yahooMonthStr))
-    log.debug("yahooDayStr   == {}".format(yahooDayStr))
-    log.debug("yahooYearStr  == {}".format(yahooYearStr))
-    
-    # Convert the obtained values to integers.
-    monthInt = int(yahooMonthStr) + 1
-    dayInt = int(yahooDayStr)
-    yearInt = int(yahooYearStr)
-
-    # Convert the int values to the desired str values.
-    monthStr = "{:02}".format(monthInt)
-    dayStr = "{:02}".format(dayInt)
-    yearStr = "{:04}".format(yearInt)
-
-    rv = "{}{}{}".format(yearStr, monthStr, dayStr)
-
-    log.debug("Returning rv == {}".format(rv))
-
-    return rv
-
-def convertStartTimestampStrToUrlArgsStr(timestampStr):
+def convertTimestampStrToUnixEpochStr(timestampStr):
     """Converts input str of a date timestamp from format YYYYMMDD to
-    the format required in the URL for a HTTP GET to Yahoo Finance
-    for the start date of the data series.
-    The resulting equivalent string is returned.
+    the equivalent number of seconds in Unix Epoch time for that date at
+    midnight at UTC.
     """
 
     # Check input.
@@ -420,58 +259,68 @@ def convertStartTimestampStrToUrlArgsStr(timestampStr):
     # Convert yearStr to int.
     yearInt = int(yearStr)
 
-    # Convert monthStr to int.  The month here is 0-based.
-    monthInt = int(monthStr) - 1
+    # Convert monthStr to int.  The month here is 1-based.
+    monthInt = int(monthStr)
 
     # Convert dayStr to int.
     dayInt = int(dayStr)
 
-    log.debug("yearInt={}, monthInt={}, dayInt={}".\
-              format(yearInt, monthInt, dayInt))
+    tzInfo = timezoneToUse
+    dt = datetime.datetime(yearInt, monthInt, dayInt, tzinfo=tzInfo)
+    unixEpochSecs = int(dt.timestamp())
 
-    rv = "a={}&b={}&c={}".format(monthInt, dayInt, yearInt)
+    log.debug("dt == " + str(dt))
+    log.debug("unixEpochSecs == " + str(unixEpochSecs))
     
-    log.debug(" returning: {}".format(rv))
-    
-    return rv
+    return str(unixEpochSecs)
 
-def convertEndTimestampStrToUrlArgsStr(timestampStr):
-    """Converts input str of a date timestamp from format YYYYMMDD to
-    the format required in the URL for a HTTP GET to Yahoo Finance
-    for the end date of the data series.
-    The resulting equivalent string is returned.
+def convertDateStrToUnixEpochSecs(dateStr):
+    """Converts a date string in the format MM/DD/YYYY to number of
+    seconds since Unix Epoch.
+
+    The converted int is returned.
     """
-
-    # Check input.
-    if len(timestampStr) != 8 or timestampStr.isnumeric() == False:
-        log.error("Timestamp string must be in the format 'YYYYYMMDD'.  " + \
-              "Timestamp string given was: {}".format(timestampStr))
+    
+    dateFields = dateStr.split("/")
+    if len(dateFields) != 3:
+        log.error("Field for date is not in the expected format: {}".\
+              format(dateStr) + "  Line for this entry is: {}".format(line))
         shutdown(1)
 
-    yearStr = timestampStr[0:4]
-    monthStr = timestampStr[4:6]
-    dayStr = timestampStr[6:8]
+    monthStr = dateFields[0]
+    dayStr = dateFields[1]
+    yearStr = dateFields[2]
 
-    log.debug("yearStr={}, monthStr={}, dayStr={}".\
-              format(yearStr, monthStr, dayStr))
-
+    # Check inputs.
+    if len(dayStr) != 2 or (not dayStr.isnumeric()):
+        log.error("day in dateStr is not in the expected format.  " + \
+              "dateStr given is: {}".format(dateStr))
+        shutdown(1)
+    if len(monthStr) != 2 or (not monthStr.isnumeric()):
+        log.error("month in dateStr is not in the expected format.  " + \
+              "dateStr given is: {}".format(dateStr))
+        shutdown(1)
+    if len(yearStr) != 4 or (not yearStr.isnumeric()):
+        log.error("year in dateStr is not in the expected format.  " + \
+              "dateStr given is: {}".format(dateStr))
+        shutdown(1)
+        
     # Convert yearStr to int.
     yearInt = int(yearStr)
 
-    # Convert monthStr to int.  The month here is 0-based.
-    monthInt = int(monthStr) - 1
+    # Convert monthStr to int.  The month here is 1-based.
+    monthInt = int(monthStr)
 
     # Convert dayStr to int.
     dayInt = int(dayStr)
 
-    log.debug("yearInt={}, monthInt={}, dayInt={}".\
-              format(yearInt, monthInt, dayInt))
+    tzInfo = timezoneToUse
+    dt = datetime.datetime(yearInt, monthInt, dayInt, tzinfo=tzInfo)
+    unixEpochSecs = int(dt.timestamp())
 
-    rv = "d={}&e={}&f={}".format(monthInt, dayInt, yearInt)
-    
-    log.debug(" returning: {}".format(rv))
-    
-    return rv
+    log.debug("dt == " + str(dt))
+    log.debug("unixEpochSecs == " + str(unixEpochSecs))
+    return unixEpochSecs
 
 def reformatYahooDateField(dateStr):
     """Converts a date string in the format YYYY-MM-DD to MM/DD/YYYY.
@@ -510,8 +359,8 @@ def reformatYahooFinanceDataLine(line):
     """Converts the Yahoo Finance CSV line format to our desired format.
 
     Yahoo gives us lines in the format:
-        Date,Open,High,Low,Close,Volume,Adj Close
-        2011-05-27,12398.06,12519.35,12382.93,12441.58,3124560000,12441.58
+        Date,Open,High,Low,Close,Adj Close,Volume
+        2011-05-27,12398.06,12519.35,12382.93,12441.58,12441.58,3124560000
 
     We want it in format:
         "Date","Open","High","Low","Close","Volume","OpenInt"
@@ -532,9 +381,9 @@ def reformatYahooFinanceDataLine(line):
     highStr = fields[2]
     lowStr  = fields[3]
     closeStr = fields[4]
-    volumeStr = fields[5]
-    adjCloseStr = fields[6]
-        
+    adjCloseStr = fields[5]
+    volumeStr = fields[6]
+    
     # Check inputs.
     if not isNumber(openStr):
         log.error("Field for open price is not a valid number: {}".\
@@ -588,34 +437,41 @@ def getPriceBarDataLines():
     Returns:
     list of str; each str holds a line containing the price bar data.
     """
-    
+
+    log.debug("stockSymbol == {}".format(stockSymbol))
     log.debug("startTimestampStr == {}".format(startTimestampStr))
     log.debug("endTimestampStr   == {}".format(endTimestampStr))
-            
-    formattedStartTimestamp = \
-        convertStartTimestampStrToUrlArgsStr(startTimestampStr)
-    formattedEndTimestamp = \
-        convertEndTimestampStrToUrlArgsStr(endTimestampStr)
+    log.debug("formattedTimeUnit   == {}".format(formattedTimeUnit))
     
-    url = "http://ichart.finance.yahoo.com/table.csv?" + \
-          "s={}".format(stockSymbol) + \
-          "&{}".format(formattedStartTimestamp) + \
-          "&{}".format(formattedEndTimestamp) + \
-          "&{}".format(formattedTimeUnit) + \
-          "&ignore=.csv"
+    crumb = getCookieDictAndCrumb(stockSymbol)
+
+    urlParameters = {
+        "period1" : startTimestampStr,
+        "period2" : endTimestampStr,
+        "interval" : formattedTimeUnit,
+        "events" : "history",
+        "crumb" : crumb
+        }
+    
+    url = "https://query1.finance.yahoo.com/v7/finance/download/" + \
+          "{}".format(stockSymbol) + \
+          "?{}".format(urllib.parse.urlencode(urlParameters))
     
     log.info("Obtaining stock price data by accessing URL: {}".format(url))
-    
-    opener = urllib.request.build_opener()
+
+    # We must use the cookieJar to utilize the 'B' cookie, which needs
+    # to match up with the 'crumb' obtained previously.
+    cookieProcessor = urllib.request.HTTPCookieProcessor(cookieJar)
+    opener = urllib.request.build_opener(cookieProcessor)
     request = urllib.request.Request(url)
     opener.addheaders = defaultHttpHeaders
-    
-    log.info("Opening HTTP request.")
+
+    log.debug("Opening HTTP request.")
     response = opener.open(request)
-    
-    log.info("Reading HTTP response.")
-    data = response.read().decode()
-    
+
+    log.debug("Reading HTTP response.")
+    data = response.read().decode('utf8')
+
     log.info("Processing and reformatting the data ...")
     
     log.debug(" Data read from {} is: ***{}***".format(url, data))
@@ -624,23 +480,48 @@ def getPriceBarDataLines():
     # Get rid of header lines in the Yahoo data file.
     if len(outputLines) > 0:
         index = 0
-        yahooHeaderLine = "Date,Open,High,Low,Close,Volume,Adj Close"
+        yahooHeaderLine = "Date,Open,High,Low,Close,Adj Close,Volume"
         if outputLines[index].find(yahooHeaderLine) != -1:
             log.debug("Found header line.")
             outputLines.pop(index)
-    
-    # Reverse the order of the bars, since we want the lines in our file
-    # to be from oldest to newest.
-    outputLines.reverse()
-    
+        else:
+            log.error("Failed to find the header line.")
+            shutdown(1)
+            
     reformattedLines = []
     for line in outputLines:
         if line.strip() != "":
             reformattedLine = reformatYahooFinanceDataLine(line.strip())
             reformattedLines.append(reformattedLine)
     
-    log.info("Obtained a total of {} price bars.".format(len(reformattedLines)))
+    if len(reformattedLines) > 0:
+        log.debug("Earliest raw PriceBar is: {}".format(reformattedLines[0]))
+        log.debug("Latest   raw PriceBar is: {}".format(reformattedLines[-1]))
     
+    log.info("Before removing lines of timestamps outside the " + \
+             "requested time range, there are " + \
+             str(len(reformattedLines)) + " reformattedLines.")
+                          
+    # With Yahoo's new API, the data returned has been seen
+    # to be outside the requested time range.  Here, do a
+    # sanity check to see if the timestamps are between the
+    # timewindow desired, inclusive.
+    reformattedLinesCleaned = []
+    for line in reformattedLines:
+        dateStr = line.split(",")[0]
+        unixEpochSecsOfLine = \
+            convertDateStrToUnixEpochSecs(dateStr)
+                        
+        if int(startTimestampStr) <= unixEpochSecsOfLine and \
+                unixEpochSecsOfLine <= int(endTimestampStr):
+                
+            reformattedLinesCleaned.append(line)
+            
+    reformattedLines = reformattedLinesCleaned
+    log.info("After  removing lines of timestamps outside the " + \
+              "requested time range, there are " + \
+              str(len(reformattedLines)) + " reformattedLines.")
+              
     if len(reformattedLines) > 0:
         log.info("Earliest PriceBar is: {}".format(reformattedLines[0]))
         log.info("Latest   PriceBar is: {}".format(reformattedLines[-1]))
@@ -869,7 +750,7 @@ else:
     updateFlag = False
     
     if options.startTimestampStr == None:
-        startTimestampStr = getTimestampStrForEarliestData(stockSymbol)
+        startTimestampStr = getTimestampStrForEarliestData()
         log.info("Start timestamp was not specified.  " + \
                  "Using earliest available date for data ({}).".\
                  format(startTimestampStr))
@@ -877,7 +758,7 @@ else:
         startTimestampStr = options.startTimestampStr
           
     if options.endTimestampStr == None:
-        endTimestampStr = getTimestampStrForLatestData(stockSymbol)
+        endTimestampStr = getTimestampStrForLatestData()
         log.info("End timestamp was not specified.  " + \
                  "Using latest available date for data ({}).".\
                  format(endTimestampStr))
@@ -941,17 +822,22 @@ if updateFlag == True:
             dt = datetime.datetime(year=int(yearStr),
                                    month=int(monthStr),
                                    day=int(dayStr))
+            log.debug("Currently, the last date in the file is: " + str(dt))
             nextDt = dt + datetime.timedelta(days=1)
 
             # Convert the int values to the desired str values.
             monthStr = "{:02}".format(nextDt.month)
             dayStr = "{:02}".format(nextDt.day)
             yearStr = "{:04}".format(nextDt.year)
-            
-            startTimestampStr = "{}{}{}".format(yearStr, monthStr, dayStr)
-            endTimestampStr = getTimestampStrForLatestData(stockSymbol)
 
-            if startTimestampStr > endTimestampStr:
+            startDateStr = "{}{}{}".format(yearStr, monthStr, dayStr)
+            startTimestampStr = convertTimestampStrToUnixEpochStr(startDateStr)
+            endTimestampStr = getTimestampStrForLatestData()
+
+            log.debug("startTimestampStr == " + startTimestampStr)
+            log.debug("endTimestampStr == " + endTimestampStr)
+
+            if int(startTimestampStr) > int(endTimestampStr):
                 # Start timestamp is after the end timestamp.
                 # This means that the file is already up to date
                 # because we can't query data any later than this.
@@ -959,21 +845,15 @@ if updateFlag == True:
                          format(outputFile))
                 shutdown(0)
 
-            try:
-                # List of str holding all the lines of price bar data
-                # text that was retrieved.
-                reformattedLines = getPriceBarDataLines()
-            except urllib.error.HTTPError as e:
-                if e.code == 404 and startTimestampStr == endTimestampStr:
-                    # This means that Yahoo doesn't have any more
-                    # pricebars for this timeframe.
-                    log.info("File '{}' is already up to date.".\
-                             format(outputFile))
-                    shutdown(0)
-                else:
-                    log.error("{}".format(e))
-                    shutdown(1)
-                    
+            # List of str holding all the lines of price bar data
+            # text that was retrieved.
+            reformattedLines = getPriceBarDataLines()
+
+            if len(reformattedLines) == 0:
+                log.info("File '{}' is already up to date.".\
+                         format(outputFile))
+                shutdown(0)
+                
             # Write to file, truncating.
             log.info("Writing to output file '{}' ...".format(outputFile))
     
@@ -987,13 +867,18 @@ if updateFlag == True:
             # File doesn't have at least 2 lines.  (one for header and
             # one actual data line).  That means we should just query
             # for all data and overwrite the output file.
-            startTimestampStr = getTimestampStrForEarliestData(stockSymbol)
-            endTimestampStr = getTimestampStrForLatestData(stockSymbol)
+            startTimestampStr = getTimestampStrForEarliestData()
+            endTimestampStr = getTimestampStrForLatestData()
 
             # List of str holding all the lines of price bar data text that was
-            # retrieved. .
+            # retrieved.
             reformattedLines = getPriceBarDataLines()
             
+            if len(reformattedLines) == 0:
+                log.info("File '{}' is already up to date.".\
+                         format(outputFile))
+                shutdown(0)
+                
             # Write to file, truncating.
             log.info("Writing to output file '{}' ...".format(outputFile))
     
@@ -1005,8 +890,8 @@ if updateFlag == True:
         # File doesn't exist already.
         
         # Query for all data and overwrite the output file.
-        startTimestampStr = getTimestampStrForEarliestData(stockSymbol)
-        endTimestampStr = getTimestampStrForLatestData(stockSymbol)
+        startTimestampStr = getTimestampStrForEarliestData()
+        endTimestampStr = getTimestampStrForLatestData()
 
         # List of str holding all the lines of price bar data text that was
         # retrieved. .
