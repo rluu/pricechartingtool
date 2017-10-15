@@ -17,6 +17,8 @@ TODO:
       because 2-planet combination planets can have a much larger range
       (approximately double the range).
 
+    - Add ability to show mod-360 measurements in the text of items created by
+      PlanetLongitudeMovementMeasurementTool.
 
     - Create/Add a tool to calculate and show ratios of planet movements.
     (Harmony between planets).  It would work similar to
