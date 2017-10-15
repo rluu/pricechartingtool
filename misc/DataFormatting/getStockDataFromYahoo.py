@@ -27,10 +27,7 @@
 #
 #     ./getStockDataFromYahoo.py --stock-symbol=FSLR --output-file=/tmp/testing.txt
 #
-#     rluu_20140213: Below used to work, but today it doesn't.  
 #     ./getStockDataFromYahoo.py --stock-symbol=^DJI --start-timestamp=20091001 --end-timestamp=20111014 --output-file=/tmp/testing.txt
-#     rluu_20140213: The below worked for the Dow.
-#     ./getStockDataFromYahoo.py --stock-symbol=DJIA --start-timestamp=20091001 --end-timestamp=20111014 --output-file=/tmp/testing.txt
 #
 #     S&P 500.
 #     ./getStockDataFromYahoo.py --stock-symbol=^GSPC --start-timestamp=20091001 --end-timestamp=20111014 --output-file=/tmp/testing.txt
@@ -95,10 +92,16 @@ updateFlag = False
 # This value is obtained via command-line parameter.
 startTimestampStr = ""
 
+# Starting timestamp in Unix Epoch seconds.
+startTimestampUnixEpochSecs = None
+
 # Ending timestamp.
 # Format is "YYYYMMDD".
 # This value is obtained via command-line parameter.
 endTimestampStr = ""
+
+# Ending timestamp in Unix Epoch seconds.
+endTimestampUnixEpochSecs = None
 
 # Destination output CSV text file.
 # This value is obtained via command-line parameter.
@@ -131,7 +134,7 @@ defaultHttpHeaders = \
 cookieJar = http.cookiejar.CookieJar()
 
 # For logging.
-logging.basicConfig(level=logging.INFO,
+logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(levelname)s - %(lineno)s - %(funcName)s() - %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
@@ -155,7 +158,7 @@ def getCookieDictAndCrumb(stockSymbol):
     """
 
     url = "https://finance.yahoo.com/quote/{}".format(stockSymbol) + \
-          "?p={}".format(stockSymbol)
+          "?p={}".format(urllib.parse.quote(stockSymbol))
     #url = "https://finance.yahoo.com/quote/{}/history?".format(stockSymbol) + \
     #      "p={}".format(stockSymbol)
 
@@ -237,7 +240,7 @@ def getTimestampStrForLatestData():
     unixEpochSecs = int(time.time())
     return str(unixEpochSecs)
 
-def convertTimestampStrToUnixEpochStr(timestampStr):
+def convertTimestampStrToUnixEpoch(timestampStr):
     """Converts input str of a date timestamp from format YYYYMMDD to
     the equivalent number of seconds in Unix Epoch time for that date at
     midnight at UTC.
@@ -272,7 +275,7 @@ def convertTimestampStrToUnixEpochStr(timestampStr):
     log.debug("dt == " + str(dt))
     log.debug("unixEpochSecs == " + str(unixEpochSecs))
     
-    return str(unixEpochSecs)
+    return unixEpochSecs
 
 def convertDateStrToUnixEpochSecs(dateStr):
     """Converts a date string in the format MM/DD/YYYY to number of
@@ -430,8 +433,8 @@ def getPriceBarDataLines():
     variables to be set:
 
         stockSymbol
-        startTimestampStr
-        endTimestampStr
+        startTimestampUnixEpochSecs
+        endTimestampUnixEpochSecs
         formattedTimeUnit
     
     Returns:
@@ -439,22 +442,24 @@ def getPriceBarDataLines():
     """
 
     log.debug("stockSymbol == {}".format(stockSymbol))
-    log.debug("startTimestampStr == {}".format(startTimestampStr))
-    log.debug("endTimestampStr   == {}".format(endTimestampStr))
-    log.debug("formattedTimeUnit   == {}".format(formattedTimeUnit))
+    log.debug("startTimestampUnixEpochSecs == {}".\
+              format(startTimestampUnixEpochSecs))
+    log.debug("endTimestampUnixEpochSecs   == {}".\
+              format(endTimestampUnixEpochSecs))
+    log.debug("formattedTimeUnit == {}".format(formattedTimeUnit))
     
     crumb = getCookieDictAndCrumb(stockSymbol)
 
     urlParameters = {
-        "period1" : startTimestampStr,
-        "period2" : endTimestampStr,
+        "period1" : startTimestampUnixEpochSecs,
+        "period2" : endTimestampUnixEpochSecs,
         "interval" : formattedTimeUnit,
         "events" : "history",
         "crumb" : crumb
         }
     
     url = "https://query1.finance.yahoo.com/v7/finance/download/" + \
-          "{}".format(stockSymbol) + \
+          "{}".format(urllib.parse.quote(stockSymbol)) + \
           "?{}".format(urllib.parse.urlencode(urlParameters))
     
     log.info("Obtaining stock price data by accessing URL: {}".format(url))
@@ -512,8 +517,8 @@ def getPriceBarDataLines():
         unixEpochSecsOfLine = \
             convertDateStrToUnixEpochSecs(dateStr)
                         
-        if int(startTimestampStr) <= unixEpochSecsOfLine and \
-                unixEpochSecsOfLine <= int(endTimestampStr):
+        if startTimestampUnixEpochSecs <= unixEpochSecsOfLine and \
+                unixEpochSecsOfLine <= endTimestampUnixEpochSecs:
                 
             reformattedLinesCleaned.append(line)
             
@@ -750,20 +755,24 @@ else:
     updateFlag = False
     
     if options.startTimestampStr == None:
-        startTimestampStr = getTimestampStrForEarliestData()
+        startTimestampUnixEpochSecs = getTimestampStrForEarliestData()
         log.info("Start timestamp was not specified.  " + \
-                 "Using earliest available date for data ({}).".\
-                 format(startTimestampStr))
+                 "Using earliest available timestamp for data ({}).".\
+                 format(startTimestampUnixEpochSecs))
     else:
         startTimestampStr = options.startTimestampStr
+        startTimestampUnixEpochSecs = \
+            convertTimestampStrToUnixEpoch(startTimestampStr)
           
     if options.endTimestampStr == None:
-        endTimestampStr = getTimestampStrForLatestData()
+        endTimestampUnixEpochSecs = getTimestampStrForLatestData()
         log.info("End timestamp was not specified.  " + \
-                 "Using latest available date for data ({}).".\
-                 format(endTimestampStr))
+                 "Using latest available timestamp for data ({}).".\
+                 format(endTimestampUnixEpochSecs))
     else:
         endTimestampStr = options.endTimestampStr
+        endTimestampUnixEpochSecs = \
+            convertTimestampStrToUnixEpoch(endTimestampStr)
           
 if options.outputFile == None:
     log.error("Please specify an output filename to the " + \
@@ -830,14 +839,14 @@ if updateFlag == True:
             dayStr = "{:02}".format(nextDt.day)
             yearStr = "{:04}".format(nextDt.year)
 
-            startDateStr = "{}{}{}".format(yearStr, monthStr, dayStr)
-            startTimestampStr = convertTimestampStrToUnixEpochStr(startDateStr)
-            endTimestampStr = getTimestampStrForLatestData()
+            log.debug("startTimestampStr == {}".format(startTimestampStr))
+            log.debug("endTimestampStr == {}".format(endTimestampStr))
+            log.debug("startTimestampUnixEpochSecs == {}".\
+                          format(startTimestampUnixEpochSecs))
+            log.debug("endTimestampUnixEpochSecs == {}".\
+                          format(endTimestampUnixEpochSecs))
 
-            log.debug("startTimestampStr == " + startTimestampStr)
-            log.debug("endTimestampStr == " + endTimestampStr)
-
-            if int(startTimestampStr) > int(endTimestampStr):
+            if startTimestampUnixEpochSecs > endTimestampUnixEpochSecs:
                 # Start timestamp is after the end timestamp.
                 # This means that the file is already up to date
                 # because we can't query data any later than this.
