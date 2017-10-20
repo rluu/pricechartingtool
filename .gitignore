@@ -3,6 +3,7 @@
 # ephemeris data files.  
 data/*
 !data/ephe
+!data/ephemerisHeliocentricNodes
 
 # Ignore everything in the logs directory.
 logs/*
