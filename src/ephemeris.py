@@ -334,9 +334,456 @@ class Ephemeris:
     #
     heliocentricNodesMapToPIs = None
 
-    
     @staticmethod
-    def getSupportedPlanetNamesList():
+    def getTimestampNeighbors(jd, sortedTimestampList):
+        """Returns a 2-element tuple containing the timestamps from
+        'sortedTimestampList' that are closest before and
+        closest after in time compared to the timestamp at 'jd'.
+        
+        Parameters:
+
+        jd - float value for the Julian Day timestamp as input.
+
+        sortedTimestampList - list of float values, ascending.  
+        Each value in this list is a Julian Day timestamp.
+
+        Returns:
+
+        2-element tuple (t1, t2), in which t1 is the Julian Day value
+        from the list 'sortedTimestampList' that is closest before
+        'jd', and t2 is the Julian Day value from the list
+        'sortedTimestampList' that is closest after 'jd'.
+
+        If jd does not straddle between any timestamps inside 
+        sortedTimestampList, then an error will be logged and 
+        an exception raised.
+        """
+
+        if len(sortedTimestampList) < 2:
+            errMsg = "Input parameter 'sortedTimestampList' must contain " + \
+                "at least 2 values."
+            Ephemeris.log.error(errMsg)
+            raise RuntimeError(errMsg)
+        
+        minIndex = 0
+        maxIndex = len(sortedTimestampList) - 1
+        
+        # Check out-of-range scenarios.
+        if jd < sortedTimestampList[minIndex]:
+            errMsg = "jd is below our valid time range.  Values seen were: " + \
+                "jd == " + str(jd) + ", sortedTimestampList[minIndex] == " + \
+                str(sortedTimestampList[minIndex])
+            Ephemeris.log.error(errMsg)
+            raise RuntimeError(errMsg)
+        
+        if jd >= sortedTimestampList[maxIndex]:
+            errMsg = "jd is above our valid time range.  Values seen were: " + \
+                "jd == " + str(jd) + ", sortedTimestampList[maxIndex] == " + \
+                str(sortedTimestampList[maxIndex])
+            Ephemeris.log.error(errMsg)
+            raise RuntimeError(errMsg)
+        
+        # i is the lower bound index.
+        # j is the index to test against.
+        # k is the higher bound index.
+        i = minIndex
+        j = len(sortedTimestampList) // 2
+        k = maxIndex
+        
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("i == " + str(j))
+            Ephemeris.log.debug("j == " + str(j))
+            Ephemeris.log.debug("k == " + str(j))
+        
+        done = False
+        while not done:
+            if k - i == 1:
+                if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+                    Ephemeris.log.debug("Breaking out of loop."))
+                done = True
+                break
+            
+            if jd < sortedTimestampList[j]:
+                k = j
+            elif jd >= sortedTimestampList[j]:
+                i = j
+
+            j = i + ((k - i) // 2)
+            
+            if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+                Ephemeris.log.debug("i == " + str(j))
+                Ephemeris.log.debug("j == " + str(j))
+                Ephemeris.log.debug("k == " + str(j))
+
+
+        t1 = sortedTimestampList[i]
+        t2 = sortedTimestampList[k]
+        
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("t1 == " + str(t1))
+            Ephemeris.log.debug("t2 == " + str(t2))
+            
+        return (t1, t2)
+        
+
+    @staticmethod
+    def getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi):
+        """Returns a PlanetaryInfo constructed from the ratio obtained
+        from the linear interpolation of Julian Day timestamps,
+        and the two input PlanetaryInfo objects.
+
+        Note: Currently, this method was built for, and only works for
+        heliocentric planet nodes.  Therefore interpolation is only
+        done for heliocentric tropical and heliocentric sidereal 
+        longitude, and no other PlanetaryInfo fields.
+        
+        Parameters:
+        jd - float Julian Day value that lies between t1 and t2.
+        t1 - float Julian Day value that is before jd in time.
+        t2 - float Julian Day value that is after jd in time.
+        t1pi - PlanetaryInfo object for a planet at timestamp t1.
+        t2pi - PlanetaryInfo object for a planet at timestamp t2.
+        
+        Returns:
+        A new PlanetaryInfo valid at the timestamp of jd.
+        The longitude values in PlanetaryInfo are computed via
+        the interpolation of values between t1pi and t2pi.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("jd == " + str(jd) + ", " + \
+                                "t1 == " + str(t1) + ", " + \
+                                "t2 == " + str(t2) + ", " + \
+                                "t1pi == " + str(t1pi) + ", " + \
+                                "t2pi == " + str(t2pi))
+
+        tDiff = t2 - t1
+        jdDiff = jd - t1
+        ratio = jdDiff / tDiff
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("ratio == {}".format(ratio))
+            
+        # Create the PlanetaryInfo to be inserted.
+        
+        piPlanetName = None
+        piPlanetId = None
+        piDt = Ephemeris.julianDayToDatetime(jd)
+        piJd = jd
+
+        # Now fill out the dictionaries that go into a PlanetaryInfo object.
+
+        # Geocentric, Tropical.  Not supported, so all values set to 0.0
+        longitude = 0.0
+        latitude = 0.0
+        distance = 0.0
+        longitude_speed = 0.0
+        latitude_speed = 0.0
+        distance_speed = 0.0
+        rectascension = 0.0
+        declination = 0.0
+        rectascension_speed = 0.0
+        declination_speed = 0.0
+        distance_speed = 0.0
+        x = 0.0
+        y = 0.0
+        z = 0.0
+        dx = 0.0
+        dy = 0.0
+        dz = 0.0
+        
+        geocentricTropicalDict = \
+                {'longitude': longitude,
+                 'latitude': latitude,
+                 'distance': distance,
+                 'longitude_speed': longitude_speed,
+                 'latitude_speed': latitude_speed,
+                 'distance_speed': distance_speed,
+                 'rectascension': rectascension,
+                 'declination': declination,
+                 'distance': distance,
+                 'rectascension_speed': rectascension_speed,
+                 'declination_speed': declination_speed,
+                 'distance_speed': distance_speed,
+                 'X': x,
+                 'Y': y,
+                 'Z': z,
+                 'dX': dx,
+                 'dY': dy,
+                 'dZ': dz}
+            
+        # Geocentric, Sidereal.  Not supported, so all values set to 0.0
+        longitude = 0.0
+        latitude = 0.0
+        distance = 0.0
+        longitude_speed = 0.0
+        latitude_speed = 0.0
+        distance_speed = 0.0
+        rectascension = 0.0
+        declination = 0.0
+        rectascension_speed = 0.0
+        declination_speed = 0.0
+        distance_speed = 0.0
+        x = 0.0
+        y = 0.0
+        z = 0.0
+        dx = 0.0
+        dy = 0.0
+        dz = 0.0
+            
+        geocentricSiderealDict = \
+                {'longitude': longitude,
+                 'latitude': latitude,
+                 'distance': distance,
+                 'longitude_speed': longitude_speed,
+                 'latitude_speed': latitude_speed,
+                 'distance_speed': distance_speed,
+                 'rectascension': rectascension,
+                 'declination': declination,
+                 'distance': distance,
+                 'rectascension_speed': rectascension_speed,
+                 'declination_speed': declination_speed,
+                 'distance_speed': distance_speed,
+                 'X': x,
+                 'Y': y,
+                 'Z': z,
+                 'dX': dx,
+                 'dY': dy,
+                 'dZ': dz}
+            
+        # Topocentric, Tropical.  Not supported, so all values set to 0.0
+        longitude = 0.0
+        latitude = 0.0
+        distance = 0.0
+        longitude_speed = 0.0
+        latitude_speed = 0.0
+        distance_speed = 0.0
+        rectascension = 0.0
+        declination = 0.0
+        rectascension_speed = 0.0
+        declination_speed = 0.0
+        distance_speed = 0.0
+        x = 0.0
+        y = 0.0
+        z = 0.0
+        dx = 0.0
+        dy = 0.0
+        dz = 0.0
+            
+        topocentricTropicalDict = \
+                {'longitude': longitude,
+                 'latitude': latitude,
+                 'distance': distance,
+                 'longitude_speed': longitude_speed,
+                 'latitude_speed': latitude_speed,
+                 'distance_speed': distance_speed,
+                 'rectascension': rectascension,
+                 'declination': declination,
+                 'distance': distance,
+                 'rectascension_speed': rectascension_speed,
+                 'declination_speed': declination_speed,
+                 'distance_speed': distance_speed,
+                 'X': x,
+                 'Y': y,
+                 'Z': z,
+                 'dX': dx,
+                 'dY': dy,
+                 'dZ': dz}
+            
+        # Topocentric, Sidereal.  Not supported, so all values set to 0.0
+        longitude = 0.0
+        latitude = 0.0
+        distance = 0.0
+        longitude_speed = 0.0
+        latitude_speed = 0.0
+        distance_speed = 0.0
+        rectascension = 0.0
+        declination = 0.0
+        rectascension_speed = 0.0
+        declination_speed = 0.0
+        distance_speed = 0.0
+        x = 0.0
+        y = 0.0
+        z = 0.0
+        dx = 0.0
+        dy = 0.0
+        dz = 0.0
+            
+        topocentricSiderealDict = \
+                {'longitude': longitude,
+                 'latitude': latitude,
+                 'distance': distance,
+                 'longitude_speed': longitude_speed,
+                 'latitude_speed': latitude_speed,
+                 'distance_speed': distance_speed,
+                 'rectascension': rectascension,
+                 'declination': declination,
+                 'distance': distance,
+                 'rectascension_speed': rectascension_speed,
+                 'declination_speed': declination_speed,
+                 'distance_speed': distance_speed,
+                 'X': x,
+                 'Y': y,
+                 'Z': z,
+                 'dX': dx,
+                 'dY': dy,
+                 'dZ': dz}
+            
+        # Heliocentric, Tropical.
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("t1pi.heliocentric['tropical']['longitude'] == {}".format(t1pi.heliocentric['tropical']['longitude']))
+            Ephemeris.log.debug("t2pi.heliocentric['tropical']['longitude'] == {}".format(t2pi.heliocentric['tropical']['longitude']))
+            
+        # Heliocentric planet nodes move direct when referenced from the
+        # tropical zodiac.
+        longitudeDiff = \
+            t2pi.heliocentric['tropical']['longitude'] -
+            t1pi.heliocentric['tropical']['longitude']
+
+        if longitudeDiff < 0:
+            longitudeDiff += 360
+        
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("longitudeDiff == {}".format(longitudeDiff))
+        
+        delta = ratio * longitudeDiff
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("delta == {}".format(delta))
+        
+        longitude = Ephemeris.__toNormalizedAngle(\
+            t1pi.heliocentric['tropical']['longitude'] + delta)
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("longitude == {}".format(longitude))
+            
+        latitude = 0.0
+        distance = 0.0
+        longitude_speed = 0.0
+        latitude_speed = 0.0
+        distance_speed = 0.0
+        rectascension = 0.0
+        declination = 0.0
+        rectascension_speed = 0.0
+        declination_speed = 0.0
+        distance_speed = 0.0
+        x = 0.0
+        y = 0.0
+        z = 0.0
+        dx = 0.0
+        dy = 0.0
+        dz = 0.0
+            
+        heliocentricTropicalDict = \
+                {'longitude': longitude,
+                 'latitude': latitude,
+                 'distance': distance,
+                 'longitude_speed': longitude_speed,
+                 'latitude_speed': latitude_speed,
+                 'distance_speed': distance_speed,
+                 'rectascension': rectascension,
+                 'declination': declination,
+                 'distance': distance,
+                 'rectascension_speed': rectascension_speed,
+                 'declination_speed': declination_speed,
+                 'distance_speed': distance_speed,
+                 'X': x,
+                 'Y': y,
+                 'Z': z,
+                 'dX': dx,
+                 'dY': dy,
+                 'dZ': dz}
+            
+        # Heliocentric, Sidereal.  
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("t1pi.heliocentric['sidereal']['longitude'] == {}".format(t1pi.heliocentric['sidereal']['longitude']))
+            Ephemeris.log.debug("t2pi.heliocentric['sidereal']['longitude'] == {}".format(t2pi.heliocentric['sidereal']['longitude']))
+            
+        # Heliocentric planet nodes move retrograde when referenced from the
+        # sidereal zodiac.
+        longitudeDiff = \
+            t2pi.heliocentric['sidereal']['longitude'] -
+            t1pi.heliocentric['sidereal']['longitude']
+
+        if longitudeDiff > 0:
+            longitudeDiff -= 360
+        
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("longitudeDiff == {}".format(longitudeDiff))
+        
+        delta = ratio * longitudeDiff
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("delta == {}".format(delta))
+        
+        longitude = Ephemeris.__toNormalizedAngle(\
+            t1pi.heliocentric['sidereal']['longitude'] + delta)
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("longitude == {}".format(longitude))
+
+        longitude = 0.0
+        latitude = 0.0
+        distance = 0.0
+        longitude_speed = 0.0
+        latitude_speed = 0.0
+        distance_speed = 0.0
+        rectascension = 0.0
+        declination = 0.0
+        rectascension_speed = 0.0
+        declination_speed = 0.0
+        distance_speed = 0.0
+        x = 0.0
+        y = 0.0
+        z = 0.0
+        dx = 0.0
+        dy = 0.0
+        dz = 0.0
+            
+        heliocentricSiderealDict = \
+                {'longitude': longitude,
+                 'latitude': latitude,
+                 'distance': distance,
+                 'longitude_speed': longitude_speed,
+                 'latitude_speed': latitude_speed,
+                 'distance_speed': distance_speed,
+                 'rectascension': rectascension,
+                 'declination': declination,
+                 'distance': distance,
+                 'rectascension_speed': rectascension_speed,
+                 'declination_speed': declination_speed,
+                 'distance_speed': distance_speed,
+                 'X': x,
+                 'Y': y,
+                 'Z': z,
+                 'dX': dx,
+                 'dY': dy,
+                 'dZ': dz}
+            
+        # Dictionary holding all the geocentric information.
+        geocentricDict = {'tropical': geocentricTropicalDict,
+                          'sidereal': geocentricSiderealDict}
+
+        # Dictionary holding all the topocentric information.
+        topocentricDict = {'tropical': topocentricTropicalDict,
+                           'sidereal': topocentricSiderealDict}
+
+        # Dictionary holding all the heliocentric information.
+        heliocentricDict = {'tropical': heliocentricTropicalDict,
+                            'sidereal': heliocentricSiderealDict}
+
+                    
+        # Create the PlanetaryInfo object.
+        planetaryInfo = PlanetaryInfo(piPlanetName,
+                                      piPlanetId,
+                                      piDt,
+                                      piJulianDay,
+                                      geocentricDict,
+                                      topocentricDict,
+                                      heliocentricDict)
+ 
+        return planetaryInfo
+      
+  @staticmethod
+  def getSupportedPlanetNamesList():
         """Returns a list of str objects that is the list of planet
         names supported by this Ephemeris class, that can be used to
         obtain a PlanetaryInfo object.
@@ -4063,6 +4510,7 @@ class Ephemeris:
                 return Ephemeris.getMeanSouthNodePlanetaryInfo(dt)
             elif planetName == "TrueSouthNode":
                 return Ephemeris.getTrueSouthNodePlanetaryInfo(dt)
+            
             elif planetName == "MercuryNorthNode":
                 return Ephemeris.getMercuryNorthNodePlanetaryInfo(dt)
             elif planetName == "MercurySouthNode":
@@ -4091,6 +4539,7 @@ class Ephemeris:
                 return Ephemeris.getPlutoNorthNodePlanetaryInfo(dt)
             elif planetName == "PlutoSouthNode":
                 return Ephemeris.getPlutoSouthNodePlanetaryInfo(dt)
+            
             elif planetName == "MeanOfFive":
                 return Ephemeris.getMeanOfFivePlanetaryInfo(dt)
             elif planetName == "CycleOfEight":
@@ -5802,6 +6251,58 @@ class Ephemeris:
 
         return pi
 
+##############################################################################
+
+    @staticmethod
+    def getMercuryNorthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the MercuryNorthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        planetName = "Mercury"
+        nodeStr = "N"
+        
+        # Convert the timestamp to a Julian Day.
+        jd = Ephemeris.datetimeToJulianDay(timestamp)
+
+        sortedTimestampList = heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
+
+        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        
+        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        
+        # Set the name and id fields.
+        if nodeStr == "N":
+            pi.name = planetName + "NorthNode"
+        elif nodeStr == "S":
+            pi.name = planetName + "SouthNode"
+        else:
+            raise RuntimeError("Invalid nodeStr: " + nodeStr)
+        
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
+        return pi
+
+
+##############################################################################    
     @staticmethod
     def getMeanLunarApogeePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
