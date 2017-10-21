@@ -862,6 +862,8 @@ class Ephemeris:
             "SaturnSouthNode",
             "UranusNorthNode",
             "UranusSouthNode",
+            "NeptuneNorthNode",
+            "NeptuneSouthNode",
             "PlutoNorthNode",
             "PlutoSouthNode",
             ]
@@ -2058,6 +2060,8 @@ class Ephemeris:
             planetName == "SaturnSouthNode" or
             planetName == "UranusNorthNode" or
             planetName == "UranusSouthNode" or
+            planetName == "NeptuneNorthNode" or
+            planetName == "NeptuneSouthNode" or
             planetName == "PlutoNorthNode" or
             planetName == "PlutoSouthNode"):
 
@@ -4510,7 +4514,6 @@ class Ephemeris:
                 return Ephemeris.getMeanSouthNodePlanetaryInfo(dt)
             elif planetName == "TrueSouthNode":
                 return Ephemeris.getTrueSouthNodePlanetaryInfo(dt)
-            
             elif planetName == "MercuryNorthNode":
                 return Ephemeris.getMercuryNorthNodePlanetaryInfo(dt)
             elif planetName == "MercurySouthNode":
@@ -4535,11 +4538,14 @@ class Ephemeris:
                 return Ephemeris.getUranusNorthNodePlanetaryInfo(dt)
             elif planetName == "UranusSouthNode":
                 return Ephemeris.getUranusSouthNodePlanetaryInfo(dt)
+            elif planetName == "NeptuneNorthNode":
+                return Ephemeris.getNeptuneNorthNodePlanetaryInfo(dt)
+            elif planetName == "NeptuneSouthNode":
+                return Ephemeris.getNeptuneSouthNodePlanetaryInfo(dt)
             elif planetName == "PlutoNorthNode":
                 return Ephemeris.getPlutoNorthNodePlanetaryInfo(dt)
             elif planetName == "PlutoSouthNode":
                 return Ephemeris.getPlutoSouthNodePlanetaryInfo(dt)
-            
             elif planetName == "MeanOfFive":
                 return Ephemeris.getMeanOfFivePlanetaryInfo(dt)
             elif planetName == "CycleOfEight":
@@ -6251,8 +6257,6 @@ class Ephemeris:
 
         return pi
 
-##############################################################################
-
     @staticmethod
     def getMercuryNorthNodePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
@@ -6274,7 +6278,8 @@ class Ephemeris:
         # Convert the timestamp to a Julian Day.
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
-        sortedTimestampList = heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        sortedTimestampList = \
+            heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
         t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
@@ -6301,8 +6306,741 @@ class Ephemeris:
 
         return pi
 
+    @staticmethod
+    def getMercurySouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the MercurySouthNode at the given timestamp.
 
-##############################################################################    
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        planetName = "Mercury"
+        nodeStr = "S"
+        
+        # Convert the timestamp to a Julian Day.
+        jd = Ephemeris.datetimeToJulianDay(timestamp)
+
+        sortedTimestampList = \
+            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
+
+        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        
+        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        
+        # Set the name and id fields.
+        if nodeStr == "N":
+            pi.name = planetName + "NorthNode"
+        elif nodeStr == "S":
+            pi.name = planetName + "SouthNode"
+        else:
+            raise RuntimeError("Invalid nodeStr: " + nodeStr)
+        
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
+        return pi
+
+    @staticmethod
+    def getVenusNorthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the VenusNorthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        planetName = "Venus"
+        nodeStr = "N"
+        
+        # Convert the timestamp to a Julian Day.
+        jd = Ephemeris.datetimeToJulianDay(timestamp)
+
+        sortedTimestampList = \
+            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
+
+        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        
+        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        
+        # Set the name and id fields.
+        if nodeStr == "N":
+            pi.name = planetName + "NorthNode"
+        elif nodeStr == "S":
+            pi.name = planetName + "SouthNode"
+        else:
+            raise RuntimeError("Invalid nodeStr: " + nodeStr)
+        
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
+        return pi
+
+    @staticmethod
+    def getVenusSouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the VenusSouthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        planetName = "Venus"
+        nodeStr = "S"
+        
+        # Convert the timestamp to a Julian Day.
+        jd = Ephemeris.datetimeToJulianDay(timestamp)
+
+        sortedTimestampList = \
+            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
+
+        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        
+        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        
+        # Set the name and id fields.
+        if nodeStr == "N":
+            pi.name = planetName + "NorthNode"
+        elif nodeStr == "S":
+            pi.name = planetName + "SouthNode"
+        else:
+            raise RuntimeError("Invalid nodeStr: " + nodeStr)
+        
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
+        return pi
+
+    @staticmethod
+    def getMarsNorthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the MarsNorthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        planetName = "Mars"
+        nodeStr = "N"
+        
+        # Convert the timestamp to a Julian Day.
+        jd = Ephemeris.datetimeToJulianDay(timestamp)
+
+        sortedTimestampList = \
+            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
+
+        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        
+        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        
+        # Set the name and id fields.
+        if nodeStr == "N":
+            pi.name = planetName + "NorthNode"
+        elif nodeStr == "S":
+            pi.name = planetName + "SouthNode"
+        else:
+            raise RuntimeError("Invalid nodeStr: " + nodeStr)
+        
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
+        return pi
+
+    @staticmethod
+    def getMarsSouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the MarsSouthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        planetName = "Mars"
+        nodeStr = "S"
+        
+        # Convert the timestamp to a Julian Day.
+        jd = Ephemeris.datetimeToJulianDay(timestamp)
+
+        sortedTimestampList = \
+            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
+
+        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        
+        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        
+        # Set the name and id fields.
+        if nodeStr == "N":
+            pi.name = planetName + "NorthNode"
+        elif nodeStr == "S":
+            pi.name = planetName + "SouthNode"
+        else:
+            raise RuntimeError("Invalid nodeStr: " + nodeStr)
+        
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
+        return pi
+
+    @staticmethod
+    def getJupiterNorthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the JupiterNorthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        planetName = "Jupiter"
+        nodeStr = "N"
+        
+        # Convert the timestamp to a Julian Day.
+        jd = Ephemeris.datetimeToJulianDay(timestamp)
+
+        sortedTimestampList = \
+            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
+
+        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        
+        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        
+        # Set the name and id fields.
+        if nodeStr == "N":
+            pi.name = planetName + "NorthNode"
+        elif nodeStr == "S":
+            pi.name = planetName + "SouthNode"
+        else:
+            raise RuntimeError("Invalid nodeStr: " + nodeStr)
+        
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
+        return pi
+
+    @staticmethod
+    def getJupiterSouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the JupiterSouthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        planetName = "Jupiter"
+        nodeStr = "S"
+        
+        # Convert the timestamp to a Julian Day.
+        jd = Ephemeris.datetimeToJulianDay(timestamp)
+
+        sortedTimestampList = \
+            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
+
+        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        
+        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        
+        # Set the name and id fields.
+        if nodeStr == "N":
+            pi.name = planetName + "NorthNode"
+        elif nodeStr == "S":
+            pi.name = planetName + "SouthNode"
+        else:
+            raise RuntimeError("Invalid nodeStr: " + nodeStr)
+        
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
+        return pi
+
+    @staticmethod
+    def getSaturnNorthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the SaturnNorthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        planetName = "Saturn"
+        nodeStr = "N"
+        
+        # Convert the timestamp to a Julian Day.
+        jd = Ephemeris.datetimeToJulianDay(timestamp)
+
+        sortedTimestampList = \
+            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
+
+        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        
+        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        
+        # Set the name and id fields.
+        if nodeStr == "N":
+            pi.name = planetName + "NorthNode"
+        elif nodeStr == "S":
+            pi.name = planetName + "SouthNode"
+        else:
+            raise RuntimeError("Invalid nodeStr: " + nodeStr)
+        
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
+        return pi
+
+    @staticmethod
+    def getSaturnSouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the SaturnSouthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        planetName = "Saturn"
+        nodeStr = "S"
+        
+        # Convert the timestamp to a Julian Day.
+        jd = Ephemeris.datetimeToJulianDay(timestamp)
+
+        sortedTimestampList = \
+            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
+
+        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        
+        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        
+        # Set the name and id fields.
+        if nodeStr == "N":
+            pi.name = planetName + "NorthNode"
+        elif nodeStr == "S":
+            pi.name = planetName + "SouthNode"
+        else:
+            raise RuntimeError("Invalid nodeStr: " + nodeStr)
+        
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
+        return pi
+
+    @staticmethod
+    def getUranusNorthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the UranusNorthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        planetName = "Uranus"
+        nodeStr = "N"
+        
+        # Convert the timestamp to a Julian Day.
+        jd = Ephemeris.datetimeToJulianDay(timestamp)
+
+        sortedTimestampList = \
+            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
+
+        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        
+        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        
+        # Set the name and id fields.
+        if nodeStr == "N":
+            pi.name = planetName + "NorthNode"
+        elif nodeStr == "S":
+            pi.name = planetName + "SouthNode"
+        else:
+            raise RuntimeError("Invalid nodeStr: " + nodeStr)
+        
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
+        return pi
+
+    @staticmethod
+    def getUranusSouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the UranusSouthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        planetName = "Uranus"
+        nodeStr = "S"
+        
+        # Convert the timestamp to a Julian Day.
+        jd = Ephemeris.datetimeToJulianDay(timestamp)
+
+        sortedTimestampList = \
+            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
+
+        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        
+        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        
+        # Set the name and id fields.
+        if nodeStr == "N":
+            pi.name = planetName + "NorthNode"
+        elif nodeStr == "S":
+            pi.name = planetName + "SouthNode"
+        else:
+            raise RuntimeError("Invalid nodeStr: " + nodeStr)
+        
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
+        return pi
+
+    @staticmethod
+    def getNeptuneNorthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the NeptuneNorthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        planetName = "Neptune"
+        nodeStr = "N"
+        
+        # Convert the timestamp to a Julian Day.
+        jd = Ephemeris.datetimeToJulianDay(timestamp)
+
+        sortedTimestampList = \
+            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
+
+        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        
+        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        
+        # Set the name and id fields.
+        if nodeStr == "N":
+            pi.name = planetName + "NorthNode"
+        elif nodeStr == "S":
+            pi.name = planetName + "SouthNode"
+        else:
+            raise RuntimeError("Invalid nodeStr: " + nodeStr)
+        
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
+        return pi
+
+    @staticmethod
+    def getNeptuneSouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the NeptuneSouthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        planetName = "Neptune"
+        nodeStr = "S"
+        
+        # Convert the timestamp to a Julian Day.
+        jd = Ephemeris.datetimeToJulianDay(timestamp)
+
+        sortedTimestampList = \
+            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
+
+        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        
+        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        
+        # Set the name and id fields.
+        if nodeStr == "N":
+            pi.name = planetName + "NorthNode"
+        elif nodeStr == "S":
+            pi.name = planetName + "SouthNode"
+        else:
+            raise RuntimeError("Invalid nodeStr: " + nodeStr)
+        
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
+        return pi
+
+    @staticmethod
+    def getPlutoNorthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the PlutoNorthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        planetName = "Pluto"
+        nodeStr = "N"
+        
+        # Convert the timestamp to a Julian Day.
+        jd = Ephemeris.datetimeToJulianDay(timestamp)
+
+        sortedTimestampList = \
+            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
+
+        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        
+        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        
+        # Set the name and id fields.
+        if nodeStr == "N":
+            pi.name = planetName + "NorthNode"
+        elif nodeStr == "S":
+            pi.name = planetName + "SouthNode"
+        else:
+            raise RuntimeError("Invalid nodeStr: " + nodeStr)
+        
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
+        return pi
+
+    @staticmethod
+    def getPlutoSouthNodePlanetaryInfo(timestamp):
+        """Returns a PlanetaryInfo containing information about
+        the PlutoSouthNode at the given timestamp.
+
+        Parameters:
+        timestamp - datetime.datetime object holding the timestamp at which to
+                    do the lookup.  Timezone information is automatically
+                    converted to UTC for getting the planetary info.
+        """
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            functName = inspect.stack()[0][3]
+            Ephemeris.log.debug(functName + "({})".format(timestamp))
+
+        planetName = "Pluto"
+        nodeStr = "S"
+        
+        # Convert the timestamp to a Julian Day.
+        jd = Ephemeris.datetimeToJulianDay(timestamp)
+
+        sortedTimestampList = \
+            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+        (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
+
+        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        
+        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        
+        # Set the name and id fields.
+        if nodeStr == "N":
+            pi.name = planetName + "NorthNode"
+        elif nodeStr == "S":
+            pi.name = planetName + "SouthNode"
+        else:
+            raise RuntimeError("Invalid nodeStr: " + nodeStr)
+        
+        # Use an invalid planet ID.
+        #
+        # (Note: The number chosen has no meaning.
+        # I couldn't use -1, because -1 stands for SE_ECL_NUT.
+        # See documentation of the Swiss Ephemeris, in
+        # file: pyswisseph-1.77.00-0/doc/swephprg.htm)
+        #
+        pi.id = -9999
+
+        return pi
+
     @staticmethod
     def getMeanLunarApogeePlanetaryInfo(timestamp):
         """Returns a PlanetaryInfo containing information about
