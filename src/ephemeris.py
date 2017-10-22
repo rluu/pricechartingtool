@@ -304,7 +304,8 @@ class Ephemeris:
     # Description:
     #   Map of a map of lists where values are accessed via:
     #
-    #     sortedTimestampList = heliocentricNodesMapToTimestamps["Mercury"]["N"]
+    #     sortedTimestampList = \
+    #         Ephemeris.heliocentricNodesMapToTimestamps["Mercury"]["N"]
     #   
     #   where 'sortedTimestampList' is a list with values [t1, t2, t3, ...],
     #   and each timestamp in this list is a float julian day.
@@ -323,7 +324,7 @@ class Ephemeris:
     #   Map of a map of lists where values are accessed via:
     #
     #     planetaryInfo = \
-    #         heliocentricNodesMapToPIs["Mercury"]["N"].get(t1)
+    #         Ephemeris.heliocentricNodesMapToPIs["Mercury"]["N"].get(t1)
     #   
     #   where 't1' is the float Julian Day timestamp and 'planetaryInfo' is an
     #   instance of PlanetaryInfo that contains the info regarding
@@ -399,7 +400,7 @@ class Ephemeris:
         while not done:
             if k - i == 1:
                 if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-                    Ephemeris.log.debug("Breaking out of loop."))
+                    Ephemeris.log.debug("Breaking out of loop.")
                 done = True
                 break
             
@@ -427,7 +428,7 @@ class Ephemeris:
         
 
     @staticmethod
-    def getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi):
+    def __getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi):
         """Returns a PlanetaryInfo constructed from the ratio obtained
         from the linear interpolation of Julian Day timestamps,
         and the two input PlanetaryInfo objects.
@@ -637,7 +638,7 @@ class Ephemeris:
         # Heliocentric planet nodes move direct when referenced from the
         # tropical zodiac.
         longitudeDiff = \
-            t2pi.heliocentric['tropical']['longitude'] -
+            t2pi.heliocentric['tropical']['longitude'] - \
             t1pi.heliocentric['tropical']['longitude']
 
         if longitudeDiff < 0:
@@ -701,7 +702,7 @@ class Ephemeris:
         # Heliocentric planet nodes move retrograde when referenced from the
         # sidereal zodiac.
         longitudeDiff = \
-            t2pi.heliocentric['sidereal']['longitude'] -
+            t2pi.heliocentric['sidereal']['longitude'] - \
             t1pi.heliocentric['sidereal']['longitude']
 
         if longitudeDiff > 0:
@@ -720,7 +721,6 @@ class Ephemeris:
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("longitude == {}".format(longitude))
 
-        longitude = 0.0
         latitude = 0.0
         distance = 0.0
         longitude_speed = 0.0
@@ -775,15 +775,15 @@ class Ephemeris:
         planetaryInfo = PlanetaryInfo(piPlanetName,
                                       piPlanetId,
                                       piDt,
-                                      piJulianDay,
+                                      piJd,
                                       geocentricDict,
                                       topocentricDict,
                                       heliocentricDict)
  
         return planetaryInfo
-      
-  @staticmethod
-  def getSupportedPlanetNamesList():
+
+    @staticmethod
+    def getSupportedPlanetNamesList():
         """Returns a list of str objects that is the list of planet
         names supported by this Ephemeris class, that can be used to
         obtain a PlanetaryInfo object.
@@ -986,11 +986,11 @@ class Ephemeris:
         # the seed data from the data directory.
         Ephemeris.log.info("Initializing lookup values for " + \
                             "heliocentric planet node calculations ...")
-        heliocentricNodesMapToTimestamps = {}
-        heliocentricNodesMapToPIs = {}
+        Ephemeris.heliocentricNodesMapToTimestamps = {}
+        Ephemeris.heliocentricNodesMapToPIs = {}
         seedDataFilename = \
             os.path.join(Ephemeris.EPHEMERIS_DATA_DIR_FOR_HELIO_PLANET_NODES,
-                         "planetNodePoitions.csv")
+                         "planetNodePositions.csv")
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("Seed data filename is: " + seedDataFilename)
         
@@ -999,6 +999,9 @@ class Ephemeris:
             expectedHeaderLine = "Planet Name,Julian Day,Datetime,Node,HelioTropLongitude,HelioSidLongitude,PlanetNorthNode_HelioTropLongitude,PlanetNorthNode_HelioSidLongitude"
             
             for line in f:
+                # Strip is needed to remove the newlines.
+                line = line.strip()
+                
                 if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
                     Ephemeris.log.debug("Looking at line: " + line)
                 
@@ -1045,28 +1048,27 @@ class Ephemeris:
                         Ephemeris.log.error(errMsg)
                         raise ValueError(errMsg)
 
-                    if heliocentricNodesMapToTimestamps.get(planetName) == None:
+                    if Ephemeris.heliocentricNodesMapToTimestamps.get(planetName) == None:
                         nodeMap = {
                             "N" : [],
                             "S" : []
                             }
-                        heliocentricNodesMapToTimestamps.put(planetName,
-                                                             nodeMap)
+                        Ephemeris.heliocentricNodesMapToTimestamps[planetName] = nodeMap
+                        
                     # Append timestamp into the list.
                     # We will sort each list later.
                     julianDayList = \
-                        heliocentricNodesMapToTimestamps[planetName][nodeStr]
+                        Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
                     julianDayList.append(julianDay)
                     
-                    if heliocentricNodesMapToPIs.get(planetName) == None:
+                    if Ephemeris.heliocentricNodesMapToPIs.get(planetName) == None:
                         nodeMap = {
                             "N" : {},
                             "S" : {}
                             }
-                        heliocentricNodesMapToPIs.put(planetName,
-                                                      nodeMap)
+                        Ephemeris.heliocentricNodesMapToPIs[planetName] = nodeMap
 
-                    nodeMap = heliocentricNodesMapToPIs[planetName][nodeStr]
+                    nodeMap = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr]
                     
                     # Create the PlanetaryInfo to be inserted.
                     piPlanetName = None
@@ -1338,14 +1340,14 @@ class Ephemeris:
                                                   topocentricDict,
                                                   heliocentricDict)
 
-                    nodeMap.put(julianDay, planetaryInfo)
+                    nodeMap[julianDay] = planetaryInfo
 
         if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
             Ephemeris.log.debug("Done processing file: " + seedDataFilename)
             Ephemeris.log.debug("Now sorting lists ...")
         
-        for planetName in heliocentricNodesMapToTimestamps.keys():
-            planetMap = heliocentricNodesMapToTimestamps[planetName]
+        for planetName in Ephemeris.heliocentricNodesMapToTimestamps.keys():
+            planetMap = Ephemeris.heliocentricNodesMapToTimestamps[planetName]
             for nodeStr in planetMap.keys():
                 julianDayList = planetMap[nodeStr]
                 # Sort in place.
@@ -6279,13 +6281,13 @@ class Ephemeris:
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
         sortedTimestampList = \
-            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+            Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
-        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
-        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        t1pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
         
-        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        pi = Ephemeris.__getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
         
         # Set the name and id fields.
         if nodeStr == "N":
@@ -6328,13 +6330,13 @@ class Ephemeris:
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
         sortedTimestampList = \
-            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+            Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
-        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
-        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        t1pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
         
-        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        pi = Ephemeris.__getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
         
         # Set the name and id fields.
         if nodeStr == "N":
@@ -6377,13 +6379,13 @@ class Ephemeris:
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
         sortedTimestampList = \
-            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+            Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
-        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
-        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        t1pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
         
-        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        pi = Ephemeris.__getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
         
         # Set the name and id fields.
         if nodeStr == "N":
@@ -6426,13 +6428,13 @@ class Ephemeris:
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
         sortedTimestampList = \
-            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+            Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
-        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
-        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        t1pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
         
-        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        pi = Ephemeris.__getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
         
         # Set the name and id fields.
         if nodeStr == "N":
@@ -6475,13 +6477,13 @@ class Ephemeris:
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
         sortedTimestampList = \
-            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+            Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
-        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
-        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        t1pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
         
-        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        pi = Ephemeris.__getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
         
         # Set the name and id fields.
         if nodeStr == "N":
@@ -6524,13 +6526,13 @@ class Ephemeris:
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
         sortedTimestampList = \
-            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+            Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
-        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
-        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        t1pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
         
-        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        pi = Ephemeris.__getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
         
         # Set the name and id fields.
         if nodeStr == "N":
@@ -6573,13 +6575,13 @@ class Ephemeris:
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
         sortedTimestampList = \
-            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+            Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
-        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
-        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        t1pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
         
-        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        pi = Ephemeris.__getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
         
         # Set the name and id fields.
         if nodeStr == "N":
@@ -6622,13 +6624,13 @@ class Ephemeris:
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
         sortedTimestampList = \
-            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+            Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
-        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
-        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        t1pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
         
-        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        pi = Ephemeris.__getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
         
         # Set the name and id fields.
         if nodeStr == "N":
@@ -6671,13 +6673,13 @@ class Ephemeris:
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
         sortedTimestampList = \
-            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+            Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
-        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
-        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        t1pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
         
-        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        pi = Ephemeris.__getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
         
         # Set the name and id fields.
         if nodeStr == "N":
@@ -6720,13 +6722,13 @@ class Ephemeris:
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
         sortedTimestampList = \
-            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+            Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
-        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
-        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        t1pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
         
-        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        pi = Ephemeris.__getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
         
         # Set the name and id fields.
         if nodeStr == "N":
@@ -6769,13 +6771,13 @@ class Ephemeris:
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
         sortedTimestampList = \
-            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+            Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
-        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
-        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        t1pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
         
-        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        pi = Ephemeris.__getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
         
         # Set the name and id fields.
         if nodeStr == "N":
@@ -6818,13 +6820,13 @@ class Ephemeris:
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
         sortedTimestampList = \
-            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+            Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
-        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
-        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        t1pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
         
-        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        pi = Ephemeris.__getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
         
         # Set the name and id fields.
         if nodeStr == "N":
@@ -6867,13 +6869,13 @@ class Ephemeris:
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
         sortedTimestampList = \
-            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+            Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
-        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
-        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        t1pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
         
-        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        pi = Ephemeris.__getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
         
         # Set the name and id fields.
         if nodeStr == "N":
@@ -6916,13 +6918,13 @@ class Ephemeris:
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
         sortedTimestampList = \
-            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+            Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
-        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
-        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        t1pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
         
-        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        pi = Ephemeris.__getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
         
         # Set the name and id fields.
         if nodeStr == "N":
@@ -6965,13 +6967,13 @@ class Ephemeris:
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
         sortedTimestampList = \
-            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+            Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
-        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
-        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        t1pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
         
-        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        pi = Ephemeris.__getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
         
         # Set the name and id fields.
         if nodeStr == "N":
@@ -7014,13 +7016,13 @@ class Ephemeris:
         jd = Ephemeris.datetimeToJulianDay(timestamp)
 
         sortedTimestampList = \
-            heliocentricNodesMapToTimestamps[planetName][nodeStr]
+            Ephemeris.heliocentricNodesMapToTimestamps[planetName][nodeStr]
         (t1, t2) = Ephemeris.getTimestampNeighbors(jd, sortedTimestampList)
 
-        t1pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
-        t2pi = heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
+        t1pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t1)
+        t2pi = Ephemeris.heliocentricNodesMapToPIs[planetName][nodeStr].get(t2)
         
-        pi = Ephemeris.getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
+        pi = Ephemeris.__getPlanetaryInfoFromInterpolation(jd, t1, t2, t1pi, t2pi)
         
         # Set the name and id fields.
         if nodeStr == "N":
@@ -9534,6 +9536,40 @@ def testDatetimeJulianPrecisionLoss():
 
     dt = Ephemeris.julianDayToDatetime(jd)
     print("    jd to UTC datetime (implicit) is: {}".format(dt))
+
+
+def testHeliocentricPlanetNodeLongitude():
+    print("Running " + inspect.stack()[0][3] + "()")
+
+    # Get the current time, which we will use to get planetary info.
+    #now = datetime.datetime.utcnow()
+    eastern = pytz.timezone('US/Eastern')
+
+    # Pick a time and calculate the node longitudes over X years.
+    if True:
+        start = datetime.datetime.now(eastern)
+        increment = datetime.timedelta(days=1)
+        years = 20
+        finishDelta = datetime.timedelta(days=years*365)
+        end = start + finishDelta
+        curr = start
+        while curr < end:
+            planetName = "MercuryNorthNode"
+            #planetName = "MercurySouthNode"
+            p = Ephemeris.getPlanetaryInfo(planetName, curr)
+            tropicalLongitude = p.heliocentric['tropical']['longitude']
+            siderealLongitude = p.heliocentric['sidereal']['longitude']
+            curr += increment
+            
+            print("    Heliocentric tropical longitude of {} at {} is: {}".\
+                  format(p.name,
+                         Ephemeris.datetimeToDayStr(curr),
+                         tropicalLongitude))
+            
+            print("    Heliocentric sidereal longitude of {} at {} is: {}".\
+                  format(p.name,
+                         Ephemeris.datetimeToDayStr(curr),
+                         siderealLongitude))
 
 
 def testMinMaxPlanetLongitudeSpeeds():
@@ -12817,7 +12853,10 @@ if __name__=="__main__":
     logging.config.fileConfig(LOG_CONFIG_FILE)
 
     # Initialize Ephemeris (required).
+    startTime = time.time()
     Ephemeris.initialize()
+    endTime = time.time()
+    print("Ephemeris.initialize took: {} sec".format(endTime - startTime))
 
     # Set the Location (required).
 
@@ -12845,13 +12884,14 @@ if __name__=="__main__":
     #testAscmc()
     #testPlanetTopicalLongitude()
     #testDatetimeJulianPrecisionLoss()
+    testHeliocentricPlanetNodeLongitude()
 
     # These tests will take a long time, so I've commented it out.
     #testMinMaxPlanetLongitudeSpeeds()
     #testMinMaxPlanetLatitude()
     #testMinMaxPlanetDeclination()
 
-    testStudyingEpact()
+    #testStudyingEpact()
 
     endTime = time.time()
     print("Calculations took: {} sec".format(endTime - startTime))
