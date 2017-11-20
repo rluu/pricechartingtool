@@ -25,7 +25,7 @@
 
 # For obtaining current directory path information, and creating directories
 import os
-import sys 
+import sys
 import errno
 
 # For copy.deepcopy()
@@ -73,14 +73,13 @@ hourOfDay = 12
 minuteOfHour = 0
 
 
-startDt = datetime.datetime(year=800, month=1, day=1,
+startDt = datetime.datetime(year=1, month=1, day=1,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
-#startDt = datetime.datetime(year=2199, month=1, day=1,
+#startDt = datetime.datetime(year=2506, month=1, day=1,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
-
-endDt   = datetime.datetime(year=2200, month=12, day=31,
+endDt   = datetime.datetime(year=3000, month=12, day=31,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
 

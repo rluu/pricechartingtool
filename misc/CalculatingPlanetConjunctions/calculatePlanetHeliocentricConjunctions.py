@@ -57,24 +57,30 @@ from data_objects import *
 VERSION = "0.1"
 
 # Location information to use with the Ephemeris.
-locationName = "New York City"
-locationLongitude = -74.0064
-locationLatitude = 40.7142
+#locationName = "New York City"
+#locationLongitude = -74.0064
+#locationLatitude = 40.7142
+
+locationName = "AlexandriaVirginiaApartment"
+locationLongitude = -77.0677
+locationLatitude = 38.8012
+
 locationElevation = 0
 
 # Timezone information to use with the Ephemeris.
-timezone = pytz.timezone("US/Eastern")
+#timezone = pytz.timezone("US/Eastern")
+timezone = pytz.utc
 
 # Time of the day to use to whem getting ephemeris measurements.
 hourOfDay = 12
 minuteOfHour = 0
 
 
-startDt = datetime.datetime(year=1800, month=1, day=1,
+startDt = datetime.datetime(year=2017, month=1, day=1,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
 
-endDt   = datetime.datetime(year=2100, month=12, day=31,
+endDt   = datetime.datetime(year=2020, month=12, day=31,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
 
@@ -83,7 +89,7 @@ endDt   = datetime.datetime(year=2100, month=12, day=31,
 stepSizeTd = datetime.timedelta(days=1)
 
 # Error threshold for calculating timestamps.
-maxErrorTd = datetime.timedelta(minutes=1)
+maxErrorTd = datetime.timedelta(seconds=1)
 
 # Destination output CSV file.
 outputFilename = thisScriptDir + os.sep + "planetHeliocentricConjunctions.csv"
@@ -707,6 +713,9 @@ if __name__ == "__main__":
             else:
                 planetName1 = heliocentricPlanetNames[i]
                 planetName2 = heliocentricPlanetNames[j]
+
+                if planetName1 != "Venus" and planetName2 != "Venus":
+                    continue
                 
                 comboPlanetName = planetName1 + "/" + planetName2
                 log.info("Obtaining planet heliocentric conjunction " + \
@@ -802,7 +811,10 @@ if __name__ == "__main__":
             else:
                 planetName1 = heliocentricPlanetNames[i]
                 planetName2 = heliocentricPlanetNames[j]
-                
+
+                if planetName1 != "Venus" and planetName2 != "Venus":
+                    continue
+
                 comboPlanetName = planetName1 + "/" + planetName2
 
                 for tup in results[comboPlanetName]:

@@ -46,13 +46,13 @@ log.setLevel(logLevel)
 
 # Start and ending timestamps for drawing.
 
-startDt = datetime.datetime(year=1979, month=1, day=1,
+startDt = datetime.datetime(year=1905, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
 #startDt = datetime.datetime(year=1995, month=1, day=1,
 #                            hour=0, minute=0, second=0,
 #                            tzinfo=pytz.utc)
-endDt = datetime.datetime(year=2018, month=1, day=1,
+endDt = datetime.datetime(year=1940, month=1, day=1,
                             hour=0, minute=0, second=0,
                             tzinfo=pytz.utc)
 
@@ -186,16 +186,18 @@ def processPCDD(pcdd, tag):
                     pcdd, dt, highPrice, lowPrice, tag, color)
         
 
-    if True:
+    if False:
         # 20 years cycle.
         # This is G.Sun conj. G.Mercury, while G.Mercury is going retrograde,
         # plus 20 G.Sun revolutions.
         #
-        
+        # Per test on 2017-10-06, it doesn't happen reliably.  Needs
+        # investigation whether it is only valid during certain cycle
+        # phases or times or conditions.
 
         # Search timeframe is an extra year in each direction.
-        searchStartDt = startDt - datetime.timedelta(years=21)
-        searchEndDt = endDt - datetime.timedelta(years=19)
+        searchStartDt = startDt - datetime.timedelta(days=21 * 365)
+        searchEndDt = endDt - datetime.timedelta(days=19 * 365)
 
         # Get all H.Mercury opp. H.Earth, which is the equivalent of
         # G.Sun conj. G.Mercury, while G.Mercury is going retrograde
@@ -223,7 +225,7 @@ def processPCDD(pcdd, tag):
             desiredRevolutionsElapsed = 20
             desiredDegreesElapsed = 360 * desiredRevolutionsElapsed
             
-            lineDt = getDatetimesOfElapsedLongitudeDegrees(\
+            lineDts = EphemerisUtils.getDatetimesOfElapsedLongitudeDegrees(\
                 planet2Name,
                 centricityType,
                 longitudeType,
@@ -231,28 +233,79 @@ def processPCDD(pcdd, tag):
                 desiredDegreesElapsed,
                 maxErrorTd=datetime.timedelta(minutes=1))
             
-                                                               )
-            tag = centricityType + "_" + planet1Name + \
-                "_opp_" + centricityType + "_" + planet2Name + \
-                "_plus_" + centricityType + "_" + planet2Name + \
-                "_" + desiredRevolutionsElapsed + "_revolutions"
+            for lineDt in lineDts:
+                tag = centricityType + "_" + planet1Name + \
+                    "_opp_" + centricityType + "_" + planet2Name + \
+                    "_plus_" + centricityType + "_" + planet2Name + \
+                    "_" + str(desiredRevolutionsElapsed) + "_revolutions"
+                    
+                color = Color.darkRed
                 
-            color = Color.darkRed
-            
-            PlanetaryCombinationsLibrary.addVerticalLine(\
-                pcdd, lineDt, highPrice, lowPrice, tag, color)
+                PlanetaryCombinationsLibrary.addVerticalLine(\
+                    pcdd, lineDt, highPrice, lowPrice, tag, color)
+        
+    if False:
+        # This is G.Mercury going retrograde position,
+        # plus 1 G.Mercury revolutions.
+        #
+
+        # Search timeframe is an extra year before and after.
+        searchStartDt = startDt - datetime.timedelta(days=365 * 2)
+        searchEndDt = endDt - datetime.timedelta(days=365 * -1)
+
+        planetName = "Mercury"
+        maxErrorTd = datetime.timedelta(minutes=1)
+        
+        tuples = EphemerisUtils.getGeoRetrogradeDirectTimestamps(\
+            searchStartDt,
+            searchEndDt,
+            planetName,
+            maxErrorTd=maxErrorTd)
+
+        for tup in tuples:
+            p = tup[0]
+            direction = tup[1]
+
+            if direction == "retrograde":
+                
+                planet2Name = "Mercury"
+                centricityType = "geocentric"
+                longitudeType = "tropical"
+                planetEpocDt = p.dt
+                desiredRevolutionsElapsed = 1
+                desiredDegreesElapsed = 360 * desiredRevolutionsElapsed
+                
+                lineDts = \
+                    EphemerisUtils.\
+                    getDatetimesOfElapsedLongitudeDegrees(\
+                    planet2Name,
+                    centricityType,
+                    longitudeType,
+                    planetEpocDt,
+                    desiredDegreesElapsed,
+                    maxErrorTd=maxErrorTd)
+
+                for lineDt in lineDts:
+                    tag = "geocentric_" + planetName + "_start_" + direction + \
+                        "_plus_" + centricityType + "_" + planet2Name + \
+                        "_" + str(desiredRevolutionsElapsed) + "_revolutions"
+                        
+                    color = Color.red
+                    
+                    PlanetaryCombinationsLibrary.addVerticalLine(\
+                        pcdd, lineDt, highPrice, lowPrice, tag, color)
         
         
-    if True:
+    if False:
         # 3 years cycle.
         # This is G.Mercury going retrograde position,
         # plus 3 G.Sun revolutions.
         #
-        
+        # Per test on 2017-10-06: Not a cycle when checking +3 years.
 
         # Search timeframe is an extra year before and after.
-        searchStartDt = startDt - datetime.timedelta(years=21)
-        searchEndDt = endDt - datetime.timedelta(years=19)
+        searchStartDt = startDt - datetime.timedelta(days=365 * 4)
+        searchEndDt = endDt - datetime.timedelta(days=365 * 2)
 
         planetName = "Mercury"
         maxErrorTd = datetime.timedelta(minutes=1)
@@ -271,29 +324,32 @@ def processPCDD(pcdd, tag):
                 
                 planet2Name = "Sun"
                 centricityType = "geocentric"
+                longitudeType = "tropical"
                 planetEpocDt = p.dt
                 desiredRevolutionsElapsed = 3
                 desiredDegreesElapsed = 360 * desiredRevolutionsElapsed
                 
-                lineDt = getDatetimesOfElapsedLongitudeDegrees(\
+                lineDts = \
+                    EphemerisUtils.\
+                    getDatetimesOfElapsedLongitudeDegrees(\
                     planet2Name,
                     centricityType,
                     longitudeType,
                     planetEpocDt,
                     desiredDegreesElapsed,
                     maxErrorTd=maxErrorTd)
-            
-                tag = "geocentric_" + planetName + "_start_" + direction
-                    "_plus_" + centricityType + "_" + planet2Name + \
-                    "_" + desiredRevolutionsElapsed + "_revolutions"
+
+                for lineDt in lineDts:
+                    tag = "geocentric_" + planetName + "_start_" + direction + \
+                        "_plus_" + centricityType + "_" + planet2Name + \
+                        "_" + str(desiredRevolutionsElapsed) + "_revolutions"
+                        
+                    color = Color.red
                     
-                color = Color.red
-                
-                PlanetaryCombinationsLibrary.addVerticalLine(\
-                    pcdd, lineDt, highPrice, lowPrice, tag, color)
+                    PlanetaryCombinationsLibrary.addVerticalLine(\
+                        pcdd, lineDt, highPrice, lowPrice, tag, color)
         
-        
-    if True:
+    if False:
         # 3 years cycle.
         # This is G.Mercury going direct position,
         # plus 3 G.Sun revolutions.
@@ -301,8 +357,8 @@ def processPCDD(pcdd, tag):
         
 
         # Search timeframe is an extra year before and after.
-        searchStartDt = startDt - datetime.timedelta(years=21)
-        searchEndDt = endDt - datetime.timedelta(years=19)
+        searchStartDt = startDt - datetime.timedelta(days=4 * 365)
+        searchEndDt = endDt - datetime.timedelta(days=2 * 365)
 
         planetName = "Mercury"
         maxErrorTd = datetime.timedelta(minutes=1)
@@ -321,29 +377,32 @@ def processPCDD(pcdd, tag):
                 
                 planet2Name = "Sun"
                 centricityType = "geocentric"
+                longitudeType = "tropical"
                 planetEpocDt = p.dt
                 desiredRevolutionsElapsed = 3
                 desiredDegreesElapsed = 360 * desiredRevolutionsElapsed
                 
-                lineDt = getDatetimesOfElapsedLongitudeDegrees(\
+                lineDts = \
+                    EphemerisUtils.\
+                    getDatetimesOfElapsedLongitudeDegrees(\
                     planet2Name,
                     centricityType,
                     longitudeType,
                     planetEpocDt,
                     desiredDegreesElapsed,
                     maxErrorTd=maxErrorTd)
-            
-                tag = "geocentric_" + planetName + "_start_" + direction + 
-                    "_plus_" + centricityType + "_" + planet2Name + \
-                    "_" + desiredRevolutionsElapsed + "_revolutions"
-                    
-                color = Color.red
                 
-                PlanetaryCombinationsLibrary.addVerticalLine(\
-                    pcdd, lineDt, highPrice, lowPrice, tag, color)
+                for lineDt in lineDts:
+                    tag = "geocentric_" + planetName + "_start_" + direction + \
+                        "_plus_" + centricityType + "_" + planet2Name + \
+                        "_" + str(desiredRevolutionsElapsed) + "_revolutions"
+                        
+                    color = Color.red
+                    
+                    PlanetaryCombinationsLibrary.addVerticalLine(\
+                        pcdd, lineDt, highPrice, lowPrice, tag, color)
         
-        
-    if True:
+    if False:
         # 490 and 980 days cycle from Nisan 1.
         # These are turns where the timestamp is:
         # - LD(XXXX, 1, 0) + G.Sun movement of 490 degrees.
@@ -352,7 +411,7 @@ def processPCDD(pcdd, tag):
 
         # This will be our years to get the desired lunar dates for.
         years = []
-        for year in range(startDt.year - 4, endDt.year - 1)
+        for year in range(startDt.year - 4, endDt.year - 1):
             years.append(year)
 
         for year in years:
@@ -373,7 +432,9 @@ def processPCDD(pcdd, tag):
             
             for desiredDegreesElapsed in desiredDegreesElapsedList:
             
-                lineDt = getDatetimesOfElapsedLongitudeDegrees(\
+                lineDt = \
+                    EphemerisUtils.\
+                    getDatetimesOfElapsedLongitudeDegrees(\
                         planetName,
                         centricityType,
                         longitudeType,
@@ -393,7 +454,7 @@ def processPCDD(pcdd, tag):
                     pcdd, lineDt, highPrice, lowPrice, tag, color)
         
         
-    if True:
+    if False:
         # 490 and 980 days cycle from ???????.
         # These are turns where the timestamp is:
         # - LD(XXXX, ?, ?) + G.Sun movement of 490 degrees.
@@ -402,13 +463,13 @@ def processPCDD(pcdd, tag):
 
         # This will be our years to get the desired lunar dates for.
         years = []
-        for year in range(startDt.year - 4, endDt.year - 1)
+        for year in range(startDt.year - 4, endDt.year - 1):
             years.append(year)
 
         for year in years:
             lunarYear = year
-            lunarMonth = ?
-            lunarDay = ?
+            #lunarMonth = ?
+            #lunarDay = ?
 
             lunarDate = LunarDate(lunarYear, lunarMonth, lunarDay)
 
@@ -423,7 +484,9 @@ def processPCDD(pcdd, tag):
             
             for desiredDegreesElapsed in desiredDegreesElapsedList:
             
-                lineDt = getDatetimesOfElapsedLongitudeDegrees(\
+                lineDt = \
+                    EphemerisUtils.\
+                    getDatetimesOfElapsedLongitudeDegrees(\
                         planetName,
                         centricityType,
                         longitudeType,
@@ -942,7 +1005,7 @@ def processPCDD(pcdd, tag):
                 numMonthsInYear = 12
 
             for month in range(numMonthsInYear):
-                
+                pass
                 
                 
             

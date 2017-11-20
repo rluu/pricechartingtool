@@ -12868,6 +12868,10 @@ if __name__=="__main__":
     #lon = -77.084444
     #lat = 38.890277
 
+    # My address at 2351 Eisenhower Ave., Alexandria, VA, 22314
+    #lon = -77.0677
+    #lat = 38.8012
+    
     # New York City:
     lon = -74.0064
     lat = 40.7142

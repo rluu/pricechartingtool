@@ -2,16 +2,13 @@
 ##############################################################################
 # Description:
 #
-# Script for creating a generic spreadsheet of the Sun, Moon, and TrueNorthNode.
+# Script for creating a generic spreadsheet of the Sunrises and Sunsets.
 # The timestamp of each line entry is at the exact moment (within an error
-# threshold of 1 minute) of each of the 30 moon synodic month phases.
+# threshold of 1 second).
 #
 # Data included is:
 #
 #        - Geocentric
-#        - Heliocentric
-#        - Declination
-#        - Latitude
 #
 # Usage:
 #
@@ -49,7 +46,6 @@ import math
 # This assumes that the relative directory from this script is: ../../../../src
 thisScriptDir = os.path.dirname(os.path.abspath(__file__))
 srcDir = os.path.dirname(thisScriptDir)
-srcDir = os.path.dirname(srcDir)
 srcDir = os.path.dirname(srcDir)
 srcDir = os.path.dirname(srcDir) + os.sep + "src"
 if srcDir not in sys.path:
@@ -113,10 +109,11 @@ endDt   = datetime.datetime(year=2019, month=1, day=1,
 
 
 # Destination output CSV file.
-outputFilename = thisScriptDir + os.sep + "sun_moon_node_ephemeris_nyc.csv"
+outputFilename = thisScriptDir + os.sep + "sunrise_sunset_ephemeris_alexandria_va.csv"
 
 # Planet names to do calculations for.
 geocentricPlanetNames = [\
+    "H1",
     "Sun",
     "Moon",
     #"Mercury",
@@ -128,7 +125,7 @@ geocentricPlanetNames = [\
     #"Uranus",
     #"Neptune",
     #"Pluto",
-    "TrueNorthNode",
+    #"TrueNorthNode",
     #"Chiron",
     #"Isis"
     ]
@@ -153,8 +150,8 @@ heliocentricPlanetNames = [\
 
 # Planet names to do calculations for.
 declinationPlanetNames = [\
-    "Sun",
-    "Moon",
+    #"Sun",
+    #"Moon",
     #"Mercury",
     #"Venus",
     #"Earth",
@@ -172,7 +169,7 @@ declinationPlanetNames = [\
 # Planet names to do calculations for.
 geocentricLatitudePlanetNames = [\
     #"Sun",
-    "Moon",
+    #"Moon",
     #"Mercury",
     #"Venus",
     #"Earth",
@@ -344,26 +341,26 @@ def getPlanetaryInfosForDatetime(dt):
     #planets.append(Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(dt))
     planets.append(Ephemeris.getSunPlanetaryInfo(dt))
     planets.append(Ephemeris.getMoonPlanetaryInfo(dt))
-    planets.append(Ephemeris.getMercuryPlanetaryInfo(dt))
-    planets.append(Ephemeris.getVenusPlanetaryInfo(dt))
-    planets.append(Ephemeris.getEarthPlanetaryInfo(dt))
-    planets.append(Ephemeris.getMarsPlanetaryInfo(dt))
-    planets.append(Ephemeris.getJupiterPlanetaryInfo(dt))
-    planets.append(Ephemeris.getSaturnPlanetaryInfo(dt))
-    planets.append(Ephemeris.getUranusPlanetaryInfo(dt))
-    planets.append(Ephemeris.getNeptunePlanetaryInfo(dt))
-    planets.append(Ephemeris.getPlutoPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getMercuryPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getVenusPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getEarthPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getMarsPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getJupiterPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getSaturnPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getUranusPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getNeptunePlanetaryInfo(dt))
+    #planets.append(Ephemeris.getPlutoPlanetaryInfo(dt))
     #planets.append(Ephemeris.getMeanNorthNodePlanetaryInfo(dt))
     #planets.append(Ephemeris.getTrueSouthNodePlanetaryInfo(dt))
-    planets.append(Ephemeris.getTrueNorthNodePlanetaryInfo(dt))
+    #planets.append(Ephemeris.getTrueNorthNodePlanetaryInfo(dt))
     #planets.append(Ephemeris.getTrueSouthNodePlanetaryInfo(dt))
     #planets.append(Ephemeris.getCeresPlanetaryInfo(dt))
     #planets.append(Ephemeris.getPallasPlanetaryInfo(dt))
     #planets.append(Ephemeris.getJunoPlanetaryInfo(dt))
     #planets.append(Ephemeris.getVestaPlanetaryInfo(dt))
-    planets.append(Ephemeris.getIsisPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getIsisPlanetaryInfo(dt))
     #planets.append(Ephemeris.getNibiruPlanetaryInfo(dt))
-    planets.append(Ephemeris.getChironPlanetaryInfo(dt))
+    #planets.append(Ephemeris.getChironPlanetaryInfo(dt))
     #planets.append(Ephemeris.getGulikaPlanetaryInfo(dt))
     #planets.append(Ephemeris.getMandiPlanetaryInfo(dt))
     #planets.append(Ephemeris.getMeanOfFivePlanetaryInfo(dt))
@@ -396,11 +393,11 @@ def getEphemerisDataLineForDatetime(dt):
               format(Ephemeris.datetimeToStr(dt)))
     
     # Planet geocentric longitude 15-degree axis points.
-    for planetName in geocentricPlanetNames:
-        for pi in planetaryInfos:
-            if pi.name == planetName:
-                lon = pi.geocentric['tropical']['longitude']
-                rv += "{:.3f},".format(lon % 15.0)
+    #for planetName in geocentricPlanetNames:
+    #    for pi in planetaryInfos:
+    #        if pi.name == planetName:
+    #            lon = pi.geocentric['tropical']['longitude']
+    #            rv += "{:.3f},".format(lon % 15.0)
                     
     # Planet geocentric longitude.
     for planetName in geocentricPlanetNames:
@@ -420,11 +417,11 @@ def getEphemerisDataLineForDatetime(dt):
                 rv += valueStr + ","
                 
     # Planet heliocentric longitude 15-degree axis points.
-    for planetName in heliocentricPlanetNames:
-        for pi in planetaryInfos:
-            if pi.name == planetName:
-                lon = pi.heliocentric['tropical']['longitude']
-                rv += "{:.3f},".format(lon % 15.0)
+    #for planetName in heliocentricPlanetNames:
+    #    for pi in planetaryInfos:
+    #        if pi.name == planetName:
+    #            lon = pi.heliocentric['tropical']['longitude']
+    #            rv += "{:.3f},".format(lon % 15.0)
                     
     # Planet heliocentric longitude.
     for planetName in heliocentricPlanetNames:
@@ -1016,9 +1013,9 @@ headerLine += "Day count" + ","
 headerLine += "Week count" + ","
 headerLine += "Month count" + ","
 
-# Planet geocentric longitude mod 15.
-for planetName in geocentricPlanetNames:
-    headerLine += "G." + planetName + "%15" + ","
+## Planet geocentric longitude mod 15.
+#for planetName in geocentricPlanetNames:
+#    headerLine += "G." + planetName + "%15" + ","
 
 # Planet geocentric longitude.
 for planetName in geocentricPlanetNames:
@@ -1029,9 +1026,9 @@ for planetName in geocentricPlanetNames:
     headerLine += "G." + planetName + ","
 
 
-# Planet heliocentric longitude mod 15.
-for planetName in heliocentricPlanetNames:
-    headerLine += "H." + planetName + "%15" + ","
+## Planet heliocentric longitude mod 15.
+#for planetName in heliocentricPlanetNames:
+#    headerLine += "H." + planetName + "%15" + ","
 
 # Planet heliocentric longitude.
 for planetName in heliocentricPlanetNames:
@@ -1074,21 +1071,21 @@ monthCount = 0
 
 log.info("Doing ephemeris calculations ...")
 
-# Moon synodic month has 30 phases.
+# Ascendant-Sun conjunctions.
 degreesInCircle = 360.0
-numMoonPhases = 30
-increment = degreesInCircle / numMoonPhases
+numPhases = 2
+increment = degreesInCircle / numPhases
 
 # Planet parameters.
-planet1ParamsList = [("Moon", "geocentric", "tropical")]
+planet1ParamsList = [("H1", "geocentric", "tropical")]
 planet2ParamsList = [("Sun",  "geocentric", "tropical")]
 
 timestamps = []
 
 aspectDegrees = []
 
-for i in range(0, numMoonPhases):
-    aspectDegrees.append(i * (degreesInCircle / numMoonPhases))
+for i in range(0, numPhases):
+    aspectDegrees.append(i * (degreesInCircle / numPhases))
     
 for degreeDifference in aspectDegrees:
     timestamps.extend(\
