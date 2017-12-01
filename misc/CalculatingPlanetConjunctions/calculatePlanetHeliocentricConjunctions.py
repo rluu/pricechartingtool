@@ -46,6 +46,7 @@ if srcDir not in sys.path:
     sys.path.insert(0, srcDir)
 from astrologychart import AstrologyUtils
 from ephemeris import Ephemeris
+from lunar_calendar_utils import *
 from data_objects import *
 
 ##############################################################################
@@ -76,11 +77,11 @@ hourOfDay = 12
 minuteOfHour = 0
 
 
-startDt = datetime.datetime(year=2017, month=1, day=1,
+startDt = datetime.datetime(year=1906, month=1, day=1,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
 
-endDt   = datetime.datetime(year=2020, month=12, day=31,
+endDt   = datetime.datetime(year=1940, month=12, day=31,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
 
@@ -702,7 +703,7 @@ if __name__ == "__main__":
     results = {}
 
     # Angle that we want to obtain for the aspect.
-    desiredAspectDegree = 0
+    desiredAspectDegrees = 0
     
     numPlanets = len(heliocentricPlanetNames)
 
@@ -714,13 +715,13 @@ if __name__ == "__main__":
                 planetName1 = heliocentricPlanetNames[i]
                 planetName2 = heliocentricPlanetNames[j]
 
-                if planetName1 != "Venus" and planetName2 != "Venus":
-                    continue
-                
+                #if planetName1 != "Venus" and planetName2 != "Venus":
+                #    continue
+
                 comboPlanetName = planetName1 + "/" + planetName2
-                log.info("Obtaining planet heliocentric conjunction " + \
+                log.info("Obtaining planet heliocentric aspect-of-{}-degrees " + \
                          "information for '{}' ...".\
-                         format(comboPlanetName))
+                         format(desiredAspectDegree, comboPlanetName))
 
                 # Get list of conjunction timestamps.
                 conjunctionTimestamps = \
@@ -730,7 +731,7 @@ if __name__ == "__main__":
                     [(planetName2, "heliocentric", "tropical")],
                     desiredAspectDegree,
                     True,
-                    datetime.timedelta(seconds=30))
+                    datetime.timedelta(seconds=1))
 
                 # List of results.  Each item in this list is a tuple
                 # containing:
@@ -780,6 +781,7 @@ if __name__ == "__main__":
         "PlanetComboName," + \
         "JulianDay," + \
         "Datetime," + \
+        "Lunar Datetime," + \
         "AspectAngle," + \
         "Planet1_HelioTropLongitude," + \
         "Planet2_HelioTropLongitude," + \
@@ -822,6 +824,7 @@ if __name__ == "__main__":
                     planetComboName = tup[0]
                     jd = tup[1]
                     dt = tup[2]
+                    ld = LunarCalendarUtils.datetimeToLunarDate(dt)
                     aspectAngle = tup[3]
                     planet1HelioTropLongitudeDegrees = tup[4]
                     planet2HelioTropLongitudeDegrees = tup[5]
@@ -837,6 +840,7 @@ if __name__ == "__main__":
                     line += "{}".format(planetComboName) + ","
                     line += "{}".format(jd) + ","
                     line += "{}".format(Ephemeris.datetimeToStr(dt)) + ","
+                    line += "{}".format(ld.toConciseStringWithoutCommas()) + ","
                     line += "{}".format(aspectAngle) + ","
                     line += "{}".format(planet1HelioTropLongitudeDegrees) + ","
                     line += "{}".format(planet2HelioTropLongitudeDegrees) + ","
