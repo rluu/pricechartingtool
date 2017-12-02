@@ -74,16 +74,65 @@ Notes for running on the Windows platform (relevant for PyQt4;
 
    3) Install MinGW/MSYS.
 
+        Download and install MinGW by visiting this link:
+        https://sourceforge.net/projects/mingw/files/Installer/mingw-get-setup.exe/download
+        
+        After starting the MinGW Installation Manager (and after the packages have been downloaded), click the Continue button, and then select the following packages:
+        
+        mingw-developer-toolkit
+        mingw32-base
+        mingw32-gcc-g++
+        msys-base
+        
+        
+        Then go to the Installation menu and select Apply Changes.
+        Then click Apply.
+        When installation is done, click the "Close" button.
+        
+        Open Windows Explorer file browser by doing Windows_key-E.
+        Navigate to the installation direction of MinGW, which by default would be:
+        
+        C:\MinGW\msys\1.0
+        
+        Double-click on the msys batch file.
+        It should open up a black terminal window.
+   
    4) Install pytz.
 
-   5) Install pyswisseph.  See below for the hacks necessary to get
+   5) Install the pre-requisites needed to compile the Python Swiss Ephemeris.
+
+        Install Microsoft Visual C++ 14.0.
+        "Microsoft Visual C++ Build Tools"
+        http://landinghub.visualstudio.com/visual-cpp-build-tools
+        
+        Click on the button that says:
+        Download Visual C++ Build Tools 2015
+   
+   6) Install pyswisseph.  See below for the hacks necessary to get
    this working.
    
-   6) Install convertdate.
+   7) Install convertdate.
    
-   7) Install cachetools.
+   8) Install cachetools.
+
+   9) Note: As of 2017-12-02, on Windows 7, running with Python 3.5
+      x86, there are issues with the multiprocessing pool working.  It
+      constantly prints out a RuntimeError about not using fork to
+      start the child processes.  Therefore, way to top it from
+      creating a Pool is to open file src/lookbackmultiple_parallel.py
+      and comment out the constructor line in class LookbackMultipleParallel,
+      and just set it to None instead.  
+
+        #pool = Pool(poolSize)
+        pool = None
+
+      As a side effect, it means that running LookbackMultiple feature
+      won't work with the 'Local / Parallel' option.  That means you
+      should open up the Application Preferences dialog and select the
+      LookbackMultiple tab, and select the 'Local / Serial' option
+      instead.  Unfortunately, this feature will run dramatically slower.
    
-   7) Run pricechartingtool source code.
+   10) Run pricechartingtool source code.
 
 ##############################################################################
 
@@ -176,6 +225,8 @@ Steps for building on the Windows platform:
 
   Install pyswisseph (requires the following hacks to build on MinGW):
 
+    pip install --upgrade setuptools
+    
     Do the following to fix an error that would normally happen during
     compilation of pyswisseph (and possibly other packages).  
     The error seen without this fix is: 'error: Unable to find vcvarsall.bat'.
@@ -186,18 +237,29 @@ Steps for building on the Windows platform:
         [build]
         compiler=mingw32
 
-    # Note: [This paragraph below was true for Python 3.2, but this
-    # issue doesn't appear to exist for Python 3.4.]
-    Edit C:\Python34\Lib\distutils\cygwinccompiler.py to avoid a gcc
-    compiler error where gcc doesn't know what what the command-line
-    option '-mno-cygwin' is.  Here we will remove all locations where
-    '-mno-cygwin' is found in this file.
+    Edit C:\Python34\Lib\distutils\cygwinccompiler.py
+    Ensure the following lines are in this file.
+    (especially the '1900' elif block).
     
-      vim /c/Python34/Lib/distutils/cygwinccompiler.py
-
-        :%s/-mno-cygwin //gc
-        :wq
-
+--- cygwinccompiler.py
++++ cygwinccompiler.py
+@@ -82,7 +82,18 @@ def get_msvcr():
+         elif msc_ver == '1600':
+             # VS2010 / MSVC 10.0
+             return ['msvcr100']
+         elif msc_ver == '1700':
+             # Visual Studio 2012 / Visual C++ 11.0
+             return ['msvcr110']
+         elif msc_ver == '1800':
+             # Visual Studio 2013 / Visual C++ 12.0
+             return ['msvcr120']
++        elif msc_ver == '1900':
++            # Visual Studio 2015 / Visual C++ 14.0
++            # "msvcr140.dll no longer exists" http://blogs.msdn.com/b/vcblog/archive/2014/06/03/visual-studio-14-ctp.aspx
++            return ['vcruntime140']
+         else:
+             raise ValueError("Unknown MS Compiler version %s " % msc_ver)
+	
     Open up a MinGW/MSYS shell window and run the following.
 
       cd /home/rluu/programming/pricechartingtool/tps/pyswisseph
@@ -224,6 +286,10 @@ Steps for building on the Windows platform:
       
       Edit 'include_dirs' variable and remove 'swephelp' from that list.
 
+      Add another row after 'include_dirs' that is as follows:
+
+        library_dirs = ['c:\\Windows\System32'],
+      
       Edit 'sources' variable and comment out all files listed that
       start with 'swephelp'.
 
@@ -266,7 +332,11 @@ Steps to run the software:
 
 5) Run the executable.
 
-    [rluu@localhost src]$ ./main.py
+    [rluu@localhost src]$ python3 main.py
+
+    or
+    
+    [rluu@localhost src]$ python main.py
 
 ##############################################################################
 
