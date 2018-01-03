@@ -67,14 +67,14 @@ from data_objects import *
 VERSION = "0.1"
 
 # Location information to use with the Ephemeris.
-#locationName = "New York City"
-#locationLongitude = -74.0064
-#locationLatitude = 40.7142
+locationName = "New York City"
+locationLongitude = -74.0064
+locationLatitude = 40.7142
 
 # My address at 2351 Eisenhower Ave., Alexandria, VA, 22314
-locationName = "AlexandriaVirginiaApartment"
-locationLongitude = -77.0677
-locationLatitude = 38.8012
+#locationName = "AlexandriaVirginiaApartment"
+#locationLongitude = -77.0677
+#locationLatitude = 38.8012
 
 locationElevation = 0
 
@@ -90,26 +90,29 @@ minuteOfHour = 0
 #startDt = datetime.datetime(year=1906, month=1, day=1,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
+startDt = datetime.datetime(year=1926, month=1, day=1,
+                            hour=hourOfDay, minute=minuteOfHour,
+                            tzinfo=timezone)
 #startDt = datetime.datetime(year=1984, month=1, day=1,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
-startDt = datetime.datetime(year=2017, month=1, day=1,
-                            hour=hourOfDay, minute=minuteOfHour,
-                            tzinfo=timezone)
+#startDt = datetime.datetime(year=2017, month=1, day=1,
+#                            hour=hourOfDay, minute=minuteOfHour,
+#                            tzinfo=timezone)
 
 
 #endDt   = datetime.datetime(year=1906, month=5, day=31,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
-#endDt   = datetime.datetime(year=1936, month=12, day=31,
-#                            hour=hourOfDay, minute=minuteOfHour,
-#                            tzinfo=timezone)
+endDt   = datetime.datetime(year=1933, month=12, day=31,
+                            hour=hourOfDay, minute=minuteOfHour,
+                            tzinfo=timezone)
 #endDt   = datetime.datetime(year=2015, month=12, day=31,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
-endDt   = datetime.datetime(year=2019, month=1, day=1,
-                            hour=hourOfDay, minute=minuteOfHour,
-                            tzinfo=timezone)
+#endDt   = datetime.datetime(year=2019, month=1, day=1,
+#                            hour=hourOfDay, minute=minuteOfHour,
+#                            tzinfo=timezone)
 
 
 # Destination output CSV file.

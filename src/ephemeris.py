@@ -294,9 +294,11 @@ class Ephemeris:
 
     # Variables used for computation of Heliocentric Planet Nodes.
     # Directory where the ephemeris data files are located.
+    __thisScriptDir = os.path.dirname(os.path.abspath(__file__))
+    __srcDir = __thisScriptDir
     EPHEMERIS_DATA_DIR_FOR_HELIO_PLANET_NODES = \
         os.path.abspath(\
-            os.path.join(sys.path[0], "../data/ephemerisHeliocentricNodes"))
+            os.path.join(__srcDir, "../data/ephemerisHeliocentricNodes"))
             
     ##################################################
     # Variable: heliocentricNodesMapToTimestamps
