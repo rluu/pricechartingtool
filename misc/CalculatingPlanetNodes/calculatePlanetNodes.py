@@ -48,8 +48,6 @@ if srcDir not in sys.path:
     sys.path.insert(0, srcDir)
 from astrologychart import AstrologyUtils
 from ephemeris import Ephemeris
-from lunar_calendar_utils import LunarDate
-from lunar_calendar_utils import LunarCalendarUtils
 from data_objects import *
 
 ##############################################################################
@@ -75,7 +73,7 @@ hourOfDay = 12
 minuteOfHour = 0
 
 
-startDt = datetime.datetime(year=1, month=1, day=1,
+startDt = datetime.datetime(year=2, month=1, day=1,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
 #startDt = datetime.datetime(year=2506, month=1, day=1,
@@ -387,7 +385,6 @@ if __name__ == "__main__":
         "Planet Name," + \
         "Julian Day," + \
         "Datetime," + \
-        "LunarDate," + \
         "Node," + \
         "HelioTropLongitude," + \
         "HelioSidLongitude," + \
@@ -412,13 +409,6 @@ if __name__ == "__main__":
             helioTropLongitudeOfNode = tup[4]
             helioSidLongitudeOfNode = tup[5]
             
-            dtStr = Ephemeris.datetimeToStr(dt)
-            lunarDateStr = \
-                "LD(" + \
-                LunarCalendarUtils.datetimeToLunarDate(dt)\
-                .toConciseStringWithoutCommas() + \
-                ")"
-                
             # Get the heliocentric tropical longitude of the north
             # node of this planet.
             helioTropLongitudeOfNorthNode = None
@@ -447,8 +437,7 @@ if __name__ == "__main__":
             line = ""
             line += "{}".format(planetName) + ","
             line += "{}".format(jd) + ","
-            line += "{}".format(dtStr) + ","
-            line += "{}".format(lunarDateStr) + ","
+            line += "{}".format(Ephemeris.datetimeToStr(dt)) + ","
             line += "{}".format(node) + ","
             line += "{}".format(helioTropLongitudeOfNode) + ","
             line += "{}".format(helioSidLongitudeOfNode) + ","
