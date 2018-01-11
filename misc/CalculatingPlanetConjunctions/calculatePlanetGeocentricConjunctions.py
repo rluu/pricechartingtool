@@ -46,6 +46,8 @@ if srcDir not in sys.path:
     sys.path.insert(0, srcDir)
 from astrologychart import AstrologyUtils
 from ephemeris import Ephemeris
+from lunar_calendar_utils import LunarDate
+from lunar_calendar_utils import LunarCalendarUtils
 from data_objects import *
 
 ##############################################################################
@@ -63,7 +65,8 @@ locationLatitude = 40.7142
 locationElevation = 0
 
 # Timezone information to use with the Ephemeris.
-timezone = pytz.timezone("US/Eastern")
+#timezone = pytz.timezone("US/Eastern")
+timezone = pytz.utc
 
 # Time of the day to use to whem getting ephemeris measurements.
 hourOfDay = 12
@@ -83,7 +86,7 @@ endDt   = datetime.datetime(year=1940, month=12, day=31,
 stepSizeTd = datetime.timedelta(days=1)
 
 # Error threshold for calculating timestamps.
-maxErrorTd = datetime.timedelta(minutes=1)
+maxErrorTd = datetime.timedelta(seconds=1)
 
 # Destination output CSV file.
 outputFilename = thisScriptDir + os.sep + "planetGeocentricConjunctions.csv"
@@ -177,7 +180,7 @@ def getLongitudeAspectTimestamps(\
     planet2ParamsList,
     degreeDifference,
     uniDirectionalAspectsFlag=False,
-    maxErrorTd=datetime.timedelta(minutes=1)):
+    maxErrorTd=datetime.timedelta(seconds=1)):
     """Obtains a list of datetime.datetime objects that contain
     the moments when the aspect specified is active.
         
@@ -721,7 +724,7 @@ if __name__ == "__main__":
                     [(planetName2, "geocentric", "tropical")],
                     desiredAspectDegree,
                     True,
-                    datetime.timedelta(seconds=30))
+                    datetime.timedelta(seconds=1))
 
                 # List of results.  Each item in this list is a tuple
                 # containing:
@@ -771,6 +774,7 @@ if __name__ == "__main__":
         "PlanetComboName," + \
         "JulianDay," + \
         "Datetime," + \
+        "LunarDate," + \
         "AspectAngle," + \
         "Planet1_GeoTropLongitude," + \
         "Planet2_GeoTropLongitude," + \
@@ -820,11 +824,19 @@ if __name__ == "__main__":
                     planet1GeoSidLongitudeSpeed = tup[10]
                     planet2GeoSidLongitudeSpeed = tup[11]
                     
+                    dtStr = Ephemeris.datetimeToStr(dt)
+                    lunarDateStr = \
+                        "LD(" + \
+                        LunarCalendarUtils.datetimeToLunarDate(dt)\
+                        .toConciseStringWithoutCommas() + \
+                        ")"
+                        
                     # Assemble the line that will go into the CSV file.
                     line = ""
                     line += "{}".format(planetComboName) + ","
                     line += "{}".format(jd) + ","
-                    line += "{}".format(Ephemeris.datetimeToStr(dt)) + ","
+                    line += "{}".format(dtStr) + ","
+                    line += "{}".format(lunarDateStr) + ","
                     line += "{}".format(aspectAngle) + ","
                     line += "{}".format(planet1GeoTropLongitudeDegrees) + ","
                     line += "{}".format(planet2GeoTropLongitudeDegrees) + ","

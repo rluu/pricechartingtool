@@ -46,7 +46,8 @@ if srcDir not in sys.path:
     sys.path.insert(0, srcDir)
 from astrologychart import AstrologyUtils
 from ephemeris import Ephemeris
-from lunar_calendar_utils import *
+from lunar_calendar_utils import LunarDate
+from lunar_calendar_utils import LunarCalendarUtils
 from data_objects import *
 
 ##############################################################################
@@ -184,7 +185,7 @@ def getLongitudeAspectTimestamps(\
     planet2ParamsList,
     degreeDifference,
     uniDirectionalAspectsFlag=False,
-    maxErrorTd=datetime.timedelta(minutes=1)):
+    maxErrorTd=datetime.timedelta(seconds=1)):
     """Obtains a list of datetime.datetime objects that contain
     the moments when the aspect specified is active.
         
@@ -781,7 +782,7 @@ if __name__ == "__main__":
         "PlanetComboName," + \
         "JulianDay," + \
         "Datetime," + \
-        "Lunar Datetime," + \
+        "LunarDate," + \
         "AspectAngle," + \
         "Planet1_HelioTropLongitude," + \
         "Planet2_HelioTropLongitude," + \
@@ -835,12 +836,16 @@ if __name__ == "__main__":
                     planet1HelioSidLongitudeSpeed = tup[10]
                     planet2HelioSidLongitudeSpeed = tup[11]
                     
+                    dtStr = Ephemeris.datetimeToStr(dt)
+                    lunarDateStr = \
+                        "LD(" + ld.toConciseStringWithoutCommas() + ")"
+                        
                     # Assemble the line that will go into the CSV file.
                     line = ""
                     line += "{}".format(planetComboName) + ","
                     line += "{}".format(jd) + ","
-                    line += "{}".format(Ephemeris.datetimeToStr(dt)) + ","
-                    line += "{}".format(ld.toConciseStringWithoutCommas()) + ","
+                    line += "{}".format(dtStr) + ","
+                    line += "{}".format(lunarDateStr) + ","
                     line += "{}".format(aspectAngle) + ","
                     line += "{}".format(planet1HelioTropLongitudeDegrees) + ","
                     line += "{}".format(planet2HelioTropLongitudeDegrees) + ","

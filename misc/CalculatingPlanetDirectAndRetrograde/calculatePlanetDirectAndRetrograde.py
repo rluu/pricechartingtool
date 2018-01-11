@@ -46,6 +46,8 @@ if srcDir not in sys.path:
     sys.path.insert(0, srcDir)
 from astrologychart import AstrologyUtils
 from ephemeris import Ephemeris
+from lunar_calendar_utils import LunarDate
+from lunar_calendar_utils import LunarCalendarUtils
 from data_objects import *
 
 ##############################################################################
@@ -63,7 +65,8 @@ locationLatitude = 40.7142
 locationElevation = 0
 
 # Timezone information to use with the Ephemeris.
-timezone = pytz.timezone("US/Eastern")
+#timezone = pytz.timezone("US/Eastern")
+timezone = pytz.utc
 
 # Time of the day to use to whem getting ephemeris measurements.
 hourOfDay = 12
@@ -77,7 +80,7 @@ startDt = datetime.datetime(year=1905, month=1, day=1,
 #                            hour=hourOfDay, minute=minuteOfHour,
 #                            tzinfo=timezone)
 
-endDt   = datetime.datetime(year=1933, month=12, day=31,
+endDt   = datetime.datetime(year=1940, month=12, day=31,
                             hour=hourOfDay, minute=minuteOfHour,
                             tzinfo=timezone)
 #endDt   = datetime.datetime(year=2018, month=12, day=31,
@@ -89,7 +92,7 @@ endDt   = datetime.datetime(year=1933, month=12, day=31,
 stepSizeTd = datetime.timedelta(days=5)
 
 # Error threshold for calculating timestamps of retrograde and direct planets.
-maxErrorTd = datetime.timedelta(minutes=1)
+maxErrorTd = datetime.timedelta(seconds=1)
 
 # Strings used to indicate Retrograde and Direct.
 retrogradeStr = "R"
@@ -108,7 +111,7 @@ geocentricPlanetNames = [\
     "Mars",
     "Jupiter",
     "Saturn",
-    #"Uranus",
+    "Uranus",
     #"Neptune",
     #"Pluto",
     #"TrueNorthNode",
@@ -390,6 +393,7 @@ if __name__ == "__main__":
         "Planet Name," + \
         "Julian Day," + \
         "Datetime," + \
+        "LunarDate," + \
         "Retrograde or Direct," + \
         "GeoTropLongitude," + \
         "GeoSidLongitude,"
@@ -411,12 +415,20 @@ if __name__ == "__main__":
             retroOrDirect = tup[3]
             geoTropLongitudeOfPlanet = tup[4]
             geoSidLongitudeOfPlanet = tup[5]
-            
+
+            dtStr = Ephemeris.datetimeToStr(dt)
+            lunarDateStr = \
+                "LD(" + \
+                LunarCalendarUtils.datetimeToLunarDate(dt)\
+                .toConciseStringWithoutCommas() + \
+                ")"
+                
             # Assemble the line that will go into the CSV file.
             line = ""
             line += "{}".format(planetName) + ","
             line += "{}".format(jd) + ","
-            line += "{}".format(Ephemeris.datetimeToStr(dt)) + ","
+            line += "{}".format(dtStr) + ","
+            line += "{}".format(lunarDateStr) + ","
             line += "{}".format(retroOrDirect) + ","
             line += "{}".format(geoTropLongitudeOfPlanet) + ","
             line += "{}".format(geoSidLongitudeOfPlanet) + ","
