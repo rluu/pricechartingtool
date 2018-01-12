@@ -88,7 +88,7 @@ maxErrorTd = datetime.timedelta(seconds=1)
 planetName = "Venus"
 
 # Centricity type.
-centricityType = "heliocentric"
+centricityType = "geocentric"
 
 # Longitude type.
 longitudeType = "tropical"
@@ -96,8 +96,8 @@ longitudeType = "tropical"
 # List of longitude degrees to get timestamps for.
 # Each longitude is a float.
 longitudeDegreesDesired = [
-    90.0,
-    270.0,
+    0.0,
+    180.0,
     ]
 
 # Error threshold for calculating timestamps of retrograde and direct planets.
