@@ -1,24 +1,26 @@
 ##############################################################################
-The scripts in this directory create CSV files with information related to geocentric lunar dates.
+The scripts in this directory create CSV files with information related to planets crossing a certain set of degrees.
 ##############################################################################
 
 
 Usage:
 
-1) Open the script file 'calculatePlanetLunarDates.py' and 
+1) Open the script file 'calculatePlanetCrossingLongitudeDegrees.py' and
+
 update the variables:
 
      - ephemeris location
      - start and end timestamps
-     - list of desired lunar dates each year
+     - planet name
+     - list of desired degrees being crossed
 
 2) Run the script:
 
-    python3 calculatePlanetLunarDates.py
+    python3 calculatePlanetCrossingLongitudeDegrees.py
 
 This should produce the following file:
 
-    planetLunarDates.csv
+    planetCrossingLongitudeDegrees.csv
 
 3) The above will produce the results sorted by timestamp, follow the steps below:
 
@@ -26,8 +28,8 @@ Running the following commands below to produce the results sorted by timestamp.
 
 
 
-INPUT_FILE=planetLunarDates.csv
-OUTPUT_FILE=planetLunarDates_TimestampSorted.csv
+INPUT_FILE=planetCrossingLongitudeDegrees.csv
+OUTPUT_FILE=planetCrossingLongitudeDegrees_TimestampSorted.csv
 
 COLUMN_TO_SORT_BY=2
 TEMP_FILE=tempfile_for_sorting_purposes_only.csv
