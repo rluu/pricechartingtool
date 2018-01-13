@@ -416,7 +416,7 @@ if __name__ == "__main__":
             geoTropLongitudeOfPlanet = tup[4]
             geoSidLongitudeOfPlanet = tup[5]
 
-            dtStr = Ephemeris.datetimeToStr(dt)
+            dtStr = Ephemeris.datetimeToStrWithoutMicroseconds(dt)
             lunarDateStr = \
                 "LD(" + \
                 LunarCalendarUtils.datetimeToLunarDate(dt)\

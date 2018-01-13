@@ -824,7 +824,7 @@ if __name__ == "__main__":
                     planet1GeoSidLongitudeSpeed = tup[10]
                     planet2GeoSidLongitudeSpeed = tup[11]
                     
-                    dtStr = Ephemeris.datetimeToStr(dt)
+                    dtStr = Ephemeris.datetimeToStrWithoutMicroseconds(dt)
                     lunarDateStr = \
                         "LD(" + \
                         LunarCalendarUtils.datetimeToLunarDate(dt)\

@@ -226,7 +226,7 @@ if __name__ == "__main__":
         jd = Ephemeris.datetimeToJulianDay(dt)
         lunarDate = LunarCalendarUtils.datetimeToLunarDate(dt)
 
-        dtStr = Ephemeris.datetimeToStr(dt)
+        dtStr = Ephemeris.datetimeToStrWithoutMicroseconds(dt)
         lunarDateStr = "LD(" + lunarDate.toConciseStringWithoutCommas() + ")"
         
         # Assemble the line that will go into the CSV file.

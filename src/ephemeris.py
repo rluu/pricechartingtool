@@ -1598,8 +1598,9 @@ class Ephemeris:
     @staticmethod
     def datetimeToStr(datetimeObj):
         """Returns a string representation of a datetime.datetime object.
-        Normally we wouldn't need to do this, but the datetime.strftime()
-        does not work on years less than 1900.
+
+        Normally we wouldn't need to have this method, but the
+        datetime.strftime() does not work on years less than 1900.
 
         Arguments:
         datetimeObj - datetime.datetime object with a tzinfo defined.
@@ -1627,13 +1628,48 @@ class Ephemeris:
                    tznameStr,
                    Ephemeris.getTimezoneOffsetFromDatetime(datetimeObj))
 
+    @staticmethod
+    def datetimeToStrWithoutMicroseconds(datetimeObj):
+        """Returns a string representation of a datetime.datetime object,
+        excluding the microseconds value of the timestamp.
+        The microseconds value is truncated (e.g. microseconds are NOT
+        used to modify the seconds value of the timestamp in rounding).
+
+        Normally we wouldn't need to have this method, but the
+        datetime.strftime() does not work on years less than 1900.
+
+        Arguments:
+        datetimeObj - datetime.datetime object with a tzinfo defined.
+
+        Returns:
+        String holding the info about the datetime.datetime object, in
+        the datetime.strftime() format:  "%Y-%m-%d %H:%M:%S %Z%z"
+        """
+
+        # Timezone name string, extracted from datetime.tzname().
+        # This accounts for the fact that datetime.tzname() can return None.
+        tznameStr = datetimeObj.tzname()
+        if tznameStr == None:
+            tznameStr = ""
+
+        # Return the formatted string.
+        return "{:04}-{:02}-{:02} {:02}:{:02}:{:02} {}{}".\
+            format(datetimeObj.year,
+                   datetimeObj.month,
+                   datetimeObj.day,
+                   datetimeObj.hour,
+                   datetimeObj.minute,
+                   datetimeObj.second,
+                   tznameStr,
+                   Ephemeris.getTimezoneOffsetFromDatetime(datetimeObj))
 
     @staticmethod
     def datetimeToDayStr(datetimeObj):
         """Returns a string representation of a datetime.datetime
-        object with the day of the week included.  Normally we
-        wouldn't need to do this, but the datetime.strftime() does not
-        work on years less than 1900.
+        object with the day of the week included.
+
+        Normally we wouldn't need to have this method, but the
+        datetime.strftime() does not work on years less than 1900.
 
         Arguments:
         datetimeObj - datetime.datetime object with a tzinfo defined.

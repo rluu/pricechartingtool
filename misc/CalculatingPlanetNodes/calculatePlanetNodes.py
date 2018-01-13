@@ -433,11 +433,13 @@ if __name__ == "__main__":
                 log.error("Unknown node type.")
                 shutdown(1)
             
+            dtStr = Ephemeris.datetimeToStrWithoutMicroseconds(dt)
+
             # Assemble the line that will go into the CSV file.
             line = ""
             line += "{}".format(planetName) + ","
             line += "{}".format(jd) + ","
-            line += "{}".format(Ephemeris.datetimeToStr(dt)) + ","
+            line += "{}".format(dtStr) + ","
             line += "{}".format(node) + ","
             line += "{}".format(helioTropLongitudeOfNode) + ","
             line += "{}".format(helioSidLongitudeOfNode) + ","
