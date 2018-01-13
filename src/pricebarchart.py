@@ -41736,34 +41736,61 @@ class PriceBarChartWidget(QWidget):
 
         # These are the label widgets at the top of the PriceBarChartWidget.
         self.descriptionLabel = QLabel("")
-        self.firstPriceBarTimestampLabel = QLabel("")
-        self.lastPriceBarTimestampLabel = QLabel("")
-        self.numPriceBarsLabel = QLabel("")
+        self.descriptionLabel.\
+            setToolTip("Description of this PriceChartDocument")
 
-        localizedTimestampStr = "Mouse time:  "
-        utcTimestampStr       = "Mouse time:  "
-        hebrewTimestampStr    = "Mouse time:  "
-        lunarDateTimestampStr = "Mouse time:  "
-        geoSunTimestampStr    = "Mouse time:  "
-        geoSunTrueNorthNodeTimestampStr   = "Mouse time:  "
-        geoMoSuTimestampStr   = "Mouse time:  "
+        self.firstPriceBarTimestampLabel = QLabel("")
+        self.firstPriceBarTimestampLabel.\
+            setToolTip("First PriceBar timestamp")
+
+        self.lastPriceBarTimestampLabel = QLabel("")
+        self.lastPriceBarTimestampLabel.\
+            setToolTip("Last PriceBar timestamp")
+
+        self.numPriceBarsLabel = QLabel("")
+        self.numPriceBarsLabel.\
+            setToolTip("Number of PriceBars in this PriceChartDocument")
+
+        localizedTimestampStr = ""
+        utcTimestampStr       = ""
+        hebrewTimestampStr    = ""
+        lunarDateTimestampStr = ""
+        geoSunTimestampStr    = ""
+        geoSunTrueNorthNodeTimestampStr   = ""
+        geoMoSuTimestampStr   = ""
         priceStr              = "Mouse price: "
+
         self.cursorLocalizedTimestampLabel = \
             QLabel(localizedTimestampStr)
+        self.cursorLocalizedTimestampLabel.setToolTip("Mouse time")
+
         self.cursorUtcTimestampLabel = \
             QLabel(utcTimestampStr)
+        self.cursorUtcTimestampLabel.setToolTip("Mouse time")
+
         self.cursorHebrewTimestampLabel = \
             QLabel(hebrewTimestampStr)
+        self.cursorHebrewTimestampLabel.setToolTip("Mouse time")
+
         self.cursorLunarDateTimestampLabel = \
             QLabel(lunarDateTimestampStr)
+        self.cursorLunarDateTimestampLabel.setToolTip("Mouse time")
+
         self.cursorGeoSunTimestampLabel = \
             QLabel(geoSunTimestampStr)
+        self.cursorGeoSunTimestampLabel.setToolTip("Mouse time")
+
         self.cursorGeoSunTrueNorthNodeTimestampLabel = \
             QLabel(geoSunTrueNorthNodeTimestampStr)
+        self.cursorGeoSunTrueNorthNodeTimestampLabel.setToolTip("Mouse time")
+
         self.cursorGeoMoSuTimestampLabel = \
             QLabel(geoMoSuTimestampStr)
+        self.cursorGeoMoSuTimestampLabel.setToolTip("Mouse time")
+
         self.cursorPriceLabel = \
             QLabel(priceStr)
+        self.cursorPriceLabel.setToolTip("Mouse price")
 
 
         self.selectedPriceBarTimestampLabel = QLabel("")
@@ -41816,42 +41843,33 @@ class PriceBarChartWidget(QWidget):
         col0 = QVBoxLayout()
         col0.addWidget(self.descriptionLabel)
         col0.addWidget(self.numPriceBarsLabel)
+        col0.addWidget(self.firstPriceBarTimestampLabel)
+        col0.addWidget(self.lastPriceBarTimestampLabel)
 
         col1 = QVBoxLayout()
-        col1.addWidget(self.firstPriceBarTimestampLabel)
-        col1.addWidget(self.lastPriceBarTimestampLabel)
+        col1.addWidget(self.selectedPriceBarTimestampLabel)
+        col1.addWidget(self.selectedPriceBarOpenPriceLabel)
+        col1.addWidget(self.selectedPriceBarClosePriceLabel)
+        col1.addWidget(self.selectedPriceBarHighPriceLabel)
+        col1.addWidget(self.selectedPriceBarLowPriceLabel)
 
         col2 = QVBoxLayout()
-        col2.addWidget(self.selectedPriceBarTimestampLabel)
-        col2.addWidget(self.selectedPriceBarOpenPriceLabel)
-        col2.addWidget(self.selectedPriceBarClosePriceLabel)
+        col2.addWidget(self.cursorUtcTimestampLabel)
+        col2.addWidget(self.cursorLocalizedTimestampLabel)
+        col2.addWidget(self.cursorHebrewTimestampLabel)
+        col2.addWidget(self.cursorLunarDateTimestampLabel)
 
         col3 = QVBoxLayout()
-        col3.addWidget(self.selectedPriceBarHighPriceLabel)
-        col3.addWidget(self.selectedPriceBarLowPriceLabel)
-
-        col4 = QVBoxLayout()
-        col4.addWidget(self.cursorPriceLabel)
-
-        col5 = QVBoxLayout()
-        col5.addWidget(self.cursorUtcTimestampLabel)
-        col5.addWidget(self.cursorLocalizedTimestampLabel)
-        col5.addWidget(self.cursorHebrewTimestampLabel)
-        col5.addWidget(self.cursorLunarDateTimestampLabel)
-
-        col6 = QVBoxLayout()
-        col6.addWidget(self.cursorGeoSunTimestampLabel)
-        col6.addWidget(self.cursorGeoSunTrueNorthNodeTimestampLabel)
-        col6.addWidget(self.cursorGeoMoSuTimestampLabel)
+        col3.addWidget(self.cursorPriceLabel)
+        col3.addWidget(self.cursorGeoSunTimestampLabel)
+        col3.addWidget(self.cursorGeoSunTrueNorthNodeTimestampLabel)
+        col3.addWidget(self.cursorGeoMoSuTimestampLabel)
 
         topLabelsLayout = QGridLayout()
         topLabelsLayout.addLayout(col0, 0, 0)
         topLabelsLayout.addLayout(col1, 0, 1)
         topLabelsLayout.addLayout(col2, 0, 2)
         topLabelsLayout.addLayout(col3, 0, 3)
-        topLabelsLayout.addLayout(col4, 0, 4)
-        topLabelsLayout.addLayout(col5, 0, 5)
-        topLabelsLayout.addLayout(col6, 0, 6)
 
         layout = QVBoxLayout()
         layout.addLayout(topLabelsLayout)
@@ -41917,7 +41935,8 @@ class PriceBarChartWidget(QWidget):
     def setDescriptionText(self, text):
         """Sets the text of the QLabel self.descriptionLabel."""
 
-        self.descriptionLabel.setText("Description: " + text)
+        descriptionText = "Description: " + text
+        self.descriptionLabel.setText(descriptionText)
 
     def updateFirstPriceBarTimestampLabel(self, priceBar=None):
         """Updates the QLabel holding the timestamp of the first PriceBar
@@ -41931,7 +41950,7 @@ class PriceBarChartWidget(QWidget):
         """
 
         # Datetime format to datetime.strftime().
-        timestampStr = "First PriceBar: "
+        timestampStr = "First PB: "
 
         if priceBar != None:
             timestampStr += Ephemeris.datetimeToDayStr(priceBar.timestamp)
@@ -41949,7 +41968,7 @@ class PriceBarChartWidget(QWidget):
                    blank.
         """
 
-        timestampStr = "Last PriceBar: "
+        timestampStr = "Last PB: "
 
         if priceBar != None:
             timestampStr += Ephemeris.datetimeToDayStr(priceBar.timestamp)
@@ -41966,7 +41985,7 @@ class PriceBarChartWidget(QWidget):
                        the PriceBarChart.
         """
 
-        text = "Number of PriceBars: {}".format(numPriceBars)
+        text = "Num PB: {}".format(numPriceBars)
 
         self.numPriceBarsLabel.setText(text)
 
@@ -41983,13 +42002,13 @@ class PriceBarChartWidget(QWidget):
                     scene coordinates.
         """
 
-        localizedTimestampStr = "Mouse time: "
-        utcTimestampStr       = "Mouse time: "
-        hebrewTimestampStr    = "Mouse time: "
-        lunarDateTimestampStr = "Mouse time: "
-        geoSunTimestampStr    = "Mouse time: G.Sun:  "
-        geoSunTrueNorthNodeTimestampStr = "Mouse time: G.SunTrueNorthNode:  "
-        geoMoSuTimestampStr   = "Mouse time: G.MoSu: "
+        localizedTimestampStr = ""
+        utcTimestampStr       = ""
+        hebrewTimestampStr    = ""
+        lunarDateTimestampStr = ""
+        geoSunTimestampStr    = "G.Sun:  "
+        geoSunTrueNorthNodeTimestampStr = "G.SunTrueNorthNode:  "
+        geoMoSuTimestampStr   = "G.MoSu: "
         priceStr = "Mouse price: "
 
         # Set the values if the X and Y positions are valid.
