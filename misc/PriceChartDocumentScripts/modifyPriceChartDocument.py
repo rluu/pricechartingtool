@@ -20,26 +20,32 @@
 #                                 --tag=TAGNAME \
 #                                 --script-file=/tmp/add_trine_aspects.py
 #
-#   ./modifyPriceChartDocument.py --pcd-file=/tmp/soybeans.pcd \
-#                                 --tag=TAGNAME \
-#                                 --script-file=/tmp/remove.py
+#   ./modifyPriceChartDocument.py \
+#           --pcd-file=/tmp/soybeans.pcd \
+#           --script-file=/tmp/addVerticalLinesFromJulianDayInCsvFile.py
+#           --argument=/tmp/importantDates1.csv
+#           --argument=/tmp/importantDates2.csv
 #
 # Notes:
 #
-#    The specified script file should have a function called:
+#    The specified script file should have a function called
+#    one of the following:
 #
 #    def processPCDD(pcdd, tag):
-#        """Modifies the PriceChartDocumentData object's internal artifacts
-#        with the given tag.
+#    def processPCDD(pcdd, tag, customArguments):
 #
-#        Arguments:
-#        pcdd - PriceChartDocumentData object that will be modified.
-#        tag  - str containing the tag.
+#    where:
 #
-#        Returns:
-#        0 if the changes are to be saved to file.
-#        1 if the changes are NOT to be saved to file.
-#        """
+#      pcdd   - the PriceChartDocumentData object to be modified.
+#      tag    - a str containing a tag (some scripts don't use this value)
+#      customArguments - a list of str.  
+#                        Used as custom additional arguments that can be
+#                        passed to some scripts.
+#
+#    which returns:
+#
+#      0 if the changes are to be saved to file.
+#      1 if the changes are NOT to be saved to file.
 #
 ##############################################################################
 
@@ -98,6 +104,10 @@ tag = ""
 # Script file to execute for taking action to the PriceChartDocument
 # (.pcd) file.  This value is specified via command-line option.
 scriptFile = ""
+
+# List that holds any additional optional custom arguments.
+# These will be attempted to be passed to the underlying script.
+customArguments = None
 
 # For logging.
 #logLevel = logging.DEBUG
@@ -256,6 +266,16 @@ parser.add_option("--script-file",
                        "can be loaded as a module.",
                   metavar="<SCRIPT>")
 
+parser.add_option("--argument",
+                  action="append",
+                  type="str",
+                  dest="customArguments",
+                  default=None,
+                  help="Specify a custom argument to be " + \
+                       "passed to the python3 script.  " + \
+                       "This option may be specified multiple times.",
+                  metavar="<ARGUMENT_VALUE>")
+
 # Parse the arguments into options.
 (options, args) = parser.parse_args()
 
@@ -319,6 +339,15 @@ if (options.scriptFile != None):
 else:
     log.debug("scriptFile was not specified.")
 
+# Get any potential custom arguments.
+if (options.customArguments != None):
+    if isinstance(options.customArguments, list):
+        customArguments = options.customArguments
+    else:
+        log.error("Unexpected 'customArguments' type encountered: {}".\
+                format(str(type(customArguments))))
+        shutdown(1)
+log.debug("customArguments is: {}".format(customArguments))
 
 ##############################################################################
 
@@ -361,7 +390,14 @@ if scriptFile != "":
         __import__(moduleName, globals(), locals(), [], 0)
 
     log.info("Running external code module '{}' ...".format(moduleName))
-    rc = importedModule.processPCDD(priceChartDocumentData, tag)
+
+    rc = None
+    if customArguments is None:
+        rc = importedModule.\
+            processPCDD(priceChartDocumentData, tag)
+    else:
+        rc = importedModule.\
+            processPCDD(priceChartDocumentData, tag, customArguments)
 
     log.info("Finished running external code module.")
 

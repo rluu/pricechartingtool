@@ -62,8 +62,8 @@ from astrologychart import AstrologyUtils
 ##############################################################################
 
 # For logging.
-logLevel = logging.DEBUG
-#logLevel = logging.INFO
+#logLevel = logging.DEBUG
+logLevel = logging.INFO
 #logLevel = logging.ERROR
 #logging.basicConfig(format='%(levelname)s: %(message)s')
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s')

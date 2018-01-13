@@ -1372,7 +1372,7 @@ class PriceBarChartArtifactGraphicsItem(QGraphicsItem):
 
             if len(tags) > 0:
 
-                statusStr = "Tags: ["
+                statusStr = "Tags: [ "
 
                 for tag in tags:
                     statusStr += tag + ", "
@@ -1380,7 +1380,7 @@ class PriceBarChartArtifactGraphicsItem(QGraphicsItem):
                 if statusStr.endswith(", "):
                     statusStr = statusStr[:-2]
 
-                statusStr += "]"
+                statusStr += " ]"
 
                 scene.statusMessageUpdate.emit(statusStr)
 
@@ -41849,9 +41849,9 @@ class PriceBarChartWidget(QWidget):
         col1 = QVBoxLayout()
         col1.addWidget(self.selectedPriceBarTimestampLabel)
         col1.addWidget(self.selectedPriceBarOpenPriceLabel)
-        col1.addWidget(self.selectedPriceBarClosePriceLabel)
         col1.addWidget(self.selectedPriceBarHighPriceLabel)
         col1.addWidget(self.selectedPriceBarLowPriceLabel)
+        col1.addWidget(self.selectedPriceBarClosePriceLabel)
 
         col2 = QVBoxLayout()
         col2.addWidget(self.cursorUtcTimestampLabel)
