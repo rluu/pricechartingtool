@@ -67,7 +67,8 @@ locationLatitude = 40.7142
 locationElevation = 0
 
 # Timezone information to use with the Ephemeris.
-timezone = pytz.timezone("US/Eastern")
+#timezone = pytz.timezone("US/Eastern")
+timezone = pytz.utc
 
 # Time of the day to use to whem getting ephemeris measurements.
 hourOfDay = 12
@@ -87,7 +88,7 @@ endDt   = datetime.datetime(year=1940, month=12, day=31,
 stepSizeTd = datetime.timedelta(days=1)
 
 # Error threshold for calculating timestamps.
-maxErrorTd = datetime.timedelta(minutes=1)
+maxErrorTd = datetime.timedelta(seconds=1)
 
 # Destination output CSV file.
 outputFilename = thisScriptDir + os.sep + "nisan1Dates.csv"
