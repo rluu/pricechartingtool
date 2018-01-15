@@ -13,13 +13,44 @@ logs/*
 !data/cache/.gitignore
 
 # Ignore some generated CSV files and spreadsheets.
+misc/CalculatingEclipses/*.csv
+misc/CalculatingEclipses/*.ods
+misc/CalculatingNisan1Dates/*.csv
+misc/CalculatingNisan1Dates/*.ods
+misc/CalculatingPlanetConjunctions/*.csv
+misc/CalculatingPlanetConjunctions/*.ods
+misc/CalculatingPlanetCrossingLongitudeDegrees/*.csv
+misc/CalculatingPlanetCrossingLongitudeDegrees/*.ods
 misc/CalculatingPlanetDirectAndRetrograde/*.csv
 misc/CalculatingPlanetDirectAndRetrograde/*.ods
+misc/CalculatingPlanetLocationAndDifferences/*.csv
+misc/CalculatingPlanetLocationAndDifferences/*.ods
+misc/CalculatingPlanetLunarDates/*.csv
+misc/CalculatingPlanetLunarDates/*.ods
+misc/CalculatingPlanetNodes/*.csv
+misc/CalculatingPlanetNodes/*.ods
 misc/EphemerisGeneration/cycleHuntingGeneric/*.csv
+misc/EphemerisGeneration/cycleHuntingGeneric/*.ods
+misc/EphemerisGeneration/cycleHuntingGenericIntraday/*.csv
+misc/EphemerisGeneration/cycleHuntingGenericIntraday/*.ods
 misc/EphemerisGeneration/cycleOfRepetition/*.csv
 misc/EphemerisGeneration/cycleOfRepetition/*.ods
+misc/EphemerisGeneration/moonPhases/moon_draconic_30_phases/*.csv
+misc/EphemerisGeneration/moonPhases/moon_draconic_30_phases/*.ods
+misc/EphemerisGeneration/moonPhases/moon_draconic_360_phases/*.csv
+misc/EphemerisGeneration/moonPhases/moon_draconic_360_phases/*.ods
+misc/EphemerisGeneration/moonPhases/moon_draconic_new_and_full_phases/*.csv
+misc/EphemerisGeneration/moonPhases/moon_draconic_new_and_full_phases/*.ods
+misc/EphemerisGeneration/moonPhases/moon_synodic_22_phases/*.csv
+misc/EphemerisGeneration/moonPhases/moon_synodic_22_phases/*.ods
+misc/EphemerisGeneration/moonPhases/moon_synodic_28_phases/*.csv
+misc/EphemerisGeneration/moonPhases/moon_synodic_28_phases/*.ods
+misc/EphemerisGeneration/moonPhases/moon_synodic_30_phases/*.csv
+misc/EphemerisGeneration/moonPhases/moon_synodic_30_phases/*.ods
 misc/EphemerisGeneration/moonPhases/moon_synodic_new_and_full_phases/*.csv
 misc/EphemerisGeneration/moonPhases/moon_synodic_new_and_full_phases/*.ods
+misc/EphemerisGeneration/moonPhases/moon_tropical_30_phases/*.csv
+misc/EphemerisGeneration/moonPhases/moon_tropical_30_phases/*.ods
 
 # Ignore certain directories/files in the src directory.
 src/__pycache__

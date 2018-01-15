@@ -38,6 +38,7 @@ if srcDir not in sys.path:
     sys.path.insert(0, srcDir)
 from ephemeris import Ephemeris
 from ephemeris_utils import EphemerisUtils
+from lunar_calendar_utils import LunarDate
 from lunar_calendar_utils import LunarCalendarUtils
 from util import Util
 from data_objects import *
@@ -129,6 +130,28 @@ if __name__ == "__main__":
     #    )
     eclipseTuples = []
 
+    if startLunarYear > endLunarYear:
+        errMsg = \
+            "startLunarYear must be less than or equal to endLunarYear." + \
+            "  startLunarYear: {}".format(startLunarYear) + \
+            "  endLunarYear: {}".format(endLunarYear)
+        log.error(errMsg)
+        shutdown(1)
+
+    numSolarEclipsesFound = 0
+    numLunarEclipsesFound = 0
+
+    infoStr = "Calculating "
+    if solarEclipsesEnabled and lunarEclipsesEnabled:
+        infoStr += "solar and lunar "
+    elif solarEclipsesEnabled and not lunarEclipsesEnabled:
+        infoStr += "solar "
+    elif not solarEclipsesEnabled and lunarEclipsesEnabled:
+        infoStr += "lunar "
+    infoStr += "eclipses between the lunar years " + \
+        "{} and {}, inclusive ...".format(startLunarYear, endLunarYear)
+    log.info(infoStr)
+
     for lunarYear in range(startLunarYear, endLunarYear + 1):
         startLunarMonth = 1
         endLunarMonth = 12
@@ -175,7 +198,9 @@ if __name__ == "__main__":
                         Util.toNormalizedAngle(sunLongitude - trueNorthNodeLongitude)
                     log.debug("sunTrueSouthNodeDiff == {}".format(sunTrueSouthNodeDiff))
 
-                    if sunTrueNorthNodeDiff < longitudeThresholdForSolarEclipse:
+                    if (sunTrueNorthNodeDiff <= longitudeThresholdForSolarEclipse or \
+                        sunTrueSouthNodeDiff <= longitudeThresholdForSolarEclipse):
+
                         log.debug("Within threshold for a solar eclipse: {}".\
                             format(lunarDate))
 
@@ -191,6 +216,8 @@ if __name__ == "__main__":
 
                         eclipseTuples.append(tup)
 
+                        numSolarEclipsesFound += 1
+
                 elif lunarDay == fullMoonPhase:
                     eclipseTypeStr = lunarEclipseTypeStr
                     sunTrueNorthNodeDiff = \
@@ -201,7 +228,9 @@ if __name__ == "__main__":
                         Util.toNormalizedAngle(sunLongitude - trueNorthNodeLongitude)
                     log.debug("sunTrueSouthNodeDiff == {}".format(sunTrueSouthNodeDiff))
 
-                    if sunTrueNorthNodeDiff < longitudeThresholdForLunarEclipse:
+                    if (sunTrueNorthNodeDiff <= longitudeThresholdForSolarEclipse or \
+                        sunTrueSouthNodeDiff <= longitudeThresholdForSolarEclipse):
+
                         log.debug("Within threshold for a lunar eclipse: {}".\
                             format(lunarDate))
 
@@ -216,6 +245,14 @@ if __name__ == "__main__":
                                eclipseTypeStr)
 
                         eclipseTuples.append(tup)
+
+                        numLunarEclipsesFound += 1
+
+    if solarEclipsesEnabled:
+        log.info("Found {} solar eclipses.".format(numSolarEclipsesFound))
+
+    if lunarEclipsesEnabled:
+        log.info("Found {} lunar eclipses.".format(numLunarEclipsesFound))
 
     # Sort the eclipse tuples by timestamp.
     eclipseTuples = sorted(eclipseTuples, key=lambda tup: tup[0])
