@@ -186,6 +186,7 @@ def processPCDD(pcdd, tag, customArguments=None):
 
         with open(csvFile, 'r') as f:
             i = -1
+            numTimestampsProcessed = 0
             isFirstRow = True
             for line in f:
                 i += 1
@@ -243,10 +244,10 @@ def processPCDD(pcdd, tag, customArguments=None):
                 PlanetaryCombinationsLibrary.\
                     addVerticalLine(pcdd, dt,
                                     highPrice, lowPrice, tag, color)
-    
+                numTimestampsProcessed += 1
 
             log.info("Processed {} timestamps from CSV file: {}".\
-                    format(i, csvFile))
+                    format(numTimestampsProcessed, csvFile))
 
     log.info("Processed {} total CSV file(s).".format(len(csvFiles)))
     success = True
