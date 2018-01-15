@@ -175,7 +175,8 @@ def processPCDD(pcdd, tag, customArguments=None):
         # Get a QColor to use for drawing the vertical lines for this CSV file.
         color = None
         if useRandomColors and len(colorsAvailable) > 0:
-            randomIndexForColorsAvailable = random.randrange(len(colorsAvailable))
+            randomIndexForColorsAvailable = \
+                random.randrange(len(colorsAvailable))
             log.debug("randomIndexForColorsAvailable == {}".\
                 format(randomIndexForColorsAvailable))
             color = colorsAvailable[randomIndexForColorsAvailable]
@@ -184,9 +185,10 @@ def processPCDD(pcdd, tag, customArguments=None):
             color = Color.veryDarkGray
 
         with open(csvFile, 'r') as f:
-            i = 0
+            i = -1
             isFirstRow = True
             for line in f:
+                i += 1
                 log.debug("line[{}] == {}".format(i, line))
                 row = line.split(",")
 
@@ -197,9 +199,21 @@ def processPCDD(pcdd, tag, customArguments=None):
                 tag = None
                 jd = None
                 try:
-                    tag = row[0]
-                    jd = float(row[1])
-                except IndexError as e:
+                    tagColumn = 0
+                    jdColumn = 1
+                    tag = row[tagColumn]
+                    jdStr = row[jdColumn]
+                    try:
+                        jd = float(jdStr)
+                    except ValueError as ve:
+                        warnMsg = "Column at row index {}".format(i) + \
+                            ", column index {}".format(jdColumn) + \
+                            " does not contain a parsable float.  " + \
+                            "Skipping this row.  " + \
+                            "CSV file is: {}".format(csvFile)
+                        log.warn(warnMsg)
+                        continue
+                except IndexError as ie:
                     errMsg = "Row at index {}".format(i) + \
                         " does not contain at least 2 columns.  " + \
                         "CSV file is: {}".format(csvFile)
@@ -229,7 +243,6 @@ def processPCDD(pcdd, tag, customArguments=None):
                     addVerticalLine(pcdd, dt,
                                     highPrice, lowPrice, tag, color)
     
-                i += 1
 
             log.info("Processed {} timestamps from CSV file: {}".\
                     format(i, csvFile))
