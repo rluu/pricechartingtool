@@ -209,7 +209,8 @@ def processPCDD(pcdd, tag, customArguments=None):
                         warnMsg = "Column at row index {}".format(i) + \
                             ", column index {}".format(jdColumn) + \
                             " does not contain a parsable float.  " + \
-                            "Skipping this row.  " + \
+                            "Value seen was: '{}'.".format(jdStr) + \
+                            "  Skipping this row.  " + \
                             "CSV file is: {}".format(csvFile)
                         log.warn(warnMsg)
                         continue
