@@ -80,6 +80,7 @@ if moreFilesDir not in sys.path:
 from ephemeris import Ephemeris
 from data_objects import *
 from pricebarchart import PriceBarChartGraphicsScene
+from cache import Cache
 
 ##############################################################################
 # Global Variables
@@ -109,6 +110,9 @@ scriptFile = ""
 # These will be attempted to be passed to the underlying script.
 customArguments = None
 
+# Cache enabling.
+cacheEnabled = True
+
 # For logging.
 #logLevel = logging.DEBUG
 logLevel = logging.INFO
@@ -123,6 +127,8 @@ log.setLevel(logLevel)
 def shutdown(rc):
     """Exits the script, but first flushes all logging handles, etc."""
     Ephemeris.closeEphemeris()
+    if cacheEnabled:
+        Cache.saveCachesToShelve()
     logging.shutdown()
     sys.exit(rc)
 
@@ -350,6 +356,10 @@ if (options.customArguments != None):
 log.debug("customArguments is: {}".format(customArguments))
 
 ##############################################################################
+
+if cacheEnabled:
+    # Initialize the caches.
+    Cache.loadCachesFromShelve()
 
 # Initialize Ephemeris (required).
 Ephemeris.initialize()

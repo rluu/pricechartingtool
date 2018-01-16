@@ -92,8 +92,8 @@ class LunarDate:
 
     def __lt__(self, other):
         """
-        Returns True if LunarDate self is earlier in time than LunarDate other,
-        otherwise False is returned.
+        Returns True if LunarDate self is earlier in time than LunarDate
+        other, otherwise False is returned.
         """
 
         if not isinstance(other, LunarDate):
@@ -121,7 +121,8 @@ class LunarDate:
         """
         Returns True if any one of the following is True:
           - LunarDate self is earlier in time than LunarDate other.
-          - LunarDate self is equals (i.e. at the same time as) LunarDate other.
+          - LunarDate self is equals (i.e. at the same time as) LunarDate
+                other.
 
         Otherwise False is returned.
         """
@@ -310,14 +311,15 @@ class LunarDate:
         rv = LunarDate(year, month, day)
 
         if LunarDate.log.isEnabledFor(logging.DEBUG):
-            LunarDate.log.debug("{} + {} = {}".format(self, lunarTimeDelta, rv))
+            LunarDate.log.debug("{} + {} = {}".\
+                format(self, lunarTimeDelta, rv))
 
         return rv
 
     def __sub__(self, other):
         """
-        This method takes the given LunarTimeDelta and subtracts it from LunarDate self,
-        returning the resulting LunarDate.
+        This method takes the given LunarTimeDelta and subtracts it from
+        LunarDate self, returning the resulting LunarDate.
         """
 
         rv = None
@@ -331,7 +333,8 @@ class LunarDate:
             rv = self + invertedLunarTimeDelta
 
             if LunarDate.log.isEnabledFor(logging.DEBUG):
-                LunarDate.log.debug("{} - {} = {}".format(self, other, rv))
+                LunarDate.log.debug("{} - {} = {}".\
+                    format(self, other, rv))
 
         elif isinstance(other, LunarDate):
             years = self.year - other.year
@@ -349,7 +352,8 @@ class LunarDate:
             rv = LunarTimeDelta(years, months, days)
 
             if LunarDate.log.isEnabledFor(logging.DEBUG):
-                LunarDate.log.debug("{} - {} = {}".format(self, other, rv))
+                LunarDate.log.debug("{} - {} = {}".\
+                    format(self, other, rv))
 
         else:
             errStr = "'lunarTimeDelta' argument must be of type LunarDate or type LunarTimeDelta"
@@ -476,7 +480,8 @@ class LunarTimeDelta:
             self.months -= 1
 
         if LunarTimeDelta.log.isEnabledFor(logging.DEBUG):
-            LunarTimeDelta.log.debug("Final normalized values: {}".format(self.toString()))
+            LunarTimeDelta.log.debug("Final normalized values: {}".
+                format(self.toString()))
 
     def __add__(self, other):
         """
@@ -628,7 +633,8 @@ class LunarCalendarUtils:
         cacheValue = cache.get(cacheKey)
         if cacheValue != None:
             if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
-                LunarCalendarUtils.log.debug("Get: Key found in cache (key={}, value={}).".\
+                LunarCalendarUtils.log.debug(\
+                    "Get: Key found in cache (key={}, value={}).".\
                     format(cacheKey, cacheValue))
                 LunarCalendarUtils.log.debug("currsize of cache is: {}".\
                     format(cache.currsize))
@@ -636,8 +642,9 @@ class LunarCalendarUtils:
             return rv
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
-            LunarCalendarUtils.log.debug("Get: Key not found in cache (key={}).".\
-                    format(cacheKey))
+            LunarCalendarUtils.log.debug(\
+                "Get: Key not found in cache (key={}).".\
+                format(cacheKey))
             LunarCalendarUtils.log.debug("currsize of cache is: {}".\
                 format(cache.currsize))
 
@@ -696,22 +703,32 @@ class LunarCalendarUtils:
             else:
                 break
 
-        LunarCalendarUtils.log.debug("lunarMonth == {}".format(lunarMonth))
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug("lunarMonth == {}".\
+                format(lunarMonth))
 
         # Determine what lunar day 'dt' falls under.
         pi = Ephemeris.getPlanetaryInfo("MoSu", dt)
         longitude = pi.geocentric['tropical']['longitude']
         lunarDay = longitude / 12.0
-        LunarCalendarUtils.log.debug("lunarDay == {}".format(lunarDay))
+
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug("lunarDay == {}".\
+                format(lunarDay))
 
         rv = LunarDate(lunarYear, lunarMonth, lunarDay)
-        LunarCalendarUtils.log.debug("rv == {}".format(rv))
+
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug("rv == {}".format(rv))
 
         # Store the computed result in the cache.
         cache[cacheKey] = rv
 
-        LunarCalendarUtils.log.debug("Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
-        LunarCalendarUtils.log.debug("currsize of cache is: {}".format(cache.currsize))
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug(\
+                "Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
+            LunarCalendarUtils.log.debug(\
+                "currsize of cache is: {}".format(cache.currsize))
 
         return rv
 
@@ -744,7 +761,8 @@ class LunarCalendarUtils:
         cacheValue = cache.get(cacheKey)
         if cacheValue != None:
             if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
-                LunarCalendarUtils.log.debug("Get: Key found in cache (key={}, value={}).".\
+                LunarCalendarUtils.log.debug(\
+                    "Get: Key found in cache (key={}, value={}).".\
                     format(cacheKey, cacheValue))
                 LunarCalendarUtils.log.debug("currsize of cache is: {}".\
                     format(cache.currsize))
@@ -752,8 +770,9 @@ class LunarCalendarUtils:
             return rv
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
-            LunarCalendarUtils.log.debug("Get: Key not found in cache (key={}).".\
-                    format(cacheKey))
+            LunarCalendarUtils.log.debug(\
+                "Get: Key not found in cache (key={}).".\
+                format(cacheKey))
             LunarCalendarUtils.log.debug("currsize of cache is: {}".\
                 format(cache.currsize))
 
@@ -774,8 +793,10 @@ class LunarCalendarUtils:
                               second=0,
                               tzinfo=pytz.utc)
 
-        # Get the Spring Equinox date.  This method call should return 1 datetime.
-        springEquinoxDts = EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
+        # Get the Spring Equinox date.  
+        # This method call should return 1 datetime.
+        springEquinoxDts = \
+            EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(\
                 springEquinoxSearchStartDate,
                 springEquinoxSearchEndDate,
                 "Sun",
@@ -867,19 +888,24 @@ class LunarCalendarUtils:
             nisan1Dt = newMoonDts[-1]
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
-            LunarCalendarUtils.log.debug("nisan1Dt == " + Ephemeris.datetimeToDayStr(nisan1Dt))
+            LunarCalendarUtils.log.debug("nisan1Dt == " + \
+                Ephemeris.datetimeToDayStr(nisan1Dt))
 
         # Convert to the timezone specified.
         rv = tzInfo.normalize(nisan1Dt.astimezone(tzInfo))
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
-            LunarCalendarUtils.log.debug("rv == " + Ephemeris.datetimeToDayStr(rv))
+            LunarCalendarUtils.log.debug("rv == " + \
+                Ephemeris.datetimeToDayStr(rv))
 
         # Store the computed result in the cache.
         cache[cacheKey] = rv
 
-        LunarCalendarUtils.log.debug("Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
-        LunarCalendarUtils.log.debug("currsize of cache is: {}".format(cache.currsize))
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug(
+                "Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
+            LunarCalendarUtils.log.debug(\
+                "currsize of cache is: {}".format(cache.currsize))
 
         return rv
 
@@ -910,7 +936,8 @@ class LunarCalendarUtils:
         cacheValue = cache.get(cacheKey)
         if cacheValue != None:
             if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
-                LunarCalendarUtils.log.debug("Get: Key found in cache (key={}, value={}).".\
+                LunarCalendarUtils.log.debug(\
+                    "Get: Key found in cache (key={}, value={}).".\
                     format(cacheKey, cacheValue))
                 LunarCalendarUtils.log.debug("currsize of cache is: {}".\
                     format(cache.currsize))
@@ -918,8 +945,9 @@ class LunarCalendarUtils:
             return rv
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
-            LunarCalendarUtils.log.debug("Get: Key not found in cache (key={}).".\
-                    format(cacheKey))
+            LunarCalendarUtils.log.debug(\
+                "Get: Key not found in cache (key={}).".\
+                format(cacheKey))
             LunarCalendarUtils.log.debug("currsize of cache is: {}".\
                 format(cache.currsize))
 
@@ -976,8 +1004,11 @@ class LunarCalendarUtils:
         # Store the computed result in the cache.
         cache[cacheKey] = rv
 
-        LunarCalendarUtils.log.debug("Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
-        LunarCalendarUtils.log.debug("currsize of cache is: {}".format(cache.currsize))
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug(\
+                "Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
+            LunarCalendarUtils.log.debug(\
+                "currsize of cache is: {}".format(cache.currsize))
 
         return rv
 
@@ -1007,7 +1038,8 @@ class LunarCalendarUtils:
         cacheValue = cache.get(cacheKey)
         if cacheValue != None:
             if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
-                LunarCalendarUtils.log.debug("Get: Key found in cache (key={}, value={}).".\
+                LunarCalendarUtils.log.debug(\
+                    "Get: Key found in cache (key={}, value={}).".\
                     format(cacheKey, cacheValue))
                 LunarCalendarUtils.log.debug("currsize of cache is: {}".\
                     format(cache.currsize))
@@ -1015,8 +1047,9 @@ class LunarCalendarUtils:
             return rv
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
-            LunarCalendarUtils.log.debug("Get: Key not found in cache (key={}).".\
-                    format(cacheKey))
+            LunarCalendarUtils.log.debug(\
+                "Get: Key not found in cache (key={}).".\
+                format(cacheKey))
             LunarCalendarUtils.log.debug("currsize of cache is: {}".\
                 format(cache.currsize))
 
@@ -1025,7 +1058,8 @@ class LunarCalendarUtils:
         # 2) Get the Nisan 1 date for the year following.
         # 3) Find the difference in number of calendar days between the two.
         # 4) If the difference in number of calendar days is closer to
-        #    13 lunations, then True is returned.  Otherwise False is returned.
+        #    13 lunations, then True is returned.  Otherwise False 
+        #    is returned.
 
         nisan1DtA = \
             LunarCalendarUtils.getNisan1DatetimeForYear(lunarYear, pytz.utc)
@@ -1037,9 +1071,12 @@ class LunarCalendarUtils:
         diffTimeDelta = nisan1DtB - nisan1DtA
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
-            LunarCalendarUtils.log.debug("nisan1DtA == {}".format(Ephemeris.datetimeToDayStr(nisan1DtA)))
-            LunarCalendarUtils.log.debug("nisan1DtB == {}".format(Ephemeris.datetimeToDayStr(nisan1DtB)))
-            LunarCalendarUtils.log.debug("diffTimeDelta == {}".format(diffTimeDelta))
+            LunarCalendarUtils.log.debug("nisan1DtA == {}".\
+                format(Ephemeris.datetimeToDayStr(nisan1DtA)))
+            LunarCalendarUtils.log.debug("nisan1DtB == {}".\
+                format(Ephemeris.datetimeToDayStr(nisan1DtB)))
+            LunarCalendarUtils.log.debug("diffTimeDelta == {}".\
+                format(diffTimeDelta))
 
         if diffTimeDelta.days > 370:
             # 13 lunar months.
@@ -1051,8 +1088,11 @@ class LunarCalendarUtils:
         # Store the computed result in the cache.
         cache[cacheKey] = rv
 
-        LunarCalendarUtils.log.debug("Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
-        LunarCalendarUtils.log.debug("currsize of cache is: {}".format(cache.currsize))
+        if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
+            LunarCalendarUtils.log.debug(\
+                "Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
+            LunarCalendarUtils.log.debug(\
+                "currsize of cache is: {}".format(cache.currsize))
 
         return rv
 

@@ -49,6 +49,7 @@ from ephemeris import Ephemeris
 from lunar_calendar_utils import LunarDate
 from lunar_calendar_utils import LunarCalendarUtils
 from data_objects import *
+from cache import Cache
 
 ##############################################################################
 
@@ -89,8 +90,11 @@ maxErrorTd = datetime.timedelta(seconds=1)
 # Destination output CSV file.
 outputFilename = thisScriptDir + os.sep + "planetLunarDates.csv"
 
+# Cache enabling.
+cacheEnabled = True
+
 # For logging.
-logging.basicConfig(format='%(levelname)s: %(message)s')
+logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
 #log.setLevel(logging.DEBUG)
@@ -104,58 +108,19 @@ def shutdown(rc):
     # Close the Ephemeris so it can do necessary cleanups.
     Ephemeris.closeEphemeris()
     
+    if cacheEnabled:
+        Cache.saveCachesToShelve()
+
     logging.shutdown()
-    
     sys.exit(rc)
 
 ##############################################################################
 
-def isNumber(numStr):
-    """Returns True if the string is a number."""
-
-    rv = True
-    
-    for letter in numStr:
-        if not (letter.isdigit() or letter == "."):
-            rv = False
-            break
-
-    return rv
-
-def formatToDateStr(dt):
-    """Returns a date string in the format: "YYYY-MM-DD".
-
-    Arguments:
-    dt - datetime.datetime object.
-
-    Returns:
-    str object holding the date in format "YYYY-MM-DD".
-    """
-
-    dateStr = "{:04}-{:02}-{:02}".\
-              format(dt.year, dt.month, dt.day)
-    
-    return dateStr
-
-def formatToDateAndTimeStr(dt):
-    """Returns a timestamp string in the format: "YYYY-MM-DD HH:MM"
-    
-    Arguments:
-    dt - datetime.datetime object.
-
-    Returns:
-    str object holding the date in format "YYYY-MM-DD HH:MM".
-    """
-
-    dateAndTimeStr = "{:04}-{:02}-{:02} {:02}:{:02}".\
-              format(dt.year, dt.month, dt.day, dt.hour, dt.minute)
-    
-    return dateAndTimeStr
-
-    
-##############################################################################
-
 if __name__ == "__main__":
+    if cacheEnabled:
+        # Initialize the caches.
+        Cache.loadCachesFromShelve()
+
     # Initialize Ephemeris (required).
     Ephemeris.initialize()
 

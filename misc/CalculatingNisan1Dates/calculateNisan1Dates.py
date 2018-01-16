@@ -51,6 +51,7 @@ from ephemeris import Ephemeris
 from ephemeris_utils import EphemerisUtils
 from lunar_calendar_utils import LunarCalendarUtils
 from data_objects import *
+from cache import Cache
 
 ##############################################################################
 
@@ -113,9 +114,11 @@ geocentricPlanetNames = [\
     #"Isis"
     ]
 
+# Cache enabling.
+cacheEnabled = True
 
 # For logging.
-logging.basicConfig(format='%(levelname)s: %(message)s')
+logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
 #log.setLevel(logging.DEBUG)
@@ -129,8 +132,10 @@ def shutdown(rc):
     # Close the Ephemeris so it can do necessary cleanups.
     Ephemeris.closeEphemeris()
     
+    if cacheEnabled:
+        Cache.saveCachesToShelve()
+
     logging.shutdown()
-    
     sys.exit(rc)
 
 ##############################################################################
@@ -325,6 +330,10 @@ def getNisan1DatesRelativeToBeforeSunTrueNorthNodeConjunction():
 ##############################################################################
 
 if __name__ == "__main__":
+    if cacheEnabled:
+        # Initialize the caches.
+        Cache.loadCachesFromShelve()
+
     # Initialize Ephemeris (required).
     Ephemeris.initialize()
 

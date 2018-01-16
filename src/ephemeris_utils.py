@@ -73,7 +73,6 @@ class EphemerisUtils:
         geographic position has been set already.
 
         Arguments:
-        pcdd      - PriceChartDocumentData object that will be modified.
         startDt   - datetime.datetime object for the starting timestamp
                     to do the calculations for artifacts.
         endDt     - datetime.datetime object for the ending timestamp
