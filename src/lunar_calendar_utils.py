@@ -597,7 +597,7 @@ class LunarCalendarUtils:
     log = logging.getLogger("lunar_calendar_utils.LunarCalendarUtils")
 
     # Cache used for staticmethod: datetimeToLunarDate().
-    datetimeToLunarDateCache = LRUCache(maxsize=4194304)
+    datetimeToLunarDateCache = LRUCache(maxsize=1048576)
 
     @staticmethod
     def datetimeToLunarDate(dt):

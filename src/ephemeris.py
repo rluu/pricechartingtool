@@ -258,8 +258,9 @@ class Ephemeris:
     SWISS_EPHEMERIS_DATA_DIR = \
         os.path.abspath(os.path.join(sys.path[0], "../data/ephe"))
 
-    # Cache used for staticmethod: Ephemeris.getPlanetaryInfo(planetName, dt).
-    getPlanetaryInfoCache = LRUCache(maxsize=4194304)
+    # Cache used for staticmethod: Ephemeris.getPlanetaryInfo(planetName, dt)
+    getPlanetaryInfoCacheEnabled = True
+    getPlanetaryInfoCache = LRUCache(maxsize=32768)
 
     # Flag that is used in Swiss Ephemeris calculations.
     # We make mods to this variable to add options.
@@ -4493,29 +4494,30 @@ class Ephemeris:
             debugStr = "Entered getPlanetaryInfo(planetName={}, datetime={}"
             Ephemeris.log.debug(debugStr.format(planetName, dt))
 
-        # Check the cache for previously computed solution.
-        cache = Ephemeris.getPlanetaryInfoCache
-        cacheKey = \
-                (planetName,
-                dt,
-                Ephemeris.geoLongitudeDeg,
-                Ephemeris.geoLatitudeDeg,
-                Ephemeris.geoAltitudeMeters)
-        cacheValue = cache.get(cacheKey)
-        if cacheValue != None:
+        if Ephemeris.getPlanetaryInfoCacheEnabled:
+            # Check the cache for previously computed solution.
+            cache = Ephemeris.getPlanetaryInfoCache
+            cacheKey = \
+                    (planetName,
+                    dt,
+                    Ephemeris.geoLongitudeDeg,
+                    Ephemeris.geoLatitudeDeg,
+                    Ephemeris.geoAltitudeMeters)
+            cacheValue = cache.get(cacheKey)
+            if cacheValue != None:
+                if Ephemeris.log.isEnabledFor(logging.DEBUG):
+                    Ephemeris.log.debug("Get: Key found in cache (key={}, value={}).".\
+                        format(cacheKey, cacheValue))
+                    Ephemeris.log.debug("currsize of cache is: {}".\
+                        format(cache.currsize))
+                rv = cacheValue
+                return rv
+
             if Ephemeris.log.isEnabledFor(logging.DEBUG):
-                Ephemeris.log.debug("Get: Key found in cache (key={}, value={}).".\
-                    format(cacheKey, cacheValue))
+                Ephemeris.log.debug("Get: Key not found in cache (key={}).".\
+                        format(cacheKey))
                 Ephemeris.log.debug("currsize of cache is: {}".\
                     format(cache.currsize))
-            rv = cacheValue
-            return rv
-
-        if Ephemeris.log.isEnabledFor(logging.DEBUG):
-            Ephemeris.log.debug("Get: Key not found in cache (key={}).".\
-                    format(cacheKey))
-            Ephemeris.log.debug("currsize of cache is: {}".\
-                format(cache.currsize))
 
         # Get the planet id.
         planetId = Ephemeris.getPlanetIdForName(planetName)
@@ -4751,12 +4753,13 @@ class Ephemeris:
                                     "getPlanetaryInfo(): {}".format(planetName))
                 rv = None
 
-            # Store the computed result in the cache.
-            if rv != None:
-                cache[cacheKey] = rv
-                if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-                    Ephemeris.log.debug("Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
-                    Ephemeris.log.debug("currsize of cache is: {}".format(cache.currsize))
+            if Ephemeris.getPlanetaryInfoCacheEnabled:
+                # Store the computed result in the cache.
+                if rv != None:
+                    cache[cacheKey] = rv
+                    if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+                        Ephemeris.log.debug("Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
+                        Ephemeris.log.debug("currsize of cache is: {}".format(cache.currsize))
 
             return rv
 
@@ -5148,11 +5151,12 @@ class Ephemeris:
 
         rv = planetaryInfo
 
-        # Store the computed result in the cache.
-        cache[cacheKey] = rv
-        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-            Ephemeris.log.debug("Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
-            Ephemeris.log.debug("currsize of cache is: {}".format(cache.currsize))
+        if Ephemeris.getPlanetaryInfoCacheEnabled:
+            # Store the computed result in the cache.
+            cache[cacheKey] = rv
+            if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+                Ephemeris.log.debug("Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
+                Ephemeris.log.debug("currsize of cache is: {}".format(cache.currsize))
 
         return rv
 

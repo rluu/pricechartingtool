@@ -29,14 +29,21 @@ class Cache:
     # Location of the source directory, based on this main.py file.
     SRC_DIR = os.path.abspath(sys.path[0])
     
-    # Location of the shelved cache file.
-    SHELVED_CACHE_FILE = \
+    # Location of the shelved cache files.
+    SHELVED_CACHE_EPHEMERIS_FILE = \
             os.path.abspath(os.path.join(SRC_DIR,
                                         ".." + os.sep +
                                         "data" + os.sep +
                                         "cache" + os.sep +
-                                        "cache.shelve"))
+                                        "cache.Ephemeris.shelve"))
     
+    SHELVED_CACHE_LUNARCALENDARUTILS_FILE = \
+            os.path.abspath(os.path.join(SRC_DIR,
+                                        ".." + os.sep +
+                                        "data" + os.sep +
+                                        "cache" + os.sep +
+                                        "cache.LunarCalendarUtils.shelve"))
+
     @staticmethod
     def loadCachesFromShelve():
         """
@@ -47,21 +54,25 @@ class Cache:
         with calculations that should be the same from run to run.
         """
     
-        if not os.path.isfile(Cache.SHELVED_CACHE_FILE):
-            Cache.log.info("Shelve file '" + Cache.SHELVED_CACHE_FILE +
+        ########################################
+
+        shelveFilename = Cache.SHELVED_CACHE_EPHEMERIS_FILE
+        
+        if not os.path.isfile(shelveFilename):
+            Cache.log.info("Shelve file '" + \
+                     shelveFilename +
                      "' does not exist or it is not a file.  " +
-                     "Will skip loading caches from shelve.")
-    
+                     "Will skip loading caches from this shelve.")
         else:
             # Shelve exists.  Open it.
-            Cache.log.info("Shelve file '" + Cache.SHELVED_CACHE_FILE + \
+            Cache.log.info("Shelve file '" + shelveFilename + \
                     "' exists.  Attempting to open ...")
-            cacheDict = shelve.open(Cache.SHELVED_CACHE_FILE)
-            Cache.log.info("Shelve file opened for loading: " + \
-                    Cache.SHELVED_CACHE_FILE)
+            cacheDict = shelve.open(shelveFilename)
+            Cache.log.info("Shelve file opened for loading.")
     
             # Retrieve a copy of each of the caches, and store them
             # for use in the application.
+            
             key = "Ephemeris.getPlanetaryInfoCache"
             if key in cacheDict:
                 Cache.log.debug("Found cache key: {}".format(key))
@@ -72,7 +83,29 @@ class Cache:
                     "{} from shelve.".format(cache.currsize))
             else:
                 Cache.log.info("Cache '" + key + "' not found in the shelve.")
+
+            # Close the dictionary.
+            cacheDict.close()
     
+        ########################################
+
+        shelveFilename = Cache.SHELVED_CACHE_LUNARCALENDARUTILS_FILE
+        
+        if not os.path.isfile(shelveFilename):
+            Cache.log.info("Shelve file '" + \
+                     shelveFilename +
+                     "' does not exist or it is not a file.  " +
+                     "Will skip loading caches from this shelve.")
+        else:
+            # Shelve exists.  Open it.
+            Cache.log.info("Shelve file '" + shelveFilename + \
+                    "' exists.  Attempting to open ...")
+            cacheDict = shelve.open(shelveFilename)
+            Cache.log.info("Shelve file opened for loading.")
+
+            # Retrieve a copy of each of the caches, and store them
+            # for use in the application.
+            
             key = "LunarCalendarUtils.datetimeToLunarDateCache"
             if key in cacheDict:
                 Cache.log.debug("Found cache key: {}".format(key))
@@ -117,6 +150,7 @@ class Cache:
             else:
                 Cache.log.info("Cache '" + key + "' not found in the shelve.")
     
+            # Close the dictionary.
             cacheDict.close()
     
     
@@ -127,19 +161,34 @@ class Cache:
         the next time we open the application.
         """
     
-        Cache.log.info("Attempting to open shelve file '" + \
-                Cache.SHELVED_CACHE_FILE + "' for saving ...")
-        cacheDict = shelve.open(Cache.SHELVED_CACHE_FILE)
-        Cache.log.info("Shelve file opened for saving: " + \
-                Cache.SHELVED_CACHE_FILE)
-    
+        ########################################
+
+        shelveFilename = Cache.SHELVED_CACHE_EPHEMERIS_FILE
+        
+        Cache.log.info("Attempting to open shelve file for saving: '" + \
+                shelveFilename + "' ...")
+        cacheDict = shelve.open(shelveFilename)
+        Cache.log.info("Shelve file opened for saving.")
 
         key = "Ephemeris.getPlanetaryInfoCache"
         cache = Ephemeris.getPlanetaryInfoCache
         Cache.log.info("Saving cache '" + key + "' with currsize " +
                   "{} to shelve ...".format(cache.currsize))
         cacheDict[key] = cache
-    
+        
+        Cache.log.info("Closing shelve ...")
+        cacheDict.close()
+        Cache.log.info("Shelve closed.")
+
+        ########################################
+
+        shelveFilename = Cache.SHELVED_CACHE_LUNARCALENDARUTILS_FILE
+        
+        Cache.log.info("Attempting to open shelve file for saving: '" + \
+                shelveFilename + "' ...")
+        cacheDict = shelve.open(shelveFilename)
+        Cache.log.info("Shelve file opened for saving.")
+
         key = "LunarCalendarUtils.datetimeToLunarDateCache"
         cache = LunarCalendarUtils.datetimeToLunarDateCache
         Cache.log.info("Saving cache '" + key + "' with currsize " +
@@ -163,9 +212,8 @@ class Cache:
         Cache.log.info("Saving cache '" + key + "' with currsize " +
                   "{} to shelve ...".format(cache.currsize))
         cacheDict[key] = cache
-    
-    
+
         Cache.log.info("Closing shelve ...")
         cacheDict.close()
         Cache.log.info("Shelve closed.")
-    
+
