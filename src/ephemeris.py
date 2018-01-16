@@ -4,6 +4,8 @@ import os
 import sys
 import inspect
 
+from cachetools import LRUCache
+
 # For copy.deepcopy()
 import copy
 
@@ -255,6 +257,9 @@ class Ephemeris:
     # Directory where the swiss ephemeris files are located.
     SWISS_EPHEMERIS_DATA_DIR = \
         os.path.abspath(os.path.join(sys.path[0], "../data/ephe"))
+
+    # Cache used for staticmethod: Ephemeris.getPlanetaryInfo(planetName, dt).
+    getPlanetaryInfoCache = LRUCache(maxsize=4194304)
 
     # Flag that is used in Swiss Ephemeris calculations.
     # We make mods to this variable to add options.
@@ -4488,6 +4493,30 @@ class Ephemeris:
             debugStr = "Entered getPlanetaryInfo(planetName={}, datetime={}"
             Ephemeris.log.debug(debugStr.format(planetName, dt))
 
+        # Check the cache for previously computed solution.
+        cache = Ephemeris.getPlanetaryInfoCache
+        cacheKey = \
+                (planetName,
+                dt,
+                Ephemeris.geoLongitudeDeg,
+                Ephemeris.geoLatitudeDeg,
+                Ephemeris.geoAltitudeMeters)
+        cacheValue = cache.get(cacheKey)
+        if cacheValue != None:
+            if Ephemeris.log.isEnabledFor(logging.DEBUG):
+                Ephemeris.log.debug("Get: Key found in cache (key={}, value={}).".\
+                    format(cacheKey, cacheValue))
+                Ephemeris.log.debug("currsize of cache is: {}".\
+                    format(cache.currsize))
+            rv = cacheValue
+            return rv
+
+        if Ephemeris.log.isEnabledFor(logging.DEBUG):
+            Ephemeris.log.debug("Get: Key not found in cache (key={}).".\
+                    format(cacheKey))
+            Ephemeris.log.debug("currsize of cache is: {}".\
+                format(cache.currsize))
+
         # Get the planet id.
         planetId = Ephemeris.getPlanetIdForName(planetName)
 
@@ -4496,230 +4525,240 @@ class Ephemeris:
             # planets (not built into Swiss Ephemeris).
             # Handle these cases for building PlanetaryInfo separately.
 
+            rv = None
             houseSystem = Ephemeris.HouseSys['Porphyry']
 
             if planetName == "H1":
-                return Ephemeris.getH1PlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getH1PlanetaryInfo(dt, houseSystem)
             elif planetName == "H2":
-                return Ephemeris.getH2PlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getH2PlanetaryInfo(dt, houseSystem)
             elif planetName == "H3":
-                return Ephemeris.getH3PlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getH3PlanetaryInfo(dt, houseSystem)
             elif planetName == "H4":
-                return Ephemeris.getH4PlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getH4PlanetaryInfo(dt, houseSystem)
             elif planetName == "H5":
-                return Ephemeris.getH5PlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getH5PlanetaryInfo(dt, houseSystem)
             elif planetName == "H6":
-                return Ephemeris.getH6PlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getH6PlanetaryInfo(dt, houseSystem)
             elif planetName == "H7":
-                return Ephemeris.getH7PlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getH7PlanetaryInfo(dt, houseSystem)
             elif planetName == "H8":
-                return Ephemeris.getH8PlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getH8PlanetaryInfo(dt, houseSystem)
             elif planetName == "H9":
-                return Ephemeris.getH9PlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getH9PlanetaryInfo(dt, houseSystem)
             elif planetName == "H10":
-                return Ephemeris.getH10PlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getH10PlanetaryInfo(dt, houseSystem)
             elif planetName == "H11":
-                return Ephemeris.getH11PlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getH11PlanetaryInfo(dt, houseSystem)
             elif planetName == "H12":
-                return Ephemeris.getH12PlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getH12PlanetaryInfo(dt, houseSystem)
             elif planetName == "Ascendant":
-                return Ephemeris.getAscendantPlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getAscendantPlanetaryInfo(dt, houseSystem)
             elif planetName == "MC":
-                return Ephemeris.getMCPlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getMCPlanetaryInfo(dt, houseSystem)
             elif planetName == "ARMC":
-                return Ephemeris.getARMCPlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getARMCPlanetaryInfo(dt, houseSystem)
             elif planetName == "Vertex":
-                return Ephemeris.getVertexPlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getVertexPlanetaryInfo(dt, houseSystem)
             elif planetName == "EquatorialAscendant":
-                return Ephemeris.getEquatorialAscendantPlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getEquatorialAscendantPlanetaryInfo(dt, houseSystem)
             elif planetName == "CoAscendant1":
-                return Ephemeris.getCoAscendant1PlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getCoAscendant1PlanetaryInfo(dt, houseSystem)
             elif planetName == "CoAscendant2":
-                return Ephemeris.getCoAscendant2PlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getCoAscendant2PlanetaryInfo(dt, houseSystem)
             elif planetName == "PolarAscendant":
-                return Ephemeris.getPolarAscendantPlanetaryInfo(dt, houseSystem)
+                rv = Ephemeris.getPolarAscendantPlanetaryInfo(dt, houseSystem)
             #elif planetName == "HoraLagna":
             #    # TODO:  update for HoraLagna.
-            #    return Ephemeris.getHoraLagnaPlanetaryInfo(dt)
+            #    rv = Ephemeris.getHoraLagnaPlanetaryInfo(dt)
             #elif planetName == "GhatiLagna":
             #    # TODO:  update for GhatiLagna.
-            #    return Ephemeris.getGhatiLagnaPlanetaryInfo(dt)
+            #    rv = Ephemeris.getGhatiLagnaPlanetaryInfo(dt)
             #elif planetName == "Gulika":
             #    # TODO:  update for Gulika.
-            #    return Ephemeris.getGulikaPlanetaryInfo(dt)
+            #    rv = Ephemeris.getGulikaPlanetaryInfo(dt)
             #elif planetName == "Mandi":
             #    # TODO:  update for Mandi.
-            #    return Ephemeris.getMandiPlanetaryInfo(dt)
+            #    rv = Ephemeris.getMandiPlanetaryInfo(dt)
             elif planetName == "MeanSouthNode":
-                return Ephemeris.getMeanSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getMeanSouthNodePlanetaryInfo(dt)
             elif planetName == "TrueSouthNode":
-                return Ephemeris.getTrueSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getTrueSouthNodePlanetaryInfo(dt)
             elif planetName == "MercuryNorthNode":
-                return Ephemeris.getMercuryNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getMercuryNorthNodePlanetaryInfo(dt)
             elif planetName == "MercurySouthNode":
-                return Ephemeris.getMercurySouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getMercurySouthNodePlanetaryInfo(dt)
             elif planetName == "VenusNorthNode":
-                return Ephemeris.getVenusNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getVenusNorthNodePlanetaryInfo(dt)
             elif planetName == "VenusSouthNode":
-                return Ephemeris.getVenusSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getVenusSouthNodePlanetaryInfo(dt)
             elif planetName == "MarsNorthNode":
-                return Ephemeris.getMarsNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getMarsNorthNodePlanetaryInfo(dt)
             elif planetName == "MarsSouthNode":
-                return Ephemeris.getMarsSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getMarsSouthNodePlanetaryInfo(dt)
             elif planetName == "JupiterNorthNode":
-                return Ephemeris.getJupiterNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getJupiterNorthNodePlanetaryInfo(dt)
             elif planetName == "JupiterSouthNode":
-                return Ephemeris.getJupiterSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getJupiterSouthNodePlanetaryInfo(dt)
             elif planetName == "SaturnNorthNode":
-                return Ephemeris.getSaturnNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getSaturnNorthNodePlanetaryInfo(dt)
             elif planetName == "SaturnSouthNode":
-                return Ephemeris.getSaturnSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getSaturnSouthNodePlanetaryInfo(dt)
             elif planetName == "UranusNorthNode":
-                return Ephemeris.getUranusNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getUranusNorthNodePlanetaryInfo(dt)
             elif planetName == "UranusSouthNode":
-                return Ephemeris.getUranusSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getUranusSouthNodePlanetaryInfo(dt)
             elif planetName == "NeptuneNorthNode":
-                return Ephemeris.getNeptuneNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getNeptuneNorthNodePlanetaryInfo(dt)
             elif planetName == "NeptuneSouthNode":
-                return Ephemeris.getNeptuneSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getNeptuneSouthNodePlanetaryInfo(dt)
             elif planetName == "PlutoNorthNode":
-                return Ephemeris.getPlutoNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getPlutoNorthNodePlanetaryInfo(dt)
             elif planetName == "PlutoSouthNode":
-                return Ephemeris.getPlutoSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getPlutoSouthNodePlanetaryInfo(dt)
             elif planetName == "MeanOfFive":
-                return Ephemeris.getMeanOfFivePlanetaryInfo(dt)
+                rv = Ephemeris.getMeanOfFivePlanetaryInfo(dt)
             elif planetName == "CycleOfEight":
-                return Ephemeris.getCycleOfEightPlanetaryInfo(dt)
+                rv = Ephemeris.getCycleOfEightPlanetaryInfo(dt)
             elif planetName == "AvgMaJuSaUrNePl":
-                return Ephemeris.getAvgMaJuSaUrNePlPlanetaryInfo(dt)
+                rv = Ephemeris.getAvgMaJuSaUrNePlPlanetaryInfo(dt)
             elif planetName == "AvgJuSaUrNe":
-                return Ephemeris.getAvgJuSaUrNePlanetaryInfo(dt)
+                rv = Ephemeris.getAvgJuSaUrNePlanetaryInfo(dt)
             elif planetName == "AvgJuSa":
-                return Ephemeris.getAvgJuSaPlanetaryInfo(dt)
+                rv = Ephemeris.getAvgJuSaPlanetaryInfo(dt)
             elif planetName == "AsSu":
-                return Ephemeris.getAsSuPlanetaryInfo(dt)
+                rv = Ephemeris.getAsSuPlanetaryInfo(dt)
             elif planetName == "AsMo":
-                return Ephemeris.getAsMoPlanetaryInfo(dt)
+                rv = Ephemeris.getAsMoPlanetaryInfo(dt)
             elif planetName == "AsMe":
-                return Ephemeris.getAsMePlanetaryInfo(dt)
+                rv = Ephemeris.getAsMePlanetaryInfo(dt)
             elif planetName == "AsVe":
-                return Ephemeris.getAsVePlanetaryInfo(dt)
+                rv = Ephemeris.getAsVePlanetaryInfo(dt)
             elif planetName == "AsMa":
-                return Ephemeris.getAsMaPlanetaryInfo(dt)
+                rv = Ephemeris.getAsMaPlanetaryInfo(dt)
             elif planetName == "AsJu":
-                return Ephemeris.getAsJuPlanetaryInfo(dt)
+                rv = Ephemeris.getAsJuPlanetaryInfo(dt)
             elif planetName == "AsSa":
-                return Ephemeris.getAsSaPlanetaryInfo(dt)
+                rv = Ephemeris.getAsSaPlanetaryInfo(dt)
             elif planetName == "AsUr":
-                return Ephemeris.getAsUrPlanetaryInfo(dt)
+                rv = Ephemeris.getAsUrPlanetaryInfo(dt)
             elif planetName == "MoSu":
-                return Ephemeris.getMoSuPlanetaryInfo(dt)
+                rv = Ephemeris.getMoSuPlanetaryInfo(dt)
             elif planetName == "MoMe":
-                return Ephemeris.getMoMePlanetaryInfo(dt)
+                rv = Ephemeris.getMoMePlanetaryInfo(dt)
             elif planetName == "MoVe":
-                return Ephemeris.getMoVePlanetaryInfo(dt)
+                rv = Ephemeris.getMoVePlanetaryInfo(dt)
             elif planetName == "MoMa":
-                return Ephemeris.getMoMaPlanetaryInfo(dt)
+                rv = Ephemeris.getMoMaPlanetaryInfo(dt)
             elif planetName == "MoJu":
-                return Ephemeris.getMoJuPlanetaryInfo(dt)
+                rv = Ephemeris.getMoJuPlanetaryInfo(dt)
             elif planetName == "MoSa":
-                return Ephemeris.getMoSaPlanetaryInfo(dt)
+                rv = Ephemeris.getMoSaPlanetaryInfo(dt)
             elif planetName == "MoUr":
-                return Ephemeris.getMoUrPlanetaryInfo(dt)
+                rv = Ephemeris.getMoUrPlanetaryInfo(dt)
             elif planetName == "AsTrueNorthNode":
-                return Ephemeris.getAsTrueNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getAsTrueNorthNodePlanetaryInfo(dt)
             elif planetName == "AsTrueSouthNode":
-                return Ephemeris.getAsTrueSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getAsTrueSouthNodePlanetaryInfo(dt)
             elif planetName == "SunTrueNorthNode":
-                return Ephemeris.getSunTrueNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getSunTrueNorthNodePlanetaryInfo(dt)
             elif planetName == "SunTrueSouthNode":
-                return Ephemeris.getSunTrueSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getSunTrueSouthNodePlanetaryInfo(dt)
             elif planetName == "MoonTrueNorthNode":
-                return Ephemeris.getMoonTrueNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getMoonTrueNorthNodePlanetaryInfo(dt)
             elif planetName == "MoonTrueSouthNode":
-                return Ephemeris.getMoonTrueSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getMoonTrueSouthNodePlanetaryInfo(dt)
             elif planetName == "MeTrueNorthNode":
-                return Ephemeris.getMeTrueNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getMeTrueNorthNodePlanetaryInfo(dt)
             elif planetName == "MeTrueSouthNode":
-                return Ephemeris.getMeTrueSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getMeTrueSouthNodePlanetaryInfo(dt)
             elif planetName == "VeTrueNorthNode":
-                return Ephemeris.getVeTrueNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getVeTrueNorthNodePlanetaryInfo(dt)
             elif planetName == "VeTrueSouthNode":
-                return Ephemeris.getVeTrueSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getVeTrueSouthNodePlanetaryInfo(dt)
             elif planetName == "MaTrueNorthNode":
-                return Ephemeris.getMaTrueNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getMaTrueNorthNodePlanetaryInfo(dt)
             elif planetName == "MaTrueSouthNode":
-                return Ephemeris.getMaTrueSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getMaTrueSouthNodePlanetaryInfo(dt)
             elif planetName == "JuTrueNorthNode":
-                return Ephemeris.getJuTrueNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getJuTrueNorthNodePlanetaryInfo(dt)
             elif planetName == "JuTrueSouthNode":
-                return Ephemeris.getJuTrueSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getJuTrueSouthNodePlanetaryInfo(dt)
             elif planetName == "SaTrueNorthNode":
-                return Ephemeris.getSaTrueNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getSaTrueNorthNodePlanetaryInfo(dt)
             elif planetName == "SaTrueSouthNode":
-                return Ephemeris.getSaTrueSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getSaTrueSouthNodePlanetaryInfo(dt)
             elif planetName == "UrTrueNorthNode":
-                return Ephemeris.getUrTrueNorthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getUrTrueNorthNodePlanetaryInfo(dt)
             elif planetName == "UrTrueSouthNode":
-                return Ephemeris.getUrTrueSouthNodePlanetaryInfo(dt)
+                rv = Ephemeris.getUrTrueSouthNodePlanetaryInfo(dt)
             elif planetName == "MeVe":
-                return Ephemeris.getMeVePlanetaryInfo(dt)
+                rv = Ephemeris.getMeVePlanetaryInfo(dt)
             elif planetName == "MeSu":
-                return Ephemeris.getMeSuPlanetaryInfo(dt)
+                rv = Ephemeris.getMeSuPlanetaryInfo(dt)
             elif planetName == "MeEa":
-                return Ephemeris.getMeEaPlanetaryInfo(dt)
+                rv = Ephemeris.getMeEaPlanetaryInfo(dt)
             elif planetName == "MeMa":
-                return Ephemeris.getMeMaPlanetaryInfo(dt)
+                rv = Ephemeris.getMeMaPlanetaryInfo(dt)
             elif planetName == "MeJu":
-                return Ephemeris.getMeJuPlanetaryInfo(dt)
+                rv = Ephemeris.getMeJuPlanetaryInfo(dt)
             elif planetName == "MeSa":
-                return Ephemeris.getMeSaPlanetaryInfo(dt)
+                rv = Ephemeris.getMeSaPlanetaryInfo(dt)
             elif planetName == "MeUr":
-                return Ephemeris.getMeUrPlanetaryInfo(dt)
+                rv = Ephemeris.getMeUrPlanetaryInfo(dt)
             elif planetName == "VeSu":
-                return Ephemeris.getVeSuPlanetaryInfo(dt)
+                rv = Ephemeris.getVeSuPlanetaryInfo(dt)
             elif planetName == "VeEa":
-                return Ephemeris.getVeEaPlanetaryInfo(dt)
+                rv = Ephemeris.getVeEaPlanetaryInfo(dt)
             elif planetName == "VeMa":
-                return Ephemeris.getVeMaPlanetaryInfo(dt)
+                rv = Ephemeris.getVeMaPlanetaryInfo(dt)
             elif planetName == "VeJu":
-                return Ephemeris.getVeJuPlanetaryInfo(dt)
+                rv = Ephemeris.getVeJuPlanetaryInfo(dt)
             elif planetName == "VeSa":
-                return Ephemeris.getVeSaPlanetaryInfo(dt)
+                rv = Ephemeris.getVeSaPlanetaryInfo(dt)
             elif planetName == "VeUr":
-                return Ephemeris.getVeUrPlanetaryInfo(dt)
+                rv = Ephemeris.getVeUrPlanetaryInfo(dt)
             elif planetName == "SuMa":
-                return Ephemeris.getSuMaPlanetaryInfo(dt)
+                rv = Ephemeris.getSuMaPlanetaryInfo(dt)
             elif planetName == "SuJu":
-                return Ephemeris.getSuJuPlanetaryInfo(dt)
+                rv = Ephemeris.getSuJuPlanetaryInfo(dt)
             elif planetName == "SuSa":
-                return Ephemeris.getSuSaPlanetaryInfo(dt)
+                rv = Ephemeris.getSuSaPlanetaryInfo(dt)
             elif planetName == "SuUr":
-                return Ephemeris.getSuUrPlanetaryInfo(dt)
+                rv = Ephemeris.getSuUrPlanetaryInfo(dt)
             elif planetName == "EaMa":
-                return Ephemeris.getEaMaPlanetaryInfo(dt)
+                rv = Ephemeris.getEaMaPlanetaryInfo(dt)
             elif planetName == "EaJu":
-                return Ephemeris.getEaJuPlanetaryInfo(dt)
+                rv = Ephemeris.getEaJuPlanetaryInfo(dt)
             elif planetName == "EaSa":
-                return Ephemeris.getEaSaPlanetaryInfo(dt)
+                rv = Ephemeris.getEaSaPlanetaryInfo(dt)
             elif planetName == "EaUr":
-                return Ephemeris.getEaUrPlanetaryInfo(dt)
+                rv = Ephemeris.getEaUrPlanetaryInfo(dt)
             elif planetName == "MaJu":
-                return Ephemeris.getMaJuPlanetaryInfo(dt)
+                rv = Ephemeris.getMaJuPlanetaryInfo(dt)
             elif planetName == "MaSa":
-                return Ephemeris.getMaSaPlanetaryInfo(dt)
+                rv = Ephemeris.getMaSaPlanetaryInfo(dt)
             elif planetName == "MaUr":
-                return Ephemeris.getMaUrPlanetaryInfo(dt)
+                rv = Ephemeris.getMaUrPlanetaryInfo(dt)
             elif planetName == "JuSa":
-                return Ephemeris.getJuSaPlanetaryInfo(dt)
+                rv = Ephemeris.getJuSaPlanetaryInfo(dt)
             elif planetName == "JuUr":
-                return Ephemeris.getJuUrPlanetaryInfo(dt)
+                rv = Ephemeris.getJuUrPlanetaryInfo(dt)
             elif planetName == "SaUr":
-                return Ephemeris.getSaUrPlanetaryInfo(dt)
+                rv = Ephemeris.getSaUrPlanetaryInfo(dt)
             else:
                 Ephemeris.log.error("Unknown planetName given to " + \
                                     "getPlanetaryInfo(): {}".format(planetName))
-                return None
+                rv = None
+
+            # Store the computed result in the cache.
+            if rv != None:
+                cache[cacheKey] = rv
+                if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+                    Ephemeris.log.debug("Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
+                    Ephemeris.log.debug("currsize of cache is: {}".format(cache.currsize))
+
+            return rv
 
         # If it got here, then the planet name given is a standard
         # planet supported by the Swiss Ephemeris.
@@ -5107,8 +5146,15 @@ class Ephemeris:
             debugStr = "Exiting getPlanetaryInfo(planetName={}, datetime={}"
             Ephemeris.log.debug(debugStr.format(planetName, dt))
 
-        return planetaryInfo
+        rv = planetaryInfo
 
+        # Store the computed result in the cache.
+        cache[cacheKey] = rv
+        if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
+            Ephemeris.log.debug("Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
+            Ephemeris.log.debug("currsize of cache is: {}".format(cache.currsize))
+
+        return rv
 
     ######################################################################
 
@@ -7323,11 +7369,11 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
-        saturnPI  = Ephemeris.getSaturnPlanetaryInfo(timestamp)
-        uranusPI  = Ephemeris.getUranusPlanetaryInfo(timestamp)
-        neptunePI = Ephemeris.getNeptunePlanetaryInfo(timestamp)
-        plutoPI   = Ephemeris.getPlutoPlanetaryInfo(timestamp)
+        jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
+        saturnPI  = Ephemeris.getPlanetaryInfo("Saturn", timestamp)
+        uranusPI  = Ephemeris.getPlanetaryInfo("Uranus", timestamp)
+        neptunePI = Ephemeris.getPlanetaryInfo("Neptune", timestamp)
+        plutoPI   = Ephemeris.getPlanetaryInfo("Pluto", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(jupiterPI)
@@ -7361,14 +7407,14 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
-        venusPI   = Ephemeris.getVenusPlanetaryInfo(timestamp)
-        marsPI    = Ephemeris.getMarsPlanetaryInfo(timestamp)
-        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
-        saturnPI  = Ephemeris.getSaturnPlanetaryInfo(timestamp)
-        uranusPI  = Ephemeris.getUranusPlanetaryInfo(timestamp)
-        neptunePI = Ephemeris.getNeptunePlanetaryInfo(timestamp)
-        plutoPI   = Ephemeris.getPlutoPlanetaryInfo(timestamp)
+        mercuryPI = Ephemeris.getPlanetaryInfo("Mercury", timestamp)
+        venusPI   = Ephemeris.getPlanetaryInfo("Venus", timestamp)
+        marsPI    = Ephemeris.getPlanetaryInfo("Mars", timestamp)
+        jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
+        saturnPI  = Ephemeris.getPlanetaryInfo("Saturn", timestamp)
+        uranusPI  = Ephemeris.getPlanetaryInfo("Uranus", timestamp)
+        neptunePI = Ephemeris.getPlanetaryInfo("Neptune", timestamp)
+        plutoPI   = Ephemeris.getPlanetaryInfo("Pluto", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
@@ -7401,12 +7447,12 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        marsPI    = Ephemeris.getMarsPlanetaryInfo(timestamp)
-        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
-        saturnPI  = Ephemeris.getSaturnPlanetaryInfo(timestamp)
-        uranusPI  = Ephemeris.getUranusPlanetaryInfo(timestamp)
-        neptunePI = Ephemeris.getNeptunePlanetaryInfo(timestamp)
-        plutoPI   = Ephemeris.getPlutoPlanetaryInfo(timestamp)
+        marsPI    = Ephemeris.getPlanetaryInfo("Mars", timestamp)
+        jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
+        saturnPI  = Ephemeris.getPlanetaryInfo("Saturn", timestamp)
+        uranusPI  = Ephemeris.getPlanetaryInfo("Uranus", timestamp)
+        neptunePI = Ephemeris.getPlanetaryInfo("Neptune", timestamp)
+        plutoPI   = Ephemeris.getPlanetaryInfo("Pluto", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(marsPI)
@@ -7437,10 +7483,10 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
-        saturnPI  = Ephemeris.getSaturnPlanetaryInfo(timestamp)
-        uranusPI  = Ephemeris.getUranusPlanetaryInfo(timestamp)
-        neptunePI = Ephemeris.getNeptunePlanetaryInfo(timestamp)
+        jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
+        saturnPI  = Ephemeris.getPlanetaryInfo("Saturn", timestamp)
+        uranusPI  = Ephemeris.getPlanetaryInfo("Uranus", timestamp)
+        neptunePI = Ephemeris.getPlanetaryInfo("Neptune", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(jupiterPI)
@@ -7468,8 +7514,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
-        saturnPI  = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+        jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
+        saturnPI  = Ephemeris.getPlanetaryInfo("Saturn", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(jupiterPI)
@@ -7495,8 +7541,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
-        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
+        ascendantPI = Ephemeris.getPlanetaryInfo("Ascendant", timestamp)
+        sunPI = Ephemeris.getPlanetaryInfo("Sun", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(ascendantPI)
@@ -7523,8 +7569,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
-        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
+        ascendantPI = Ephemeris.getPlanetaryInfo("Ascendant", timestamp)
+        moonPI = Ephemeris.getPlanetaryInfo("Moon", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(ascendantPI)
@@ -7551,8 +7597,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
-        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
+        ascendantPI = Ephemeris.getPlanetaryInfo("Ascendant", timestamp)
+        mercuryPI = Ephemeris.getPlanetaryInfo("Mercury", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(ascendantPI)
@@ -7579,8 +7625,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
-        venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
+        ascendantPI = Ephemeris.getPlanetaryInfo("Ascendant", timestamp)
+        venusPI = Ephemeris.getPlanetaryInfo("Venus", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(ascendantPI)
@@ -7607,8 +7653,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
-        marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
+        ascendantPI = Ephemeris.getPlanetaryInfo("Ascendant", timestamp)
+        marsPI = Ephemeris.getPlanetaryInfo("Mars", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(ascendantPI)
@@ -7635,8 +7681,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
-        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+        ascendantPI = Ephemeris.getPlanetaryInfo("Ascendant", timestamp)
+        jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(ascendantPI)
@@ -7663,8 +7709,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
-        saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+        ascendantPI = Ephemeris.getPlanetaryInfo("Ascendant", timestamp)
+        saturnPI = Ephemeris.getPlanetaryInfo("Saturn", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(ascendantPI)
@@ -7691,8 +7737,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
-        uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
+        ascendantPI = Ephemeris.getPlanetaryInfo("Ascendant", timestamp)
+        uranusPI = Ephemeris.getPlanetaryInfo("Uranus", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(ascendantPI)
@@ -7719,8 +7765,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
-        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
+        moonPI = Ephemeris.getPlanetaryInfo("Moon", timestamp)
+        sunPI = Ephemeris.getPlanetaryInfo("Sun", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(moonPI)
@@ -7747,8 +7793,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
-        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
+        moonPI = Ephemeris.getPlanetaryInfo("Moon", timestamp)
+        mercuryPI = Ephemeris.getPlanetaryInfo("Mercury", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(moonPI)
@@ -7775,8 +7821,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
-        venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
+        moonPI = Ephemeris.getPlanetaryInfo("Moon", timestamp)
+        venusPI = Ephemeris.getPlanetaryInfo("Venus", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(moonPI)
@@ -7803,8 +7849,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
-        marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
+        moonPI = Ephemeris.getPlanetaryInfo("Moon", timestamp)
+        marsPI = Ephemeris.getPlanetaryInfo("Mars", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(moonPI)
@@ -7831,8 +7877,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
-        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+        moonPI = Ephemeris.getPlanetaryInfo("Moon", timestamp)
+        jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(moonPI)
@@ -7859,8 +7905,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
-        saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+        moonPI = Ephemeris.getPlanetaryInfo("Moon", timestamp)
+        saturnPI = Ephemeris.getPlanetaryInfo("Saturn", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(moonPI)
@@ -7887,8 +7933,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
-        uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
+        moonPI = Ephemeris.getPlanetaryInfo("Moon", timestamp)
+        uranusPI = Ephemeris.getPlanetaryInfo("Uranus", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(moonPI)
@@ -7915,8 +7961,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
-        trueNorthNodePI = Ephemeris.getTrueNorthNodePlanetaryInfo(timestamp)
+        ascendantPI = Ephemeris.getPlanetaryInfo("Ascendant", timestamp)
+        trueNorthNodePI = Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(ascendantPI)
@@ -7943,8 +7989,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        ascendantPI = Ephemeris.getAscendantPlanetaryInfo(timestamp)
-        trueSouthNodePI = Ephemeris.getTrueSouthNodePlanetaryInfo(timestamp)
+        ascendantPI = Ephemeris.getPlanetaryInfo("Ascendant", timestamp)
+        trueSouthNodePI = Ephemeris.getPlanetaryInfo("TrueSouthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(ascendantPI)
@@ -7971,8 +8017,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
-        trueNorthNodePI = Ephemeris.getTrueNorthNodePlanetaryInfo(timestamp)
+        sunPI = Ephemeris.getPlanetaryInfo("Sun", timestamp)
+        trueNorthNodePI = Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(sunPI)
@@ -7999,8 +8045,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
-        trueSouthNodePI = Ephemeris.getTrueSouthNodePlanetaryInfo(timestamp)
+        sunPI = Ephemeris.getPlanetaryInfo("Sun", timestamp)
+        trueSouthNodePI = Ephemeris.getPlanetaryInfo("TrueSouthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(sunPI)
@@ -8027,8 +8073,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
-        trueNorthNodePI = Ephemeris.getTrueNorthNodePlanetaryInfo(timestamp)
+        moonPI = Ephemeris.getPlanetaryInfo("Moon", timestamp)
+        trueNorthNodePI = Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(moonPI)
@@ -8055,8 +8101,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        moonPI = Ephemeris.getMoonPlanetaryInfo(timestamp)
-        trueSouthNodePI = Ephemeris.getTrueSouthNodePlanetaryInfo(timestamp)
+        moonPI = Ephemeris.getPlanetaryInfo("Moon", timestamp)
+        trueSouthNodePI = Ephemeris.getPlanetaryInfo("TrueSouthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(moonPI)
@@ -8083,8 +8129,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
-        trueNorthNodePI = Ephemeris.getTrueNorthNodePlanetaryInfo(timestamp)
+        mercuryPI = Ephemeris.getPlanetaryInfo("Mercury", timestamp)
+        trueNorthNodePI = Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
@@ -8111,8 +8157,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
-        trueSouthNodePI = Ephemeris.getTrueSouthNodePlanetaryInfo(timestamp)
+        mercuryPI = Ephemeris.getPlanetaryInfo("Mercury", timestamp)
+        trueSouthNodePI = Ephemeris.getPlanetaryInfo("TrueSouthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
@@ -8139,8 +8185,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
-        trueNorthNodePI = Ephemeris.getTrueNorthNodePlanetaryInfo(timestamp)
+        venusPI = Ephemeris.getPlanetaryInfo("Venus", timestamp)
+        trueNorthNodePI = Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(venusPI)
@@ -8167,8 +8213,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
-        trueSouthNodePI = Ephemeris.getTrueSouthNodePlanetaryInfo(timestamp)
+        venusPI = Ephemeris.getPlanetaryInfo("Venus", timestamp)
+        trueSouthNodePI = Ephemeris.getPlanetaryInfo("TrueSouthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(venusPI)
@@ -8195,8 +8241,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
-        trueNorthNodePI = Ephemeris.getTrueNorthNodePlanetaryInfo(timestamp)
+        marsPI = Ephemeris.getPlanetaryInfo("Mars", timestamp)
+        trueNorthNodePI = Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(marsPI)
@@ -8223,8 +8269,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
-        trueSouthNodePI = Ephemeris.getTrueSouthNodePlanetaryInfo(timestamp)
+        marsPI = Ephemeris.getPlanetaryInfo("Mars", timestamp)
+        trueSouthNodePI = Ephemeris.getPlanetaryInfo("TrueSouthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(marsPI)
@@ -8251,8 +8297,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
-        trueNorthNodePI = Ephemeris.getTrueNorthNodePlanetaryInfo(timestamp)
+        jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
+        trueNorthNodePI = Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(jupiterPI)
@@ -8279,8 +8325,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
-        trueSouthNodePI = Ephemeris.getTrueSouthNodePlanetaryInfo(timestamp)
+        jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
+        trueSouthNodePI = Ephemeris.getPlanetaryInfo("TrueSouthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(jupiterPI)
@@ -8307,8 +8353,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
-        trueNorthNodePI = Ephemeris.getTrueNorthNodePlanetaryInfo(timestamp)
+        saturnPI = Ephemeris.getPlanetaryInfo("Saturn", timestamp)
+        trueNorthNodePI = Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(saturnPI)
@@ -8335,8 +8381,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
-        trueSouthNodePI = Ephemeris.getTrueSouthNodePlanetaryInfo(timestamp)
+        saturnPI = Ephemeris.getPlanetaryInfo("Saturn", timestamp)
+        trueSouthNodePI = Ephemeris.getPlanetaryInfo("TrueSouthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(saturnPI)
@@ -8363,8 +8409,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
-        trueNorthNodePI = Ephemeris.getTrueNorthNodePlanetaryInfo(timestamp)
+        uranusPI = Ephemeris.getPlanetaryInfo("Uranus", timestamp)
+        trueNorthNodePI = Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(uranusPI)
@@ -8391,8 +8437,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
-        trueSouthNodePI = Ephemeris.getTrueSouthNodePlanetaryInfo(timestamp)
+        uranusPI = Ephemeris.getPlanetaryInfo("Uranus", timestamp)
+        trueSouthNodePI = Ephemeris.getPlanetaryInfo("TrueSouthNode", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(uranusPI)
@@ -8419,8 +8465,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
-        venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
+        mercuryPI = Ephemeris.getPlanetaryInfo("Mercury", timestamp)
+        venusPI = Ephemeris.getPlanetaryInfo("Venus", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
@@ -8447,8 +8493,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
-        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
+        mercuryPI = Ephemeris.getPlanetaryInfo("Mercury", timestamp)
+        sunPI = Ephemeris.getPlanetaryInfo("Sun", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
@@ -8475,8 +8521,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
-        earthPI = Ephemeris.getEarthPlanetaryInfo(timestamp)
+        mercuryPI = Ephemeris.getPlanetaryInfo("Mercury", timestamp)
+        earthPI = Ephemeris.getPlanetaryInfo("Earth", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
@@ -8503,8 +8549,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
-        marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
+        mercuryPI = Ephemeris.getPlanetaryInfo("Mercury", timestamp)
+        marsPI = Ephemeris.getPlanetaryInfo("Mars", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
@@ -8531,8 +8577,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
-        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+        mercuryPI = Ephemeris.getPlanetaryInfo("Mercury", timestamp)
+        jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
@@ -8559,8 +8605,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
-        saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+        mercuryPI = Ephemeris.getPlanetaryInfo("Mercury", timestamp)
+        saturnPI = Ephemeris.getPlanetaryInfo("Saturn", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
@@ -8587,8 +8633,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        mercuryPI = Ephemeris.getMercuryPlanetaryInfo(timestamp)
-        uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
+        mercuryPI = Ephemeris.getPlanetaryInfo("Mercury", timestamp)
+        uranusPI = Ephemeris.getPlanetaryInfo("Uranus", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(mercuryPI)
@@ -8615,8 +8661,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
-        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
+        venusPI = Ephemeris.getPlanetaryInfo("Venus", timestamp)
+        sunPI = Ephemeris.getPlanetaryInfo("Sun", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(venusPI)
@@ -8643,8 +8689,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
-        earthPI = Ephemeris.getEarthPlanetaryInfo(timestamp)
+        venusPI = Ephemeris.getPlanetaryInfo("Venus", timestamp)
+        earthPI = Ephemeris.getPlanetaryInfo("Earth", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(venusPI)
@@ -8671,8 +8717,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
-        marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
+        venusPI = Ephemeris.getPlanetaryInfo("Venus", timestamp)
+        marsPI = Ephemeris.getPlanetaryInfo("Mars", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(venusPI)
@@ -8699,8 +8745,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
-        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+        venusPI = Ephemeris.getPlanetaryInfo("Venus", timestamp)
+        jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(venusPI)
@@ -8727,8 +8773,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
-        saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+        venusPI = Ephemeris.getPlanetaryInfo("Venus", timestamp)
+        saturnPI = Ephemeris.getPlanetaryInfo("Saturn", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(venusPI)
@@ -8755,8 +8801,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        venusPI = Ephemeris.getVenusPlanetaryInfo(timestamp)
-        uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
+        venusPI = Ephemeris.getPlanetaryInfo("Venus", timestamp)
+        uranusPI = Ephemeris.getPlanetaryInfo("Uranus", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(venusPI)
@@ -8783,8 +8829,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
-        marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
+        sunPI = Ephemeris.getPlanetaryInfo("Sun", timestamp)
+        marsPI = Ephemeris.getPlanetaryInfo("Mars", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(sunPI)
@@ -8811,8 +8857,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
-        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+        sunPI = Ephemeris.getPlanetaryInfo("Sun", timestamp)
+        jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(sunPI)
@@ -8839,8 +8885,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
-        saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+        sunPI = Ephemeris.getPlanetaryInfo("Sun", timestamp)
+        saturnPI = Ephemeris.getPlanetaryInfo("Saturn", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(sunPI)
@@ -8867,8 +8913,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        sunPI = Ephemeris.getSunPlanetaryInfo(timestamp)
-        uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
+        sunPI = Ephemeris.getPlanetaryInfo("Sun", timestamp)
+        uranusPI = Ephemeris.getPlanetaryInfo("Uranus", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(sunPI)
@@ -8895,8 +8941,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        earthPI = Ephemeris.getEarthPlanetaryInfo(timestamp)
-        marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
+        earthPI = Ephemeris.getPlanetaryInfo("Earth", timestamp)
+        marsPI = Ephemeris.getPlanetaryInfo("Mars", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(earthPI)
@@ -8923,8 +8969,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        earthPI = Ephemeris.getEarthPlanetaryInfo(timestamp)
-        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+        earthPI = Ephemeris.getPlanetaryInfo("Earth", timestamp)
+        jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(earthPI)
@@ -8951,8 +8997,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        earthPI = Ephemeris.getEarthPlanetaryInfo(timestamp)
-        saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+        earthPI = Ephemeris.getPlanetaryInfo("Earth", timestamp)
+        saturnPI = Ephemeris.getPlanetaryInfo("Saturn", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(earthPI)
@@ -8979,8 +9025,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        earthPI = Ephemeris.getEarthPlanetaryInfo(timestamp)
-        uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
+        earthPI = Ephemeris.getPlanetaryInfo("Earth", timestamp)
+        uranusPI = Ephemeris.getPlanetaryInfo("Uranus", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(earthPI)
@@ -9007,8 +9053,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
-        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
+        marsPI = Ephemeris.getPlanetaryInfo("Mars", timestamp)
+        jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(marsPI)
@@ -9035,8 +9081,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
-        saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+        marsPI = Ephemeris.getPlanetaryInfo("Mars", timestamp)
+        saturnPI = Ephemeris.getPlanetaryInfo("Saturn", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(marsPI)
@@ -9063,8 +9109,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        marsPI = Ephemeris.getMarsPlanetaryInfo(timestamp)
-        uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
+        marsPI = Ephemeris.getPlanetaryInfo("Mars", timestamp)
+        uranusPI = Ephemeris.getPlanetaryInfo("Uranus", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(marsPI)
@@ -9091,8 +9137,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
-        saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
+        jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
+        saturnPI = Ephemeris.getPlanetaryInfo("Saturn", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(jupiterPI)
@@ -9119,8 +9165,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        jupiterPI = Ephemeris.getJupiterPlanetaryInfo(timestamp)
-        uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
+        jupiterPI = Ephemeris.getPlanetaryInfo("Jupiter", timestamp)
+        uranusPI = Ephemeris.getPlanetaryInfo("Uranus", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(jupiterPI)
@@ -9147,8 +9193,8 @@ class Ephemeris:
             functName = inspect.stack()[0][3]
             Ephemeris.log.debug(functName + "({})".format(timestamp))
 
-        saturnPI = Ephemeris.getSaturnPlanetaryInfo(timestamp)
-        uranusPI = Ephemeris.getUranusPlanetaryInfo(timestamp)
+        saturnPI = Ephemeris.getPlanetaryInfo("Saturn", timestamp)
+        uranusPI = Ephemeris.getPlanetaryInfo("Uranus", timestamp)
 
         planetaryInfos = []
         planetaryInfos.append(saturnPI)

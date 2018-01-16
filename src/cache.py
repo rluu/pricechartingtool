@@ -62,6 +62,15 @@ class Cache:
     
             # Retrieve a copy of each of the caches, and store them
             # for use in the application.
+            key = "Ephemeris.getPlanetaryInfoCache"
+            if key in cacheDict:
+                cache = cacheDict[key]
+                Ephemeris.getPlanetaryInfoCache = cache
+                Cache.log.info("Loaded cache '" + key + "' with currsize " +
+                    "{} from shelve.".format(cache.currsize))
+            else:
+                Cache.log.info("Cache '" + key + "' not found in the shelve.")
+    
             key = "LunarCalendarUtils.datetimeToLunarDateCache"
             if key in cacheDict:
                 cache = cacheDict[key]
@@ -114,6 +123,12 @@ class Cache:
         Cache.log.info("Shelve file opened for saving: " + \
                 Cache.SHELVED_CACHE_FILE)
     
+
+        key = "Ephemeris.getPlanetaryInfoCache"
+        cache = Ephemeris.getPlanetaryInfoCache
+        Cache.log.info("Saving cache '" + key + "' with currsize " +
+                  "{} to shelve ...".format(cache.currsize))
+        cacheDict[key] = cache
     
         key = "LunarCalendarUtils.datetimeToLunarDateCache"
         cache = LunarCalendarUtils.datetimeToLunarDateCache

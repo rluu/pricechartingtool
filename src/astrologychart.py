@@ -8251,9 +8251,6 @@ class AstrologyChartWidget(QWidget):
         # Get planetary info for all the planets.
         planets = []
 
-        # Astrological house system for getting the house cusps.
-        houseSystem = Ephemeris.HouseSys['Porphyry']
-
         settings = QSettings()
 
         if settings.value(\
@@ -8261,127 +8258,126 @@ class AstrologyChartWidget(QWidget):
             SettingsKeys.planetH1CalculationsEnabledDefValue,
             type=bool):
 
-            self.log.debug("Getting house 1 values...")
-            planets.append(Ephemeris.getH1PlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("H1", dt))
 
         if settings.value(\
             SettingsKeys.planetH2CalculationsEnabledKey, \
             SettingsKeys.planetH2CalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getH2PlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("H2", dt))
 
         if settings.value(\
             SettingsKeys.planetH3CalculationsEnabledKey, \
             SettingsKeys.planetH3CalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getH3PlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("H3", dt))
 
         if settings.value(\
             SettingsKeys.planetH4CalculationsEnabledKey, \
             SettingsKeys.planetH4CalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getH4PlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("H4", dt))
 
         if settings.value(\
             SettingsKeys.planetH5CalculationsEnabledKey, \
             SettingsKeys.planetH5CalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getH5PlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("H5", dt))
 
         if settings.value(\
             SettingsKeys.planetH6CalculationsEnabledKey, \
             SettingsKeys.planetH6CalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getH6PlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("H6", dt))
 
         if settings.value(\
             SettingsKeys.planetH7CalculationsEnabledKey, \
             SettingsKeys.planetH7CalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getH7PlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("H7", dt))
 
         if settings.value(\
             SettingsKeys.planetH8CalculationsEnabledKey, \
             SettingsKeys.planetH8CalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getH8PlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("H8", dt))
 
         if settings.value(\
             SettingsKeys.planetH9CalculationsEnabledKey, \
             SettingsKeys.planetH9CalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getH9PlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("H9", dt))
 
         if settings.value(\
             SettingsKeys.planetH10CalculationsEnabledKey, \
             SettingsKeys.planetH10CalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getH10PlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("H10", dt))
 
         if settings.value(\
             SettingsKeys.planetH11CalculationsEnabledKey, \
             SettingsKeys.planetH11CalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getH11PlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("H11", dt))
 
         if settings.value(\
             SettingsKeys.planetH12CalculationsEnabledKey, \
             SettingsKeys.planetH12CalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getH12PlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("H12", dt))
 
         if settings.value(\
             SettingsKeys.planetARMCCalculationsEnabledKey, \
             SettingsKeys.planetARMCCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getARMCPlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("ARMC", dt))
 
         if settings.value(\
             SettingsKeys.planetVertexCalculationsEnabledKey, \
             SettingsKeys.planetVertexCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getVertexPlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("Vertex", dt))
 
         if settings.value(\
             SettingsKeys.planetEquatorialAscendantCalculationsEnabledKey, \
             SettingsKeys.planetEquatorialAscendantCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getEquatorialAscendantPlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("EquatorialAscendant", dt))
 
         if settings.value(\
             SettingsKeys.planetCoAscendant1CalculationsEnabledKey, \
             SettingsKeys.planetCoAscendant1CalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getCoAscendant1PlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("CoAscendant1", dt))
 
         if settings.value(\
             SettingsKeys.planetCoAscendant2CalculationsEnabledKey, \
             SettingsKeys.planetCoAscendant2CalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getCoAscendant2PlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("CoAscendant2", dt))
 
         if settings.value(\
             SettingsKeys.planetPolarAscendantCalculationsEnabledKey, \
             SettingsKeys.planetPolarAscendantCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getPolarAscendantPlanetaryInfo(dt, houseSystem))
+            planets.append(Ephemeris.getPlanetaryInfo("PolarAscendant", dt))
 
         if settings.value(\
             SettingsKeys.planetHoraLagnaCalculationsEnabledKey, \
@@ -8389,7 +8385,7 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             pass # TODO:  update for HoraLagna
-            #planets.append(Ephemeris.getHoraLagnaPlanetaryInfo(dt))
+            #planets.append(Ephemeris.getPlanetaryInfo("HoraLagna", dt))
 
         if settings.value(\
             SettingsKeys.planetGhatiLagnaCalculationsEnabledKey, \
@@ -8397,189 +8393,189 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             pass # TODO:  update for GhatiLagna
-            #planets.append(Ephemeris.getGhatiLagnaPlanetaryInfo(dt))
+            #planets.append(Ephemeris.getPlanetaryInfo("GhatiLagna", dt))
 
         if settings.value(\
             SettingsKeys.planetMeanLunarApogeeCalculationsEnabledKey, \
             SettingsKeys.planetMeanLunarApogeeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMeanLunarApogeePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MeanLunarApogee", dt))
 
         if settings.value(\
             SettingsKeys.planetOsculatingLunarApogeeCalculationsEnabledKey, \
             SettingsKeys.planetOsculatingLunarApogeeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getOsculatingLunarApogeePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("OsculatingLunarApogee", dt))
 
         if settings.value(\
             SettingsKeys.planetInterpolatedLunarApogeeCalculationsEnabledKey, \
             SettingsKeys.planetInterpolatedLunarApogeeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getInterpolatedLunarApogeePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("InterpolatedLunarApogee", dt))
 
         if settings.value(\
             SettingsKeys.planetInterpolatedLunarPerigeeCalculationsEnabledKey, \
             SettingsKeys.planetInterpolatedLunarPerigeeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getInterpolatedLunarPerigeePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("InterpolatedLunarPerigee", dt))
 
         if settings.value(\
             SettingsKeys.planetSunCalculationsEnabledKey, \
             SettingsKeys.planetSunCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getSunPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Sun", dt))
 
         if settings.value(\
             SettingsKeys.planetMoonCalculationsEnabledKey, \
             SettingsKeys.planetMoonCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMoonPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Moon", dt))
 
         if settings.value(\
             SettingsKeys.planetMercuryCalculationsEnabledKey, \
             SettingsKeys.planetMercuryCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMercuryPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Mercury", dt))
 
         if settings.value(\
             SettingsKeys.planetVenusCalculationsEnabledKey, \
             SettingsKeys.planetVenusCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getVenusPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Venus", dt))
 
         if settings.value(\
             SettingsKeys.planetEarthCalculationsEnabledKey, \
             SettingsKeys.planetEarthCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getEarthPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Earth", dt))
 
         if settings.value(\
             SettingsKeys.planetMarsCalculationsEnabledKey, \
             SettingsKeys.planetMarsCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMarsPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Mars", dt))
 
         if settings.value(\
             SettingsKeys.planetJupiterCalculationsEnabledKey, \
             SettingsKeys.planetJupiterCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getJupiterPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Jupiter", dt))
 
         if settings.value(\
             SettingsKeys.planetSaturnCalculationsEnabledKey, \
             SettingsKeys.planetSaturnCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getSaturnPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Saturn", dt))
 
         if settings.value(\
             SettingsKeys.planetUranusCalculationsEnabledKey, \
             SettingsKeys.planetUranusCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getUranusPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Uranus", dt))
 
         if settings.value(\
             SettingsKeys.planetNeptuneCalculationsEnabledKey, \
             SettingsKeys.planetNeptuneCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getNeptunePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Neptune", dt))
 
         if settings.value(\
             SettingsKeys.planetPlutoCalculationsEnabledKey, \
             SettingsKeys.planetPlutoCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getPlutoPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Pluto", dt))
 
         if settings.value(\
             SettingsKeys.planetMeanNorthNodeCalculationsEnabledKey, \
             SettingsKeys.planetMeanNorthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMeanNorthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MeanNorthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetMeanSouthNodeCalculationsEnabledKey, \
             SettingsKeys.planetMeanSouthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMeanSouthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MeanSouthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetTrueNorthNodeCalculationsEnabledKey, \
             SettingsKeys.planetTrueNorthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getTrueNorthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("TrueNorthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetTrueSouthNodeCalculationsEnabledKey, \
             SettingsKeys.planetTrueSouthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getTrueSouthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("TrueSouthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetCeresCalculationsEnabledKey, \
             SettingsKeys.planetCeresCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getCeresPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Ceres", dt))
 
         if settings.value(\
             SettingsKeys.planetPallasCalculationsEnabledKey, \
             SettingsKeys.planetPallasCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getPallasPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Pallas", dt))
 
         if settings.value(\
             SettingsKeys.planetJunoCalculationsEnabledKey, \
             SettingsKeys.planetJunoCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getJunoPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Juno", dt))
 
         if settings.value(\
             SettingsKeys.planetVestaCalculationsEnabledKey, \
             SettingsKeys.planetVestaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getVestaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Vesta", dt))
 
         if settings.value(\
             SettingsKeys.planetIsisCalculationsEnabledKey, \
             SettingsKeys.planetIsisCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getIsisPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Isis", dt))
 
         if settings.value(\
             SettingsKeys.planetNibiruCalculationsEnabledKey, \
             SettingsKeys.planetNibiruCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getNibiruPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Nibiru", dt))
 
         if settings.value(\
             SettingsKeys.planetChironCalculationsEnabledKey, \
             SettingsKeys.planetChironCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getChironPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("Chiron", dt))
 
         if settings.value(\
             SettingsKeys.planetGulikaCalculationsEnabledKey, \
@@ -8587,7 +8583,7 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             pass # TODO:  update for Gulika
-            #planets.append(Ephemeris.getGulikaPlanetaryInfo(dt))
+            #planets.append(Ephemeris.getPlanetaryInfo("Gulika", dt))
 
         if settings.value(\
             SettingsKeys.planetMandiCalculationsEnabledKey, \
@@ -8595,462 +8591,462 @@ class AstrologyChartWidget(QWidget):
             type=bool):
 
             pass # TODO:  update for Mandi
-            #planets.append(Ephemeris.getMandiPlanetaryInfo(dt))
+            #planets.append(Ephemeris.getPlanetaryInfo("Mandi", dt))
 
         if settings.value(\
             SettingsKeys.planetMeanOfFiveCalculationsEnabledKey, \
             SettingsKeys.planetMeanOfFiveCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMeanOfFivePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MeanOfFive", dt))
 
         if settings.value(\
             SettingsKeys.planetCycleOfEightCalculationsEnabledKey, \
             SettingsKeys.planetCycleOfEightCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getCycleOfEightPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("CycleOfEight", dt))
 
         if settings.value(\
             SettingsKeys.planetAvgMaJuSaUrNePlCalculationsEnabledKey, \
             SettingsKeys.planetAvgMaJuSaUrNePlCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getAvgMaJuSaUrNePlPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("AvgMaJuSaUrNePl", dt))
 
         if settings.value(\
             SettingsKeys.planetAvgJuSaUrNeCalculationsEnabledKey, \
             SettingsKeys.planetAvgJuSaUrNeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getAvgJuSaUrNePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("AvgJuSaUrNe", dt))
 
         if settings.value(\
             SettingsKeys.planetAvgJuSaCalculationsEnabledKey, \
             SettingsKeys.planetAvgJuSaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getAvgJuSaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("AvgJuSa", dt))
 
         if settings.value(\
             SettingsKeys.planetAsSuCalculationsEnabledKey, \
             SettingsKeys.planetAsSuCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getAsSuPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("AsSu", dt))
 
         if settings.value(\
             SettingsKeys.planetAsMoCalculationsEnabledKey, \
             SettingsKeys.planetAsMoCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getAsMoPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("AsMo", dt))
 
         if settings.value(\
             SettingsKeys.planetAsMeCalculationsEnabledKey, \
             SettingsKeys.planetAsMeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getAsMePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("AsMe", dt))
 
         if settings.value(\
             SettingsKeys.planetAsVeCalculationsEnabledKey, \
             SettingsKeys.planetAsVeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getAsVePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("AsVe", dt))
 
         if settings.value(\
             SettingsKeys.planetAsMaCalculationsEnabledKey, \
             SettingsKeys.planetAsMaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getAsMaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("AsMa", dt))
 
         if settings.value(\
             SettingsKeys.planetAsJuCalculationsEnabledKey, \
             SettingsKeys.planetAsJuCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getAsJuPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("AsJu", dt))
 
         if settings.value(\
             SettingsKeys.planetAsSaCalculationsEnabledKey, \
             SettingsKeys.planetAsSaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getAsSaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("AsSa", dt))
 
         if settings.value(\
             SettingsKeys.planetAsUrCalculationsEnabledKey, \
             SettingsKeys.planetAsUrCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getAsUrPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("AsUr", dt))
 
         if settings.value(\
             SettingsKeys.planetMoSuCalculationsEnabledKey, \
             SettingsKeys.planetMoSuCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMoSuPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MoSu", dt))
 
         if settings.value(\
             SettingsKeys.planetMoMeCalculationsEnabledKey, \
             SettingsKeys.planetMoMeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMoMePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MoMe", dt))
 
         if settings.value(\
             SettingsKeys.planetMoVeCalculationsEnabledKey, \
             SettingsKeys.planetMoVeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMoVePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MoVe", dt))
 
         if settings.value(\
             SettingsKeys.planetMoMaCalculationsEnabledKey, \
             SettingsKeys.planetMoMaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMoMaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MoMa", dt))
 
         if settings.value(\
             SettingsKeys.planetMoJuCalculationsEnabledKey, \
             SettingsKeys.planetMoJuCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMoJuPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MoJu", dt))
 
         if settings.value(\
             SettingsKeys.planetMoSaCalculationsEnabledKey, \
             SettingsKeys.planetMoSaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMoSaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MoSa", dt))
 
         if settings.value(\
             SettingsKeys.planetMoUrCalculationsEnabledKey, \
             SettingsKeys.planetMoUrCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMoUrPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MoUr", dt))
 
         if settings.value(\
             SettingsKeys.planetAsTrueNorthNodeCalculationsEnabledKey, \
             SettingsKeys.planetAsTrueNorthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getAsTrueNorthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("AsTrueNorthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetAsTrueSouthNodeCalculationsEnabledKey, \
             SettingsKeys.planetAsTrueSouthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getAsTrueSouthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("AsTrueSouthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetSunTrueNorthNodeCalculationsEnabledKey, \
             SettingsKeys.planetSunTrueNorthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getSunTrueNorthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("SunTrueNorthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetSunTrueSouthNodeCalculationsEnabledKey, \
             SettingsKeys.planetSunTrueSouthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getSunTrueSouthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("SunTrueSouthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetMoonTrueNorthNodeCalculationsEnabledKey, \
             SettingsKeys.planetMoonTrueNorthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMoonTrueNorthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MoonTrueNorthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetMoonTrueSouthNodeCalculationsEnabledKey, \
             SettingsKeys.planetMoonTrueSouthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMoonTrueSouthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MoonTrueSouthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetMeTrueNorthNodeCalculationsEnabledKey, \
             SettingsKeys.planetMeTrueNorthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMeTrueNorthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MeTrueNorthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetMeTrueSouthNodeCalculationsEnabledKey, \
             SettingsKeys.planetMeTrueSouthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMeTrueSouthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MeTrueSouthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetVeTrueNorthNodeCalculationsEnabledKey, \
             SettingsKeys.planetVeTrueNorthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getVeTrueNorthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("VeTrueNorthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetVeTrueSouthNodeCalculationsEnabledKey, \
             SettingsKeys.planetVeTrueSouthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getVeTrueSouthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("VeTrueSouthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetMaTrueNorthNodeCalculationsEnabledKey, \
             SettingsKeys.planetMaTrueNorthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMaTrueNorthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MaTrueNorthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetMaTrueSouthNodeCalculationsEnabledKey, \
             SettingsKeys.planetMaTrueSouthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMaTrueSouthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MaTrueSouthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetJuTrueNorthNodeCalculationsEnabledKey, \
             SettingsKeys.planetJuTrueNorthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getJuTrueNorthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("JuTrueNorthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetJuTrueSouthNodeCalculationsEnabledKey, \
             SettingsKeys.planetJuTrueSouthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getJuTrueSouthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("JuTrueSouthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetSaTrueNorthNodeCalculationsEnabledKey, \
             SettingsKeys.planetSaTrueNorthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getSaTrueNorthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("SaTrueNorthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetSaTrueSouthNodeCalculationsEnabledKey, \
             SettingsKeys.planetSaTrueSouthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getSaTrueSouthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("SaTrueSouthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetUrTrueNorthNodeCalculationsEnabledKey, \
             SettingsKeys.planetUrTrueNorthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getUrTrueNorthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("UrTrueNorthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetUrTrueSouthNodeCalculationsEnabledKey, \
             SettingsKeys.planetUrTrueSouthNodeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getUrTrueSouthNodePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("UrTrueSouthNode", dt))
 
         if settings.value(\
             SettingsKeys.planetMeVeCalculationsEnabledKey, \
             SettingsKeys.planetMeVeCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMeVePlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MeVe", dt))
 
         if settings.value(\
             SettingsKeys.planetMeSuCalculationsEnabledKey, \
             SettingsKeys.planetMeSuCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMeSuPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MeSu", dt))
 
         if settings.value(\
             SettingsKeys.planetMeEaCalculationsEnabledKey, \
             SettingsKeys.planetMeEaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMeEaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MeEa", dt))
 
         if settings.value(\
             SettingsKeys.planetMeMaCalculationsEnabledKey, \
             SettingsKeys.planetMeMaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMeMaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MeMa", dt))
 
         if settings.value(\
             SettingsKeys.planetMeJuCalculationsEnabledKey, \
             SettingsKeys.planetMeJuCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMeJuPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MeJu", dt))
 
         if settings.value(\
             SettingsKeys.planetMeSaCalculationsEnabledKey, \
             SettingsKeys.planetMeSaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMeSaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MeSa", dt))
 
         if settings.value(\
             SettingsKeys.planetMeUrCalculationsEnabledKey, \
             SettingsKeys.planetMeUrCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMeUrPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MeUr", dt))
 
         if settings.value(\
             SettingsKeys.planetVeSuCalculationsEnabledKey, \
             SettingsKeys.planetVeSuCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getVeSuPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("VeSu", dt))
 
         if settings.value(\
             SettingsKeys.planetVeEaCalculationsEnabledKey, \
             SettingsKeys.planetVeEaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getVeEaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("VeEa", dt))
 
         if settings.value(\
             SettingsKeys.planetVeMaCalculationsEnabledKey, \
             SettingsKeys.planetVeMaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getVeMaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("VeMa", dt))
 
         if settings.value(\
             SettingsKeys.planetVeJuCalculationsEnabledKey, \
             SettingsKeys.planetVeJuCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getVeJuPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("VeJu", dt))
 
         if settings.value(\
             SettingsKeys.planetVeSaCalculationsEnabledKey, \
             SettingsKeys.planetVeSaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getVeSaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("VeSa", dt))
 
         if settings.value(\
             SettingsKeys.planetVeUrCalculationsEnabledKey, \
             SettingsKeys.planetVeUrCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getVeUrPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("VeUr", dt))
 
         if settings.value(\
             SettingsKeys.planetSuMaCalculationsEnabledKey, \
             SettingsKeys.planetSuMaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getSuMaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("SuMa", dt))
 
         if settings.value(\
             SettingsKeys.planetSuJuCalculationsEnabledKey, \
             SettingsKeys.planetSuJuCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getSuJuPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("SuJu", dt))
 
         if settings.value(\
             SettingsKeys.planetSuSaCalculationsEnabledKey, \
             SettingsKeys.planetSuSaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getSuSaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("SuSa", dt))
 
         if settings.value(\
             SettingsKeys.planetSuUrCalculationsEnabledKey, \
             SettingsKeys.planetSuUrCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getSuUrPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("SuUr", dt))
 
         if settings.value(\
             SettingsKeys.planetEaMaCalculationsEnabledKey, \
             SettingsKeys.planetEaMaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getEaMaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("EaMa", dt))
 
         if settings.value(\
             SettingsKeys.planetEaJuCalculationsEnabledKey, \
             SettingsKeys.planetEaJuCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getEaJuPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("EaJu", dt))
 
         if settings.value(\
             SettingsKeys.planetEaSaCalculationsEnabledKey, \
             SettingsKeys.planetEaSaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getEaSaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("EaSa", dt))
 
         if settings.value(\
             SettingsKeys.planetEaUrCalculationsEnabledKey, \
             SettingsKeys.planetEaUrCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getEaUrPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("EaUr", dt))
 
         if settings.value(\
             SettingsKeys.planetMaJuCalculationsEnabledKey, \
             SettingsKeys.planetMaJuCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMaJuPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MaJu", dt))
 
         if settings.value(\
             SettingsKeys.planetMaSaCalculationsEnabledKey, \
             SettingsKeys.planetMaSaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMaSaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MaSa", dt))
 
         if settings.value(\
             SettingsKeys.planetMaUrCalculationsEnabledKey, \
             SettingsKeys.planetMaUrCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getMaUrPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("MaUr", dt))
 
         if settings.value(\
             SettingsKeys.planetJuSaCalculationsEnabledKey, \
             SettingsKeys.planetJuSaCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getJuSaPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("JuSa", dt))
 
         if settings.value(\
             SettingsKeys.planetJuUrCalculationsEnabledKey, \
             SettingsKeys.planetJuUrCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getJuUrPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("JuUr", dt))
 
         if settings.value(\
             SettingsKeys.planetSaUrCalculationsEnabledKey, \
             SettingsKeys.planetSaUrCalculationsEnabledDefValue,
             type=bool):
 
-            planets.append(Ephemeris.getSaUrPlanetaryInfo(dt))
+            planets.append(Ephemeris.getPlanetaryInfo("SaUr", dt))
 
 
         return planets
