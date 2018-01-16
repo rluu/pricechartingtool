@@ -61,6 +61,10 @@ src/*.pyc
 # Ignore certain directories/files in the misc directory.
 misc/CalculatingPlanetLocationAndDifferences/__pycache__
 misc/PriceChartDocumentScripts/customScripts/__pycache__
+
+# TTTA-related files are stored and versioned elsewhere now.
+misc/CalculatingPlanetLocationAndDifferences/ttta_dates.py
+misc/CalculatingPlanetLocationAndDifferences/ttta_dates_lunar.py
 misc/PriceChartDocumentScripts/customScripts/TTTA.py
 
 # Ignore the resources file in the src directory because it is
