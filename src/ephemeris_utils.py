@@ -3,6 +3,8 @@
 import logging
 import logging.config
 
+from cachetools import LRUCache
+
 import inspect
 import datetime
 import copy
@@ -550,9 +552,16 @@ class EphemerisUtils:
         EphemerisUtils.log.debug("Number of timestamps obtained: {}".\
                  format(len(aspectTimestamps)))
 
-        EphemerisUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
-        return aspectTimestamps
+        rv = aspectTimestamps
 
+        EphemerisUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+
+
+    # Cache used for staticmethod: 
+    #     EphemerisUtils.getOnePlanetLongitudeAspectTimestamps(...)
+    getOnePlanetLongitudeAspectTimestampsCacheEnabled = True
+    getOnePlanetLongitudeAspectTimestampsCache = LRUCache(maxsize=4096)
 
     @staticmethod
     def getOnePlanetLongitudeAspectTimestamps(\
@@ -624,6 +633,40 @@ class EphemerisUtils:
         """
 
         EphemerisUtils.log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        cache = None
+        cacheKey = None
+        if EphemerisUtils.getOnePlanetLongitudeAspectTimestampsCacheEnabled:
+            # Check the cache for previously computed solution.
+            cache = EphemerisUtils.getOnePlanetLongitudeAspectTimestampsCache
+            cacheKey = \
+                    (startDt,
+                    endDt,
+                    planet1Params,
+                    fixedDegree,
+                    degreeDifference,
+                    uniDirectionalAspectsFlag,
+                    maxErrorTd,
+                    Ephemeris.geoLongitudeDeg,
+                    Ephemeris.geoLatitudeDeg,
+                    Ephemeris.geoAltitudeMeters)
+            cacheValue = cache.get(cacheKey)
+            if cacheValue != None:
+                if EphemerisUtils.log.isEnabledFor(logging.DEBUG):
+                    EphemerisUtils.log.debug(\
+                        "Get: Key found in cache (key={}, value={}).".\
+                        format(cacheKey, cacheValue))
+                    EphemerisUtils.log.debug("currsize of cache is: {}".\
+                        format(cache.currsize))
+                rv = cacheValue
+                return rv
+
+            if EphemerisUtils.log.isEnabledFor(logging.DEBUG):
+                EphemerisUtils.log.debug(\
+                        "Get: Key not found in cache (key={}).".\
+                        format(cacheKey))
+                EphemerisUtils.log.debug("currsize of cache is: {}".\
+                    format(cache.currsize))
 
         # List of timestamps of the aspects found.
         aspectTimestamps = []
@@ -1008,9 +1051,27 @@ class EphemerisUtils:
         EphemerisUtils.log.debug("Number of timestamps obtained: {}".\
                  format(len(aspectTimestamps)))
 
-        EphemerisUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
-        return aspectTimestamps
+        rv = aspectTimestamps
 
+        if EphemerisUtils.getOnePlanetLongitudeAspectTimestampsCacheEnabled:
+            # Store the computed result in the cache.
+            if rv != None:
+                cache[cacheKey] = rv
+                if EphemerisUtils.log.isEnabledFor(logging.DEBUG) == True:
+                    EphemerisUtils.log.debug(\
+                            "Put: Into cache: (key={}, value={}).".\
+                            format(cacheKey, rv))
+                    EphemerisUtils.log.debug("currsize of cache is: {}".\
+                            format(cache.currsize))
+
+        EphemerisUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
+        return rv
+
+
+    # Cache used for staticmethod: 
+    #     EphemerisUtils.getPlanetCrossingLongitudeDegTimestamps(...)
+    getPlanetCrossingLongitudeDegTimestampsCacheEnabled = True
+    getPlanetCrossingLongitudeDegTimestampsCache = LRUCache(maxsize=4096)
 
     @staticmethod
     def getPlanetCrossingLongitudeDegTimestamps(\
@@ -1059,6 +1120,40 @@ class EphemerisUtils:
 
 
         EphemerisUtils.log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        cache = None
+        cacheKey = None
+        if EphemerisUtils.getPlanetCrossingLongitudeDegTimestampsCacheEnabled:
+            # Check the cache for previously computed solution.
+            cache = EphemerisUtils.getPlanetCrossingLongitudeDegTimestampsCache
+            cacheKey = \
+                    (startDt,
+                    endDt,
+                    planetName,
+                    centricityType,
+                    longitudeType,
+                    degree,
+                    maxErrorTd,
+                    Ephemeris.geoLongitudeDeg,
+                    Ephemeris.geoLatitudeDeg,
+                    Ephemeris.geoAltitudeMeters)
+            cacheValue = cache.get(cacheKey)
+            if cacheValue != None:
+                if EphemerisUtils.log.isEnabledFor(logging.DEBUG):
+                    EphemerisUtils.log.debug(\
+                        "Get: Key found in cache (key={}, value={}).".\
+                        format(cacheKey, cacheValue))
+                    EphemerisUtils.log.debug("currsize of cache is: {}".\
+                        format(cache.currsize))
+                rv = cacheValue
+                return rv
+
+            if EphemerisUtils.log.isEnabledFor(logging.DEBUG):
+                EphemerisUtils.log.debug(\
+                        "Get: Key not found in cache (key={}).".\
+                        format(cacheKey))
+                EphemerisUtils.log.debug("currsize of cache is: {}".\
+                    format(cache.currsize))
 
         # Return value.
         rv = []
@@ -1287,9 +1382,25 @@ class EphemerisUtils:
 
             EphemerisUtils.log.debug("Number of datetimes found: {}".format(len(rv)))
 
+        if EphemerisUtils.getPlanetCrossingLongitudeDegTimestampsCacheEnabled:
+            # Store the computed result in the cache.
+            if rv != None:
+                cache[cacheKey] = rv
+                if EphemerisUtils.log.isEnabledFor(logging.DEBUG) == True:
+                    EphemerisUtils.log.debug(\
+                            "Put: Into cache: (key={}, value={}).".\
+                            format(cacheKey, rv))
+                    EphemerisUtils.log.debug("currsize of cache is: {}".\
+                            format(cache.currsize))
+
         EphemerisUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
 
+
+    # Cache used for staticmethod: 
+    #     EphemerisUtils.getGeoRetrogradeDirectTimestamps(...)
+    getGeoRetrogradeDirectTimestampsCacheEnabled = True
+    getGeoRetrogradeDirectTimestampsCache = LRUCache(maxsize=4096)
 
     @staticmethod
     def getGeoRetrogradeDirectTimestamps(\
@@ -1338,6 +1449,37 @@ class EphemerisUtils:
                   "endDt=" + Ephemeris.datetimeToDayStr(endDt) +  ", " +
                   "planetName=" + planetName + ", " +
                   "maxErrorTd=" + str(maxErrorTd))
+
+        cache = None
+        cacheKey = None
+        if EphemerisUtils.getGeoRetrogradeDirectTimestampsCacheEnabled:
+            # Check the cache for previously computed solution.
+            cache = EphemerisUtils.getGeoRetrogradeDirectTimestampsCache
+            cacheKey = \
+                    (startDt,
+                    endDt,
+                    planetName,
+                    maxErrorTd,
+                    Ephemeris.geoLongitudeDeg,
+                    Ephemeris.geoLatitudeDeg,
+                    Ephemeris.geoAltitudeMeters)
+            cacheValue = cache.get(cacheKey)
+            if cacheValue != None:
+                if EphemerisUtils.log.isEnabledFor(logging.DEBUG):
+                    EphemerisUtils.log.debug(\
+                        "Get: Key found in cache (key={}, value={}).".\
+                        format(cacheKey, cacheValue))
+                    EphemerisUtils.log.debug("currsize of cache is: {}".\
+                        format(cache.currsize))
+                rv = cacheValue
+                return rv
+
+            if EphemerisUtils.log.isEnabledFor(logging.DEBUG):
+                EphemerisUtils.log.debug(\
+                        "Get: Key not found in cache (key={}).".\
+                        format(cacheKey))
+                EphemerisUtils.log.debug("currsize of cache is: {}".\
+                    format(cache.currsize))
 
         # List of tuples that are returned.
         rv = []
@@ -1526,8 +1668,24 @@ class EphemerisUtils:
         EphemerisUtils.log.debug("Number of geo retrograde or direct planet timestamps: {}".\
                  format(len(rv)))
 
+        if EphemerisUtils.getGeoRetrogradeDirectTimestampsCacheEnabled:
+            # Store the computed result in the cache.
+            if rv != None:
+                cache[cacheKey] = rv
+                if EphemerisUtils.log.isEnabledFor(logging.DEBUG) == True:
+                    EphemerisUtils.log.debug(\
+                            "Put: Into cache: (key={}, value={}).".\
+                            format(cacheKey, rv))
+                    EphemerisUtils.log.debug("currsize of cache is: {}".\
+                            format(cache.currsize))
+
         EphemerisUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
+
+    # Cache used for staticmethod: 
+    #     EphemerisUtils.getDatetimesOfElapsedLongitudeDegrees(...)
+    getDatetimesOfElapsedLongitudeDegreesCacheEnabled = True
+    getDatetimesOfElapsedLongitudeDegreesCache = LRUCache(maxsize=4096)
 
     @staticmethod
     def getDatetimesOfElapsedLongitudeDegrees(\
@@ -1574,6 +1732,39 @@ class EphemerisUtils:
         """
 
         EphemerisUtils.log.debug("Entered " + inspect.stack()[0][3] + "()")
+
+        cache = None
+        cacheKey = None
+        if EphemerisUtils.getDatetimesOfElapsedLongitudeDegreesCacheEnabled:
+            # Check the cache for previously computed solution.
+            cache = EphemerisUtils.getDatetimesOfElapsedLongitudeDegreesCache
+            cacheKey = \
+                    (planetName,
+                    centricityType,
+                    longitudeType,
+                    planetEpocDt,
+                    desiredDegreesElapsed,
+                    maxErrorTd,
+                    Ephemeris.geoLongitudeDeg,
+                    Ephemeris.geoLatitudeDeg,
+                    Ephemeris.geoAltitudeMeters)
+            cacheValue = cache.get(cacheKey)
+            if cacheValue != None:
+                if EphemerisUtils.log.isEnabledFor(logging.DEBUG):
+                    EphemerisUtils.log.debug(\
+                        "Get: Key found in cache (key={}, value={}).".\
+                        format(cacheKey, cacheValue))
+                    EphemerisUtils.log.debug("currsize of cache is: {}".\
+                        format(cache.currsize))
+                rv = cacheValue
+                return rv
+
+            if EphemerisUtils.log.isEnabledFor(logging.DEBUG):
+                EphemerisUtils.log.debug(\
+                        "Get: Key not found in cache (key={}).".\
+                        format(cacheKey))
+                EphemerisUtils.log.debug("currsize of cache is: {}".\
+                    format(cache.currsize))
 
         # Return value.
         rv = []
@@ -1997,6 +2188,17 @@ class EphemerisUtils:
             # Update prevDiff as the currDiff.
             prevDiff = currDiff
 
+        if EphemerisUtils.getDatetimesOfElapsedLongitudeDegreesCacheEnabled:
+            # Store the computed result in the cache.
+            if rv != None:
+                cache[cacheKey] = rv
+                if EphemerisUtils.log.isEnabledFor(logging.DEBUG) == True:
+                    EphemerisUtils.log.debug(\
+                            "Put: Into cache: (key={}, value={}).".\
+                            format(cacheKey, rv))
+                    EphemerisUtils.log.debug("currsize of cache is: {}".\
+                            format(cache.currsize))
+
         EphemerisUtils.log.debug("Exiting " + inspect.stack()[0][3] + "()")
         return rv
 
@@ -2192,11 +2394,24 @@ if __name__=="__main__":
 
     startTime = time.time()
 
+    # Disable caches to get fresh values and consistent timings.
+    useCache = False
+    if useCache:
+        EphemerisUtils.getOnePlanetLongitudeAspectTimestampsCacheEnabled = True
+        EphemerisUtils.getPlanetCrossingLongitudeDegTimestampsCacheEnabled = True
+        EphemerisUtils.getGeoRetrogradeDirectTimestampsCacheEnabled = True
+        EphemerisUtils.getDatetimesOfElapsedLongitudeDegreesCacheEnabled = True
+    else:
+        EphemerisUtils.getOnePlanetLongitudeAspectTimestampsCacheEnabled = False
+        EphemerisUtils.getPlanetCrossingLongitudeDegTimestampsCacheEnabled = False
+        EphemerisUtils.getGeoRetrogradeDirectTimestampsCacheEnabled = False
+        EphemerisUtils.getDatetimesOfElapsedLongitudeDegreesCacheEnabled = False
+
     # Different tests that can be run:
-    #testGetLongitudeAspectTimestamps()
-    #testGetOnePlanetLongitudeAspectTimestamps()
-    #testGetPlanetCrossingLongitudeDegTimestamps()
-    #testGetGeoRetrogradeDirectTimestamps()
+    testGetLongitudeAspectTimestamps()
+    testGetOnePlanetLongitudeAspectTimestamps()
+    testGetPlanetCrossingLongitudeDegTimestamps()
+    testGetGeoRetrogradeDirectTimestamps()
     testGetDatetimesOfElapsedLongitudeDegrees()
 
     endTime = time.time()

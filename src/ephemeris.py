@@ -258,10 +258,6 @@ class Ephemeris:
     SWISS_EPHEMERIS_DATA_DIR = \
         os.path.abspath(os.path.join(sys.path[0], "../data/ephe"))
 
-    # Cache used for staticmethod: Ephemeris.getPlanetaryInfo(planetName, dt)
-    getPlanetaryInfoCacheEnabled = True
-    getPlanetaryInfoCache = LRUCache(maxsize=32768)
-
     # Flag that is used in Swiss Ephemeris calculations.
     # We make mods to this variable to add options.
     iflag = 0
@@ -4470,6 +4466,11 @@ class Ephemeris:
 
         return planetaryInfo
 
+
+    # Cache used for staticmethod: Ephemeris.getPlanetaryInfo(planetName, dt)
+    getPlanetaryInfoCacheEnabled = True
+    getPlanetaryInfoCache = LRUCache(maxsize=32768)
+
     @staticmethod
     def getPlanetaryInfo(planetName, dt):
         """Returns a PlanetaryInfo object with a bunch of information about a
@@ -4494,6 +4495,8 @@ class Ephemeris:
             debugStr = "Entered getPlanetaryInfo(planetName={}, datetime={}"
             Ephemeris.log.debug(debugStr.format(planetName, dt))
 
+        cache = None
+        cacheKey = None
         if Ephemeris.getPlanetaryInfoCacheEnabled:
             # Check the cache for previously computed solution.
             cache = Ephemeris.getPlanetaryInfoCache

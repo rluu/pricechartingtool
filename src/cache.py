@@ -14,6 +14,7 @@ import shelve
 # To initialize the ephemeris calculations caches
 # with previously computed results.
 from ephemeris import Ephemeris
+from ephemeris_utils import EphemerisUtils
 from lunar_calendar_utils import LunarCalendarUtils
 
 ##############################################################################
@@ -37,6 +38,13 @@ class Cache:
                                         "cache" + os.sep +
                                         "cache.Ephemeris.shelve"))
     
+    SHELVED_CACHE_EPHEMERISUTILS_FILE = \
+            os.path.abspath(os.path.join(SRC_DIR,
+                                        ".." + os.sep +
+                                        "data" + os.sep +
+                                        "cache" + os.sep +
+                                        "cache.EphemerisUtils.shelve"))
+
     SHELVED_CACHE_LUNARCALENDARUTILS_FILE = \
             os.path.abspath(os.path.join(SRC_DIR,
                                         ".." + os.sep +
@@ -86,7 +94,73 @@ class Cache:
 
             # Close the dictionary.
             cacheDict.close()
+
+        ########################################
+
+        shelveFilename = Cache.SHELVED_CACHE_EPHEMERISUTILS_FILE
+        
+        if not os.path.isfile(shelveFilename):
+            Cache.log.info("Shelve file '" + \
+                     shelveFilename +
+                     "' does not exist or it is not a file.  " +
+                     "Will skip loading caches from this shelve.")
+        else:
+            # Shelve exists.  Open it.
+            Cache.log.info("Shelve file '" + shelveFilename + \
+                    "' exists.  Attempting to open ...")
+            cacheDict = shelve.open(shelveFilename)
+            Cache.log.info("Shelve file opened for loading.")
     
+            # Retrieve a copy of each of the caches, and store them
+            # for use in the application.
+            
+            key = "EphemerisUtils.getOnePlanetLongitudeAspectTimestampsCache"
+            if key in cacheDict:
+                Cache.log.debug("Found cache key: {}".format(key))
+                cache = cacheDict[key]
+                Cache.log.debug("Lookup complete.")
+                EphemerisUtils.getOnePlanetLongitudeAspectTimestampsCache = cache
+                Cache.log.info("Loaded cache '" + key + "' with currsize " +
+                    "{} from shelve.".format(cache.currsize))
+            else:
+                Cache.log.info("Cache '" + key + "' not found in the shelve.")
+
+            key = "EphemerisUtils.getPlanetCrossingLongitudeDegTimestampsCache"
+            if key in cacheDict:
+                Cache.log.debug("Found cache key: {}".format(key))
+                cache = cacheDict[key]
+                Cache.log.debug("Lookup complete.")
+                EphemerisUtils.getPlanetCrossingLongitudeDegTimestampsCache = cache
+                Cache.log.info("Loaded cache '" + key + "' with currsize " +
+                    "{} from shelve.".format(cache.currsize))
+            else:
+                Cache.log.info("Cache '" + key + "' not found in the shelve.")
+
+            key = "EphemerisUtils.getGeoRetrogradeDirectTimestampsCache"
+            if key in cacheDict:
+                Cache.log.debug("Found cache key: {}".format(key))
+                cache = cacheDict[key]
+                Cache.log.debug("Lookup complete.")
+                EphemerisUtils.getGeoRetrogradeDirectTimestampsCache = cache
+                Cache.log.info("Loaded cache '" + key + "' with currsize " +
+                    "{} from shelve.".format(cache.currsize))
+            else:
+                Cache.log.info("Cache '" + key + "' not found in the shelve.")
+
+            key = "EphemerisUtils.getDatetimesOfElapsedLongitudeDegreesCache"
+            if key in cacheDict:
+                Cache.log.debug("Found cache key: {}".format(key))
+                cache = cacheDict[key]
+                Cache.log.debug("Lookup complete.")
+                EphemerisUtils.getDatetimesOfElapsedLongitudeDegreesCache = cache
+                Cache.log.info("Loaded cache '" + key + "' with currsize " +
+                    "{} from shelve.".format(cache.currsize))
+            else:
+                Cache.log.info("Cache '" + key + "' not found in the shelve.")
+
+            # Close the dictionary.
+            cacheDict.close()
+        
         ########################################
 
         shelveFilename = Cache.SHELVED_CACHE_LUNARCALENDARUTILS_FILE
@@ -172,6 +246,43 @@ class Cache:
 
         key = "Ephemeris.getPlanetaryInfoCache"
         cache = Ephemeris.getPlanetaryInfoCache
+        Cache.log.info("Saving cache '" + key + "' with currsize " +
+                  "{} to shelve ...".format(cache.currsize))
+        cacheDict[key] = cache
+        
+        Cache.log.info("Closing shelve ...")
+        cacheDict.close()
+        Cache.log.info("Shelve closed.")
+
+        ########################################
+
+        shelveFilename = Cache.SHELVED_CACHE_EPHEMERISUTILS_FILE
+        
+        Cache.log.info("Attempting to open shelve file for saving: '" + \
+                shelveFilename + "' ...")
+        cacheDict = shelve.open(shelveFilename)
+        Cache.log.info("Shelve file opened for saving.")
+
+        key = "EphemerisUtils.getOnePlanetLongitudeAspectTimestampsCache"
+        cache = EphemerisUtils.getOnePlanetLongitudeAspectTimestampsCache
+        Cache.log.info("Saving cache '" + key + "' with currsize " +
+                  "{} to shelve ...".format(cache.currsize))
+        cacheDict[key] = cache
+        
+        key = "EphemerisUtils.getPlanetCrossingLongitudeDegTimestampsCache"
+        cache = EphemerisUtils.getPlanetCrossingLongitudeDegTimestampsCache
+        Cache.log.info("Saving cache '" + key + "' with currsize " +
+                  "{} to shelve ...".format(cache.currsize))
+        cacheDict[key] = cache
+        
+        key = "EphemerisUtils.getGeoRetrogradeDirectTimestampsCache"
+        cache = EphemerisUtils.getGeoRetrogradeDirectTimestampsCache
+        Cache.log.info("Saving cache '" + key + "' with currsize " +
+                  "{} to shelve ...".format(cache.currsize))
+        cacheDict[key] = cache
+        
+        key = "EphemerisUtils.getDatetimesOfElapsedLongitudeDegreesCache"
+        cache = EphemerisUtils.getDatetimesOfElapsedLongitudeDegreesCache
         Cache.log.info("Saving cache '" + key + "' with currsize " +
                   "{} to shelve ...".format(cache.currsize))
         cacheDict[key] = cache
