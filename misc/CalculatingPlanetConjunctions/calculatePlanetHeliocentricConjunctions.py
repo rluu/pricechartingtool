@@ -704,7 +704,7 @@ if __name__ == "__main__":
     results = {}
 
     # Angle that we want to obtain for the aspect.
-    desiredAspectDegrees = 0
+    desiredAspectDegree = 0
     
     numPlanets = len(heliocentricPlanetNames)
 
@@ -716,13 +716,12 @@ if __name__ == "__main__":
                 planetName1 = heliocentricPlanetNames[i]
                 planetName2 = heliocentricPlanetNames[j]
 
-                #if planetName1 != "Venus" and planetName2 != "Venus":
-                #    continue
-
                 comboPlanetName = planetName1 + "/" + planetName2
-                log.info("Obtaining planet heliocentric aspect-of-{}-degrees " + \
+                log.info("Obtaining planet heliocentric " + \
+                        "aspect-of-{}-degrees ".\
+                        format(desiredAspectDegree) + \
                          "information for '{}' ...".\
-                         format(desiredAspectDegree, comboPlanetName))
+                         format(comboPlanetName))
 
                 # Get list of conjunction timestamps.
                 conjunctionTimestamps = \
