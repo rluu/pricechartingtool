@@ -12,9 +12,6 @@ import logging
 import logging.handlers
 import logging.config
 
-# For loading shelves.
-import shelve
-
 # Import PyQt classes.
 from PyQt4 import QtCore
 from PyQt4.QtCore import *
@@ -29,6 +26,9 @@ from ephemeris import *
 # To initialize the ephemeris calculations caches
 # with previously computed results.
 from lunar_calendar_utils import LunarCalendarUtils
+
+# For using loading and saving caches.
+from cache import Cache
 
 # Import resources for the icon image.
 import resources
@@ -50,14 +50,6 @@ APP_DATE = __date__
 
 # Location of the source directory, based on this main.py file.
 SRC_DIR = os.path.abspath(sys.path[0])
-
-# Location of the shelved cache file.
-SHELVED_CACHE_FILE = \
-        os.path.abspath(os.path.join(SRC_DIR,
-                                    ".." + os.sep +
-                                    "data" + os.sep +
-                                    "cache" + os.sep +
-                                    "cache.shelve"))
 
 # Directory where log files will be written.
 LOG_DIR = \
@@ -143,7 +135,7 @@ def main():
     Ephemeris.setGeographicPosition(-77.084444, 38.890277)
 
     # Load any shelved caches.
-    loadCachesFromShelve()
+    Cache.loadCachesFromShelve()
 
     # Create the main window for the app and show it.
     mainWindow = MainWindow(APP_NAME,
@@ -155,7 +147,7 @@ def main():
 
     # Cleanup and close the application when the last window is closed.
     app.lastWindowClosed.connect(Ephemeris.closeEphemeris)
-    app.lastWindowClosed.connect(saveCachesToShelve)
+    app.lastWindowClosed.connect(Cache.saveCachesToShelve)
     app.lastWindowClosed.connect(logging.shutdown)
     app.lastWindowClosed.connect(app.quit)
 
@@ -188,114 +180,6 @@ def parseCommandlineArgs():
         sys.exit(0)
 
     return (options, args)
-
-
-def loadCachesFromShelve():
-    """
-    Loads previously used caches that were shelved to a file,
-    back into the caches.
-
-    This is so we don't have to re-populate the caches all over again
-    with calculations that should be the same from run to run.
-    """
-
-    log = logging.getLogger("main")
-
-    if not os.path.isfile(SHELVED_CACHE_FILE):
-        log.info("Shelve file '" + SHELVED_CACHE_FILE +
-                 "' does not exist or it is not a file.  " +
-                 "Will skip loading caches from shelve.")
-
-    else:
-        # Shelve exists.  Open it.
-        log.info("Shelve file '" + SHELVED_CACHE_FILE + "' exists.  " +
-                 "Attempting to open ...")
-        cacheDict = shelve.open(SHELVED_CACHE_FILE)
-        log.info("Shelve file opened for loading: " + SHELVED_CACHE_FILE)
-
-        # Retrieve a copy of each of the caches, and store them
-        # for use in the application.
-        key = "LunarCalendarUtils.datetimeToLunarDateCache"
-        if key in cacheDict:
-            cache = cacheDict[key]
-            LunarCalendarUtils.datetimeToLunarDateCache = cache
-            log.info("Loaded cache '" + key + "' with currsize " +
-                "{} from shelve.".format(cache.currsize))
-        else:
-            log.info("Cache '" + key + "' not found in the shelve.")
-
-        key = "LunarCalendarUtils.getNisan1DatetimeForYearCache"
-        if key in cacheDict:
-            cache = cacheDict[key]
-            LunarCalendarUtils.getNisan1DatetimeForYearCache = cache
-            log.info("Loaded cache '" + key + "' with currsize " +
-                "{} from shelve.".format(cache.currsize))
-        else:
-            log.info("Cache '" + key + "' not found in the shelve.")
-
-        key = "LunarCalendarUtils.lunarDateToDatetimeCache"
-        if key in cacheDict:
-            cache = cacheDict[key]
-            LunarCalendarUtils.lunarDateToDatetimeCache = cache
-            log.info("Loaded cache '" + key + "' with currsize " +
-                "{} from shelve.".format(cache.currsize))
-        else:
-            log.info("Cache '" + key + "' not found in the shelve.")
-
-        key = "LunarCalendarUtils.isLunarLeapYearCache"
-        if key in cacheDict:
-            cache = cacheDict[key]
-            LunarCalendarUtils.isLunarLeapYearCache = cache
-            log.info("Loaded cache '" + key + "' with currsize " +
-                "{} from shelve.".format(cache.currsize))
-        else:
-            log.info("Cache '" + key + "' not found in the shelve.")
-
-        cacheDict.close()
-
-
-def saveCachesToShelve():
-    """
-    Store each of the caches we want to persist into the shelve for use
-    the next time we open the application.
-    """
-
-    log = logging.getLogger("main")
-
-    log.info("Attempting to open shelve file '" + SHELVED_CACHE_FILE +
-              "' for saving ...")
-    cacheDict = shelve.open(SHELVED_CACHE_FILE)
-    log.info("Shelve file opened for saving: " + SHELVED_CACHE_FILE)
-
-
-    key = "LunarCalendarUtils.datetimeToLunarDateCache"
-    cache = LunarCalendarUtils.datetimeToLunarDateCache
-    log.info("Saving cache '" + key + "' with currsize " +
-              "{} to shelve ...".format(cache.currsize))
-    cacheDict[key] = cache
-
-    key = "LunarCalendarUtils.getNisan1DatetimeForYearCache"
-    cache = LunarCalendarUtils.getNisan1DatetimeForYearCache
-    log.info("Saving cache '" + key + "' with currsize " +
-              "{} to shelve ...".format(cache.currsize))
-    cacheDict[key] = cache
-
-    key = "LunarCalendarUtils.lunarDateToDatetimeCache"
-    cache = LunarCalendarUtils.lunarDateToDatetimeCache
-    log.info("Saving cache '" + key + "' with currsize " +
-              "{} to shelve ...".format(cache.currsize))
-    cacheDict[key] = cache
-
-    key = "LunarCalendarUtils.isLunarLeapYearCache"
-    cache = LunarCalendarUtils.isLunarLeapYearCache
-    log.info("Saving cache '" + key + "' with currsize " +
-              "{} to shelve ...".format(cache.currsize))
-    cacheDict[key] = cache
-
-
-    log.info("Closing shelve ...")
-    cacheDict.close()
-    log.info("Shelve closed.")
 
 
 ##############################################################################
