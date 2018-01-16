@@ -167,8 +167,14 @@ if __name__ == "__main__":
                 lunarDays.append(fullMoonPhase)
 
             for lunarDay in lunarDays:
+                log.debug("---")
+
                 lunarDate = LunarDate(lunarYear, lunarMonth, lunarDay)
+                log.debug("lunarDate == {}".format(lunarDate))
+
                 dt = LunarCalendarUtils.lunarDateToDatetime(lunarDate, tzInfo=timezone)
+                log.debug("dt == {}".format(Ephemeris.datetimeToStrWithoutMicroseconds(dt)))
+
                 jd = Ephemeris.datetimeToJulianDay(dt)
                 sunPI = Ephemeris.getPlanetaryInfo("Sun", dt)
                 moonPI = Ephemeris.getPlanetaryInfo("Moon", dt)
@@ -187,17 +193,21 @@ if __name__ == "__main__":
                 log.debug("trueNorthNodeLongitude == {}".format(trueNorthNodeLongitude))
                 log.debug("trueSouthNodeLongitude == {}".format(trueSouthNodeLongitude))
 
+                sunTrueNorthNodeDiff = \
+                    Util.toNormalizedAngle(sunLongitude - trueNorthNodeLongitude)
+                if sunTrueNorthNodeDiff >= 180:
+                    sunTrueNorthNodeDiff = 360 - sunTrueNorthNodeDiff
+                log.debug("sunTrueNorthNodeDiff == {}".format(sunTrueNorthNodeDiff))
+
+                sunTrueSouthNodeDiff = \
+                    Util.toNormalizedAngle(sunLongitude - trueSouthNodeLongitude)
+                if sunTrueSouthNodeDiff >= 180:
+                    sunTrueSouthNodeDiff = 360 - sunTrueSouthNodeDiff
+                log.debug("sunTrueSouthNodeDiff == {}".format(sunTrueSouthNodeDiff))
+
                 eclipseTypeStr = None
                 if lunarDay == newMoonPhase:
                     eclipseTypeStr = solarEclipseTypeStr
-                    sunTrueNorthNodeDiff = \
-                        Util.toNormalizedAngle(sunLongitude - trueNorthNodeLongitude)
-                    log.debug("sunTrueNorthNodeDiff == {}".format(sunTrueNorthNodeDiff))
-
-                    sunTrueSouthNodeDiff = \
-                        Util.toNormalizedAngle(sunLongitude - trueNorthNodeLongitude)
-                    log.debug("sunTrueSouthNodeDiff == {}".format(sunTrueSouthNodeDiff))
-
                     if (sunTrueNorthNodeDiff <= longitudeThresholdForSolarEclipse or \
                         sunTrueSouthNodeDiff <= longitudeThresholdForSolarEclipse):
 
@@ -220,16 +230,8 @@ if __name__ == "__main__":
 
                 elif lunarDay == fullMoonPhase:
                     eclipseTypeStr = lunarEclipseTypeStr
-                    sunTrueNorthNodeDiff = \
-                        Util.toNormalizedAngle(sunLongitude - trueNorthNodeLongitude)
-                    log.debug("sunTrueNorthNodeDiff == {}".format(sunTrueNorthNodeDiff))
-
-                    sunTrueSouthNodeDiff = \
-                        Util.toNormalizedAngle(sunLongitude - trueNorthNodeLongitude)
-                    log.debug("sunTrueSouthNodeDiff == {}".format(sunTrueSouthNodeDiff))
-
-                    if (sunTrueNorthNodeDiff <= longitudeThresholdForSolarEclipse or \
-                        sunTrueSouthNodeDiff <= longitudeThresholdForSolarEclipse):
+                    if (sunTrueNorthNodeDiff <= longitudeThresholdForLunarEclipse or \
+                        sunTrueSouthNodeDiff <= longitudeThresholdForLunarEclipse):
 
                         log.debug("Within threshold for a lunar eclipse: {}".\
                             format(lunarDate))
