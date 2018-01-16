@@ -81,7 +81,7 @@ endLunarYear = 1940
 # - int for the lunar month in the range [1, 13]
 # - float for the lunar day of the month in the range [0.0, 30).
 lunarDatesDesired = [
-    (1, 0.0),     # Nisan 1
+    (1, 0.0),
     ]
 
 # Error threshold for calculating timestamps of retrograde and direct planets.
