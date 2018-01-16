@@ -64,7 +64,9 @@ class Cache:
             # for use in the application.
             key = "Ephemeris.getPlanetaryInfoCache"
             if key in cacheDict:
+                Cache.log.debug("Found cache key: {}".format(key))
                 cache = cacheDict[key]
+                Cache.log.debug("Lookup complete.")
                 Ephemeris.getPlanetaryInfoCache = cache
                 Cache.log.info("Loaded cache '" + key + "' with currsize " +
                     "{} from shelve.".format(cache.currsize))
@@ -73,7 +75,9 @@ class Cache:
     
             key = "LunarCalendarUtils.datetimeToLunarDateCache"
             if key in cacheDict:
+                Cache.log.debug("Found cache key: {}".format(key))
                 cache = cacheDict[key]
+                Cache.log.debug("Lookup complete.")
                 LunarCalendarUtils.datetimeToLunarDateCache = cache
                 Cache.log.info("Loaded cache '" + key + "' with currsize " +
                     "{} from shelve.".format(cache.currsize))
@@ -82,7 +86,9 @@ class Cache:
     
             key = "LunarCalendarUtils.getNisan1DatetimeForYearCache"
             if key in cacheDict:
+                Cache.log.debug("Found cache key: {}".format(key))
                 cache = cacheDict[key]
+                Cache.log.debug("Lookup complete.")
                 LunarCalendarUtils.getNisan1DatetimeForYearCache = cache
                 Cache.log.info("Loaded cache '" + key + "' with currsize " +
                     "{} from shelve.".format(cache.currsize))
@@ -91,7 +97,9 @@ class Cache:
     
             key = "LunarCalendarUtils.lunarDateToDatetimeCache"
             if key in cacheDict:
+                Cache.log.debug("Found cache key: {}".format(key))
                 cache = cacheDict[key]
+                Cache.log.debug("Lookup complete.")
                 LunarCalendarUtils.lunarDateToDatetimeCache = cache
                 Cache.log.info("Loaded cache '" + key + "' with currsize " +
                     "{} from shelve.".format(cache.currsize))
@@ -100,7 +108,9 @@ class Cache:
     
             key = "LunarCalendarUtils.isLunarLeapYearCache"
             if key in cacheDict:
+                Cache.log.debug("Found cache key: {}".format(key))
                 cache = cacheDict[key]
+                Cache.log.debug("Lookup complete.")
                 LunarCalendarUtils.isLunarLeapYearCache = cache
                 Cache.log.info("Loaded cache '" + key + "' with currsize " +
                     "{} from shelve.".format(cache.currsize))
