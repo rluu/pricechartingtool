@@ -114,6 +114,17 @@ class Cache:
             # Retrieve a copy of each of the caches, and store them
             # for use in the application.
             
+            key = "EphemerisUtils.getLongitudeAspectTimestampsCache"
+            if key in cacheDict:
+                Cache.log.debug("Found cache key: {}".format(key))
+                cache = cacheDict[key]
+                Cache.log.debug("Lookup complete.")
+                EphemerisUtils.getLongitudeAspectTimestampsCache = cache
+                Cache.log.info("Loaded cache '" + key + "' with currsize " +
+                    "{} from shelve.".format(cache.currsize))
+            else:
+                Cache.log.info("Cache '" + key + "' not found in the shelve.")
+
             key = "EphemerisUtils.getOnePlanetLongitudeAspectTimestampsCache"
             if key in cacheDict:
                 Cache.log.debug("Found cache key: {}".format(key))
@@ -263,6 +274,12 @@ class Cache:
         cacheDict = shelve.open(shelveFilename)
         Cache.log.info("Shelve file opened for saving.")
 
+        key = "EphemerisUtils.getLongitudeAspectTimestampsCache"
+        cache = EphemerisUtils.getLongitudeAspectTimestampsCache
+        Cache.log.info("Saving cache '" + key + "' with currsize " +
+                  "{} to shelve ...".format(cache.currsize))
+        cacheDict[key] = cache
+        
         key = "EphemerisUtils.getOnePlanetLongitudeAspectTimestampsCache"
         cache = EphemerisUtils.getOnePlanetLongitudeAspectTimestampsCache
         Cache.log.info("Saving cache '" + key + "' with currsize " +
