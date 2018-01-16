@@ -919,61 +919,6 @@ def processPCDD(pcdd, tag):
 
     ############################################################################
 
-    # Testing new functions for longitude aspect timestamps.
-    if False:
-        aspectGroup = []
-        step = 180
-        start = 0
-        stop = 180
-        degreeDiff = start
-        while degreeDiff < stop or Util.fuzzyIsEqual(degreeDiff, stop):
-            aspectGroup.append(degreeDiff)
-            degreeDiff += step
-
-        planet1ParamsList = [("Venus", "geocentric", "sidereal")]
-        planet2ParamsList = [("Uranus", "geocentric", "sidereal")]
-        uniDirectionalAspectsFlag = True
-        
-        Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
-                                        pcdd.birthInfo.latitudeDegrees,
-                                        pcdd.birthInfo.elevation)
-        
-        for aspect in aspectGroup:
-            degreeDifference = aspect
-    
-            # Get the timestamps of the aspect.
-            timestamps = \
-                EphemerisUtils.getLongitudeAspectTimestamps(\
-                startDt, endDt,
-                planet1ParamsList,
-                planet2ParamsList,
-                degreeDifference,
-                uniDirectionalAspectsFlag)
-    
-            # Get the tag str for the aspect.
-            tag = \
-                PlanetaryCombinationsLibrary.getTagNameForLongitudeAspect(\
-                planet1ParamsList,
-                planet2ParamsList,
-                degreeDifference,
-                uniDirectionalAspectsFlag)
-            
-            # Get the color to apply.
-            from astrologychart import AstrologyUtils
-            color = AstrologyUtils.\
-                    getForegroundColorForPlanetName(planet1ParamsList[0][0])
-            
-            # Draw the aspects.
-            for dt in timestamps:
-                PlanetaryCombinationsLibrary.addVerticalLine(\
-                    pcdd, dt, highPrice, lowPrice, tag, color)
-    
-            log.info("Added {} artifacts for aspect {} degrees.".\
-                      format(len(timestamps), degreeDifference))
-        success = True
-    
-    ############################################################################
-
     if success == True:
         log.debug("Success!")
         rv = 0

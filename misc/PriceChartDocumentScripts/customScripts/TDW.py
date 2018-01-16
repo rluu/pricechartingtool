@@ -1819,8 +1819,8 @@ def processPCDD(pcdd, tag):
             aspectGroup.append(degreeDiff)
             degreeDiff += step
 
-        planet1ParamsList = [("Venus", "geocentric", "sidereal")]
-        planet2ParamsList = [("Uranus", "geocentric", "sidereal")]
+        planet1Tuple = ("Venus", "geocentric", "sidereal")
+        planet2Tuple = ("Uranus", "geocentric", "sidereal")
         uniDirectionalAspectsFlag = True
         
         Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
@@ -1834,16 +1834,16 @@ def processPCDD(pcdd, tag):
             timestamps = \
                 EphemerisUtils.getLongitudeAspectTimestamps(\
                 startDt, endDt,
-                planet1ParamsList,
-                planet2ParamsList,
+                planet1Tuple,
+                planet2Tuple,
                 degreeDifference,
                 uniDirectionalAspectsFlag)
     
             # Get the tag str for the aspect.
             tag = \
                 PlanetaryCombinationsLibrary.getTagNameForLongitudeAspect(\
-                planet1ParamsList,
-                planet2ParamsList,
+                planet1Tuple,
+                planet2Tuple,
                 degreeDifference,
                 uniDirectionalAspectsFlag)
             

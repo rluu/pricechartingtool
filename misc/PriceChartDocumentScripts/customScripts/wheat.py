@@ -154,8 +154,8 @@ def processPCDD(pcdd, tag):
         planetAAndBAspectDts = \
             EphemerisUtils.getLongitudeAspectTimestamps(startDt,
                                                         endDt,
-                                                        [planetA],
-                                                        [planetB],
+                                                        planetA,
+                                                        planetB,
                                                         degreeDifference,
                                                         uniDirectionalAspectsFlag)
 

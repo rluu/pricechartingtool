@@ -403,14 +403,14 @@ def getHighestLowestEarliestLatestPriceBarPricesAndTimestamps(pcdd):
         
     return (lowestPrice, highestPrice, earliestTimestamp, latestTimestamp)
 
-def getColorForPlanetParamsList(planetParamsList):
-    """Returns a QColor from the given planet params list."""
+def getColorForPlanetTuple(planetTuple):
+    """Returns a QColor from the given planet tuple."""
 
     # Return value.
     color = None
     
-    if planetParamsList != None:
-        planetName = planetParamsList[0][0]
+    if planetTuple != None:
+        planetName = planetTuple[0]
         planetColor = \
             AstrologyUtils.getForegroundColorForPlanetName(planetName)
         color = planetColor
@@ -418,8 +418,8 @@ def getColorForPlanetParamsList(planetParamsList):
     return color
     
 def processAspectsCalculationTask(pcdd,
-                                  planet1ParamsList,
-                                  planet2ParamsList,
+                                  planet1Tuple,
+                                  planet2Tuple,
                                   aspectGroup):
     """Processes the aspects, calculating where they are and adding
     chart artifacts to the PriceChartDocumentData 'pcdd' object.
@@ -468,21 +468,21 @@ def processAspectsCalculationTask(pcdd,
         timestamps = \
             EphemerisUtils.getLongitudeAspectTimestamps(\
             startDt, endDt,
-            planet1ParamsList,
-            planet2ParamsList,
+            planet1Tuple,
+            planet2Tuple,
             degreeDifference,
             uniDirectionalAspectsFlag)
 
         # Get the tag str for the aspect.
         tag = \
             PlanetaryCombinationsLibrary.getTagNameForLongitudeAspect(\
-            planet1ParamsList,
-            planet2ParamsList,
+            planet1Tuple,
+            planet2Tuple,
             degreeDifference,
             uniDirectionalAspectsFlag)
 
         # Get the color to apply.
-        color = getColorForPlanetParamsList(planet1ParamsList)
+        color = getColorForPlanetTuple(planet1Tuple)
         
         # Draw the aspects.
         for dt in timestamps:
@@ -496,8 +496,8 @@ def processAspectsCalculationTask(pcdd,
     if len(aspectGroup) == 1:
         tag = \
             PlanetaryCombinationsLibrary.getTagNameForLongitudeAspect(\
-            planet1ParamsList,
-            planet2ParamsList,
+            planet1Tuple,
+            planet2Tuple,
             degreeDifference,
             uniDirectionalAspectsFlag)
 
@@ -510,8 +510,8 @@ def processAspectsCalculationTask(pcdd,
         # Get the tag str for the aspect step size.
         tag = \
             PlanetaryCombinationsLibrary.getTagNameForLongitudeAspect(\
-            planet1ParamsList,
-            planet2ParamsList,
+            planet1Tuple,
+            planet2Tuple,
             degreeDifference,
             uniDirectionalAspectsFlag)
 
@@ -914,20 +914,20 @@ for i in range(len(planetNames)):
 
                             continue
                         
-                        planet1ParamsList = \
-                            [(planet1Name,
+                        planet1Tuple = \
+                             (planet1Name,
                               planet1CentricityType,
-                              planet1LongitudeType)]
-                        planet2ParamsList = \
-                            [(planet2Name,
+                              planet1LongitudeType)
+                        planet2Tuple = \
+                             (planet2Name,
                               planet2CentricityType,
-                              planet2LongitudeType)]
+                              planet2LongitudeType)
 
                         for aspectGroup in aspectGroupLists:
                             task = (processAspectsCalculationTask,
                                     (pcdd,
-                                     planet1ParamsList,
-                                     planet2ParamsList,
+                                     planet1Tuple,
+                                     planet2Tuple,
                                      aspectGroup))
                             tasks.append(task)
 

@@ -9582,7 +9582,7 @@ class PlanetaryCombinationsLibrary:
 
     @staticmethod
     def getTagNameForLongitudeAspect(\
-        planet1ParamsList, planet2ParamsList,
+        planet1Tuple, planet2Tuple,
         degreeDifference,
         uniDirectionalAspectsFlag=False):
         """Returns a tag name for a longitude aspect between the
@@ -9600,16 +9600,8 @@ class PlanetaryCombinationsLibrary:
         invalid, then None will be returned.
         """
 
-        # Check to make sure planet lists were given.
-        if len(planet1ParamsList) == 0:
-            log.error("planet1ParamsList must contain at least 1 tuple.")
-            return None
-        if len(planet2ParamsList) == 0:
-            log.error("planet2ParamsList must contain at least 1 tuple.")
-            return None
-
         # Check for valid inputs in each of the planet parameter lists.
-        for planetTuple in planet1ParamsList + planet2ParamsList:
+        for planetTuple in [planet1Tuple, planet2Tuple]:
             if len(planetTuple) != 3:
                 log.error("Input error: " + \
                           "Not enough values given in planet tuple.")
@@ -9644,68 +9636,48 @@ class PlanetaryCombinationsLibrary:
         else:
             tag += "BiDirectionalAspect_"
 
-        if len(planet1ParamsList) > 1:
-            tag += "Avg("
-        for i in range(len(planet1ParamsList)):
-            t = planet1ParamsList[i]
 
-            planetName = t[0]
-            centricityType = t[1]
-            longitudeType = t[2]
+        t = planet1Tuple
 
-            # If it's not the first planet in the list, add an
-            # underscore to separate the planets.
-            if i != 0:
-                tag += "_"
+        planetName = t[0]
+        centricityType = t[1]
+        longitudeType = t[2]
 
-            if centricityType.startswith("geo"):
-                tag += "Geo_"
-            elif centricityType.startswith("topo"):
-                tag += "Topo_"
-            elif centricityType.startswith("helio"):
-                tag += "Helio_"
+        if centricityType.startswith("geo"):
+            tag += "Geo_"
+        elif centricityType.startswith("topo"):
+            tag += "Topo_"
+        elif centricityType.startswith("helio"):
+            tag += "Helio_"
 
-            if longitudeType.startswith("trop"):
-                tag += "Trop_"
-            elif longitudeType.startswith("sid"):
-                tag += "Sid_"
+        if longitudeType.startswith("trop"):
+            tag += "Trop_"
+        elif longitudeType.startswith("sid"):
+            tag += "Sid_"
 
-            tag += planetName
-
-        if len(planet1ParamsList) > 1:
-            tag += ")"
+        tag += planetName
 
         tag += "_{}_DegreeAspect_".format(degreeDifference)
 
-        if len(planet2ParamsList) > 1:
-            tag += "Avg("
-        for i in range(len(planet2ParamsList)):
-            t = planet2ParamsList[i]
+        t = planet2Tuple
 
-            planetName = t[0]
-            centricityType = t[1]
-            longitudeType = t[2]
+        planetName = t[0]
+        centricityType = t[1]
+        longitudeType = t[2]
 
-            # If it's not the first planet in the list, add an
-            # underscore to separate the planets.
-            if i != 0:
-                tag += "_"
+        if centricityType.startswith("geo"):
+            tag += "Geo_"
+        elif centricityType.startswith("topo"):
+            tag += "Topo_"
+        elif centricityType.startswith("helio"):
+            tag += "Helio_"
 
-            if centricityType.startswith("geo"):
-                tag += "Geo_"
-            elif centricityType.startswith("topo"):
-                tag += "Topo_"
-            elif centricityType.startswith("helio"):
-                tag += "Helio_"
+        if longitudeType.startswith("trop"):
+            tag += "Trop_"
+        elif longitudeType.startswith("sid"):
+            tag += "Sid_"
 
-            if longitudeType.startswith("trop"):
-                tag += "Trop_"
-            elif longitudeType.startswith("sid"):
-                tag += "Sid_"
-
-            tag += planetName
-        if len(planet2ParamsList) > 1:
-            tag += ")"
+        tag += planetName
 
         log.debug("tag == '{}'".format(tag))
 

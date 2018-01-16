@@ -40,33 +40,13 @@ class EphemerisUtils:
     def getLongitudeAspectTimestamps(\
         startDt,
         endDt,
-        planet1ParamsList,
-        planet2ParamsList,
+        planet1Tuple,
+        planet2Tuple,
         degreeDifference,
         uniDirectionalAspectsFlag=False,
         maxErrorTd=datetime.timedelta(seconds=1)):
         """Obtains a list of datetime.datetime objects that contain
         the moments when the aspect specified is active.
-
-        Warning on usage:
-        When planet-longitude-averaging is utilized for the longitude
-        of planet1 or planet2, the aspects returned by this function
-        cannot be fully relied upon.
-
-        This short-coming happens under these circumstances because it
-        is possible that the longitude can abruptly 'jump' or hop a
-        large distance when measurements are taken between timestamp
-        steps.
-
-        For example, this 'jumping' effect can occur if two planets A
-        and B, are both around 355 degrees, and planet A crosses the 0
-        degree mark.  Now the average goes from around 355 degrees
-        (355 + 355 = 710 / 2 = 355), to about 180 degrees (355 + 0 =
-        355 / 2 = about 180).
-
-        While corrections for this can be made for the case of having
-        only 2 planets involved, if more planets are involved then the
-        adjustment required quickly becomes non-trivial.
 
         Preconditions:
         This method assumes that the Ephemeris has been initialized and the
@@ -78,12 +58,7 @@ class EphemerisUtils:
         endDt     - datetime.datetime object for the ending timestamp
                     to do the calculations for artifacts.
 
-        planet1ParamsList - List of tuples that will be used as parameters
-                      for planet1.  Each tuple contained in this list
-                      represents parameters for each planet that will
-                      get averaged to create what is known as planet1.
-
-                      The contents of the tuple are:
+        planet1Tuple - The contents of the tuple are:
                       (planetName, centricityType, longitudeType)
 
                       Where:
@@ -94,25 +69,14 @@ class EphemerisUtils:
                       longitudeType - str value holding either
                                       "tropical" or "sidereal".
 
-                      Example: So if someone wanted planet1 to be the
-                      average location of of geocentric sidereal
-                      Saturn and geocentric sidereal Uranus, the
-                      'planet1ParamsList' parameter would be:
+                      Example:
+                        ("Mercury", "heliocentric", "tropical")
 
-                      [("Saturn", "geocentric", "sidereal"),
-                       ("Uranus", "geocentric", "sidereal")]
-
-                      If the typical use-case is desired for the
-                      longitude of just a single planet, pass a list
-                      with only 1 tuple.  As an example, for Mercury
-                      it would be:
-
-                      [("Mercury", "heliocentric", "tropical")]
-
-        planet2ParamsList - List of tuples that will be used as parameters
-                      for planet2.  For additional details about the
+        planet2Tuple - The contents of the tuple are:
+                      (planetName, centricityType, longitudeType)
+                      For additional details about the
                       format of this parameter field, please see the
-                      description for parameter 'planet1ParamsList'
+                      description for parameter 'planet1Tuple'
 
         degreeDifference - float value for the number of degrees of
                            separation for this aspect.
@@ -154,22 +118,13 @@ class EphemerisUtils:
             raise ValueError(errMsg)
 
         # Check to make sure planet lists were given.
-        if len(planet1ParamsList) == 0:
-            errMsg = "planet1ParamsList must contain at least 1 tuple."
-            EphemerisUtils.log.error(errMsg)
-            raise ValueError(errMsg)
-        if len(planet2ParamsList) == 0:
-            errMsg = "planet2ParamsList must contain at least 1 tuple."
-            EphemerisUtils.log.error(errMsg)
-            raise ValueError(errMsg)
-
-        EphemerisUtils.log.debug("planet1ParamsList passed in is: {}".\
-                  format(planet1ParamsList))
-        EphemerisUtils.log.debug("planet2ParamsList passed in is: {}".\
-                  format(planet2ParamsList))
+        EphemerisUtils.log.debug("planet1Tuple passed in is: {}".\
+                  format(planet1Tuple))
+        EphemerisUtils.log.debug("planet2Tuple passed in is: {}".\
+                  format(planet2Tuple))
 
         # Check for valid inputs in each of the planet parameter lists.
-        for planetTuple in planet1ParamsList + planet2ParamsList:
+        for planetTuple in [planet1Tuple, planet2Tuple]:
             if len(planetTuple) != 3:
                 errMsg = "Input error: " + \
                           "Not enough values given in planet tuple."
@@ -205,7 +160,7 @@ class EphemerisUtils:
 
         # Set the step size.
         stepSizeTd = datetime.timedelta(days=1)
-        for planetTuple in planet1ParamsList + planet2ParamsList:
+        for planetTuple in [planet1Tuple, planet2Tuple]:
             planetName = planetTuple[0]
 
             if Ephemeris.isHouseCuspPlanetName(planetName) or \
@@ -253,60 +208,45 @@ class EphemerisUtils:
         longitudesP2.append(None)
         longitudesP2.append(None)
 
-        def getFieldValue(dt, planetParamsList, fieldName):
+        def getFieldValue(dt, planetParams, fieldName):
             """Creates the PlanetaryInfo object for the given
             planetParamsList and returns the value of the field
             desired.
             """
 
-            EphemerisUtils.log.debug("planetParamsList passed in is: {}".\
-                      format(planetParamsList))
+            EphemerisUtils.log.debug("planetParams passed in is: {}".\
+                      format(planetParams))
+            t = planetParams
 
-            unAveragedFieldValues = []
+            planetName = t[0]
+            centricityType = t[1]
+            longitudeType = t[2]
 
-            for t in planetParamsList:
-                planetName = t[0]
-                centricityType = t[1]
-                longitudeType = t[2]
+            pi = Ephemeris.getPlanetaryInfo(planetName, dt)
 
-                pi = Ephemeris.getPlanetaryInfo(planetName, dt)
+            EphemerisUtils.log.debug("Planet {} has geo sid longitude: {}".\
+                      format(planetName,
+                             pi.geocentric["sidereal"]["longitude"]))
 
-                EphemerisUtils.log.debug("Planet {} has geo sid longitude: {}".\
-                          format(planetName,
-                                 pi.geocentric["sidereal"]["longitude"]))
+            fieldValue = None
 
+            if centricityType.lower() == "geocentric":
+                fieldValue = pi.geocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "topocentric":
+                fieldValue = pi.topocentric[longitudeType][fieldName]
+            elif centricityType.lower() == "heliocentric":
+                fieldValue = pi.heliocentric[longitudeType][fieldName]
+            else:
+                EphemerisUtils.log.error("Unknown centricity type: {}".\
+                          format(centricityType))
                 fieldValue = None
 
-                if centricityType.lower() == "geocentric":
-                    fieldValue = pi.geocentric[longitudeType][fieldName]
-                elif centricityType.lower() == "topocentric":
-                    fieldValue = pi.topocentric[longitudeType][fieldName]
-                elif centricityType.lower() == "heliocentric":
-                    fieldValue = pi.heliocentric[longitudeType][fieldName]
-                else:
-                    EphemerisUtils.log.error("Unknown centricity type: {}".\
-                              format(centricityType))
-                    fieldValue = None
+            return fieldValue
 
-                unAveragedFieldValues.append(fieldValue)
-
-            EphemerisUtils.log.debug("unAveragedFieldValues is: {}".\
-                      format(unAveragedFieldValues))
-
-            # Average the field values.
-            total = 0.0
-            for v in unAveragedFieldValues:
-                total += v
-            averagedFieldValue = total / len(unAveragedFieldValues)
-
-            EphemerisUtils.log.debug("averagedFieldValue is: {}".\
-                      format(averagedFieldValue))
-
-            return averagedFieldValue
-
-        EphemerisUtils.log.debug("Stepping through timestamps from {} to {} ...".\
-                  format(Ephemeris.datetimeToStr(startDt),
-                         Ephemeris.datetimeToStr(endDt)))
+        EphemerisUtils.log.debug(\
+                "Stepping through timestamps from {} to {} ...".\
+                format(Ephemeris.datetimeToStr(startDt),
+                       Ephemeris.datetimeToStr(endDt)))
 
         currDiff = None
         prevDiff = None
@@ -321,16 +261,16 @@ class EphemerisUtils:
 
             longitudesP1[-1] = \
                 Util.toNormalizedAngle(\
-                getFieldValue(currDt, planet1ParamsList, fieldName))
+                getFieldValue(currDt, planet1Tuple, fieldName))
             longitudesP2[-1] = \
                 Util.toNormalizedAngle(\
-                getFieldValue(currDt, planet2ParamsList, fieldName))
+                getFieldValue(currDt, planet2Tuple, fieldName))
 
             EphemerisUtils.log.debug("{} {} is: {}".\
-                      format(planet1ParamsList, fieldName,
+                      format(planet1Tuple, fieldName,
                              longitudesP1[-1]))
             EphemerisUtils.log.debug("{} {} is: {}".\
-                      format(planet2ParamsList, fieldName,
+                      format(planet2Tuple, fieldName,
                              longitudesP2[-1]))
 
             currDiff = Util.toNormalizedAngle(\
@@ -364,8 +304,9 @@ class EphemerisUtils:
                     desiredDegree = desiredAngleDeg
 
                     if prevDiff < desiredDegree and currDiff >= desiredDegree:
-                        EphemerisUtils.log.debug("Crossed over {} from below to above!".\
-                                  format(desiredDegree))
+                        EphemerisUtils.log.debug(\
+                            "Crossed over {} from below to above!".\
+                            format(desiredDegree))
 
                         # This is the upper-bound of the error timedelta.
                         t1 = prevDt
@@ -375,7 +316,8 @@ class EphemerisUtils:
                         # Refine the timestamp until it is less than
                         # the threshold.
                         while currErrorTd > maxErrorTd:
-                            EphemerisUtils.log.debug("Refining between {} and {}".\
+                            EphemerisUtils.log.debug(\
+                                "Refining between {} and {}".\
                                       format(Ephemeris.datetimeToStr(t1),
                                              Ephemeris.datetimeToStr(t2)))
 
@@ -391,13 +333,15 @@ class EphemerisUtils:
 
                             testValueP1 = \
                                 Util.toNormalizedAngle(getFieldValue(\
-                                testDt, planet1ParamsList, fieldName))
+                                testDt, planet1Tuple, fieldName))
                             testValueP2 = \
                                 Util.toNormalizedAngle(getFieldValue(\
-                                testDt, planet2ParamsList, fieldName))
+                                testDt, planet2Tuple, fieldName))
 
-                            EphemerisUtils.log.debug("testValueP1 == {}".format(testValueP1))
-                            EphemerisUtils.log.debug("testValueP2 == {}".format(testValueP2))
+                            EphemerisUtils.log.debug("testValueP1 == {}".\
+                                format(testValueP1))
+                            EphemerisUtils.log.debug("testValueP2 == {}".\
+                                format(testValueP2))
 
                             if longitudesP1[-2] > 240 and testValueP1 < 120:
                                 # Planet 1 hopped over 0 degrees.
@@ -426,7 +370,8 @@ class EphemerisUtils:
                                 if testDiff < 120:
                                     testDiff += 360
 
-                            EphemerisUtils.log.debug("testDiff == {}".format(testDiff))
+                            EphemerisUtils.log.debug("testDiff == {}".\
+                                format(testDiff))
 
                             if testDiff < desiredDegree:
                                 t1 = testDt
@@ -449,8 +394,9 @@ class EphemerisUtils:
                         aspectTimestamps.append(currDt)
 
                     elif prevDiff > desiredDegree and currDiff <= desiredDegree:
-                        EphemerisUtils.log.debug("Crossed over {} from above to below!".\
-                                  format(desiredDegree))
+                        EphemerisUtils.log.debug(\
+                            "Crossed over {} from above to below!".\
+                            format(desiredDegree))
 
                         # This is the upper-bound of the error timedelta.
                         t1 = prevDt
@@ -460,7 +406,8 @@ class EphemerisUtils:
                         # Refine the timestamp until it is less than
                         # the threshold.
                         while currErrorTd > maxErrorTd:
-                            EphemerisUtils.log.debug("Refining between {} and {}".\
+                            EphemerisUtils.log.debug(\
+                                "Refining between {} and {}".\
                                       format(Ephemeris.datetimeToStr(t1),
                                              Ephemeris.datetimeToStr(t2)))
 
@@ -476,13 +423,15 @@ class EphemerisUtils:
 
                             testValueP1 = \
                                 Util.toNormalizedAngle(getFieldValue(\
-                                testDt, planet1ParamsList, fieldName))
+                                testDt, planet1Tuple, fieldName))
                             testValueP2 = \
                                 Util.toNormalizedAngle(getFieldValue(\
-                                testDt, planet2ParamsList, fieldName))
+                                testDt, planet2Tuple, fieldName))
 
-                            EphemerisUtils.log.debug("testValueP1 == {}".format(testValueP1))
-                            EphemerisUtils.log.debug("testValueP2 == {}".format(testValueP2))
+                            EphemerisUtils.log.debug("testValueP1 == {}".\
+                                format(testValueP1))
+                            EphemerisUtils.log.debug("testValueP2 == {}".\
+                                format(testValueP2))
 
                             if longitudesP1[-2] > 240 and testValueP1 < 120:
                                 # Planet 1 hopped over 0 degrees.
@@ -511,7 +460,8 @@ class EphemerisUtils:
                                 if testDiff < 120:
                                     testDiff += 360
 
-                            EphemerisUtils.log.debug("testDiff == {}".format(testDiff))
+                            EphemerisUtils.log.debug("testDiff == {}".\
+                                format(testDiff))
 
                             if testDiff > desiredDegree:
                                 t1 = testDt
@@ -2213,8 +2163,8 @@ def testGetLongitudeAspectTimestamps():
     planet2Name = "Sun"
     centricityType = "geocentric"
     longitudeType = "tropical"
-    planet1ParamsList = [(planet1Name, centricityType, longitudeType)]
-    planet2ParamsList = [(planet2Name, centricityType, longitudeType)]
+    planet1Tuple = (planet1Name, centricityType, longitudeType)
+    planet2Tuple = (planet2Name, centricityType, longitudeType)
     degreeDifference = 5
     uniDirectionalAspectsFlag = True
     maxErrorTd = datetime.timedelta(seconds=1)
@@ -2222,8 +2172,8 @@ def testGetLongitudeAspectTimestamps():
     dts = EphemerisUtils.getLongitudeAspectTimestamps(\
         startDt,
         endDt,
-        planet1ParamsList,
-        planet2ParamsList,
+        planet1Tuple,
+        planet2Tuple,
         degreeDifference,
         uniDirectionalAspectsFlag=uniDirectionalAspectsFlag,
         maxErrorTd=maxErrorTd)

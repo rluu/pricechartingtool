@@ -173,8 +173,8 @@ if __name__ == "__main__":
                 conjunctionTimestamps = \
                     EphemerisUtils.getLongitudeAspectTimestamps(\
                     startDt, endDt,
-                    [(planetName1, "geocentric", "tropical")],
-                    [(planetName2, "geocentric", "tropical")],
+                    (planetName1, "geocentric", "tropical"),
+                    (planetName2, "geocentric", "tropical"),
                     desiredAspectDegree,
                     True,
                     datetime.timedelta(seconds=1))

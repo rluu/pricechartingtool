@@ -126,8 +126,8 @@ def processPCDD(pcdd, tag):
         planet2Name = "Mars"
         centricityType = "heliocentric"
         longitudeType = "tropical"
-        planet1ParamsList = [(planet1Name, centricityType, longitudeType)]
-        planet2ParamsList = [(planet2Name, centricityType, longitudeType)]
+        planet1Tuple = (planet1Name, centricityType, longitudeType)
+        planet2Tuple = (planet2Name, centricityType, longitudeType)
         degreeDifference = 47
         uniDirectionalAspectsFlag = True
         maxErrorTd = datetime.timedelta(minutes=1)
@@ -139,8 +139,8 @@ def processPCDD(pcdd, tag):
         crossingsDts = EphemerisUtils.getLongitudeAspectTimestamps(\
             startDt,
             endDt,
-            planet1ParamsList,
-            planet2ParamsList,
+            planet1Tuple,
+            planet2Tuple,
             degreeDifference,
             uniDirectionalAspectsFlag=uniDirectionalAspectsFlag,
             maxErrorTd=maxErrorTd)
@@ -205,8 +205,8 @@ def processPCDD(pcdd, tag):
         planet2Name = "Earth"
         centricityType = "heliocentric"
         longitudeType = "tropical"
-        planet1ParamsList = [(planet1Name, centricityType, longitudeType)]
-        planet2ParamsList = [(planet2Name, centricityType, longitudeType)]
+        planet1Tuple = (planet1Name, centricityType, longitudeType)
+        planet2Tuple = (planet2Name, centricityType, longitudeType)
         degreeDifference = 180
         uniDirectionalAspectsFlag = True
         maxErrorTd = datetime.timedelta(minutes=1)
@@ -214,8 +214,8 @@ def processPCDD(pcdd, tag):
         dts = EphemerisUtils.getLongitudeAspectTimestamps(\
             searchStartDt,
             searchEndDt,
-            planet1ParamsList,
-            planet2ParamsList,
+            planet1Tuple,
+            planet2Tuple,
             degreeDifference,
             uniDirectionalAspectsFlag=uniDirectionalAspectsFlag,
             maxErrorTd=maxErrorTd)
@@ -570,8 +570,8 @@ def processPCDD(pcdd, tag):
         planet2Name = "Jupiter"
         centricityType = "geocentric"
         longitudeType = "tropical"
-        planet1ParamsList = [(planet1Name, centricityType, longitudeType)]
-        planet2ParamsList = [(planet2Name, centricityType, longitudeType)]
+        planet1Tuple = (planet1Name, centricityType, longitudeType)
+        planet2Tuple = (planet2Name, centricityType, longitudeType)
         degreeDifference = 0
         uniDirectionalAspectsFlag = True
         maxErrorTd = datetime.timedelta(minutes=1)
@@ -579,8 +579,8 @@ def processPCDD(pcdd, tag):
         dts = EphemerisUtils.getLongitudeAspectTimestamps(\
             startDt,
             endDt,
-            planet1ParamsList,
-            planet2ParamsList,
+            planet1Tuple,
+            planet2Tuple,
             degreeDifference,
             uniDirectionalAspectsFlag=uniDirectionalAspectsFlag,
             maxErrorTd=maxErrorTd)
@@ -597,8 +597,8 @@ def processPCDD(pcdd, tag):
             planet2Name = "Mercury"
             centricityType = "geocentric"
             longitudeType = "tropical"
-            planet1ParamsList = [(planet1Name, centricityType, longitudeType)]
-            planet2ParamsList = [(planet2Name, centricityType, longitudeType)]
+            planet1Tuple = (planet1Name, centricityType, longitudeType)
+            planet2Tuple = (planet2Name, centricityType, longitudeType)
             degreeDifference = i
             uniDirectionalAspectsFlag = True
             maxErrorTd = datetime.timedelta(minutes=1)
@@ -606,8 +606,8 @@ def processPCDD(pcdd, tag):
             dts = EphemerisUtils.getLongitudeAspectTimestamps(\
                 startDt,
                 endDt,
-                planet1ParamsList,
-                planet2ParamsList,
+                planet1Tuple,
+                planet2Tuple,
                 degreeDifference,
                 uniDirectionalAspectsFlag=uniDirectionalAspectsFlag,
                 maxErrorTd=maxErrorTd)
@@ -625,8 +625,8 @@ def processPCDD(pcdd, tag):
             planet2Name = "Venus"
             centricityType = "geocentric"
             longitudeType = "tropical"
-            planet1ParamsList = [(planet1Name, centricityType, longitudeType)]
-            planet2ParamsList = [(planet2Name, centricityType, longitudeType)]
+            planet1Tuple = (planet1Name, centricityType, longitudeType)
+            planet2Tuple = (planet2Name, centricityType, longitudeType)
             degreeDifference = i
             uniDirectionalAspectsFlag = True
             maxErrorTd = datetime.timedelta(minutes=1)
@@ -634,8 +634,8 @@ def processPCDD(pcdd, tag):
             dts = EphemerisUtils.getLongitudeAspectTimestamps(\
                 startDt,
                 endDt,
-                planet1ParamsList,
-                planet2ParamsList,
+                planet1Tuple,
+                planet2Tuple,
                 degreeDifference,
                 uniDirectionalAspectsFlag=uniDirectionalAspectsFlag,
                 maxErrorTd=maxErrorTd)
@@ -653,8 +653,8 @@ def processPCDD(pcdd, tag):
             planet2Name = "TrueNorthNode"
             centricityType = "geocentric"
             longitudeType = "tropical"
-            planet1ParamsList = [(planet1Name, centricityType, longitudeType)]
-            planet2ParamsList = [(planet2Name, centricityType, longitudeType)]
+            planet1Tuple = (planet1Name, centricityType, longitudeType)
+            planet2Tuple = (planet2Name, centricityType, longitudeType)
             degreeDifference = i
             uniDirectionalAspectsFlag = True
             maxErrorTd = datetime.timedelta(minutes=1)
@@ -662,8 +662,8 @@ def processPCDD(pcdd, tag):
             dts = EphemerisUtils.getLongitudeAspectTimestamps(\
                 startDt,
                 endDt,
-                planet1ParamsList,
-                planet2ParamsList,
+                planet1Tuple,
+                planet2Tuple,
                 degreeDifference,
                 uniDirectionalAspectsFlag=uniDirectionalAspectsFlag,
                 maxErrorTd=maxErrorTd)
@@ -682,8 +682,8 @@ def processPCDD(pcdd, tag):
             planet2Name = "TrueNorthNode"
             centricityType = "geocentric"
             longitudeType = "tropical"
-            planet1ParamsList = [(planet1Name, centricityType, longitudeType)]
-            planet2ParamsList = [(planet2Name, centricityType, longitudeType)]
+            planet1Tuple = (planet1Name, centricityType, longitudeType)
+            planet2Tuple = (planet2Name, centricityType, longitudeType)
             degreeDifference = i
             uniDirectionalAspectsFlag = True
             maxErrorTd = datetime.timedelta(minutes=1)
@@ -691,8 +691,8 @@ def processPCDD(pcdd, tag):
             dts = EphemerisUtils.getLongitudeAspectTimestamps(\
                 startDt,
                 endDt,
-                planet1ParamsList,
-                planet2ParamsList,
+                planet1Tuple,
+                planet2Tuple,
                 degreeDifference,
                 uniDirectionalAspectsFlag=uniDirectionalAspectsFlag,
                 maxErrorTd=maxErrorTd)
@@ -712,8 +712,8 @@ def processPCDD(pcdd, tag):
             planet2Name = "TrueNorthNode"
             centricityType = "geocentric"
             longitudeType = "tropical"
-            planet1ParamsList = [(planet1Name, centricityType, longitudeType)]
-            planet2ParamsList = [(planet2Name, centricityType, longitudeType)]
+            planet1Tuple = (planet1Name, centricityType, longitudeType)
+            planet2Tuple = (planet2Name, centricityType, longitudeType)
             degreeDifference = i
             uniDirectionalAspectsFlag = True
             maxErrorTd = datetime.timedelta(minutes=1)
@@ -721,8 +721,8 @@ def processPCDD(pcdd, tag):
             dts = EphemerisUtils.getLongitudeAspectTimestamps(\
                 startDt,
                 endDt,
-                planet1ParamsList,
-                planet2ParamsList,
+                planet1Tuple,
+                planet2Tuple,
                 degreeDifference,
                 uniDirectionalAspectsFlag=uniDirectionalAspectsFlag,
                 maxErrorTd=maxErrorTd)
@@ -739,8 +739,8 @@ def processPCDD(pcdd, tag):
         planet2Name = "Mars"
         centricityType = "geocentric"
         longitudeType = "tropical"
-        planet1ParamsList = [(planet1Name, centricityType, longitudeType)]
-        planet2ParamsList = [(planet2Name, centricityType, longitudeType)]
+        planet1Tuple = (planet1Name, centricityType, longitudeType)
+        planet2Tuple = (planet2Name, centricityType, longitudeType)
         degreeDifference = 0
         uniDirectionalAspectsFlag = True
         maxErrorTd = datetime.timedelta(minutes=1)
@@ -748,8 +748,8 @@ def processPCDD(pcdd, tag):
         dts = EphemerisUtils.getLongitudeAspectTimestamps(\
             startDt,
             endDt,
-            planet1ParamsList,
-            planet2ParamsList,
+            planet1Tuple,
+            planet2Tuple,
             degreeDifference,
             uniDirectionalAspectsFlag=uniDirectionalAspectsFlag,
             maxErrorTd=maxErrorTd)
@@ -945,8 +945,8 @@ def processPCDD(pcdd, tag):
             planet2Name = "TrueNorthNode"
             centricityType = "geocentric"
             longitudeType = "tropical"
-            planet1ParamsList = [(planet1Name, centricityType, longitudeType)]
-            planet2ParamsList = [(planet2Name, centricityType, longitudeType)]
+            planet1Tuple = (planet1Name, centricityType, longitudeType)
+            planet2Tuple = (planet2Name, centricityType, longitudeType)
             degreeDifference = i * (360 / 7.0)
             uniDirectionalAspectsFlag = True
             maxErrorTd = datetime.timedelta(minutes=1)
@@ -958,8 +958,8 @@ def processPCDD(pcdd, tag):
             crossingsDts = EphemerisUtils.getLongitudeAspectTimestamps(\
                 startDt,
                 endDt,
-                planet1ParamsList,
-                planet2ParamsList,
+                planet1Tuple,
+                planet2Tuple,
                 degreeDifference,
                 uniDirectionalAspectsFlag=uniDirectionalAspectsFlag,
                 maxErrorTd=maxErrorTd)
@@ -2648,8 +2648,8 @@ def processPCDD(pcdd, tag):
             aspectGroup.append(degreeDiff)
             degreeDiff += step
 
-        planet1ParamsList = [("Venus", "geocentric", "sidereal")]
-        planet2ParamsList = [("Uranus", "geocentric", "sidereal")]
+        planet1Tuple = ("Venus", "geocentric", "sidereal")
+        planet2Tuple = ("Uranus", "geocentric", "sidereal")
         uniDirectionalAspectsFlag = True
 
         Ephemeris.setGeographicPosition(pcdd.birthInfo.longitudeDegrees,
@@ -2663,16 +2663,16 @@ def processPCDD(pcdd, tag):
             timestamps = \
                 EphemerisUtils.getLongitudeAspectTimestamps(\
                 startDt, endDt,
-                planet1ParamsList,
-                planet2ParamsList,
+                planet1Tuple,
+                planet2Tuple,
                 degreeDifference,
                 uniDirectionalAspectsFlag)
 
             # Get the tag str for the aspect.
             tag = \
                 PlanetaryCombinationsLibrary.getTagNameForLongitudeAspect(\
-                planet1ParamsList,
-                planet2ParamsList,
+                planet1Tuple,
+                planet2Tuple,
                 degreeDifference,
                 uniDirectionalAspectsFlag)
 
