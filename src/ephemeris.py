@@ -4513,7 +4513,8 @@ class Ephemeris:
                         format(cacheKey, cacheValue))
                     Ephemeris.log.debug("currsize of cache is: {}".\
                         format(cache.currsize))
-                rv = cacheValue
+                # Deepcopy to prevent others from modifying the cache value.
+                rv = copy.deepcopy(cacheValue)
                 return rv
 
             if Ephemeris.log.isEnabledFor(logging.DEBUG):
@@ -4759,10 +4760,14 @@ class Ephemeris:
             if Ephemeris.getPlanetaryInfoCacheEnabled:
                 # Store the computed result in the cache.
                 if rv != None:
-                    cache[cacheKey] = rv
+                    # Deepcopy to prevent others from modifying the cache value.
+                    cache[cacheKey] = copy.deepcopy(rv)
                     if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-                        Ephemeris.log.debug("Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
-                        Ephemeris.log.debug("currsize of cache is: {}".format(cache.currsize))
+                        Ephemeris.log.debug(\
+                            "Put: Into cache: (key={}, value={}).".\
+                            format(cacheKey, rv))
+                        Ephemeris.log.debug("currsize of cache is: {}".\
+                            format(cache.currsize))
 
             return rv
 
@@ -5156,10 +5161,13 @@ class Ephemeris:
 
         if Ephemeris.getPlanetaryInfoCacheEnabled:
             # Store the computed result in the cache.
-            cache[cacheKey] = rv
+            # Deepcopy to prevent others from modifying the cache value.
+            cache[cacheKey] = copy.deepcopy(rv)
             if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
-                Ephemeris.log.debug("Put: Into cache: (key={}, value={}).".format(cacheKey, rv))
-                Ephemeris.log.debug("currsize of cache is: {}".format(cache.currsize))
+                Ephemeris.log.debug("Put: Into cache: (key={}, value={}).".\
+                    format(cacheKey, rv))
+                Ephemeris.log.debug("currsize of cache is: {}".\
+                    format(cache.currsize))
 
         return rv
 
@@ -6259,12 +6267,6 @@ class Ephemeris:
         # MeanSouthNode.
         pi = Ephemeris.getPlanetaryInfo("MeanNorthNode", timestamp)
 
-        # If the cache is enabled, need to make a deep copy so that we
-        # don't directly modify the copy from the cache for the 
-        # north node.
-        if Ephemeris.getPlanetaryInfoCacheEnabled:
-            pi = copy.deepcopy(pi)
-
         # Change the name and id fields.
         pi.name = "MeanSouthNode"
 
@@ -6328,12 +6330,6 @@ class Ephemeris:
         # the necessary modifications to that so that the data is for
         # TrueSouthNode.
         pi = Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
-
-        # If the cache is enabled, need to make a deep copy so that we
-        # don't directly modify the copy from the cache for the 
-        # north node.
-        if Ephemeris.getPlanetaryInfoCacheEnabled:
-            pi = copy.deepcopy(pi)
 
         # Change the name and id fields.
         pi.name = "TrueSouthNode"
