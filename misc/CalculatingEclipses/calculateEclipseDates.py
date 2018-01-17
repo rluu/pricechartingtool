@@ -67,14 +67,18 @@ startLunarYear = 1905
 
 # Ending lunar year to do calculations, inclusive.
 endLunarYear = 1940
+#endLunarYear = 1908
 
 # Destination output CSV file.
 outputFilename = thisScriptDir + os.sep + "eclipseDates.csv"
 
 # Thresholds for determing whether a new or full moon is a solar or lunar
 # eclipse.
-longitudeThresholdForSolarEclipse = 18.5166666
-longitudeThresholdForLunarEclipse = 12.25
+#longitudeThresholdForSolarEclipse = 18.5166666
+longitudeThresholdForSolarEclipse = 18.55
+#longitudeThresholdForLunarEclipse = 12.25
+#longitudeThresholdForLunarEclipse = 13.0
+longitudeThresholdForLunarEclipse = 16.26
 
 # Flags for enabling the calculations for particular eclipse types.
 solarEclipsesEnabled = True
@@ -91,8 +95,8 @@ cacheEnabled = True
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
-#log.setLevel(logging.DEBUG)
-log.setLevel(logging.INFO)
+log.setLevel(logging.DEBUG)
+#log.setLevel(logging.INFO)
 
 ##############################################################################
 
@@ -136,7 +140,8 @@ if __name__ == "__main__":
     #    G.Moon latitude, 
     #    G.TrueNorthNode longitude, 
     #    G.TrueSouthNode longitude,
-    #    EclipseTypeStr              # "S" or "L" for solar or lunar.
+    #    EclipseTypeStr,              # "S" or "L" for solar or lunar.
+    #    DistanceFromNode longitude
     #    )
     eclipseTuples = []
 
@@ -203,24 +208,23 @@ if __name__ == "__main__":
                 log.debug("trueNorthNodeLongitude == {}".format(trueNorthNodeLongitude))
                 log.debug("trueSouthNodeLongitude == {}".format(trueSouthNodeLongitude))
 
-                sunTrueNorthNodeDiff = \
-                    Util.toNormalizedAngle(sunLongitude - trueNorthNodeLongitude)
-                if sunTrueNorthNodeDiff >= 180:
-                    sunTrueNorthNodeDiff = 360 - sunTrueNorthNodeDiff
+                sunTrueNorthNodeDiff = sunLongitude - trueNorthNodeLongitude
                 log.debug("sunTrueNorthNodeDiff == {}".format(sunTrueNorthNodeDiff))
 
-                sunTrueSouthNodeDiff = \
-                    Util.toNormalizedAngle(sunLongitude - trueSouthNodeLongitude)
-                if sunTrueSouthNodeDiff >= 180:
-                    sunTrueSouthNodeDiff = 360 - sunTrueSouthNodeDiff
-                log.debug("sunTrueSouthNodeDiff == {}".format(sunTrueSouthNodeDiff))
+                distanceFromNode = None
+                while sunTrueNorthNodeDiff > 90:
+                    sunTrueNorthNodeDiff = sunTrueNorthNodeDiff - 180
+                while sunTrueNorthNodeDiff <= -90:
+                    sunTrueNorthNodeDiff = sunTrueNorthNodeDiff + 180
+                distanceFromNode = abs(sunTrueNorthNodeDiff)
+
+                log.debug("distanceFromNode == {}".format(distanceFromNode))
 
                 eclipseTypeStr = None
                 if lunarDay == newMoonPhase:
                     eclipseTypeStr = solarEclipseTypeStr
-                    if (sunTrueNorthNodeDiff <= longitudeThresholdForSolarEclipse or \
-                        sunTrueSouthNodeDiff <= longitudeThresholdForSolarEclipse):
 
+                    if (distanceFromNode <= longitudeThresholdForSolarEclipse):
                         log.debug("Within threshold for a solar eclipse: {}".\
                             format(lunarDate))
 
@@ -232,7 +236,8 @@ if __name__ == "__main__":
                                moonLatitude,
                                trueNorthNodeLongitude,
                                trueSouthNodeLongitude,
-                               eclipseTypeStr)
+                               eclipseTypeStr,
+                               distanceFromNode)
 
                         eclipseTuples.append(tup)
 
@@ -240,9 +245,8 @@ if __name__ == "__main__":
 
                 elif lunarDay == fullMoonPhase:
                     eclipseTypeStr = lunarEclipseTypeStr
-                    if (sunTrueNorthNodeDiff <= longitudeThresholdForLunarEclipse or \
-                        sunTrueSouthNodeDiff <= longitudeThresholdForLunarEclipse):
 
+                    if (distanceFromNode <= longitudeThresholdForLunarEclipse):
                         log.debug("Within threshold for a lunar eclipse: {}".\
                             format(lunarDate))
 
@@ -254,7 +258,8 @@ if __name__ == "__main__":
                                moonLatitude,
                                trueNorthNodeLongitude,
                                trueSouthNodeLongitude,
-                               eclipseTypeStr)
+                               eclipseTypeStr,
+                               distanceFromNode)
 
                         eclipseTuples.append(tup)
 
@@ -280,7 +285,8 @@ if __name__ == "__main__":
         "G.Moon latitude," + \
         "G.TrueNorthNode longitude," + \
         "G.TrueSouthNode longitude," + \
-        "EclipseType,"
+        "EclipseType," + \
+        "DistanceFromNode longitude,"
     
     # Remove trailing comma.
     headerLine = headerLine[:-1]
@@ -310,6 +316,8 @@ if __name__ == "__main__":
         i += 1
         eclipseTypeStr = tup[i]
         i += 1
+        distanceFromNodeLongitude = tup[i]
+        i += 1
 
         planetName = ""
         if eclipseTypeStr == solarEclipseTypeStr:
@@ -331,7 +339,8 @@ if __name__ == "__main__":
             "{},".format(moonLatitude) + \
             "{},".format(trueNorthNodeLongitude) + \
             "{},".format(trueSouthNodeLongitude) + \
-            "{},".format(eclipseTypeStr)
+            "{},".format(eclipseTypeStr) + \
+            "{},".format(distanceFromNodeLongitude)
 
         # Remove trailing comma.
         line = line[:-1]

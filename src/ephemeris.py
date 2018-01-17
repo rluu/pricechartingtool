@@ -6259,6 +6259,12 @@ class Ephemeris:
         # MeanSouthNode.
         pi = Ephemeris.getPlanetaryInfo("MeanNorthNode", timestamp)
 
+        # If the cache is enabled, need to make a deep copy so that we
+        # don't directly modify the copy from the cache for the 
+        # north node.
+        if Ephemeris.getPlanetaryInfoCacheEnabled:
+            pi = copy.deepcopy(pi)
+
         # Change the name and id fields.
         pi.name = "MeanSouthNode"
 
@@ -6322,6 +6328,12 @@ class Ephemeris:
         # the necessary modifications to that so that the data is for
         # TrueSouthNode.
         pi = Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
+
+        # If the cache is enabled, need to make a deep copy so that we
+        # don't directly modify the copy from the cache for the 
+        # north node.
+        if Ephemeris.getPlanetaryInfoCacheEnabled:
+            pi = copy.deepcopy(pi)
 
         # Change the name and id fields.
         pi.name = "TrueSouthNode"
