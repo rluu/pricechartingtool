@@ -4471,8 +4471,8 @@ class Ephemeris:
     cacheDeepCopyEnabled = True
 
     # Cache used for staticmethod: Ephemeris.getPlanetaryInfo(planetName, dt)
-    getPlanetaryInfoCacheEnabled = False
-    getPlanetaryInfoCache = LRUCache(maxsize=16384)
+    getPlanetaryInfoCacheEnabled = True
+    getPlanetaryInfoCache = LRUCache(maxsize=65536)
 
     @staticmethod
     def getPlanetaryInfo(planetName, dt):
