@@ -36,6 +36,10 @@ class EphemerisUtils:
     # Logger object for this class.
     log = logging.getLogger("ephemeris_utils.EphemerisUtils")
 
+    # Deep copying when saving to and loading from the cache.
+    # It's safer to do a deep copy but it comes with a performance penalty.
+    cacheDeepCopyEnabled = True
+
     # Cache used for staticmethod: 
     #     EphemerisUtils.getLongitudeAspectTimestamps(...)
     getLongitudeAspectTimestampsCacheEnabled = True
@@ -137,8 +141,13 @@ class EphemerisUtils:
                         format(cacheKey, cacheValue))
                     EphemerisUtils.log.debug("currsize of cache is: {}".\
                         format(cache.currsize))
-                # Deepcopy to prevent others from modifying the cache value.
-                rv = copy.deepcopy(cacheValue)
+
+                rv = None
+                if EphemerisUtils.cacheDeepCopyEnabled:
+                    # Deepcopy to prevent others from modifying the cache value.
+                    rv = copy.deepcopy(cacheValue)
+                else:
+                    rv = cacheValue
                 return rv
 
             if EphemerisUtils.log.isEnabledFor(logging.DEBUG):
@@ -546,8 +555,12 @@ class EphemerisUtils:
         if EphemerisUtils.getLongitudeAspectTimestampsCacheEnabled:
             # Store the computed result in the cache.
             if rv != None:
-                # Deepcopy to prevent others from modifying the cache value.
-                cache[cacheKey] = copy.deepcopy(rv)
+                if EphemerisUtils.cacheDeepCopyEnabled:
+                    # Deepcopy to prevent others from modifying the cache value.
+                    cache[cacheKey] = copy.deepcopy(rv)
+                else:
+                    cache[cacheKey] = rv
+
                 if EphemerisUtils.log.isEnabledFor(logging.DEBUG) == True:
                     EphemerisUtils.log.debug(\
                             "Put: Into cache: (key={}, value={}).".\
@@ -659,8 +672,13 @@ class EphemerisUtils:
                         format(cacheKey, cacheValue))
                     EphemerisUtils.log.debug("currsize of cache is: {}".\
                         format(cache.currsize))
-                # Deepcopy to prevent others from modifying the cache value.
-                rv = copy.deepcopy(cacheValue)
+
+                rv = None
+                if EphemerisUtils.cacheDeepCopyEnabled:
+                    # Deepcopy to prevent others from modifying the cache value.
+                    rv = copy.deepcopy(cacheValue)
+                else:
+                    rv = cacheValue
                 return rv
 
             if EphemerisUtils.log.isEnabledFor(logging.DEBUG):
@@ -1058,8 +1076,12 @@ class EphemerisUtils:
         if EphemerisUtils.getOnePlanetLongitudeAspectTimestampsCacheEnabled:
             # Store the computed result in the cache.
             if rv != None:
-                # Deepcopy to prevent others from modifying the cache value.
-                cache[cacheKey] = copy.deepcopy(rv)
+                if EphemerisUtils.cacheDeepCopyEnabled:
+                    # Deepcopy to prevent others from modifying the cache value.
+                    cache[cacheKey] = copy.deepcopy(rv)
+                else:
+                    cache[cacheKey] = rv
+
                 if EphemerisUtils.log.isEnabledFor(logging.DEBUG) == True:
                     EphemerisUtils.log.debug(\
                             "Put: Into cache: (key={}, value={}).".\
@@ -1148,8 +1170,13 @@ class EphemerisUtils:
                         format(cacheKey, cacheValue))
                     EphemerisUtils.log.debug("currsize of cache is: {}".\
                         format(cache.currsize))
-                # Deepcopy to prevent others from modifying the cache value.
-                rv = copy.deepcopy(cacheValue)
+
+                rv = None
+                if EphemerisUtils.cacheDeepCopyEnabled:
+                    # Deepcopy to prevent others from modifying the cache value.
+                    rv = copy.deepcopy(cacheValue)
+                else:
+                    rv = cacheValue
                 return rv
 
             if EphemerisUtils.log.isEnabledFor(logging.DEBUG):
@@ -1384,13 +1411,18 @@ class EphemerisUtils:
             longitudes.append(None)
             del longitudes[0]
 
-            EphemerisUtils.log.debug("Number of datetimes found: {}".format(len(rv)))
+            EphemerisUtils.log.debug("Number of datetimes found: {}".\
+                format(len(rv)))
 
         if EphemerisUtils.getPlanetCrossingLongitudeDegTimestampsCacheEnabled:
             # Store the computed result in the cache.
             if rv != None:
-                # Deepcopy to prevent others from modifying the cache value.
-                cache[cacheKey] = copy.deepcopy(rv)
+                if EphemerisUtils.cacheDeepCopyEnabled:
+                    # Deepcopy to prevent others from modifying the cache value.
+                    cache[cacheKey] = copy.deepcopy(rv)
+                else:
+                    cache[cacheKey] = rv
+
                 if EphemerisUtils.log.isEnabledFor(logging.DEBUG) == True:
                     EphemerisUtils.log.debug(\
                             "Put: Into cache: (key={}, value={}).".\
@@ -1476,8 +1508,13 @@ class EphemerisUtils:
                         format(cacheKey, cacheValue))
                     EphemerisUtils.log.debug("currsize of cache is: {}".\
                         format(cache.currsize))
-                # Deepcopy to prevent others from modifying the cache value.
-                rv = copy.deepcopy(cacheValue)
+
+                rv = None
+                if EphemerisUtils.cacheDeepCopyEnabled:
+                    # Deepcopy to prevent others from modifying the cache value.
+                    rv = copy.deepcopy(cacheValue)
+                else:
+                    rv = cacheValue
                 return rv
 
             if EphemerisUtils.log.isEnabledFor(logging.DEBUG):
@@ -1671,14 +1708,19 @@ class EphemerisUtils:
             velocitys.append(None)
             del velocitys[0]
 
-        EphemerisUtils.log.debug("Number of geo retrograde or direct planet timestamps: {}".\
-                 format(len(rv)))
+        EphemerisUtils.log.debug(\
+            "Number of geo retrograde or direct planet timestamps: {}".\
+            format(len(rv)))
 
         if EphemerisUtils.getGeoRetrogradeDirectTimestampsCacheEnabled:
             # Store the computed result in the cache.
             if rv != None:
-                # Deepcopy to prevent others from modifying the cache value.
-                cache[cacheKey] = copy.deepcopy(rv)
+                if EphemerisUtils.cacheDeepCopyEnabled:
+                    # Deepcopy to prevent others from modifying the cache value.
+                    cache[cacheKey] = copy.deepcopy(rv)
+                else:
+                    cache[cacheKey] = rv
+
                 if EphemerisUtils.log.isEnabledFor(logging.DEBUG) == True:
                     EphemerisUtils.log.debug(\
                             "Put: Into cache: (key={}, value={}).".\
@@ -1763,8 +1805,13 @@ class EphemerisUtils:
                         format(cacheKey, cacheValue))
                     EphemerisUtils.log.debug("currsize of cache is: {}".\
                         format(cache.currsize))
-                # Deepcopy to prevent others from modifying the cache value.
-                rv = copy.deepcopy(cacheValue)
+
+                rv = None
+                if EphemerisUtils.cacheDeepCopyEnabled:
+                    # Deepcopy to prevent others from modifying the cache value.
+                    rv = copy.deepcopy(cacheValue)
+                else:
+                    rv = cacheValue
                 return rv
 
             if EphemerisUtils.log.isEnabledFor(logging.DEBUG):
@@ -2199,8 +2246,12 @@ class EphemerisUtils:
         if EphemerisUtils.getDatetimesOfElapsedLongitudeDegreesCacheEnabled:
             # Store the computed result in the cache.
             if rv != None:
-                # Deepcopy to prevent others from modifying the cache value.
-                cache[cacheKey] = copy.deepcopy(rv)
+                if EphemerisUtils.cacheDeepCopyEnabled:
+                    # Deepcopy to prevent others from modifying the cache value.
+                    cache[cacheKey] = copy.deepcopy(rv)
+                else:
+                    cache[cacheKey] = rv
+
                 if EphemerisUtils.log.isEnabledFor(logging.DEBUG) == True:
                     EphemerisUtils.log.debug(\
                             "Put: Into cache: (key={}, value={}).".\

@@ -601,6 +601,10 @@ class LunarCalendarUtils:
     # Logger object for this class.
     log = logging.getLogger("lunar_calendar_utils.LunarCalendarUtils")
 
+    # Deep copying when saving to and loading from the cache.
+    # It's safer to do a deep copy but it comes with a performance penalty.
+    cacheDeepCopyEnabled = True
+
     # Cache used for staticmethod: datetimeToLunarDate().
     datetimeToLunarDateCache = LRUCache(maxsize=1048576)
 
@@ -638,8 +642,13 @@ class LunarCalendarUtils:
                     format(cacheKey, cacheValue))
                 LunarCalendarUtils.log.debug("currsize of cache is: {}".\
                     format(cache.currsize))
-            # Deepcopy to prevent others from modifying the cache value.
-            rv = copy.deepcopy(cacheValue)
+
+            rv = None
+            if LunarCalendarUtils.cacheDeepCopyEnabled:
+                # Deepcopy to prevent others from modifying the cache value.
+                rv = copy.deepcopy(cacheValue)
+            else:
+                rv = cacheValue
             return rv
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
@@ -723,8 +732,11 @@ class LunarCalendarUtils:
             LunarCalendarUtils.log.debug("rv == {}".format(rv))
 
         # Store the computed result in the cache.
-        # Deepcopy to prevent others from modifying the cache value.
-        cache[cacheKey] = copy.deepcopy(rv)
+        if LunarCalendarUtils.cacheDeepCopyEnabled:
+            # Deepcopy to prevent others from modifying the cache value.
+            cache[cacheKey] = copy.deepcopy(rv)
+        else:
+            cache[cacheKey] = rv
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
             LunarCalendarUtils.log.debug(\
@@ -768,8 +780,13 @@ class LunarCalendarUtils:
                     format(cacheKey, cacheValue))
                 LunarCalendarUtils.log.debug("currsize of cache is: {}".\
                     format(cache.currsize))
-            # Deepcopy to prevent others from modifying the cache value.
-            rv = copy.deepcopy(cacheValue)
+
+            rv = None
+            if LunarCalendarUtils.cacheDeepCopyEnabled:
+                # Deepcopy to prevent others from modifying the cache value.
+                rv = copy.deepcopy(cacheValue)
+            else:
+                rv = cacheValue
             return rv
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
@@ -902,8 +919,11 @@ class LunarCalendarUtils:
                 Ephemeris.datetimeToDayStr(rv))
 
         # Store the computed result in the cache.
-        # Deepcopy to prevent others from modifying the cache value.
-        cache[cacheKey] = copy.deepcopy(rv)
+        if LunarCalendarUtils.cacheDeepCopyEnabled:
+            # Deepcopy to prevent others from modifying the cache value.
+            cache[cacheKey] = copy.deepcopy(rv)
+        else:
+            cache[cacheKey] = rv
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
             LunarCalendarUtils.log.debug(
@@ -945,8 +965,13 @@ class LunarCalendarUtils:
                     format(cacheKey, cacheValue))
                 LunarCalendarUtils.log.debug("currsize of cache is: {}".\
                     format(cache.currsize))
-            # Deepcopy to prevent others from modifying the cache value.
-            rv = copy.deepcopy(cacheValue)
+
+            rv = None
+            if LunarCalendarUtils.cacheDeepCopyEnabled:
+                # Deepcopy to prevent others from modifying the cache value.
+                rv = copy.deepcopy(cacheValue)
+            else:
+                rv = cacheValue
             return rv
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
@@ -1007,8 +1032,11 @@ class LunarCalendarUtils:
             LunarCalendarUtils.log.debug(debugStr)
 
         # Store the computed result in the cache.
-        # Deepcopy to prevent others from modifying the cache value.
-        cache[cacheKey] = copy.deepcopy(rv)
+        if LunarCalendarUtils.cacheDeepCopyEnabled:
+            # Deepcopy to prevent others from modifying the cache value.
+            cache[cacheKey] = copy.deepcopy(rv)
+        else:
+            cache[cacheKey] = rv
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
             LunarCalendarUtils.log.debug(\
@@ -1049,8 +1077,13 @@ class LunarCalendarUtils:
                     format(cacheKey, cacheValue))
                 LunarCalendarUtils.log.debug("currsize of cache is: {}".\
                     format(cache.currsize))
-            # Deepcopy to prevent others from modifying the cache value.
-            rv = copy.deepcopy(cacheValue)
+
+            rv = None
+            if LunarCalendarUtils.cacheDeepCopyEnabled:
+                # Deepcopy to prevent others from modifying the cache value.
+                rv = copy.deepcopy(cacheValue)
+            else:
+                rv = cacheValue
             return rv
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
@@ -1093,8 +1126,11 @@ class LunarCalendarUtils:
             rv = False
 
         # Store the computed result in the cache.
-        # Deepcopy to prevent others from modifying the cache value.
-        cache[cacheKey] = copy.deepcopy(rv)
+        if LunarCalendarUtils.cacheDeepCopyEnabled:
+            # Deepcopy to prevent others from modifying the cache value.
+            cache[cacheKey] = copy.deepcopy(rv)
+        else:
+            cache[cacheKey] = rv
 
         if LunarCalendarUtils.log.isEnabledFor(logging.DEBUG):
             LunarCalendarUtils.log.debug(\

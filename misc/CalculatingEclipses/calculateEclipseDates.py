@@ -95,8 +95,8 @@ cacheEnabled = True
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s')
 moduleName = globals()['__name__']
 log = logging.getLogger(moduleName)
-log.setLevel(logging.DEBUG)
-#log.setLevel(logging.INFO)
+#log.setLevel(logging.DEBUG)
+log.setLevel(logging.INFO)
 
 ##############################################################################
 

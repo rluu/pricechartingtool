@@ -4466,10 +4466,13 @@ class Ephemeris:
 
         return planetaryInfo
 
+    # Deep copying when saving to and loading from the cache.
+    # It's safer to do a deep copy but it comes with a performance penalty.
+    cacheDeepCopyEnabled = True
 
     # Cache used for staticmethod: Ephemeris.getPlanetaryInfo(planetName, dt)
-    getPlanetaryInfoCacheEnabled = True
-    getPlanetaryInfoCache = LRUCache(maxsize=32768)
+    getPlanetaryInfoCacheEnabled = False
+    getPlanetaryInfoCache = LRUCache(maxsize=16384)
 
     @staticmethod
     def getPlanetaryInfo(planetName, dt):
@@ -4478,10 +4481,10 @@ class Ephemeris:
 
         Parameters:
         planetName  - str that holds the name of the planet
-        dt          - datetime.datetime object that represents the date and time
-                      for which the info is requested.  This object must
-                      have the tzinfo attribute defined and it must created
-                      from pytz.
+        dt          - datetime.datetime object that represents the
+                      date and time for which the info is requested.
+                      This object must have the tzinfo attribute
+                      defined and it must created from pytz.
 
         Returns:
         A PlanetaryInfo object for the given timestamp.
@@ -4509,17 +4512,24 @@ class Ephemeris:
             cacheValue = cache.get(cacheKey)
             if cacheValue != None:
                 if Ephemeris.log.isEnabledFor(logging.DEBUG):
-                    Ephemeris.log.debug("Get: Key found in cache (key={}, value={}).".\
+                    Ephemeris.log.debug(\
+                        "Get: Key found in cache (key={}, value={}).".\
                         format(cacheKey, cacheValue))
                     Ephemeris.log.debug("currsize of cache is: {}".\
                         format(cache.currsize))
-                # Deepcopy to prevent others from modifying the cache value.
-                rv = copy.deepcopy(cacheValue)
+
+                rv = None
+                if Ephemeris.cacheDeepCopyEnabled:
+                    # Deepcopy to prevent others from modifying the cache value.
+                    rv = copy.deepcopy(cacheValue)
+                else:
+                    rv = cacheValue
                 return rv
 
             if Ephemeris.log.isEnabledFor(logging.DEBUG):
-                Ephemeris.log.debug("Get: Key not found in cache (key={}).".\
-                        format(cacheKey))
+                Ephemeris.log.debug(\
+                    "Get: Key not found in cache (key={}).".\
+                    format(cacheKey))
                 Ephemeris.log.debug("currsize of cache is: {}".\
                     format(cache.currsize))
 
@@ -4760,8 +4770,12 @@ class Ephemeris:
             if Ephemeris.getPlanetaryInfoCacheEnabled:
                 # Store the computed result in the cache.
                 if rv != None:
-                    # Deepcopy to prevent others from modifying the cache value.
-                    cache[cacheKey] = copy.deepcopy(rv)
+                    if Ephemeris.cacheDeepCopyEnabled:
+                        # Deepcopy to prevent others from modifying the cache value.
+                        cache[cacheKey] = copy.deepcopy(rv)
+                    else:
+                        cache[cacheKey] = rv
+
                     if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
                         Ephemeris.log.debug(\
                             "Put: Into cache: (key={}, value={}).".\
@@ -5161,8 +5175,12 @@ class Ephemeris:
 
         if Ephemeris.getPlanetaryInfoCacheEnabled:
             # Store the computed result in the cache.
-            # Deepcopy to prevent others from modifying the cache value.
-            cache[cacheKey] = copy.deepcopy(rv)
+            if Ephemeris.cacheDeepCopyEnabled:
+                # Deepcopy to prevent others from modifying the cache value.
+                cache[cacheKey] = copy.deepcopy(rv)
+            else:
+                cache[cacheKey] = rv
+
             if Ephemeris.log.isEnabledFor(logging.DEBUG) == True:
                 Ephemeris.log.debug("Put: Into cache: (key={}, value={}).".\
                     format(cacheKey, rv))
@@ -6267,6 +6285,15 @@ class Ephemeris:
         # MeanSouthNode.
         pi = Ephemeris.getPlanetaryInfo("MeanNorthNode", timestamp)
 
+        # If cache is enabled and we're not already explicitly doing deep
+        # copies with the cache, then it is absolutely necessary here.
+        # Need to make a deep copy if using the cache, so we don't modify
+        # the cached object which has a shared reference.
+        if Ephemeris.getPlanetaryInfoCacheEnabled and \
+                not Ephemeris.cacheDeepCopyEnabled:
+
+            pi = copy.deepcopy(pi)
+
         # Change the name and id fields.
         pi.name = "MeanSouthNode"
 
@@ -6330,6 +6357,15 @@ class Ephemeris:
         # the necessary modifications to that so that the data is for
         # TrueSouthNode.
         pi = Ephemeris.getPlanetaryInfo("TrueNorthNode", timestamp)
+
+        # If cache is enabled and we're not already explicitly doing deep
+        # copies with the cache, then it is absolutely necessary here.
+        # Need to make a deep copy if using the cache, so we don't modify
+        # the cached object which has a shared reference.
+        if Ephemeris.getPlanetaryInfoCacheEnabled and \
+                not Ephemeris.cacheDeepCopyEnabled:
+
+            pi = copy.deepcopy(pi)
 
         # Change the name and id fields.
         pi.name = "TrueSouthNode"
