@@ -52,7 +52,9 @@
 import sys
 import os
 import copy
-import pickle
+
+#import pickle
+import _pickle as pickle
 
 # For parsing command-line options
 from optparse import OptionParser
