@@ -28,7 +28,8 @@ class Cache:
     log = logging.getLogger("cache.Cache")
 
     # Location of the source directory, based on this main.py file.
-    SRC_DIR = os.path.abspath(sys.path[0])
+    thisScriptDir = os.path.dirname(os.path.abspath(__file__))
+    SRC_DIR = thisScriptDir
     
     # Location of the shelved cache files.
     SHELVED_CACHE_EPHEMERIS_FILE = \

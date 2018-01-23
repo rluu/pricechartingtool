@@ -255,8 +255,9 @@ class Ephemeris:
 
 
     # Directory where the swiss ephemeris files are located.
+    thisScriptDir = os.path.dirname(os.path.abspath(__file__))
     SWISS_EPHEMERIS_DATA_DIR = \
-        os.path.abspath(os.path.join(sys.path[0], "../data/ephe"))
+        os.path.abspath(os.path.join(thisScriptDir, "../data/ephe"))
 
     # Flag that is used in Swiss Ephemeris calculations.
     # We make mods to this variable to add options.
@@ -12981,7 +12982,8 @@ if __name__=="__main__":
     # Logging config file specifies the log filename relative to
     # the current directory, so we need to chdir to the SRC_DIR
     # before loading the logging config.
-    SRC_DIR = os.path.abspath(sys.path[0])
+    thisScriptDir = os.path.dirname(os.path.abspath(__file__))
+    SRC_DIR = thisScriptDir
     os.chdir(SRC_DIR)
     LOG_CONFIG_FILE = \
         os.path.abspath(os.path.join(SRC_DIR, "../conf/logging.conf"))

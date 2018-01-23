@@ -49,7 +49,8 @@ APP_VERSION = __version__
 APP_DATE = __date__
 
 # Location of the source directory, based on this main.py file.
-SRC_DIR = os.path.abspath(sys.path[0])
+thisScriptDir = os.path.dirname(os.path.abspath(__file__))
+SRC_DIR = thisScriptDir
 
 # Directory where log files will be written.
 LOG_DIR = \
