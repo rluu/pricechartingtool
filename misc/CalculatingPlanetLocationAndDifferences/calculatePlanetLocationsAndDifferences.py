@@ -105,9 +105,6 @@ locTuple = nycLoc
 #planetEpocDt = datetime.datetime(year=2004, month=12, day=4,
 #                                hour=12, minute=0,
 #                                tzinfo=timezone)
-#planetEpocDt = datetime.datetime(1926, 1, 8, 23, 16, 40, tzinfo=pytz.utc);
-#planetEpocDt = datetime.datetime(1926, 8, 21, 15, 58, 7, tzinfo=pytz.utc);
-planetEpocDt = datetime.datetime(1927, 4, 3, 8, 41, 14, tzinfo=pytz.utc);
 
 
 # Error threshold for calculating timestamps.
