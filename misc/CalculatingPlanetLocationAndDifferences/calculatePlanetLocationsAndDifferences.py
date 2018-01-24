@@ -102,9 +102,12 @@ timezone = pytz.utc
 locTuple = nycLoc
 
 
-planetEpocDt = datetime.datetime(year=2004, month=12, day=4,
-                                hour=12, minute=0,
-                                tzinfo=timezone)
+#planetEpocDt = datetime.datetime(year=2004, month=12, day=4,
+#                                hour=12, minute=0,
+#                                tzinfo=timezone)
+#planetEpocDt = datetime.datetime(1926, 1, 8, 23, 16, 40, tzinfo=pytz.utc);
+#planetEpocDt = datetime.datetime(1926, 8, 21, 15, 58, 7, tzinfo=pytz.utc);
+planetEpocDt = datetime.datetime(1927, 4, 3, 8, 41, 14, tzinfo=pytz.utc);
 
 
 # Error threshold for calculating timestamps.
@@ -117,18 +120,18 @@ basePlanetLongitudeType = "tropical"
 
 # Planet names to do calculations for.
 geocentricPlanetNames = [\
-    "H1",
-    "H2",
-    "H3",
-    "H4",
-    "H5",
-    "H6",
-    "H7",
-    "H8",
-    "H9",
-    "H10",
-    "H11",
-    "H12",
+    #"H1",
+    #"H2",
+    #"H3",
+    #"H4",
+    #"H5",
+    #"H6",
+    #"H7",
+    #"H8",
+    #"H9",
+    #"H10",
+    #"H11",
+    #"H12",
     "Moon",
     "MoSu",
     "Sun",
@@ -171,6 +174,10 @@ endl = os.linesep
 # Cache enabling.
 cacheEnabled = True
 
+# CSV output filename 
+csvOutputEnabled = True
+outputFilename = thisScriptDir + os.sep + "planetLocationAndDifferences.csv"
+
 # For logging.
 logging.basicConfig(format='%(levelname)s: %(message)s')
 moduleName = globals()['__name__']
@@ -194,28 +201,14 @@ def shutdown(rc):
 
 ##############################################################################
 
-def getPlanetsForDatetimeAndTimezone(dt, locTuple):
+def getPlanetsForDatetimeAndTimezone(dt):
     """Returns a map with the key as a str indicating the planet
     and the value as the PlanetaryInfo object.
     """
 
-    locName = locTuple[0]
-    locLongitude = locTuple[1]
-    locLatitude = locTuple[2]
-    locElevation = locTuple[3]
-
-    # Set the Location (required).
-    Ephemeris.setGeographicPosition(locLongitude,
-                                    locLatitude,
-                                    locElevation)
-
     longitudeType = "tropical"
     fieldName = "longitude"
 
-    log.debug("datetime: " + Ephemeris.datetimeToDayStr(dt) + \
-        ", LunarDate: " +
-        LunarCalendarUtils.datetimeToLunarDate(dt).toConciseStringWithoutCommas() + \
-            ", location: " + locName)
     log.debug("------------------------------------")
 
     piMap = {}
@@ -269,31 +262,110 @@ if __name__ == "__main__":
     # Initialize Ephemeris (required).
     Ephemeris.initialize()
 
+    locName = locTuple[0]
+    locLongitude = locTuple[1]
+    locLatitude = locTuple[2]
+    locElevation = locTuple[3]
+
+    log.debug("locName: {}".format(locName))
+    log.debug("locLongitude: {}".format(locLongitude))
+    log.debug("locLatitude: {}".format(locLatitude))
+    log.debug("locElevation: {}".format(locElevation))
+
+    # Set the Location (required).
+    Ephemeris.setGeographicPosition(locLongitude,
+                                    locLatitude,
+                                    locElevation)
+
     basePlanetPi = Ephemeris.getPlanetaryInfo(basePlanetName, planetEpocDt)
     basePlanetNameKey = ""
     basePlanetLongitude = None
+    basePlanetDirectOrRetrograde = None
 
     if basePlanetCentricityType == "geocentric":
         basePlanetNameKey += "G." + basePlanetName
         basePlanetLongitude = basePlanetPi.geocentric[basePlanetLongitudeType]["longitude"]
+        if basePlanetPi.geocentric[basePlanetLongitudeType]["longitude_speed"] >= 0:
+            basePlanetDirectOrRetrograde = "D"
+        else:
+            basePlanetDirectOrRetrograde = "R"
+            
     elif basePlanetCentricityType == "heliocentric":
         basePlanetNameKey += "H." + basePlanetName
         basePlanetLongitude = basePlanetPi.heliocentric[basePlanetLongitudeType]["longitude"]
+        if basePlanetPi.heliocentric[basePlanetLongitudeType]["longitude_speed"] >= 0:
+            basePlanetDirectOrRetrograde = "D"
+        else:
+            basePlanetDirectOrRetrograde = "R"
     elif basePlanetCentricityType == "topocentric":
         basePlanetNameKey += "T." + basePlanetName
         basePlanetLongitude = basePlanetPi.topocentric[basePlanetLongitudeType]["longitude"]
+        if basePlanetPi.topocentric[basePlanetLongitudeType]["longitude_speed"] >= 0:
+            basePlanetDirectOrRetrograde = "D"
+        else:
+            basePlanetDirectOrRetrograde = "R"
+    else:
+        raise ValueError("Unknown centricityType: " + basePlanetCentricityType)
 
+    if basePlanetNameKey is None or basePlanetNameKey == "":
+        raise ValueError("basePlanetNameKey may not be None or empty")
     if basePlanetLongitude is None:
         raise ValueError("basePlanetLongitude may not be None")
-    
+    if basePlanetDirectOrRetrograde is None:
+        raise ValueError("basePlanetDirectOrRetrograde may not be None")
+
     log.debug("basePlanetNameKey: {}".format(basePlanetNameKey))
     log.debug("basePlanetLongitude: {}".format(basePlanetLongitude))
+    log.debug("basePlanetDirectOrRetrograde: {}".format(basePlanetDirectOrRetrograde))
 
-    piMap = getPlanetsForDatetimeAndTimezone(planetEpocDt, locTuple)
+    jd = Ephemeris.datetimeToJulianDay(planetEpocDt)
+    log.debug("jd: {}".format(jd))
+
+    dtStr = Ephemeris.datetimeToStrWithoutMicroseconds(planetEpocDt)
+    log.debug("dtStr: {}".format(dtStr))
+
+    lunarDateStr = \
+        "LD(" + \
+        LunarCalendarUtils.datetimeToLunarDate(planetEpocDt)\
+        .toConciseStringWithoutCommas() + \
+        ")"
+    log.debug("lunarDateStr: {}".format(lunarDateStr))
+
+    piMap = getPlanetsForDatetimeAndTimezone(planetEpocDt)
 
     piTupListSorted = \
         convertPlanetaryInfoMapToListBySortedLongitude(piMap, basePlanetLongitude)
 
+    headerLine = \
+        "BasePlanetName," + \
+        "BaseJulianDay," + \
+        "BaseDatetime," + \
+        "BaseLunarDate," + \
+        "BasePlanetDirectOrRetrograde," + \
+        "BasePlanetLongitude," + \
+        "PlanetName," + \
+        "PlanetDirectOrRetrograde," + \
+        "PlanetLongitude," + \
+        "Diff + (0 * 360)," + \
+        "Diff + (1 * 360)," + \
+        "Diff + (2 * 360)," + \
+        "Diff + (3 * 360)," + \
+        "Diff + (4 * 360)," + \
+        "Diff + (5 * 360)," + \
+        "Diff + (6 * 360)," + \
+        "Diff + (7 * 360)," + \
+        "Diff + (8 * 360)," + \
+        "Diff + (9 * 360)," + \
+        "Diff + (10 * 360),"
+    
+    # Remove trailing comma.
+    headerLine = headerLine[:-1]
+
+    
+    # Text in the output file.
+    outputLines = []
+    outputLines.append(headerLine)
+    
     for piTup in piTupListSorted:
         key = piTup[0]
         longitude = piTup[1]
@@ -319,6 +391,35 @@ if __name__ == "__main__":
 
         log.debug("piTup[{} ({})]: Longitude is:{}, diff is: {}".\
                 format(key, directOrRetrograde, longitude, diff))
+
+        # Assemble the line that will go into the CSV file.
+        line = ""
+        line += "{}".format(basePlanetNameKey) + ","
+        line += "{}".format(jd) + ","
+        line += "{}".format(dtStr) + ","
+        line += "{}".format(lunarDateStr) + ","
+        line += "{}".format(basePlanetDirectOrRetrograde) + ","
+        line += "{}".format(basePlanetLongitude) + ","
+        line += "{}".format(key) + ","
+        line += "{}".format(directOrRetrograde) + ","
+        line += "{}".format(longitude) + ","
+        for i in range(11):
+            line += "{}".format(diff + (i * 360)) + ","
+
+        # Remove last trailing comma.
+        line = line[:-1]
+
+        # Append to the output lines.
+        outputLines.append(line)
+
+    # Write outputLines to output file.
+    with open(outputFilename, "w", encoding="utf-8") as f:
+        log.info("Writing to output file '{}' ...".format(outputFilename))
+
+        endl = "\n"
+
+        for line in outputLines:
+            f.write(line + endl)
 
     log.info("Done.")
     shutdown(0)
