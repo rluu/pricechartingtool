@@ -102,9 +102,9 @@ timezone = pytz.utc
 locTuple = nycLoc
 
 
-#planetEpocDt = datetime.datetime(year=2004, month=12, day=4,
-#                                hour=12, minute=0,
-#                                tzinfo=timezone)
+planetEpocDt = datetime.datetime(year=2004, month=12, day=4,
+                                hour=12, minute=0,
+                                tzinfo=timezone)
 
 
 # Error threshold for calculating timestamps.
