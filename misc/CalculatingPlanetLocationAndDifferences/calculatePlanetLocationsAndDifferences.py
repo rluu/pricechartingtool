@@ -111,8 +111,9 @@ planetEpocDt = datetime.datetime(year=2004, month=12, day=4,
 maxErrorTd = datetime.timedelta(seconds=1)
 
 # BasePlanetName
-basePlanetName = "Earth"
-basePlanetCentricityType = "heliocentric"
+#basePlanetName = "Venus"
+basePlanetName = "Moon"
+basePlanetCentricityType = "geocentric"
 basePlanetLongitudeType = "tropical"
 
 # Planet names to do calculations for.
@@ -130,7 +131,7 @@ geocentricPlanetNames = [\
     #"H11",
     #"H12",
     "Moon",
-    "MoSu",
+    #"MoSu",
     "Sun",
     "Mercury",
     "Venus",
@@ -142,6 +143,7 @@ geocentricPlanetNames = [\
     "Neptune",
     "Pluto",
     "TrueNorthNode",
+    "TrueSouthNode",
     #"Chiron",
     #"Isis"
     ]
