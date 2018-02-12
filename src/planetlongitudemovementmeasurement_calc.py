@@ -1868,7 +1868,7 @@ class PLMMUtils:
                                     0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
                                     ) \
                                     and \
-                                    0 < longitudeElapsed:
+                                    longitudeElapsed > 0:
 
                                     if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
                                         PLMMUtils.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
@@ -2412,7 +2412,7 @@ class PLMMUtils:
                                     0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
                                     ) \
                                     and \
-                                    0 < longitudeElapsed:
+                                    longitudeElapsed > 0:
 
                                     if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
                                         PLMMUtils.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
@@ -2953,7 +2953,7 @@ class PLMMUtils:
                                     0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
                                     ) \
                                     and \
-                                    0 < longitudeElapsed:
+                                    longitudeElapsed > 0:
 
                                     if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
                                         PLMMUtils.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
@@ -3488,7 +3488,7 @@ class PLMMUtils:
                                     0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
                                     ) \
                                     and \
-                                    0 < longitudeElapsed:
+                                    longitudeElapsed > 0:
 
                                     if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
                                         PLMMUtils.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
