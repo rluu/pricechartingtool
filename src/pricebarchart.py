@@ -9050,7 +9050,29 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                         longitudeElapsed = \
                                             currPi.geocentric[zodiacType]['longitude'] - \
                                             prevPi.geocentric[zodiacType]['longitude']
-                                        
+
+                                        # Protect against bad data from the Swiss
+                                        # Ephemeris when doing calculations with
+                                        # TrueNorthNode or TrueSouthNode.
+                                        if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                            prevPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                            currPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                            not ( \
+                                            (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                            359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                            or  \
+                                            (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                            0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                            ) \
+                                            and \
+                                            longitudeElapsed < 0:
+
+                                            if self.log.isEnabledFor(logging.DEBUG) == True:
+                                                self.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                                self.log.debug("Skipping append for this iteration.")
+
+                                            continue
+
                                         # See if there was a crossing of the
                                         # 0 degree point or the 360 degree point.
                                         # If so, make the necessary adjustments
@@ -9123,6 +9145,28 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                             currPi.geocentric[zodiacType]['longitude'] - \
                                             prevPi.geocentric[zodiacType]['longitude']
                                         
+                                        # Protect against bad data from the Swiss
+                                        # Ephemeris when doing calculations with
+                                        # TrueNorthNode or TrueSouthNode.
+                                        if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                            prevPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                            currPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                            not ( \
+                                            (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                            359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                            or  \
+                                            (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                            0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                            ) \
+                                            and \
+                                            longitudeElapsed < 0:
+
+                                            if self.log.isEnabledFor(logging.DEBUG) == True:
+                                                self.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                                self.log.debug("Skipping append for this iteration.")
+
+                                            continue
+
                                         # See if there was a crossing of the
                                         # 0 degree point or the 360 degree point.
                                         # If so, make the necessary adjustments
@@ -9211,6 +9255,28 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                             currPi.geocentric[zodiacType]['longitude'] - \
                                             prevPi.geocentric[zodiacType]['longitude']
 
+                                        # Protect against bad data from the Swiss
+                                        # Ephemeris when doing calculations with
+                                        # TrueNorthNode or TrueSouthNode.
+                                        if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                            prevPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                            currPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                            not ( \
+                                            (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                            359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                            or  \
+                                            (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                            0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                            ) \
+                                            and \
+                                            longitudeElapsed < 0:
+
+                                            if self.log.isEnabledFor(logging.DEBUG) == True:
+                                                self.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                                self.log.debug("Skipping append for this iteration.")
+
+                                            continue
+
                                         if self.log.isEnabledFor(logging.DEBUG) == True:
                                             self.log.debug("Direct motion: " + \
                                                            "longitudeElapsed " + \
@@ -9238,6 +9304,28 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                         longitudeElapsed = \
                                             currPi.geocentric[zodiacType]['longitude'] - \
                                             prevPi.geocentric[zodiacType]['longitude']
+
+                                        # Protect against bad data from the Swiss
+                                        # Ephemeris when doing calculations with
+                                        # TrueNorthNode or TrueSouthNode.
+                                        if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                            prevPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] < 0 and \
+                                            currPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] < 0 and \
+                                            not ( \
+                                            (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                            359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                            or  \
+                                            (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                            0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                            ) \
+                                            and \
+                                            longitudeElapsed > 0:
+
+                                            if self.log.isEnabledFor(logging.DEBUG) == True:
+                                                self.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                                self.log.debug("Skipping append for this iteration.")
+
+                                            continue
 
                                         if self.log.isEnabledFor(logging.DEBUG) == True:
                                             self.log.debug("Retrograde motion: " + \
@@ -9319,6 +9407,28 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                             currPi.geocentric[zodiacType]['longitude'] - \
                                             prevPi.geocentric[zodiacType]['longitude']
                                         
+                                        # Protect against bad data from the Swiss
+                                        # Ephemeris when doing calculations with
+                                        # TrueNorthNode or TrueSouthNode.
+                                        if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                            prevPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                            currPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                            not ( \
+                                            (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                            359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                            or  \
+                                            (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                            0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                            ) \
+                                            and \
+                                            longitudeElapsed < 0:
+
+                                            if self.log.isEnabledFor(logging.DEBUG) == True:
+                                                self.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                                self.log.debug("Skipping append for this iteration.")
+
+                                            continue
+
                                         # See if there was a crossing of the
                                         # 0 degree point or the 360 degree point.
                                         # If so, make the necessary adjustments
@@ -9326,8 +9436,8 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                         # correct.
                                         longitudeElapsed = \
                                             Util.toNormalizedAngle(longitudeElapsed)
-
                                         totalDegrees += longitudeElapsed
+
                                     else:
                                         # Retrograde motion.
                                         # Elapsed amount for this segment should be negative.
@@ -9336,6 +9446,28 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                         longitudeElapsed = \
                                             currPi.geocentric[zodiacType]['longitude'] - \
                                             prevPi.geocentric[zodiacType]['longitude']
+
+                                        # Protect against bad data from the Swiss
+                                        # Ephemeris when doing calculations with
+                                        # TrueNorthNode or TrueSouthNode.
+                                        if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                            prevPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] < 0 and \
+                                            currPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] < 0 and \
+                                            not ( \
+                                            (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                            359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                            or  \
+                                            (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                            0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                            ) \
+                                            and \
+                                            longitudeElapsed > 0:
+
+                                            if self.log.isEnabledFor(logging.DEBUG) == True:
+                                                self.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                                self.log.debug("Skipping append for this iteration.")
+
+                                            continue
 
                                         # See if there was a crossing of the
                                         # 0 degree point or the 360 degree point.
@@ -9408,6 +9540,28 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                             currPi.geocentric[zodiacType]['longitude'] - \
                                             prevPi.geocentric[zodiacType]['longitude']
                                         
+                                        # Protect against bad data from the Swiss
+                                        # Ephemeris when doing calculations with
+                                        # TrueNorthNode or TrueSouthNode.
+                                        if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                            prevPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                            currPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                            not ( \
+                                            (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                            359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                            or  \
+                                            (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                            0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                            ) \
+                                            and \
+                                            longitudeElapsed < 0:
+
+                                            if self.log.isEnabledFor(logging.DEBUG) == True:
+                                                self.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                                self.log.debug("Skipping append for this iteration.")
+
+                                            continue
+
                                         # See if there was a crossing of the
                                         # 0 degree point or the 360 degree point.
                                         # If so, make the necessary adjustments
@@ -9425,6 +9579,28 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                         longitudeElapsed = \
                                             currPi.geocentric[zodiacType]['longitude'] - \
                                             prevPi.geocentric[zodiacType]['longitude']
+
+                                        # Protect against bad data from the Swiss
+                                        # Ephemeris when doing calculations with
+                                        # TrueNorthNode or TrueSouthNode.
+                                        if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                            prevPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] < 0 and \
+                                            currPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] < 0 and \
+                                            not ( \
+                                            (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                            359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                            or  \
+                                            (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                            0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                            ) \
+                                            and \
+                                            longitudeElapsed > 0:
+
+                                            if self.log.isEnabledFor(logging.DEBUG) == True:
+                                                self.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                                self.log.debug("Skipping append for this iteration.")
+
+                                            continue
 
                                         # See if there was a crossing of the
                                         # 0 degree point or the 360 degree point.
@@ -9491,6 +9667,28 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                             currPi.geocentric[zodiacType]['longitude'] - \
                                             prevPi.geocentric[zodiacType]['longitude']
                                         
+                                        # Protect against bad data from the Swiss
+                                        # Ephemeris when doing calculations with
+                                        # TrueNorthNode or TrueSouthNode.
+                                        if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                            prevPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                            currPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                            not ( \
+                                            (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                            359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                            or  \
+                                            (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                            0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                            ) \
+                                            and \
+                                            longitudeElapsed < 0:
+
+                                            if self.log.isEnabledFor(logging.DEBUG) == True:
+                                                self.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                                self.log.debug("Skipping append for this iteration.")
+
+                                            continue
+
                                         # See if there was a crossing of the
                                         # 0 degree point or the 360 degree point.
                                         # If so, make the necessary adjustments
@@ -9508,6 +9706,28 @@ class PlanetLongitudeMovementMeasurementGraphicsItem(PriceBarChartArtifactGraphi
                                         longitudeElapsed = \
                                             currPi.geocentric[zodiacType]['longitude'] - \
                                             prevPi.geocentric[zodiacType]['longitude']
+
+                                        # Protect against bad data from the Swiss
+                                        # Ephemeris when doing calculations with
+                                        # TrueNorthNode or TrueSouthNode.
+                                        if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                            prevPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] < 0 and \
+                                            currPi.geocentric[zodiacTypeForLongitudeSpeed]['longitude_speed'] < 0 and \
+                                            not ( \
+                                            (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                            359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                            or  \
+                                            (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                            0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                            ) \
+                                            and \
+                                            longitudeElapsed > 0:
+
+                                            if self.log.isEnabledFor(logging.DEBUG) == True:
+                                                self.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                                self.log.debug("Skipping append for this iteration.")
+
+                                            continue
 
                                         # See if there was a crossing of the
                                         # 0 degree point or the 360 degree point.
