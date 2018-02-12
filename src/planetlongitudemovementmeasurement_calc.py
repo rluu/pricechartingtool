@@ -48,14 +48,18 @@ class PLMMUtils:
     # want to test different sizes of a 'circle'.
     circleSizeInDegrees = 360.0
 
-    # All references to longitude_speed need to
-    # be from tropical zodiac measurements!  If I use
-    # sidereal zodiac measurements for getting the
-    # longitude_speed, then the measurements from the
-    # Swiss Ephemeris do not yield the correct values.
-    # I use the following variable in these locations.
-    zodiacTypeForLongitudeSpeed = "tropical"
-
+    ##################################################
+    # Variable: longitudeTypeForLongitudeSpeed
+    #
+    # Description:
+    #   All references to longitude_speed need to
+    #   be from tropical zodiac measurements!  If I use
+    #   sidereal zodiac measurements for getting the
+    #   longitude_speed, then the measurements from the
+    #   Swiss Ephemeris do not yield the correct values.
+    #   I use the following variable in these locations.
+    #
+    longitudeTypeForLongitudeSpeed = "tropical"
 
     @staticmethod
     def initializeEphemeris(locationLongitudeDegrees=-74.0064,
@@ -628,7 +632,7 @@ class PLMMUtils:
 
             for i in range(len(planetData)):
                 currLongitudeSpeed = \
-                    planetData[i].geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed']
+                    planetData[i].geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed']
 
                 if prevLongitudeSpeed != None and \
                    ((prevLongitudeSpeed < 0 and currLongitudeSpeed >= 0) or \
@@ -659,7 +663,7 @@ class PLMMUtils:
 
                         p = Ephemeris.getPlanetaryInfo(planetName, testDt)
                         testLongitudeSpeed = \
-                            p.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed']
+                            p.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed']
 
                         if ((prevLongitudeSpeed < 0 and \
                              testLongitudeSpeed >= 0) or \
@@ -699,7 +703,7 @@ class PLMMUtils:
                                    "longitude(sidereal) == {}, ".\
                                    format(t1pi.geocentric['sidereal']['longitude']) + \
                                    "longitude_speed == {}, ".\
-                                   format(t1pi.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed']))
+                                   format(t1pi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed']))
 
                         PLMMUtils.log.debug("t2 == {}, ".\
                                    format(Ephemeris.datetimeToStr(t2pi.dt)) + \
@@ -708,7 +712,7 @@ class PLMMUtils:
                                    "longitude(sidereal) == {}, ".\
                                    format(t2pi.geocentric['sidereal']['longitude']) + \
                                    "longitude_speed == {}, ".\
-                                   format(t2pi.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed']))
+                                   format(t2pi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed']))
 
                     # There is no need to update
                     # currLongitudeSpeed here, because the
@@ -764,7 +768,7 @@ class PLMMUtils:
                             prevPi = planetData[i-1]
                             currPi = planetData[i]
 
-                            if prevPi.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
+                            if prevPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                 # Direct motion.
                                 # Elapsed amount for this segment should be positive.
 
@@ -772,6 +776,29 @@ class PLMMUtils:
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
                                     prevPi.geocentric[zodiacType]['longitude']
+
+                                # Protect against bad data from the Swiss
+                                # Ephemeris when doing calculations with
+                                # TrueNorthNode or TrueSouthNode.
+                                # For an example of bad data observed, please see method:
+                                #   test_planetlongitudemovementmeasurement_calc.PLMMUtilsTestCase.testGeocentricTrueNorthNodeMovementMultipleRevolutions()
+                                if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                    prevPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                    currPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                    not ( \
+                                    (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                    359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                    or  \
+                                    (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                    0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                    ) \
+                                    and \
+                                    longitudeElapsed < 0:
+
+                                    if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
+                                        PLMMUtils.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                        PLMMUtils.log.debug("Skipping append for this iteration.")
+                                    continue
 
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
@@ -1242,7 +1269,7 @@ class PLMMUtils:
                             prevPi = planetData[i-1]
                             currPi = planetData[i]
 
-                            if prevPi.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
+                            if prevPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                 # Direct motion.
                                 # Elapsed amount for this segment should be positive.
 
@@ -1250,6 +1277,29 @@ class PLMMUtils:
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
                                     prevPi.geocentric[zodiacType]['longitude']
+
+                                # Protect against bad data from the Swiss
+                                # Ephemeris when doing calculations with
+                                # TrueNorthNode or TrueSouthNode.
+                                # For an example of bad data observed, please see method:
+                                #   test_planetlongitudemovementmeasurement_calc.PLMMUtilsTestCase.testGeocentricTrueNorthNodeMovementMultipleRevolutions()
+                                if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                    prevPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                    currPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                    not ( \
+                                    (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                    359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                    or  \
+                                    (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                    0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                    ) \
+                                    and \
+                                    longitudeElapsed < 0:
+
+                                    if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
+                                        PLMMUtils.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                        PLMMUtils.log.debug("Skipping append for this iteration.")
+                                    continue
 
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
@@ -1727,16 +1777,16 @@ class PLMMUtils:
                                                format(i-1,
                                                       Ephemeris.datetimeToStr(planetData[i-1].dt),
                                                       planetData[i-1].geocentric[zodiacType]['longitude'],
-                                                      planetData[i-1].geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed']
+                                                      planetData[i-1].geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed']
                                                       ))
                                 PLMMUtils.log.debug("  planetData[{}] ({}): lon == {}, speed == {}".\
                                                format(i,
                                                       Ephemeris.datetimeToStr(planetData[i].dt),
                                                       planetData[i].geocentric[zodiacType]['longitude'],
-                                                      planetData[i].geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed']
+                                                      planetData[i].geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed']
                                                       ))
 
-                            if prevPi.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
+                            if prevPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                 # Direct motion.
                                 # Elapsed amount for this segment should be positive.
 
@@ -1750,6 +1800,29 @@ class PLMMUtils:
                                                    "longitudeElapsed " + \
                                                    "(before reduction): {}".\
                                                    format(longitudeElapsed))
+
+                                # Protect against bad data from the Swiss
+                                # Ephemeris when doing calculations with
+                                # TrueNorthNode or TrueSouthNode.
+                                # For an example of bad data observed, please see method:
+                                #   test_planetlongitudemovementmeasurement_calc.PLMMUtilsTestCase.testGeocentricTrueNorthNodeMovementMultipleRevolutions()
+                                if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                    prevPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                    currPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                    not ( \
+                                    (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                    359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                    or  \
+                                    (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                    0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                    ) \
+                                    and \
+                                    longitudeElapsed < 0:
+
+                                    if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
+                                        PLMMUtils.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                        PLMMUtils.log.debug("Skipping append for this iteration.")
+                                    continue
 
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
@@ -1778,6 +1851,29 @@ class PLMMUtils:
                                                    "longitudeElapsed " + \
                                                    "(before reduction): {}".\
                                                    format(longitudeElapsed))
+
+                                # Protect against bad data from the Swiss
+                                # Ephemeris when doing calculations with
+                                # TrueNorthNode or TrueSouthNode.
+                                # For an example of bad data observed, please see method:
+                                #   test_planetlongitudemovementmeasurement_calc.PLMMUtilsTestCase.testGeocentricTrueNorthNodeMovementMultipleRevolutions()
+                                if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                    prevPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] < 0 and \
+                                    currPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] < 0 and \
+                                    not ( \
+                                    (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                    359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                    or  \
+                                    (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                    0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                    ) \
+                                    and \
+                                    0 < longitudeElapsed:
+
+                                    if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
+                                        PLMMUtils.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                        PLMMUtils.log.debug("Skipping append for this iteration.")
+                                    continue
 
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
@@ -2250,7 +2346,7 @@ class PLMMUtils:
                             prevPi = planetData[i-1]
                             currPi = planetData[i]
 
-                            if prevPi.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
+                            if prevPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                 # Direct motion.
                                 # Elapsed amount for this segment should be positive.
 
@@ -2258,6 +2354,29 @@ class PLMMUtils:
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
                                     prevPi.geocentric[zodiacType]['longitude']
+
+                                # Protect against bad data from the Swiss
+                                # Ephemeris when doing calculations with
+                                # TrueNorthNode or TrueSouthNode.
+                                # For an example of bad data observed, please see method:
+                                #   test_planetlongitudemovementmeasurement_calc.PLMMUtilsTestCase.testGeocentricTrueNorthNodeMovementMultipleRevolutions()
+                                if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                    prevPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                    currPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                    not ( \
+                                    (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                    359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                    or  \
+                                    (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                    0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                    ) \
+                                    and \
+                                    longitudeElapsed < 0:
+
+                                    if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
+                                        PLMMUtils.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                        PLMMUtils.log.debug("Skipping append for this iteration.")
+                                    continue
 
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
@@ -2276,6 +2395,29 @@ class PLMMUtils:
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
                                     prevPi.geocentric[zodiacType]['longitude']
+
+                                # Protect against bad data from the Swiss
+                                # Ephemeris when doing calculations with
+                                # TrueNorthNode or TrueSouthNode.
+                                # For an example of bad data observed, please see method:
+                                #   test_planetlongitudemovementmeasurement_calc.PLMMUtilsTestCase.testGeocentricTrueNorthNodeMovementMultipleRevolutions()
+                                if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                    prevPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] < 0 and \
+                                    currPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] < 0 and \
+                                    not ( \
+                                    (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                    359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                    or  \
+                                    (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                    0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                    ) \
+                                    and \
+                                    0 < longitudeElapsed:
+
+                                    if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
+                                        PLMMUtils.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                        PLMMUtils.log.debug("Skipping append for this iteration.")
+                                    continue
 
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
@@ -2745,7 +2887,7 @@ class PLMMUtils:
                             prevPi = planetData[i-1]
                             currPi = planetData[i]
 
-                            if prevPi.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
+                            if prevPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                 # Direct motion.
                                 # Elapsed amount for this segment should be positive.
 
@@ -2753,6 +2895,29 @@ class PLMMUtils:
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
                                     prevPi.geocentric[zodiacType]['longitude']
+
+                                # Protect against bad data from the Swiss
+                                # Ephemeris when doing calculations with
+                                # TrueNorthNode or TrueSouthNode.
+                                # For an example of bad data observed, please see method:
+                                #   test_planetlongitudemovementmeasurement_calc.PLMMUtilsTestCase.testGeocentricTrueNorthNodeMovementMultipleRevolutions()
+                                if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                    prevPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                    currPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                    not ( \
+                                    (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                    359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                    or  \
+                                    (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                    0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                    ) \
+                                    and \
+                                    longitudeElapsed < 0:
+
+                                    if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
+                                        PLMMUtils.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                        PLMMUtils.log.debug("Skipping append for this iteration.")
+                                    continue
 
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
@@ -2771,6 +2936,29 @@ class PLMMUtils:
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
                                     prevPi.geocentric[zodiacType]['longitude']
+
+                                # Protect against bad data from the Swiss
+                                # Ephemeris when doing calculations with
+                                # TrueNorthNode or TrueSouthNode.
+                                # For an example of bad data observed, please see method:
+                                #   test_planetlongitudemovementmeasurement_calc.PLMMUtilsTestCase.testGeocentricTrueNorthNodeMovementMultipleRevolutions()
+                                if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                    prevPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] < 0 and \
+                                    currPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] < 0 and \
+                                    not ( \
+                                    (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                    359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                    or  \
+                                    (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                    0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                    ) \
+                                    and \
+                                    0 < longitudeElapsed:
+
+                                    if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
+                                        PLMMUtils.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                        PLMMUtils.log.debug("Skipping append for this iteration.")
+                                    continue
 
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
@@ -3234,7 +3422,7 @@ class PLMMUtils:
                             prevPi = planetData[i-1]
                             currPi = planetData[i]
 
-                            if prevPi.geocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
+                            if prevPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                                 # Direct motion.
                                 # Elapsed amount for this segment should be positive.
 
@@ -3242,6 +3430,29 @@ class PLMMUtils:
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
                                     prevPi.geocentric[zodiacType]['longitude']
+
+                                # Protect against bad data from the Swiss
+                                # Ephemeris when doing calculations with
+                                # TrueNorthNode or TrueSouthNode.
+                                # For an example of bad data observed, please see method:
+                                #   test_planetlongitudemovementmeasurement_calc.PLMMUtilsTestCase.testGeocentricTrueNorthNodeMovementMultipleRevolutions()
+                                if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                    prevPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                    currPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0 and \
+                                    not ( \
+                                    (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                    359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                    or  \
+                                    (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                    0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                    ) \
+                                    and \
+                                    longitudeElapsed < 0:
+
+                                    if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
+                                        PLMMUtils.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                        PLMMUtils.log.debug("Skipping append for this iteration.")
+                                    continue
 
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
@@ -3260,6 +3471,29 @@ class PLMMUtils:
                                 longitudeElapsed = \
                                     currPi.geocentric[zodiacType]['longitude'] - \
                                     prevPi.geocentric[zodiacType]['longitude']
+
+                                # Protect against bad data from the Swiss
+                                # Ephemeris when doing calculations with
+                                # TrueNorthNode or TrueSouthNode.
+                                # For an example of bad data observed, please see method:
+                                #   test_planetlongitudemovementmeasurement_calc.PLMMUtilsTestCase.testGeocentricTrueNorthNodeMovementMultipleRevolutions()
+                                if (planetName == "TrueNorthNode" or planetName == "TrueSouthNode") and \
+                                    prevPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] < 0 and \
+                                    currPi.geocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] < 0 and \
+                                    not ( \
+                                    (0 <= prevPi.geocentric[zodiacType]['longitude'] < 1 and \
+                                    359 < currPi.geocentric[zodiacType]['longitude'] < 360) \
+                                    or  \
+                                    (359 < prevPi.geocentric[zodiacType]['longitude'] < 360 and \
+                                    0 <= currPi.geocentric[zodiacType]['longitude'] < 1) \
+                                    ) \
+                                    and \
+                                    0 < longitudeElapsed:
+
+                                    if PLMMUtils.log.isEnabledFor(logging.DEBUG) == True:
+                                        PLMMUtils.log.debug("longitudeElapsed == {}".format(longitudeElapsed))
+                                        PLMMUtils.log.debug("Skipping append for this iteration.")
+                                    continue
 
                                 # See if there was a crossing of the
                                 # 0 degree point or the 360 degree point.
@@ -3727,7 +3961,7 @@ class PLMMUtils:
                         prevPi = planetData[i-1]
                         currPi = planetData[i]
 
-                        if prevPi.heliocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
+                        if prevPi.heliocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                             # Direct motion.
                             # Elapsed amount for this segment should be positive.
 
@@ -4213,7 +4447,7 @@ class PLMMUtils:
                         prevPi = planetData[i-1]
                         currPi = planetData[i]
 
-                        if prevPi.heliocentric[PLMMUtils.zodiacTypeForLongitudeSpeed]['longitude_speed'] >= 0:
+                        if prevPi.heliocentric[PLMMUtils.longitudeTypeForLongitudeSpeed]['longitude_speed'] >= 0:
                             # Direct motion.
                             # Elapsed amount for this segment should be positive.
 
@@ -4817,735 +5051,6 @@ class PLMMUtils:
 
 ##############################################################################
 
-def testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture():
-    """Tests planet movements (both direct and retrograde planets/movements).
-    """
-
-
-    print("Running " + inspect.stack()[0][3] + "()")
-
-    # Assumes that Ephemeris has been initialized by this point of execution.
-
-    eastern = pytz.timezone('US/Eastern')
-
-    def printDatetimeResults(resultDts, planetName, centricityType, longitudeType, referenceDt, desiredDeltaDegrees):
-        print("  Result datetimes for planetName={}, centricityType={}, longitudeType={}, referenceDt={}, desiredDeltaDegrees={} are:".\
-              format(planetName,
-                     centricityType,
-                     longitudeType,
-                     referenceDt,
-                     desiredDeltaDegrees))
-
-        print("  Actual    num results == {}".format(len(resultDts)))
-
-        for i in range(len(resultDts)):
-            dt = resultDts[i]
-            print("  Actual   resultDts[{}] == {}".format(i, dt))
-
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Sun moving 3 degrees, not crossing 0 Aries.")
-        planetName="Sun"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1983, 10, 25, 19, 34, tzinfo=eastern)
-        desiredDeltaDegrees = 3
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-            planetName, centricityType, longitudeType, referenceDt,
-            desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-        print("  Expected  num results == 1")
-        print("  Expected resultDts[0] == 1983-10-28 19:43:36.123047-04:56")
-
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Sun moving 150 degrees, crossing 0 Aries.")
-        planetName="Sun"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1983, 10, 25, 19, 34, tzinfo=eastern)
-        desiredDeltaDegrees = 150
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 1")
-        print("  Expected resultDts[0] == 1984-03-22 06:15:13.681641-04:56")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Sun moving 510 degrees, crossing 0 Aries.")
-        planetName="Sun"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1983, 10, 25, 19, 34, tzinfo=eastern)
-        desiredDeltaDegrees = 510
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 1")
-        print("  Expected resultDts[0] == 1985-03-22 12:02:53.752443-04:56")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving 360 degrees.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1967, 5, 30, 0, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 360
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 3")
-        print("  Expected resultDts[0] == 1968-05-25 21:22:38.054211+00:00")
-        print("  Expected resultDts[1] == 1968-06-19 03:27:31.904297+00:00")
-        print("  Expected resultDts[2] == 1968-07-09 23:46:24.137980+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving 2 degrees.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1968, 5, 25, 21, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 2
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 3")
-        print("  Expected resultDts[0] == 1968-05-28 12:49:42.128906+00:00")
-        print("  Expected resultDts[1] == 1968-06-15 14:39:44.472656+00:00")
-        print("  Expected resultDts[2] == 1968-07-12 05:10:29.736329+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving -2 degrees.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1968, 5, 25, 21, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = -2
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 2")
-        print("  Expected resultDts[0] == 1968-06-22 22:20:25.195312+00:00")
-        print("  Expected resultDts[1] == 1968-07-07 01:03:15.556641+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving 2 degrees.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1968, 6, 19, 3, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 2
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 1")
-        print("  Expected resultDts[0] == 1968-07-12 05:45:53.613283+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving -2 degrees.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1968, 6, 19, 3, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = -2
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 2")
-        print("  Expected resultDts[0] == 1968-06-22 21:06:59.238282+00:00")
-        print("  Expected resultDts[1] == 1968-07-07 02:04:57.509766+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving 2 degrees.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1968, 7, 9, 23, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 2
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 1")
-        print("  Expected resultDts[0] == 1968-07-12 04:52:02.753906+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving -2 degrees.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1968, 7, 9, 23, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = -2
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 0")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving 0 degrees.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1968, 5, 25, 21, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 0
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 2")
-        print("  Expected resultDts[0] == 1968-06-19 04:01:07.675781+00:00")
-        print("  Expected resultDts[1] == 1968-07-09 23:22:36.152344+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving -0 degrees.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1968, 5, 25, 21, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = -0
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 2")
-        print("  Expected resultDts[0] == 1968-06-19 04:01:07.675781+00:00")
-        print("  Expected resultDts[1] == 1968-07-09 23:22:36.152344+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving 0 degrees.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1968, 6, 19, 4, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 0
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 1")
-        print("  Expected resultDts[0] == 1968-07-09 23:23:23.173829+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving 0 degrees.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1967, 9, 11, 12, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 0
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 0")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving 10 degrees.  From about 4 Gem to 14 Gem.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1969, 5, 4, 0, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 10
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 1")
-        print("  Expected resultDts[0] == 1969-06-27 19:19:03.457032+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving 5 degrees. From about 4 deg Gem to 9 deg Gem.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1969, 5, 4, 0, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 5
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 3")
-        print("  Expected resultDts[0] == 1969-05-09 12:37:25.166016+00:00")
-        print("  Expected resultDts[1] == 1969-05-26 22:51:00.351563+00:00")
-        print("  Expected resultDts[2] == 1969-06-23 02:29:24.843751+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving 5 degrees. From about 4 deg Gem to 9 deg Gem.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1969, 6, 5, 0, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 5
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 1")
-        print("  Expected resultDts[0] == 1969-06-23 11:22:08.466798+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving 5 degrees. From about 4 deg Gem to 9 deg Gem.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1969, 6, 16, 0, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 5
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 1")
-        print("  Expected resultDts[0] == 1969-06-23 10:24:30.410156+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving 360 degrees.  Over an Aries boundary.  From 4 Aries to 4 Aries.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1978, 3, 13, 0, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 360
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 3")
-        print("  Expected resultDts[0] == 1979-03-07 17:51:40.341797+00:00")
-        print("  Expected resultDts[1] == 1979-03-22 23:18:08.525391+00:00")
-        print("  Expected resultDts[2] == 1979-04-22 17:11:26.425782+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving 20 degrees.  From about 27 Pisces to 17 Aries.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1979, 3, 2, 0, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 20
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 1")
-        print("  Expected resultsDt[0] == 1979-05-02 17:28:46.611329+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving 10 degrees.  From about 27 Pisces to 7 Aries.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1979, 3, 2, 0, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 10
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 3")
-        print("  Expected resultDts[0] == 1979-03-10 17:36:09.580079+00:00")
-        print("  Expected resultDts[1] == 1979-03-19 12:57:09.052735+00:00")
-        print("  Expected resultDts[2] == 1979-04-24 23:16:49.423829+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving 10 degrees. From about 27 deg Pisces to 7 deg Aries.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1979, 4, 1, 0, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 10
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 1")
-        print("  Expected resultDts[0] == 1979-04-25 06:17:36.005860+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mercury moving 10 degrees. From about 27 deg Pisces to 7 deg Aries.")
-        planetName="Mercury"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1979, 4, 14, 0, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 10
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 1")
-        print("  Expected resultDts[0] == 1979-04-25 09:26:57.626954+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Moon moving 22 rev.  From about 0 Taurus to 0 Taurus.")
-        planetName="Moon"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1979, 5, 23, 12, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 360 * 22
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 1")
-        print("  Expected resultDts[0] == 1981-01-13 22:23:20.537117+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing H.Venus moving 22 rev.  From about 18 Aries to 18 Aries.")
-        planetName="Venus"
-        centricityType="heliocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1981, 4, 8, 0, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = 360 * 22
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 1")
-        print("  Expected resultDts[0] == 1994-10-20 07:06:05.213014+00:00")
-
-    if True:
-        print("  ------------------------------------------------------------")
-        print("  Testing G.Mars moving negative degrees (which will never be reached).")
-        planetName="Mars"
-        centricityType="geocentric"
-        longitudeType="tropical"
-        referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
-        desiredDeltaDegrees = -50
-
-        resultDts = \
-            LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInFuture(
-                planetName, centricityType, longitudeType, referenceDt,
-                desiredDeltaDegrees)
-
-        printDatetimeResults(resultDts, planetName, centricityType,
-                             longitudeType, referenceDt, desiredDeltaDegrees)
-
-        print("  Expected  num results == 0")
-
-    print("")
-
-
-def testLookbackMultipleUtils_speedTest():
-    """Tests to see how long it takes to do some computations."""
-
-    print("Running " + inspect.stack()[0][3] + "()")
-
-    # For timing the calculations.
-    import time
-
-    if False:
-        maxErrorTd = datetime.timedelta(minutes=60)
-        #maxErrorTd = datetime.timedelta(minutes=5)
-        #maxErrorTd = datetime.timedelta(seconds=2)
-
-        print("  Testing G.AsSu moving 360 rev., 3 times, with maxErrorTd={}".\
-              format(maxErrorTd))
-
-        startTime = time.time()
-
-        for i in range(3):
-            planetName="AsSu"
-            centricityType="geocentric"
-            longitudeType="tropical"
-            referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
-            desiredDeltaDegrees = -360 * 360
-
-            resultDts = \
-                LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
-                    planetName, centricityType, longitudeType, referenceDt,
-                    desiredDeltaDegrees, maxErrorTd)
-
-        endTime = time.time()
-        print("    Calculations took: {} sec".format(endTime - startTime))
-
-    if False:
-        maxErrorTd = datetime.timedelta(minutes=60)
-        #maxErrorTd = datetime.timedelta(minutes=5)
-        #maxErrorTd = datetime.timedelta(seconds=2)
-
-        print("  Testing G.SunTrueNorthNode moving 360 rev., 3 times, with maxErrorTd={}".\
-              format(maxErrorTd))
-
-        startTime = time.time()
-
-        for i in range(3):
-            planetName="SunTrueNorthNode"
-            centricityType="geocentric"
-            longitudeType="tropical"
-            referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
-            desiredDeltaDegrees = -360 * 360
-
-            resultDts = \
-                LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
-                    planetName, centricityType, longitudeType, referenceDt,
-                    desiredDeltaDegrees, maxErrorTd)
-
-    if False:
-        maxErrorTd = datetime.timedelta(minutes=60)
-        #maxErrorTd = datetime.timedelta(minutes=5)
-        #maxErrorTd = datetime.timedelta(seconds=2)
-
-        print("  Testing G.SunTrueSouthNode moving 360 rev., 3 times, with maxErrorTd={}".\
-              format(maxErrorTd))
-
-        startTime = time.time()
-
-        for i in range(3):
-            planetName="SunTrueSouthNode"
-            centricityType="geocentric"
-            longitudeType="tropical"
-            referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
-            desiredDeltaDegrees = -360 * 360
-
-            resultDts = \
-                LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
-                    planetName, centricityType, longitudeType, referenceDt,
-                    desiredDeltaDegrees, maxErrorTd)
-
-    if False:
-        maxErrorTd = datetime.timedelta(minutes=60)
-        #maxErrorTd = datetime.timedelta(minutes=5)
-        #maxErrorTd = datetime.timedelta(seconds=2)
-
-        print("  Testing G.MoonTrueNorthNode moving 360 rev., 3 times, with maxErrorTd={}".\
-              format(maxErrorTd))
-
-        startTime = time.time()
-
-        for i in range(3):
-            planetName="MoonTrueNorthNode"
-            centricityType="geocentric"
-            longitudeType="tropical"
-            referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
-            desiredDeltaDegrees = -360 * 360
-
-            resultDts = \
-                LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
-                    planetName, centricityType, longitudeType, referenceDt,
-                    desiredDeltaDegrees, maxErrorTd)
-
-    if False:
-        maxErrorTd = datetime.timedelta(minutes=60)
-        #maxErrorTd = datetime.timedelta(minutes=5)
-        #maxErrorTd = datetime.timedelta(seconds=2)
-
-        print("  Testing G.MoonTrueSouthNode moving 360 rev., 3 times, with maxErrorTd={}".\
-              format(maxErrorTd))
-
-        startTime = time.time()
-
-        for i in range(3):
-            planetName="MoonTrueSouthNode"
-            centricityType="geocentric"
-            longitudeType="tropical"
-            referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
-            desiredDeltaDegrees = -360 * 360
-
-            resultDts = \
-                LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
-                    planetName, centricityType, longitudeType, referenceDt,
-                    desiredDeltaDegrees, maxErrorTd)
-
-    if False:
-        maxErrorTd = datetime.timedelta(minutes=60)
-        #maxErrorTd = datetime.timedelta(minutes=5)
-        #maxErrorTd = datetime.timedelta(seconds=2)
-
-        print("  Testing G.MoSu moving 360 rev., 3 times, with maxErrorTd={}".\
-              format(maxErrorTd))
-
-        startTime = time.time()
-
-        for i in range(3):
-            planetName="MoSu"
-            centricityType="geocentric"
-            longitudeType="tropical"
-            referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
-            desiredDeltaDegrees = -360 * 360
-
-            resultDts = \
-                LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
-                    planetName, centricityType, longitudeType, referenceDt,
-                    desiredDeltaDegrees, maxErrorTd)
-
-    if True:
-        maxErrorTd = datetime.timedelta(minutes=60)
-        #maxErrorTd = datetime.timedelta(minutes=5)
-        #maxErrorTd = datetime.timedelta(seconds=2)
-
-        print("  Testing G.MoSu moving 12 rev., 30 times, with maxErrorTd={}".\
-              format(maxErrorTd))
-
-        startTime = time.time()
-
-        for i in range(30):
-            planetName="MoSu"
-            centricityType="geocentric"
-            longitudeType="tropical"
-            referenceDt = datetime.datetime(1994, 10, 20, 0, 0, tzinfo=pytz.utc)
-            desiredDeltaDegrees = -360 * 12
-
-            resultDts = \
-                LookbackMultipleUtils.getDatetimesOfLongitudeDeltaDegreesInPast(
-                    planetName, centricityType, longitudeType, referenceDt,
-                    desiredDeltaDegrees, maxErrorTd)
-
-        endTime = time.time()
-        print("    Calculations took: {} sec".format(endTime - startTime))
-
-##############################################################################
-
 # For debugging the module during development.
 if __name__=="__main__":
     # For inspect.stack().
@@ -5589,8 +5094,7 @@ if __name__=="__main__":
     # Various tests to run:
 
     def runTests():
-        testLookbackMultipleUtils_getDatetimesOfLongitudeDeltaDegreesInFuture()
-        testLookbackMultipleUtils_speedTest()
+        pass
 
     startTime = time.time()
     runTests()
